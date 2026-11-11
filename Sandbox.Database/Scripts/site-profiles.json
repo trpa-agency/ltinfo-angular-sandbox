@@ -356,6 +356,16 @@
           "score": "VegetationVigor_Score"
         }
       ]
+    },
+    "photos": {
+      "join": {
+        "from": "SEZ_ID",
+        "to": "SEZ_ID"
+      },
+      "where": "CountAttachments > 0",
+      "year": "Threshold_Year",
+      "title": "Photos",
+      "credit": "TRPA SEZ assessment field photos"
     }
   },
   "59": {

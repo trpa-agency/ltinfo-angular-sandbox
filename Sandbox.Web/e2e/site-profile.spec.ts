@@ -144,6 +144,39 @@ test.describe('Site profile', () => {
     await expect(row).not.toHaveAttribute('aria-current', 'true');
   });
 
+  test('shows the SEZ unit photos from the map service, with a larger view', async ({ page }) => {
+    await openProgram(page, 49);
+    await rowNamed(page, 'Rosewood Creek - middle 2').click();
+    await profileSettled(page);
+    const tiles = profile(page).locator('.profile__photo');
+    // Six attached photos: four tiles, the last marked +2.
+    await expect(tiles).toHaveCount(4, { timeout: PANEL_TIMEOUT_MS });
+    await expect(tiles.nth(3)).toContainText('+2');
+    await expect(profile(page).locator('.profile__section-title', { hasText: 'Photos' })).toContainText('2019');
+    const first = tiles.first().locator('img');
+    await expect.poll(() => first.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0), { timeout: PANEL_TIMEOUT_MS }).toBe(true);
+
+    await tiles.first().click();
+    const dialog = profile(page).locator('dialog.profile__lightbox');
+    await expect(dialog).toBeVisible();
+    await expect(dialog.locator('h2')).toHaveText(/photo 1 of 6\s*$/);
+    await page.keyboard.press('ArrowRight');
+    await expect(dialog.locator('h2')).toHaveText(/photo 2 of 6\s*$/);
+    await expect(dialog).toContainText('2019 evaluation');
+    await page.keyboard.press('Escape');
+    await expect(dialog).toBeHidden();
+  });
+
+  test('an SEZ unit with no photos shows no photo section', async ({ page }) => {
+    // Kingsbury meadows was first evaluated in 2023, so it has no 2019 row and no photos.
+    await openProgram(page, 49);
+    await rowNamed(page, 'Kingsbury meadows').click();
+    await profileSettled(page);
+    await expect(profile(page).locator('.profile__photos-loading')).toHaveCount(0, { timeout: PANEL_TIMEOUT_MS });
+    await expect(profile(page).locator('.profile__photo')).toHaveCount(0);
+    await expect(profile(page).locator('.profile__section-title', { hasText: 'Photos' })).toHaveCount(0);
+  });
+
   test("downloads the site's records as CSV", async ({ page }) => {
     await openProgram(page, 39);
     await rowNamed(page, 'Baldwin Beach').click();

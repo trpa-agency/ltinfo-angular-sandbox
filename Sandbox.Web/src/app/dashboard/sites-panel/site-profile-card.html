@@ -102,6 +102,36 @@
       </div>
     }
 
+    <!-- mon-lego-checked: the photo tiles and the larger view are hand-built; Ecology has no
+         gallery or lightbox. The larger view is a native dialog (focus trap, Escape, inert page). -->
+    @if (photos().length) {
+      @let list = photos();
+      <section class="profile__section" [attr.aria-labelledby]="headingId + '-photos'">
+        <h5 class="profile__section-title typography-label-sm-strong" [id]="headingId + '-photos'">
+          {{ photoTitle() }}@if (list[0].year) {<span class="profile__photos-year">, {{ list[0].year }}</span>}
+        </h5>
+        <ul class="profile__photos" role="list">
+          @for (photo of list.slice(0, PHOTO_TILES); track photo.url; let i = $index) {
+            <li>
+              <button
+                type="button"
+                class="profile__photo"
+                (click)="openPhoto(i)"
+                [attr.aria-label]="'Open photo ' + (i + 1) + ' of ' + list.length + ' of ' + subject()?.name"
+              >
+                <img [src]="photo.url" alt="" loading="lazy" decoding="async" />
+                @if (i === PHOTO_TILES - 1 && list.length > PHOTO_TILES) {
+                  <span class="profile__photo-more typography-label-md-strong" aria-hidden="true">+{{ list.length - PHOTO_TILES }}</span>
+                }
+              </button>
+            </li>
+          }
+        </ul>
+      </section>
+    } @else if (photosLoading()) {
+      <p class="profile__photos-loading typography-body-xs" role="status">Loading photos</p>
+    }
+
     @if (indicators(); as table) {
       <section class="profile__section" [attr.aria-labelledby]="headingId + '-section'">
         <h5 class="profile__section-title typography-label-sm-strong" [id]="headingId + '-section'">{{ table.title }}</h5>
@@ -209,6 +239,38 @@
         }
       </figure>
     }
+
+    <dialog
+      #photoDialog
+      class="profile__lightbox"
+      [attr.aria-labelledby]="headingId + '-lightbox'"
+      (click)="photoBackdrop($event)"
+      (keydown)="onPhotoKey($event)"
+      (close)="photoIndex.set(-1)"
+    >
+      @if (photoShown(); as photo) {
+        <div class="profile__lightbox-panel">
+          <div class="profile__lightbox-bar">
+            <h2 class="profile__lightbox-title typography-label-md-strong" [id]="headingId + '-lightbox'">
+              {{ subject()?.name }}, photo {{ photoIndex() + 1 }} of {{ photos().length }}
+            </h2>
+            <esa-button size="sm" variant="secondary" appearance="outline" (click)="photoDialog.close()">Close</esa-button>
+          </div>
+          <img class="profile__lightbox-img" [src]="photo.url" [alt]="subject()?.name + ', photo ' + (photoIndex() + 1)" />
+          <div class="profile__lightbox-foot">
+            <span class="typography-body-sm">
+              @if (photo.year) {{{ photo.year }} evaluation}@if (photo.year && photoCredit()) {. }@if (photoCredit()) {{{ photoCredit() }}}
+            </span>
+            @if (photos().length > 1) {
+              <span class="profile__lightbox-nav">
+                <esa-button size="sm" variant="ghost" (click)="stepPhoto(-1)">Previous</esa-button>
+                <esa-button size="sm" variant="ghost" (click)="stepPhoto(1)">Next</esa-button>
+              </span>
+            }
+          </div>
+        </div>
+      }
+    </dialog>
 
     <footer class="profile__foot">
       <esa-button size="sm" variant="ghost" [disabled]="state() === 'loading'" (click)="download()">

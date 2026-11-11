@@ -73,6 +73,15 @@
             }
           </div>
 
+          @if (!search()) {
+            <app-featured-programs
+              [programs]="page.data.programs"
+              (hover)="hoverFeatured($event)"
+              (leave)="leaveFeatured()"
+              (showAll)="showFeaturedInList()"
+            />
+          }
+
           @if (noMatches()) {
             <esa-card>
               <div role="status">

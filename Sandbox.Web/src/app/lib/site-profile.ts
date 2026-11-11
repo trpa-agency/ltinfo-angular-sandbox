@@ -28,6 +28,7 @@ import {
   INACTIVE_COLOR,
   plural,
   queryUrl,
+  SERVICE,
   siteStatus,
   sitePopup,
   slugify,
@@ -167,6 +168,35 @@ export interface SiteProfileConfig {
   link?: string | string[];
   facts?: ProfileFactConfig[];
   section?: ProfileSection;
+  /** Photos attached to the site's features in the map service. */
+  photos?: ProfilePhotosConfig;
+}
+
+/**
+ * Photos stored as ArcGIS attachments on the site's rows in a map service layer (SEZ: the
+ * 2019 evaluation rows of each assessment unit). The rows are found by a join, as a record is.
+ */
+export interface ProfilePhotosConfig {
+  /** Layer that holds the attachments; the program's own layer when omitted. */
+  layer?: number;
+  /** How the site finds its rows in that layer, such as SEZ_ID to SEZ_ID. */
+  join: ProfileJoin;
+  /** Extra filter, such as rows that carry attachments ("CountAttachments > 0"). */
+  where?: string;
+  /** Field naming the year the photos belong to ("Threshold_Year"). */
+  year?: string;
+  /** Section title. */
+  title?: string;
+  /** Credit for every photo, shown in the larger view. */
+  credit?: string;
+}
+
+/** One attached photo: its file in the map service, and the year of the row it hangs on. */
+export interface ProfilePhoto {
+  url: string;
+  name: string;
+  bytes: number;
+  year: string | null;
 }
 
 /* ---------- Small helpers ---------- */
@@ -492,6 +522,54 @@ export async function fetchRows(fetchFn: FetchLike, layer: number, params: Query
     if (!paged || !json.exceededTransferLimit || rows.length === 0) break;
   }
   return out;
+}
+
+/* ---------- Attached photos ---------- */
+
+interface AttachmentInfo {
+  id: number;
+  contentType?: string;
+  size?: number;
+  name?: string;
+}
+
+/**
+ * The image attachments of the site's rows, newest year first. One query finds the rows; one
+ * request per row lists its attachments. The files themselves are only URLs here: the browser
+ * fetches them when they are shown.
+ */
+export async function loadPhotos(
+  fetchFn: FetchLike,
+  cfg: ProfilePhotosConfig,
+  layer: number,
+  subject: ProfileSubject,
+  service: string = SERVICE,
+): Promise<ProfilePhoto[]> {
+  const value = joinValue(cfg.join.from, subject);
+  if (isBlank(value)) return [];
+  const literal = typeof value === 'number' ? sqlLiteral(value) : sqlLiteral(String(value).trim());
+  const join = `${cfg.join.to} = ${literal}`;
+  const where = cfg.where ? `(${join}) AND (${cfg.where})` : join;
+  const rows = await fetchRows(fetchFn, layer, {
+    where,
+    outFields: ['OBJECTID', cfg.year].filter(Boolean).join(','),
+    returnGeometry: false,
+    orderByFields: cfg.year ? `${cfg.year} DESC` : undefined,
+  });
+  const lists = await Promise.all(
+    rows.map(async (row) => {
+      const oid = row['OBJECTID'];
+      if (oid == null) return [];
+      const base = `${service}/${layer}/${oid}/attachments`;
+      const response = await fetchFn(`${base}?f=json`);
+      const json = (await response.json()) as { attachmentInfos?: AttachmentInfo[] } | null;
+      const year = cfg.year && !isBlank(row[cfg.year]) ? String(row[cfg.year]) : null;
+      return (json?.attachmentInfos || [])
+        .filter((a) => (a.contentType || '').startsWith('image/'))
+        .map((a) => ({ url: `${base}/${a.id}`, name: a.name || '', bytes: a.size || 0, year }));
+    }),
+  );
+  return lists.flat();
 }
 
 /* ---------- Yearly values ---------- */

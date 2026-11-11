@@ -391,3 +391,109 @@
 .profile__link:hover {
   color: var(--color-content-link-hover);
 }
+
+// ---------- Attached photos: four tiles, the last with +N, and a larger view ----------
+
+.profile__photos-year {
+  font-weight: var(--typography-font-weight-regular);
+  color: var(--color-content-default-secondary);
+}
+
+.profile__photos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing-150);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.profile__photo {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  padding: 0;
+  overflow: hidden;
+  border: var(--border-width-default) solid var(--color-border-default-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--color-background-elevation-sunken);
+  cursor: zoom-in;
+}
+
+.profile__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile__photo:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-default-focus);
+  outline-offset: var(--spacing-050);
+}
+
+.profile__photo-more {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--color-content-default) 55%, transparent);
+  color: var(--color-content-default-knockout);
+}
+
+.profile__photos-loading {
+  margin: 0;
+  color: var(--color-content-default-secondary);
+}
+
+.profile__lightbox {
+  width: min(64rem, calc(100vw - 2 * var(--spacing-400)));
+  max-height: calc(100dvh - 2 * var(--spacing-400));
+  padding: 0;
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-background-elevation-raised);
+  color: var(--color-content-default);
+}
+
+.profile__lightbox::backdrop {
+  background: color-mix(in srgb, var(--color-content-default) 60%, transparent);
+}
+
+.profile__lightbox-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-300);
+  padding: var(--spacing-400);
+}
+
+.profile__lightbox-bar,
+.profile__lightbox-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-300);
+}
+
+.profile__lightbox-title {
+  margin: 0;
+}
+
+.profile__lightbox-img {
+  display: block;
+  width: 100%;
+  max-height: calc(100dvh - 12rem);
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  background: var(--color-background-elevation-sunken);
+}
+
+.profile__lightbox-foot {
+  color: var(--color-content-default-secondary);
+}
+
+.profile__lightbox-nav {
+  display: flex;
+  gap: var(--spacing-200);
+}

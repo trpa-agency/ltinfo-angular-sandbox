@@ -1,0 +1,38 @@
+<!-- mon-lego-checked: esa-button for the list action. The photo cards are hand-built links
+     (a key photo, the program name, and its category); Ecology has no media card. -->
+<section class="featured" aria-labelledby="featured-title">
+  <div class="featured__head">
+    <h3 id="featured-title" class="featured__title typography-title-sm-strong">Featured Programs</h3>
+    <esa-button size="sm" variant="ghost" (click)="showAll.emit()">
+      All {{ total() }}<span class="visually-hidden"> featured programs in the list</span>
+    </esa-button>
+  </div>
+  <ul class="featured__grid" role="list">
+    @for (program of shown(); track program.MonitoringProgramID) {
+      <li>
+        <a
+          class="featured__card"
+          [routerLink]="['/programs', program.MonitoringProgramID]"
+          [attr.data-program-id]="program.MonitoringProgramID"
+          (mouseenter)="hover.emit(program)"
+          (focus)="hover.emit(program)"
+          (mouseleave)="leave.emit()"
+        >
+          <span class="featured__photo">
+            @if (program.KeyPhotoUrl && !failed().has(program.MonitoringProgramID)) {
+              <img
+                [src]="program.KeyPhotoUrl"
+                alt=""
+                loading="lazy"
+                decoding="async"
+                (error)="markFailed(program.MonitoringProgramID)"
+              />
+            }
+          </span>
+          <span class="featured__name typography-label-sm-strong">{{ program.MonitoringProgramName }}</span>
+          <span class="featured__category typography-body-xs">{{ program.CategoryName }}</span>
+        </a>
+      </li>
+    }
+  </ul>
+</section>

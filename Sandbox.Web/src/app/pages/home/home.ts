@@ -22,6 +22,7 @@ import { SandboxApiService } from '../../api/sandbox-api.service';
 import { EsaButton } from '../../ecology/esa-button';
 import { EsaCard } from '../../ecology/esa-card';
 import { EsaEmptyState } from '../../ecology/esa-empty-state';
+import { FeaturedPrograms } from './featured-programs';
 import { ProgramList } from '../program-list/program-list';
 import { AboutMonitoring } from './about-monitoring';
 import { CategoryCard } from './category-card';
@@ -70,6 +71,7 @@ interface CardView {
     EsaButton,
     EsaCard,
     EsaEmptyState,
+    FeaturedPrograms,
     HomeMap,
     HomeSearch,
     ProgramList,
@@ -241,6 +243,22 @@ export class Home {
   }
 
   /** "Show these programs in the list": filter All Programs to the category and go there. */
+  /** A featured program under the pointer or focus: shown on the map like a program in an open card. */
+  protected hoverFeatured(program: MonitoringProgramSummary): void {
+    const group = this.groups().find((g) => g.category.CategoryID === program.CategoryID);
+    if (group) this.hover(group.category.Folder, program);
+  }
+
+  protected leaveFeatured(): void {
+    this.hoverProgram.set(null);
+  }
+
+  /** "All 17": the featured programs in the All Programs list below. */
+  protected showFeaturedInList(): void {
+    this.list()?.showFeatured();
+    this.scrollToSection('all-programs', { focus: true, smooth: true });
+  }
+
   protected showInList(group: CategoryGroup): void {
     this.list()?.showCategory(group.category.CategoryID);
     this.scrollToSection('all-programs', { focus: true, smooth: true });

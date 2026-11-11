@@ -21,6 +21,7 @@ import {
   indicatorRows,
   latestSample,
   loadComparison,
+  loadPhotos,
   loadRecord,
   medianByYear,
   profileChartSpec,
@@ -33,6 +34,7 @@ import {
   statusStrip,
   stripPhases,
   type Comparison,
+  type ProfilePhoto,
   type ProfileSubject,
   type RecordResult,
   type ResolvedRecord,
@@ -120,6 +122,17 @@ export class SiteProfileCard {
   protected readonly related = signal<RecordResult[]>([]);
   protected readonly comparison = signal<Comparison | null>(null);
   protected readonly loadMs = signal<number | null>(null);
+  /** Attached photos, once listed; empty while loading, when there are none, or on a failed listing. */
+  protected readonly photos = signal<ProfilePhoto[]>([]);
+  protected readonly photosLoading = signal(false);
+  /** Index of the photo in the larger view, or -1. */
+  protected readonly photoIndex = signal(-1);
+  protected readonly photoShown = computed(() => this.photos()[this.photoIndex()] ?? null);
+  /** The first tiles shown; the rest open from the last tile and page in the larger view. */
+  protected readonly PHOTO_TILES = 4;
+  protected readonly photoTitle = computed(() => this.profile()?.photos?.title || 'Photos');
+  protected readonly photoCredit = computed(() => this.profile()?.photos?.credit || '');
+  private readonly photoDialog = viewChild<ElementRef<HTMLDialogElement>>('photoDialog');
 
   protected readonly unitPlural = computed(() => plural(2, this.subject()?.unit || 'site'));
 
@@ -263,6 +276,49 @@ export class SiteProfileCard {
     };
   }
 
+  /** Opens the larger view at a photo. */
+  protected openPhoto(index: number): void {
+    this.photoIndex.set(index);
+    const dialog = this.photoDialog()?.nativeElement;
+    if (dialog && !dialog.open) dialog.showModal();
+  }
+
+  /** Previous or next photo, wrapping around. */
+  protected stepPhoto(delta: number): void {
+    const count = this.photos().length;
+    if (count) this.photoIndex.update((i) => (i + delta + count) % count);
+  }
+
+  protected onPhotoKey(event: KeyboardEvent): void {
+    if (event.key === 'ArrowRight') this.stepPhoto(1);
+    else if (event.key === 'ArrowLeft') this.stepPhoto(-1);
+    else return;
+    event.preventDefault();
+  }
+
+  /** A click on the backdrop (the dialog element itself, outside the panel) closes it. */
+  protected photoBackdrop(event: MouseEvent): void {
+    if (event.target === this.photoDialog()?.nativeElement) this.photoDialog()?.nativeElement.close();
+  }
+
+  /** Lists the site's attached photos, independent of the record: a failure only hides the section. */
+  private loadSitePhotos(run: number, http: FetchLike, subject: ProfileSubject, profile: SiteProfileConfig | null, panel: SitesPanelConfig): void {
+    const cfg = profile?.photos;
+    const layer = cfg?.layer ?? panel.mapLayer?.layer ?? panel.sitesLayer?.layer;
+    if (!cfg || layer == null) return;
+    this.photosLoading.set(true);
+    loadPhotos(http, cfg, layer, subject)
+      .then((photos) => {
+        if (run === this.run) this.photos.set(photos);
+      })
+      .catch((error: unknown) => {
+        if (run === this.run) console.warn(`The photos of ${subject.name} did not load: ${String(error)}`);
+      })
+      .finally(() => {
+        if (run === this.run) this.photosLoading.set(false);
+      });
+  }
+
   private async load(subject: ProfileSubject | null, profile: SiteProfileConfig | null, panel: SitesPanelConfig): Promise<void> {
     const run = ++this.run;
     this.abort?.abort();
@@ -270,10 +326,16 @@ export class SiteProfileCard {
     this.related.set([]);
     this.comparison.set(null);
     this.loadMs.set(null);
+    this.photos.set([]);
+    this.photosLoading.set(false);
+    this.photoIndex.set(-1);
+    this.photoDialog()?.nativeElement.close();
     if (!subject) {
       this.state.set('idle');
       return;
     }
+    const photoAbort = (this.abort = new AbortController());
+    this.loadSitePhotos(run, (url) => fetch(url, { signal: photoAbort.signal }), subject, profile, panel);
     const mainRecord: ResolvedRecord | null = profile?.record
       ? resolveRecord(profile.record, panel)
       : profile && subject.kind === 'site'
@@ -286,7 +348,7 @@ export class SiteProfileCard {
       this.state.set('ready');
       return;
     }
-    const abort = (this.abort = new AbortController());
+    const abort = photoAbort;
     const http: FetchLike = (url) => fetch(url, { signal: abort.signal });
     const current = () => run === this.run;
     const started = performance.now();

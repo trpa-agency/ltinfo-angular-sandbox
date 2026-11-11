@@ -67,6 +67,12 @@ export class ProgramList {
     this.categoryId.set(String(categoryId));
   }
 
+  /** Every featured program: the other three filters are cleared so none is hidden. */
+  showFeatured(): void {
+    this.clearFilters();
+    this.featured.set('featured');
+  }
+
   protected clearFilters(): void {
     this.search.set('');
     this.categoryId.set('');

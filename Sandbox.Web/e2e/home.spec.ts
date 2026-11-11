@@ -37,10 +37,12 @@ const cards = (page: Page): Locator => page.locator('app-category-card');
 const card = (page: Page, folder: string): Locator => page.locator(`.cat[data-folder="${folder}"]`);
 const cardHead = (page: Page, folder: string): Locator => card(page, folder).locator('.cat__head');
 /**
- * Blank space the pointer can rest on: the source line under the map. The map panel is
- * sticky, so the pointer stays off the cards when focus scrolls the page under it.
+ * Blank space the pointer can rest on: the Threshold Categories heading, just above the cards.
+ * It is in view whenever the cards are, so reaching it never scrolls the page under the
+ * pointer (a scroll would slide a card under the pointer and hover it). The map footer was
+ * used before; with Featured Programs under the cards it can sit below the fold.
  */
-const blank = (page: Page): Locator => page.locator('.map-panel__foot');
+const blank = (page: Page): Locator => page.locator('#categories-title');
 /** Program links a reader can see: a closed card's list is hidden. */
 const programLinks = (scope: Page | Locator): Locator => scope.locator('a.prog:visible');
 // type="search", so the role is searchbox.
@@ -394,6 +396,43 @@ test.describe('Home page', () => {
     await expect(page.getByRole('combobox', { name: 'Category' })).toContainText(seed.waterQuality.name);
     await expect.poll(() => headingInView(page, sectionHeading(page, 'All Programs'))).toBe(true);
     await expectActiveNav(page, 'All Programs');
+  });
+
+  test('Featured Programs shows six photo links, one per category first, and All opens the featured list', async ({
+    page,
+  }) => {
+    await openHome(page);
+    const strip = page.locator('app-featured-programs');
+    await expect(strip.getByRole('heading', { name: 'Featured Programs' })).toBeVisible();
+    const cards = strip.locator('.featured__card');
+    await expect(cards).toHaveCount(6);
+    // Every card links to its program page and its key photo loads.
+    for (let i = 0; i < 6; i++) {
+      await expect(cards.nth(i)).toHaveAttribute('href', /\/programs\/\d+$/);
+      const img = cards.nth(i).locator('img');
+      await img.scrollIntoViewIfNeeded();
+      await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0), { timeout: 30_000 }).toBe(true);
+    }
+    // One per category before any category repeats: featured programs come from five
+    // categories, so the first five cards are five different categories.
+    const categories = (await cards.locator('.featured__category').allTextContents()).map((c) => c.trim());
+    expect(new Set(categories.slice(0, 5)).size).toBe(5);
+    // The photo frames line up: every frame has the same height.
+    const heights = await strip.locator('.featured__photo').evaluateAll((els) => els.map((e) => Math.round(e.getBoundingClientRect().height)));
+    expect(new Set(heights).size).toBe(1);
+
+    await strip.getByRole('button', { name: /^All \d+ ?featured programs in the list$/ }).click();
+    await expect(sectionHeading(page, 'All Programs')).toBeFocused();
+    await expect(listRows(page)).toHaveCount(seed.featured);
+  });
+
+  test('hovering a featured program shows its sites on the map', async ({ page }) => {
+    await openHome(page);
+    const map = page.locator('app-home-map');
+    await expect(map).toHaveAttribute('data-state', 'ready', { timeout: 60_000 });
+    const card = page.locator('app-featured-programs .featured__card').first();
+    await card.hover();
+    await expect.poll(async () => Number(await map.getAttribute('data-highlighted'))).toBeLessThan(1750);
   });
 });
 
