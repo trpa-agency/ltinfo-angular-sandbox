@@ -21,16 +21,12 @@ import type * as Leaflet from 'leaflet';
 
 import type { MonitoringProgramSummary, MonitoringSite } from '../../api/models';
 import { SandboxApiService } from '../../api/sandbox-api.service';
+import { createBasemaps } from '../../dashboard/basemaps';
 import { categoryColor } from './home-model';
 
 type LeafletModule = typeof Leaflet;
 export type HomeMapState = 'loading' | 'ready' | 'error';
 
-const GRAY_URL =
-  'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
-const TOPO_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}';
-const IMAGERY_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
-const ATTRIBUTION = 'Esri, HERE, Garmin, USGS, NGA, EPA, NPS';
 const TAHOE_CENTER: [number, number] = [39.09, -120.04];
 /* Lucide "home", the path the Ecology icon registry ships, inlined because the control is plain DOM. */
 const HOME_ICON =
@@ -181,21 +177,18 @@ export class HomeMap {
         tile.style.height = `${size.y + 1}px`;
       },
     }) as unknown as new (url: string, options: Leaflet.TileLayerOptions) => Leaflet.TileLayer;
-    // Light gray first: category colors read best on a quiet base, as on the live page.
-    const gray = new SeamlessTiles(GRAY_URL, { attribution: ATTRIBUTION, maxZoom: 16 });
-    const topo = new SeamlessTiles(TOPO_URL, { attribution: ATTRIBUTION, maxZoom: 19 });
-    const aerial = new SeamlessTiles(IMAGERY_URL, { attribution: ATTRIBUTION, maxZoom: 19 });
+    const basemaps = createBasemaps(L, SeamlessTiles);
     const map = L.map(this.canvas().nativeElement, {
       center: TAHOE_CENTER,
       zoom: 10,
-      layers: [gray],
+      layers: [basemaps.terrain],
       // The wheel scrolls the page, never the map.
       scrollWheelZoom: false,
       zoomSnap: 0.25,
       zoomDelta: 1,
     });
     L.control
-      .layers({ 'Light gray': gray, Topographic: topo, Aerial: aerial }, undefined, { position: 'topright', collapsed: true })
+      .layers(basemaps.choices, undefined, { position: 'topright', collapsed: true })
       .addTo(map);
 
     const HomeControl = L.Control.extend({

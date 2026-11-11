@@ -19,12 +19,10 @@ import {
 import type * as Leaflet from 'leaflet';
 
 import type { Feature, LegendEntry, MapLayers, OverlaySpec, PopupCard, ProgramLayerSpec } from '../../lib/sites';
+import { createBasemaps } from '../basemaps';
 
 type LeafletModule = typeof Leaflet;
 
-const TOPO_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}';
-const IMAGERY_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
-const ATTRIBUTION = 'Esri, HERE, Garmin, USGS, NGA, EPA, NPS';
 const TAHOE_CENTER: [number, number] = [39.09, -120.04];
 const SITE_ZOOM = 13;
 /** Above this many features the layers draw on one canvas; thousands of SVG paths make panning slow. */
@@ -389,12 +387,11 @@ export class SitesMap {
         tile.style.height = `${size.y + 1}px`;
       },
     }) as unknown as new (url: string, options: Leaflet.TileLayerOptions) => Leaflet.TileLayer;
-    const topo = new SeamlessTiles(TOPO_URL, { attribution: ATTRIBUTION, maxZoom: 19 });
-    const aerial = new SeamlessTiles(IMAGERY_URL, { attribution: ATTRIBUTION, maxZoom: 19 });
+    const basemaps = createBasemaps(L, SeamlessTiles);
     const map = L.map(this.canvas().nativeElement, {
       center: TAHOE_CENTER,
       zoom: 10,
-      layers: [topo],
+      layers: [basemaps.terrain],
       // The wheel scrolls the page, never the map.
       scrollWheelZoom: false,
       // Quarter steps let the fit fill the frame, which matters most on a phone, where a whole
@@ -407,7 +404,7 @@ export class SitesMap {
       zoomControl: true,
       attributionControl: true,
     });
-    L.control.layers({ Topographic: topo, Aerial: aerial }, undefined, { position: 'topright', collapsed: true }).addTo(map);
+    L.control.layers(basemaps.choices, undefined, { position: 'topright', collapsed: true }).addTo(map);
     this.svgRenderer = L.svg({ padding: 0.5 });
     this.canvasRenderer = L.canvas({ padding: 0.5 });
     this.overlayGroup = L.layerGroup().addTo(map);

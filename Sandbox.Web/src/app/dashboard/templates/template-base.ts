@@ -21,7 +21,9 @@ export abstract class TemplateBase {
   // color, and the config are compared by value, so a save does not hand the
   // panels new objects and make them load again.
   private readonly name = computed(() => this.program().MonitoringProgramName);
-  private readonly color = computed(() => this.program().ThemeColor);
+  // One data color for every program's sites (Ecology: color only in data, never per
+  // category). The Threshold Dashboard theme color (ThemeColor) is not used on the map.
+  private readonly color = computed(() => 'var(--color-background-dataviz-categorical-1)');
   private readonly config = computed(() => this.program().DashboardConfig, { equal: sameConfig });
 
   /** Measures, spans, the sites config, and the sites-per-year chart. */

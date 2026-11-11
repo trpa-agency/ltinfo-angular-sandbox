@@ -69,10 +69,15 @@
         <div role="img" [attr.aria-label]="chart.name">
           <app-profile-chart [spec]="chart.spec" />
         </div>
-        @if (chart.spec.series.length > 1) {
+        @if (chart.spec.series.length > 1 || chart.spec.threshold) {
           <ul class="profile__key typography-body-xs" role="list" aria-hidden="true">
             <li><span class="profile__key-mark profile__key-mark--site"></span>This site</li>
-            <li><span class="profile__key-mark profile__key-mark--median"></span>{{ chart.spec.series[1].name }}</li>
+            @if (chart.spec.series.length > 1) {
+              <li><span class="profile__key-mark profile__key-mark--median"></span>{{ chart.spec.series[1].name }}</li>
+            }
+            @if (chart.spec.threshold; as t) {
+              <li><span class="profile__key-mark profile__key-mark--standard"></span>{{ t.label }}</li>
+            }
           </ul>
         }
         <table class="visually-hidden">
@@ -206,7 +211,7 @@
     }
 
     <footer class="profile__foot">
-      <esa-button size="sm" variant="secondary" appearance="outline" [disabled]="state() === 'loading'" (click)="download()">
+      <esa-button size="sm" variant="ghost" [disabled]="state() === 'loading'" (click)="download()">
         Download this site's records
       </esa-button>
       <esa-button size="sm" variant="ghost" (click)="zoom.emit(s.key)">Zoom to site</esa-button>

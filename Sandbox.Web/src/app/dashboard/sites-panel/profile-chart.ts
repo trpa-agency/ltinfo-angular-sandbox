@@ -23,7 +23,7 @@ const PLOT_HEIGHT = 110;
 
 /** The site's line takes the first dataviz color; the median of all sites a quiet gray. The card's key uses the same two. */
 export const SITE_TOKEN = '--color-background-dataviz-categorical-1';
-export const MEDIAN_TOKEN = '--color-content-disabled';
+export const MEDIAN_TOKEN = '--color-content-default-tertiary';
 
 interface Readout {
   year: string;

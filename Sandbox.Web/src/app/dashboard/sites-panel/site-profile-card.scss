@@ -234,8 +234,15 @@
 }
 
 .profile__key-mark--median {
-  height: 1.5px;
-  background: var(--color-content-disabled);
+  height: 2px;
+  background: var(--color-content-default-tertiary);
+}
+
+// Dashed, like the rule in the plot.
+.profile__key-mark--standard {
+  height: 0;
+  border-top: 2px dashed var(--color-content-default-secondary);
+  border-radius: 0;
 }
 
 .profile__context {

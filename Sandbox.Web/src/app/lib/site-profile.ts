@@ -730,6 +730,19 @@ export function changeFact(yearly: YearValue[], record: Pick<ProfileRecordConfig
   return `${rounded > 0 ? 'Up' : 'Down'} ${withUnit(Math.abs(rounded), unit, decimals)} since ${previous.year}`;
 }
 
+/**
+ * The record's high point, when it says something the latest value does not: at least five
+ * years on record, the peak is not the latest year, and it is at least 25 percent above the
+ * latest value. "1,838 plants in 1992"; empty otherwise.
+ */
+export function peakFact(yearly: YearValue[], record: Pick<ProfileRecordConfig, 'unit' | 'decimals'>): string {
+  if (yearly.length < 5) return '';
+  const latest = yearly[yearly.length - 1];
+  const peak = yearly.reduce((best, y) => (y.value > best.value ? y : best), yearly[0]);
+  if (peak.year === latest.year || peak.value <= 0 || peak.value < latest.value * 1.25) return '';
+  return `${withUnit(peak.value, record.unit, record.decimals)} in ${peak.year}`;
+}
+
 /** A configured value from the latest row, else the feature or site, formatted; empty when nothing has one. */
 export function fieldValue(cfg: ProfileFieldConfig, subject: ProfileSubject, latest: Row | null): string {
   let raw: unknown = null;
@@ -853,7 +866,16 @@ type Json = Record<string, unknown>;
 export function profileVegaSpec(spec: ChartSpec, theme: VegaTheme, width: number, height: number): TopLevelSpec {
   const out = vegaLiteSpec(spec, theme, { width, height }) as unknown as Json;
   const layers = (out['layer'] as Json[] | undefined) ?? [];
-  for (const layer of layers) {
+  // The standard's in-plot label can sit on the data in a chart this small; the card's key
+  // names the standard instead, so only the dashed rule stays in the plot.
+  const thresholdLabel = spec.threshold?.label;
+  if (thresholdLabel) {
+    out['layer'] = layers.filter((layer) => {
+      const mark = layer['mark'] as Json | undefined;
+      return !(mark?.['type'] === 'text' && mark['text'] === thresholdLabel);
+    });
+  }
+  for (const layer of (out['layer'] as Json[] | undefined) ?? []) {
     const encoding = layer['encoding'] as Json | undefined;
     for (const channel of ['color', 'shape']) {
       const enc = encoding?.[channel] as Json | undefined;
@@ -1035,6 +1057,8 @@ export function profileView(
     facts.push([record.latestLabel || (record.unit ? 'Latest' : record.short || record.label), latestFact(main.yearly, record)]);
     const change = changeFact(main.yearly, record);
     if (change) facts.push(['Change', change]);
+    const peak = peakFact(main.yearly, record);
+    if (peak) facts.push(['Peak', peak]);
   } else {
     // The map's own facts, without the ones a configured fact repeats.
     const configured = new Set((profile?.facts || []).map((f) => f.label));
