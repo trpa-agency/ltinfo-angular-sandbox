@@ -30,7 +30,12 @@ public class MonitoringProgramController(SandboxDbContext dbContext) : Controlle
                     IsFeatured = x.IsFeatured,
                     PartnerCount = x.MonitoringProgramOrganizations.Count,
                     Template = x.Template,
-                    ImageCount = x.MonitoringProgramImages.Count
+                    ImageCount = x.MonitoringProgramImages.Count,
+                    SiteCount = x.MonitoringSites.Count,
+                    PartnerNames = x.MonitoringProgramOrganizations
+                        .OrderBy(o => o.SortOrder)
+                        .Select(o => o.Organization.OrganizationName)
+                        .ToList()
                 },
                 KeyPhoto = x.MonitoringProgramImages
                     .OrderByDescending(i => i.IsKeyPhoto).ThenBy(i => i.SortOrder)
@@ -101,6 +106,11 @@ public class MonitoringProgramController(SandboxDbContext dbContext) : Controlle
                     IsFeatured = x.IsFeatured,
                     PartnerCount = x.MonitoringProgramOrganizations.Count,
                     Template = x.Template,
+                    SiteCount = x.MonitoringSites.Count,
+                    PartnerNames = x.MonitoringProgramOrganizations
+                        .OrderBy(o => o.SortOrder)
+                        .Select(o => o.Organization.OrganizationName)
+                        .ToList(),
                     MonitoringProgramDescription = x.MonitoringProgramDescription,
                     MonitoringApproach = x.MonitoringApproach,
                     Partners = x.MonitoringProgramOrganizations

@@ -17,6 +17,9 @@ public class MonitoringProgramCategory
     public string Folder { get; set; } = "";
     public string ThemeColor { get; set; } = "";
     public int SortOrder { get; set; }
+    public string? Blurb { get; set; }
+    public string? CategoryDescription { get; set; }
+    public string? IconName { get; set; }
 
     public List<MonitoringProgram> MonitoringPrograms { get; set; } = [];
 }
@@ -40,6 +43,7 @@ public class MonitoringProgram
     public MonitoringProgramCategory MonitoringProgramCategory { get; set; } = null!;
     public List<MonitoringProgramOrganization> MonitoringProgramOrganizations { get; set; } = [];
     public List<MonitoringProgramImage> MonitoringProgramImages { get; set; } = [];
+    public List<MonitoringSite> MonitoringSites { get; set; } = [];
 }
 
 [Table("Organization", Schema = "dbo")]
@@ -79,6 +83,23 @@ public class MonitoringProgramImage
     public MonitoringProgram MonitoringProgram { get; set; } = null!;
 }
 
+[Table("MonitoringSite", Schema = "dbo")]
+public class MonitoringSite
+{
+    [Key]
+    public int MonitoringSiteID { get; set; }
+    public int MonitoringProgramID { get; set; }
+    public string? SiteName { get; set; }
+    /// <summary>site, area, or line.</summary>
+    public string SiteKind { get; set; } = "site";
+    [Column(TypeName = "decimal(9, 6)")]
+    public decimal Latitude { get; set; }
+    [Column(TypeName = "decimal(9, 6)")]
+    public decimal Longitude { get; set; }
+
+    public MonitoringProgram MonitoringProgram { get; set; } = null!;
+}
+
 public class SandboxDbContext(DbContextOptions<SandboxDbContext> options) : DbContext(options)
 {
     public DbSet<MonitoringProgramCategory> MonitoringProgramCategories => Set<MonitoringProgramCategory>();
@@ -86,4 +107,5 @@ public class SandboxDbContext(DbContextOptions<SandboxDbContext> options) : DbCo
     public DbSet<Organization> Organizations => Set<Organization>();
     public DbSet<MonitoringProgramOrganization> MonitoringProgramOrganizations => Set<MonitoringProgramOrganization>();
     public DbSet<MonitoringProgramImage> MonitoringProgramImages => Set<MonitoringProgramImage>();
+    public DbSet<MonitoringSite> MonitoringSites => Set<MonitoringSite>();
 }

@@ -68,7 +68,7 @@ Invoke-Sql 'master' "IF DB_ID(N'$databaseName') IS NULL CREATE DATABASE [$databa
 
 # Order matters: parents before the tables that reference them.
 $tablesDir = Join-Path $PSScriptRoot $config['DatabaseTablesDir']
-foreach ($table in 'MonitoringProgramCategory', 'MonitoringProgram', 'Organization', 'MonitoringProgramOrganization', 'MonitoringProgramImage') {
+foreach ($table in 'MonitoringProgramCategory', 'MonitoringProgram', 'Organization', 'MonitoringProgramOrganization', 'MonitoringProgramImage', 'MonitoringSite') {
     Invoke-Sql $databaseName (Get-Content -LiteralPath (Join-Path $tablesDir "dbo.$table.sql") -Raw) | Out-Null
     "Table dbo.$table"
 }
@@ -76,7 +76,7 @@ foreach ($table in 'MonitoringProgramCategory', 'MonitoringProgram', 'Organizati
 if ($Reseed) {
     # Back to the seed rows without dropping the database, so running containers keep
     # their connections. Children first.
-    Invoke-Sql $databaseName 'DELETE FROM dbo.MonitoringProgramImage; DELETE FROM dbo.MonitoringProgramOrganization; DELETE FROM dbo.Organization; DELETE FROM dbo.MonitoringProgram; DELETE FROM dbo.MonitoringProgramCategory;' | Out-Null
+    Invoke-Sql $databaseName 'DELETE FROM dbo.MonitoringSite; DELETE FROM dbo.MonitoringProgramImage; DELETE FROM dbo.MonitoringProgramOrganization; DELETE FROM dbo.Organization; DELETE FROM dbo.MonitoringProgram; DELETE FROM dbo.MonitoringProgramCategory;' | Out-Null
     'Rows cleared for a reseed'
 }
 
@@ -101,7 +101,7 @@ ALTER ROLE db_datawriter ADD MEMBER [$sqlUser];
 "@ | Out-Null
 "Login $sqlUser can read and write $databaseName, and nothing else"
 
-Invoke-Sql $databaseName "SELECT CONCAT('Ready: ', (SELECT COUNT(*) FROM dbo.MonitoringProgramCategory), ' categories, ', (SELECT COUNT(*) FROM dbo.MonitoringProgram), ' programs, ', (SELECT COUNT(*) FROM dbo.Organization), ' organizations, ', (SELECT COUNT(*) FROM dbo.MonitoringProgramOrganization), ' partner links, ', (SELECT COUNT(*) FROM dbo.MonitoringProgramImage), ' photos')"
+Invoke-Sql $databaseName "SELECT CONCAT('Ready: ', (SELECT COUNT(*) FROM dbo.MonitoringProgramCategory), ' categories, ', (SELECT COUNT(*) FROM dbo.MonitoringProgram), ' programs, ', (SELECT COUNT(*) FROM dbo.Organization), ' organizations, ', (SELECT COUNT(*) FROM dbo.MonitoringProgramOrganization), ' partner links, ', (SELECT COUNT(*) FROM dbo.MonitoringProgramImage), ' photos, ', (SELECT COUNT(*) FROM dbo.MonitoringSite), ' mapped locations')"
 
 $mixed = (Invoke-Sql 'master' "SELECT CAST(SERVERPROPERTY('IsIntegratedSecurityOnly') AS int)") -eq 0
 $tcp = [bool](Get-NetTCPConnection -LocalPort 1433 -State Listen -ErrorAction SilentlyContinue)
