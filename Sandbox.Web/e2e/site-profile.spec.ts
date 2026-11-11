@@ -1,0 +1,176 @@
+// The site profile on the map template: a click on a site or area, on the map or in the list,
+// opens a card built from the site's own records. The card reads the TRPA map service, a live
+// server outside the sandbox, so every wait is for something the reader sees, within
+// PANEL_TIMEOUT_MS.
+//
+// Hooks the card exposes on its host (app-site-profile): data-state (idle, loading, ready,
+// error), data-mode (floating over the map, or docked under it), and data-records (the rows
+// behind it). The record chart sets data-drawn on app-profile-chart once Vega has drawn it.
+import fs from 'node:fs';
+
+import type { Locator, Page } from '@playwright/test';
+
+import { PANEL_TIMEOUT_MS, expect, test } from './support';
+
+const programUrl = (id: number): string => `/programs/${id}`;
+const panel = (page: Page): Locator => page.locator('app-sites-panel');
+const profile = (page: Page): Locator => page.locator('app-site-profile');
+const rows = (page: Page): Locator => page.locator('.site-list__row:not([disabled])');
+const rowNamed = (page: Page, name: string): Locator => rows(page).filter({ hasText: name }).first();
+
+async function openProgram(page: Page, id: number): Promise<void> {
+  await page.goto(programUrl(id));
+  await expect(panel(page)).toHaveAttribute('data-state', 'ready', { timeout: PANEL_TIMEOUT_MS });
+}
+
+/** Waits until the card has its record (or has given up on it). */
+async function profileSettled(page: Page): Promise<void> {
+  await expect(profile(page)).toHaveAttribute('data-state', /^(ready|error)$/, { timeout: PANEL_TIMEOUT_MS });
+}
+
+/**
+ * Clicks a program marker or area that is really under the pointer, nearest the map center,
+ * after the Home button has brought every feature into view. Program points are drawn with a
+ * 1.5 px white outline and areas at 0.55 fill opacity, which tells them from the overlays.
+ */
+async function clickFeature(page: Page): Promise<void> {
+  await page.locator('.sites-map__canvas').evaluate((el) => el.scrollIntoView({ block: 'center' }));
+  await page.locator('.sites-map__home-button').click();
+  await page.waitForTimeout(700);
+  const point = await page.evaluate(() => {
+    const canvas = document.querySelector('.sites-map__canvas')!.getBoundingClientRect();
+    const cx = canvas.left + canvas.width / 2;
+    const cy = canvas.top + canvas.height / 2;
+    const paths = [...document.querySelectorAll('.sites-map path.leaflet-interactive')].filter(
+      (p) => p.getAttribute('stroke-width') === '1.5' || p.getAttribute('fill-opacity') === '0.55',
+    );
+    let best: { x: number; y: number; d: number } | null = null;
+    for (const p of paths) {
+      const r = p.getBoundingClientRect();
+      for (let i = 1; i < 6; i++) {
+        for (let j = 1; j < 6; j++) {
+          const x = r.left + (r.width * i) / 6;
+          const y = r.top + (r.height * j) / 6;
+          if (x < canvas.left + 60 || x > canvas.right - 60 || y < canvas.top + 60 || y > canvas.bottom - 60) continue;
+          if (document.elementFromPoint(x, y) !== p) continue;
+          const d = (x - cx) ** 2 + (y - cy) ** 2;
+          if (!best || d < best.d) best = { x, y, d };
+        }
+      }
+    }
+    return best;
+  });
+  expect(point, 'a program feature under the pointer').not.toBeNull();
+  await page.mouse.click(point!.x, point!.y);
+}
+
+test.describe('Site profile', () => {
+  test('opens from a list row with the site name and its record chart', async ({ page }) => {
+    await openProgram(page, 39);
+    await rowNamed(page, 'Baldwin Beach').click();
+    await profileSettled(page);
+    await expect(profile(page)).toHaveAttribute('data-state', 'ready');
+    await expect(profile(page)).toHaveAttribute('data-mode', 'floating');
+    await expect(profile(page).locator('.profile__name')).toHaveText('Baldwin Beach');
+    // Opened from the list, the card takes focus.
+    await expect(profile(page).locator('.profile__name')).toBeFocused();
+    await expect(profile(page).getByRole('img', { name: /^Plant count at Baldwin Beach, \d{4} to \d{4}$/ })).toBeVisible();
+    await expect(profile(page).locator('app-profile-chart')).toHaveAttribute('data-drawn', 'true', { timeout: PANEL_TIMEOUT_MS });
+    await expect(profile(page).locator('.profile__facts').first()).toContainText(/Record\s*\d{4} to \d{4}, \d+ surveys/);
+    // The row stays marked while the profile is open.
+    await expect(rowNamed(page, 'Baldwin Beach')).toHaveAttribute('aria-current', 'true');
+  });
+
+  test('opens from a marker on the map, and the list follows', async ({ page }) => {
+    await openProgram(page, 39);
+    await clickFeature(page);
+    await profileSettled(page);
+    const name = (await profile(page).locator('.profile__name').textContent())?.trim() ?? '';
+    expect(name).not.toBe('');
+    await expect(page.locator('.site-list__row[aria-current="true"]')).toContainText(name);
+    await expect(profile(page).locator('app-profile-chart')).toHaveAttribute('data-drawn', 'true', { timeout: PANEL_TIMEOUT_MS });
+  });
+
+  test('places a noise site among the others and against its limit', async ({ page }) => {
+    await openProgram(page, 65);
+    await rowNamed(page, 'Hwy 50 near Round Hill').click();
+    await profileSettled(page);
+    const context = profile(page).locator('.profile__context');
+    await expect(context).toContainText(/(\d+(st|nd|rd|th) highest|Highest|Lowest|lowest) of \d+ sites in \d{4}\./);
+    await expect(context).toContainText(/(Above|Below) the \d+ dBA limit/);
+  });
+
+  test('shows the SEZ indicator table for the evaluation year', async ({ page }) => {
+    await openProgram(page, 49);
+    await rows(page).first().click();
+    await profileSettled(page);
+    const table = profile(page).locator('table.profile__table');
+    await expect(table).toBeVisible();
+    await expect(table.locator('thead')).toContainText('Indicator');
+    expect(await table.locator('tbody tr').count()).toBeGreaterThan(0);
+    await expect(profile(page).locator('.profile__context')).toContainText(/Rated [A-D]/);
+  });
+
+  test('shows the aquatic invasive plants status strip with control actions', async ({ page }) => {
+    await openProgram(page, 14);
+    await rowNamed(page, 'Camp Richardson').click();
+    await profileSettled(page);
+    await expect(profile(page).locator('.profile__strip-cell')).toHaveCount(7);
+    await expect(profile(page).locator('.profile__strip-cell').first()).toContainText('2018');
+    await expect(profile(page).locator('.profile__actions-list')).toContainText('2024');
+  });
+
+  test('Escape closes the profile and returns focus to the row', async ({ page }) => {
+    await openProgram(page, 39);
+    const row = rowNamed(page, 'Baldwin Beach');
+    await row.click();
+    await profileSettled(page);
+    await expect(profile(page).locator('.profile__name')).toBeFocused();
+    await page.keyboard.press('Escape');
+    await expect(profile(page)).toHaveAttribute('data-state', 'idle');
+    await expect(row).toBeFocused();
+    await expect(row).not.toHaveAttribute('aria-current', 'true');
+  });
+
+  test("downloads the site's records as CSV", async ({ page }) => {
+    await openProgram(page, 39);
+    await rowNamed(page, 'Baldwin Beach').click();
+    await profileSettled(page);
+    const records = Number(await profile(page).getAttribute('data-records'));
+    expect(records).toBeGreaterThan(10);
+    const [download] = await Promise.all([
+      page.waitForEvent('download'),
+      profile(page).getByRole('button', { name: "Download this site's records" }).click(),
+    ]);
+    expect(download.suggestedFilename()).toMatch(/baldwin-beach-records\.csv$/);
+    const text = fs.readFileSync((await download.path())!, 'utf-8');
+    const lines = text.trim().split(/\r?\n/);
+    expect(lines[0]).toContain('SITE_NAME');
+    expect(lines[0]).toContain('COUNT_VALUE');
+    expect(lines.length - 1).toBe(records);
+    expect(lines.slice(1).every((line) => line.includes('Baldwin Beach'))).toBe(true);
+  });
+
+  test.describe('at phone width', () => {
+    test.use({ viewport: { width: 375, height: 812 } });
+
+    test('docks the profile under the map', async ({ page }) => {
+      await openProgram(page, 39);
+      await rowNamed(page, 'Baldwin Beach').click();
+      await profileSettled(page);
+      await expect(profile(page)).toHaveAttribute('data-mode', 'docked');
+      await expect(profile(page).locator('.profile__name')).toHaveText('Baldwin Beach');
+      await expect(profile(page).locator('.profile__name')).toBeFocused();
+      const map = await page.locator('.sites-map__canvas').boundingBox();
+      const card = await profile(page).boundingBox();
+      expect(map && card && card.y >= map.y + map.height).toBe(true);
+      // Nothing floats over the map in this form.
+      await expect(page.locator('.sites-map__card')).toHaveCount(0);
+      const width = await page.evaluate(() => document.documentElement.scrollWidth);
+      expect(width).toBeLessThanOrEqual(375);
+      await profile(page).getByRole('button', { name: 'Close Baldwin Beach' }).click();
+      await expect(profile(page)).toHaveAttribute('data-state', 'idle');
+      await expect(rowNamed(page, 'Baldwin Beach')).toBeFocused();
+    });
+  });
+});

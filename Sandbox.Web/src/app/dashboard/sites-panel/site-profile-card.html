@@ -1,0 +1,218 @@
+<!--
+  The site profile: header, facts, the record chart, context lines, a program section, and
+  the actions. It renders nothing until a site is picked.
+
+  mon-lego-checked: esa-badge (status or type), esa-button (close, download, zoom), and
+  esa-empty-state are the legos here. The definition list, the chart block, the indicator
+  table, and the status strip are hand-built because Ecology has no profile, key-value, or
+  timeline lego yet.
+-->
+@if (subject(); as s) {
+  <article class="profile" [attr.aria-labelledby]="headingId">
+    <header class="profile__head">
+      <span class="profile__dot" [style.--profile-dot]="s.color" aria-hidden="true"></span>
+      <div class="profile__title">
+        <h4 #heading class="profile__name typography-label-md-strong" tabindex="-1" [id]="headingId">{{ view().name }}</h4>
+        @if (view().badge || view().owner) {
+          <p class="profile__meta">
+            @if (view().badge) {
+              <esa-badge [value]="view().badge" size="sm" />
+            }
+            @if (view().owner) {
+              <span class="profile__owner typography-body-xs">{{ view().owner }}</span>
+            }
+          </p>
+        }
+      </div>
+      <esa-button class="profile__close" size="xs" variant="ghost" (click)="closed.emit()">
+        <span class="visually-hidden">Close {{ view().name }}</span>
+        <svg class="profile__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M18 6 6 18M6 6l12 12" />
+        </svg>
+      </esa-button>
+    </header>
+
+    @if (view().facts.length) {
+      <dl class="profile__facts typography-body-sm">
+        @for (fact of view().facts; track fact[0]) {
+          <div class="profile__fact">
+            <dt>{{ fact[0] }}</dt>
+            <dd>{{ fact[1] }}</dd>
+          </div>
+        }
+      </dl>
+    }
+
+    @switch (state()) {
+      @case ('loading') {
+        <div class="profile__loading" role="status">
+          <span class="profile__spinner" aria-hidden="true"></span>
+          <span class="typography-body-xs">Loading the record</span>
+        </div>
+      }
+      @case ('ready') {
+        @if (emptyRecord(); as line) {
+          <p class="profile__empty typography-body-sm">{{ line }}</p>
+        }
+      }
+      @case ('error') {
+        <p class="profile__error typography-body-sm" role="alert">
+          <span class="profile__error-dot" aria-hidden="true"></span>
+          The site's record could not be loaded.
+        </p>
+      }
+    }
+
+    @if (mainChart(); as chart) {
+      <figure class="profile__record">
+        <figcaption class="profile__caption typography-label-sm-strong">{{ chart.caption }}</figcaption>
+        <div role="img" [attr.aria-label]="chart.name">
+          <app-profile-chart [spec]="chart.spec" />
+        </div>
+        @if (chart.spec.series.length > 1) {
+          <ul class="profile__key typography-body-xs" role="list" aria-hidden="true">
+            <li><span class="profile__key-mark profile__key-mark--site"></span>This site</li>
+            <li><span class="profile__key-mark profile__key-mark--median"></span>{{ chart.spec.series[1].name }}</li>
+          </ul>
+        }
+        <table class="visually-hidden">
+          <caption>{{ chart.name }}</caption>
+          <thead>
+            <tr><th scope="col">Year</th><th scope="col">This site</th><th scope="col">Median of all {{ unitPlural() }}</th></tr>
+          </thead>
+          <tbody>
+            @for (row of chart.rows; track row.year) {
+              <tr><th scope="row">{{ row.year }}</th><td>{{ row.value }}</td><td>{{ row.median }}</td></tr>
+            }
+          </tbody>
+        </table>
+      </figure>
+    }
+
+    @if (view().context.length) {
+      <div class="profile__context typography-body-sm">
+        @for (line of view().context; track line) {
+          <p>{{ line }}</p>
+        }
+      </div>
+    }
+
+    @if (indicators(); as table) {
+      <section class="profile__section" [attr.aria-labelledby]="headingId + '-section'">
+        <h5 class="profile__section-title typography-label-sm-strong" [id]="headingId + '-section'">{{ table.title }}</h5>
+        <table class="profile__table typography-body-sm">
+          <thead>
+            <tr>
+              <th scope="col">Indicator</th>
+              <th scope="col">Rating</th>
+              <th scope="col" class="profile__num">Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of table.rows; track row.label) {
+              <tr>
+                <th scope="row">{{ row.label }}</th>
+                <td>
+                  @if (row.rating) {
+                    <span class="profile__rating">
+                      <span class="profile__rating-dot" [style.--profile-dot]="row.color" aria-hidden="true"></span>
+                      {{ row.rating }}
+                    </span>
+                  }
+                </td>
+                <td class="profile__num">{{ row.score }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </section>
+    }
+
+    @if (strip(); as st) {
+      <section class="profile__section" [attr.aria-labelledby]="headingId + '-section'">
+        <h5 class="profile__section-title typography-label-sm-strong" [id]="headingId + '-section'">{{ st.title }}</h5>
+        <ol class="profile__strip" role="list">
+          @for (cell of st.cells; track cell.year) {
+            <li class="profile__strip-cell" [class.profile__strip-cell--empty]="!cell.code">
+              <span class="profile__strip-year typography-body-2xs">{{ cell.year }}</span>
+              <span class="profile__strip-code typography-label-xs-strong" [style.--profile-phase]="cell.color">
+                @if (cell.code) {
+                  {{ cell.code }}
+                  @if (cell.phase) {
+                    <span class="visually-hidden">, {{ cell.phase }}</span>
+                  }
+                } @else {
+                  <span class="visually-hidden">No status</span>
+                }
+              </span>
+            </li>
+          }
+        </ol>
+        @if (st.legend.length) {
+          <ul class="profile__legend typography-body-xs" role="list" aria-label="Phases">
+            @for (item of st.legend; track item.phase) {
+              <li><span class="profile__legend-swatch" [style.--profile-phase]="item.color" aria-hidden="true"></span>{{ item.phase }}</li>
+            }
+          </ul>
+        }
+        @if (st.actions.length) {
+          <dl class="profile__actions-list typography-body-sm">
+            @for (cell of st.actions; track cell.year) {
+              <div class="profile__fact">
+                <dt>{{ cell.year }}</dt>
+                <dd>{{ cell.actions }}</dd>
+              </div>
+            }
+          </dl>
+        }
+      </section>
+    }
+
+    @if (latest().length) {
+      <section class="profile__section" [attr.aria-labelledby]="headingId + '-section'">
+        <h5 class="profile__section-title typography-label-sm-strong" [id]="headingId + '-section'">{{ latestTitle() }}</h5>
+        <dl class="profile__facts typography-body-sm">
+          @for (sample of latest(); track sample[0]) {
+            <div class="profile__fact">
+              <dt>{{ sample[0] }}</dt>
+              <dd>{{ sample[1] }} on {{ sample[2] }}</dd>
+            </div>
+          }
+        </dl>
+      </section>
+    }
+
+    @for (chart of relatedCharts(); track chart.name) {
+      <figure class="profile__record">
+        <figcaption class="profile__caption typography-label-sm-strong">{{ chart.caption }}</figcaption>
+        <div role="img" [attr.aria-label]="chart.name">
+          <app-profile-chart [spec]="chart.spec" />
+        </div>
+        <table class="visually-hidden">
+          <caption>{{ chart.name }}</caption>
+          <thead>
+            <tr><th scope="col">Year</th><th scope="col">This site</th></tr>
+          </thead>
+          <tbody>
+            @for (row of chart.rows; track row.year) {
+              <tr><th scope="row">{{ row.year }}</th><td>{{ row.value }}</td></tr>
+            }
+          </tbody>
+        </table>
+        @if (chart.line) {
+          <p class="profile__context-line typography-body-sm">{{ chart.line }}</p>
+        }
+      </figure>
+    }
+
+    <footer class="profile__foot">
+      <esa-button size="sm" variant="secondary" appearance="outline" [disabled]="state() === 'loading'" (click)="download()">
+        Download this site's records
+      </esa-button>
+      <esa-button size="sm" variant="ghost" (click)="zoom.emit(s.key)">Zoom to site</esa-button>
+      @if (view().link; as href) {
+        <a class="profile__link typography-body-sm" [href]="href" target="_blank" rel="noopener">Lake Tahoe Info page</a>
+      }
+    </footer>
+  </article>
+}

@@ -13,6 +13,8 @@
  * and maxAllowableOffset) because the full-precision 2023 SEZ layer is 17 MB of GeoJSON.
  */
 
+import type { SiteProfileConfig } from './site-profile';
+
 export const SERVICE = 'https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer';
 
 /** Rows per page when a layer query is paged. The service allows far more, but a page this size keeps each response small. */
@@ -461,8 +463,11 @@ export function areaWhere(cfg: MapLayerConfig, picked?: string | number | null):
   return buildWhere(cfg.where, cfg.pick, picked);
 }
 
-/** Every field the map, list, popup, and CSV read, once each, OBJECTID first. */
-export function areaOutFields(cfg: MapLayerConfig): string[] {
+/**
+ * Every field the map, list, popup, and CSV read, once each, OBJECTID first, plus any extra
+ * fields a caller needs on each feature (the site profile's join field, such as SEZ_ID).
+ */
+export function areaOutFields(cfg: MapLayerConfig, extra: string[] = []): string[] {
   return unique(
     [
       'OBJECTID',
@@ -471,15 +476,21 @@ export function areaOutFields(cfg: MapLayerConfig): string[] {
       cfg.pick,
       ...(cfg.meta || []).map((m) => m.field),
       ...(cfg.fields || []).map((f) => f.field),
+      ...extra,
     ].filter(Boolean) as string[],
   );
 }
 
 /** Query parameters for the areas shown for one picked value, generalized for GeoJSON unless simplify is false. */
-export function areaQueryParams(cfg: MapLayerConfig, picked?: string | number | null, simplify: boolean = true): QueryParams {
+export function areaQueryParams(
+  cfg: MapLayerConfig,
+  picked?: string | number | null,
+  simplify: boolean = true,
+  extraFields: string[] = [],
+): QueryParams {
   return {
     where: areaWhere(cfg, picked),
-    outFields: areaOutFields(cfg).join(','),
+    outFields: areaOutFields(cfg, extraFields).join(','),
     returnGeometry: true,
     ...(cfg.name ? { orderByFields: cfg.name } : {}),
     ...(simplify ? SIMPLIFY : {}),
@@ -860,6 +871,12 @@ export interface SitesPanelConfig {
   mapLayer?: MapLayerConfig;
   overlays?: OverlayConfig[];
   geojson?: GeoJsonSitesConfig;
+  /**
+   * DashboardConfig.siteProfile: what the profile of a picked site reads (lib/site-profile).
+   * null when the program has none; undefined when the caller did not say, in which case the
+   * panel looks it up itself (see SitesPanel.profileConfig).
+   */
+  siteProfile?: SiteProfileConfig | null;
 }
 
 export type SitesSourceKind = 'sites' | 'areas' | 'geojson' | 'none';

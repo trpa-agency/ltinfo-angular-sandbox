@@ -1,0 +1,54 @@
+// The small record chart inside the site profile. The readout sits over the top of the plot,
+// out of flow, so hovering never moves anything.
+
+:host {
+  display: block;
+  position: relative;
+  min-width: 0;
+}
+
+.profile-chart__canvas {
+  min-height: var(--profile-chart-height, 150px);
+}
+
+.profile-chart__readout {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--spacing-050) var(--spacing-200);
+  max-width: 100%;
+  margin: 0;
+  padding: var(--spacing-050) var(--spacing-150);
+  border: var(--border-width-default) solid var(--color-border-default-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--color-background-elevation-raised);
+  color: var(--color-content-default);
+  pointer-events: none;
+}
+
+.profile-chart__readout-year {
+  font-weight: var(--typography-font-weight-medium);
+}
+
+.profile-chart__readout-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-100);
+  color: var(--color-content-default-secondary);
+}
+
+// The swatch color is data: the series color.
+.profile-chart__swatch {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--profile-swatch);
+}
+
+.profile-chart__value {
+  color: var(--color-content-default);
+}

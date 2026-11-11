@@ -79,6 +79,7 @@ export function programData(
           sitesLayer: config.sitesLayer,
           mapLayer: config.mapLayer,
           overlays: config.overlays,
+          siteProfile: config.siteProfile ?? null,
         }
       : null;
 

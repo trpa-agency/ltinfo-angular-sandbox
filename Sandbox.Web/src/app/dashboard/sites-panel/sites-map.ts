@@ -110,6 +110,16 @@ export function popupElement(card: PopupCard): HTMLElement {
  *   map.focusFeature(key)   fly to a site or area and open its popup
  *   map.home()              back to the extent of the data
  *
+ * With [profiles]="true" the program layer binds no popup of its own. A click only reports the
+ * key, and the owner hands back an element to float over the map in one shared popup:
+ *   map.openCard(key, el)         float el over the feature (moves the popup when one is open)
+ *   map.focusFeature(key, el)     fly there first, then float el
+ *   map.closeCard()               close it without firing (cardClosed)
+ *   map.zoomTo(key)               zoom in close on a feature
+ *   map.clearSelection()          drop the selected style
+ * (cardClosed) fires when Leaflet closes the card itself: a click on the map, another popup,
+ * or Escape while the map has focus.
+ *
  * Styles are global (ViewEncapsulation.None) because Leaflet builds its own DOM, which scoped
  * component styles cannot reach. Every rule is prefixed with .sites-map or .sites-popup.
  */
@@ -117,7 +127,7 @@ export function popupElement(card: PopupCard): HTMLElement {
   selector: 'app-sites-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  host: { class: 'sites-map', '[attr.data-features]': 'drawn()' },
+  host: { class: 'sites-map', '[attr.data-features]': 'drawn()', '[class.sites-map--card-open]': 'cardOpen()' },
   template: `
     <div #canvas class="sites-map__canvas" role="region" [attr.aria-label]="label()"></div>
     @if (legend().length) {
@@ -148,12 +158,18 @@ export class SitesMap {
   readonly layers = input<MapLayers | null>(null);
   /** Accessible name of the map region. */
   readonly label = input('Map');
+  /** True when the owner shows its own card for a picked feature (the site profile) instead of the popup. */
+  readonly profiles = input(false);
 
   /** The key of the site or area the reader clicked on the map. */
   readonly featureSelect = output<string>();
+  /** The floating card was closed by the map itself. */
+  readonly cardClosed = output<void>();
 
   /** How many program features are drawn; mirrored to data-features on the host for tests. */
   protected readonly drawn = signal(0);
+  /** The floating card is open; the legend steps aside. */
+  protected readonly cardOpen = signal(false);
 
   protected readonly legend = computed<LegendEntry[]>(() => {
     const layers = this.layers();
@@ -186,6 +202,12 @@ export class SitesMap {
   private fitPending = false;
   private popupTimer = 0;
   private destroyed = false;
+  /** The one popup the profile card floats in. */
+  private card: Leaflet.Popup | null = null;
+  /** Set while this component closes the card itself, so (cardClosed) does not fire. */
+  private closingCard = false;
+  /** Where the reader last clicked an area, so its card opens there rather than at the area's center. */
+  private lastClick: { key: string; latlng: Leaflet.LatLng } | null = null;
 
   constructor() {
     afterNextRender(() => void this.init());
@@ -197,8 +219,11 @@ export class SitesMap {
     inject(DestroyRef).onDestroy(() => this.destroy());
   }
 
-  /** Fly to a site or area by its key, mark it selected, and open its popup. */
-  focusFeature(key: string): void {
+  /**
+   * Fly to a site or area by its key, mark it selected, and open its popup. With profiles on,
+   * the card element given floats there instead; with no element the map only moves.
+   */
+  focusFeature(key: string, card: HTMLElement | null = null, onOpen?: () => void): void {
     const L = this.leaflet();
     const map = this.map;
     const layer = this.byKey.get(key);
@@ -206,13 +231,17 @@ export class SitesMap {
     const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     this.host.scrollIntoView({ block: 'nearest', behavior: still ? 'auto' : 'smooth' });
     this.highlight(L, layer);
-    map.closePopup();
+    this.lastClick = null;
+    if (this.profiles()) this.closeCard();
+    else map.closePopup();
     let opened = false;
     const open = () => {
       if (opened || this.map !== map) return;
       opened = true;
       map.off('moveend', open);
-      layer.openPopup();
+      if (!this.profiles()) layer.openPopup();
+      else if (card) this.openCard(key, card);
+      onOpen?.();
     };
     map.once('moveend', open);
     window.clearTimeout(this.popupTimer);
@@ -234,6 +263,88 @@ export class SitesMap {
     }
     // A move that ends where it started may not fire moveend, so open the popup after the animation anyway.
     this.popupTimer = window.setTimeout(open, 900);
+  }
+
+  /** Float the card over a feature in the shared popup, or move the open popup to it. */
+  openCard(key: string, content: HTMLElement): void {
+    const L = this.leaflet();
+    const map = this.map;
+    const layer = this.byKey.get(key);
+    if (!L || !map || !layer) return;
+    this.highlight(L, layer);
+    let at: Leaflet.LatLng;
+    if (layer instanceof L.CircleMarker) at = layer.getLatLng();
+    else if (this.lastClick?.key === key) at = this.lastClick.latlng;
+    else if (layer instanceof L.Polyline && layer.getBounds().isValid()) at = layer.getBounds().getCenter();
+    else at = map.getCenter();
+    if (!this.card) {
+      this.card = L.popup({
+        className: 'sites-map__card',
+        maxWidth: 360,
+        minWidth: 360,
+        closeButton: false,
+        autoPan: true,
+        autoPanPadding: L.point(16, 16),
+        closeOnEscapeKey: true,
+      });
+      this.card.on('add', () => this.cardOpen.set(true));
+      this.card.on('remove', () => {
+        this.cardOpen.set(false);
+        if (!this.closingCard) this.cardClosed.emit();
+      });
+    }
+    // A marker's card sits just above the marker; an area's at the point itself.
+    this.card.options.offset = layer instanceof L.CircleMarker ? L.point(0, -4) : L.point(0, 4);
+    if (this.card.isOpen()) {
+      this.card.setLatLng(at);
+      if (this.card.getContent() !== content) this.card.setContent(content);
+      this.panCardIntoView();
+    } else {
+      this.card.setLatLng(at).setContent(content).openOn(map);
+    }
+  }
+
+  /** Close the floating card without firing (cardClosed). */
+  closeCard(): void {
+    if (!this.card?.isOpen()) return;
+    this.closingCard = true;
+    try {
+      this.card.close();
+    } finally {
+      this.closingCard = false;
+    }
+  }
+
+  /** The card changed size: keep it inside the map. */
+  panCardIntoView(): void {
+    const card = this.card as (Leaflet.Popup & { _adjustPan?: () => void; _updatePosition?: () => void }) | null;
+    if (!card?.isOpen()) return;
+    // Leaflet keeps both private; they are what update() runs, without setting the content again,
+    // which would move the card's DOM and drop the focus inside it.
+    card._updatePosition?.();
+    card._adjustPan?.();
+  }
+
+  /** Zoom in close on a site, or fit an area; the card stays on it. */
+  zoomTo(key: string): void {
+    const L = this.leaflet();
+    const map = this.map;
+    const layer = this.byKey.get(key);
+    if (!L || !map || !layer) return;
+    const animate = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (layer instanceof L.CircleMarker) {
+      map.setView(layer.getLatLng(), Math.max(map.getZoom() + 1, 16), { animate });
+    } else if (layer instanceof L.Polyline && layer.getBounds().isValid()) {
+      map.fitBounds(layer.getBounds(), { padding: [48, 48], maxZoom: 17, animate });
+    }
+  }
+
+  /** Put the selected feature back to its drawn style. */
+  clearSelection(): void {
+    const L = this.leaflet();
+    if (!L || !this.selected) return;
+    this.restore(L, this.selected);
+    this.selected = null;
   }
 
   /** Refit the view to the program layer, as the Home button does. */
@@ -333,6 +444,8 @@ export class SitesMap {
 
   private destroy(): void {
     this.destroyed = true;
+    this.closeCard();
+    this.card = null;
     window.clearTimeout(this.popupTimer);
     this.resize?.disconnect();
     this.resize = null;
@@ -367,7 +480,9 @@ export class SitesMap {
     const program = this.programGroup;
     if (!map || !overlays || !program) return;
     window.clearTimeout(this.popupTimer);
+    this.closeCard();
     map.closePopup();
+    this.lastClick = null;
     overlays.clearLayers();
     program.clearLayers();
     this.byKey.clear();
@@ -402,8 +517,11 @@ export class SitesMap {
         const typed = feature as unknown as Feature;
         const key = spec.key(typed);
         this.byKey.set(key, drawn);
-        drawn.bindPopup(() => popupElement(spec.popup(typed)), { maxWidth: 320, autoPanPadding: [24, 24] });
-        drawn.on('click', () => {
+        if (!this.profiles()) {
+          drawn.bindPopup(() => popupElement(spec.popup(typed)), { maxWidth: 320, autoPanPadding: [24, 24] });
+        }
+        drawn.on('click', (event: Leaflet.LeafletMouseEvent) => {
+          this.lastClick = event.latlng ? { key, latlng: event.latlng } : null;
           this.highlight(L, drawn);
           this.featureSelect.emit(key);
         });

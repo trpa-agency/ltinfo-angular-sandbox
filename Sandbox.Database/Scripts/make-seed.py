@@ -8,6 +8,8 @@ Sources, all public:
     category's card text, goal, and icon name, and the mapped sites captured from
     LT Info, with the area and line layers it names
   - the TRPA LTInfo_Monitoring map service, for one point per area or line
+  - site-profiles.json beside this file: each program's site profile settings, merged into
+    its DashboardConfig as siteProfile (keys are program ids; keys starting with _ are notes)
 
     python Sandbox.Database/Scripts/make-seed.py [path to programs.json]
 
@@ -20,6 +22,15 @@ DEFAULT_PROGRAMS = os.path.join(HERE, "..", "..", "..", "ltinfo-monitoring-dashb
 API = "https://internalapi.laketahoeinfo.org"
 MAP_SERVICE = "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer"
 CONFIG_KEYS = ("measures", "sitesLayer", "sitesPerYear", "mapLayer", "overlays")
+SITE_PROFILES = os.path.join(HERE, "site-profiles.json")
+
+
+def site_profiles():
+    """Program id to its siteProfile, from site-profiles.json. Keys starting with _ are notes."""
+    if not os.path.exists(SITE_PROFILES):
+        return {}
+    data = json.load(io.open(SITE_PROFILES, encoding="utf-8"))
+    return {int(k): v for k, v in data.items() if not k.startswith("_")}
 
 
 def get(path):
@@ -110,6 +121,7 @@ def main():
         "SET NOCOUNT ON;",
         "",
     ]
+    profiles = site_profiles()
     orgs, links, programs, images = {}, [], [], []
     for ci, c in enumerate(data["categories"], 1):
         sc = snap_categories.get(c["folder"], {})
@@ -142,6 +154,8 @@ def main():
                     n_images += 1
                     images.append((p["id"], guid, text(im.get("Caption")), text(im.get("PhotoCredit")), 1 if im.get("IsKeyPhoto") else 0, n_images * 10))
             config = {k: p[k] for k in CONFIG_KEYS if p.get(k)}
+            if p["id"] in profiles:
+                config["siteProfile"] = profiles[p["id"]]
             programs.append((p["id"], p["name"], c["thresholdCategoryId"], desc, appr, 1 if p.get("featured") else 0,
                              p.get("template", "charts"), json.dumps(config, separators=(",", ":")) if config else None))
             print(f"  {p['id']:>5} {p['name'][:38]:38} {p.get('template', 'charts'):8} partners={n_partners} photos={n_images} config={'y' if config else '-'}")
@@ -178,11 +192,14 @@ def main():
             for lat, lng, name in pts:
                 lines.append(f"INSERT INTO dbo.MonitoringSite (MonitoringProgramID, SiteName, SiteKind, Latitude, Longitude) VALUES ({pid}, {q(name)}, '{kind}', {lat}, {lng});")
                 kinds[kind] += 1
+    unused = sorted(set(profiles) - {pid for pid, *_ in programs})
+    if unused:
+        print("  site-profiles.json names programs that are not in programs.json:", unused)
     out = os.path.join(HERE, "seed.sql")
     io.open(out, "w", encoding="utf-8", newline="\n").write("\n".join(lines) + "\n")
     with_photos = len({i[0] for i in images})
     print(f"seed.sql: {len(data['categories'])} categories, {len(programs)} programs, {len(orgs)} organizations, {len(links)} partner links, "
-          f"{len(images)} photos across {with_photos} programs, mapped locations {kinds} (snapshot captured {snapshot.get('captured')}), {os.path.getsize(out)} bytes")
+          f"{len(images)} photos across {with_photos} programs, {len(profiles)} site profiles, mapped locations {kinds} (snapshot captured {snapshot.get('captured')}), {os.path.getsize(out)} bytes")
 
 
 if __name__ == "__main__":

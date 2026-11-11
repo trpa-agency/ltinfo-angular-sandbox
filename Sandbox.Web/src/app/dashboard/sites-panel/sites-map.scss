@@ -199,6 +199,11 @@
   box-shadow: none;
 }
 
+// A floating site profile covers the corner the legend sits in; the legend steps aside while it is open.
+.sites-map--card-open .sites-map__legend {
+  visibility: hidden;
+}
+
 @container sites-map (max-width: 520px) {
   .sites-map__legend {
     position: static;

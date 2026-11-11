@@ -35,8 +35,14 @@
     </div>
 
     <div class="sites-panel__split">
-      <div class="sites-panel__map">
-        <app-sites-map [layers]="layers()" [label]="title() + ' map'" (featureSelect)="onFeatureSelect($event)" />
+      <div #mapColumn class="sites-panel__map">
+        <app-sites-map
+          [layers]="layers()"
+          [label]="title() + ' map'"
+          [profiles]="true"
+          (featureSelect)="onFeatureSelect($event)"
+          (cardClosed)="onCardClosed()"
+        />
         <!-- The states sit over the map, so the Leaflet container keeps its size throughout. -->
         @switch (state()) {
           @case ('loading') {
@@ -63,6 +69,23 @@
             </div>
           }
         }
+        <!--
+          The site profile. On a wide map the card element moves into the map's popup and
+          floats over the site; on a narrow one (under 640 px) it stays here, under the map.
+        -->
+        <div #dock class="sites-panel__dock" [hidden]="!subject() || mode() === 'floating'">
+          <div #card class="sites-panel__card">
+            <app-site-profile
+              [subject]="subject()"
+              [profile]="profileConfig()"
+              [panel]="config()"
+              [mode]="mode()"
+              (closed)="closeProfile()"
+              (zoom)="onZoom($event)"
+              (resized)="onProfileResized()"
+            />
+          </div>
+        </div>
       </div>
       @if (showList()) {
         <div class="sites-panel__aside">

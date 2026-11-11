@@ -1,0 +1,430 @@
+{
+  "_about": "Site profile settings merged into each program's DashboardConfig as siteProfile by make-seed.py. Keys are LT Info program ids. The keys of one profile are documented on SiteProfileConfig in Sandbox.Web/src/app/lib/site-profile.ts.",
+  "39": {
+    "record": {
+      "year": "YEAR_OF_COUNT",
+      "value": "COUNT_VALUE",
+      "label": "Plant count",
+      "unit": "plants",
+      "noun": [
+        "survey",
+        "surveys"
+      ]
+    },
+    "owner": {
+      "field": "OWNER"
+    },
+    "link": "LTINFO_HYPERLINK"
+  },
+  "63": {
+    "record": {
+      "year": "YEAR_OF_COUNT",
+      "value": "COUNT_VALUE",
+      "label": "CSCI score",
+      "decimals": 2,
+      "noun": [
+        "sample",
+        "samples"
+      ]
+    },
+    "facts": [
+      {
+        "label": "Duration",
+        "field": "DURATION"
+      },
+      {
+        "label": "Station code",
+        "field": "STATION_CODE"
+      }
+    ],
+    "link": "LTINFO"
+  },
+  "15": {
+    "record": {
+      "layer": 100,
+      "join": {
+        "from": "code",
+        "to": "SiteName",
+        "match": "prefix"
+      },
+      "year": "SampleDate_Time",
+      "extractYear": true,
+      "value": "TotalPhosphorus",
+      "stat": "avg",
+      "label": "Total phosphorus, annual average",
+      "short": "Total phosphorus",
+      "unit": "mg/L",
+      "decimals": 3,
+      "noun": [
+        "sample",
+        "samples"
+      ],
+      "standard": {
+        "field": "State_Standard",
+        "label": "state standard"
+      },
+      "latestLabel": "Yearly average"
+    },
+    "related": [
+      {
+        "layer": 101,
+        "join": {
+          "from": "code",
+          "to": "SiteName",
+          "match": "prefix"
+        },
+        "year": "SampleDatetime",
+        "extractYear": true,
+        "value": "Total_Nitrogen",
+        "stat": "avg",
+        "label": "Total nitrogen, annual average",
+        "short": "Total nitrogen",
+        "unit": "mg/L",
+        "decimals": 2,
+        "noun": [
+          "sample",
+          "samples"
+        ],
+        "standard": {
+          "field": "State_Standard",
+          "label": "state standard"
+        },
+        "latestLabel": "Yearly average"
+      }
+    ],
+    "facts": [
+      {
+        "label": "Station number",
+        "from": "code"
+      }
+    ],
+    "section": {
+      "type": "latest",
+      "title": "Latest samples"
+    }
+  },
+  "64": {
+    "record": {
+      "year": "year_of_count",
+      "value": "count_value",
+      "label": "Annual average daily traffic",
+      "unit": "vehicles a day",
+      "noun": [
+        "annual count",
+        "annual counts"
+      ]
+    },
+    "owner": {
+      "field": "source",
+      "labels": {
+        "NDOT traffic volume counters": "NDOT"
+      }
+    },
+    "facts": [
+      {
+        "label": "Route",
+        "field": [
+          "ROUTE",
+          "Street_Name"
+        ]
+      },
+      {
+        "label": "County",
+        "field": [
+          "County_1",
+          "COUNTY"
+        ],
+        "labels": {
+          "ED": "El Dorado",
+          "PLA": "Placer"
+        }
+      },
+      {
+        "label": "Station number",
+        "from": "code"
+      }
+    ]
+  },
+  "33": {
+    "record": {
+      "layer": 1,
+      "join": {
+        "from": "code",
+        "to": "counter_id"
+      },
+      "year": "count_date",
+      "extractYear": true,
+      "value": "count_of_bike_ped",
+      "stat": "sum",
+      "label": "Bicycle and pedestrian count, yearly total",
+      "short": "Yearly total",
+      "unit": "",
+      "noun": [
+        "day counted",
+        "days counted"
+      ],
+      "latestLabel": "Yearly total"
+    }
+  },
+  "65": {
+    "record": {
+      "year": "YEAR_OF_COUNT",
+      "value": "CNEL_AVG_VALUE",
+      "label": "Average CNEL",
+      "unit": "dBA",
+      "decimals": 1,
+      "noun": [
+        "year monitored",
+        "years monitored"
+      ],
+      "standard": {
+        "field": "CNEL_LIMIT",
+        "label": "limit"
+      },
+      "zero": false
+    },
+    "facts": [
+      {
+        "label": "Latest maximum",
+        "field": "CNEL_MAX_VALUE",
+        "suffix": " dBA",
+        "decimals": 1
+      },
+      {
+        "label": "From road edge",
+        "field": "DISTANCE_FROM_EDGE",
+        "suffix": " ft"
+      }
+    ],
+    "link": "LTINFO_HYPERLINK"
+  },
+  "61": {
+    "record": {
+      "year": "YEAR_OF_COUNT",
+      "value": "COUNT_VALUE",
+      "label": "Maximum day CNEL",
+      "unit": "dBA",
+      "decimals": 1,
+      "noun": [
+        "year monitored",
+        "years monitored"
+      ],
+      "standard": {
+        "byField": "CNEL_LAND_USE",
+        "values": {
+          "CRITICAL WILDLIFE HABITAT": 45,
+          "WILDERNESS/ROADLESS": 45,
+          "LOW DENSITY RESIDENTIAL": 50,
+          "RURAL OUTDOOR RECREATION": 50,
+          "HIGH DENSITY RESIDENTIAL": 55,
+          "URBAN OUTDOOR RECREATION": 55,
+          "COMMERCIAL": 60,
+          "HOTEL/MOTEL": 60,
+          "INDUSTRIAL": 65
+        },
+        "label": "land use standard"
+      },
+      "zero": false
+    },
+    "badge": {
+      "field": "CNEL_LAND_USE",
+      "labels": {
+        "CRITICAL WILDLIFE HABITAT": "Critical wildlife habitat",
+        "WILDERNESS/ROADLESS": "Wilderness and roadless",
+        "LOW DENSITY RESIDENTIAL": "Low density residential",
+        "RURAL OUTDOOR RECREATION": "Rural outdoor recreation",
+        "HIGH DENSITY RESIDENTIAL": "High density residential",
+        "URBAN OUTDOOR RECREATION": "Urban outdoor recreation",
+        "COMMERCIAL": "Commercial",
+        "HOTEL/MOTEL": "Hotel and motel",
+        "INDUSTRIAL": "Industrial"
+      }
+    },
+    "facts": [
+      {
+        "label": "Plan area",
+        "field": "PAS_1987"
+      }
+    ],
+    "link": "LTINFO"
+  },
+  "62": {
+    "record": {
+      "year": "YEAR_OF_COUNT",
+      "value": "COUNT_VALUE",
+      "label": "Watercraft exceedances per day",
+      "short": "Exceedances per day",
+      "unit": "",
+      "decimals": 2,
+      "noun": [
+        "season monitored",
+        "seasons monitored"
+      ]
+    },
+    "link": "LTINFO"
+  },
+  "49": {
+    "record": {
+      "join": {
+        "from": "SEZ_ID",
+        "to": "SEZ_ID"
+      },
+      "year": "Threshold_Year",
+      "value": "Final_Percent",
+      "label": "Condition score",
+      "unit": "percent",
+      "changeUnit": "points",
+      "decimals": 1,
+      "noun": [
+        "evaluation",
+        "evaluations"
+      ],
+      "rating": {
+        "field": "Final_Rating",
+        "skip": [
+          "Not Assessed"
+        ]
+      },
+      "latestLabel": "Condition score"
+    },
+    "owner": {
+      "field": "Ownership_Primary"
+    },
+    "facts": [
+      {
+        "label": "Type",
+        "field": "SEZ_Type"
+      },
+      {
+        "label": "Acres",
+        "field": "Acres",
+        "decimals": 1
+      }
+    ],
+    "section": {
+      "type": "indicators",
+      "title": "Indicators",
+      "rows": [
+        {
+          "label": "Aquatic organism passage",
+          "rating": "AquaticOrganismPassage_Rating",
+          "score": "AquaticOrganismPassage_Score"
+        },
+        {
+          "label": "Bank stability",
+          "rating": "Bank_Stability_Rating",
+          "score": "Bank_Stability_Score"
+        },
+        {
+          "label": "Biotic integrity",
+          "rating": "Biotic_Integrity_Rating",
+          "score": "Biotic_Integrity_Score"
+        },
+        {
+          "label": "Conifer encroachment",
+          "rating": "Conifer_Encroachment_Rating",
+          "score": "Conifer_Encroachment_Score"
+        },
+        {
+          "label": "Ditches",
+          "rating": "Ditches_Rating",
+          "score": "Ditches_Score"
+        },
+        {
+          "label": "Habitat fragmentation",
+          "rating": "Habitat_Fragmentation_Rating",
+          "score": "Habitat_Fragmentation_Score"
+        },
+        {
+          "label": "Headcuts",
+          "rating": "Headcuts_Rating",
+          "score": "Headcuts_Score"
+        },
+        {
+          "label": "Incision",
+          "rating": "Incision_Rating",
+          "score": "Incision_Score"
+        },
+        {
+          "label": "Invasive plants",
+          "rating": "Invasive_Rating",
+          "score": "Invasives_Scores"
+        },
+        {
+          "label": "Vegetation vigor",
+          "rating": "VegetationVigor_Rating",
+          "score": "VegetationVigor_Score"
+        }
+      ]
+    }
+  },
+  "59": {
+    "record": {
+      "layer": 23,
+      "join": {
+        "from": "ID",
+        "to": "ID"
+      },
+      "year": "YEAR",
+      "value": "THRESHOLD_RATING",
+      "label": "Scenic rating",
+      "decimals": 1,
+      "noun": [
+        "rating",
+        "ratings"
+      ],
+      "status": {
+        "field": "STATUS",
+        "value": "Attainment",
+        "label": "In attainment"
+      },
+      "zero": false,
+      "compare": false
+    },
+    "owner": {
+      "field": "JURISDICTION"
+    },
+    "facts": [
+      {
+        "label": "Category",
+        "field": "CATEGORY"
+      },
+      {
+        "label": "Type",
+        "field": "TYPE"
+      },
+      {
+        "label": "Unit",
+        "field": "UNIT"
+      }
+    ]
+  },
+  "14": {
+    "facts": [
+      {
+        "label": "Notes",
+        "field": "Info"
+      }
+    ],
+    "section": {
+      "type": "statusStrip",
+      "title": "Infestation status and control",
+      "years": [
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "status": "Infest_Status_",
+      "actions": "Contr_",
+      "phases": {
+        "C": "Control",
+        "P": "Planning",
+        "S": "Surveillance"
+      }
+    }
+  }
+}

@@ -3,6 +3,7 @@
 // from an OpenAPI-generated client; here they are written by hand.
 
 import type { Measure, SitesPerYearConfig } from '../lib/measures';
+import type { SiteProfileConfig } from '../lib/site-profile';
 import type { MapLayerConfig, OverlayConfig, SitesLayerConfig } from '../lib/sites';
 
 /** The three page layouts a program can use. */
@@ -29,6 +30,8 @@ export interface DashboardConfig {
   sitesPerYear?: SitesPerYearConfig;
   mapLayer?: MapLayerConfig;
   overlays?: OverlayConfig[];
+  /** What the profile of a picked site or area reads; documented in lib/site-profile.ts. */
+  siteProfile?: SiteProfileConfig;
 }
 
 export interface HealthStatus {

@@ -71,6 +71,15 @@
   inset: 0;
 }
 
+// The docked site profile, under a narrow map.
+.sites-panel__dock {
+  margin-top: var(--spacing-300);
+}
+
+.sites-panel__dock[hidden] {
+  display: none;
+}
+
 // Loading, empty, and error states cover the map.
 .sites-panel__state {
   position: absolute;
