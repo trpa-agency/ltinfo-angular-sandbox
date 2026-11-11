@@ -7,6 +7,7 @@ import {
   HealthStatus,
   MonitoringProgramDetail,
   MonitoringProgramSummary,
+  Template,
 } from './models';
 
 // Every call goes to /api/... on the page's own origin. The dev server
@@ -38,6 +39,13 @@ export class SandboxApiService {
   setFeatured(id: number, isFeatured: boolean): Observable<MonitoringProgramDetail> {
     return this.http.patch<MonitoringProgramDetail>(`${API}/monitoring-programs/${id}`, {
       IsFeatured: isFeatured,
+    });
+  }
+
+  /** Saves which page layout the program uses. */
+  setTemplate(id: number, template: Template): Observable<MonitoringProgramDetail> {
+    return this.http.patch<MonitoringProgramDetail>(`${API}/monitoring-programs/${id}`, {
+      Template: template,
     });
   }
 }

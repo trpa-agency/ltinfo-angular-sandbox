@@ -19,7 +19,9 @@ FROM build AS dev
 ENV DOTNET_USE_POLLING_FILE_WATCHER=1 \
     ASPNETCORE_ENVIRONMENT=Development
 EXPOSE 8080
-CMD ["dotnet", "watch", "run", "--no-launch-profile", "--urls", "http://0.0.0.0:8080"]
+# --no-hot-reload: rebuild and restart on every change. Patching the running process
+# in place is faster but crashed the watcher on larger edits.
+CMD ["dotnet", "watch", "--no-hot-reload", "run", "--no-launch-profile", "--urls", "http://0.0.0.0:8080"]
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release

@@ -1,3 +1,4 @@
+using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sandbox.API.EFModels;
@@ -8,23 +9,41 @@ namespace Sandbox.API.Controllers;
 [ApiController]
 public class MonitoringProgramController(SandboxDbContext dbContext) : ControllerBase
 {
+    // Photos are stored in LT Info; the database holds only each file's GUID.
+    private const string FileResourceBaseUrl = "https://internalapi.laketahoeinfo.org/file-resources/";
+    private static readonly string[] Templates = ["map", "charts", "context"];
+
     [HttpGet("monitoring-programs")]
     public async Task<ActionResult<List<MonitoringProgramSimpleDto>>> List()
     {
-        var programs = await dbContext.MonitoringPrograms.AsNoTracking()
+        var rows = await dbContext.MonitoringPrograms.AsNoTracking()
             .OrderBy(x => x.MonitoringProgramCategory.SortOrder).ThenBy(x => x.MonitoringProgramName)
-            .Select(x => new MonitoringProgramSimpleDto
+            .Select(x => new
             {
-                MonitoringProgramID = x.MonitoringProgramID,
-                MonitoringProgramName = x.MonitoringProgramName,
-                CategoryID = x.MonitoringProgramCategoryID,
-                CategoryName = x.MonitoringProgramCategory.MonitoringProgramCategoryName,
-                ThemeColor = x.MonitoringProgramCategory.ThemeColor,
-                IsFeatured = x.IsFeatured,
-                PartnerCount = x.MonitoringProgramOrganizations.Count
+                Dto = new MonitoringProgramSimpleDto
+                {
+                    MonitoringProgramID = x.MonitoringProgramID,
+                    MonitoringProgramName = x.MonitoringProgramName,
+                    CategoryID = x.MonitoringProgramCategoryID,
+                    CategoryName = x.MonitoringProgramCategory.MonitoringProgramCategoryName,
+                    ThemeColor = x.MonitoringProgramCategory.ThemeColor,
+                    IsFeatured = x.IsFeatured,
+                    PartnerCount = x.MonitoringProgramOrganizations.Count,
+                    Template = x.Template,
+                    ImageCount = x.MonitoringProgramImages.Count
+                },
+                KeyPhoto = x.MonitoringProgramImages
+                    .OrderByDescending(i => i.IsKeyPhoto).ThenBy(i => i.SortOrder)
+                    .Select(i => (Guid?)i.FileResourceGUID)
+                    .FirstOrDefault()
             })
             .ToListAsync();
-        return Ok(programs);
+
+        foreach (var row in rows)
+        {
+            row.Dto.KeyPhotoUrl = PhotoUrl(row.KeyPhoto);
+        }
+        return Ok(rows.Select(x => x.Dto).ToList());
     }
 
     [HttpGet("monitoring-programs/{monitoringProgramID:int}")]
@@ -43,15 +62,22 @@ public class MonitoringProgramController(SandboxDbContext dbContext) : Controlle
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<MonitoringProgramDetailDto>> Patch([FromRoute] int monitoringProgramID, [FromBody] MonitoringProgramPatchDto patch)
     {
+        if (patch.Template != null && !Templates.Contains(patch.Template))
+        {
+            ModelState.AddModelError(nameof(patch.Template), "Template must be map, charts, or context.");
+            return ValidationProblem(ModelState);
+        }
+
         var program = await dbContext.MonitoringPrograms.SingleOrDefaultAsync(x => x.MonitoringProgramID == monitoringProgramID);
         if (program == null)
         {
             return NotFound();
         }
 
-        if (patch.IsFeatured.HasValue)
+        if (patch.IsFeatured.HasValue || patch.Template != null)
         {
-            program.IsFeatured = patch.IsFeatured.Value;
+            program.IsFeatured = patch.IsFeatured ?? program.IsFeatured;
+            program.Template = patch.Template ?? program.Template;
             program.UpdateDate = DateTime.UtcNow;
             await dbContext.SaveChangesAsync();
         }
@@ -61,24 +87,51 @@ public class MonitoringProgramController(SandboxDbContext dbContext) : Controlle
 
     private async Task<MonitoringProgramDetailDto?> GetDetail(int monitoringProgramID)
     {
-        return await dbContext.MonitoringPrograms.AsNoTracking()
+        var row = await dbContext.MonitoringPrograms.AsNoTracking()
             .Where(x => x.MonitoringProgramID == monitoringProgramID)
-            .Select(x => new MonitoringProgramDetailDto
+            .Select(x => new
             {
-                MonitoringProgramID = x.MonitoringProgramID,
-                MonitoringProgramName = x.MonitoringProgramName,
-                CategoryID = x.MonitoringProgramCategoryID,
-                CategoryName = x.MonitoringProgramCategory.MonitoringProgramCategoryName,
-                ThemeColor = x.MonitoringProgramCategory.ThemeColor,
-                IsFeatured = x.IsFeatured,
-                PartnerCount = x.MonitoringProgramOrganizations.Count,
-                MonitoringProgramDescription = x.MonitoringProgramDescription,
-                MonitoringApproach = x.MonitoringApproach,
-                Partners = x.MonitoringProgramOrganizations
-                    .OrderBy(o => o.SortOrder)
-                    .Select(o => new PartnerDto(o.OrganizationID, o.Organization.OrganizationName, o.Organization.OrganizationShortName))
+                Dto = new MonitoringProgramDetailDto
+                {
+                    MonitoringProgramID = x.MonitoringProgramID,
+                    MonitoringProgramName = x.MonitoringProgramName,
+                    CategoryID = x.MonitoringProgramCategoryID,
+                    CategoryName = x.MonitoringProgramCategory.MonitoringProgramCategoryName,
+                    ThemeColor = x.MonitoringProgramCategory.ThemeColor,
+                    IsFeatured = x.IsFeatured,
+                    PartnerCount = x.MonitoringProgramOrganizations.Count,
+                    Template = x.Template,
+                    MonitoringProgramDescription = x.MonitoringProgramDescription,
+                    MonitoringApproach = x.MonitoringApproach,
+                    Partners = x.MonitoringProgramOrganizations
+                        .OrderBy(o => o.SortOrder)
+                        .Select(o => new PartnerDto(o.OrganizationID, o.Organization.OrganizationName, o.Organization.OrganizationShortName))
+                        .ToList()
+                },
+                x.DashboardConfig,
+                Images = x.MonitoringProgramImages
+                    .OrderByDescending(i => i.IsKeyPhoto).ThenBy(i => i.SortOrder)
+                    .Select(i => new { i.MonitoringProgramImageID, i.FileResourceGUID, i.Caption, i.PhotoCredit, i.IsKeyPhoto })
                     .ToList()
             })
             .SingleOrDefaultAsync();
+        if (row == null)
+        {
+            return null;
+        }
+
+        var detail = row.Dto;
+        detail.Images = row.Images
+            .Select(i => new ImageDto(i.MonitoringProgramImageID, PhotoUrl(i.FileResourceGUID)!, i.Caption, i.PhotoCredit, i.IsKeyPhoto))
+            .ToList();
+        detail.ImageCount = detail.Images.Count;
+        detail.KeyPhotoUrl = detail.Images.FirstOrDefault()?.Url;
+        detail.DashboardConfig = string.IsNullOrWhiteSpace(row.DashboardConfig) ? null : JsonNode.Parse(row.DashboardConfig) as JsonObject;
+        return detail;
+    }
+
+    private static string? PhotoUrl(Guid? fileResourceGuid)
+    {
+        return fileResourceGuid.HasValue ? FileResourceBaseUrl + fileResourceGuid.Value.ToString("D") : null;
     }
 }
