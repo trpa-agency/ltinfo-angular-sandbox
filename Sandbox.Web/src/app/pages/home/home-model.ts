@@ -164,7 +164,7 @@ export function mapFocus(state: FocusState, groups: readonly CategoryGroup[]): M
   return {
     programIds: null,
     title: 'All monitoring sites',
-    sub: 'Hover over or focus a category to show its sites.',
+    sub: `${formatCount(siteSum(groups.flatMap((group) => group.programs)))} mapped sites`,
     color: null,
   };
 }

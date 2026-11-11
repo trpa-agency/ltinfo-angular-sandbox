@@ -278,38 +278,3 @@
     flex-basis: 100%;
   }
 }
-
-// ---------- Option 2: every program listed beside the map ----------
-
-[data-option='2'] .cat-grid.is-listed {
-  gap: var(--spacing-600) var(--spacing-500);
-}
-
-// ---------- Option 3: the map first, the categories under it ----------
-
-[data-option='3'] {
-  grid-template-columns: minmax(0, 1fr);
-}
-
-[data-option='3'] .map-panel {
-  order: -1;
-  position: relative;
-  top: 0;
-  --home-map-height: clamp(22rem, 52dvh, 32rem);
-}
-
-[data-option='3'] .cat-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-@media (max-width: 60rem) {
-  [data-option='3'] .cat-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 30rem) {
-  [data-option='3'] .cat-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}

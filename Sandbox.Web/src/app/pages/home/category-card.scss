@@ -17,8 +17,8 @@
   transition: border-color 0.15s ease;
 }
 
-.cat.is-hot:not(.is-listed),
-.cat.is-open:not(.is-listed) {
+.cat.is-hot,
+.cat.is-open {
   border-color: var(--color-border-default-focus);
 }
 
@@ -40,11 +40,11 @@
   text-align: start;
 }
 
-button.cat__head {
+.cat__head {
   cursor: pointer;
 }
 
-button.cat__head:hover {
+.cat__head:hover {
   background: var(--color-background-default);
 }
 
@@ -191,35 +191,6 @@ button.cat__head:hover {
   padding: var(--spacing-250) var(--spacing-400) var(--spacing-300);
   border-top: var(--border-width-default) solid var(--color-border-default-subtle);
   color: var(--color-content-default-secondary);
-}
-
-// ---------- Listed: every program shown, no disclosure (the directory option) ----------
-
-.cat.is-listed {
-  border: 0;
-  border-radius: 0;
-  background: none;
-  overflow: visible;
-}
-
-.is-listed .cat__head {
-  padding: 0 0 var(--spacing-200);
-}
-
-.is-listed .cat__programs {
-  padding: 0;
-  border-top: var(--border-width-default) solid var(--color-border-default);
-}
-
-.is-listed .prog {
-  border-radius: 0;
-  padding-inline: var(--spacing-100);
-  border-bottom: var(--border-width-default) solid var(--color-border-default-subtle);
-}
-
-.is-listed .cat__none {
-  padding-inline: 0;
-  border-top-color: var(--color-border-default);
 }
 
 @media (prefers-reduced-motion: reduce) {

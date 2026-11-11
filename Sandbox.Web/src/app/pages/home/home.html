@@ -40,9 +40,7 @@
   } @else {
     <!-- ============ Threshold categories and the site map ============ -->
     <section id="categories" class="home-section" aria-labelledby="categories-title">
-      <!-- Three layouts to compare while the design is open: ?option=1 cards beside the map
-           (default), 2 every program listed beside the map, 3 the map first with cards below. -->
-      <div class="home-layout" [attr.data-option]="option()">
+      <div class="home-layout">
         <div class="home-cats">
           <div class="section-head">
             <div class="section-head__text">
@@ -58,7 +56,7 @@
             <app-home-search class="section-head__search" [(value)]="search" />
           </div>
 
-          <div class="cat-grid" #grid [class.is-listed]="option() === 2">
+          <div class="cat-grid" #grid>
             @for (card of cards(); track card.group.category.CategoryID) {
               @if (!card.hidden) {
                 <app-category-card
@@ -66,7 +64,6 @@
                   [programs]="card.programs"
                   [open]="card.open"
                   [hot]="hotFolder() === card.group.category.Folder"
-                  [listed]="option() === 2"
                   (toggle)="toggle(card.group.category.Folder)"
                   (hover)="hover(card.group.category.Folder, $event)"
                   (leave)="leaveProgram()"

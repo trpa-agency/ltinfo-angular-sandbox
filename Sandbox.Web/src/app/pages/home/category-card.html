@@ -5,32 +5,20 @@
 @let count = category.ProgramCount;
 <article
   class="cat"
-  [class.is-open]="open() || listed()"
-  [class.is-listed]="listed()"
+  [class.is-open]="open()"
   [class.is-hot]="hot()"
   [attr.data-folder]="category.Folder"
   (mouseenter)="hover.emit(null)"
 >
   <h3 class="cat__heading">
-    @if (listed()) {
-      <span class="cat__head" tabindex="0" (focus)="hover.emit(null)">
-        <ng-container *ngTemplateOutlet="head" />
-      </span>
-    } @else {
-      <button
-        type="button"
-        class="cat__head"
-        [attr.aria-expanded]="open()"
-        [attr.aria-controls]="dropId()"
-        (click)="toggle.emit()"
-        (focus)="hover.emit(null)"
-      >
-        <ng-container *ngTemplateOutlet="head" />
-      </button>
-    }
-  </h3>
-
-  <ng-template #head>
+    <button
+      type="button"
+      class="cat__head"
+      [attr.aria-expanded]="open()"
+      [attr.aria-controls]="dropId()"
+      (click)="toggle.emit()"
+      (focus)="hover.emit(null)"
+    >
     <span class="cat__icon" aria-hidden="true">
       @if (category.IconUrl) {
         <img [src]="category.IconUrl" alt="" width="22" height="22" decoding="async" />
@@ -40,12 +28,11 @@
       <span class="cat__name typography-title-sm-strong">{{ category.CategoryName }}</span>
       <span class="cat__meta typography-body-sm">{{ count }} {{ count === 1 ? 'program' : 'programs' }}@if (category.SiteCount > 0) {, {{ formatCount(category.SiteCount) }} mapped sites}</span>
     </span>
-    @if (!listed()) {
       <span class="cat__chev" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" /></svg>
       </span>
-    }
-  </ng-template>
+    </button>
+  </h3>
 
   <div class="cat__drop" [id]="dropId()">
     <div class="cat__drop-inner">
@@ -73,14 +60,12 @@
             </li>
           }
         </ul>
-        @if (!listed()) {
-          <!-- Overview to list in one click: the All Programs table below, filtered to this category. -->
-          <div class="cat__actions">
-            <esa-button size="sm" variant="secondary" appearance="outline" (click)="showList.emit()">
-              Show in the list<span class="visually-hidden">: {{ category.CategoryName }} programs</span>
-            </esa-button>
-          </div>
-        }
+        <!-- Overview to list in one click: the All Programs table below, filtered to this category. -->
+        <div class="cat__actions">
+          <esa-button size="sm" variant="secondary" appearance="outline" (click)="showList.emit()">
+            Show in the list<span class="visually-hidden">: {{ category.CategoryName }} programs</span>
+          </esa-button>
+        </div>
       } @else {
         <p class="cat__none typography-body-sm">No programs yet.</p>
       }

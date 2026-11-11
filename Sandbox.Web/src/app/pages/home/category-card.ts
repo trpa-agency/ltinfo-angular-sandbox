@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
-import { NgTemplateOutlet } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 import type { MonitoringProgramSummary } from '../../api/models';
@@ -8,7 +7,7 @@ import { CategoryGroup, formatCount } from './home-model';
 
 /**
  * One threshold category card: the icon, the name, the program and mapped site counts, and
- * a program list that drops down when the card is open (or is always shown when listed).
+ * a program list that drops down when the card is open.
  *
  *   <app-category-card [group]="g" [programs]="shown" [open]="..." [hot]="..."
  *     (toggle)="..." (hover)="..." (leave)="..." />
@@ -19,7 +18,7 @@ import { CategoryGroup, formatCount } from './home-model';
 @Component({
   selector: 'app-category-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgTemplateOutlet, RouterLink, EsaButton],
+  imports: [RouterLink, EsaButton],
   templateUrl: './category-card.html',
   styleUrl: './category-card.scss',
 })
@@ -30,8 +29,6 @@ export class CategoryCard {
   readonly open = input(false);
   /** True when this category's sites are the ones in color on the map. */
   readonly hot = input(false);
-  /** Show every program with no disclosure: the directory layout. */
-  readonly listed = input(false);
 
   readonly toggle = output<void>();
   readonly hover = output<MonitoringProgramSummary | null>();
