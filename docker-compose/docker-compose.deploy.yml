@@ -1,0 +1,69 @@
+# The deployed form of the sandbox: release builds, no source mounts, no hot reload.
+# The Angular app is compiled and served by nginx, which also forwards /api to the API.
+# The API is the published .NET build and is not exposed on its own port; the only
+# way in is the site. Both restart on their own if they stop.
+#
+# Use Build\Deploy.ps1, which builds the database, starts this stack, and tests it.
+# By hand, from this folder:
+#   docker compose -f docker-compose.deploy.yml up -d --build
+#   docker compose -f docker-compose.deploy.yml down
+#
+# Site   http://localhost:8080
+#
+# It runs beside the dev stack (different project name and ports) and uses the same
+# SQL Server database.
+
+name: sandbox-deploy
+
+services:
+  sandbox.api:
+    image: sandbox/api:release
+    build:
+      context: ..
+      dockerfile: Sandbox.API/Dockerfile
+      target: final
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__SandboxDb=Server=${DB_SERVER},1433;Database=${DB_NAME};User Id=${SQL_USER};Password=${SQL_PASSWORD};TrustServerCertificate=True
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  sandbox.web:
+    image: sandbox/web:release
+    build:
+      context: ../Sandbox.Web
+      dockerfile: Dockerfile
+      target: production
+    depends_on:
+      - sandbox.api
+    ports:
+      - "127.0.0.1:8080:80"
+    restart: unless-stopped
+    healthcheck:
+      # Passes only when nginx, the API, and SQL Server all answer.
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/api/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  # The same test suite, pointed at the deployed site. Not started by `up`:
+  #   docker compose -f docker-compose.deploy.yml run --rm sandbox.e2e
+  sandbox.e2e:
+    image: sandbox/e2e
+    build:
+      context: ..
+      dockerfile: Sandbox.Tests/Dockerfile
+    profiles: ["test"]
+    init: true
+    ipc: host
+    restart: "no"
+    depends_on:
+      sandbox.web:
+        condition: service_healthy
+    environment:
+      - BASE_URL=http://sandbox.web
+      - API_URL=http://sandbox.api:8080
+    volumes:
+      - ../Sandbox.Tests/results:/work/Sandbox.Tests/results

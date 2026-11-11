@@ -1,0 +1,4 @@
+# Playwright writes here: artifacts/ (traces and screenshots of failed tests)
+# and html-report/. Keep the folder, ignore what is in it.
+*
+!.gitignore

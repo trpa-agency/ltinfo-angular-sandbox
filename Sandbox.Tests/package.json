@@ -1,0 +1,16 @@
+{
+  "name": "sandbox-tests",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Playwright end-to-end tests for the sandbox. The specs live in ../Sandbox.Web/e2e; this package only pins the test runner, so the Angular app's dependencies stay untouched. It runs in the container built by ./Dockerfile.",
+  "scripts": {
+    "e2e": "sh ./run-e2e.sh",
+    "e2e:headed": "xvfb-run -a sh ./run-e2e.sh --headed"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.0"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

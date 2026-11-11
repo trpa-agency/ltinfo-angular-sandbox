@@ -105,7 +105,12 @@
               "buildTarget": "sandbox-web:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "allowedHosts": [
+              "sandbox.web"
+            ]
+          }
         }
       }
     }

@@ -2,34 +2,27 @@
 # in docker-compose.override.yml, which compose reads automatically from this folder.
 # ESA's repos split their compose files the same way.
 #
+# The database is not a container. It is the SQL Server installed on this machine,
+# reached from containers as host.docker.internal (one-time setup: see WORKFLOW.md).
+#
 #   cd docker-compose
 #   docker compose up --build
 #
 # Angular     http://localhost:4200
 # API         http://localhost:3211/health   (contract at /openapi/v1.json)
-# SQL Server  localhost,14330  (SSMS: user sa, password in .env)
+# SQL Server  localhost in SSMS, Windows Authentication, database LTInfoSandbox
 
 name: sandbox
 
 services:
-  sandbox.db:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-
-  # One-shot: creates the database, tables, and seed rows, then exits.
-  sandbox.dbinit:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    depends_on:
-      sandbox.db:
-        condition: service_healthy
-
   sandbox.api:
     image: sandbox/api
     build:
       context: ..
       dockerfile: Sandbox.API/Dockerfile
-    depends_on:
-      sandbox.dbinit:
-        condition: service_completed_successfully
+    extra_hosts:
+      # Already defined by Docker Desktop; stated so the file also works on a plain Linux engine.
+      - "host.docker.internal:host-gateway"
 
   sandbox.web:
     image: sandbox/web
@@ -39,5 +32,14 @@ services:
     depends_on:
       - sandbox.api
 
-volumes:
-  sandbox_mssql:
+  # The automated tests (Playwright, in a container). Not started by `up`:
+  #   docker compose run --rm sandbox.e2e
+  sandbox.e2e:
+    image: sandbox/e2e
+    build:
+      context: ..
+      dockerfile: Sandbox.Tests/Dockerfile
+    profiles: ["test"]
+    depends_on:
+      - sandbox.web
+      - sandbox.api

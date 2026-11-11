@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { catchError, filter, map, merge, of, switchMap, timer } from 'rxjs';
 
 import { LoadState, failed, ready } from './api/load-state';
 import { HealthStatus } from './api/models';
@@ -21,10 +23,22 @@ export class App {
 
   protected readonly health = signal<LoadState<HealthStatus>>({ status: 'loading' });
 
+  private readonly router = inject(Router);
+
   constructor() {
-    this.api.getHealth().subscribe({
-      next: (health) => this.health.set(ready(health)),
-      error: (error: unknown) => this.health.set(failed(error)),
-    });
+    // Ask at start, on every route change, and every 30 seconds, so the line
+    // recovers on its own after the API or the database comes back.
+    const navigations = this.router.events.pipe(filter((event) => event instanceof NavigationEnd));
+    merge(timer(0, 30_000), navigations)
+      .pipe(
+        switchMap(() =>
+          this.api.getHealth().pipe(
+            map((health) => ready(health)),
+            catchError((error: unknown) => of(failed<HealthStatus>(error))),
+          ),
+        ),
+        takeUntilDestroyed(),
+      )
+      .subscribe((state) => this.health.set(state));
   }
 }

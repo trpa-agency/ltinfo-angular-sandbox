@@ -1,47 +1,64 @@
 # LT Info Angular sandbox
 
-A practice copy of how ESA's apps are put together, small enough to read in one sitting. Use it to rehearse the edit, branch, and commit loop before working in ESA's repo. Nothing here is production code.
+A practice copy of how ESA's apps are put together, small enough to read in one sitting. Use it to rehearse the edit, test, deploy, branch, and commit loop before working in ESA's repo. Nothing here is production code.
 
 ## What is in the box
 
-| Folder | What it is | Runs as |
-|---|---|---|
-| `Sandbox.Web` | Angular 21 app styled with Ecology | container, http://localhost:4200 |
-| `Sandbox.API` | .NET 10 API, the same JSON shape as the real LT Info API | container, http://localhost:3211/health |
-| `Sandbox.Database` | table scripts and seed data (36 real programs, 43 partners) | SQL Server container, `localhost,14330` |
-| `docker-compose` | the files that start all three | |
+| Folder | What it is |
+|---|---|
+| `Sandbox.Web` | Angular 21 app styled with Ecology, plus its browser tests in `e2e/` |
+| `Sandbox.API` | .NET 10 API, the same JSON shape as the real LT Info API |
+| `Sandbox.Database` | table scripts and seed data (36 real programs, 43 partners) |
+| `Sandbox.Tests` | the container that runs the tests |
+| `Build` | PowerShell scripts: database, one-time SQL Server setup, deploy |
+| `docker-compose` | the files that start the containers |
 
-The folder names and the compose split copy ESA's public apps (`esassoc/wadnrforesthealth`, `esassoc/neptune`).
+The database is the **SQL Server installed on this machine** (database `LTInfoSandbox`), not a container. Angular and the API run in containers and reach it as `host.docker.internal`. This is the arrangement ESA's repos use, and the folder names copy their public apps (`esassoc/wadnrforesthealth`, `esassoc/neptune`).
 
-## Start and stop
+## One-time setup on a new machine
+
+1. Install Docker Desktop and SQL Server 2025 Developer (default instance, Windows login).
+2. `copy docker-compose\.env.template docker-compose\.env` and choose a `SQL_PASSWORD`.
+3. `powershell -File Build\Enable-SqlServerForDocker.ps1` turns on TCP/IP and mixed-mode login so containers can connect. It asks for administrator approval. ESA's setup needs the same two settings.
+
+## Deploy and test, one command
+
+```powershell
+powershell -File Build\Deploy.ps1
+```
+
+It builds the database, builds the release images, starts the site, waits until it is healthy, and runs the 26 automated tests against it. About a minute. The site is then at http://localhost:8080 and stays up, restarting with Docker.
+
+The deploy puts the seed rows back first so the tests start from known data. Add `-KeepData` to leave your rows alone and skip the tests.
+
+## Develop
 
 ```bash
 cd docker-compose
-cp .env.template .env        # first time only: set ACCEPT_EULA=Y and a password
-docker compose up --build    # first run takes a few minutes
-docker compose down          # stop; add -v to also erase the database
+docker compose up --build          # Angular http://localhost:4200, API http://localhost:3211/health
+docker compose run --rm sandbox.e2e   # the same tests, against the dev stack
+docker compose down
 ```
-
-Open http://localhost:4200. The footer says whether Angular, the API, and SQL Server are connected. To look at the tables, connect SSMS to `localhost,14330` as `sa` with the password in `.env`.
-
-## The edit loop
 
 - **Angular:** edit anything in `Sandbox.Web/src`. The page reloads in a few seconds.
 - **API:** edit a `.cs` file in `Sandbox.API`. The API restarts itself.
-- **Database:** edit the scripts, then `docker compose down -v` and `up` to rebuild from scratch.
+- **Database:** edit the scripts, then `powershell -File Build\DatabaseBuild.ps1 -Reset`. Look at the tables in SSMS: server `localhost`, Windows Authentication.
 - **Packages:** after changing `package.json` or the `.csproj`, run `docker compose build`.
+- **Tests:** specs are in `Sandbox.Web/e2e`. The report is `Sandbox.Tests/results/html-report/index.html`.
+
+The dev stack and the deployed site can run at the same time. They share the one database.
 
 ## The git loop to rehearse
 
 ```bash
 git switch -c my-change      # branch
-# edit, look at localhost:4200
+# edit, look at localhost:4200, run the tests
 git add -A
 git commit -m "Describe the change"
-git switch main              # back to a clean copy
+git switch main && git merge my-change
 ```
 
-In ESA's repo the last steps become `git push` and a pull request.
+In ESA's repo the last step becomes `git push` and a pull request.
 
 ## How Ecology gets into Angular
 
@@ -55,9 +72,11 @@ Ecology cannot be installed from npm into an Angular build yet, so the sandbox s
 
 ## What will differ in ESA's repo
 
-- The database is restored from a backup into SQL Server by their `Build/*.ps1` scripts, not seeded by a container.
+- The database is restored from a backup by their `Build\DatabaseRestore.ps1`, then updated by `Build\DatabaseBuild.ps1`, instead of being seeded from a script.
 - Angular usually runs on your machine with `npm start`, not in a container.
-- There is login (Auth0), a generated API client, GeoServer, and far more code.
+- The API's connection string lives in a gitignored `appsecrets.json`, not in `.env`. Ask a teammate for a copy.
+- There is login (Auth0), an Angular client generated from the API's contract, GeoServer, and far more code.
+- Real deployment goes through Azure pipelines to their servers. `Deploy.ps1` here only stands a release build up on this machine.
 
 ## Check on the first day
 

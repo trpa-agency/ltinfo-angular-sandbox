@@ -28,6 +28,8 @@ public class MonitoringProgramController(SandboxDbContext dbContext) : Controlle
     }
 
     [HttpGet("monitoring-programs/{monitoringProgramID:int}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<MonitoringProgramDetailDto>> Get([FromRoute] int monitoringProgramID)
     {
         var detail = await GetDetail(monitoringProgramID);
@@ -36,6 +38,9 @@ public class MonitoringProgramController(SandboxDbContext dbContext) : Controlle
 
     // The write path: a click in Angular changes a row in SQL Server.
     [HttpPatch("monitoring-programs/{monitoringProgramID:int}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<MonitoringProgramDetailDto>> Patch([FromRoute] int monitoringProgramID, [FromBody] MonitoringProgramPatchDto patch)
     {
         var program = await dbContext.MonitoringPrograms.SingleOrDefaultAsync(x => x.MonitoringProgramID == monitoringProgramID);
