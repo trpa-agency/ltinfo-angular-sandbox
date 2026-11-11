@@ -29,7 +29,7 @@ export const routes: Routes = [
   },
   { path: 'programs', pathMatch: 'full', redirectTo: toSection('all-programs') },
   { path: 'about', pathMatch: 'full', redirectTo: toSection('about') },
-  { path: 'programs/:id', component: ProgramDetail, title: 'Program | LT Info sandbox' },
+  { path: 'programs/:id', component: ProgramDetail, title: 'Program | LT Info sandbox', data: { wide: true } },
   // Test pages for the two data panels, loaded only when visited.
   {
     path: 'dev/charts',

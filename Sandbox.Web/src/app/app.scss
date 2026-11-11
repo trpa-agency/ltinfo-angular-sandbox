@@ -101,6 +101,15 @@
   padding-block: var(--spacing-500) var(--spacing-800);
 }
 
+// A program page: room for the category menu beside the page. The header, nav, and footer
+// take the same column so their edges line up with the menu.
+.app-main--wide,
+:host(.app--wide) .app-bar__inner,
+:host(.app--wide) .app-nav__list,
+:host(.app--wide) .app-footer__inner {
+  max-width: 88rem;
+}
+
 // A full-bleed page (the home page) lays out its own column.
 .app-main--full {
   max-width: none;

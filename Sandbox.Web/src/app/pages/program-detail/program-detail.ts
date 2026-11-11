@@ -17,6 +17,7 @@ import { EsaButton } from '../../ecology/esa-button';
 import { EsaCard } from '../../ecology/esa-card';
 import { EsaEmptyState } from '../../ecology/esa-empty-state';
 import { LayoutControl } from './layout-control';
+import { ProgramNav } from './program-nav';
 
 // One program. The page loads the program, picks one of the three templates
 // (the saved Template, or the one named by ?template= as a preview), and keeps
@@ -35,6 +36,7 @@ import { LayoutControl } from './layout-control';
     LayoutControl,
     MapTemplate,
     PhotoLightbox,
+    ProgramNav,
   ],
   // One viewer per page: the hero, the gallery, and the larger view share it.
   providers: [PhotoViewer],
@@ -48,6 +50,10 @@ export class ProgramDetail {
   private readonly viewer = inject(PhotoViewer);
 
   protected readonly state = signal<LoadState<MonitoringProgramDetail>>({ status: 'loading' });
+  /** The program in the address, for the category menu, known before the program loads. */
+  protected readonly programId = toSignal(this.route.paramMap.pipe(map((params) => Number(params.get('id')))), {
+    initialValue: Number(this.route.snapshot.paramMap.get('id')),
+  });
   protected readonly saving = signal(false);
   protected readonly saveError = signal('');
   protected readonly savingLayout = signal(false);

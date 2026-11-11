@@ -1,0 +1,165 @@
+// The rail menu beside a program page: one disclosure per category with its programs as
+// indented links. Neutral surfaces; the current program is a tint and weight, not a color bar.
+
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.pnav {
+  font: inherit;
+}
+
+// Wide screens: the outer fold is always open and its summary is hidden; the groups are the menu.
+.pnav__fold-summary {
+  display: none;
+}
+
+.pnav__groups,
+.pnav__programs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pnav__groups {
+  display: flex;
+  flex-direction: column;
+}
+
+.pnav__group {
+  border-bottom: var(--border-width-default) solid var(--color-border-default-subtle);
+}
+
+.pnav__group-summary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-200);
+  padding: var(--spacing-200) var(--spacing-150);
+  border-radius: var(--radius-sm);
+  color: var(--color-content-default);
+  cursor: pointer;
+  list-style: none;
+}
+
+.pnav__group-summary::-webkit-details-marker {
+  display: none;
+}
+
+// A chevron that turns when the group opens.
+.pnav__group-summary::before {
+  content: '';
+  flex: none;
+  align-self: center;
+  width: 6px;
+  height: 6px;
+  margin-inline-end: var(--spacing-100);
+  border-right: 1.5px solid var(--color-content-default-secondary);
+  border-bottom: 1.5px solid var(--color-content-default-secondary);
+  transform: rotate(-45deg);
+  transition: transform 0.15s ease;
+}
+
+.pnav__group[open] > .pnav__group-summary::before {
+  transform: rotate(45deg);
+}
+
+.pnav__group-summary:hover {
+  background: var(--color-background-default);
+}
+
+.pnav__group-summary:focus-visible,
+.pnav__fold-summary:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-default-focus);
+  outline-offset: calc(-1 * var(--border-width-focus));
+}
+
+.pnav__group-name {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.pnav__group-count {
+  flex: none;
+  color: var(--color-content-default-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.pnav__programs {
+  padding: 0 0 var(--spacing-200) var(--spacing-400);
+}
+
+.pnav__link {
+  display: block;
+  padding: var(--spacing-100) var(--spacing-200);
+  border-radius: var(--radius-sm);
+  color: var(--color-content-default-secondary);
+  text-decoration: none;
+}
+
+.pnav__link:hover {
+  background: var(--color-background-default);
+  color: var(--color-content-default);
+  text-decoration: none;
+}
+
+.pnav__link:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-default-focus);
+  outline-offset: calc(-1 * var(--border-width-focus));
+}
+
+.pnav__link[aria-current='page'] {
+  background: var(--color-background-elevation-sunken);
+  color: var(--color-content-default);
+  font-weight: var(--typography-font-weight-semibold);
+}
+
+.pnav__note {
+  margin: 0;
+  color: var(--color-content-default-secondary);
+}
+
+// Narrow screens: the menu is one disclosure above the page, closed until asked for.
+:host(.is-narrow) .pnav__fold {
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-background-elevation-raised);
+}
+
+:host(.is-narrow) .pnav__fold-summary {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-200);
+  padding: var(--spacing-300) var(--spacing-400);
+  cursor: pointer;
+  list-style: none;
+}
+
+:host(.is-narrow) .pnav__fold-summary::-webkit-details-marker {
+  display: none;
+}
+
+:host(.is-narrow) .pnav__fold-summary::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  margin-inline-start: auto;
+  border-right: 1.5px solid var(--color-content-default-secondary);
+  border-bottom: 1.5px solid var(--color-content-default-secondary);
+  transform: rotate(45deg);
+}
+
+:host(.is-narrow) .pnav__fold[open] > .pnav__fold-summary::after {
+  transform: rotate(-135deg);
+}
+
+:host(.is-narrow) .pnav__groups {
+  padding: 0 var(--spacing-300) var(--spacing-300);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pnav__group-summary::before {
+    transition: none;
+  }
+}

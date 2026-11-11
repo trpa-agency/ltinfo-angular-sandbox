@@ -132,7 +132,9 @@ export async function resolvedColor(page: Page, token: string): Promise<string> 
  * How long a data panel may take to leave "loading". The panels read the TRPA
  * map service, a live server outside the sandbox.
  */
-export const PANEL_TIMEOUT_MS = 60_000;
+// Two minutes: the map service is live and its speed varies; the daily ozone layer alone is
+// about 9 pages of 2,000 rows, and a page has taken 7 seconds on a slow day.
+export const PANEL_TIMEOUT_MS = 120_000;
 
 interface ConsoleFixtures {
   /** Console errors a test expects. Anything else fails the test. */

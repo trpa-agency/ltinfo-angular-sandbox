@@ -1,0 +1,42 @@
+<!-- mon-lego-checked: the rail menu is hand-built from native <details> disclosures and links;
+     Ecology's sidenav is an Astro lego with no Angular counterpart in this app yet. -->
+<nav class="pnav" aria-label="Monitoring programs by category">
+  @if (groups().length) {
+    <!-- Narrow screens: the whole menu folds into one disclosure above the page. -->
+    <details class="pnav__fold" [open]="!narrow()">
+      <summary class="pnav__fold-summary typography-label-md-strong">
+        @if (current(); as here) {
+          {{ here.category.CategoryName }} programs
+        } @else {
+          Monitoring programs
+        }
+      </summary>
+      <ul class="pnav__groups" role="list">
+        @for (group of groups(); track group.category.CategoryID) {
+          <li>
+            <details class="pnav__group" [open]="group.category.CategoryID === current()?.category?.CategoryID">
+              <summary class="pnav__group-summary">
+                <span class="pnav__group-name typography-label-md-strong">{{ group.category.CategoryName }}</span>
+                <span class="pnav__group-count typography-body-xs">{{ group.programs.length }}</span>
+              </summary>
+              <ul class="pnav__programs" role="list">
+                @for (program of group.programs; track program.MonitoringProgramID) {
+                  <li>
+                    <a
+                      class="pnav__link typography-body-sm"
+                      [routerLink]="['/programs', program.MonitoringProgramID]"
+                      [attr.aria-current]="program.MonitoringProgramID === currentId() ? 'page' : null"
+                      >{{ program.MonitoringProgramName }}</a
+                    >
+                  </li>
+                }
+              </ul>
+            </details>
+          </li>
+        }
+      </ul>
+    </details>
+  } @else if (failed()) {
+    <p class="pnav__note typography-body-sm">The program list could not be loaded.</p>
+  }
+</nav>

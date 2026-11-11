@@ -2,9 +2,43 @@
 // bring their own look.
 
 :host {
+  display: block;
+}
+
+// The category menu beside the page on wide screens; above it, folded, on narrow ones.
+.pd {
+  display: grid;
+  grid-template-columns: 15rem minmax(0, 1fr);
+  gap: var(--spacing-600);
+  align-items: start;
+}
+
+.pd__rail {
+  position: sticky;
+  top: calc(var(--app-nav-height, 0px) + var(--spacing-400));
+  max-height: calc(100dvh - var(--app-nav-height, 0px) - var(--spacing-600));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.pd__main {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-400);
+  min-width: 0;
+}
+
+@media (max-width: 64rem) {
+  .pd {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--spacing-400);
+  }
+
+  .pd__rail {
+    position: static;
+    max-height: none;
+    overflow: visible;
+  }
 }
 
 .back {

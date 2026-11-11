@@ -29,6 +29,8 @@ const isHomePath = (path: string): boolean => path === '/' || /^\/category\/[^/]
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, RouterOutlet, EsaBadge],
+  // A wide page widens the header and footer column too, so their edges line up with it.
+  host: { '[class.app--wide]': 'wide()' },
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -43,6 +45,8 @@ export class App {
   /** The path of the page on screen, without the query or the fragment. */
   private readonly path = signal('/');
   protected readonly fullBleed = signal(false);
+  /** Program pages take a wider column, for the category menu beside the page. */
+  protected readonly wide = signal(false);
 
   private readonly onHome = computed(() => isHomePath(this.path()));
   /** Nav links keep the current home address, so a selected category stays selected. */
@@ -64,7 +68,9 @@ export class App {
       const tree = this.router.parseUrl(event.urlAfterRedirects);
       const path = `/${tree.root.children['primary']?.segments.map((s) => s.path).join('/') ?? ''}`;
       this.path.set(path);
-      this.fullBleed.set(this.deepest(this.router.routerState.snapshot.root).data['fullBleed'] === true);
+      const data = this.deepest(this.router.routerState.snapshot.root).data;
+      this.fullBleed.set(data['fullBleed'] === true);
+      this.wide.set(data['wide'] === true);
       const samePage = previous === path || (isHomePath(previous) && isHomePath(path));
       if (!samePage && !tree.fragment) window.scrollTo(0, 0);
     });

@@ -1,72 +1,81 @@
-@let page = state();
+<!-- The category menu sits outside the loading states, so it stays put while the reader
+     moves between programs. -->
+<div class="pd">
+  <aside class="pd__rail">
+    <app-program-nav [currentId]="programId()" />
+  </aside>
+  <div class="pd__main">
+    @let page = state();
 
-@if (page.status === 'loading') {
-  <p class="back typography-label-md"><a routerLink="/" fragment="all-programs">All Programs</a></p>
-  <esa-card>
-    <div role="status">
-      <esa-empty-state [title]="'Loading program'"></esa-empty-state>
-    </div>
-  </esa-card>
-} @else if (page.status === 'error') {
-  <p class="back typography-label-md"><a routerLink="/" fragment="all-programs">All Programs</a></p>
-  <esa-card>
-    <div role="alert">
-      <esa-empty-state [title]="page.title" [description]="page.description"></esa-empty-state>
-    </div>
-  </esa-card>
-} @else {
-  @let program = page.data;
-  @let layout = shown() ?? program.Template;
+    @if (page.status === 'loading') {
+      <p class="back typography-label-md"><a routerLink="/" fragment="all-programs">All Programs</a></p>
+      <esa-card>
+        <div role="status">
+          <esa-empty-state [title]="'Loading program'"></esa-empty-state>
+        </div>
+      </esa-card>
+    } @else if (page.status === 'error') {
+      <p class="back typography-label-md"><a routerLink="/" fragment="all-programs">All Programs</a></p>
+      <esa-card>
+        <div role="alert">
+          <esa-empty-state [title]="page.title" [description]="page.description"></esa-empty-state>
+        </div>
+      </esa-card>
+    } @else {
+      @let program = page.data;
+      @let layout = shown() ?? program.Template;
 
-  <!-- The back link and the layout control share one line. Picking a layout
-       previews it through ?template=; Save layout sends PATCH. -->
-  <app-layout-control
-    [saved]="program.Template"
-    [shown]="layout"
-    [saving]="savingLayout()"
-    [error]="layoutError()"
-    (pick)="preview($event, program.Template)"
-    (save)="saveLayout(program)"
-  >
-    <p class="back typography-label-md"><a routerLink="/" fragment="all-programs">All Programs</a></p>
-  </app-layout-control>
+      <!-- The back link and the layout control share one line. Picking a layout
+           previews it through ?template=; Save layout sends PATCH. -->
+      <app-layout-control
+        [saved]="program.Template"
+        [shown]="layout"
+        [saving]="savingLayout()"
+        [error]="layoutError()"
+        (pick)="preview($event, program.Template)"
+        (save)="saveLayout(program)"
+      >
+        <p class="back typography-label-md"><a routerLink="/" fragment="all-programs">All Programs</a></p>
+      </app-layout-control>
 
-  <!-- One of three templates. -->
-  <div class="program" [attr.data-template]="layout">
-    @switch (layout) {
-      @case ('map') {
-        <app-map-template [program]="program" />
-      }
-      @case ('charts') {
-        <app-charts-template [program]="program" />
-      }
-      @default {
-        <app-content-template [program]="program" />
-      }
+      <!-- One of three templates. -->
+      <div class="program" [attr.data-template]="layout">
+        @switch (layout) {
+          @case ('map') {
+            <app-map-template [program]="program" />
+          }
+          @case ('charts') {
+            <app-charts-template [program]="program" />
+          }
+          @default {
+            <app-content-template [program]="program" />
+          }
+        }
+      </div>
+
+      <!-- The write path: this button sends PATCH /api/monitoring-programs/:id. -->
+      <section class="settings" aria-labelledby="settings-title">
+        <h2 id="settings-title" class="settings__title typography-title-sm-strong">Program Settings</h2>
+        <esa-card [title]="'Featured'">
+          <div class="featured">
+            <p class="featured__value">
+              Saved value:
+              <strong>{{ program.IsFeatured ? 'Featured' : 'Not featured' }}</strong>
+            </p>
+            <esa-button
+              [variant]="program.IsFeatured ? 'secondary' : 'primary'"
+              [loading]="saving()"
+              (click)="toggleFeatured(program)"
+            >
+              {{ program.IsFeatured ? 'Remove from featured' : 'Mark as featured' }}
+            </esa-button>
+          </div>
+          <p class="featured__error typography-body-sm" role="alert">{{ saveError() }}</p>
+        </esa-card>
+      </section>
+
+      <!-- The larger view of a photo. One dialog for the hero and the gallery. -->
+      <app-photo-lightbox />
     }
   </div>
-
-  <!-- The write path: this button sends PATCH /api/monitoring-programs/:id. -->
-  <section class="settings" aria-labelledby="settings-title">
-    <h2 id="settings-title" class="settings__title typography-title-sm-strong">Program Settings</h2>
-    <esa-card [title]="'Featured'">
-      <div class="featured">
-        <p class="featured__value">
-          Saved value:
-          <strong>{{ program.IsFeatured ? 'Featured' : 'Not featured' }}</strong>
-        </p>
-        <esa-button
-          [variant]="program.IsFeatured ? 'secondary' : 'primary'"
-          [loading]="saving()"
-          (click)="toggleFeatured(program)"
-        >
-          {{ program.IsFeatured ? 'Remove from featured' : 'Mark as featured' }}
-        </esa-button>
-      </div>
-      <p class="featured__error typography-body-sm" role="alert">{{ saveError() }}</p>
-    </esa-card>
-  </section>
-
-  <!-- The larger view of a photo. One dialog for the hero and the gallery. -->
-  <app-photo-lightbox />
-}
+</div>
