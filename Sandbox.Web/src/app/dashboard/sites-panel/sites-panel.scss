@@ -71,7 +71,35 @@
   inset: 0;
 }
 
-// The docked site profile, under a narrow map.
+// The site profile in the list column: it fills the column the list filled, and scrolls
+// inside it, so the map beside it stays fully visible.
+.sites-panel__rail {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-150);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.sites-panel__rail[hidden],
+.sites-panel__list.is-hidden {
+  display: none;
+}
+
+.sites-panel__back {
+  display: flex;
+  justify-content: flex-start;
+}
+
+// In the column, Back to List is the one way out; the card's own close button is for the
+// docked form under the map.
+.sites-panel__rail ::ng-deep .profile__close {
+  display: none;
+}
+
+// The docked site profile, under a narrow map or a map with no list.
 .sites-panel__dock {
   margin-top: var(--spacing-300);
 }
@@ -150,6 +178,12 @@
   .sites-panel__list {
     position: static;
     max-height: 22rem;
+  }
+
+  // Stacked under the map, the profile takes the list's place in the flow.
+  .sites-panel__rail {
+    position: static;
+    overflow: visible;
   }
 
   // With a pick, the tools take a row of their own under the title and the select fills it.

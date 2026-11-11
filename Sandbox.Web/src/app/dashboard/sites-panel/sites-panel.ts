@@ -67,10 +67,10 @@ import {
 } from '../../lib/sites';
 import { areaSubject, siteSubject, type ProfileSubject, type SiteProfileConfig } from '../../lib/site-profile';
 import { SiteList } from './site-list';
-import { SiteProfileCard, type ProfileMode } from './site-profile-card';
+import { SiteProfileCard } from './site-profile-card';
 import { SitesMap } from './sites-map';
 
-/** Under this map width the site profile docks under the map instead of floating over it. */
+/** Under this map width the site profile docks under the map instead of taking the list column. */
 const DOCK_BELOW_PX = 640;
 
 /** The fields of an area the profile's joins read (SEZ_ID), so the area query asks for them. */
@@ -114,9 +114,10 @@ function download(fileName: string, text: string): void {
  * $event.detail.value of the lowercase "change" event, and option values are strings.
  *
  * A click on a site or area, on the map or in the list, opens its site profile
- * (app-site-profile): floating over the map in its popup when the map is 640 px or wider,
- * docked under the map when it is narrower. The list row stays marked while it is open.
- * Opened from the list, the profile takes focus; closing it returns focus to the opener.
+ * (app-site-profile) in the list column, in the list's place, so the map stays fully visible;
+ * Back to List returns. Under a narrow map, or when there is no list, it docks under the map.
+ * The site stays marked on the map while it is open. The profile takes focus when it opens;
+ * closing it returns focus to the opener.
  */
 @Component({
   selector: 'app-sites-panel',
@@ -197,6 +198,7 @@ export class SitesPanel {
   private readonly profileCard = viewChild(SiteProfileCard);
   private readonly mapColumn = viewChild.required<ElementRef<HTMLElement>>('mapColumn');
   private readonly dock = viewChild.required<ElementRef<HTMLElement>>('dock');
+  private readonly rail = viewChild<ElementRef<HTMLElement>>('rail');
   private readonly card = viewChild.required<ElementRef<HTMLElement>>('card');
   /** Set once the view exists; the card and the dock are only touched after it. */
   private viewReady = false;
@@ -208,7 +210,10 @@ export class SitesPanel {
   protected readonly profileConfig = signal<SiteProfileConfig | null>(null);
   /** The map is narrower than DOCK_BELOW_PX. */
   private readonly narrow = signal(false);
-  protected readonly mode = computed<ProfileMode>(() => (this.narrow() ? 'docked' : 'floating'));
+  /** Where an open profile goes: the list column, or the dock under the map. */
+  protected readonly placement = computed<'rail' | 'dock'>(() => (this.narrow() || !this.showList() ? 'dock' : 'rail'));
+  /** The profile is open in the list column, so the list is hidden. */
+  protected readonly railOpen = computed(() => !!this.subject() && this.placement() === 'rail');
   /** Where focus goes back to when the profile closes: the list row, or the map. */
   private opener: HTMLElement | null = null;
   private readonly sitesByKey = new Map<string, Site>();
@@ -233,7 +238,7 @@ export class SitesPanel {
       this.configKey();
       untracked(() => void this.start());
     });
-    // Floating or docked follows the map's own width; an open profile moves with it.
+    // Rail or dock follows the map's own width; an open profile moves with it.
     let observer: ResizeObserver | null = null;
     afterNextRender(() => {
       this.viewReady = true;
@@ -244,8 +249,8 @@ export class SitesPanel {
       observer.observe(this.mapColumn().nativeElement);
     });
     effect(() => {
-      const mode = this.mode();
-      untracked(() => this.placeCard(mode));
+      this.placement();
+      untracked(() => this.placeCard());
     });
     inject(DestroyRef).onDestroy(() => {
       observer?.disconnect();
@@ -269,10 +274,8 @@ export class SitesPanel {
     this.openProfile(key, 'map');
   }
 
-  /** The map closed the floating card itself (a click on the map, another popup, Escape on the map). */
-  protected onCardClosed(): void {
-    this.endProfile(false);
-  }
+  /** The map reports a closed card; the profile no longer floats, so there is nothing to do. */
+  protected onCardClosed(): void {}
 
   /** The profile's close button or Escape. */
   protected closeProfile(): void {
@@ -281,10 +284,6 @@ export class SitesPanel {
 
   protected onZoom(key: string): void {
     this.map()?.zoomTo(key);
-  }
-
-  protected onProfileResized(): void {
-    if (this.subject() && this.mode() === 'floating') this.map()?.panCardIntoView();
   }
 
   private subjectFor(key: string): ProfileSubject | null {
@@ -299,8 +298,9 @@ export class SitesPanel {
   private openProfile(key: string, from: 'list' | 'map'): void {
     const subject = this.subjectFor(key);
     this.selectedKey.set(key);
+    const map = this.map();
     if (!subject) {
-      this.map()?.focusFeature(key);
+      map?.focusFeature(key);
       return;
     }
     const active = document.activeElement;
@@ -308,59 +308,54 @@ export class SitesPanel {
       from === 'list' && active instanceof HTMLElement
         ? active
         : this.mapColumn().nativeElement.querySelector<HTMLElement>('.leaflet-container');
+    // From the list the map flies to the site; from the map it is already in view and marked.
+    if (from === 'list') map?.focusFeature(key);
     this.subject.set(subject);
-    const card = this.card().nativeElement;
-    const map = this.map();
-    const focusCard = () => this.profileCard()?.focus(this.mode() === 'docked');
-    if (this.mode() === 'floating') {
-      if (from === 'list') map?.focusFeature(key, card, () => afterNextRender(focusCard, { injector: this.injector }));
-      else map?.openCard(key, card);
-    } else {
-      map?.closeCard();
-      this.dock().nativeElement.append(card);
-      if (from === 'list') {
-        map?.focusFeature(key);
-        afterNextRender(focusCard, { injector: this.injector });
-      } else {
-        afterNextRender(() => card.scrollIntoView({ block: 'nearest', behavior: 'smooth' }), { injector: this.injector });
-      }
-    }
+    this.placeCard();
+    afterNextRender(
+      () => {
+        const docked = this.placement() === 'dock';
+        // Opened from the list (a keyboard path), focus follows the profile. Opened by a click on
+        // the map, focus stays put; a docked profile scrolls into view instead.
+        if (from === 'list') this.profileCard()?.focus(docked);
+        else if (docked) this.card().nativeElement.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        this.rail()?.nativeElement.scrollTo({ top: 0 });
+      },
+      { injector: this.injector },
+    );
   }
 
-  /** Close the profile, unmark the row and the feature, and hand focus back when it was inside. */
+  /** Close the profile, unmark the site, show the list again, and hand focus back. */
   private endProfile(returnFocus: boolean): void {
     if (!this.subject()) return;
     const card = this.card().nativeElement;
     const hadFocus = card.contains(document.activeElement);
-    this.map()?.closeCard();
     this.map()?.clearSelection();
     this.dock().nativeElement.append(card);
     this.subject.set(null);
     this.selectedKey.set(null);
     const opener = this.opener;
     this.opener = null;
-    if ((returnFocus || hadFocus) && opener?.isConnected) opener.focus({ preventScroll: true });
+    if (returnFocus || hadFocus) {
+      // The list is shown again on the next render; focus the row once it is.
+      afterNextRender(() => {
+        if (opener?.isConnected) opener.focus({ preventScroll: true });
+      }, { injector: this.injector });
+    }
   }
 
-  /** Puts an open profile where the mode says: in the map's popup, or in the dock under the map. */
-  private placeCard(mode: ProfileMode): void {
-    const subject = this.subject();
-    if (!subject || !this.viewReady) return;
+  /** Puts an open profile where the placement says: in the list column, or in the dock under the map. */
+  private placeCard(): void {
+    if (!this.subject() || !this.viewReady) return;
     const card = this.card().nativeElement;
-    if (mode === 'docked') {
-      this.map()?.closeCard();
-      this.dock().nativeElement.append(card);
-    } else {
-      this.map()?.openCard(subject.key, card);
-    }
+    const rail = this.rail()?.nativeElement;
+    if (this.placement() === 'rail' && rail) rail.append(card);
+    else this.dock().nativeElement.append(card);
   }
 
   /** Drops an open profile without moving focus: a new config, a new pick, or an error. */
   private resetProfile(): void {
-    if (this.viewReady) {
-      this.map()?.closeCard();
-      this.dock().nativeElement.append(this.card().nativeElement);
-    }
+    if (this.viewReady) this.dock().nativeElement.append(this.card().nativeElement);
     this.subject.set(null);
     this.opener = null;
   }

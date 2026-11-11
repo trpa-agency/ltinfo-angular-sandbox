@@ -70,27 +70,33 @@
           }
         }
         <!--
-          The site profile. On a wide map the card element moves into the map's popup and
-          floats over the site; on a narrow one (under 640 px) it stays here, under the map.
+          The site profile. Beside a wide map it moves into the list column (the rail) in place of
+          the list; under a narrow map, or when there is no list, it stays here, under the map.
         -->
-        <div #dock class="sites-panel__dock" [hidden]="!subject() || mode() === 'floating'">
+        <div #dock class="sites-panel__dock" [hidden]="!subject() || placement() === 'rail'">
           <div #card class="sites-panel__card">
             <app-site-profile
               [subject]="subject()"
               [profile]="profileConfig()"
               [panel]="config()"
-              [mode]="mode()"
+              mode="docked"
               (closed)="closeProfile()"
               (zoom)="onZoom($event)"
-              (resized)="onProfileResized()"
             />
           </div>
         </div>
       </div>
       @if (showList()) {
         <div class="sites-panel__aside">
+          <!-- The profile takes the list's place; Back to List returns to it. -->
+          <div #rail class="sites-panel__rail" [hidden]="!railOpen()">
+            <esa-button class="sites-panel__back" size="sm" variant="ghost" (click)="closeProfile()">
+              <span aria-hidden="true">&#8249;</span> Back to List
+            </esa-button>
+          </div>
           <app-site-list
             class="sites-panel__list"
+            [class.is-hidden]="railOpen()"
             [items]="items()"
             [groups]="groups()"
             [unit]="unit()"

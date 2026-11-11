@@ -4,8 +4,9 @@
 // PANEL_TIMEOUT_MS.
 //
 // Hooks the card exposes on its host (app-site-profile): data-state (idle, loading, ready,
-// error), data-mode (floating over the map, or docked under it), and data-records (the rows
-// behind it). The record chart sets data-drawn on app-profile-chart once Vega has drawn it.
+// error), data-mode, and data-records (the rows behind it). Beside a wide map the profile opens
+// in the list column (.sites-panel__rail) in the list's place; under a narrow map it docks under
+// the map. The record chart sets data-drawn on app-profile-chart once Vega has drawn it.
 import fs from 'node:fs';
 
 import type { Locator, Page } from '@playwright/test';
@@ -17,6 +18,8 @@ const panel = (page: Page): Locator => page.locator('app-sites-panel');
 const profile = (page: Page): Locator => page.locator('app-site-profile');
 const rows = (page: Page): Locator => page.locator('.site-list__row:not([disabled])');
 const rowNamed = (page: Page, name: string): Locator => rows(page).filter({ hasText: name }).first();
+const rail = (page: Page): Locator => page.locator('.sites-panel__rail');
+const list = (page: Page): Locator => page.locator('app-site-list');
 
 async function openProgram(page: Page, id: number): Promise<void> {
   await page.goto(programUrl(id));
@@ -70,24 +73,32 @@ test.describe('Site profile', () => {
     await rowNamed(page, 'Baldwin Beach').click();
     await profileSettled(page);
     await expect(profile(page)).toHaveAttribute('data-state', 'ready');
-    await expect(profile(page)).toHaveAttribute('data-mode', 'floating');
+    // It takes the list's place in the column, and the map beside it stays clear.
+    await expect(rail(page).locator('app-site-profile')).toHaveCount(1);
+    await expect(list(page)).toBeHidden();
+    await expect(page.locator('.leaflet-popup')).toHaveCount(0);
     await expect(profile(page).locator('.profile__name')).toHaveText('Baldwin Beach');
     // Opened from the list, the card takes focus.
     await expect(profile(page).locator('.profile__name')).toBeFocused();
     await expect(profile(page).getByRole('img', { name: /^Plant count at Baldwin Beach, \d{4} to \d{4}$/ })).toBeVisible();
     await expect(profile(page).locator('app-profile-chart')).toHaveAttribute('data-drawn', 'true', { timeout: PANEL_TIMEOUT_MS });
     await expect(profile(page).locator('.profile__facts').first()).toContainText(/Record\s*\d{4} to \d{4}, \d+ surveys/);
-    // The row stays marked while the profile is open.
-    await expect(rowNamed(page, 'Baldwin Beach')).toHaveAttribute('aria-current', 'true');
+    // Back to List returns to the list with the row focused.
+    await rail(page).locator('.sites-panel__back').click();
+    await expect(list(page)).toBeVisible();
+    await expect(rowNamed(page, 'Baldwin Beach')).toBeFocused();
   });
 
-  test('opens from a marker on the map, and the list follows', async ({ page }) => {
+  test('opens from a marker on the map in the list column', async ({ page }) => {
     await openProgram(page, 39);
     await clickFeature(page);
     await profileSettled(page);
     const name = (await profile(page).locator('.profile__name').textContent())?.trim() ?? '';
     expect(name).not.toBe('');
-    await expect(page.locator('.site-list__row[aria-current="true"]')).toContainText(name);
+    await expect(rail(page).locator('app-site-profile')).toHaveCount(1);
+    // One way out in the column: Back to List. The card's own close button is for the docked form.
+    await expect(rail(page).locator('.sites-panel__back')).toBeVisible();
+    await expect(profile(page).locator('.profile__close')).toBeHidden();
     await expect(profile(page).locator('app-profile-chart')).toHaveAttribute('data-drawn', 'true', { timeout: PANEL_TIMEOUT_MS });
   });
 
@@ -128,6 +139,7 @@ test.describe('Site profile', () => {
     await expect(profile(page).locator('.profile__name')).toBeFocused();
     await page.keyboard.press('Escape');
     await expect(profile(page)).toHaveAttribute('data-state', 'idle');
+    await expect(list(page)).toBeVisible();
     await expect(row).toBeFocused();
     await expect(row).not.toHaveAttribute('aria-current', 'true');
   });
