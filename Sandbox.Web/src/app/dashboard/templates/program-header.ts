@@ -8,8 +8,9 @@ import { PhotoHero } from '../photos/photo-hero';
 import { PhotoViewer } from '../photos/photo-viewer';
 import { SummaryTiles } from '../summary-tiles/summary-tiles';
 
-// The header every template starts with: the category badge in the category
-// color, the program name, the four summary tiles, and the key photo.
+// The header every template starts with: the program name, the category and Featured
+// badges, the four summary tiles, and the key photo. Neutral: a white card with a hairline
+// border, quiet badges, and no category color.
 //
 //   variant="compact"  the map and charts layouts. A short band with the photo
 //                      filling its end, so the lead section starts high on the page.
@@ -17,8 +18,9 @@ import { SummaryTiles } from '../summary-tiles/summary-tiles';
 //                      quiet, and the template can project a lead paragraph
 //                      under the name with slot="lead".
 //
-// A program with no photo, or whose photo fails to load, gets the category
-// banner across the top of the header instead, and the text takes the full width.
+// A program with no photo, or whose photo fails to load: in the compact band a neutral well
+// holds the photo slot (app-photo-banner), so the band keeps its shape; the feature header
+// simply gives the text the full width, since a large empty frame would lead the page.
 @Component({
   selector: 'app-program-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,12 +31,6 @@ import { SummaryTiles } from '../summary-tiles/summary-tiles';
   },
   template: `
     <header class="head">
-      @if (photoState() !== 'shown') {
-        <app-photo-banner
-          [category]="program().CategoryName"
-          [reason]="photoState() === 'failed' ? 'failed' : 'none'"
-        />
-      }
       <div class="head__body">
         <div class="head__text">
           <!-- The name comes first in the document. The badges are drawn after it
@@ -42,11 +38,9 @@ import { SummaryTiles } from '../summary-tiles/summary-tiles';
           <div class="head__name">
             <h1 class="head__title typography-heading-lg">{{ program().MonitoringProgramName }}</h1>
             <div class="head__badges">
-              <span class="category-tint">
-                <esa-badge [value]="program().CategoryName" />
-              </span>
+              <esa-badge [value]="program().CategoryName" />
               @if (program().IsFeatured) {
-                <esa-badge variant="success" value="Featured" />
+                <esa-badge value="Featured" />
               }
             </div>
           </div>
@@ -57,14 +51,17 @@ import { SummaryTiles } from '../summary-tiles/summary-tiles';
             [size]="variant() === 'feature' ? 'sm' : 'md'"
           />
         </div>
-        @if (keyPhoto(); as photo) {
-          @if (photoState() === 'shown') {
-            <app-photo-hero
-              class="head__photo"
-              [image]="photo"
-              [size]="variant() === 'feature' ? 'feature' : 'cover'"
-            />
-          }
+        @if (photoState() === 'shown') {
+          <app-photo-hero
+            class="head__photo"
+            [image]="keyPhoto()!"
+            [size]="variant() === 'feature' ? 'feature' : 'cover'"
+          />
+        } @else if (variant() === 'compact') {
+          <app-photo-banner
+            class="head__photo head__photo--empty"
+            [reason]="photoState() === 'failed' ? 'failed' : 'none'"
+          />
         }
       </div>
     </header>

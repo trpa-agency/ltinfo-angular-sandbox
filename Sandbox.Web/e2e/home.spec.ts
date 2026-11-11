@@ -4,11 +4,15 @@
 //
 // The map draws 1,750 points on one canvas, so the tests read what it shows from
 // its host element: data-state (loading, ready, error), data-points (sites drawn),
-// and data-highlighted (sites in color). The map tiles come from Esri's servers;
-// the points and their colors do not depend on them.
+// and data-highlighted (sites in the data color; the rest are gray). The canvas
+// itself is sampled to check that the two colors are the data color and gray. The
+// map tiles come from Esri's servers; the points and their colors do not depend on them.
+//
+// The page follows Ecology's default look: neutral containers, no category colors,
+// and one data color for every site.
 import type { APIRequestContext, Locator, Page } from '@playwright/test';
 
-import { API_URL, HOME_SECTIONS, expect, seed, test } from './support';
+import { API_URL, DATA_COLOR_TOKEN, FONT_PATTERN, HOME_SECTIONS, expect, seed, test } from './support';
 
 interface Category {
   CategoryName: string;
@@ -32,6 +36,11 @@ const mapTitle = (page: Page): Locator => page.locator('#map-title');
 const cards = (page: Page): Locator => page.locator('app-category-card');
 const card = (page: Page, folder: string): Locator => page.locator(`.cat[data-folder="${folder}"]`);
 const cardHead = (page: Page, folder: string): Locator => card(page, folder).locator('.cat__head');
+/**
+ * Blank space the pointer can rest on: the source line under the map. The map panel is
+ * sticky, so the pointer stays off the cards when focus scrolls the page under it.
+ */
+const blank = (page: Page): Locator => page.locator('.map-panel__foot');
 /** Program links a reader can see: a closed card's list is hidden. */
 const programLinks = (scope: Page | Locator): Locator => scope.locator('a.prog:visible');
 // type="search", so the role is searchbox.
@@ -58,8 +67,44 @@ async function openHome(page: Page, path = '/'): Promise<void> {
   await expect(homeMap(page)).toHaveAttribute('data-state', 'ready', { timeout: MAP_TIMEOUT_MS });
 }
 
+/** This many sites in the data color, and every other site drawn gray. */
 async function expectHighlighted(page: Page, count: number): Promise<void> {
+  await expect(homeMap(page)).toHaveAttribute('data-points', String(seed.sites.total));
   await expect(homeMap(page)).toHaveAttribute('data-highlighted', String(count));
+}
+
+/**
+ * Pixels of the site canvas in the data color and in gray. Each token is first drawn
+ * into a one-pixel canvas, so it compares as the same sRGB the map canvas holds.
+ */
+async function mapPixels(page: Page): Promise<{ data: number; gray: number }> {
+  return homeMap(page).evaluate((host, dataToken) => {
+    const rgb = (token: string): number[] => {
+      const probe = document.createElement('span');
+      probe.style.color = `var(${token})`;
+      host.append(probe);
+      const color = getComputedStyle(probe).color;
+      probe.remove();
+      const swatch = document.createElement('canvas').getContext('2d')!;
+      swatch.fillStyle = color;
+      swatch.fillRect(0, 0, 1, 1);
+      return [...swatch.getImageData(0, 0, 1, 1).data.slice(0, 3)];
+    };
+    const data = rgb(dataToken);
+    const gray = rgb('--color-gray-8');
+    const near = (pixels: Uint8ClampedArray, i: number, target: number[]): boolean =>
+      Math.abs(pixels[i] - target[0]) + Math.abs(pixels[i + 1] - target[1]) + Math.abs(pixels[i + 2] - target[2]) <= 24;
+    const canvas = host.querySelector<HTMLCanvasElement>('.leaflet-overlay-pane canvas')!;
+    const pixels = canvas.getContext('2d')!.getImageData(0, 0, canvas.width, canvas.height).data;
+    let inData = 0;
+    let inGray = 0;
+    for (let i = 0; i < pixels.length; i += 4) {
+      if (pixels[i + 3] === 0) continue;
+      if (near(pixels, i, data)) inData += 1;
+      else if (near(pixels, i, gray)) inGray += 1;
+    }
+    return { data: inData, gray: inGray };
+  }, DATA_COLOR_TOKEN);
 }
 
 /** The nav item marked current; there is at most one. */
@@ -114,25 +159,35 @@ test.describe('Home page', () => {
 
     await expect(cards(page).locator('.cat__name')).toHaveText(names);
     for (const expected of [seed.airQuality, seed.waterQuality]) {
-      await expect(card(page, expected.folder).locator('.cat__count')).toHaveText(`${expected.programs} programs`);
-      await expect(card(page, expected.folder).locator('.cat__meta')).toHaveText(`${expected.sites} mapped sites`);
+      await expect(card(page, expected.folder).locator('.cat__meta')).toHaveText(
+        `${expected.programs} programs, ${expected.sites} mapped sites`,
+      );
     }
     const recreation = card(page, seed.recreation.folder);
-    await expect(recreation.locator('.cat__count')).toHaveText('0 programs');
-    await expect(recreation.locator('.cat__meta')).toHaveText('No mapped sites');
+    await expect(recreation.locator('.cat__meta')).toHaveText('0 programs');
 
-    // Every collapsed card is the same height, two across.
+    // Neutral cards: every card has the same border and background, whatever its category.
+    const looks = await page
+      .locator('.cat')
+      .evaluateAll((items) =>
+        items.map((item) => `${getComputedStyle(item).borderTopColor} ${getComputedStyle(item).backgroundColor}`),
+      );
+    expect(new Set(looks).size, looks.join(' | ')).toBe(1);
+
+    // Two across, and the two collapsed cards of each row are one height, even where a long
+    // name wraps.
     const heights = await page.locator('.cat__head').evaluateAll((heads) => heads.map((head) => (head as HTMLElement).offsetHeight));
-    expect(new Set(heights).size, `head heights ${heights.join(', ')}`).toBe(1);
-    const first = (await cards(page).nth(0).boundingBox())!;
-    const second = (await cards(page).nth(1).boundingBox())!;
-    expect(second.y).toBe(first.y);
+    for (let row = 0; row < heights.length; row += 2) {
+      expect(heights[row + 1], `head heights ${heights.join(', ')}`).toBe(heights[row]);
+      const left = (await cards(page).nth(row).boundingBox())!;
+      const right = (await cards(page).nth(row + 1).boundingBox())!;
+      expect(right.y).toBe(left.y);
+      expect(right.x).toBeGreaterThan(left.x);
+    }
 
     // A category with no programs says so when opened.
     await cardHead(page, seed.recreation.folder).click();
-    await expect(recreation.locator('.cat__none')).toHaveText(
-      'No monitoring programs are assigned to this category yet.',
-    );
+    await expect(recreation.locator('.cat__none')).toHaveText('No programs yet.');
     await expect(programLinks(recreation)).toHaveCount(0);
   });
 
@@ -157,7 +212,7 @@ test.describe('Home page', () => {
     await expect(programLinks(wq).locator('.prog__name')).toHaveText(waterQuality);
     // Each program says how many sites it maps, or quietly that it maps none.
     await expect(programLinks(wq).filter({ hasText: seed.periphyton.name }).locator('.prog__sites')).toHaveText(
-      `${seed.periphyton.sites} mapped sites`,
+      `${seed.periphyton.sites} sites`,
     );
     await expect(
       programLinks(wq).filter({ hasText: 'Harmful Algae Bloom (HAB) Monitoring' }).locator('.prog__sites'),
@@ -229,7 +284,9 @@ test.describe('Home page', () => {
     await expectHighlighted(page, seed.sites.total);
   });
 
-  test('the site map draws all 1,750 sites in their category colors', async ({ page }) => {
+  test('the site map draws all 1,750 sites in the data color, and the rest gray when one is picked', async ({
+    page,
+  }) => {
     await page.goto('/');
     // The map arrives after the cards.
     await expect(cards(page)).toHaveCount(seed.categories);
@@ -239,12 +296,32 @@ test.describe('Home page', () => {
     await expectHighlighted(page, seed.sites.total);
     await expect(mapTitle(page)).toHaveText('All monitoring sites');
     await expect(page.locator('.map-panel__foot')).toHaveText(
-      'Site locations from Lake Tahoe Info, captured Oct. 29, 2026. Programs without fixed sites do not appear on the map.',
+      'Sites from Lake Tahoe Info as of Oct. 29, 2026. Programs without fixed sites are not mapped.',
     );
+    // Every site in the one data color: the canvas holds it, and next to no gray.
+    await expect.poll(async () => (await mapPixels(page)).data).toBeGreaterThan(0);
+    const all = await mapPixels(page);
+    expect(all.gray, `pixels with every site on: ${JSON.stringify(all)}`).toBeLessThan(all.data / 100);
+
+    // A category picked: its 30 sites keep the data color, the other 1,720 turn gray.
+    await cardHead(page, seed.airQuality.folder).hover();
+    await expectHighlighted(page, seed.airQuality.sites);
+    await expect
+      .poll(async () => {
+        const picked = await mapPixels(page);
+        return picked.data > 0 && picked.gray > picked.data;
+      })
+      .toBe(true);
+
     // A legend entry for each category with mapped sites: all but Recreation and Wildlife.
+    // Quiet chips that all look alike: no category swatches.
     await expect(page.locator('.map-legend__item')).toHaveCount(8);
-    // The wheel scrolls the page, never the map, and Leaflet's controls take Lexend Deca.
-    await expect(homeMap(page).locator('.leaflet-control-zoom-in')).toHaveCSS('font-family', /Lexend Deca/);
+    const chips = await page
+      .locator('.map-legend__item:not([aria-pressed="true"])')
+      .evaluateAll((items) => items.map((item) => `${getComputedStyle(item).backgroundColor} ${getComputedStyle(item).borderTopColor}`));
+    expect(new Set(chips).size, chips.join(' | ')).toBe(1);
+    // Leaflet's controls take the theme face.
+    await expect(homeMap(page).locator('.leaflet-control-zoom-in')).toHaveCSS('font-family', FONT_PATTERN);
   });
 
   test('hover and focus color one category or program, a selection holds, and a blank click restores every color', async ({
@@ -256,7 +333,7 @@ test.describe('Home page', () => {
     await cardHead(page, seed.airQuality.folder).hover();
     await expectHighlighted(page, seed.airQuality.sites);
     await expect(mapTitle(page)).toHaveText(seed.airQuality.name);
-    await page.locator('#categories .section-head__lead').hover();
+    await blank(page).hover();
     await expectHighlighted(page, seed.airQuality.sites);
 
     // Focus does what hover does.
@@ -274,13 +351,13 @@ test.describe('Home page', () => {
     await periphyton.hover();
     await expectHighlighted(page, seed.periphyton.sites);
     await expect(mapTitle(page)).toHaveText(seed.periphyton.name);
-    await page.locator('#categories .section-head__lead').hover();
+    await blank(page).hover();
     await expectHighlighted(page, seed.waterQuality.sites);
     await periphyton.focus();
     await expectHighlighted(page, seed.periphyton.sites);
 
     // A click on blank space closes the category and restores every color.
-    await page.locator('#categories .section-head__lead').click();
+    await page.locator('.hero__intro').click();
     await expect(page.locator('.cat__head[aria-expanded="true"]')).toHaveCount(0);
     await expect(page).toHaveURL(/\/$/);
     await expectHighlighted(page, seed.sites.total);
@@ -303,11 +380,14 @@ test.describe('Home page', () => {
     expect(await view()).toBe(before);
   });
 
-  test('"Show these programs" filters All Programs to the open category', async ({ page }) => {
+  test('"Show in the list" filters All Programs to the open category', async ({ page }) => {
     await openHome(page);
     await cardHead(page, seed.waterQuality.folder).click();
 
-    await page.getByRole('button', { name: `Show these ${seed.waterQuality.name} programs in the list` }).click();
+    // The visible label, then the category for screen readers (a space may separate them).
+    await page
+      .getByRole('button', { name: new RegExp(`^Show in the list ?: ${seed.waterQuality.name} programs$`) })
+      .click();
 
     await expect(sectionHeading(page, 'All Programs')).toBeFocused();
     await expect(listRows(page)).toHaveCount(seed.waterQuality.programs);
@@ -338,7 +418,7 @@ test.describe('Nav row and sections', () => {
     // The same item again, after scrolling away, still scrolls back.
     await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
     await navLink(page, 'Monitoring Programs').click();
-    await expect.poll(() => headingInView(page, sectionHeading(page, 'Threshold categories'))).toBe(true);
+    await expect.poll(() => headingInView(page, sectionHeading(page, 'Threshold Categories'))).toBe(true);
   });
 
   test('the current nav item follows the section in view', async ({ page }) => {
@@ -409,7 +489,21 @@ test.describe('About Monitoring', () => {
       expected.map((category) => category.CategoryDescription.replace(/(\d)\s?%/g, '$1 percent')),
     );
     await expect(page.locator('#about')).not.toContainText('%');
-    await expect(page.locator('#about')).toContainText('LTInfo_Monitoring map service');
+    // The data sources, each a link.
+    await expect(page.locator('#about').getByRole('link', { name: 'Lake Tahoe Info' })).toHaveAttribute(
+      'href',
+      'https://monitoring.laketahoeinfo.org/',
+    );
+    await expect(page.locator('#about').getByRole('link', { name: 'LTInfo_Monitoring map service' })).toBeVisible();
+    // Plain rows: no icons, no color swatches, and every goal row drawn the same way.
+    await expect(goals.locator('img')).toHaveCount(0);
+    const rows = await goals.evaluateAll((items) =>
+      items.map((item) => {
+        const style = getComputedStyle(item);
+        return `${style.backgroundColor} ${style.borderLeftWidth} ${style.borderBottomColor}`;
+      }),
+    );
+    expect(new Set(rows).size, rows.join(' | ')).toBe(1);
 
     const goal = (folder: string): Locator => page.locator(`.goal[data-folder="${folder}"]`);
     await expect(goal(seed.recreation.folder).locator('.goal__link')).toHaveText('No programs yet');

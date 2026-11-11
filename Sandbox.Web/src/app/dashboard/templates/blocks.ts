@@ -174,14 +174,14 @@ export class PerYearBlock {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [EsaCard, EsaEmptyState],
   template: `
-    <esa-card [title]="'Program description'">
+    <esa-card [title]="'Program Description'">
       @if (description().length > 0 || approach().length > 0) {
         <div class="prose">
           @for (paragraph of description(); track $index) {
             <p>{{ paragraph }}</p>
           }
           @if (approach().length > 0) {
-            <h4 class="prose__heading typography-label-md-strong">Monitoring approach</h4>
+            <h4 class="prose__heading typography-label-md-strong">Monitoring Approach</h4>
             @for (paragraph of approach(); track $index) {
               <p>{{ paragraph }}</p>
             }

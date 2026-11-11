@@ -1,9 +1,10 @@
-// The shared header: a white card on the page gray, like every other card on
-// an LT Info page, with the category color along its top edge. Every value is
-// a token; the two column recipes are the only layout numbers.
+// The shared header: a white card with a hairline border, like every other card on the
+// page. Neutral: no category color. Every value is a token; the two column recipes are
+// the only layout numbers.
 //
-// The base rules are the phone layout: one column, the photo on top of the
-// text. From 48rem up the photo moves beside the text.
+// The base rules are the phone layout: one column, the photo on top of the text. From
+// 48rem up the photo sits beside the text; in the compact band an empty well holds the
+// slot when there is no photo.
 
 :host {
   display: block;
@@ -15,12 +16,6 @@
   border: var(--border-width-default) solid var(--card-border-color, var(--color-border-default));
   border-radius: var(--radius-md);
   overflow: hidden;
-}
-
-// With a photo, the category color is a rule along the top of the card. With
-// no photo the banner carries the color, so the rule is not drawn twice.
-:host([data-photo='shown']) .head {
-  border-top: var(--border-width-400) solid var(--category-color, var(--color-background-brand));
 }
 
 .head__body {
@@ -38,6 +33,11 @@
 
 .head__photo {
   order: -1;
+}
+
+// On a phone an empty photo slot is left out: the text leads.
+.head__photo--empty {
+  display: none;
 }
 
 .head__badges {
@@ -69,8 +69,8 @@
 }
 
 // ---- feature: the content layout ----
-// The badges sit above the name, the tiles sit at the foot of the text column
-// under a rule, and the photo is large.
+// The badges sit above the name, the tiles sit at the foot of the text column under a
+// rule, and the photo is large.
 :host([data-variant='feature']) {
   .head__name {
     display: flex;
@@ -87,7 +87,7 @@
   }
 }
 
-// ---- from 48rem: the photo sits beside the text ----
+// ---- from 48rem: the photo slot sits beside the text ----
 @media (min-width: 48rem) {
   .head__text {
     padding: var(--spacing-400) var(--spacing-500);
@@ -95,9 +95,12 @@
   .head__photo {
     order: 0;
   }
+  .head__photo--empty {
+    display: block;
+  }
 
   // Compact: the photo fills the end of the band, top to bottom.
-  :host([data-variant='compact'][data-photo='shown']) .head__body {
+  :host([data-variant='compact']) .head__body {
     grid-template-columns: minmax(0, 1fr) minmax(0, 20rem);
   }
   :host([data-variant='compact']) .head__photo {

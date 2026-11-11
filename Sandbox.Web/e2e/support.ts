@@ -1,6 +1,7 @@
 // Shared by both spec files: the two targets, the seed facts the tests count
 // on, and a page fixture that fails any browser test that logs a console error.
 import { test as base, expect } from '@playwright/test';
+import type { Page } from '@playwright/test';
 
 const trimSlash = (url: string): string => url.replace(/\/+$/, '');
 
@@ -90,10 +91,42 @@ export const seed = {
 
 /** The home page sections, in page order, with the nav item that scrolls to each. */
 export const HOME_SECTIONS = [
-  { id: 'categories', nav: 'Monitoring Programs', heading: 'Threshold categories' },
+  { id: 'categories', nav: 'Monitoring Programs', heading: 'Threshold Categories' },
   { id: 'all-programs', nav: 'All Programs', heading: 'All Programs' },
   { id: 'about', nav: 'About Monitoring', heading: 'About Monitoring' },
 ] as const;
+
+/** The face of Ecology's default theme, which the app uses (no data-theme attribute). */
+export const FONT_FAMILY = 'DM Sans';
+export const FONT_PATTERN = /DM Sans/;
+
+/** The data color every mapped site is drawn in; containers and categories stay neutral. */
+export const DATA_COLOR_TOKEN = '--color-background-dataviz-categorical-1';
+
+/** True once the theme face's files have arrived, not only been asked for. */
+export async function fontLoaded(page: Page): Promise<boolean> {
+  return page.evaluate(async (family) => {
+    await document.fonts.ready;
+    return [...document.fonts].some(
+      (face) => face.family.replace(/["']/g, '') === family && face.status === 'loaded',
+    );
+  }, FONT_FAMILY);
+}
+
+/**
+ * What a color token resolves to on the page, as the browser writes a computed color
+ * (rgb(...) or color(display-p3 ...)), so it compares equal to toHaveCSS values.
+ */
+export async function resolvedColor(page: Page, token: string): Promise<string> {
+  return page.evaluate((name) => {
+    const probe = document.createElement('span');
+    probe.style.backgroundColor = `var(${name})`;
+    document.body.append(probe);
+    const color = getComputedStyle(probe).backgroundColor;
+    probe.remove();
+    return color;
+  }, token);
+}
 
 /**
  * How long a data panel may take to leave "loading". The panels read the TRPA

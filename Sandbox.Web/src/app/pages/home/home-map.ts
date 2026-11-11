@@ -75,7 +75,7 @@ function element<K extends keyof HTMLElementTagNameMap>(tag: K, className?: stri
 }
 
 /**
- * Every monitoring site on one Leaflet map, each in its category color. The page sets
+ * Every monitoring site on one Leaflet map, in the one data color. The page sets
  * [focus] to the programs whose sites stay in color; every other site turns gray. Only
  * colors change: the view stays where the reader left it.
  *
@@ -240,7 +240,7 @@ export class HomeMap {
     this.state.set('ready');
   }
 
-  /** Sites of focused programs in their category color and on top; the rest gray. */
+  /** Sites of focused programs in the data color and on top; the rest gray. */
   private recolor(focus: ReadonlySet<number> | null): void {
     const gray = this.resolveColor(GRAY_TOKEN);
     const programs = this.byProgram();

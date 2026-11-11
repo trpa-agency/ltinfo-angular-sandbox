@@ -1,14 +1,12 @@
-// The home page. Tokens only, plus category colors as data (--cat, --swatch). The shell
-// gives this route the full width (route data fullBleed), so the hero can run edge to edge;
-// everything under it sits in the same 72rem column as the rest of the app.
+// The home page. Tokens only. The shell gives this route the full width (route data
+// fullBleed), so the header band can run edge to edge; everything under it sits in the same
+// 72rem column as the rest of the app. Four shapes down the page: the header band, the
+// cards beside the map, the dense All Programs grid, and the About reading section.
 
 :host {
   display: block;
   // The sticky nav row's height, set by the shell; sections and the map panel clear it.
   --_sticky: var(--app-nav-height, 0px);
-
-  // THE HERO'S LOOK, in one place. Restyle the hero by changing these. The photo itself is
-  // HERO_URL in home.ts.
 }
 
 .hero__inner,

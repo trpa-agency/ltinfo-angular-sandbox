@@ -84,7 +84,7 @@
   background: var(--color-background-default-hover);
 }
 
-// Leaflet sets a monospace font on the zoom glyphs; they take Lexend Deca like everything else.
+// Leaflet sets a monospace font on the zoom glyphs; they take the theme face like everything else.
 .home-map .leaflet-control-zoom a {
   font-family: inherit;
   font-weight: var(--typography-font-weight-medium);
@@ -162,7 +162,7 @@
   line-height: var(--typography-body-sm-line-height);
 }
 
-// Leaflet gives the close glyph its own Tahoma font shorthand; it takes Lexend Deca instead.
+// Leaflet gives the close glyph its own Tahoma font shorthand; it takes the theme face instead.
 .home-map .leaflet-container a.leaflet-popup-close-button {
   width: 28px;
   height: 28px;

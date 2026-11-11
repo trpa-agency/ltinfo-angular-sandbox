@@ -20,12 +20,12 @@
   gap: var(--spacing-400) var(--spacing-300);
 }
 
-// Each tile hangs from a short rule, so the four read as one row of figures
-// without a card around each.
+// A hairline divides the tiles, so the four read as one row of figures without a card
+// around each. Neutral, and the same weight as every other rule on the page.
 .tile {
   min-width: 0;
   padding-inline-start: var(--spacing-300);
-  border-inline-start: var(--border-width-emphasis) solid var(--color-border-default);
+  border-inline-start: var(--border-width-default) solid var(--color-border-default);
 }
 
 @container (max-width: 30rem) {

@@ -1,116 +1,85 @@
-<!-- Angular-native contract components: esa-card and esa-stat. -->
-<section class="stats" aria-label="Summary">
-  <esa-card padding="compact">
-    <esa-stat [value]="stats().programs" label="Programs" />
-  </esa-card>
-  <esa-card padding="compact">
-    <esa-stat [value]="stats().categories" label="Categories" />
-  </esa-card>
-  <esa-card padding="compact">
-    <esa-stat [value]="stats().featured" label="Featured" accent />
-  </esa-card>
-  <esa-card padding="compact">
-    <esa-stat
-      [value]="stats().partnerLinks"
-      label="Partner links"
-      sub="Program and partner pairs"
+<!-- mon-lego-checked: esa-badge for the layout and Featured marks, esa-empty-state and
+     esa-button for no matches. The frame is a plain div, not an esa-card: a card clips its
+     content (overflow: hidden), which would cut off the list esa-select opens below itself.
+     One frame holds the filters, the table, and the record count, the way a data grid does. -->
+<div class="list-frame">
+  <div class="list-frame__filters">
+    <app-program-filters
+      [categories]="categories()"
+      [(search)]="search"
+      [(categoryId)]="categoryId"
+      [layoutCounts]="layoutCounts()"
+      [(layout)]="layout"
+      [(featured)]="featured"
     />
-  </esa-card>
-</section>
-
-<!-- Real Lit elements, inside one small component. The panel is a plain div, not an
-     esa-card: a card clips its content (overflow: hidden), which would cut off the
-     list that esa-select opens below itself. -->
-<div class="filter-panel">
-  <app-program-filters
-    [categories]="categories()"
-    [(search)]="search"
-    [(categoryId)]="categoryId"
-    [layoutCounts]="layoutCounts()"
-    [(layout)]="layout"
-    [(featured)]="featured"
-  />
-</div>
-
-<section class="results" aria-labelledby="results-heading">
-  <div class="results__head">
-    <h3 id="results-heading" class="results__title typography-title-sm-strong">Programs</h3>
-    <p class="results__count typography-meta" role="status">
-      Showing {{ filtered().length }} of {{ stats().programs }}
-    </p>
   </div>
 
   @if (filtered().length > 0) {
-    <esa-card padding="none">
-      <div class="table-scroll" role="region" aria-labelledby="results-heading" tabindex="0">
-        <table class="programs-table">
-          <thead>
-            <tr class="typography-label-sm-strong">
-              <th scope="col">Program</th>
-              <th scope="col">Category</th>
-              <th scope="col">Layout</th>
-              <th scope="col" class="is-number">Partners</th>
-              <th scope="col">Featured</th>
+    <div class="table-scroll" role="region" aria-label="Programs" tabindex="0">
+      <table class="programs-table">
+        <thead>
+          <tr class="typography-label-sm-strong">
+            <th scope="col">Program</th>
+            <th scope="col">Category</th>
+            <th scope="col">Layout</th>
+            <th scope="col" class="is-number">Partners</th>
+            <th scope="col">Featured</th>
+          </tr>
+        </thead>
+        <tbody class="typography-body-sm">
+          @for (program of filtered(); track program.MonitoringProgramID) {
+            <tr>
+              <th scope="row">
+                <span class="program-cell">
+                  <!-- The key photo, small. Decorative: the link beside it names the
+                       program. No photo, or a file that fails, leaves the neutral frame. -->
+                  <span class="thumb" aria-hidden="true">
+                    @if (program.KeyPhotoUrl && !failedPhotos().has(program.MonitoringProgramID)) {
+                      <img
+                        class="thumb__img"
+                        [src]="program.KeyPhotoUrl"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        (error)="photoFailed(program.MonitoringProgramID)"
+                      />
+                    }
+                  </span>
+                  <a [routerLink]="['/programs', program.MonitoringProgramID]">{{
+                    program.MonitoringProgramName
+                  }}</a>
+                </span>
+              </th>
+              <td class="is-category">{{ program.CategoryName }}</td>
+              <td>
+                <esa-badge [value]="layoutLabels[program.Template]" size="sm" />
+              </td>
+              <td class="is-number">{{ program.PartnerCount }}</td>
+              <td>
+                @if (program.IsFeatured) {
+                  <esa-badge value="Featured" size="sm" />
+                } @else {
+                  <span class="visually-hidden">Not featured</span>
+                }
+              </td>
             </tr>
-          </thead>
-          <tbody class="typography-body-sm">
-            @for (program of filtered(); track program.MonitoringProgramID) {
-              <tr>
-                <th scope="row">
-                  <span class="program-cell">
-                    <!-- The key photo, small. Decorative: the link beside it names the
-                         program. No photo, or a file that fails, shows the category color. -->
-                    <span
-                      class="thumb"
-                      aria-hidden="true"
-                      [style.--category-color]="program.ThemeColor"
-                    >
-                      @if (program.KeyPhotoUrl && !failedPhotos().has(program.MonitoringProgramID)) {
-                        <img
-                          class="thumb__img"
-                          [src]="program.KeyPhotoUrl"
-                          alt=""
-                          loading="lazy"
-                          decoding="async"
-                          (error)="photoFailed(program.MonitoringProgramID)"
-                        />
-                      }
-                    </span>
-                    <a [routerLink]="['/programs', program.MonitoringProgramID]">{{
-                      program.MonitoringProgramName
-                    }}</a>
-                  </span>
-                </th>
-                <td>
-                  <span class="category-tint" [style.--category-color]="program.ThemeColor">
-                    <esa-badge [value]="program.CategoryName" size="sm" />
-                  </span>
-                </td>
-                <td>
-                  <esa-badge [value]="layoutLabels[program.Template]" size="sm" />
-                </td>
-                <td class="is-number">{{ program.PartnerCount }}</td>
-                <td>
-                  @if (program.IsFeatured) {
-                    <esa-badge variant="success" value="Featured" size="sm" />
-                  } @else {
-                    <span class="is-muted">No</span>
-                  }
-                </td>
-              </tr>
-            }
-          </tbody>
-        </table>
-      </div>
-    </esa-card>
+          }
+        </tbody>
+      </table>
+    </div>
   } @else {
-    <esa-card>
+    <div class="list-frame__empty">
       <esa-empty-state
         [title]="'No programs match'"
         [description]="'Clear the filters to see every program.'"
+        size="sm"
       >
-        <esa-button appearance="outline" (click)="clearFilters()">Clear filters</esa-button>
+        <esa-button appearance="outline" size="sm" (click)="clearFilters()">Clear filters</esa-button>
       </esa-empty-state>
-    </esa-card>
+    </div>
   }
-</section>
+
+  <p class="list-frame__count typography-meta" role="status">
+    Showing {{ filtered().length }} of {{ programs().length }}
+  </p>
+</div>

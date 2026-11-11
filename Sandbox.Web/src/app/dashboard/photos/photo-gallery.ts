@@ -10,7 +10,7 @@ import { PhotoViewer } from './photo-viewer';
 // Every frame is 4 to 3 and the photo is cropped to fill it, so tall, wide,
 // and square photos line up, and the grid has its final shape before any file
 // arrives. Files load only as they near the viewport. A photo whose file fails
-// keeps its frame and caption and shows the category tint with a short note.
+// keeps its frame and caption and shows a neutral well with a short note.
 //
 //   size="md"  small tiles, for the Photos section of the map and charts layouts
 //   size="lg"  large tiles, for the content layout, where the gallery is a lead element

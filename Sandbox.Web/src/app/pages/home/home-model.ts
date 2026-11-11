@@ -3,11 +3,9 @@
 import type { Category, MonitoringProgramSummary } from '../../api/models';
 
 /**
- * THE ONE PLACE a category's color is decided on the home page. Card accents (through
- * --cat), the map legend, the map markers and popups, the map panel swatch, and the About
- * goal list all read it. Today it is the Threshold Dashboard theme color from the API; to
- * restyle, return something else here (a token expression such as var(--x) works for CSS,
- * and the map resolves token expressions before drawing).
+ * THE ONE PLACE the color of a category's sites is decided on the home page. The map
+ * markers and popups read it; the cards, the legend, and the About goals are neutral. A
+ * token expression such as var(--x) works: the map resolves it before drawing.
  */
 export function categoryColor(_item: { ThemeColor: string }): string {
   // Ecology default: containers stay neutral and one data color carries the sites. The

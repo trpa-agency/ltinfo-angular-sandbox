@@ -40,7 +40,7 @@ const DETAIL_KEYS = [
 const IMAGE_KEYS = ['Caption', 'IsKeyPhoto', 'MonitoringProgramImageID', 'PhotoCredit', 'Url'];
 
 /** The only keys a DashboardConfig may carry. Each is optional. */
-const CONFIG_KEYS = ['mapLayer', 'measures', 'overlays', 'sitesLayer', 'sitesPerYear'];
+const CONFIG_KEYS = ['mapLayer', 'measures', 'overlays', 'siteProfile', 'sitesLayer', 'sitesPerYear'];
 
 const CATEGORY_KEYS = [
   'Blurb',
@@ -119,6 +119,7 @@ interface DashboardConfig {
   sitesPerYear?: { layer: number | string; year: string; site: string };
   mapLayer?: { layer: number | string };
   overlays?: unknown[];
+  siteProfile?: { record?: { year: string; value: string }; facts?: { label: string; field: string }[] };
 }
 
 interface ProgramDetail extends ProgramSummary {
@@ -200,6 +201,18 @@ function expectDashboardConfig(program: ProgramDetail): void {
     expect(config.sitesPerYear.site, label).toEqual(expect.any(String));
   }
   if (config.overlays !== undefined) expect(Array.isArray(config.overlays), label).toBe(true);
+  if (config.siteProfile !== undefined) {
+    // What the site profile reads: an object, its record naming the year and value fields.
+    expect(typeof config.siteProfile, `${label}: siteProfile`).toBe('object');
+    expect(config.siteProfile, `${label}: siteProfile`).not.toBeNull();
+    if (config.siteProfile.record !== undefined) {
+      expect(config.siteProfile.record.year, `${label}: siteProfile record year`).toEqual(expect.any(String));
+      expect(config.siteProfile.record.value, `${label}: siteProfile record value`).toEqual(expect.any(String));
+    }
+    if (config.siteProfile.facts !== undefined) {
+      expect(Array.isArray(config.siteProfile.facts), `${label}: siteProfile facts`).toBe(true);
+    }
+  }
 }
 
 test.describe('Sandbox.API contract', () => {

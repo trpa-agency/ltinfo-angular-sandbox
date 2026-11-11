@@ -1,66 +1,63 @@
-// Page layout only. Every value is a token; the components bring their own look.
+// The All Programs grid: one white frame with a hairline border holding the filter bar,
+// the dense table, and the record count. Neutral throughout; every value is a token.
 
 :host {
+  display: block;
+}
+
+// Drawn with the tokens a card uses, but without clipping, so the esa-select list can
+// open over the table below it.
+.list-frame {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-500);
-}
-
-// Four tiles that drop to two columns, then one, as the page narrows.
-.stats {
-  display: grid;
-  gap: var(--spacing-400);
-  grid-template-columns: repeat(auto-fit, minmax(min(11rem, 100%), 1fr));
-}
-
-// The filter row sits on a white panel drawn with the same tokens a card uses,
-// but without clipping, so the esa-select list can open over the page below.
-.filter-panel {
-  padding: var(--spacing-300);
   background: var(--color-background-elevation-raised);
   border: var(--border-width-default) solid var(--card-border-color, var(--color-border-default));
   border-radius: var(--radius-md);
 }
 
-.results {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-300);
+.list-frame__filters {
+  padding: var(--spacing-300) var(--spacing-400);
+  border-bottom: var(--border-width-default) solid var(--color-border-default);
 }
 
-.results__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--spacing-200);
+.list-frame__empty {
+  padding: var(--spacing-600) var(--spacing-400);
 }
 
-.results__title,
-.results__count {
+.list-frame__count {
   margin: 0;
-}
-
-.results__count {
+  padding: var(--spacing-200) var(--spacing-400);
+  border-top: var(--border-width-default) solid var(--color-border-default);
   color: var(--color-content-default-secondary);
+  font-variant-numeric: tabular-nums;
 }
 
 // ---- the table: plain HTML, styled with tokens ----
-// A narrow screen scrolls the table sideways inside the card instead of
-// pushing the page wider.
-// It is focusable so a keyboard user can scroll it with the arrow keys.
+// A narrow screen scrolls the table sideways inside the frame instead of pushing the
+// page wider. It is focusable so a keyboard user can scroll it with the arrow keys.
 .table-scroll {
+  // Positioned, so the visually hidden text in the cells is clipped with the table instead
+  // of widening the page.
+  position: relative;
   overflow-x: auto;
 }
 
+.table-scroll:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-default-focus);
+  outline-offset: calc(-1 * var(--border-width-focus));
+}
+
+// A dense grid keeps its rows on one or two lines and scrolls sideways in a narrow window,
+// rather than stacking every name into a tall column.
 .programs-table {
   width: 100%;
+  min-width: 48rem;
   border-collapse: collapse;
 }
 
 .programs-table th,
 .programs-table td {
-  padding: var(--spacing-300) var(--spacing-400);
+  padding: var(--spacing-200) var(--spacing-400);
   text-align: start;
   vertical-align: middle;
   // The type role is set on the row group; cells inherit all of it.
@@ -70,6 +67,7 @@
 }
 
 .programs-table thead th {
+  padding-block: var(--spacing-250);
   color: var(--color-content-default-secondary);
   background: var(--color-background-elevation-sunken);
   border-bottom-color: var(--color-border-default);
@@ -81,8 +79,9 @@
   border-bottom: 0;
 }
 
+// A neutral tint on hover: no color, and nothing moves.
 .programs-table tbody tr:hover {
-  background: var(--color-background-brand-subtle);
+  background: var(--color-background-elevation-sunken);
 }
 
 // The program cell: a small key photo, then the name.
@@ -92,8 +91,12 @@
   gap: var(--spacing-300);
 }
 
-// A fixed 4 to 3 box, so the rows keep their height while photos load. With no
-// photo it is the category color: a tint with the solid color down its leading edge.
+.is-category {
+  color: var(--color-content-default);
+}
+
+// A fixed 4 to 3 box, so the rows keep their height while photos load. With no photo
+// it is a neutral well.
 .thumb {
   flex: 0 0 auto;
   position: relative;
@@ -101,21 +104,13 @@
   aspect-ratio: 4 / 3;
   border-radius: var(--radius-sm);
   overflow: hidden;
-  background: color-mix(
-    in srgb,
-    var(--category-color, var(--color-background-brand)) 22%,
-    var(--color-background-elevation-raised)
-  );
-  border-inline-start: var(--border-width-300) solid
-    var(--category-color, var(--color-background-brand));
+  background: var(--color-background-elevation-sunken);
 }
 
-// A photo covers the whole box, the color edge included.
 .thumb__img {
   position: absolute;
   inset: 0;
-  inset-inline-start: calc(-1 * var(--border-width-300));
-  width: calc(100% + var(--border-width-300));
+  width: 100%;
   height: 100%;
   object-fit: cover;
 }
@@ -123,8 +118,4 @@
 .programs-table .is-number {
   text-align: end;
   font-variant-numeric: tabular-nums;
-}
-
-.is-muted {
-  color: var(--color-content-default-secondary);
 }

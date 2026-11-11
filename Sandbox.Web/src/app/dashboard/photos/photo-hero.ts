@@ -15,7 +15,7 @@ import { PhotoViewer } from './photo-viewer';
 //
 // The frame has its size before the file arrives, so nothing moves when it
 // does. If the file fails, the viewer is told and the header swaps this for
-// the category banner.
+// the empty photo well.
 @Component({
   selector: 'app-photo-hero',
   changeDetection: ChangeDetectionStrategy.OnPush,

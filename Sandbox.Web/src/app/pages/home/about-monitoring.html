@@ -1,69 +1,56 @@
-<!-- mon-lego-checked: esa-card for the two text panels. The goal list is plain markup with
-     the category color as data, the same circle-and-icon motif as the category cards. -->
-<div class="about__panels">
-  <esa-card [title]="'What this dashboard holds'">
-    <div class="about__prose">
-      <p>
-        Each monitoring program has a page that describes what is measured, how and where it is
-        measured, who does the work, and what the record shows so far, with charts, a site map,
-        and photos where the program has them.
-      </p>
-      <p>
-        Programs are grouped by the same 10 threshold categories as the
-        <a href="https://thresholds.laketahoeinfo.org/" target="_blank" rel="noopener">Threshold Dashboard</a>.
-        Monitoring data feed that dashboard, where each indicator is evaluated against its standard
-        every four years.
-      </p>
-    </div>
-  </esa-card>
-  <esa-card [title]="'Where the data come from'">
-    <div class="about__prose">
-      <p>
-        Programs, partners, photos, and site locations come from
-        <a href="https://monitoring.laketahoeinfo.org/" target="_blank" rel="noopener">Lake Tahoe Info</a>.
-        The site map on this page shows one point for each mapped site, area, or line.
-      </p>
-      <p>
-        Measurement charts and full site shapes on the program pages are read live from the TRPA
-        <a
-          href="https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer"
-          target="_blank"
-          rel="noopener"
-          >LTInfo_Monitoring map service</a
-        >.
-      </p>
-    </div>
-  </esa-card>
-</div>
+<!-- mon-lego-checked: no lego fits a reading section. It is plain text on the page, no
+     cards: the goals as a list with hairline rules, and the data sources beside it. -->
+<p class="about__lead typography-body-lg">
+  Monitoring is how TRPA and its partners measure the condition of the Lake Tahoe Region and
+  track progress toward the threshold standards. Programs are grouped by the 10 threshold
+  categories of the
+  <a href="https://thresholds.laketahoeinfo.org/" target="_blank" rel="noopener">Threshold Dashboard</a>,
+  where each indicator is evaluated against its standard every four years.
+</p>
 
-<h3 class="about__goals-title typography-title-sm-strong">Threshold categories and their goals</h3>
-<ol class="goals">
-  @for (group of groups(); track group.category.CategoryID) {
-    @let category = group.category;
-    <li
-      class="goal"
-      [class.on-light]="group.light"
-      [style.--cat]="group.color"
-      [attr.data-folder]="category.Folder"
-    >
-      <span class="goal__icon" aria-hidden="true">
-        @if (category.IconUrl) {
-          <img [src]="category.IconUrl" alt="" width="20" height="20" loading="lazy" decoding="async" />
-        }
-      </span>
-      <div class="goal__text">
-        <h4 class="goal__name typography-label-md-strong">{{ category.CategoryName }}</h4>
-        <p class="goal__description typography-body-sm">{{ goal(category.CategoryDescription) }}</p>
+<div class="about__columns">
+  <section class="about__goals" aria-labelledby="about-goals-title">
+    <h3 id="about-goals-title" class="about__title typography-title-sm-strong">Threshold Category Goals</h3>
+    <ol class="goals">
+      @for (group of groups(); track group.category.CategoryID) {
+        @let category = group.category;
+        <li class="goal" [attr.data-folder]="category.Folder">
+          <h4 class="goal__name typography-label-md-strong">{{ category.CategoryName }}</h4>
+          <p class="goal__link typography-label-sm">
+            @if (group.programs.length) {
+              <a [routerLink]="['/category', category.Folder]">
+                {{ group.programs.length }} {{ group.programs.length === 1 ? 'program' : 'programs' }}
+              </a>
+            } @else {
+              <span class="goal__none">No programs yet</span>
+            }
+          </p>
+          <p class="goal__description typography-body-sm">{{ goal(category.CategoryDescription) }}</p>
+        </li>
+      }
+    </ol>
+  </section>
+
+  <section class="about__sources" aria-labelledby="about-sources-title">
+    <h3 id="about-sources-title" class="about__title typography-title-sm-strong">Data Sources</h3>
+    <dl class="sources">
+      <div class="source">
+        <dt class="typography-label-md-strong">
+          <a href="https://monitoring.laketahoeinfo.org/" target="_blank" rel="noopener">Lake Tahoe Info</a>
+        </dt>
+        <dd class="typography-body-sm">Programs, partners, photos, and site locations.</dd>
       </div>
-      <p class="goal__link typography-label-sm">
-        @if (group.programs.length) {
-          <a [routerLink]="['/category', category.Folder]">
-            {{ group.programs.length }} {{ group.programs.length === 1 ? 'program' : 'programs' }}
-          </a>
-        } @else {
-          <span class="goal__none">No programs yet</span>
-        }
-      </p>
-    </li>
-  }
-</ol>
+      <div class="source">
+        <dt class="typography-label-md-strong">
+          <a
+            href="https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer"
+            target="_blank"
+            rel="noopener"
+            >LTInfo_Monitoring map service</a
+          >
+        </dt>
+        <dd class="typography-body-sm">Measurement charts and site shapes on the program pages, read live from TRPA.</dd>
+      </div>
+    </dl>
+  </section>
+</div>

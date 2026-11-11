@@ -43,11 +43,7 @@
   border-radius: var(--radius-md);
   overflow: hidden;
   // What shows while the file loads, and behind a photo that failed.
-  background: color-mix(
-    in srgb,
-    var(--category-color, var(--color-background-brand)) 16%,
-    var(--color-background-elevation-sunken)
-  );
+  background: var(--color-background-elevation-sunken);
 }
 
 .gallery__open {

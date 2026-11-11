@@ -23,12 +23,8 @@
   border: 0;
   overflow: hidden;
   cursor: zoom-in;
-  // What shows while the file loads: the category tint, not a white hole.
-  background: color-mix(
-    in srgb,
-    var(--category-color, var(--color-background-brand)) 16%,
-    var(--color-background-elevation-sunken)
-  );
+  // What shows while the file loads: a neutral well, not a white hole.
+  background: var(--color-background-elevation-sunken);
 }
 
 .hero__img {
@@ -61,7 +57,7 @@
     position: absolute;
     inset: 0;
   }
-  // The caption sits on a scrim in the navy of the app bar. It does not take
+  // The caption sits on a dark scrim over the foot of the photo. It does not take
   // clicks, so the whole photo stays the button.
   .hero__caption {
     position: absolute;

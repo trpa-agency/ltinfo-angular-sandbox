@@ -5,18 +5,17 @@ import { Category, MonitoringProgramSummary, Template } from '../../api/models';
 import { TEMPLATE_LABELS } from '../../dashboard/templates/template-info';
 import { EsaBadge } from '../../ecology/esa-badge';
 import { EsaButton } from '../../ecology/esa-button';
-import { EsaCard } from '../../ecology/esa-card';
 import { EsaEmptyState } from '../../ecology/esa-empty-state';
-import { EsaStat } from '../../ecology/esa-stat';
 import { FeaturedFilter, LayoutFilter, ProgramFilters } from './program-filters';
 
-// The All Programs list: four tiles, the four filters, and the table. It is a section
-// of the home page, which loads the data once and passes it in, and owns the loading
-// and error states. The home page calls showCategory() for "Show these programs".
+// The All Programs list: the four filters, the table, and the record count, in one
+// frame. It is a section of the home page, which loads the data once, passes it in, and
+// owns the loading and error states; the hero above carries the totals. The home page
+// calls showCategory() for "Show in the list".
 @Component({
   selector: 'app-program-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, EsaBadge, EsaButton, EsaCard, EsaEmptyState, EsaStat, ProgramFilters],
+  imports: [RouterLink, EsaBadge, EsaButton, EsaEmptyState, ProgramFilters],
   templateUrl: './program-list.html',
   styleUrl: './program-list.scss',
 })
@@ -30,7 +29,7 @@ export class ProgramList {
   protected readonly layout = signal<LayoutFilter>('');
   protected readonly featured = signal<FeaturedFilter>('all');
 
-  /** Programs whose key photo file did not load; their rows show the category swatch instead. */
+  /** Programs whose key photo file did not load; their rows show the empty frame instead. */
   protected readonly failedPhotos = signal<ReadonlySet<number>>(new Set());
 
   /** What a reader sees for each stored layout value. */
@@ -40,17 +39,6 @@ export class ProgramList {
     categories: this.categories(),
     programs: this.programs(),
   }));
-
-  // The four tiles count the whole dataset, not the filtered rows.
-  protected readonly stats = computed(() => {
-    const { categories, programs } = this.data();
-    return {
-      programs: programs.length,
-      categories: categories.length,
-      featured: programs.filter((program) => program.IsFeatured).length,
-      partnerLinks: programs.reduce((sum, program) => sum + program.PartnerCount, 0),
-    };
-  });
 
   /** How many programs use each layout, counted over the whole dataset. */
   protected readonly layoutCounts = computed<Record<Template, number>>(() => {

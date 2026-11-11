@@ -11,6 +11,9 @@
 // shadow roots. Playwright locators reach into open shadow roots, so they are
 // found by role and name like any other control.
 //
+// The app follows Ecology's default theme (no data-theme attribute, DM Sans):
+// neutral containers and badges, and no category colors anywhere on the page.
+//
 // The chart and map panels read the TRPA map service, a live server outside
 // the sandbox. The tests hold the panels only to their contract: the right
 // number of app-chart-panel and app-sites-panel hosts, each of which leaves
@@ -20,9 +23,12 @@ import type { APIRequestContext, Locator, Page } from '@playwright/test';
 
 import {
   API_URL,
+  FONT_PATTERN,
   PANEL_TIMEOUT_MS,
   TEMPLATE_LABELS,
   expect,
+  fontLoaded,
+  resolvedColor,
   seed,
   test,
 } from './support';
@@ -33,14 +39,15 @@ const apiProgramUrl = (id: number): string => `${API_URL}/monitoring-programs/${
 
 // ---- the list page ----
 const rows = (page: Page): Locator => page.locator('table.programs-table tbody tr');
-const resultCount = (page: Page): Locator => page.locator('.results__count');
+const resultCount = (page: Page): Locator => page.locator('.list-frame__count');
 const searchBox = (page: Page): Locator => page.getByRole('textbox', { name: 'Search programs' });
 const categorySelect = (page: Page): Locator => page.getByRole('combobox', { name: 'Category' });
 const layoutSelect = (page: Page): Locator => page.getByRole('combobox', { name: 'Layout' });
 const featuredOnly = (page: Page): Locator => page.getByRole('radio', { name: 'Featured only' });
 const allPrograms = (page: Page): Locator => page.getByRole('radio', { name: 'All programs' });
-const statValue = (page: Page, label: string): Locator =>
-  page.locator('.esa-stat').filter({ hasText: label }).locator('.esa-stat__value');
+/** A total in the home page header band, by its label. */
+const heroTotal = (page: Page, label: string): Locator =>
+  page.locator('.hero-stat').filter({ hasText: label }).locator('dd');
 const footer = (page: Page): Locator => page.locator('.app-footer');
 /** The table row of one program, found by its link. */
 const rowOf = (page: Page, name: string): Locator =>
@@ -77,8 +84,9 @@ const previewNotice = (page: Page): Locator => page.locator('.layout__notice');
 const savedValue = (page: Page): Locator => page.locator('.featured__value');
 const featuredButton = (page: Page): Locator => page.locator('.featured').getByRole('button');
 
-/** The "All programs" link at the top of a program page. */
-const backLink = (page: Page): Locator => page.locator('.back').getByRole('link', { name: 'All programs' });
+/** The "All Programs" link at the top of a program page. */
+const backLink = (page: Page): Locator =>
+  page.locator('.back').getByRole('link', { name: 'All Programs', exact: true });
 
 const CONNECTED_LINE = `Angular, the API, and SQL Server are connected. Database ${seed.database}, ${seed.programs} programs.`;
 
@@ -110,21 +118,18 @@ async function expectPanelsSettled(page: Page, charts: number, maps: number): Pr
   }
 }
 
-/** True once the Lexend Deca files have arrived, not only been asked for. */
-async function lexendDecaLoaded(page: Page): Promise<boolean> {
-  return page.evaluate(async () => {
-    await document.fonts.ready;
-    return [...document.fonts].some(
-      (face) => face.family.replace(/["']/g, '') === 'Lexend Deca' && face.status === 'loaded',
-    );
-  });
-}
-
 /** How far the page can scroll sideways, in pixels. Zero or less means not at all. */
 async function sidewaysOverflow(page: Page): Promise<number> {
   return page.evaluate(
     () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
   );
+}
+
+/** The programs the All Programs list shows with Featured only picked. */
+async function featuredRows(page: Page): Promise<Locator> {
+  await featuredOnly(page).click();
+  await expect(featuredOnly(page)).toHaveAttribute('aria-checked', 'true');
+  return rows(page);
 }
 
 async function featuredCount(request: APIRequestContext): Promise<number> {
@@ -153,36 +158,41 @@ test.describe('All Programs list', () => {
     await openList(page);
   });
 
-  test('applies the LT Info theme, Lexend Deca, and the page background', async ({ page }) => {
-    await expect(page.locator('html')).toHaveAttribute('data-theme', 'ltinfo');
-    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(247, 247, 247)');
-    await expect(page.locator('body')).toHaveCSS('font-family', /Lexend Deca/);
+  test("applies Ecology's default theme, DM Sans, and the page background", async ({ page }) => {
+    // No theme attribute: the default theme from tokens.css.
+    expect(await page.locator('html').getAttribute('data-theme')).toBeNull();
+    await expect(page.locator('body')).toHaveCSS(
+      'background-color',
+      await resolvedColor(page, '--color-background-default'),
+    );
+    await expect(page.locator('body')).toHaveCSS('font-family', FONT_PATTERN);
 
     // The face reaches text in the page, in a table cell, and inside a shadow root.
-    await expect(page.getByRole('heading', { level: 1 })).toHaveCSS('font-family', /Lexend Deca/);
-    await expect(rows(page).first().locator('th')).toHaveCSS('font-family', /Lexend Deca/);
-    await expect(searchBox(page)).toHaveCSS('font-family', /Lexend Deca/);
-    await expect(categorySelect(page)).toHaveCSS('font-family', /Lexend Deca/);
+    await expect(page.getByRole('heading', { level: 1 })).toHaveCSS('font-family', FONT_PATTERN);
+    await expect(rows(page).first().locator('th')).toHaveCSS('font-family', FONT_PATTERN);
+    await expect(searchBox(page)).toHaveCSS('font-family', FONT_PATTERN);
+    await expect(categorySelect(page)).toHaveCSS('font-family', FONT_PATTERN);
 
-    await expect.poll(() => lexendDecaLoaded(page)).toBe(true);
+    await expect.poll(() => fontLoaded(page)).toBe(true);
   });
 
-  test('shows the four stat tiles with the seeded totals', async ({ page }) => {
-    const stats = page.locator('.esa-stat');
-
-    await expect(stats).toHaveCount(4);
-    await expect(stats.locator('.esa-stat__label')).toHaveText([
-      'Programs',
-      'Categories',
-      'Featured',
-      'Partner links',
-    ]);
-    await expect(stats.locator('.esa-stat__value')).toHaveText([
-      String(seed.programs),
-      String(seed.categories),
-      String(seed.featured),
-      String(seed.partnerLinks),
-    ]);
+  test('the list is one neutral frame: filters, table, and record count, with no tiles of its own', async ({
+    page,
+  }) => {
+    const frame = page.locator('app-program-list .list-frame');
+    await expect(frame).toHaveCSS(
+      'background-color',
+      await resolvedColor(page, '--color-background-elevation-raised'),
+    );
+    await expect(frame).toHaveCSS('border-top-color', await resolvedColor(page, '--color-border-default'));
+    // The filters, then the table, then the count, in that order inside the one frame.
+    const order = await frame.evaluate((root) =>
+      [...root.children].map((child) => child.className.split(' ')[0]),
+    );
+    expect(order).toEqual(['list-frame__filters', 'table-scroll', 'list-frame__count']);
+    // The totals live in the header band above; the list repeats none of them.
+    await expect(page.locator('app-program-list .esa-stat')).toHaveCount(0);
+    await expect(heroTotal(page, 'monitoring programs')).toHaveText(String(seed.programs));
   });
 
   test('lists all 36 programs', async ({ page }) => {
@@ -215,9 +225,22 @@ test.describe('All Programs list', () => {
     await expect(rowOf(page, seed.yellowCress.name).locator(LAYOUT_CELL)).toHaveText('Map');
     await expect(rowOf(page, seed.socioEconomic.name).locator(LAYOUT_CELL)).toHaveText('Content');
     await expect(rowOf(page, seed.ozone.name).locator(`${LAYOUT_CELL} .esa-badge`)).toHaveCount(1);
+    // Quiet badges: the neutral variant, never a color.
+    await expect(rows(page).locator('.esa-badge:not(.esa-badge--neutral)')).toHaveCount(0);
   });
 
-  test('each row shows a key photo thumbnail, or the category color when there is none', async ({
+  test('the category column is plain text, with no badge and no category color', async ({ page }) => {
+    await expect(rowOf(page, seed.ozone.name).locator(CATEGORY_CELL)).toHaveText(seed.ozone.category);
+    await expect(rows(page).locator(`${CATEGORY_CELL} .esa-badge`)).toHaveCount(0);
+    await expect(page.locator('.category-tint, [style*="--category-color"]')).toHaveCount(0);
+    // Every category cell is drawn in the same text color.
+    const colors = await rows(page)
+      .locator(CATEGORY_CELL)
+      .evaluateAll((cells) => cells.map((cell) => getComputedStyle(cell).color));
+    expect(new Set(colors).size).toBe(1);
+  });
+
+  test('each row shows a key photo thumbnail, or a neutral frame when there is none', async ({
     page,
     request,
   }) => {
@@ -241,10 +264,16 @@ test.describe('All Programs list', () => {
       .poll(() => thumb.evaluate((img: HTMLImageElement) => img.naturalWidth), { timeout: 30_000 })
       .toBeGreaterThan(0);
 
-    // A program without one: the box is there, with no image in it.
+    // A program without one: the box is there, with no image in it, in the neutral well
+    // color and with no colored edge.
     const empty = rowOf(page, seed.subalpineConifer.name);
     await expect(empty.locator('.thumb')).toHaveCount(1);
     await expect(empty.locator('img')).toHaveCount(0);
+    await expect(empty.locator('.thumb')).toHaveCSS(
+      'background-color',
+      await resolvedColor(page, '--color-background-elevation-sunken'),
+    );
+    await expect(empty.locator('.thumb')).toHaveCSS('border-left-width', '0px');
   });
 
   test('footer says Angular, the API, and SQL Server are connected', async ({ page }) => {
@@ -355,8 +384,7 @@ test.describe('All Programs list', () => {
     await expect(rows(page).locator(FEATURED_CELL)).toHaveText(
       Array.from({ length: seed.featured }, () => 'Featured'),
     );
-    // The filtered table and the Featured tile count the same thing.
-    await expect(statValue(page, 'Featured')).toHaveText(String(seed.featured));
+    await expect(resultCount(page)).toHaveText(`Showing ${seed.featured} of ${seed.programs}`);
 
     await allPrograms(page).click();
     await expect(rows(page)).toHaveCount(seed.programs);
@@ -400,9 +428,22 @@ test.describe('Program page, shared parts', () => {
     // Opened by address: on the nginx build this also proves the SPA fallback.
     await openProgram(page, seed.ozone.id, seed.ozone.name);
 
-    // The shared header: the name, the category badge in the category color, four tiles.
-    await expect(header(page).locator('.head__badges')).toContainText(seed.ozone.category);
-    await expect(header(page).locator('.category-tint .esa-badge')).toHaveText(seed.ozone.category);
+    // The shared header: the name, the category as a quiet neutral badge, four tiles.
+    const categoryBadge = header(page).locator('.head__badges .esa-badge').first();
+    await expect(categoryBadge).toHaveText(seed.ozone.category);
+    await expect(categoryBadge).toHaveClass(/esa-badge--neutral/);
+    await expect(header(page).locator('.esa-badge:not(.esa-badge--neutral)')).toHaveCount(0);
+    // A neutral card: the top edge is the same hairline as the others, not a category rule.
+    const head = header(page).locator('.head');
+    const edges = await head.evaluate((element) => {
+      const style = getComputedStyle(element);
+      return {
+        top: `${style.borderTopWidth} ${style.borderTopColor}`,
+        bottom: `${style.borderBottomWidth} ${style.borderBottomColor}`,
+      };
+    });
+    expect(edges.top).toBe(edges.bottom);
+    await expect(page.locator('.category-tint, [style*="--category-color"]')).toHaveCount(0);
     await expect(tiles(page).locator('.esa-stat__label')).toHaveText([
       'Total sites',
       'Active sites',
@@ -412,7 +453,7 @@ test.describe('Program page, shared parts', () => {
 
     // The story: Ozone has no description, so the card holds the monitoring approach.
     await expect(page.locator('.prose')).toContainText('Ozone is monitored');
-    await expect(page.getByRole('heading', { name: 'Monitoring approach' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Monitoring Approach', exact: true })).toBeVisible();
 
     await expect(partnerItems(page)).toHaveCount(seed.ozone.partners);
     await expect(partnerItems(page).first()).toHaveText('Tahoe Regional Planning Agency (TRPA)');
@@ -470,14 +511,15 @@ test.describe('Program page, shared parts', () => {
       );
 
       // The value is in SQL Server, not only on the page: the API agrees, and a
-      // fresh load of the list counts one more (or one fewer) featured program.
+      // fresh load of the list shows one more (or one fewer) featured program.
       const saved = (await (await request.get(apiProgramUrl(id))).json()) as {
         IsFeatured: boolean;
       };
       expect(saved.IsFeatured).toBe(!original.IsFeatured);
       const featuredAfter = featuredBefore + (original.IsFeatured ? -1 : 1);
       await openList(page);
-      await expect(statValue(page, 'Featured')).toHaveText(String(featuredAfter));
+      await expect(await featuredRows(page)).toHaveCount(featuredAfter);
+      await expect(rowOf(page, name)).toHaveCount(original.IsFeatured ? 0 : 1);
 
       // Second click, on a fresh load of the detail page: back to the original.
       await openProgram(page, id, name);
@@ -628,17 +670,19 @@ test.describe('The three templates', () => {
     ).toBeVisible();
   });
 
-  test('program 83 has no photo: the category banner stands in, and nothing is broken', async ({
+  test('program 83 has no photo: the header text takes the full width, and nothing is broken', async ({
     page,
   }) => {
-    const { id, name, category } = seed.subalpineConifer;
+    const { id, name } = seed.subalpineConifer;
     await openProgram(page, id, name);
 
     await expect(program(page)).toHaveAttribute('data-template', 'context');
     await expect(header(page)).toHaveAttribute('data-photo', 'none');
-    await expect(banner(page)).toBeVisible();
-    await expect(banner(page)).toContainText(category);
-    await expect(banner(page)).toContainText('No program photo yet');
+    // No empty frame leads the content layout: the text takes the whole header.
+    await expect(banner(page)).toHaveCount(0);
+    const text = (await header(page).locator('.head__text').boundingBox())!;
+    const card = (await header(page).locator('.head').boundingBox())!;
+    expect(Math.abs(text.width - (card.width - 2))).toBeLessThanOrEqual(1);
 
     // No image, no gallery, no photo button: nothing to be broken or empty.
     await expect(program(page).locator('img')).toHaveCount(0);
@@ -781,7 +825,7 @@ test.describe('Photos', () => {
     // The browser logs the failed image request. It is expected here only.
     test.use({ allowedConsoleErrors: [/net::ERR_FAILED/] });
 
-    test('falls back to the category banner, the same as no photo', async ({ page, request }) => {
+    test('falls back to a neutral well in the photo slot', async ({ page, request }) => {
       const detail = (await (await request.get(apiProgramUrl(seed.ozone.id))).json()) as {
         Images: { Url: string }[];
       };
@@ -792,8 +836,15 @@ test.describe('Photos', () => {
 
       await expect(header(page)).toHaveAttribute('data-photo', 'failed');
       await expect(banner(page)).toBeVisible();
-      await expect(banner(page)).toContainText(seed.ozone.category);
-      await expect(banner(page)).toContainText('The program photo could not be loaded');
+      await expect(banner(page)).toHaveText('The program photo could not be loaded');
+      // A neutral well in the photo's place beside the text, so the band keeps its shape.
+      await expect(banner(page).locator('.banner')).toHaveCSS(
+        'background-color',
+        await resolvedColor(page, '--color-background-elevation-sunken'),
+      );
+      const well = (await banner(page).boundingBox())!;
+      const text = (await header(page).locator('.head__text').boundingBox())!;
+      expect(well.x).toBeGreaterThanOrEqual(text.x + text.width - 1);
       // No broken image is left behind, and there is nothing to open.
       await expect(header(page).locator('img')).toHaveCount(0);
       await expect(heroButton(page)).toHaveCount(0);
@@ -937,7 +988,7 @@ test.describe('API down', () => {
     await page.getByRole('button', { name: 'Try again' }).click();
 
     await expect(rows(page)).toHaveCount(seed.programs);
-    await expect(statValue(page, 'Programs')).toHaveText(String(seed.programs));
+    await expect(heroTotal(page, 'monitoring programs')).toHaveText(String(seed.programs));
     await expect(page.locator('app-category-card')).toHaveCount(seed.categories);
   });
 
@@ -1021,7 +1072,7 @@ test.describe('Console on a clean load', () => {
     await expect(page.locator('app-home-map')).toHaveAttribute('data-state', 'ready', {
       timeout: 30_000,
     });
-    await expect.poll(() => lexendDecaLoaded(page)).toBe(true);
+    await expect.poll(() => fontLoaded(page)).toBe(true);
 
     expect(consoleErrors).toEqual([]);
   });
@@ -1039,7 +1090,7 @@ test.describe('Console on a clean load', () => {
       await openProgram(page, target.id, target.name);
       await expectPanelsSettled(page, target.charts, target.maps);
       await expect(footer(page)).toContainText(CONNECTED_LINE);
-      await expect.poll(() => lexendDecaLoaded(page)).toBe(true);
+      await expect.poll(() => fontLoaded(page)).toBe(true);
 
       expect(consoleErrors).toEqual([]);
     });

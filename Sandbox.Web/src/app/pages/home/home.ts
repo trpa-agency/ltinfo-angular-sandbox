@@ -50,8 +50,6 @@ interface CardView {
   hidden: boolean;
 }
 
-const HERO_URL = 'https://monitoring.laketahoeinfo.org/assets/header-images/monitoring.png';
-
 /**
  * The home page at / and /category/:folder: one scrolling page with the hero and its four
  * totals, the threshold category cards beside the site map, the All Programs list, and
@@ -88,8 +86,6 @@ export class Home {
   private readonly sections = inject(HomeSections);
   private readonly destroyRef = inject(DestroyRef);
 
-  protected readonly heroUrl = HERO_URL;
-  protected readonly heroLoaded = signal(false);
   protected readonly state = signal<LoadState<HomeData>>({ status: 'loading' });
 
   protected readonly search = signal('');
@@ -337,20 +333,30 @@ export class Home {
   }
 
   /**
-   * Every collapsed card the height of the tallest, whatever its text length, while the
-   * cards sit two across. Measured again when the grid changes width or the fonts land.
+   * While the cards sit two across, the two collapsed cards of a row are one height, so a
+   * long name that wraps (Transportation and Sustainable Communities) does not leave its
+   * neighbor short. Rows stay as tall as their own content. Measured again when the grid
+   * changes width or the fonts land.
    */
   private watchGrid(): void {
     const grid = this.grid()?.nativeElement;
     if (!grid) return;
     let width = -1;
     const measure = (): void => {
-      grid.style.removeProperty('--cat-head-min');
+      const heads = [...grid.querySelectorAll<HTMLElement>('.cat__head')];
+      heads.forEach((head) => head.style.removeProperty('min-height'));
       const columns = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
       if (columns < 2) return;
-      const heads = [...grid.querySelectorAll<HTMLElement>('.cat__head')];
-      const tallest = Math.max(0, ...heads.map((head) => head.offsetHeight));
-      if (tallest) grid.style.setProperty('--cat-head-min', `${tallest}px`);
+      // Cards of one row share a top edge (the grid aligns them to the start).
+      const rows = new Map<number, HTMLElement[]>();
+      for (const head of heads) {
+        const top = Math.round((head.closest('app-category-card') as HTMLElement | null)?.offsetTop ?? 0);
+        rows.set(top, [...(rows.get(top) ?? []), head]);
+      }
+      for (const row of rows.values()) {
+        const tallest = Math.max(0, ...row.map((head) => head.offsetHeight));
+        if (tallest) row.forEach((head) => (head.style.minHeight = `${tallest}px`));
+      }
     };
     let frame = 0;
     this.gridObserver = new ResizeObserver(([entry]) => {
