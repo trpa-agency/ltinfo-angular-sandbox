@@ -70,8 +70,11 @@ import { SiteList } from './site-list';
 import { SiteProfileCard } from './site-profile-card';
 import { SitesMap } from './sites-map';
 
-/** Under this map width the site profile docks under the map instead of taking the list column. */
-const DOCK_BELOW_PX = 640;
+/**
+ * Under this map width the site profile docks under the map instead of taking the list column.
+ * Phones only: a laptop's map beside the program page's category menu is about 580 px.
+ */
+const DOCK_BELOW_PX = 480;
 
 /** The fields of an area the profile's joins read (SEZ_ID), so the area query asks for them. */
 function profileFields(profile: SiteProfileConfig | null): string[] {

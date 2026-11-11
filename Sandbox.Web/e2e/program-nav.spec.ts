@@ -46,6 +46,8 @@ test.describe('Program page category menu', () => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/programs/39');
     await expect(current(page)).toHaveText('Tahoe Yellow Cress Monitoring');
+    // Wait for the page to grow tall enough to scroll (the panels fill in after it loads).
+    await expect.poll(() => page.evaluate(() => document.documentElement.scrollHeight), { timeout: 30_000 }).toBeGreaterThan(3000);
     const before = await menu(page).evaluate((el) => el.getBoundingClientRect().top);
     await page.evaluate(() => window.scrollTo(0, 1500));
     await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(1000);
