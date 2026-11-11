@@ -16,13 +16,10 @@ import {
   untracked,
   viewChild,
 } from '@angular/core';
-import { Router } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
 
 // The real Ecology Lit elements; this import registers esa-select once for the app.
 import '../../../ecology/ecology-elements.js';
 
-import { SandboxApiService } from '../../api/sandbox-api.service';
 import { EsaButton } from '../../ecology/esa-button';
 import { EsaCard } from '../../ecology/esa-card';
 import { EsaEmptyState } from '../../ecology/esa-empty-state';
@@ -204,8 +201,6 @@ export class SitesPanel {
   /** Set once the view exists; the card and the dock are only touched after it. */
   private viewReady = false;
   private readonly injector = inject(Injector);
-  private readonly api = inject(SandboxApiService);
-  private readonly router = inject(Router);
 
   /** The picked site or area, or null when no profile is open. */
   protected readonly subject = signal<ProfileSubject | null>(null);
@@ -370,20 +365,9 @@ export class SitesPanel {
     this.opener = null;
   }
 
-  /**
-   * The program's site profile: config.siteProfile when the caller passes it (null for none).
-   * When the caller leaves it out, the program page's address names the program, and the
-   * profile is read from the API. That bridge can go once program-data.ts passes
-   * siteProfile through.
-   */
+  /** The program's site profile settings from its config; null when it has none. */
   private resolveProfile(cfg: SitesPanelConfig): Promise<SiteProfileConfig | null> {
-    if (cfg.siteProfile !== undefined) return Promise.resolve(cfg.siteProfile ?? null);
-    const id = /\/programs\/(\d+)/.exec(this.router.url)?.[1];
-    if (!id) return Promise.resolve(null);
-    return firstValueFrom(this.api.getProgram(Number(id))).then(
-      (program) => (program.MonitoringProgramName === cfg.program ? (program.DashboardConfig?.siteProfile ?? null) : null),
-      () => null,
-    );
+    return Promise.resolve(cfg.siteProfile ?? null);
   }
 
   protected onPick(event: Event): void {
