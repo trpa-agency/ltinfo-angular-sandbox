@@ -1,0 +1,51 @@
+// Token contract of esa-empty-state.astro. The size steps carry padding only;
+// the type steps live in TITLE_TYPE and DESC_TYPE in the component.
+
+:host {
+  display: contents;
+}
+
+.esa-empty-state {
+  --_empty-gap: var(--spacing-200);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--spacing-600) var(--spacing-400);
+  gap: var(--_empty-gap);
+}
+
+.esa-empty-state--xs {
+  padding: var(--spacing-300) var(--spacing-200);
+}
+
+.esa-empty-state--sm {
+  padding: var(--spacing-400) var(--spacing-300);
+}
+
+.esa-empty-state--lg {
+  padding: var(--spacing-800) var(--spacing-400);
+}
+
+.esa-empty-state__title {
+  margin: 0;
+  color: var(--color-content-default);
+}
+
+.esa-empty-state__description {
+  margin: 0;
+  color: var(--color-content-default-secondary);
+  // The hub's own literal: a readable measure for one short sentence.
+  max-width: 360px;
+}
+
+.esa-empty-state__actions {
+  margin-top: var(--spacing-200);
+}
+
+// Nothing projected into the default slot: the action row takes no space.
+.esa-empty-state__actions:empty {
+  display: none;
+}

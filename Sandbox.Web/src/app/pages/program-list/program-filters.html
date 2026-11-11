@@ -1,0 +1,35 @@
+<!--
+  Three real Lit elements from the vendored Ecology bundle.
+  Strings go in as attributes (label, placeholder, size).
+  Arrays and live values go in as properties ([options], [value]).
+  The answer comes back in $event.detail of the lowercase "change" event.
+-->
+<div class="filters">
+  <esa-text-field
+    class="filters__search"
+    label="Search programs"
+    placeholder="e.g. Ozone"
+    size="sm"
+    [value]="search()"
+    (change)="onSearch($event)"
+  ></esa-text-field>
+
+  <esa-select
+    class="filters__category"
+    label="Category"
+    placeholder="All categories"
+    size="sm"
+    [options]="categoryOptions()"
+    [value]="categoryId()"
+    (change)="onCategory($event)"
+  ></esa-select>
+
+  <esa-button-toggle
+    class="filters__featured"
+    label="Show"
+    size="sm"
+    [options]="featuredOptions"
+    [value]="featured()"
+    (change)="onFeatured($event)"
+  ></esa-button-toggle>
+</div>

@@ -1,0 +1,10 @@
+# Installed and generated files. The image installs and builds its own.
+node_modules
+dist
+.angular
+out-tsc
+npm-debug.log
+
+# Editor folders.
+.vscode
+.idea

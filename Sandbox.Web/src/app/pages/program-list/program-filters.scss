@@ -1,0 +1,24 @@
+:host {
+  display: block;
+}
+
+// The Lit elements style themselves inside their shadow roots. From out here
+// only their outer box can be placed, which is all a filter row needs.
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--spacing-400);
+}
+
+.filters__search {
+  flex: 2 1 16rem;
+}
+
+.filters__category {
+  flex: 1 1 14rem;
+}
+
+.filters__featured {
+  flex: 0 1 auto;
+}

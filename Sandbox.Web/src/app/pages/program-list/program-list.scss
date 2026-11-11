@@ -1,0 +1,100 @@
+// Page layout only. Every value is a token; the components bring their own look.
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-500);
+}
+
+.page-title {
+  margin: 0;
+  color: var(--color-content-default);
+}
+
+// Four tiles that drop to two columns, then one, as the page narrows.
+.stats {
+  display: grid;
+  gap: var(--spacing-400);
+  grid-template-columns: repeat(auto-fit, minmax(min(11rem, 100%), 1fr));
+}
+
+// The filter row sits on a white panel drawn with the same tokens a card uses,
+// but without clipping, so the esa-select list can open over the page below.
+.filter-panel {
+  padding: var(--spacing-300);
+  background: var(--color-background-elevation-raised);
+  border: var(--border-width-default) solid var(--card-border-color, var(--color-border-default));
+  border-radius: var(--radius-md);
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-300);
+}
+
+.results__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-200);
+}
+
+.results__title,
+.results__count {
+  margin: 0;
+}
+
+.results__count {
+  color: var(--color-content-default-secondary);
+}
+
+// ---- the table: plain HTML, styled with tokens ----
+// A narrow screen scrolls the table sideways inside the card instead of
+// pushing the page wider.
+// It is focusable so a keyboard user can scroll it with the arrow keys.
+.table-scroll {
+  overflow-x: auto;
+}
+
+.programs-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.programs-table th,
+.programs-table td {
+  padding: var(--spacing-300) var(--spacing-400);
+  text-align: start;
+  vertical-align: middle;
+  // The type role is set on the row group; cells inherit all of it.
+  font: inherit;
+  letter-spacing: inherit;
+  border-bottom: var(--border-width-default) solid var(--color-border-default-subtle);
+}
+
+.programs-table thead th {
+  color: var(--color-content-default-secondary);
+  background: var(--color-background-elevation-sunken);
+  border-bottom-color: var(--color-border-default);
+  white-space: nowrap;
+}
+
+.programs-table tbody tr:last-child th,
+.programs-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.programs-table tbody tr:hover {
+  background: var(--color-background-brand-subtle);
+}
+
+.programs-table .is-number {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.is-muted {
+  color: var(--color-content-default-secondary);
+}

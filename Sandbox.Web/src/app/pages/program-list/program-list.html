@@ -1,0 +1,111 @@
+<h1 class="page-title typography-heading-lg">Monitoring programs</h1>
+
+<!-- One signal holds the page state. @let gives it a name, and each @if narrows its type. -->
+@let page = state();
+
+@if (page.status === 'loading') {
+  <esa-card>
+    <div role="status">
+      <esa-empty-state [title]="'Loading programs'"></esa-empty-state>
+    </div>
+  </esa-card>
+} @else if (page.status === 'error') {
+  <esa-card>
+    <div role="alert">
+      <esa-empty-state [title]="page.title" [description]="page.description">
+        <esa-button appearance="outline" (click)="load()">Try again</esa-button>
+      </esa-empty-state>
+    </div>
+  </esa-card>
+} @else {
+  <!-- Angular-native contract components: esa-card and esa-stat. -->
+  <section class="stats" aria-label="Summary">
+    <esa-card padding="compact">
+      <esa-stat [value]="stats().programs" label="Programs" />
+    </esa-card>
+    <esa-card padding="compact">
+      <esa-stat [value]="stats().categories" label="Categories" />
+    </esa-card>
+    <esa-card padding="compact">
+      <esa-stat [value]="stats().featured" label="Featured" accent />
+    </esa-card>
+    <esa-card padding="compact">
+      <esa-stat
+        [value]="stats().partnerLinks"
+        label="Partner links"
+        sub="Program and partner pairs"
+      />
+    </esa-card>
+  </section>
+
+  <!-- Real Lit elements, inside one small component. The panel is a plain div, not an
+       esa-card: a card clips its content (overflow: hidden), which would cut off the
+       list that esa-select opens below itself. -->
+  <div class="filter-panel">
+    <app-program-filters
+      [categories]="categories()"
+      [(search)]="search"
+      [(categoryId)]="categoryId"
+      [(featured)]="featured"
+    />
+  </div>
+
+  <section class="results" aria-labelledby="results-heading">
+    <div class="results__head">
+      <h2 id="results-heading" class="results__title typography-title-sm-strong">Programs</h2>
+      <p class="results__count typography-meta" role="status">
+        Showing {{ filtered().length }} of {{ stats().programs }}
+      </p>
+    </div>
+
+    @if (filtered().length > 0) {
+      <esa-card padding="none">
+        <div class="table-scroll" role="region" aria-labelledby="results-heading" tabindex="0">
+          <table class="programs-table">
+            <thead>
+              <tr class="typography-label-sm-strong">
+                <th scope="col">Program</th>
+                <th scope="col">Category</th>
+                <th scope="col" class="is-number">Partners</th>
+                <th scope="col">Featured</th>
+              </tr>
+            </thead>
+            <tbody class="typography-body-sm">
+              @for (program of filtered(); track program.MonitoringProgramID) {
+                <tr>
+                  <th scope="row">
+                    <a [routerLink]="['/programs', program.MonitoringProgramID]">{{
+                      program.MonitoringProgramName
+                    }}</a>
+                  </th>
+                  <td>
+                    <span class="category-tint" [style.--category-color]="program.ThemeColor">
+                      <esa-badge [value]="program.CategoryName" size="sm" />
+                    </span>
+                  </td>
+                  <td class="is-number">{{ program.PartnerCount }}</td>
+                  <td>
+                    @if (program.IsFeatured) {
+                      <esa-badge variant="success" value="Featured" size="sm" />
+                    } @else {
+                      <span class="is-muted">No</span>
+                    }
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </esa-card>
+    } @else {
+      <esa-card>
+        <esa-empty-state
+          [title]="'No programs match'"
+          [description]="'Clear the filters to see every program.'"
+        >
+          <esa-button appearance="outline" (click)="clearFilters()">Clear filters</esa-button>
+        </esa-empty-state>
+      </esa-card>
+    }
+  </section>
+}

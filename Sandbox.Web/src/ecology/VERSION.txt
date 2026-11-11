@@ -1,0 +1,25 @@
+Ecology, vendored for Sandbox.Web
+
+Hub commit:     a7849d41dcccb2df2e974bf8456291fe414c005b
+Pinned commit:  a7849d41dcccb2df2e974bf8456291fe414c005b
+Synced on:      2026-11-11 (UTC)
+Lit:            3.3.3
+esbuild:        0.27.7
+Theme:          copied from the ltinfo-monitoring-dashboard repo (src/styles/theme-ltinfo.css)
+
+Elements registered by ecology-elements.js:
+  esa-button-toggle
+  esa-select
+  esa-text-field
+
+Files:
+  css/tokens.css                 177526 bytes
+  css/component-tokens.css        41215 bytes
+  css/typography.css              26491 bytes
+  css/layouts.css                  5813 bytes
+  css/focus.css                    3366 bytes
+  css/a11y.css                     4450 bytes
+  css/theme-ltinfo.css             8902 bytes
+  ecology-elements.js            112947 bytes
+
+Regenerate from the sandbox root with: node tools/sync-ecology.mjs

@@ -1,0 +1,43 @@
+# The services and how each image is built. Ports, environment, and dev volumes are
+# in docker-compose.override.yml, which compose reads automatically from this folder.
+# ESA's repos split their compose files the same way.
+#
+#   cd docker-compose
+#   docker compose up --build
+#
+# Angular     http://localhost:4200
+# API         http://localhost:3211/health   (contract at /openapi/v1.json)
+# SQL Server  localhost,14330  (SSMS: user sa, password in .env)
+
+name: sandbox
+
+services:
+  sandbox.db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+
+  # One-shot: creates the database, tables, and seed rows, then exits.
+  sandbox.dbinit:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    depends_on:
+      sandbox.db:
+        condition: service_healthy
+
+  sandbox.api:
+    image: sandbox/api
+    build:
+      context: ..
+      dockerfile: Sandbox.API/Dockerfile
+    depends_on:
+      sandbox.dbinit:
+        condition: service_completed_successfully
+
+  sandbox.web:
+    image: sandbox/web
+    build:
+      context: ../Sandbox.Web
+      dockerfile: Dockerfile
+    depends_on:
+      - sandbox.api
+
+volumes:
+  sandbox_mssql:

@@ -1,0 +1,33 @@
+<header class="app-bar">
+  <div class="app-bar__inner">
+    <a class="app-brand" routerLink="/">
+      <span class="typography-label-md">Lake Tahoe Info</span>
+      <span class="app-brand__divider" aria-hidden="true"></span>
+      <span class="typography-label-md-strong">Angular and Ecology sandbox</span>
+    </a>
+  </div>
+</header>
+
+<main class="app-main">
+  <router-outlet />
+</main>
+
+<footer class="app-footer">
+  @let check = health();
+  <p class="app-footer__inner typography-meta" role="status">
+    @if (check.status === 'loading') {
+      <esa-badge value="Checking" size="sm" />
+      <span>Asking the API for /health.</span>
+    } @else if (check.status === 'error') {
+      <esa-badge variant="danger" value="Not connected" size="sm" />
+      <span>{{ check.title }}, so the database could not be checked.</span>
+    } @else {
+      <esa-badge variant="success" value="Connected" size="sm" />
+      <span>
+        Angular, the API, and SQL Server are connected. Database
+        <strong>{{ check.data.Database }}</strong
+        >, {{ check.data.ProgramCount }} programs.
+      </span>
+    }
+  </p>
+</footer>

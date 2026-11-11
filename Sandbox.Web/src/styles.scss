@@ -1,0 +1,49 @@
+// Global styles. The Ecology token and primitive CSS and the LT Info theme are
+// loaded before this file; see the "styles" list in angular.json. Everything
+// here reads those tokens, so there is no literal color, size, or font.
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+// The page is the LT Info page gray, with cards on it in white. Base type is
+// the body-md role in Lexend Deca.
+body {
+  margin: 0;
+  font-family: var(--typography-font-family-sans);
+  font-size: var(--typography-body-md-font-size);
+  font-weight: var(--typography-font-weight-regular);
+  line-height: var(--typography-body-md-line-height);
+  color: var(--color-content-default);
+  background: var(--color-background-default);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--color-content-link);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--color-content-link-hover);
+  text-decoration: underline;
+}
+
+button {
+  font-family: inherit;
+}
+
+// Category tint. The API sends each category's color as data, the same way
+// programs.json does for the monitoring dashboard. A wrapper sets
+// --category-color and this class feeds it to esa-badge through the badge's
+// public hooks.
+.category-tint {
+  --badge-bg: color-mix(
+    in srgb,
+    var(--category-color, var(--color-background-brand)) 28%,
+    var(--color-background-elevation-raised)
+  );
+  --badge-text-color: var(--color-content-default);
+  --badge-border-color: var(--category-color, var(--color-background-brand));
+}

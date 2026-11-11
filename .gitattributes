@@ -1,0 +1,2 @@
+# Shell scripts, Dockerfiles, and SQL run inside Linux containers; keep them LF on Windows.
+* text=auto eol=lf

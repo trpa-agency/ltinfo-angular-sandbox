@@ -1,0 +1,85 @@
+<p class="back typography-label-md"><a routerLink="/">All programs</a></p>
+
+@let page = state();
+
+@if (page.status === 'loading') {
+  <esa-card>
+    <div role="status">
+      <esa-empty-state [title]="'Loading program'"></esa-empty-state>
+    </div>
+  </esa-card>
+} @else if (page.status === 'error') {
+  <esa-card>
+    <div role="alert">
+      <esa-empty-state [title]="page.title" [description]="page.description"></esa-empty-state>
+    </div>
+  </esa-card>
+} @else {
+  @let program = page.data;
+
+  <header class="program-head">
+    <h1 class="program-head__title typography-heading-lg">{{ program.MonitoringProgramName }}</h1>
+    <div class="program-head__badges">
+      <span class="category-tint" [style.--category-color]="program.ThemeColor">
+        <esa-badge [value]="program.CategoryName" />
+      </span>
+      @if (program.IsFeatured) {
+        <esa-badge variant="success" value="Featured" />
+      }
+    </div>
+  </header>
+
+  <!-- The write path: this button sends PATCH /api/monitoring-programs/:id. -->
+  <esa-card [title]="'Featured'">
+    <div class="featured">
+      <p class="featured__value">
+        Saved value:
+        <strong>{{ program.IsFeatured ? 'Featured' : 'Not featured' }}</strong>
+      </p>
+      <esa-button
+        [variant]="program.IsFeatured ? 'secondary' : 'primary'"
+        [loading]="saving()"
+        (click)="toggleFeatured(program)"
+      >
+        {{ program.IsFeatured ? 'Remove from featured' : 'Mark as featured' }}
+      </esa-button>
+    </div>
+    <p class="featured__error typography-body-sm" role="alert">{{ saveError() }}</p>
+  </esa-card>
+
+  <h2 class="section-title typography-title-sm-strong">About this program</h2>
+
+  <esa-card [title]="'Description'">
+    @if (program.MonitoringProgramDescription) {
+      <p class="prose">{{ program.MonitoringProgramDescription }}</p>
+    } @else {
+      <esa-empty-state [title]="'No description yet'" size="sm"></esa-empty-state>
+    }
+  </esa-card>
+
+  <esa-card [title]="'Monitoring approach'">
+    @if (program.MonitoringApproach) {
+      <p class="prose">{{ program.MonitoringApproach }}</p>
+    } @else {
+      <esa-empty-state [title]="'No monitoring approach yet'" size="sm"></esa-empty-state>
+    }
+  </esa-card>
+
+  <esa-card [title]="'Partners'">
+    @if (program.Partners.length > 0) {
+      <ul class="partners">
+        @for (partner of program.Partners; track partner.OrganizationID) {
+          <li>
+            {{ partner.OrganizationName }}
+            @if (partner.OrganizationShortName) {
+              <span class="partners__short">({{ partner.OrganizationShortName }})</span>
+            }
+          </li>
+        }
+      </ul>
+    } @else {
+      <esa-empty-state [title]="'No partners listed'" size="sm"></esa-empty-state>
+    }
+    <span slot="footer">Partner links in the database: {{ program.PartnerCount }}</span>
+  </esa-card>
+}

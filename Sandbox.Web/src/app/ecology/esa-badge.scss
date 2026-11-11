@@ -1,0 +1,123 @@
+// Token contract of esa-badge.astro. Type comes from the .typography-* class on
+// the element, so nothing font-related is declared here.
+
+// The host is layout-transparent: the markup inside it is the contract.
+:host {
+  display: contents;
+}
+
+// The default (neutral) variant reads the public --badge-* hooks. The named
+// variants do not.
+.esa-badge {
+  --_badge-bg: var(--badge-bg, var(--color-background-elevation-raised));
+  --_badge-text: var(--badge-text-color, var(--color-content-default-secondary));
+  --_badge-border: var(--badge-border-color, var(--color-border-default));
+  --_badge-padding-y: var(--spacing-150);
+  --_badge-padding-x: var(--spacing-200);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  // "At least square": a one-character count reaches the floor, a long label
+  // overruns it and stays a pill.
+  min-width: calc(1lh + 2 * var(--_badge-padding-y));
+  padding-block: var(--_badge-padding-y);
+  padding-inline: var(--_badge-padding-x);
+  border-radius: var(--radius-chip);
+  background: var(--_badge-bg);
+  color: var(--_badge-text);
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.esa-badge--xs {
+  --_badge-padding-y: var(--spacing-100);
+  --_badge-padding-x: var(--spacing-100);
+}
+.esa-badge--sm {
+  --_badge-padding-y: var(--spacing-100);
+  --_badge-padding-x: var(--spacing-150);
+}
+.esa-badge--lg {
+  --_badge-padding-y: var(--spacing-250);
+  --_badge-padding-x: var(--spacing-300);
+}
+
+.esa-badge--primary {
+  --_badge-bg: var(--color-background-brand);
+  --_badge-text: var(--color-content-default-knockout);
+}
+.esa-badge--secondary {
+  --_badge-bg: var(--color-background-brand-muted);
+  --_badge-text: var(--color-content-on-brand-muted);
+}
+.esa-badge--success {
+  --_badge-bg: var(--color-background-utility-success-muted);
+  --_badge-text: var(--color-content-utility-success);
+  --_badge-border: var(--color-border-utility-success);
+}
+.esa-badge--warning {
+  --_badge-bg: var(--color-background-utility-warning-muted);
+  --_badge-text: var(--color-content-utility-warning);
+  --_badge-border: var(--color-border-utility-warning);
+}
+.esa-badge--danger {
+  --_badge-bg: var(--color-background-utility-danger-muted);
+  --_badge-text: var(--color-content-utility-danger);
+  --_badge-border: var(--color-border-utility-danger);
+}
+.esa-badge--info {
+  --_badge-bg: var(--color-background-utility-info-muted);
+  --_badge-text: var(--color-content-utility-info);
+  --_badge-border: var(--color-border-utility-info);
+}
+
+// A tinted fill is close to the page color, so these five draw a real border.
+.esa-badge--neutral:not(.esa-badge--dot),
+.esa-badge--success:not(.esa-badge--dot),
+.esa-badge--warning:not(.esa-badge--dot),
+.esa-badge--danger:not(.esa-badge--dot),
+.esa-badge--info:not(.esa-badge--dot) {
+  border: var(--border-width-default) solid var(--_badge-border, transparent);
+}
+
+// Dot mode: a solid mark with no text. The 8px box is the hub's own literal.
+.esa-badge--dot {
+  width: 8px;
+  height: 8px;
+  min-width: 8px;
+  padding: 0;
+  border-radius: var(--radius-pill);
+}
+.esa-badge--dot.esa-badge--neutral {
+  --_badge-bg: var(--color-content-default-secondary);
+}
+.esa-badge--dot.esa-badge--primary {
+  --_badge-bg: var(--color-background-brand-hover);
+}
+.esa-badge--dot.esa-badge--secondary {
+  --_badge-bg: var(--color-background-brand);
+}
+.esa-badge--dot.esa-badge--success {
+  --_badge-bg: var(--color-background-utility-success-hover);
+}
+.esa-badge--dot.esa-badge--warning {
+  --_badge-bg: var(--color-background-utility-warning-hover);
+}
+.esa-badge--dot.esa-badge--danger {
+  --_badge-bg: var(--color-background-utility-danger-hover);
+}
+.esa-badge--dot.esa-badge--info {
+  --_badge-bg: var(--color-background-utility-info-hover);
+}
+
+@media (forced-colors: active) {
+  .esa-badge {
+    border: 1px solid CanvasText;
+  }
+  .esa-badge--dot {
+    border: 0;
+    outline: 1px solid CanvasText;
+    background: CanvasText;
+  }
+}

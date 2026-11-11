@@ -1,0 +1,108 @@
+// Token contract of esa-card.astro. --card-bg, --card-border-color, and
+// --card-header-bg are the hub's public re-skin hooks; the LT Info theme sets
+// --card-border-color.
+
+:host {
+  display: contents;
+}
+
+.esa-card {
+  --_card-bg: var(--card-bg, var(--color-background-elevation-raised));
+  --_card-border: var(--card-border-color, var(--color-border-default));
+  --_card-radius: var(--radius-md);
+  --_card-padding: var(--spacing-500);
+  --_card-header-bg: var(--card-header-bg, transparent);
+  --_card-header-color: var(--color-content-default);
+  --_card-header-border: var(--color-border-default-subtle);
+
+  display: block;
+  background: var(--_card-bg);
+  border: var(--border-width-default) solid var(--_card-border);
+  border-radius: var(--_card-radius);
+  overflow: hidden;
+}
+
+.esa-card--outlined {
+  --_card-border: var(--color-border-default);
+}
+
+.esa-card--elevated {
+  --_card-border: transparent;
+  box-shadow: var(--elevation-2);
+}
+
+.esa-card--filled {
+  --_card-bg: var(--color-background-elevation-sunken);
+  --_card-border: transparent;
+}
+
+.esa-card--header-primary .esa-card__header {
+  --_card-header-bg: var(--color-background-brand);
+  --_card-header-color: var(--color-content-default-knockout);
+}
+
+.esa-card--header-muted .esa-card__header {
+  --_card-header-bg: var(--color-background-elevation-sunken);
+}
+
+.esa-card--padding-none {
+  --_card-padding: 0;
+}
+.esa-card--padding-compact {
+  --_card-padding: var(--spacing-300);
+}
+.esa-card--padding-spacious {
+  --_card-padding: var(--spacing-700);
+}
+
+.esa-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-400) var(--_card-padding);
+  background: var(--_card-header-bg);
+  color: var(--_card-header-color);
+  border-bottom: var(--border-width-default) solid var(--_card-header-border);
+  // The hub's own literal: one header height whether or not actions are present.
+  min-height: 56px;
+}
+
+.esa-card__header-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-300);
+}
+
+.esa-card__titles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-050);
+}
+
+.esa-card__title {
+  margin: 0;
+  color: inherit;
+}
+
+.esa-card__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-200);
+}
+
+.esa-card__body {
+  padding: var(--_card-padding);
+}
+
+.esa-card__footer {
+  padding: var(--spacing-300) var(--_card-padding);
+  border-top: var(--border-width-default) solid var(--_card-header-border);
+  background: var(--color-background-elevation-sunken);
+}
+
+// Astro renders the actions and footer wrappers only when the slot is filled.
+// Angular always renders them, so an empty one is hidden instead.
+.esa-card__actions:empty,
+.esa-card__footer:empty {
+  display: none;
+}

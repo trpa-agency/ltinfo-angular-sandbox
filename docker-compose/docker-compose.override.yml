@@ -1,0 +1,58 @@
+# Local development settings: ports, environment, and the bind mounts that give hot
+# reload. Values in ${...} come from .env in this folder (copy .env.template).
+
+services:
+  sandbox.db:
+    environment:
+      - ACCEPT_EULA=${ACCEPT_EULA}
+      - MSSQL_SA_PASSWORD=${SA_PASSWORD}
+      - MSSQL_PID=Developer
+    ports:
+      # 14330 on the host so it never collides with a SQL Server installed on 1433.
+      - "127.0.0.1:14330:1433"
+    volumes:
+      - sandbox_mssql:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P \"$$MSSQL_SA_PASSWORD\" -b -Q \"SELECT 1\" || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+
+  sandbox.dbinit:
+    environment:
+      - MSSQL_SA_PASSWORD=${SA_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    volumes:
+      - ../Sandbox.Database:/database:ro
+    entrypoint: ["/bin/bash", "/database/Scripts/init-db.sh"]
+    restart: "no"
+
+  sandbox.api:
+    build:
+      target: dev
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__SandboxDb=Server=sandbox.db;Database=${DB_NAME};User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True
+    ports:
+      - "127.0.0.1:3211:8080"
+    volumes:
+      # Source is live; bin and obj stay inside the container.
+      - ../Sandbox.API:/src/Sandbox.API
+      - /src/Sandbox.API/bin
+      - /src/Sandbox.API/obj
+
+  sandbox.web:
+    build:
+      target: dev
+    init: true
+    ports:
+      - "127.0.0.1:4200:4200"
+    volumes:
+      # Source is live; node_modules stays inside the image. After changing
+      # package.json run: docker compose build sandbox.web
+      - ../Sandbox.Web/src:/app/src
+      - ../Sandbox.Web/angular.json:/app/angular.json:ro
+      - ../Sandbox.Web/proxy.conf.docker.json:/app/proxy.conf.docker.json:ro
+      - ../Sandbox.Web/tsconfig.json:/app/tsconfig.json:ro
+      - ../Sandbox.Web/tsconfig.app.json:/app/tsconfig.app.json:ro

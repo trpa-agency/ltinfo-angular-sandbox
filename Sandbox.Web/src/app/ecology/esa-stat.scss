@@ -1,0 +1,39 @@
+// Token contract of esa-stat.astro. The three type roles (display-sm, label-md,
+// body-sm) come from the .typography-* classes in the markup; only color and
+// the gap are declared here. --stat-value-color, --stat-value-size, and
+// --stat-accent-color are the hub's public re-skin hooks.
+
+:host {
+  display: contents;
+}
+
+.esa-stat {
+  --_stat-value-color: var(--stat-value-color, var(--color-content-default));
+  --_stat-value-size: var(--stat-value-size, var(--typography-display-sm-font-size));
+  --_stat-label-color: var(--color-content-default-secondary);
+  --_stat-sub-color: var(--color-content-default-secondary);
+  --_stat-accent-color: var(--stat-accent-color, var(--color-content-brand));
+  --_stat-gap: var(--spacing-050);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--_stat-gap);
+  background: transparent;
+}
+
+.esa-stat__value {
+  font-size: var(--_stat-value-size);
+  color: var(--_stat-value-color);
+}
+
+.esa-stat--accent .esa-stat__value {
+  color: var(--_stat-accent-color);
+}
+
+.esa-stat__label {
+  color: var(--_stat-label-color);
+}
+
+.esa-stat__sub {
+  color: var(--_stat-sub-color);
+}
