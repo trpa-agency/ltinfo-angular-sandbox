@@ -1,0 +1,48 @@
+// What the three template stylesheets share: the vertical rhythm of the page
+// and the two-column "split" a story and its side column sit in. Each template
+// loads this with @use and adds only its own proportions. Every value is a token.
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-600);
+  min-width: 0;
+}
+
+// The lead band sits closer to the header than the bands sit to each other.
+app-band[data-lead] {
+  margin-top: calc(var(--spacing-400) - var(--spacing-600));
+}
+
+// Twelve columns. One column of cards below 60rem; main and side above it.
+.split {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--spacing-400);
+  align-items: start;
+}
+
+.split > * {
+  grid-column: span 12;
+  min-width: 0;
+}
+
+.split__main,
+.split__side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-400);
+}
+
+@media (min-width: 60rem) {
+  .split > .split__main {
+    grid-column: span 7;
+  }
+  .split > .split__side {
+    grid-column: span 5;
+  }
+  // A main column with nothing beside it takes the row.
+  .split > .split__main:only-child {
+    grid-column: span 12;
+  }
+}

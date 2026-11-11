@@ -1,0 +1,161 @@
+// The card around the map and its list. Layout answers to the panel's own width (a container
+// query), not the window's, so the panel also stacks when a template puts it in a narrow column.
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  container: sites-panel / inline-size;
+}
+
+.sites-panel {
+  // Read by the map (sites-map.scss) and matched by the list beside it.
+  --sites-map-height: 420px;
+  display: block;
+  min-width: 0;
+}
+
+.sites-panel--tall {
+  --sites-map-height: 600px;
+}
+
+// esa-card's header does not wrap on its own; at phone widths the title and the tools need to.
+// The card is another component, so this reaches into it with ::ng-deep, scoped to this panel.
+:host ::ng-deep .esa-card__header {
+  flex-wrap: wrap;
+  gap: var(--spacing-200) var(--spacing-400);
+}
+
+:host ::ng-deep .esa-card__actions {
+  margin-left: auto;
+}
+
+.sites-panel__tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: var(--spacing-200) var(--spacing-300);
+}
+
+.sites-panel__pick {
+  display: block;
+  width: 9.5rem;
+}
+
+.sites-panel__split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 20rem);
+  gap: var(--spacing-400);
+  align-items: stretch;
+}
+
+.sites-panel--no-list .sites-panel__split {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.sites-panel__map {
+  position: relative;
+  min-width: 0;
+}
+
+// The list takes the height of the map beside it, whatever that is (the legend can add a strip
+// under a narrow map). Out of flow, so a long list never stretches the row.
+.sites-panel__aside {
+  position: relative;
+  min-width: 0;
+}
+
+.sites-panel__list {
+  position: absolute;
+  inset: 0;
+}
+
+// Loading, empty, and error states cover the map.
+.sites-panel__state {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-200);
+  padding: var(--spacing-400);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  background: color-mix(in srgb, var(--color-background-elevation-raised) 86%, transparent);
+}
+
+.sites-panel__state-title,
+.sites-panel__state-note {
+  margin: 0;
+}
+
+.sites-panel__state-note {
+  color: var(--color-content-default-secondary);
+}
+
+.sites-panel__spinner {
+  width: 1.75rem;
+  height: 1.75rem;
+  border: var(--border-width-300) solid var(--color-background-brand);
+  border-right-color: transparent;
+  border-radius: var(--radius-pill);
+  animation: sites-panel-spin 0.8s linear infinite;
+}
+
+@keyframes sites-panel-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sites-panel__spinner {
+    animation-duration: 2.4s;
+  }
+}
+
+.sites-panel__source {
+  margin: 0;
+  color: var(--color-content-default-secondary);
+}
+
+.sites-panel__source a {
+  color: var(--color-content-link);
+  text-decoration: underline;
+  overflow-wrap: anywhere;
+}
+
+@container sites-panel (max-width: 760px) {
+  .sites-panel,
+  .sites-panel--tall {
+    --sites-map-height: 340px;
+  }
+
+  .sites-panel__split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sites-panel__list {
+    position: static;
+    max-height: 22rem;
+  }
+
+  // With a pick, the tools take a row of their own under the title and the select fills it.
+  :host ::ng-deep .esa-card__actions:has(.sites-panel__pick) {
+    flex: 1 1 100%;
+  }
+
+  .sites-panel__tools {
+    flex: 1 1 auto;
+    flex-wrap: nowrap;
+  }
+
+  .sites-panel__pick {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+  }
+}

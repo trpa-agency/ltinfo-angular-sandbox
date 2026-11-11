@@ -11,20 +11,23 @@ import {
 // side effect, registers esa-text-field, esa-select, and esa-button-toggle.
 import '../../../ecology/ecology-elements.js';
 
-import { Category } from '../../api/models';
+import { Category, Template } from '../../api/models';
+import { TEMPLATE_OPTIONS } from '../../dashboard/templates/template-info';
 
 /** The detail every Ecology form element sends with its "change" event. */
 type EcologyChange = CustomEvent<{ value: string }>;
 
 export type FeaturedFilter = 'all' | 'featured';
 
+/** A layout to filter by, or the empty string for every layout. */
+export type LayoutFilter = '' | Template;
+
 interface Option {
   label: string;
   value: string;
 }
 
-// This is the only component that uses the Lit elements, so it is the only one
-// that carries CUSTOM_ELEMENTS_SCHEMA. The schema turns off Angular's check for
+// This component uses the Lit elements, so it carries CUSTOM_ELEMENTS_SCHEMA. The schema turns off Angular's check for
 // unknown elements AND unknown attributes in this template, so a typo here
 // compiles clean and does nothing. Keeping it in one small component keeps
 // that blind spot small.
@@ -44,10 +47,13 @@ interface Option {
 })
 export class ProgramFilters {
   readonly categories = input.required<Category[]>();
+  /** How many programs use each layout, for the counts in the Layout list. */
+  readonly layoutCounts = input.required<Record<Template, number>>();
 
-  // Two-way bound by the parent: [(search)], [(categoryId)], [(featured)].
+  // Two-way bound by the parent: [(search)], [(categoryId)], [(layout)], [(featured)].
   readonly search = model('');
   readonly categoryId = model('');
+  readonly layout = model<LayoutFilter>('');
   readonly featured = model<FeaturedFilter>('all');
 
   // esa-select compares option values as strings, so the numeric CategoryID is
@@ -57,6 +63,15 @@ export class ProgramFilters {
     ...this.categories().map((category) => ({
       label: `${category.CategoryName} (${category.ProgramCount})`,
       value: String(category.CategoryID),
+    })),
+  ]);
+
+  // The stored value ("context") is the option value; the reader sees "Content".
+  protected readonly layoutOptions = computed<Option[]>(() => [
+    { label: 'All layouts', value: '' },
+    ...TEMPLATE_OPTIONS.map((option) => ({
+      label: `${option.label} (${this.layoutCounts()[option.value]})`,
+      value: option.value,
     })),
   ]);
 
@@ -71,6 +86,10 @@ export class ProgramFilters {
 
   protected onCategory(event: Event): void {
     this.categoryId.set((event as EcologyChange).detail.value);
+  }
+
+  protected onLayout(event: Event): void {
+    this.layout.set((event as EcologyChange).detail.value as LayoutFilter);
   }
 
   protected onFeatured(event: Event): void {

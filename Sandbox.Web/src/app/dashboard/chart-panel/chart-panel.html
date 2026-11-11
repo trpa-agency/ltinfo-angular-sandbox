@@ -1,0 +1,138 @@
+<!--
+  One measure: title and sub line, the tools (pick, Chart or Table, CSV), the chart or
+  the table, and the source line. The tools show only when there are rows to act on.
+
+  The pick is an esa-select, whose list opens below it and is cut off by anything that
+  clips (esa-card does). It sits at the top of the card body, and .panel__view keeps
+  enough height under it for the whole list in either view.
+-->
+<esa-card [title]="current().title">
+  @if (current().sub; as sub) {
+    <p class="panel__sub typography-body-sm">{{ sub }}</p>
+  }
+
+  @if (hasData()) {
+    <div class="panel__tools">
+      @if (choices().length > 1) {
+        <esa-select
+          class="panel__pick"
+          size="sm"
+          [label]="current().pickLabel || 'Show'"
+          [options]="pickOptions()"
+          [value]="picked() ?? ''"
+          (change)="onPick($event)"
+        ></esa-select>
+      }
+      <div class="panel__actions">
+        <esa-button-toggle
+          size="sm"
+          label="View"
+          [options]="viewOptions"
+          [value]="view()"
+          (change)="onView($event)"
+        ></esa-button-toggle>
+        <esa-button size="sm" variant="secondary" appearance="outline" (click)="downloadCsv()">
+          Download CSV
+        </esa-button>
+      </div>
+    </div>
+
+    <div class="panel__view">
+      <!--
+        The chart is one image to assistive technology, named by the measure and described
+        by its series and span; the table view carries the values. vega-embed draws into the
+        inner element and sets its own attributes there, so the name and role stay on the outer one.
+      -->
+      <div
+        class="panel__chart"
+        role="img"
+        [attr.aria-label]="current().title + ', chart'"
+        [attr.aria-describedby]="descriptionId"
+        [hidden]="view() !== 'chart'"
+      >
+        <div #chart class="panel__canvas"></div>
+      </div>
+      <p class="visually-hidden" [id]="descriptionId">{{ description() }}</p>
+
+      @if (state() === 'loading') {
+        <div class="panel__loading panel__loading--over" role="status">
+          <span class="panel__spinner" aria-hidden="true"></span>
+          <span class="typography-body-sm">Loading {{ current().title }}</span>
+        </div>
+      }
+
+      @if (view() === 'table') {
+        <div class="panel__table" tabindex="0" role="region" [attr.aria-label]="current().title + ', table'">
+          <table class="panel__grid typography-body-sm">
+            <caption class="visually-hidden">
+              {{ current().title }}{{ picked() ? ', ' + picked() : '' }}
+            </caption>
+            <thead>
+              <tr>
+                @for (column of columns(); track $index) {
+                  <th scope="col" [class.panel__num]="column.num">{{ column.headerName }}</th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of cells(); track $index) {
+                <tr>
+                  @for (cell of row; track $index) {
+                    <td [class.panel__num]="columns()[$index].num">{{ cell }}</td>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
+  } @else {
+    @switch (state()) {
+      @case ('empty') {
+        <esa-empty-state [title]="empty().title" [description]="empty().description" size="sm" />
+      }
+      @case ('error') {
+        <div role="alert">
+          <esa-empty-state [title]="errorText.title" [description]="errorText.description" size="sm" />
+        </div>
+      }
+      @default {
+        <div class="panel__loading" role="status">
+          <span class="panel__spinner" aria-hidden="true"></span>
+          <span class="typography-body-sm">Loading {{ current().title }}</span>
+        </div>
+      }
+    }
+  }
+
+  <p class="panel__source typography-meta">
+    Source:
+    <a [href]="sourceUrl()" target="_blank" rel="noopener"
+      >TRPA LTInfo_Monitoring map service, layer {{ current().layer }}</a
+    >.
+  </p>
+</esa-card>
+
+<!-- The hover readout: the x value and every series value at that position. -->
+@if (tooltip(); as tip) {
+  <div
+    class="panel__tooltip typography-body-xs"
+    [class.panel__tooltip--flip]="tip.flip"
+    [class.panel__tooltip--above]="tip.above"
+    [style.left.px]="tip.left"
+    [style.top.px]="tip.top"
+    aria-hidden="true"
+  >
+    <p class="panel__tooltip-title">{{ tip.title }}</p>
+    @for (row of tip.rows; track $index) {
+      <p class="panel__tooltip-row">
+        <svg class="panel__tooltip-mark" viewBox="-6 -6 12 12" width="12" height="12" focusable="false">
+          <path [attr.d]="row.path" [attr.fill]="row.color" />
+        </svg>
+        <span class="panel__tooltip-name">{{ row.name }}</span>
+        <span class="panel__tooltip-value">{{ row.value }}</span>
+      </p>
+    }
+  </div>
+}

@@ -1,0 +1,63 @@
+<header class="demo-head">
+  <h1 class="demo-head__title typography-heading-lg">Map panel test page</h1>
+  <p class="demo-head__lead typography-body-md">
+    Six uses of <code>app-sites-panel</code>, each fed a real program from the sandbox API and live data from the TRPA
+    LTInfo_Monitoring map service. The line under each panel shows what the panel reported through its
+    <code>settled</code> and <code>loaded</code> outputs.
+  </p>
+</header>
+
+@let page = cases();
+
+@if (page.status === 'loading') {
+  <esa-card>
+    <div role="status">
+      <esa-empty-state [title]="'Loading programs'" />
+    </div>
+  </esa-card>
+} @else if (page.status === 'error') {
+  <esa-card>
+    <div role="alert">
+      <esa-empty-state [title]="page.title" [description]="page.description" />
+    </div>
+  </esa-card>
+} @else {
+  @for (demo of page.data; track demo.id) {
+    @let result = report(demo.id);
+    <section class="demo-case" [attr.data-demo]="demo.id" [attr.aria-labelledby]="'demo-' + demo.id">
+      <h2 class="demo-case__title typography-title-sm-strong" [id]="'demo-' + demo.id">{{ demo.title }}</h2>
+      <p class="demo-case__note typography-body-sm">{{ demo.note }}</p>
+
+      <app-sites-panel
+        [config]="demo.config"
+        [tall]="demo.tall"
+        (settled)="onSettled(demo.id, $event)"
+        (loaded)="onLoaded(demo.id, $event)"
+      />
+
+      <p class="demo-case__report typography-body-sm" data-demo-report>
+        <span class="demo-case__label">settled</span>
+        @if (result.state; as state) {
+          <esa-badge [value]="state" [variant]="stateVariant[state]" size="sm" />
+        } @else {
+          <esa-badge value="waiting" variant="info" size="sm" />
+        }
+        <span class="demo-case__label">loaded</span>
+        @if (result.summary; as summary) {
+          <span data-demo-summary>{{ summaryText(summary) }} (fired {{ result.loadedCount }} {{ result.loadedCount === 1 ? 'time' : 'times' }})</span>
+        } @else {
+          <span data-demo-summary>not fired</span>
+        }
+      </p>
+
+      <details class="demo-case__checks typography-body-sm">
+        <summary>What to check by hand</summary>
+        <ul>
+          @for (check of demo.checks; track check) {
+            <li>{{ check }}</li>
+          }
+        </ul>
+      </details>
+    </section>
+  }
+}

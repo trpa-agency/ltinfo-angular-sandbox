@@ -1,0 +1,127 @@
+// Styles for the building blocks in blocks.ts. Every block is a block-level
+// box that fills the cell its template puts it in. Every value is a token.
+
+:host {
+  display: block;
+  min-width: 0;
+}
+
+// ---- app-band ----
+.band {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-300);
+}
+
+// A hidden heading (a lead band) leaves no gap above the cards.
+.band:has(> .band__title.visually-hidden) {
+  gap: 0;
+}
+
+.band__title {
+  margin: 0;
+  color: var(--color-content-default);
+}
+
+.band__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-400);
+  min-width: 0;
+}
+
+// ---- app-measurements-block ----
+// Twelve columns. panelSpans says which charts pair up (span-6) and which take
+// the row (span-12); below 48rem every chart takes the row.
+.measures {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--spacing-400);
+}
+
+.measures > * {
+  display: block;
+  min-width: 0;
+  grid-column: span 12;
+}
+
+@media (min-width: 48rem) {
+  .measures > .span-6 {
+    grid-column: span 6;
+  }
+}
+
+// The data panels are block boxes in whatever cell they are given.
+app-chart-panel,
+app-sites-panel {
+  display: block;
+  min-width: 0;
+}
+
+// ---- empty states ----
+// A floor, so an empty section holds about the space the real one will.
+.empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: var(--spacing-1000);
+}
+
+// Text cards (story, partners) are short when full, so they are short when empty.
+.empty--short {
+  min-height: var(--spacing-900);
+}
+
+.empty--tall {
+  min-height: calc(var(--spacing-1000) + var(--spacing-900));
+}
+
+// ---- app-program-story ----
+// Plain text from LT Info, at a measure that is comfortable to read. A blank
+// line starts a new paragraph; a single line break inside one is only how the
+// text was wrapped at the source, so it flows like a space.
+.prose {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-300);
+  max-width: 68ch;
+  color: var(--color-content-default);
+}
+
+.prose p {
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+.prose__heading {
+  margin: var(--spacing-300) 0 0;
+  color: var(--color-content-default);
+}
+
+.prose__heading:first-child {
+  margin-top: 0;
+}
+
+// ---- app-program-partners ----
+// One column in a narrow card, two or three where the card is wide.
+.partners {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  columns: 16rem;
+  column-gap: var(--spacing-500);
+}
+
+.partners li {
+  break-inside: avoid;
+  padding-block: var(--spacing-150);
+  border-bottom: var(--border-width-default) solid var(--color-border-default-subtle);
+}
+
+.partners__short {
+  color: var(--color-content-default-secondary);
+}
+
+.count {
+  display: inline-flex;
+}

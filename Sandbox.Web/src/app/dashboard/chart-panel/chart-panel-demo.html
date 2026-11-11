@@ -1,0 +1,54 @@
+<header class="demo-head">
+  <h1 class="demo-head__title typography-heading-lg">Chart panel test page</h1>
+  <p class="demo-head__lead typography-body-md">
+    Every chart shape the panel draws, each from a measure of a seeded program and live rows from the TRPA
+    LTInfo_Monitoring map service. Under each panel is what it reported through its outputs.
+  </p>
+</header>
+
+@let page = state();
+
+@if (page.status === 'loading') {
+  <esa-card>
+    <div role="status">
+      <esa-empty-state [title]="'Loading programs'" size="sm" />
+    </div>
+  </esa-card>
+} @else if (page.status === 'error') {
+  <esa-card>
+    <div role="alert">
+      <esa-empty-state [title]="page.title" [description]="page.description" size="sm" />
+    </div>
+  </esa-card>
+} @else {
+  <div class="demo-grid">
+    @for (item of page.data; track item.key) {
+      @let seen = report(item.key);
+      <section class="demo-case" [class.demo-case--wide]="item.wide" [attr.data-case]="item.key">
+        <div class="demo-case__head">
+          <h2 class="demo-case__shape typography-title-sm-strong">{{ item.shape }}</h2>
+          <p class="demo-case__note typography-body-sm">{{ item.program }}. {{ item.note }}</p>
+        </div>
+
+        <app-chart-panel
+          [measure]="item.measure"
+          [programName]="item.program"
+          [source]="item.source"
+          (loaded)="onLoaded(item.key, $event)"
+          (settled)="onSettled(item.key, $event)"
+        />
+
+        <p class="demo-case__report typography-meta" data-report>
+          <esa-badge [value]="seen.state" [variant]="variants[seen.state]" size="sm" />
+          @if (seen.shown !== null) {
+            <span>{{ seen.shown }} rows shown of {{ seen.loaded }} loaded</span>
+          }
+          @if (seen.picked) {
+            <span>pick: {{ seen.picked }}</span>
+          }
+          <span>loaded fired {{ seen.events }} {{ seen.events === 1 ? 'time' : 'times' }}</span>
+        </p>
+      </section>
+    }
+  </div>
+}

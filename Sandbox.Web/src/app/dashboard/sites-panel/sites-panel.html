@@ -1,0 +1,89 @@
+<section
+  class="sites-panel"
+  [class.sites-panel--tall]="tall()"
+  [class.sites-panel--no-list]="!showList()"
+  [attr.aria-label]="title()"
+  [attr.aria-busy]="state() === 'loading' ? 'true' : 'false'"
+>
+  <esa-card [title]="title()" padding="compact">
+    <!--
+      The pick sits in the card header. esa-card clips what leaves its box, and the
+      select's menu opens downward over the map, which is taller than the menu can
+      grow (256 px), so the menu is never cut off.
+    -->
+    <div slot="actions" class="sites-panel__tools">
+      @if (pickOptions().length > 1) {
+        <esa-select
+          class="sites-panel__pick"
+          size="sm"
+          [label]="pickLabel()"
+          [options]="pickOptions()"
+          [value]="pickedValue()"
+          (change)="onPick($event)"
+        ></esa-select>
+      }
+      <esa-button
+        class="sites-panel__csv"
+        size="sm"
+        variant="secondary"
+        appearance="outline"
+        [disabled]="state() !== 'ready'"
+        (click)="downloadCsv()"
+      >
+        Download CSV
+      </esa-button>
+    </div>
+
+    <div class="sites-panel__split">
+      <div class="sites-panel__map">
+        <app-sites-map [layers]="layers()" [label]="title() + ' map'" (featureSelect)="onFeatureSelect($event)" />
+        <!-- The states sit over the map, so the Leaflet container keeps its size throughout. -->
+        @switch (state()) {
+          @case ('loading') {
+            <div class="sites-panel__state" role="status">
+              <span class="sites-panel__spinner" aria-hidden="true"></span>
+              <p class="sites-panel__state-title typography-label-sm-strong">{{ loadingText() }}</p>
+              @if (progressText()) {
+                <p class="sites-panel__state-note typography-body-xs">{{ progressText() }}</p>
+              }
+            </div>
+          }
+          @case ('empty') {
+            <div class="sites-panel__state">
+              <esa-empty-state size="sm" [title]="emptyTitle()" [description]="emptyDescription()" />
+            </div>
+          }
+          @case ('error') {
+            <div class="sites-panel__state" role="alert">
+              <esa-empty-state
+                size="sm"
+                title="Data could not be loaded"
+                description="The TRPA map service did not respond. Reload the page to try again."
+              />
+            </div>
+          }
+        }
+      </div>
+      @if (showList()) {
+        <div class="sites-panel__aside">
+          <app-site-list
+            class="sites-panel__list"
+            [items]="items()"
+            [groups]="groups()"
+            [unit]="unit()"
+            [selectedKey]="selectedKey()"
+            [message]="listMessage()"
+            [busy]="state() === 'loading'"
+            (siteSelect)="onSiteSelect($event)"
+          />
+        </div>
+      }
+    </div>
+
+    @if (source(); as link) {
+      <p slot="footer" class="sites-panel__source">
+        Source: <a [href]="link.href" target="_blank" rel="noopener">{{ link.label }}</a>
+      </p>
+    }
+  </esa-card>
+</section>

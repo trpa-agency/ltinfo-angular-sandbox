@@ -1,0 +1,34 @@
+<app-program-header [program]="program()" [tiles]="tracker.tiles()" variant="compact" />
+
+<!-- The lead: the map, tall, straight under the header. -->
+<app-band lead data-section="sites" title="Sites">
+  <app-sites-block [data]="data()" [tracker]="tracker" tall />
+</app-band>
+
+<app-band data-section="measurements" title="Measurements">
+  <app-measurements-block
+    [data]="data()"
+    [programName]="program().MonitoringProgramName"
+    [tracker]="tracker"
+  />
+  <app-per-year-block
+    [data]="data()"
+    [programName]="program().MonitoringProgramName"
+    [tracker]="tracker"
+  />
+</app-band>
+
+<app-band data-section="about" title="About this program">
+  <div class="split">
+    <app-program-story class="split__main" [description]="description()" [approach]="approach()" />
+    <app-program-partners class="split__side" [partners]="program().Partners" />
+  </div>
+</app-band>
+
+@if (galleryPhotos().length > 0) {
+  <app-band data-section="photos" title="Photos">
+    <esa-card>
+      <app-photo-gallery [images]="galleryPhotos()" />
+    </esa-card>
+  </app-band>
+}

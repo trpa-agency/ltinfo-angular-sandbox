@@ -3,25 +3,73 @@
 // its address, every wait is for something a user can see, and nothing reads
 // dev-server internals.
 //
-// The search box, the category select, and the featured toggle are Ecology Lit
-// elements with shadow roots. Playwright locators reach into open shadow roots,
-// so they are found by role and name like any other control.
+// The search box, the selects, and the toggles are Ecology Lit elements with
+// shadow roots. Playwright locators reach into open shadow roots, so they are
+// found by role and name like any other control.
+//
+// The chart and map panels read the TRPA map service, a live server outside
+// the sandbox. The tests hold the panels only to their contract: the right
+// number of app-chart-panel and app-sites-panel hosts, each of which leaves
+// data-state="loading" within PANEL_TIMEOUT_MS. What a panel draws is tested
+// with the panel, not here.
 import type { APIRequestContext, Locator, Page } from '@playwright/test';
 
-import { API_URL, expect, seed, test } from './support';
+import {
+  API_URL,
+  PANEL_TIMEOUT_MS,
+  TEMPLATE_LABELS,
+  expect,
+  seed,
+  test,
+} from './support';
+import type { Template } from './support';
 
 const programUrl = (id: number): string => `/programs/${id}`;
 const apiProgramUrl = (id: number): string => `${API_URL}/monitoring-programs/${id}`;
 
+// ---- the list page ----
 const rows = (page: Page): Locator => page.locator('table.programs-table tbody tr');
 const resultCount = (page: Page): Locator => page.locator('.results__count');
 const searchBox = (page: Page): Locator => page.getByRole('textbox', { name: 'Search programs' });
 const categorySelect = (page: Page): Locator => page.getByRole('combobox', { name: 'Category' });
+const layoutSelect = (page: Page): Locator => page.getByRole('combobox', { name: 'Layout' });
 const featuredOnly = (page: Page): Locator => page.getByRole('radio', { name: 'Featured only' });
 const allPrograms = (page: Page): Locator => page.getByRole('radio', { name: 'All programs' });
 const statValue = (page: Page, label: string): Locator =>
   page.locator('.esa-stat').filter({ hasText: label }).locator('.esa-stat__value');
 const footer = (page: Page): Locator => page.locator('.app-footer');
+/** The table row of one program, found by its link. */
+const rowOf = (page: Page, name: string): Locator =>
+  rows(page).filter({ has: page.getByRole('link', { name, exact: true }) });
+
+// Table columns, counted the way :nth-child counts them: the program is the row header.
+const CATEGORY_CELL = 'td:nth-child(2)';
+const LAYOUT_CELL = 'td:nth-child(3)';
+const FEATURED_CELL = 'td:nth-child(5)';
+
+// ---- the program page ----
+/** The wrapper around the template on screen; data-template names it. */
+const program = (page: Page): Locator => page.locator('.program');
+const header = (page: Page): Locator => page.locator('app-program-header');
+/** Every titled section of the page, in document order. */
+const sections = (page: Page): Locator => program(page).locator('[data-section]');
+const chartPanels = (page: Page): Locator => page.locator('app-chart-panel');
+const sitesPanels = (page: Page): Locator => page.locator('app-sites-panel');
+const tiles = (page: Page): Locator => header(page).locator('.esa-stat');
+const heroImage = (page: Page): Locator => header(page).locator('img.hero__img');
+const heroButton = (page: Page): Locator => header(page).locator('button.hero__open');
+const banner = (page: Page): Locator => header(page).locator('app-photo-banner');
+const galleryButtons = (page: Page): Locator => page.locator('app-photo-gallery button.gallery__open');
+const lightbox = (page: Page): Locator => page.locator('dialog.lightbox');
+const partnerItems = (page: Page): Locator => page.locator('.partners li');
+
+// The layout control.
+const layoutRadio = (page: Page, template: Template): Locator =>
+  page.getByRole('radio', { name: TEMPLATE_LABELS[template], exact: true });
+const saveLayout = (page: Page): Locator => page.getByRole('button', { name: 'Save layout' });
+const previewNotice = (page: Page): Locator => page.locator('.layout__notice');
+
+// The Featured card.
 const savedValue = (page: Page): Locator => page.locator('.featured__value');
 const featuredButton = (page: Page): Locator => page.locator('.featured').getByRole('button');
 
@@ -34,10 +82,25 @@ async function openList(page: Page): Promise<void> {
   await expect(footer(page)).toContainText(CONNECTED_LINE);
 }
 
-/** Opens a program by its address and waits for its heading. */
-async function openProgram(page: Page, id: number, name: string): Promise<void> {
-  await page.goto(programUrl(id));
+/** Opens a program by its address, with an optional query string, and waits for its heading. */
+async function openProgram(page: Page, id: number, name: string, query = ''): Promise<void> {
+  await page.goto(`${programUrl(id)}${query}`);
   await expect(page.getByRole('heading', { level: 1, name })).toBeVisible();
+}
+
+/**
+ * The panel contract: this many chart panels and this many map panels are on
+ * the page, and each one leaves "loading" for ready, empty, or error. A map
+ * service that is slow or down still passes; a panel that hangs does not.
+ */
+async function expectPanelsSettled(page: Page, charts: number, maps: number): Promise<void> {
+  await expect(chartPanels(page)).toHaveCount(charts);
+  await expect(sitesPanels(page)).toHaveCount(maps);
+  for (const panel of [...(await chartPanels(page).all()), ...(await sitesPanels(page).all())]) {
+    await expect(panel).toHaveAttribute('data-state', /^(ready|empty|error)$/, {
+      timeout: PANEL_TIMEOUT_MS,
+    });
+  }
 }
 
 /** True once the Lexend Deca files have arrived, not only been asked for. */
@@ -61,7 +124,21 @@ async function featuredCount(request: APIRequestContext): Promise<number> {
   const programs = (await (await request.get(`${API_URL}/monitoring-programs`)).json()) as {
     IsFeatured: boolean;
   }[];
-  return programs.filter((program) => program.IsFeatured).length;
+  return programs.filter((item) => item.IsFeatured).length;
+}
+
+async function savedTemplate(request: APIRequestContext, id: number): Promise<Template> {
+  const detail = (await (await request.get(apiProgramUrl(id))).json()) as { Template: Template };
+  return detail.Template;
+}
+
+/** Waits for the next PATCH the page sends for one program. */
+function nextPatch(page: Page, id: number) {
+  return page.waitForResponse(
+    (response) =>
+      response.request().method() === 'PATCH' &&
+      new URL(response.url()).pathname === `/api/monitoring-programs/${id}`,
+  );
 }
 
 test.describe('Program list', () => {
@@ -84,16 +161,16 @@ test.describe('Program list', () => {
   });
 
   test('shows the four stat tiles with the seeded totals', async ({ page }) => {
-    const tiles = page.locator('.esa-stat');
+    const stats = page.locator('.esa-stat');
 
-    await expect(tiles).toHaveCount(4);
-    await expect(tiles.locator('.esa-stat__label')).toHaveText([
+    await expect(stats).toHaveCount(4);
+    await expect(stats.locator('.esa-stat__label')).toHaveText([
       'Programs',
       'Categories',
       'Featured',
       'Partner links',
     ]);
-    await expect(tiles.locator('.esa-stat__value')).toHaveText([
+    await expect(stats.locator('.esa-stat__value')).toHaveText([
       String(seed.programs),
       String(seed.categories),
       String(seed.featured),
@@ -107,6 +184,7 @@ test.describe('Program list', () => {
     await expect(page.locator('table.programs-table thead th')).toHaveText([
       'Program',
       'Category',
+      'Layout',
       'Partners',
       'Featured',
     ]);
@@ -114,6 +192,52 @@ test.describe('Program list', () => {
       'href',
       programUrl(seed.ozone.id),
     );
+  });
+
+  test('each row shows the layout as a badge', async ({ page }) => {
+    const layouts = await rows(page).locator(LAYOUT_CELL).allTextContents();
+    const count = (label: string): number =>
+      layouts.filter((text) => text.trim() === label).length;
+
+    expect(layouts).toHaveLength(seed.programs);
+    expect({ map: count('Map'), charts: count('Charts'), context: count('Content') }).toEqual(
+      seed.templates,
+    );
+    // The stored word "context" is never shown; the reader sees "Content".
+    await expect(rowOf(page, seed.ozone.name).locator(LAYOUT_CELL)).toHaveText('Charts');
+    await expect(rowOf(page, seed.yellowCress.name).locator(LAYOUT_CELL)).toHaveText('Map');
+    await expect(rowOf(page, seed.socioEconomic.name).locator(LAYOUT_CELL)).toHaveText('Content');
+    await expect(rowOf(page, seed.ozone.name).locator(`${LAYOUT_CELL} .esa-badge`)).toHaveCount(1);
+  });
+
+  test('each row shows a key photo thumbnail, or the category color when there is none', async ({
+    page,
+    request,
+  }) => {
+    const programs = (await (await request.get(`${API_URL}/monitoring-programs`)).json()) as {
+      MonitoringProgramID: number;
+      KeyPhotoUrl: string | null;
+    }[];
+    const ozone = programs.find((item) => item.MonitoringProgramID === seed.ozone.id)!;
+
+    // Every row has the thumbnail box; 28 of them hold a photo.
+    await expect(rows(page).locator('.thumb')).toHaveCount(seed.programs);
+    await expect(rows(page).locator('img.thumb__img')).toHaveCount(seed.programsWithPhotos);
+
+    // A program with a photo: its key photo, loaded lazily, decorative beside the link.
+    const thumb = rowOf(page, seed.ozone.name).locator('img.thumb__img');
+    await expect(thumb).toHaveAttribute('src', ozone.KeyPhotoUrl!);
+    await expect(thumb).toHaveAttribute('loading', 'lazy');
+    await expect(thumb).toHaveAttribute('alt', '');
+    await thumb.scrollIntoViewIfNeeded();
+    await expect
+      .poll(() => thumb.evaluate((img: HTMLImageElement) => img.naturalWidth), { timeout: 30_000 })
+      .toBeGreaterThan(0);
+
+    // A program without one: the box is there, with no image in it.
+    const empty = rowOf(page, seed.subalpineConifer.name);
+    await expect(empty.locator('.thumb')).toHaveCount(1);
+    await expect(empty.locator('img')).toHaveCount(0);
   });
 
   test('footer says Angular, the API, and SQL Server are connected', async ({ page }) => {
@@ -138,10 +262,82 @@ test.describe('Program list', () => {
     await page.getByRole('option', { name: /^Air Quality/ }).click();
 
     await expect(rows(page)).toHaveCount(seed.airQualityPrograms);
-    await expect(rows(page).locator('td:nth-child(2)')).toHaveText(
+    await expect(rows(page).locator(CATEGORY_CELL)).toHaveText(
       Array.from({ length: seed.airQualityPrograms }, () => seed.ozone.category),
     );
     await expect(categorySelect(page)).toContainText(seed.ozone.category);
+  });
+
+  test('layout filter shows the 5 Content programs, then the 13 Map programs', async ({ page }) => {
+    await layoutSelect(page).click();
+    // Each option carries its count.
+    await expect(page.getByRole('option', { name: `Map (${seed.templates.map})` })).toBeVisible();
+    await expect(
+      page.getByRole('option', { name: `Charts (${seed.templates.charts})` }),
+    ).toBeVisible();
+    await page.getByRole('option', { name: `Content (${seed.templates.context})` }).click();
+
+    await expect(rows(page)).toHaveCount(seed.templates.context);
+    await expect(rows(page).locator(LAYOUT_CELL)).toHaveText(
+      Array.from({ length: seed.templates.context }, () => 'Content'),
+    );
+    await expect(resultCount(page)).toHaveText(
+      `Showing ${seed.templates.context} of ${seed.programs}`,
+    );
+    await expect(rowOf(page, seed.subalpineConifer.name)).toHaveCount(1);
+    await expect(rowOf(page, seed.ozone.name)).toHaveCount(0);
+
+    await layoutSelect(page).click();
+    await page.getByRole('option', { name: `Map (${seed.templates.map})` }).click();
+    await expect(rows(page)).toHaveCount(seed.templates.map);
+    await expect(rowOf(page, seed.yellowCress.name)).toHaveCount(1);
+
+    // Back to every layout.
+    await layoutSelect(page).click();
+    await page.getByRole('option', { name: 'All layouts' }).click();
+    await expect(rows(page)).toHaveCount(seed.programs);
+  });
+
+  test('the layout filter works together with search, category, and featured', async ({
+    page,
+    request,
+  }) => {
+    const programs = (await (await request.get(`${API_URL}/monitoring-programs`)).json()) as {
+      MonitoringProgramName: string;
+      CategoryName: string;
+      IsFeatured: boolean;
+      Template: Template;
+    }[];
+    const charts = programs.filter((item) => item.Template === 'charts');
+    const featuredCharts = charts.filter((item) => item.IsFeatured);
+    const airQualityCharts = charts.filter((item) => item.CategoryName === seed.ozone.category);
+
+    await layoutSelect(page).click();
+    await page.getByRole('option', { name: `Charts (${seed.templates.charts})` }).click();
+    await expect(rows(page)).toHaveCount(seed.templates.charts);
+
+    // With Featured only.
+    await featuredOnly(page).click();
+    await expect(rows(page)).toHaveCount(featuredCharts.length);
+    await allPrograms(page).click();
+
+    // With a category.
+    await categorySelect(page).click();
+    await page.getByRole('option', { name: /^Air Quality/ }).click();
+    await expect(rows(page)).toHaveCount(airQualityCharts.length);
+
+    // With a search, all three filters at once.
+    await searchBox(page).fill('ozone');
+    await expect(rows(page)).toHaveCount(1);
+    await expect(rows(page).first()).toContainText(seed.ozone.name);
+
+    // A layout the match does not use leaves nothing, and Clear filters resets all four.
+    await layoutSelect(page).click();
+    await page.getByRole('option', { name: `Map (${seed.templates.map})` }).click();
+    await expect(page.getByRole('heading', { name: 'No programs match' })).toBeVisible();
+    await page.getByRole('button', { name: 'Clear filters' }).click();
+    await expect(rows(page)).toHaveCount(seed.programs);
+    await expect(searchBox(page)).toHaveValue('');
   });
 
   test('featured only shows the 17 featured programs', async ({ page }) => {
@@ -149,7 +345,7 @@ test.describe('Program list', () => {
 
     await expect(featuredOnly(page)).toHaveAttribute('aria-checked', 'true');
     await expect(rows(page)).toHaveCount(seed.featured);
-    await expect(rows(page).locator('td:nth-child(4)')).toHaveText(
+    await expect(rows(page).locator(FEATURED_CELL)).toHaveText(
       Array.from({ length: seed.featured }, () => 'Featured'),
     );
     // The filtered table and the Featured tile count the same thing.
@@ -190,31 +386,48 @@ test.describe('Program list', () => {
   });
 });
 
-test.describe('Program detail', () => {
-  test('program 41 shows Ozone with its category, empty description, and 6 partners', async ({
+test.describe('Program page, shared parts', () => {
+  test('program 41 shows Ozone with its category, tiles, story, 6 partners, and Featured card', async ({
     page,
   }) => {
     // Opened by address: on the nginx build this also proves the SPA fallback.
     await openProgram(page, seed.ozone.id, seed.ozone.name);
 
-    await expect(page.locator('.program-head__badges')).toContainText(seed.ozone.category);
-    await expect(page.locator('.esa-card__title')).toHaveText([
-      'Featured',
-      'Description',
-      'Monitoring approach',
-      'Partners',
+    // The shared header: the name, the category badge in the category color, four tiles.
+    await expect(header(page).locator('.head__badges')).toContainText(seed.ozone.category);
+    await expect(header(page).locator('.category-tint .esa-badge')).toHaveText(seed.ozone.category);
+    await expect(tiles(page).locator('.esa-stat__label')).toHaveText([
+      'Total sites',
+      'Active sites',
+      'Record began',
+      'Latest data',
     ]);
+
+    // The story: Ozone has no description, so the card holds the monitoring approach.
+    await expect(page.locator('.prose')).toContainText('Ozone is monitored');
+    await expect(page.getByRole('heading', { name: 'Monitoring approach' })).toBeVisible();
+
+    await expect(partnerItems(page)).toHaveCount(seed.ozone.partners);
+    await expect(partnerItems(page).first()).toHaveText('Tahoe Regional Planning Agency (TRPA)');
+
+    // The Featured card keeps the write path.
     await expect(savedValue(page)).toHaveText('Saved value: Not featured');
     await expect(featuredButton(page)).toHaveText('Mark as featured');
-    await expect(page.getByRole('heading', { name: 'No description yet' })).toBeVisible();
-    await expect(page.locator('.prose')).toContainText('Ozone is monitored');
-
-    await expect(page.locator('.partners li')).toHaveCount(seed.ozone.partners);
-    await expect(page.locator('.partners li').first()).toHaveText(
-      'Tahoe Regional Planning Agency (TRPA)',
-    );
-    await expect(page.getByText(`Partner links in the database: ${seed.ozone.partners}`)).toBeVisible();
     await expect(page.getByRole('link', { name: 'All programs' })).toHaveAttribute('href', '/');
+  });
+
+  test('the summary tiles fill in from the panels', async ({ page }) => {
+    test.setTimeout(PANEL_TIMEOUT_MS * 2);
+    await openProgram(page, seed.ozone.id, seed.ozone.name);
+    await expectPanelsSettled(page, seed.ozone.chartPanels, seed.ozone.sitesPanels);
+
+    // Once every panel has settled, no tile is still waiting: each shows a number or "n/a".
+    await expect(tiles(page).locator('.esa-stat__value')).toHaveText([
+      /^(\d[\d,]*|n\/a)$/,
+      /^(\d[\d,]*|n\/a)$/,
+      /^(\d{4}|n\/a)$/,
+      /^(\d{4}|n\/a)$/,
+    ]);
   });
 
   test('the featured button saves through the API and is restored afterward', async ({
@@ -229,12 +442,6 @@ test.describe('Program detail', () => {
     const label = (isFeatured: boolean): string => (isFeatured ? 'Featured' : 'Not featured');
     const action = (isFeatured: boolean): string =>
       isFeatured ? 'Remove from featured' : 'Mark as featured';
-    const patchResponse = () =>
-      page.waitForResponse(
-        (response) =>
-          response.request().method() === 'PATCH' &&
-          new URL(response.url()).pathname === `/api/monitoring-programs/${id}`,
-      );
 
     try {
       await openProgram(page, id, name);
@@ -242,7 +449,7 @@ test.describe('Program detail', () => {
       await expect(featuredButton(page)).toHaveText(action(original.IsFeatured));
 
       // First click: the page sends PATCH and shows what the API sent back.
-      let patched = patchResponse();
+      let patched = nextPatch(page, id);
       await featuredButton(page).click();
       const firstPatch = await patched;
       expect(firstPatch.status()).toBe(200);
@@ -250,6 +457,10 @@ test.describe('Program detail', () => {
       await expect(savedValue(page)).toHaveText(`Saved value: ${label(!original.IsFeatured)}`);
       await expect(featuredButton(page)).toHaveText(action(!original.IsFeatured));
       await expect(featuredButton(page)).toBeEnabled();
+      // The header badge follows the saved value.
+      await expect(header(page).getByText('Featured', { exact: true })).toHaveCount(
+        original.IsFeatured ? 0 : 1,
+      );
 
       // The value is in SQL Server, not only on the page: the API agrees, and a
       // fresh load of the list counts one more (or one fewer) featured program.
@@ -265,7 +476,7 @@ test.describe('Program detail', () => {
       // Second click, on a fresh load of the detail page: back to the original.
       await openProgram(page, id, name);
       await expect(savedValue(page)).toHaveText(`Saved value: ${label(!original.IsFeatured)}`);
-      patched = patchResponse();
+      patched = nextPatch(page, id);
       await featuredButton(page).click();
       expect((await patched).status()).toBe(200);
       await expect(savedValue(page)).toHaveText(`Saved value: ${label(original.IsFeatured)}`);
@@ -301,6 +512,8 @@ test.describe('Program detail', () => {
       ).toBeVisible();
       await expect(page.getByText('Go back to the list and pick a program.')).toBeVisible();
       await expect(page.locator('.featured')).toHaveCount(0);
+      await expect(program(page)).toHaveCount(0);
+      await expect(saveLayout(page)).toHaveCount(0);
       // The rest of the app is fine: the shell and the health line still show.
       await expect(footer(page)).toContainText(CONNECTED_LINE);
 
@@ -310,6 +523,385 @@ test.describe('Program detail', () => {
       await page.getByRole('link', { name: 'All programs' }).click();
       await expect(rows(page)).toHaveCount(seed.programs);
     });
+  });
+});
+
+test.describe('The three templates', () => {
+  test('program 39 uses the map template: the map leads, then the charts', async ({ page }) => {
+    test.setTimeout(PANEL_TIMEOUT_MS * 2);
+    const { id, name, chartPanels: charts, sitesPanels: maps } = seed.yellowCress;
+    await openProgram(page, id, name);
+
+    await expect(program(page)).toHaveAttribute('data-template', 'map');
+    await expect(page.locator('app-map-template')).toHaveCount(1);
+    await expect(page.locator('app-charts-template, app-content-template')).toHaveCount(0);
+    await expect(layoutRadio(page, 'map')).toHaveAttribute('aria-checked', 'true');
+
+    // Order: sites, measurements, about, photos.
+    await expect(sections(page)).toHaveCount(4);
+    expect(
+      await sections(page).evaluateAll((list) => list.map((el) => el.getAttribute('data-section'))),
+    ).toEqual(['sites', 'measurements', 'about', 'photos']);
+
+    // The lead: the map panel is the first panel on the page, straight under the header.
+    await expect(sections(page).first().locator('app-sites-panel')).toHaveCount(1);
+    const headerBox = (await header(page).boundingBox())!;
+    const mapBox = (await sitesPanels(page).first().boundingBox())!;
+    const firstChartBox = (await chartPanels(page).first().boundingBox())!;
+    expect(mapBox.y).toBeGreaterThanOrEqual(headerBox.y + headerBox.height);
+    expect(mapBox.y).toBeLessThan(firstChartBox.y);
+    // Wide: the map takes the full width of the page column, as the header does.
+    expect(Math.abs(mapBox.width - headerBox.width)).toBeLessThanOrEqual(1);
+
+    await expectPanelsSettled(page, charts, maps);
+  });
+
+  test('program 41 uses the charts template: the charts lead, then the map', async ({ page }) => {
+    test.setTimeout(PANEL_TIMEOUT_MS * 2);
+    const { id, name, chartPanels: charts, sitesPanels: maps } = seed.ozone;
+    await openProgram(page, id, name);
+
+    await expect(program(page)).toHaveAttribute('data-template', 'charts');
+    await expect(page.locator('app-charts-template')).toHaveCount(1);
+    await expect(page.locator('app-map-template, app-content-template')).toHaveCount(0);
+    await expect(layoutRadio(page, 'charts')).toHaveAttribute('aria-checked', 'true');
+
+    // Order: measurements, sites, about. One photo, so no Photos section.
+    expect(
+      await sections(page).evaluateAll((list) => list.map((el) => el.getAttribute('data-section'))),
+    ).toEqual(['measurements', 'sites', 'about']);
+
+    // The lead: the measurement charts come first; the map and the per-year chart follow.
+    const lead = sections(page).first();
+    await expect(lead.locator('app-chart-panel')).toHaveCount(charts - 1);
+    await expect(sections(page).nth(1).locator('app-sites-panel')).toHaveCount(maps);
+    await expect(sections(page).nth(1).locator('app-chart-panel')).toHaveCount(1);
+    const headerBox = (await header(page).boundingBox())!;
+    const firstChartBox = (await chartPanels(page).first().boundingBox())!;
+    const mapBox = (await sitesPanels(page).first().boundingBox())!;
+    expect(firstChartBox.y).toBeGreaterThanOrEqual(headerBox.y + headerBox.height);
+    expect(firstChartBox.y).toBeLessThan(mapBox.y);
+
+    await expectPanelsSettled(page, charts, maps);
+  });
+
+  test('program 68 uses the content template: the story leads, with no empty data sections', async ({
+    page,
+  }) => {
+    const { id, name } = seed.socioEconomic;
+    await openProgram(page, id, name);
+
+    await expect(program(page)).toHaveAttribute('data-template', 'context');
+    await expect(page.locator('app-content-template')).toHaveCount(1);
+    await expect(page.locator('app-map-template, app-charts-template')).toHaveCount(0);
+    await expect(layoutRadio(page, 'context')).toHaveAttribute('aria-checked', 'true');
+
+    // The story leads: the first paragraph of the description sits in the header
+    // as the lead, and the first section is the story.
+    await expect(header(page).locator('.lead')).toContainText('TRPA monitors socio-economic data');
+    expect(
+      await sections(page).evaluateAll((list) => list.map((el) => el.getAttribute('data-section'))),
+    ).toEqual(['about']);
+    await expect(sections(page).first().locator('.prose')).toContainText('U.S. Census Bureau');
+
+    // Nothing is configured for charts or a map, so those sections are left out,
+    // not shown empty.
+    await expectPanelsSettled(page, 0, 0);
+    await expect(page.getByRole('heading', { name: 'Measurements' })).toHaveCount(0);
+    await expect(page.getByText('No measurements loaded yet')).toHaveCount(0);
+    await expect(page.getByText('No sites loaded yet')).toHaveCount(0);
+
+    // The tiles say why they have no number.
+    await expect(tiles(page).locator('.esa-stat__value')).toHaveText(['n/a', 'n/a', 'n/a', 'n/a']);
+
+    // No partners: the house empty state, what is absent and what the section will show.
+    await expect(page.getByRole('heading', { name: 'No partners loaded yet' })).toBeVisible();
+    await expect(
+      page.getByText('This section will show the partner organizations from Lake Tahoe Info.'),
+    ).toBeVisible();
+  });
+
+  test('program 83 has no photo: the category banner stands in, and nothing is broken', async ({
+    page,
+  }) => {
+    const { id, name, category } = seed.subalpineConifer;
+    await openProgram(page, id, name);
+
+    await expect(program(page)).toHaveAttribute('data-template', 'context');
+    await expect(header(page)).toHaveAttribute('data-photo', 'none');
+    await expect(banner(page)).toBeVisible();
+    await expect(banner(page)).toContainText(category);
+    await expect(banner(page)).toContainText('No program photo yet');
+
+    // No image, no gallery, no photo button: nothing to be broken or empty.
+    await expect(program(page).locator('img')).toHaveCount(0);
+    await expect(heroButton(page)).toHaveCount(0);
+    await expect(page.locator('app-photo-gallery')).toHaveCount(0);
+    await expect(page.getByRole('heading', { name: 'Photos' })).toHaveCount(0);
+
+    // The rest of the content layout is there.
+    await expect(header(page).locator('.lead')).toContainText('subalpine conifer');
+    await expect(sections(page).first().locator('.prose')).toContainText('Ground-based plot data');
+    await expectPanelsSettled(page, 0, 0);
+  });
+
+  test('a map or charts layout with nothing configured shows the house empty states', async ({
+    page,
+  }) => {
+    // Subalpine Conifer has no chart or map settings. Previewed in the charts
+    // layout, each data section says what is absent and what it will show.
+    const { id, name } = seed.subalpineConifer;
+    await openProgram(page, id, name, '?template=charts');
+
+    await expect(program(page)).toHaveAttribute('data-template', 'charts');
+    for (const [title, description] of [
+      ['No measurements loaded yet', 'This section will show measurement charts'],
+      ['No sites loaded yet', 'This section will show a map of the monitoring sites'],
+      ['No site records loaded yet', 'This section will show how many sites were monitored'],
+      ['No partners loaded yet', 'This section will show the partner organizations'],
+    ]) {
+      await expect(page.getByRole('heading', { name: title })).toBeVisible();
+      await expect(page.getByText(description)).toBeVisible();
+    }
+    await expectPanelsSettled(page, 0, 0);
+  });
+});
+
+test.describe('Photos', () => {
+  test('the key photo of program 41 loads, with its caption, credit, and alt text', async ({
+    page,
+    request,
+  }) => {
+    const detail = (await (await request.get(apiProgramUrl(seed.ozone.id))).json()) as {
+      Images: { Url: string; Caption: string; PhotoCredit: string }[];
+    };
+    const keyPhoto = detail.Images[0];
+    await openProgram(page, seed.ozone.id, seed.ozone.name);
+
+    await expect(header(page)).toHaveAttribute('data-photo', 'shown');
+    await expect(heroImage(page)).toHaveAttribute('src', keyPhoto.Url);
+    await expect(heroImage(page)).toHaveAttribute('alt', keyPhoto.Caption);
+    // The file really arrived and decoded.
+    await expect
+      .poll(() => heroImage(page).evaluate((img: HTMLImageElement) => img.naturalWidth), {
+        timeout: 30_000,
+      })
+      .toBeGreaterThan(0);
+
+    const caption = header(page).locator('figcaption');
+    await expect(caption).toContainText(keyPhoto.Caption);
+    await expect(caption).toContainText(`Photo: ${keyPhoto.PhotoCredit}`);
+
+    // One photo: it is shown in the header, and there is no gallery to be empty.
+    await expect(galleryButtons(page)).toHaveCount(0);
+    await expect(page.getByRole('heading', { name: 'Photos' })).toHaveCount(0);
+  });
+
+  test('program 39 shows its other three photos in a gallery, lazily, with captions', async ({
+    page,
+    request,
+  }) => {
+    const detail = (await (await request.get(apiProgramUrl(seed.yellowCress.id))).json()) as {
+      Images: { Url: string; Caption: string | null }[];
+    };
+    const others = detail.Images.slice(1);
+    await openProgram(page, seed.yellowCress.id, seed.yellowCress.name);
+
+    await expect(page.getByRole('heading', { name: 'Photos' })).toBeVisible();
+    await expect(galleryButtons(page)).toHaveCount(seed.yellowCress.photos - 1);
+    const images = galleryButtons(page).locator('img');
+    for (const [index, photo] of others.entries()) {
+      await expect(images.nth(index)).toHaveAttribute('src', photo.Url);
+      await expect(images.nth(index)).toHaveAttribute('loading', 'lazy');
+      await expect(images.nth(index)).toHaveAttribute('alt', photo.Caption ?? /.+/);
+    }
+    await expect(page.locator('app-photo-gallery figcaption')).toHaveCount(others.length);
+
+    // Every frame has its 4 to 3 box before its file arrives, so nothing moves on load.
+    const box = (await galleryButtons(page).first().boundingBox())!;
+    expect(box.width / box.height).toBeCloseTo(4 / 3, 1);
+  });
+
+  test('the larger view opens and closes by keyboard', async ({ page }) => {
+    const total = seed.yellowCress.photos;
+    await openProgram(page, seed.yellowCress.id, seed.yellowCress.name);
+    await expect(lightbox(page)).toBeHidden();
+
+    // Enter on the second gallery photo opens the dialog on that photo.
+    const trigger = galleryButtons(page).nth(1);
+    await trigger.focus();
+    await page.keyboard.press('Enter');
+    await expect(lightbox(page)).toBeVisible();
+    await expect(page.getByRole('dialog', { name: `Photo 3 of ${total}` })).toBeVisible();
+    // Focus moved into the dialog.
+    await expect(lightbox(page).getByRole('button', { name: 'Close' })).toBeFocused();
+
+    // The arrow keys page through every photo, the key photo included, and wrap.
+    await page.keyboard.press('ArrowRight');
+    await expect(lightbox(page).getByRole('heading')).toHaveText(`Photo 4 of ${total}`);
+    await page.keyboard.press('ArrowRight');
+    await expect(lightbox(page).getByRole('heading')).toHaveText(`Photo 1 of ${total}`);
+    await page.keyboard.press('ArrowLeft');
+    await expect(lightbox(page).getByRole('heading')).toHaveText(`Photo 4 of ${total}`);
+
+    // Tab stays inside the dialog: the page behind it cannot take focus.
+    for (let presses = 0; presses < 6; presses += 1) {
+      await page.keyboard.press('Tab');
+      expect(
+        await page.evaluate(() => {
+          const focused = document.activeElement;
+          return focused === document.body || focused?.closest('dialog') !== null;
+        }),
+        'focus is in the dialog, or on nothing, and never on the page behind it',
+      ).toBe(true);
+    }
+
+    // Escape closes it, and focus returns to the photo that opened it.
+    await page.keyboard.press('Escape');
+    await expect(lightbox(page)).toBeHidden();
+    await expect(trigger).toBeFocused();
+
+    // The key photo opens the same dialog, and the Close button closes it.
+    await heroButton(page).focus();
+    await page.keyboard.press('Enter');
+    await expect(lightbox(page).getByRole('heading')).toHaveText(`Photo 1 of ${total}`);
+    await page.keyboard.press('Enter');
+    await expect(lightbox(page)).toBeHidden();
+    await expect(heroButton(page)).toBeFocused();
+  });
+
+  test.describe('a photo that does not load', () => {
+    // The browser logs the failed image request. It is expected here only.
+    test.use({ allowedConsoleErrors: [/net::ERR_FAILED/] });
+
+    test('falls back to the category banner, the same as no photo', async ({ page, request }) => {
+      const detail = (await (await request.get(apiProgramUrl(seed.ozone.id))).json()) as {
+        Images: { Url: string }[];
+      };
+      const keyPhotoUrl = detail.Images[0].Url;
+      await page.route(keyPhotoUrl, (route) => route.abort('failed'));
+
+      await openProgram(page, seed.ozone.id, seed.ozone.name);
+
+      await expect(header(page)).toHaveAttribute('data-photo', 'failed');
+      await expect(banner(page)).toBeVisible();
+      await expect(banner(page)).toContainText(seed.ozone.category);
+      await expect(banner(page)).toContainText('The program photo could not be loaded');
+      // No broken image is left behind, and there is nothing to open.
+      await expect(header(page).locator('img')).toHaveCount(0);
+      await expect(heroButton(page)).toHaveCount(0);
+      // The rest of the header is unharmed.
+      await expect(tiles(page)).toHaveCount(4);
+    });
+  });
+});
+
+test.describe('Page layout', () => {
+  test('?template= previews another layout without saving it', async ({ page, request }) => {
+    const { id, name } = seed.ozone;
+    const saved = await savedTemplate(request, id);
+    expect(saved, 'program 41 is seeded with the charts layout').toBe('charts');
+    let patches = 0;
+    page.on('request', (sent) => {
+      if (sent.method() === 'PATCH') patches += 1;
+    });
+
+    await openProgram(page, id, name, '?template=map');
+
+    // The map layout is on screen, and the page says it is a preview.
+    await expect(program(page)).toHaveAttribute('data-template', 'map');
+    await expect(page.locator('app-map-template')).toHaveCount(1);
+    await expect(layoutRadio(page, 'map')).toHaveAttribute('aria-checked', 'true');
+    await expect(previewNotice(page)).toBeVisible();
+    await expect(previewNotice(page)).toContainText('Preview');
+    await expect(previewNotice(page)).toContainText(
+      'This is the Map layout. The saved layout is Charts, and nothing changes until you save.',
+    );
+    await expect(saveLayout(page)).toBeEnabled();
+
+    // The control tries the third layout, through the address.
+    await layoutRadio(page, 'context').click();
+    await expect(page).toHaveURL(/[?&]template=context$/);
+    await expect(program(page)).toHaveAttribute('data-template', 'context');
+    await expect(previewNotice(page)).toContainText('This is the Content layout.');
+
+    // Back to the saved layout: the parameter leaves the address and the notice goes.
+    await page.getByRole('button', { name: 'Back to the saved layout' }).click();
+    await expect(page).toHaveURL(new RegExp(`${programUrl(id)}$`));
+    await expect(program(page)).toHaveAttribute('data-template', 'charts');
+    await expect(previewNotice(page)).toBeHidden();
+    await expect(saveLayout(page)).toBeDisabled();
+
+    // Nothing was sent, and the database still holds the saved layout.
+    expect(patches).toBe(0);
+    expect(await savedTemplate(request, id)).toBe(saved);
+  });
+
+  test('?template= with the saved layout, or an unknown word, is not a preview', async ({
+    page,
+  }) => {
+    const { id, name } = seed.ozone;
+
+    await openProgram(page, id, name, '?template=charts');
+    await expect(program(page)).toHaveAttribute('data-template', 'charts');
+    await expect(previewNotice(page)).toBeHidden();
+    await expect(saveLayout(page)).toBeDisabled();
+
+    await openProgram(page, id, name, '?template=grid');
+    await expect(program(page)).toHaveAttribute('data-template', 'charts');
+    await expect(previewNotice(page)).toBeHidden();
+    await expect(saveLayout(page)).toBeDisabled();
+  });
+
+  test('Save layout stores the layout on screen, and it is restored afterward', async ({
+    page,
+    request,
+  }) => {
+    const { id, name } = seed.ozone;
+    const original = await savedTemplate(request, id);
+    const target: Template = original === 'map' ? 'charts' : 'map';
+
+    try {
+      await openProgram(page, id, name);
+      await expect(program(page)).toHaveAttribute('data-template', original);
+      await expect(saveLayout(page)).toBeDisabled();
+
+      // Pick another layout: a preview, with Save now offered.
+      await layoutRadio(page, target).click();
+      await expect(program(page)).toHaveAttribute('data-template', target);
+      await expect(previewNotice(page)).toBeVisible();
+      expect(await savedTemplate(request, id), 'a preview saves nothing').toBe(original);
+
+      // Save: the page sends PATCH with the layout on screen.
+      const patched = nextPatch(page, id);
+      await saveLayout(page).click();
+      const patch = await patched;
+      expect(patch.status()).toBe(200);
+      expect(patch.request().postDataJSON()).toEqual({ Template: target });
+
+      // It is now the saved layout: no notice, no parameter, nothing left to save.
+      await expect(previewNotice(page)).toBeHidden();
+      await expect(saveLayout(page)).toBeDisabled();
+      await expect(page).toHaveURL(new RegExp(`${programUrl(id)}$`));
+      await expect(program(page)).toHaveAttribute('data-template', target);
+      expect(await savedTemplate(request, id)).toBe(target);
+
+      // A fresh load, with no parameter, opens in the stored layout.
+      await openProgram(page, id, name);
+      await expect(program(page)).toHaveAttribute('data-template', target);
+      await expect(layoutRadio(page, target)).toHaveAttribute('aria-checked', 'true');
+      await expect(previewNotice(page)).toBeHidden();
+
+      // The list shows it too.
+      await openList(page);
+      await expect(rowOf(page, name).locator(LAYOUT_CELL)).toHaveText(TEMPLATE_LABELS[target]);
+    } finally {
+      // Leave the database as found, even when a step above failed.
+      const restore = await request.patch(apiProgramUrl(id), { data: { Template: original } });
+      expect(restore.status(), 'restoring the original Template value').toBe(200);
+    }
+
+    expect(await savedTemplate(request, id)).toBe(original);
   });
 });
 
@@ -338,6 +930,20 @@ test.describe('API down', () => {
     await expect(rows(page)).toHaveCount(seed.programs);
     await expect(statValue(page, 'Programs')).toHaveText(String(seed.programs));
   });
+
+  test('a program page shows the error state, with no template and no controls', async ({
+    page,
+  }) => {
+    const isApiCall = (url: URL): boolean => url.pathname.startsWith('/api/');
+    await page.route(isApiCall, (route) => route.abort('connectionrefused'));
+
+    await page.goto(programUrl(seed.ozone.id));
+
+    await expect(page.getByRole('heading', { name: 'The API did not respond' })).toBeVisible();
+    await expect(program(page)).toHaveCount(0);
+    await expect(saveLayout(page)).toHaveCount(0);
+    await expect(page.getByRole('link', { name: 'All programs' })).toBeVisible();
+  });
 });
 
 test.describe('At 375 px wide', () => {
@@ -355,11 +961,47 @@ test.describe('At 375 px wide', () => {
     expect(regionBox!.x + regionBox!.width).toBeLessThanOrEqual(375);
   });
 
-  test('the detail page does not scroll sideways', async ({ page }) => {
-    await openProgram(page, seed.ozone.id, seed.ozone.name);
-    await expect(page.locator('.partners li')).toHaveCount(seed.ozone.partners);
+  for (const target of [
+    { ...seed.yellowCress, charts: seed.yellowCress.chartPanels, maps: seed.yellowCress.sitesPanels },
+    { ...seed.ozone, charts: seed.ozone.chartPanels, maps: seed.ozone.sitesPanels },
+    { ...seed.socioEconomic, charts: 0, maps: 0 },
+    { ...seed.subalpineConifer, charts: 0, maps: 0 },
+  ]) {
+    test(`the ${TEMPLATE_LABELS[target.template]} layout of program ${target.id} does not scroll sideways`, async ({
+      page,
+    }) => {
+      test.setTimeout(PANEL_TIMEOUT_MS * 2);
+      await openProgram(page, target.id, target.name);
+      await expect(program(page)).toHaveAttribute('data-template', target.template);
+      // Measured once the panels have drawn, since a chart or a map could be what overflows.
+      await expectPanelsSettled(page, target.charts, target.maps);
 
-    expect(await sidewaysOverflow(page)).toBeLessThanOrEqual(0);
+      expect(await sidewaysOverflow(page)).toBeLessThanOrEqual(0);
+
+      // Everything is one column: the header and each section fit inside the viewport.
+      for (const box of [header(page), ...(await sections(page).all())]) {
+        const bounds = (await box.boundingBox())!;
+        expect(bounds.x).toBeGreaterThanOrEqual(0);
+        expect(bounds.x + bounds.width).toBeLessThanOrEqual(375);
+      }
+      // The four tiles reflow to two across.
+      const tileBoxes = await Promise.all((await tiles(page).all()).map((tile) => tile.boundingBox()));
+      expect(tileBoxes[0]!.y).toBe(tileBoxes[1]!.y);
+      expect(tileBoxes[2]!.y).toBeGreaterThan(tileBoxes[0]!.y);
+    });
+  }
+
+  test('the larger view of a photo fits the screen', async ({ page }) => {
+    await openProgram(page, seed.yellowCress.id, seed.yellowCress.name);
+    await heroButton(page).click();
+
+    await expect(lightbox(page)).toBeVisible();
+    const panel = (await lightbox(page).locator('.lightbox__panel').boundingBox())!;
+    expect(panel.x).toBeGreaterThanOrEqual(0);
+    expect(panel.x + panel.width).toBeLessThanOrEqual(375);
+    expect(panel.y + panel.height).toBeLessThanOrEqual(800);
+    await page.keyboard.press('Escape');
+    await expect(lightbox(page)).toBeHidden();
   });
 });
 
@@ -371,12 +1013,22 @@ test.describe('Console on a clean load', () => {
     expect(consoleErrors).toEqual([]);
   });
 
-  test('the detail route logs no errors', async ({ page, consoleErrors }) => {
-    await openProgram(page, seed.ozone.id, seed.ozone.name);
-    await expect(page.locator('.partners li')).toHaveCount(seed.ozone.partners);
-    await expect(footer(page)).toContainText(CONNECTED_LINE);
-    await expect.poll(() => lexendDecaLoaded(page)).toBe(true);
+  for (const target of [
+    { ...seed.yellowCress, charts: seed.yellowCress.chartPanels, maps: seed.yellowCress.sitesPanels },
+    { ...seed.ozone, charts: seed.ozone.chartPanels, maps: seed.ozone.sitesPanels },
+    { ...seed.socioEconomic, charts: 0, maps: 0 },
+  ]) {
+    test(`the ${TEMPLATE_LABELS[target.template]} layout of program ${target.id} logs no errors`, async ({
+      page,
+      consoleErrors,
+    }) => {
+      test.setTimeout(PANEL_TIMEOUT_MS * 2);
+      await openProgram(page, target.id, target.name);
+      await expectPanelsSettled(page, target.charts, target.maps);
+      await expect(footer(page)).toContainText(CONNECTED_LINE);
+      await expect.poll(() => lexendDecaLoaded(page)).toBe(true);
 
-    expect(consoleErrors).toEqual([]);
-  });
+      expect(consoleErrors).toEqual([]);
+    });
+  }
 });

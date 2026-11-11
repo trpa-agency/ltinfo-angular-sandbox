@@ -1,0 +1,58 @@
+<app-program-header [program]="program()" [tiles]="tracker.tiles()" variant="feature">
+  @if (lead(); as text) {
+    <p slot="lead" class="lead typography-body-lg">{{ text }}</p>
+  }
+</app-program-header>
+
+<!-- The lead: the story at a reading width, with the photos beside it. -->
+<app-band lead data-section="about" title="About this program">
+  <div class="split">
+    <div class="split__main">
+      @if (showStory()) {
+        <app-program-story [description]="restOfDescription()" [approach]="approach()" />
+      }
+      <!-- The partners sit under the story when the gallery has the side column,
+           and take the main column when the header lead was the whole story. -->
+      @if (galleryPhotos().length > 0 || !showStory()) {
+        <app-program-partners [partners]="program().Partners" />
+      }
+    </div>
+    @if (galleryPhotos().length > 0) {
+      <div class="split__side" data-section="photos">
+        <esa-card [title]="'Photos'">
+          <app-photo-gallery [images]="galleryPhotos()" size="lg" />
+        </esa-card>
+      </div>
+    } @else if (showStory()) {
+      <div class="split__side">
+        <app-program-partners [partners]="program().Partners" />
+      </div>
+    }
+  </div>
+</app-band>
+
+<!-- Data sections appear only when the program has them configured. -->
+@if (hasCharts()) {
+  <app-band data-section="measurements" title="Measurements">
+    @if (data().measures.length > 0) {
+      <app-measurements-block
+        [data]="data()"
+        [programName]="program().MonitoringProgramName"
+        [tracker]="tracker"
+      />
+    }
+    @if (data().perYear) {
+      <app-per-year-block
+        [data]="data()"
+        [programName]="program().MonitoringProgramName"
+        [tracker]="tracker"
+      />
+    }
+  </app-band>
+}
+
+@if (data().sites) {
+  <app-band data-section="sites" title="Sites">
+    <app-sites-block [data]="data()" [tracker]="tracker" />
+  </app-band>
+}

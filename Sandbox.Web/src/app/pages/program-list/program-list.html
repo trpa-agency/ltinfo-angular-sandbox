@@ -46,6 +46,8 @@
       [categories]="categories()"
       [(search)]="search"
       [(categoryId)]="categoryId"
+      [layoutCounts]="layoutCounts()"
+      [(layout)]="layout"
       [(featured)]="featured"
     />
   </div>
@@ -66,6 +68,7 @@
               <tr class="typography-label-sm-strong">
                 <th scope="col">Program</th>
                 <th scope="col">Category</th>
+                <th scope="col">Layout</th>
                 <th scope="col" class="is-number">Partners</th>
                 <th scope="col">Featured</th>
               </tr>
@@ -74,14 +77,37 @@
               @for (program of filtered(); track program.MonitoringProgramID) {
                 <tr>
                   <th scope="row">
-                    <a [routerLink]="['/programs', program.MonitoringProgramID]">{{
-                      program.MonitoringProgramName
-                    }}</a>
+                    <span class="program-cell">
+                      <!-- The key photo, small. Decorative: the link beside it names the
+                           program. No photo, or a file that fails, shows the category color. -->
+                      <span
+                        class="thumb"
+                        aria-hidden="true"
+                        [style.--category-color]="program.ThemeColor"
+                      >
+                        @if (program.KeyPhotoUrl && !failedPhotos().has(program.MonitoringProgramID)) {
+                          <img
+                            class="thumb__img"
+                            [src]="program.KeyPhotoUrl"
+                            alt=""
+                            loading="lazy"
+                            decoding="async"
+                            (error)="photoFailed(program.MonitoringProgramID)"
+                          />
+                        }
+                      </span>
+                      <a [routerLink]="['/programs', program.MonitoringProgramID]">{{
+                        program.MonitoringProgramName
+                      }}</a>
+                    </span>
                   </th>
                   <td>
                     <span class="category-tint" [style.--category-color]="program.ThemeColor">
                       <esa-badge [value]="program.CategoryName" size="sm" />
                     </span>
+                  </td>
+                  <td>
+                    <esa-badge [value]="layoutLabels[program.Template]" size="sm" />
                   </td>
                   <td class="is-number">{{ program.PartnerCount }}</td>
                   <td>

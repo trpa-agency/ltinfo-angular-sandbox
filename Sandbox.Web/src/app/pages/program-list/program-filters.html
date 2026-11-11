@@ -1,5 +1,5 @@
 <!--
-  Three real Lit elements from the vendored Ecology bundle.
+  Real Lit elements from the vendored Ecology bundle.
   Strings go in as attributes (label, placeholder, size).
   Arrays and live values go in as properties ([options], [value]).
   The answer comes back in $event.detail of the lowercase "change" event.
@@ -22,6 +22,16 @@
     [options]="categoryOptions()"
     [value]="categoryId()"
     (change)="onCategory($event)"
+  ></esa-select>
+
+  <esa-select
+    class="filters__layout"
+    label="Layout"
+    placeholder="All layouts"
+    size="sm"
+    [options]="layoutOptions()"
+    [value]="layout()"
+    (change)="onLayout($event)"
   ></esa-select>
 
   <esa-button-toggle

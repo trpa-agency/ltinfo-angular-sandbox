@@ -1,0 +1,63 @@
+// Page layout only. Every value is a token; the panel brings its own look.
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-500);
+}
+
+.demo-head__title {
+  margin: 0;
+  color: var(--color-content-default);
+}
+
+.demo-head__lead {
+  margin: var(--spacing-200) 0 0;
+  max-width: 44rem;
+  color: var(--color-content-default-secondary);
+}
+
+// Two columns on a wide screen, one below that. minmax(0, 1fr) lets a column
+// shrink below its content, so a chart never widens the page.
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing-600) var(--spacing-500);
+  align-items: start;
+}
+
+.demo-case {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-300);
+  min-width: 0;
+}
+
+.demo-case--wide {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 60rem) {
+  .demo-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.demo-case__shape,
+.demo-case__note {
+  margin: 0;
+}
+
+.demo-case__note {
+  margin-top: var(--spacing-100);
+  color: var(--color-content-default-secondary);
+}
+
+.demo-case__report {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-200) var(--spacing-400);
+  margin: 0;
+  color: var(--color-content-default-secondary);
+}

@@ -86,6 +86,8 @@ export interface PagingOptions {
   service?: string;
   /** A ceiling on pages, so a server that always reports more cannot loop forever. */
   maxPages?: number;
+  /** Called after each page with the count of features so far, so a panel can show progress on a long layer. */
+  onPage?: (loaded: number) => void;
 }
 
 /**
@@ -113,6 +115,7 @@ export async function fetchGeoJson(
     if (json.error) throw new Error(json.error.message || `Layer ${layer} query failed`);
     const features = Array.isArray(json.features) ? json.features : [];
     out.push(...features);
+    options.onPage?.(out.length);
     const more = json.exceededTransferLimit === true || json.properties?.exceededTransferLimit === true;
     if (!more || features.length === 0) break;
   }

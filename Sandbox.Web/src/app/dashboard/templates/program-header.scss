@@ -1,0 +1,120 @@
+// The shared header: a white card on the page gray, like every other card on
+// an LT Info page, with the category color along its top edge. Every value is
+// a token; the two column recipes are the only layout numbers.
+//
+// The base rules are the phone layout: one column, the photo on top of the
+// text. From 48rem up the photo moves beside the text.
+
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.head {
+  background: var(--color-background-elevation-raised);
+  border: var(--border-width-default) solid var(--card-border-color, var(--color-border-default));
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+// With a photo, the category color is a rule along the top of the card. With
+// no photo the banner carries the color, so the rule is not drawn twice.
+:host([data-photo='shown']) .head {
+  border-top: var(--border-width-400) solid var(--category-color, var(--color-background-brand));
+}
+
+.head__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.head__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-400);
+  min-width: 0;
+  padding: var(--spacing-400);
+}
+
+.head__photo {
+  order: -1;
+}
+
+.head__badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-200);
+}
+
+.head__title {
+  margin: 0;
+  color: var(--color-content-default);
+  overflow-wrap: break-word;
+}
+
+// ---- compact: a short band, so the lead section starts high on the page ----
+// The name and the badges share a line and wrap when they must.
+:host([data-variant='compact']) {
+  .head__name {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-200) var(--spacing-400);
+  }
+  // On a phone the photo is a short band across the top.
+  .head__photo {
+    --photo-hero-min-height: calc(var(--spacing-900) + var(--spacing-700));
+  }
+}
+
+// ---- feature: the content layout ----
+// The badges sit above the name, the tiles sit at the foot of the text column
+// under a rule, and the photo is large.
+:host([data-variant='feature']) {
+  .head__name {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: var(--spacing-300);
+  }
+  .head__tiles {
+    margin-top: auto;
+    padding-top: var(--spacing-400);
+    border-top: var(--border-width-default) solid var(--color-border-default-subtle);
+  }
+  .head__photo {
+    padding: var(--spacing-400) var(--spacing-400) 0;
+  }
+}
+
+// ---- from 48rem: the photo sits beside the text ----
+@media (min-width: 48rem) {
+  .head__text {
+    padding: var(--spacing-400) var(--spacing-500);
+  }
+  .head__photo {
+    order: 0;
+  }
+
+  // Compact: the photo fills the end of the band, top to bottom.
+  :host([data-variant='compact'][data-photo='shown']) .head__body {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 20rem);
+  }
+  :host([data-variant='compact']) .head__photo {
+    --photo-hero-min-height: calc(var(--spacing-900) + var(--spacing-800));
+  }
+
+  // Feature: seven columns of text, five of photo.
+  :host([data-variant='feature']) .head__text {
+    padding: var(--spacing-500);
+  }
+  :host([data-variant='feature'][data-photo='shown']) {
+    .head__body {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    }
+    .head__photo {
+      padding: var(--spacing-500);
+      padding-inline-start: 0;
+    }
+  }
+}

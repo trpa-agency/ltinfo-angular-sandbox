@@ -90,6 +90,41 @@
   background: var(--color-background-brand-subtle);
 }
 
+// The program cell: a small key photo, then the name.
+.program-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-300);
+}
+
+// A fixed 4 to 3 box, so the rows keep their height while photos load. With no
+// photo it is the category color: a tint with the solid color down its leading edge.
+.thumb {
+  flex: 0 0 auto;
+  position: relative;
+  width: var(--spacing-700);
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: color-mix(
+    in srgb,
+    var(--category-color, var(--color-background-brand)) 22%,
+    var(--color-background-elevation-raised)
+  );
+  border-inline-start: var(--border-width-300) solid
+    var(--category-color, var(--color-background-brand));
+}
+
+// A photo covers the whole box, the color edge included.
+.thumb__img {
+  position: absolute;
+  inset: 0;
+  inset-inline-start: calc(-1 * var(--border-width-300));
+  width: calc(100% + var(--border-width-300));
+  height: 100%;
+  object-fit: cover;
+}
+
 .programs-table .is-number {
   text-align: end;
   font-variant-numeric: tabular-nums;

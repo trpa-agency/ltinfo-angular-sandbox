@@ -1,0 +1,46 @@
+// A tint of the category color with fine diagonal hatching in the same color:
+// enough to read as a deliberate band, quiet enough not to compete with the
+// title under it. Every color is the category color mixed into a surface token.
+
+:host {
+  display: block;
+  --_banner-color: var(--category-color, var(--color-background-brand));
+}
+
+.banner {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-100) var(--spacing-400);
+  min-height: var(--spacing-800);
+  padding: var(--spacing-400) var(--spacing-500);
+  padding-inline-start: calc(var(--spacing-500) + var(--spacing-200));
+  color: var(--color-content-default);
+  background:
+    repeating-linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--_banner-color) 10%, transparent) 0 var(--border-width-emphasis),
+      transparent var(--border-width-emphasis) var(--spacing-300)
+    ),
+    color-mix(in srgb, var(--_banner-color) 16%, var(--color-background-elevation-raised));
+}
+
+// The solid category color, as a bar down the leading edge.
+.banner__mark {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: var(--spacing-200);
+  background: var(--_banner-color);
+}
+
+.banner__category,
+.banner__note {
+  margin: 0;
+}
+
+.banner__note {
+  color: var(--color-content-default-secondary);
+}

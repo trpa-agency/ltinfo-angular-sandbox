@@ -1,0 +1,35 @@
+// A strip of four esa-stat tiles. The strip measures itself (a container
+// query), so it drops to two across wherever its own box is narrow: in a phone
+// viewport, or in the narrow text column of a header that has a photo beside it.
+
+:host {
+  display: block;
+  container-type: inline-size;
+  // The stat's public hook. The header is not a dashboard of its own, so the
+  // value is one step down from the stat's default display size.
+  --stat-value-size: var(--typography-heading-lg-font-size);
+}
+
+:host([data-size='sm']) {
+  --stat-value-size: var(--typography-title-font-size);
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--spacing-400) var(--spacing-300);
+}
+
+// Each tile hangs from a short rule, so the four read as one row of figures
+// without a card around each.
+.tile {
+  min-width: 0;
+  padding-inline-start: var(--spacing-300);
+  border-inline-start: var(--border-width-emphasis) solid var(--color-border-default);
+}
+
+@container (max-width: 30rem) {
+  .tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

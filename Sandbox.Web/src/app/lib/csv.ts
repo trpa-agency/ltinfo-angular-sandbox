@@ -31,7 +31,7 @@ export function toCsv(columns: CsvColumn[], rows: Record<string, unknown>[]): st
 export function slugify(s: string): string {
   const slug = s
     .normalize('NFKD')
-    .replace(/[̀-ͯ]/g, '')
+    .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');

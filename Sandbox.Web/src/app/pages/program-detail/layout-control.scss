@@ -1,0 +1,72 @@
+// The layout control: the toggle and the Save button on one line, the preview
+// notice under them. Every value is a token.
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-300);
+  min-width: 0;
+}
+
+.layout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--spacing-300) var(--spacing-500);
+}
+
+.layout__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--spacing-300);
+  // Pushed to the end of the line, and still at the end when it wraps under the lead.
+  margin-inline-start: auto;
+}
+
+// The notice takes no space until there is something to say.
+.layout__notice {
+  display: none;
+}
+
+.layout__notice.is-preview {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-200) var(--spacing-300);
+  padding: var(--spacing-300) var(--spacing-400);
+  color: var(--color-content-utility-warning);
+  background: var(--color-background-utility-warning-muted);
+  border: var(--border-width-default) solid var(--color-border-utility-warning);
+  border-radius: var(--radius-md);
+}
+
+.layout__notice-text {
+  flex: 1 1 16rem;
+}
+
+// A button that reads as a link: it changes what is on screen, it does not navigate away.
+.layout__back {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--color-content-link);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.layout__back:hover {
+  color: var(--color-content-link-hover);
+}
+
+.layout__error {
+  margin: 0;
+  text-align: end;
+  color: var(--color-content-utility-danger);
+}
+
+.layout__error:empty {
+  display: none;
+}

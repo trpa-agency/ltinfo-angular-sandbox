@@ -3,14 +3,15 @@ import { RouterLink } from '@angular/router';
 import { forkJoin } from 'rxjs';
 
 import { LoadState, failed, ready } from '../../api/load-state';
-import { Category, MonitoringProgramSummary } from '../../api/models';
+import { Category, MonitoringProgramSummary, Template } from '../../api/models';
 import { SandboxApiService } from '../../api/sandbox-api.service';
+import { TEMPLATE_LABELS } from '../../dashboard/templates/template-info';
 import { EsaBadge } from '../../ecology/esa-badge';
 import { EsaButton } from '../../ecology/esa-button';
 import { EsaCard } from '../../ecology/esa-card';
 import { EsaEmptyState } from '../../ecology/esa-empty-state';
 import { EsaStat } from '../../ecology/esa-stat';
-import { FeaturedFilter, ProgramFilters } from './program-filters';
+import { FeaturedFilter, LayoutFilter, ProgramFilters } from './program-filters';
 
 interface ListData {
   categories: Category[];
@@ -29,10 +30,17 @@ export class ProgramList {
 
   protected readonly state = signal<LoadState<ListData>>({ status: 'loading' });
 
-  // The three filters. ProgramFilters writes them; `filtered` reads them.
+  // The four filters. ProgramFilters writes them; `filtered` reads them.
   protected readonly search = signal('');
   protected readonly categoryId = signal('');
+  protected readonly layout = signal<LayoutFilter>('');
   protected readonly featured = signal<FeaturedFilter>('all');
+
+  /** Programs whose key photo file did not load; their rows show the category swatch instead. */
+  protected readonly failedPhotos = signal<ReadonlySet<number>>(new Set());
+
+  /** What a reader sees for each stored layout value. */
+  protected readonly layoutLabels = TEMPLATE_LABELS;
 
   private readonly data = computed<ListData>(() => {
     const state = this.state();
@@ -52,14 +60,23 @@ export class ProgramList {
     };
   });
 
+  /** How many programs use each layout, counted over the whole dataset. */
+  protected readonly layoutCounts = computed<Record<Template, number>>(() => {
+    const counts: Record<Template, number> = { map: 0, charts: 0, context: 0 };
+    for (const program of this.data().programs) counts[program.Template] += 1;
+    return counts;
+  });
+
   protected readonly filtered = computed(() => {
     const text = this.search().trim().toLowerCase();
     const categoryId = this.categoryId();
+    const layout = this.layout();
     const featuredOnly = this.featured() === 'featured';
     return this.data().programs.filter(
       (program) =>
         (!text || program.MonitoringProgramName.toLowerCase().includes(text)) &&
         (!categoryId || String(program.CategoryID) === categoryId) &&
+        (!layout || program.Template === layout) &&
         (!featuredOnly || program.IsFeatured),
     );
   });
@@ -82,6 +99,11 @@ export class ProgramList {
   protected clearFilters(): void {
     this.search.set('');
     this.categoryId.set('');
+    this.layout.set('');
     this.featured.set('all');
+  }
+
+  protected photoFailed(programId: number): void {
+    this.failedPhotos.update((ids) => new Set([...ids, programId]));
   }
 }

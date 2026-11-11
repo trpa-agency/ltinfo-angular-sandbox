@@ -3,30 +3,42 @@
 // because the real LT Info API serializes that way.
 import { expect, test } from '@playwright/test';
 
-import { API_URL, seed } from './support';
+import { API_URL, TEMPLATES, seed } from './support';
+import type { Template } from './support';
 
 // Relative paths below resolve against the API. The trailing slash keeps a
 // path prefix in API_URL, should one ever be added.
 test.use({ baseURL: `${API_URL}/` });
 
 const HEX_COLOR = /^#[0-9A-Fa-f]{6}$/;
+const HTTPS_URL = /^https:\/\/\S+$/;
 
 const SUMMARY_KEYS = [
   'CategoryID',
   'CategoryName',
+  'ImageCount',
   'IsFeatured',
+  'KeyPhotoUrl',
   'MonitoringProgramID',
   'MonitoringProgramName',
   'PartnerCount',
+  'Template',
   'ThemeColor',
 ];
 
 const DETAIL_KEYS = [
   ...SUMMARY_KEYS,
+  'DashboardConfig',
+  'Images',
   'MonitoringApproach',
   'MonitoringProgramDescription',
   'Partners',
 ].sort();
+
+const IMAGE_KEYS = ['Caption', 'IsKeyPhoto', 'MonitoringProgramImageID', 'PhotoCredit', 'Url'];
+
+/** The only keys a DashboardConfig may carry. Each is optional. */
+const CONFIG_KEYS = ['mapLayer', 'measures', 'overlays', 'sitesLayer', 'sitesPerYear'];
 
 interface Category {
   CategoryID: number;
@@ -44,6 +56,9 @@ interface ProgramSummary {
   ThemeColor: string;
   IsFeatured: boolean;
   PartnerCount: number;
+  Template: Template;
+  ImageCount: number;
+  KeyPhotoUrl: string | null;
 }
 
 interface Partner {
@@ -52,13 +67,102 @@ interface Partner {
   OrganizationShortName: string | null;
 }
 
+interface ProgramImage {
+  MonitoringProgramImageID: number;
+  Url: string;
+  Caption: string | null;
+  PhotoCredit: string | null;
+  IsKeyPhoto: boolean;
+}
+
+interface DashboardConfig {
+  measures?: { title: string; layer: number | string; x: string; y: unknown }[];
+  sitesLayer?: { layer: number | string };
+  sitesPerYear?: { layer: number | string; year: string; site: string };
+  mapLayer?: { layer: number | string };
+  overlays?: unknown[];
+}
+
 interface ProgramDetail extends ProgramSummary {
   MonitoringProgramDescription: string | null;
   MonitoringApproach: string | null;
   Partners: Partner[];
+  Images: ProgramImage[];
+  DashboardConfig: DashboardConfig | null;
 }
 
 const programPath = (id: number): string => `monitoring-programs/${id}`;
+
+const isLayerId = (value: unknown): boolean =>
+  (typeof value === 'number' && Number.isInteger(value)) ||
+  (typeof value === 'string' && value !== '');
+
+/** Asserts the shape of one program's photos: key photo first, and the summary fields agree. */
+function expectImages(program: ProgramDetail): void {
+  const label = `program ${program.MonitoringProgramID}`;
+  expect(Array.isArray(program.Images), label).toBe(true);
+  expect(program.Images, label).toHaveLength(program.ImageCount);
+
+  for (const image of program.Images) {
+    expect(Object.keys(image).sort(), label).toEqual(IMAGE_KEYS);
+    expect(Number.isInteger(image.MonitoringProgramImageID), label).toBe(true);
+    expect(image.Url, label).toMatch(HTTPS_URL);
+    expect(image.Caption === null || typeof image.Caption === 'string', label).toBe(true);
+    expect(image.PhotoCredit === null || typeof image.PhotoCredit === 'string', label).toBe(true);
+    expect(image.IsKeyPhoto, label).toEqual(expect.any(Boolean));
+  }
+  expect(
+    new Set(program.Images.map((image) => image.MonitoringProgramImageID)).size,
+    `${label}: image IDs are unique`,
+  ).toBe(program.Images.length);
+
+  if (program.Images.length === 0) {
+    expect(program.KeyPhotoUrl, label).toBeNull();
+    return;
+  }
+  // At most one key photo, and when there is one it comes first.
+  const keyPhotos = program.Images.filter((image) => image.IsKeyPhoto);
+  expect(keyPhotos.length, `${label}: at most one key photo`).toBeLessThanOrEqual(1);
+  if (keyPhotos.length === 1) expect(program.Images[0].IsKeyPhoto, label).toBe(true);
+  expect(program.KeyPhotoUrl, `${label}: KeyPhotoUrl is the first photo`).toBe(
+    program.Images[0].Url,
+  );
+}
+
+/** Asserts the shape of one program's chart and map settings. Null means none are configured. */
+function expectDashboardConfig(program: ProgramDetail): void {
+  const label = `program ${program.MonitoringProgramID}`;
+  const config = program.DashboardConfig;
+  if (config === null) return;
+
+  expect(typeof config, label).toBe('object');
+  for (const key of Object.keys(config)) expect(CONFIG_KEYS, label).toContain(key);
+
+  if (config.measures !== undefined) {
+    expect(Array.isArray(config.measures), label).toBe(true);
+    for (const measure of config.measures) {
+      expect(measure.title, label).toEqual(expect.any(String));
+      expect(measure.title, label).not.toBe('');
+      expect(isLayerId(measure.layer), `${label}: measure layer`).toBe(true);
+      expect(measure.x, label).toEqual(expect.any(String));
+      expect(typeof measure.y === 'string' || Array.isArray(measure.y), `${label}: measure y`).toBe(
+        true,
+      );
+    }
+  }
+  if (config.sitesLayer !== undefined) {
+    expect(isLayerId(config.sitesLayer.layer), `${label}: sitesLayer layer`).toBe(true);
+  }
+  if (config.mapLayer !== undefined) {
+    expect(isLayerId(config.mapLayer.layer), `${label}: mapLayer layer`).toBe(true);
+  }
+  if (config.sitesPerYear !== undefined) {
+    expect(isLayerId(config.sitesPerYear.layer), `${label}: sitesPerYear layer`).toBe(true);
+    expect(config.sitesPerYear.year, label).toEqual(expect.any(String));
+    expect(config.sitesPerYear.site, label).toEqual(expect.any(String));
+  }
+  if (config.overlays !== undefined) expect(Array.isArray(config.overlays), label).toBe(true);
+}
 
 test.describe('Sandbox.API contract', () => {
   test('GET /health reports the database and the program count', async ({ request }) => {
@@ -151,6 +255,51 @@ test.describe('Sandbox.API contract', () => {
     );
   });
 
+  test('GET /monitoring-programs gives each program a Template, an ImageCount, and a KeyPhotoUrl', async ({
+    request,
+  }) => {
+    const programs = (await (await request.get('monitoring-programs')).json()) as ProgramSummary[];
+
+    for (const program of programs) {
+      const label = `program ${program.MonitoringProgramID}`;
+      expect(TEMPLATES, label).toContain(program.Template);
+      expect(Number.isInteger(program.ImageCount), label).toBe(true);
+      expect(program.ImageCount, label).toBeGreaterThanOrEqual(0);
+      // A program with photos names one of them; a program without has null.
+      if (program.ImageCount > 0) expect(program.KeyPhotoUrl, label).toMatch(HTTPS_URL);
+      else expect(program.KeyPhotoUrl, label).toBeNull();
+    }
+
+    // 13 map, 18 charts, and 5 context.
+    const count = (template: Template): number =>
+      programs.filter((program) => program.Template === template).length;
+    expect({ map: count('map'), charts: count('charts'), context: count('context') }).toEqual(
+      seed.templates,
+    );
+
+    // 55 photos across 28 programs.
+    expect(programs.reduce((sum, program) => sum + program.ImageCount, 0)).toBe(seed.photos);
+    expect(programs.filter((program) => program.ImageCount > 0)).toHaveLength(
+      seed.programsWithPhotos,
+    );
+
+    // The four programs the page tests open are seeded with the layout each test expects.
+    for (const expected of [
+      seed.ozone,
+      seed.yellowCress,
+      seed.socioEconomic,
+      seed.subalpineConifer,
+    ]) {
+      expect(programs.find((program) => program.MonitoringProgramID === expected.id)).toEqual(
+        expect.objectContaining({
+          MonitoringProgramName: expected.name,
+          Template: expected.template,
+          ImageCount: expected.photos,
+        }),
+      );
+    }
+  });
+
   test('GET /monitoring-programs/41 returns the Ozone detail with its partners', async ({
     request,
   }) => {
@@ -167,6 +316,8 @@ test.describe('Sandbox.API contract', () => {
         IsFeatured: seed.ozone.isFeatured,
         PartnerCount: seed.ozone.partners,
         MonitoringProgramDescription: null,
+        Template: seed.ozone.template,
+        ImageCount: seed.ozone.photos,
       }),
     );
     expect(program.ThemeColor).toMatch(HEX_COLOR);
@@ -189,6 +340,84 @@ test.describe('Sandbox.API contract', () => {
     expect(new Set(program.Partners.map((partner) => partner.OrganizationID)).size).toBe(
       seed.ozone.partners,
     );
+  });
+
+  test('GET /monitoring-programs/41 returns its photo and its chart and map settings', async ({
+    request,
+  }) => {
+    const program = (await (await request.get(programPath(seed.ozone.id))).json()) as ProgramDetail;
+
+    // One photo, which is the key photo, with a caption and a credit.
+    expectImages(program);
+    expect(program.Images).toHaveLength(seed.ozone.photos);
+    expect(program.Images[0]).toEqual(
+      expect.objectContaining({
+        IsKeyPhoto: true,
+        Caption: expect.any(String),
+        PhotoCredit: expect.any(String),
+      }),
+    );
+
+    // Two measures, a sites layer, and a sites-per-year count: three charts and one map.
+    expectDashboardConfig(program);
+    const config = program.DashboardConfig;
+    expect(config).not.toBeNull();
+    expect(config!.measures).toHaveLength(seed.ozone.chartPanels - 1);
+    expect(config!.sitesLayer).toEqual(expect.any(Object));
+    expect(config!.sitesPerYear).toEqual(expect.any(Object));
+  });
+
+  test('GET /monitoring-programs/83 returns no photos and no chart or map settings', async ({
+    request,
+  }) => {
+    const program = (await (
+      await request.get(programPath(seed.subalpineConifer.id))
+    ).json()) as ProgramDetail;
+
+    expect(Object.keys(program).sort()).toEqual(DETAIL_KEYS);
+    expect(program).toEqual(
+      expect.objectContaining({
+        MonitoringProgramName: seed.subalpineConifer.name,
+        Template: 'context',
+        ImageCount: 0,
+        KeyPhotoUrl: null,
+        Images: [],
+        DashboardConfig: null,
+      }),
+    );
+  });
+
+  test('every program detail carries Images and DashboardConfig in the documented shape', async ({
+    request,
+  }) => {
+    const summaries = (await (
+      await request.get('monitoring-programs')
+    ).json()) as ProgramSummary[];
+    const details: ProgramDetail[] = [];
+    for (const summary of summaries) {
+      const response = await request.get(programPath(summary.MonitoringProgramID));
+      expect(response.status(), `program ${summary.MonitoringProgramID}`).toBe(200);
+      details.push((await response.json()) as ProgramDetail);
+    }
+
+    for (const [index, program] of details.entries()) {
+      expect(Object.keys(program).sort()).toEqual(DETAIL_KEYS);
+      // The detail repeats the summary fields with the same values.
+      expect(program).toEqual(expect.objectContaining(summaries[index]));
+      expectImages(program);
+      expectDashboardConfig(program);
+    }
+
+    // 55 photos across 28 programs, counted from the photos themselves.
+    expect(details.reduce((sum, program) => sum + program.Images.length, 0)).toBe(seed.photos);
+    expect(details.filter((program) => program.Images.length > 0)).toHaveLength(
+      seed.programsWithPhotos,
+    );
+    // No photo file is listed twice.
+    const imageIds = details.flatMap((program) =>
+      program.Images.map((image) => image.MonitoringProgramImageID),
+    );
+    expect(new Set(imageIds).size).toBe(seed.photos);
   });
 
   test('GET /monitoring-programs/{id} answers 404 for an unknown id', async ({ request }) => {
@@ -220,6 +449,22 @@ test.describe('Sandbox.API contract', () => {
     // A refused request changes nothing.
     const after = (await (await request.get(programPath(seed.ozone.id))).json()) as ProgramDetail;
     expect(after.IsFeatured).toBe(before.IsFeatured);
+  });
+
+  test('PATCH /monitoring-programs/{id} answers 400 for an unknown template', async ({
+    request,
+  }) => {
+    const path = programPath(seed.ozone.id);
+    const before = (await (await request.get(path)).json()) as ProgramDetail;
+
+    for (const value of ['grid', 'Map', '', 5]) {
+      const response = await request.patch(path, { data: { Template: value } });
+      expect(response.status(), `Template: ${JSON.stringify(value)}`).toBe(400);
+    }
+
+    // A refused request changes nothing.
+    const after = (await (await request.get(path)).json()) as ProgramDetail;
+    expect(after).toEqual(before);
   });
 
   test('GET /openapi/v1.json lists the four paths and their methods', async ({ request }) => {
@@ -291,5 +536,48 @@ test.describe('Sandbox.API contract', () => {
     expect(restored).toEqual(original);
     const programs = (await (await request.get('monitoring-programs')).json()) as ProgramSummary[];
     expect(programs.filter((program) => program.IsFeatured)).toHaveLength(featuredBefore);
+  });
+
+  test('PATCH /monitoring-programs/41 saves Template, reads back, and is restored', async ({
+    request,
+  }) => {
+    const path = programPath(seed.ozone.id);
+    const original = (await (await request.get(path)).json()) as ProgramDetail;
+    const countOf = async (template: Template): Promise<number> =>
+      ((await (await request.get('monitoring-programs')).json()) as ProgramSummary[]).filter(
+        (program) => program.Template === template,
+      ).length;
+    const others = TEMPLATES.filter((template) => template !== original.Template);
+    const originalCountBefore = await countOf(original.Template);
+
+    try {
+      // Each of the other two layouts in turn, so every stored value is written once.
+      for (const template of others) {
+        const patch = await request.patch(path, { data: { Template: template } });
+        expect(patch.status(), `Template: ${template}`).toBe(200);
+        const saved = (await patch.json()) as ProgramDetail;
+        // Only the layout changes: the photos, the settings, and Featured are untouched.
+        expect(saved).toEqual({ ...original, Template: template });
+
+        // Read back: both the detail and the list show the saved layout.
+        const detail = (await (await request.get(path)).json()) as ProgramDetail;
+        expect(detail.Template).toBe(template);
+        const programs = (await (
+          await request.get('monitoring-programs')
+        ).json()) as ProgramSummary[];
+        expect(programs.find((program) => program.MonitoringProgramID === seed.ozone.id)).toEqual(
+          expect.objectContaining({ Template: template }),
+        );
+        expect(await countOf(original.Template)).toBe(originalCountBefore - 1);
+      }
+    } finally {
+      // Leave the database as found, even when an assertion above failed.
+      const restore = await request.patch(path, { data: { Template: original.Template } });
+      expect(restore.status(), 'restoring the original Template value').toBe(200);
+    }
+
+    const restored = (await (await request.get(path)).json()) as ProgramDetail;
+    expect(restored).toEqual(original);
+    expect(await countOf(original.Template)).toBe(originalCountBefore);
   });
 });

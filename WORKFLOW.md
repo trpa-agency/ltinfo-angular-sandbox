@@ -27,9 +27,25 @@ The database is the **SQL Server installed on this machine** (database `LTInfoSa
 powershell -File Build\Deploy.ps1
 ```
 
-It builds the database, builds the release images, starts the site, waits until it is healthy, and runs the 26 automated tests against it. About a minute. The site is then at http://localhost:8080 and stays up, restarting with Docker.
+It builds the database, builds the release images, starts the site, waits until it is healthy, and runs the 56 automated tests against it. About two minutes. The site is then at http://localhost:8080 and stays up, restarting with Docker.
 
 The deploy puts the seed rows back first so the tests start from known data. Add `-KeepData` to leave your rows alone and skip the tests.
+
+## Page templates
+
+Every program page uses one of three layouts, stored per program in the database (`Template`):
+
+| Layout | Leads with | Example |
+|---|---|---|
+| Map | a tall Leaflet map with the site list beside it | http://localhost:4200/programs/39 |
+| Charts | the Vega-Lite measurement charts | http://localhost:4200/programs/41 |
+| Content | the program story and photos | http://localhost:4200/programs/82 |
+
+All three share the header (name, four summary tiles, key photo) and show the program's photos. Add `?template=map`, `charts`, or `context` to a program address to preview another layout; the Page layout control saves it.
+
+The charts and maps read live data from the TRPA LTInfo_Monitoring map service. What each program charts and maps is its `DashboardConfig` in the database, with the keys documented in the dashboard repo's `templates/README.md`. To regenerate the seed from that repo and LT Info, run `python Sandbox.Database/Scripts/make-seed.py`, then `Build\DatabaseBuild.ps1 -Reseed`.
+
+Test pages for the two building blocks: http://localhost:4200/dev/charts (every chart shape) and http://localhost:4200/dev/map (sites, areas with a year pick, a layer with no list).
 
 ## Develop
 
