@@ -3,12 +3,33 @@
     <a class="app-brand" routerLink="/">
       <span class="typography-label-md">Lake Tahoe Info</span>
       <span class="app-brand__divider" aria-hidden="true"></span>
-      <span class="typography-label-md-strong">Angular and Ecology sandbox</span>
+      <span class="typography-label-md-strong">Monitoring Dashboard</span>
     </a>
   </div>
 </header>
 
-<main class="app-main">
+<!-- The nav row stays at the top while the page scrolls. Each item scrolls to a section of
+     the home page (from any other page it opens the home page there); the active item
+     follows the section in view. -->
+<nav class="app-nav" aria-label="Monitoring Dashboard" #nav>
+  <ul class="app-nav__list">
+    @for (item of navItems; track item.id) {
+      <li>
+        <a
+          class="app-nav__link typography-label-md"
+          [class.is-active]="active() === item.id"
+          [attr.aria-current]="active() === item.id ? 'true' : null"
+          [routerLink]="homePath()"
+          [fragment]="item.id"
+          (click)="go($event, item.id)"
+          >{{ item.label }}</a
+        >
+      </li>
+    }
+  </ul>
+</nav>
+
+<main class="app-main" [class.app-main--full]="fullBleed()">
   <router-outlet />
 </main>
 

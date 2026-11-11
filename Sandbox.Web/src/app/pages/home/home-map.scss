@@ -1,0 +1,223 @@
+// Global rules (the component uses ViewEncapsulation.None) that skin Leaflet's own DOM with
+// Ecology tokens. The same conventions as dashboard/sites-panel/sites-map.scss, under the
+// .home-map and .home-popup prefixes so nothing leaks to the rest of the app. Leaflet's base
+// stylesheet is loaded once for the whole app in angular.json.
+
+.home-map {
+  display: block;
+  position: relative;
+  min-width: 0;
+  background: var(--color-background-elevation-sunken);
+}
+
+.home-map__canvas {
+  position: relative;
+  // A stacking context of its own, so Leaflet's pane and control z-indexes (up to 1000)
+  // stay inside the map and never cover the search list or anything else on the page.
+  z-index: 0;
+  isolation: isolate;
+  height: var(--home-map-height, 26rem);
+}
+
+// Loading and error notes sit over the empty map frame.
+.home-map__note {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: var(--spacing-500);
+  text-align: center;
+  color: var(--color-content-default-secondary);
+  background: var(--color-background-elevation-sunken);
+}
+
+.home-map .leaflet-container {
+  font-family: var(--typography-font-family-sans);
+  font-size: var(--typography-body-sm-font-size);
+  line-height: var(--typography-body-sm-line-height);
+  color: var(--color-content-default);
+  background: var(--color-background-elevation-sunken);
+}
+
+.home-map .leaflet-container a {
+  color: var(--color-content-link);
+}
+
+// Tiles are drawn one pixel larger to close the seams of fractional zoom (see home-map.ts);
+// they blend normally so the overlap does not show as a bright line.
+.home-map .leaflet-container img.leaflet-tile {
+  mix-blend-mode: normal;
+}
+
+.home-map .leaflet-container:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-default-focus);
+  outline-offset: calc(var(--border-width-focus) * -1);
+}
+
+// ---------- Controls: zoom, Home, basemap switch, attribution ----------
+
+.home-map .leaflet-bar {
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--elevation-2);
+}
+
+.home-map .leaflet-bar a,
+.home-map .home-map__home-button {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  color: var(--color-content-default);
+  background: var(--color-background-elevation-raised);
+  border-bottom: var(--border-width-default) solid var(--color-border-default-subtle);
+}
+
+.home-map .leaflet-bar a:last-child,
+.home-map .home-map__home-button {
+  border-bottom: 0;
+}
+
+.home-map .leaflet-bar a:hover,
+.home-map .home-map__home-button:hover {
+  background: var(--color-background-default-hover);
+}
+
+// Leaflet sets a monospace font on the zoom glyphs; they take Lexend Deca like everything else.
+.home-map .leaflet-control-zoom a {
+  font-family: inherit;
+  font-weight: var(--typography-font-weight-medium);
+}
+
+.home-map__home-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.home-map__home-button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.home-map .leaflet-bar a:focus-visible,
+.home-map__home-button:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-default-focus);
+  outline-offset: calc(var(--border-width-focus) * -1);
+}
+
+.home-map .leaflet-control-layers {
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--elevation-2);
+  background: var(--color-background-elevation-raised);
+  color: var(--color-content-default);
+}
+
+.home-map .leaflet-control-layers-toggle {
+  width: 32px;
+  height: 32px;
+  background-size: 20px 20px;
+}
+
+.home-map .leaflet-control-layers-expanded {
+  padding: var(--spacing-200) var(--spacing-300);
+}
+
+.home-map .leaflet-control-layers label {
+  font-size: var(--typography-body-sm-font-size);
+  line-height: 1.7;
+}
+
+.home-map .leaflet-control-attribution {
+  font-size: var(--typography-body-xs-font-size);
+  color: var(--color-content-default-secondary);
+  background: color-mix(in srgb, var(--color-background-elevation-raised) 85%, transparent);
+}
+
+// ---------- Popups ----------
+
+.home-map .leaflet-popup-content-wrapper {
+  border-radius: var(--radius-md);
+  box-shadow: var(--elevation-4);
+  background: var(--color-background-elevation-raised);
+  color: var(--color-content-default);
+  font-family: var(--typography-font-family-sans);
+}
+
+.home-map .leaflet-popup-tip {
+  background: var(--color-background-elevation-raised);
+}
+
+.home-map .leaflet-popup-content {
+  min-width: 180px;
+  margin: var(--spacing-300) var(--spacing-400);
+  font-size: var(--typography-body-sm-font-size);
+  line-height: var(--typography-body-sm-line-height);
+}
+
+// Leaflet gives the close glyph its own Tahoma font shorthand; it takes Lexend Deca instead.
+.home-map .leaflet-container a.leaflet-popup-close-button {
+  width: 28px;
+  height: 28px;
+  color: var(--color-content-default-secondary);
+  font-family: inherit;
+  font-size: 1.125rem;
+  line-height: 28px;
+}
+
+.home-map .leaflet-container a.leaflet-popup-close-button:hover {
+  color: var(--color-content-default);
+}
+
+.home-popup__title {
+  margin: 0 0 var(--spacing-200);
+  padding-right: var(--spacing-400);
+  color: var(--color-content-default);
+}
+
+.home-popup__rows {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--spacing-100) var(--spacing-300);
+  margin: 0;
+}
+
+.home-popup__rows dt {
+  color: var(--color-content-default-secondary);
+}
+
+.home-popup__rows dd {
+  margin: 0;
+  font-weight: var(--typography-font-weight-medium);
+  overflow-wrap: anywhere;
+}
+
+// The category name beside a dot in its color.
+.home-popup__category {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-150);
+}
+
+.home-popup__category::before {
+  content: '';
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--home-popup-color, var(--color-content-disabled));
+}
+
+.home-map .leaflet-popup-content p.home-popup__foot {
+  margin: var(--spacing-250) 0 0;
+  padding-top: var(--spacing-200);
+  border-top: var(--border-width-default) solid var(--color-border-default-subtle);
+  color: var(--color-content-default-secondary);
+}

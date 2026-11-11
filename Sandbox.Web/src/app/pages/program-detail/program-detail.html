@@ -1,14 +1,14 @@
 @let page = state();
 
 @if (page.status === 'loading') {
-  <p class="back typography-label-md"><a routerLink="/">All programs</a></p>
+  <p class="back typography-label-md"><a routerLink="/" fragment="all-programs">All programs</a></p>
   <esa-card>
     <div role="status">
       <esa-empty-state [title]="'Loading program'"></esa-empty-state>
     </div>
   </esa-card>
 } @else if (page.status === 'error') {
-  <p class="back typography-label-md"><a routerLink="/">All programs</a></p>
+  <p class="back typography-label-md"><a routerLink="/" fragment="all-programs">All programs</a></p>
   <esa-card>
     <div role="alert">
       <esa-empty-state [title]="page.title" [description]="page.description"></esa-empty-state>
@@ -28,7 +28,7 @@
     (pick)="preview($event, program.Template)"
     (save)="saveLayout(program)"
   >
-    <p class="back typography-label-md"><a routerLink="/">All programs</a></p>
+    <p class="back typography-label-md"><a routerLink="/" fragment="all-programs">All programs</a></p>
   </app-layout-control>
 
   <!-- One of three templates. --category-color reaches every block inside it. -->

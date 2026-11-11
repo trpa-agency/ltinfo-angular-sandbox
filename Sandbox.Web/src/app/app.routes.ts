@@ -1,10 +1,34 @@
-import { Routes } from '@angular/router';
+import { inject } from '@angular/core';
+import { Router, Routes, UrlMatchResult, UrlSegment } from '@angular/router';
 
+import { Home } from './pages/home/home';
 import { ProgramDetail } from './pages/program-detail/program-detail';
-import { ProgramList } from './pages/program-list/program-list';
+
+/**
+ * The home page answers both / and /category/:folder through one route, so selecting a
+ * category (which rewrites the address) reuses the page and its map instead of rebuilding them.
+ */
+export function homeMatcher(segments: UrlSegment[]): UrlMatchResult | null {
+  if (segments.length === 0) return { consumed: [] };
+  if (segments.length === 2 && segments[0].path === 'category') {
+    return { consumed: segments, posParams: { folder: segments[1] } };
+  }
+  return null;
+}
+
+/** The old separate views are sections of the home page now; their addresses still work. */
+const toSection = (fragment: string) => () => inject(Router).createUrlTree(['/'], { fragment });
 
 export const routes: Routes = [
-  { path: '', component: ProgramList, title: 'Monitoring programs | LT Info sandbox' },
+  {
+    matcher: homeMatcher,
+    component: Home,
+    title: 'Monitoring Programs | LT Info sandbox',
+    // The hero runs edge to edge; the shell drops its column for this route.
+    data: { fullBleed: true },
+  },
+  { path: 'programs', pathMatch: 'full', redirectTo: toSection('all-programs') },
+  { path: 'about', pathMatch: 'full', redirectTo: toSection('about') },
   { path: 'programs/:id', component: ProgramDetail, title: 'Program | LT Info sandbox' },
   // Test pages for the two data panels, loaded only when visited.
   {

@@ -1,0 +1,104 @@
+// The About Monitoring section. --cat is data: each category's theme color.
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-500);
+}
+
+.about__panels {
+  display: grid;
+  gap: var(--spacing-400);
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+}
+
+.about__prose p {
+  margin: 0 0 var(--spacing-300);
+  color: var(--color-content-default);
+}
+
+.about__prose p:last-child {
+  margin-bottom: 0;
+}
+
+.about__goals-title {
+  margin: 0;
+  color: var(--color-content-default);
+}
+
+.goals {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--color-background-elevation-raised);
+  border: var(--border-width-default) solid var(--card-border-color, var(--color-border-default));
+  border-radius: var(--radius-md);
+}
+
+.goal {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: start;
+  gap: var(--spacing-100) var(--spacing-400);
+  padding: var(--spacing-400);
+  border-inline-start: var(--border-width-400) solid var(--cat, var(--color-background-brand));
+}
+
+.goal + .goal {
+  border-top: var(--border-width-default) solid var(--color-border-default-subtle);
+}
+
+.goal__icon {
+  display: grid;
+  place-items: center;
+  width: var(--spacing-650);
+  height: var(--spacing-650);
+  border-radius: var(--radius-full);
+  background: var(--cat, var(--color-background-brand));
+}
+
+.goal__icon img {
+  display: block;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.on-light .goal__icon img {
+  filter: brightness(0) opacity(0.75);
+}
+
+.goal__name,
+.goal__description {
+  margin: 0;
+}
+
+.goal__name {
+  color: var(--color-content-default);
+}
+
+.goal__description {
+  color: var(--color-content-default-secondary);
+}
+
+.goal__link {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.goal__none {
+  color: var(--color-content-default-secondary);
+}
+
+// Narrow: the program link drops under the goal text.
+@media (max-width: 40rem) {
+  .goal {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .goal__link {
+    grid-column: 2;
+  }
+}

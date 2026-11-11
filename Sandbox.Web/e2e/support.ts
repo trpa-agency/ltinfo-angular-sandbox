@@ -76,7 +76,24 @@ export const seed = {
   },
   airQualityPrograms: 5,
   unknownId: 999999,
+  /** GET /summary, and the four totals in the home page hero. */
+  summary: { programs: 36, categories: 10, mappedSites: 1750, partners: 43, photos: 55 },
+  /** GET /monitoring-sites: one point per site, and one per mapped area or line. */
+  sites: { total: 1750, site: 789, area: 927, line: 34 },
+  /** Three categories the home page tests open. Folder is the /category/:folder address. */
+  airQuality: { name: 'Air Quality', folder: 'air-quality', programs: 5, sites: 30 },
+  waterQuality: { name: 'Water Quality', folder: 'water-quality', programs: 11, sites: 350 },
+  recreation: { name: 'Recreation', folder: 'recreation', programs: 0, sites: 0 },
+  /** A Water Quality program with mapped sites, for the program hover. */
+  periphyton: { id: 13, name: 'Periphyton', sites: 54 },
 } as const;
+
+/** The home page sections, in page order, with the nav item that scrolls to each. */
+export const HOME_SECTIONS = [
+  { id: 'categories', nav: 'Monitoring Programs', heading: 'Threshold categories' },
+  { id: 'all-programs', nav: 'All Programs', heading: 'All Programs' },
+  { id: 'about', nav: 'About Monitoring', heading: 'About Monitoring' },
+] as const;
 
 /**
  * How long a data panel may take to leave "loading". The panels read the TRPA

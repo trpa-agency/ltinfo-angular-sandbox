@@ -7,6 +7,8 @@ import {
   HealthStatus,
   MonitoringProgramDetail,
   MonitoringProgramSummary,
+  MonitoringSite,
+  Summary,
   Template,
 } from './models';
 
@@ -21,6 +23,16 @@ export class SandboxApiService {
 
   getHealth(): Observable<HealthStatus> {
     return this.http.get<HealthStatus>(`${API}/health`);
+  }
+
+  /** The home page totals. */
+  getSummary(): Observable<Summary> {
+    return this.http.get<Summary>(`${API}/summary`);
+  }
+
+  /** Every mapped site, one point each, for the home page map. */
+  getSites(): Observable<MonitoringSite[]> {
+    return this.http.get<MonitoringSite[]>(`${API}/monitoring-sites`);
   }
 
   getCategories(): Observable<Category[]> {

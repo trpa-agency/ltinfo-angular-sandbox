@@ -1,10 +1,7 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { forkJoin } from 'rxjs';
 
-import { LoadState, failed, ready } from '../../api/load-state';
 import { Category, MonitoringProgramSummary, Template } from '../../api/models';
-import { SandboxApiService } from '../../api/sandbox-api.service';
 import { TEMPLATE_LABELS } from '../../dashboard/templates/template-info';
 import { EsaBadge } from '../../ecology/esa-badge';
 import { EsaButton } from '../../ecology/esa-button';
@@ -13,11 +10,9 @@ import { EsaEmptyState } from '../../ecology/esa-empty-state';
 import { EsaStat } from '../../ecology/esa-stat';
 import { FeaturedFilter, LayoutFilter, ProgramFilters } from './program-filters';
 
-interface ListData {
-  categories: Category[];
-  programs: MonitoringProgramSummary[];
-}
-
+// The All Programs list: four tiles, the four filters, and the table. It is a section
+// of the home page, which loads the data once and passes it in, and owns the loading
+// and error states. The home page calls showCategory() for "Show these programs".
 @Component({
   selector: 'app-program-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,9 +21,8 @@ interface ListData {
   styleUrl: './program-list.scss',
 })
 export class ProgramList {
-  private readonly api = inject(SandboxApiService);
-
-  protected readonly state = signal<LoadState<ListData>>({ status: 'loading' });
+  readonly categories = input.required<Category[]>();
+  readonly programs = input.required<MonitoringProgramSummary[]>();
 
   // The four filters. ProgramFilters writes them; `filtered` reads them.
   protected readonly search = signal('');
@@ -42,12 +36,10 @@ export class ProgramList {
   /** What a reader sees for each stored layout value. */
   protected readonly layoutLabels = TEMPLATE_LABELS;
 
-  private readonly data = computed<ListData>(() => {
-    const state = this.state();
-    return state.status === 'ready' ? state.data : { categories: [], programs: [] };
-  });
-
-  protected readonly categories = computed(() => this.data().categories);
+  private readonly data = computed(() => ({
+    categories: this.categories(),
+    programs: this.programs(),
+  }));
 
   // The four tiles count the whole dataset, not the filtered rows.
   protected readonly stats = computed(() => {
@@ -81,19 +73,10 @@ export class ProgramList {
     );
   });
 
-  constructor() {
-    this.load();
-  }
-
-  protected load(): void {
-    this.state.set({ status: 'loading' });
-    forkJoin({
-      categories: this.api.getCategories(),
-      programs: this.api.getPrograms(),
-    }).subscribe({
-      next: (data) => this.state.set(ready(data)),
-      error: (error: unknown) => this.state.set(failed(error)),
-    });
+  /** Every program of one category: the other three filters are cleared so none is hidden. */
+  showCategory(categoryId: number): void {
+    this.clearFilters();
+    this.categoryId.set(String(categoryId));
   }
 
   protected clearFilters(): void {

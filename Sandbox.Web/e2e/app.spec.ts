@@ -3,6 +3,10 @@
 // its address, every wait is for something a user can see, and nothing reads
 // dev-server internals.
 //
+// The home page is one scrolling page: the hero, the threshold categories beside
+// the site map, All Programs (the filterable list), and About Monitoring. The
+// list tests open it at /#all-programs. The home page tests are in home.spec.ts.
+//
 // The search box, the selects, and the toggles are Ecology Lit elements with
 // shadow roots. Playwright locators reach into open shadow roots, so they are
 // found by role and name like any other control.
@@ -73,11 +77,14 @@ const previewNotice = (page: Page): Locator => page.locator('.layout__notice');
 const savedValue = (page: Page): Locator => page.locator('.featured__value');
 const featuredButton = (page: Page): Locator => page.locator('.featured').getByRole('button');
 
+/** The "All programs" link at the top of a program page. */
+const backLink = (page: Page): Locator => page.locator('.back').getByRole('link', { name: 'All programs' });
+
 const CONNECTED_LINE = `Angular, the API, and SQL Server are connected. Database ${seed.database}, ${seed.programs} programs.`;
 
-/** Opens the list and waits for the table and the footer health line. */
+/** Opens the All Programs section of the home page and waits for the table and the footer health line. */
 async function openList(page: Page): Promise<void> {
-  await page.goto('/');
+  await page.goto('/#all-programs');
   await expect(rows(page)).toHaveCount(seed.programs);
   await expect(footer(page)).toContainText(CONNECTED_LINE);
 }
@@ -141,7 +148,7 @@ function nextPatch(page: Page, id: number) {
   );
 }
 
-test.describe('Program list', () => {
+test.describe('All Programs list', () => {
   test.beforeEach(async ({ page }) => {
     await openList(page);
   });
@@ -413,7 +420,7 @@ test.describe('Program page, shared parts', () => {
     // The Featured card keeps the write path.
     await expect(savedValue(page)).toHaveText('Saved value: Not featured');
     await expect(featuredButton(page)).toHaveText('Mark as featured');
-    await expect(page.getByRole('link', { name: 'All programs' })).toHaveAttribute('href', '/');
+    await expect(backLink(page)).toHaveAttribute('href', '/#all-programs');
   });
 
   test('the summary tiles fill in from the panels', async ({ page }) => {
@@ -469,8 +476,7 @@ test.describe('Program page, shared parts', () => {
       };
       expect(saved.IsFeatured).toBe(!original.IsFeatured);
       const featuredAfter = featuredBefore + (original.IsFeatured ? -1 : 1);
-      await page.goto('/');
-      await expect(rows(page)).toHaveCount(seed.programs);
+      await openList(page);
       await expect(statValue(page, 'Featured')).toHaveText(String(featuredAfter));
 
       // Second click, on a fresh load of the detail page: back to the original.
@@ -520,7 +526,8 @@ test.describe('Program page, shared parts', () => {
       expect(consoleErrors).toHaveLength(1);
       expect(consoleErrors[0]).toMatch(expected404);
 
-      await page.getByRole('link', { name: 'All programs' }).click();
+      await backLink(page).click();
+      await expect(page).toHaveURL(/\/#all-programs$/);
       await expect(rows(page)).toHaveCount(seed.programs);
     });
   });
@@ -909,18 +916,20 @@ test.describe('API down', () => {
   // Every aborted request is logged by the browser as a failed resource.
   test.use({ allowedConsoleErrors: [/net::ERR_CONNECTION_REFUSED/] });
 
-  test('the list shows the error state, and Try again recovers', async ({ page }) => {
+  test('the home page shows the error state, and Try again recovers', async ({ page }) => {
     const isApiCall = (url: URL): boolean => url.pathname.startsWith('/api/');
     await page.route(isApiCall, (route) => route.abort('connectionrefused'));
 
-    await page.goto('/');
+    await page.goto('/#all-programs');
 
     await expect(page.getByRole('heading', { name: 'The API did not respond' })).toBeVisible();
     await expect(
       page.getByText('Start the sandbox.api container, then try again.'),
     ).toBeVisible();
     await expect(page.locator('table.programs-table')).toHaveCount(0);
-    // An error state, not a blank page: the header and the footer still render.
+    await expect(page.locator('app-category-card')).toHaveCount(0);
+    // An error state, not a blank page: the header, the hero, and the footer still render.
+    await expect(page.getByRole('heading', { level: 1, name: 'Monitoring Programs' })).toBeVisible();
     await expect(page.locator('.app-bar')).toContainText('Lake Tahoe Info');
     await expect(footer(page)).toContainText('Not connected');
 
@@ -929,6 +938,7 @@ test.describe('API down', () => {
 
     await expect(rows(page)).toHaveCount(seed.programs);
     await expect(statValue(page, 'Programs')).toHaveText(String(seed.programs));
+    await expect(page.locator('app-category-card')).toHaveCount(seed.categories);
   });
 
   test('a program page shows the error state, with no template and no controls', async ({
@@ -942,14 +952,14 @@ test.describe('API down', () => {
     await expect(page.getByRole('heading', { name: 'The API did not respond' })).toBeVisible();
     await expect(program(page)).toHaveCount(0);
     await expect(saveLayout(page)).toHaveCount(0);
-    await expect(page.getByRole('link', { name: 'All programs' })).toBeVisible();
+    await expect(backLink(page)).toBeVisible();
   });
 });
 
 test.describe('At 375 px wide', () => {
   test.use({ viewport: { width: 375, height: 800 } });
 
-  test('the list does not scroll sideways', async ({ page }) => {
+  test('the All Programs list does not scroll sideways', async ({ page }) => {
     await openList(page);
 
     expect(await sidewaysOverflow(page)).toBeLessThanOrEqual(0);
@@ -1006,8 +1016,11 @@ test.describe('At 375 px wide', () => {
 });
 
 test.describe('Console on a clean load', () => {
-  test('the list route logs no errors', async ({ page, consoleErrors }) => {
+  test('the All Programs list logs no errors', async ({ page, consoleErrors }) => {
     await openList(page);
+    await expect(page.locator('app-home-map')).toHaveAttribute('data-state', 'ready', {
+      timeout: 30_000,
+    });
     await expect.poll(() => lexendDecaLoaded(page)).toBe(true);
 
     expect(consoleErrors).toEqual([]);

@@ -1,0 +1,94 @@
+<!-- mon-lego-checked: esa-button for the list action. The card itself is custom: it is a
+     disclosure (a button over a color band) whose list drops down under it, which esa-card's
+     header, body, and footer frame does not fit. Tokens and data colors only. -->
+@let category = group().category;
+@let count = category.ProgramCount;
+<article
+  class="cat"
+  [class.is-open]="open()"
+  [class.is-hot]="hot()"
+  [class.on-light]="group().light"
+  [style.--cat]="group().color"
+  [attr.data-folder]="category.Folder"
+  (mouseenter)="hover.emit(null)"
+>
+  <h3 class="cat__heading">
+    <button
+      type="button"
+      class="cat__head"
+      [attr.aria-expanded]="open()"
+      [attr.aria-controls]="dropId()"
+      (click)="toggle.emit()"
+      (focus)="hover.emit(null)"
+    >
+      <span class="cat__band">
+        <span class="cat__icon">
+          @if (category.IconUrl) {
+            <img [src]="category.IconUrl" alt="" width="26" height="26" decoding="async" />
+          }
+        </span>
+        <span class="cat__count typography-label-xs-strong">{{ count }} {{ count === 1 ? 'program' : 'programs' }}</span>
+      </span>
+      <span class="cat__body">
+        <span class="cat__name typography-title-sm-strong">{{ category.CategoryName }}</span>
+        <span class="cat__blurb typography-body-sm">{{ category.Blurb }}</span>
+        <span class="cat__meta typography-body-sm">
+          @if (category.SiteCount > 0) {
+            <strong>{{ formatCount(category.SiteCount) }}</strong> mapped sites
+          } @else {
+            No mapped sites
+          }
+        </span>
+        <span class="cat__chev" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" /></svg>
+        </span>
+      </span>
+    </button>
+  </h3>
+
+  <div class="cat__drop" [id]="dropId()">
+    <div class="cat__drop-inner">
+      @if (programs().length) {
+        <ul class="cat__programs" [attr.aria-label]="category.CategoryName + ' programs'">
+          @for (program of programs(); track program.MonitoringProgramID) {
+            <li>
+              <a
+                class="prog"
+                [routerLink]="['/programs', program.MonitoringProgramID]"
+                [attr.data-program-id]="program.MonitoringProgramID"
+                (mouseenter)="hover.emit(program)"
+                (focus)="hover.emit(program)"
+                (mouseleave)="leave.emit()"
+              >
+                <span class="prog__dot" aria-hidden="true"></span>
+                <span class="prog__text">
+                  <span class="prog__name typography-label-sm">{{ program.MonitoringProgramName }}</span>
+                  <span class="prog__sites typography-body-xs" [class.is-none]="!program.SiteCount">
+                    @if (program.SiteCount > 0) {
+                      {{ formatCount(program.SiteCount) }} mapped {{ program.SiteCount === 1 ? 'site' : 'sites' }}
+                    } @else {
+                      No mapped sites
+                    }
+                  </span>
+                </span>
+                <span class="prog__arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" /></svg>
+                </span>
+              </a>
+            </li>
+          }
+        </ul>
+        <!-- Overview to list in one click: the All Programs table below, filtered to this category. -->
+        <div class="cat__actions">
+          <esa-button size="sm" variant="secondary" appearance="outline" (click)="showList.emit()">
+            Show these <span class="visually-hidden">{{ category.CategoryName }}</span> programs in the list
+          </esa-button>
+        </div>
+      } @else {
+        <p class="cat__none typography-body-sm">
+          No monitoring programs are assigned to this category yet.
+        </p>
+      }
+    </div>
+  </div>
+</article>

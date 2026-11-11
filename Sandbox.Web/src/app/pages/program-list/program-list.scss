@@ -6,11 +6,6 @@
   gap: var(--spacing-500);
 }
 
-.page-title {
-  margin: 0;
-  color: var(--color-content-default);
-}
-
 // Four tiles that drop to two columns, then one, as the page narrows.
 .stats {
   display: grid;

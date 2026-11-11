@@ -37,12 +37,42 @@ export interface HealthStatus {
   ProgramCount: number;
 }
 
+/** The four totals on the home page, plus the photo count. */
+export interface Summary {
+  ProgramCount: number;
+  CategoryCount: number;
+  MappedSiteCount: number;
+  PartnerCount: number;
+  PhotoCount: number;
+}
+
 export interface Category {
   CategoryID: number;
   CategoryName: string;
   Folder: string;
+  /** The Threshold Dashboard theme color. Some are light, so white on it needs a dark fallback. */
   ThemeColor: string;
   ProgramCount: number;
+  /** One line on what the category monitors, for its card. */
+  Blurb: string;
+  /** The threshold goal for the category. */
+  CategoryDescription: string;
+  /** The white category icon on the Threshold Dashboard, or null. */
+  IconUrl: string | null;
+  /** Mapped sites across the category's programs. */
+  SiteCount: number;
+}
+
+/** What a site's one point stands for: a site, or one representative point of an area or a line. */
+export type SiteKind = 'site' | 'area' | 'line';
+
+export interface MonitoringSite {
+  MonitoringSiteID: number;
+  MonitoringProgramID: number;
+  SiteName: string;
+  SiteKind: SiteKind;
+  Latitude: number;
+  Longitude: number;
 }
 
 export interface MonitoringProgramSummary {
@@ -57,6 +87,10 @@ export interface MonitoringProgramSummary {
   ImageCount: number;
   /** The key photo, else the first photo, else null. */
   KeyPhotoUrl: string | null;
+  /** Mapped sites: points, plus one point for each mapped area or line. */
+  SiteCount: number;
+  /** Partner organization names; as many as PartnerCount. */
+  PartnerNames: string[];
 }
 
 export interface Partner {

@@ -22,6 +22,8 @@ const SUMMARY_KEYS = [
   'MonitoringProgramID',
   'MonitoringProgramName',
   'PartnerCount',
+  'PartnerNames',
+  'SiteCount',
   'Template',
   'ThemeColor',
 ];
@@ -40,12 +42,46 @@ const IMAGE_KEYS = ['Caption', 'IsKeyPhoto', 'MonitoringProgramImageID', 'PhotoC
 /** The only keys a DashboardConfig may carry. Each is optional. */
 const CONFIG_KEYS = ['mapLayer', 'measures', 'overlays', 'sitesLayer', 'sitesPerYear'];
 
+const CATEGORY_KEYS = [
+  'Blurb',
+  'CategoryDescription',
+  'CategoryID',
+  'CategoryName',
+  'Folder',
+  'IconUrl',
+  'ProgramCount',
+  'SiteCount',
+  'ThemeColor',
+];
+
+const SITE_KEYS = [
+  'Latitude',
+  'Longitude',
+  'MonitoringProgramID',
+  'MonitoringSiteID',
+  'SiteKind',
+  'SiteName',
+];
+
 interface Category {
   CategoryID: number;
   CategoryName: string;
   Folder: string;
   ThemeColor: string;
   ProgramCount: number;
+  Blurb: string;
+  CategoryDescription: string;
+  IconUrl: string | null;
+  SiteCount: number;
+}
+
+interface MonitoringSite {
+  MonitoringSiteID: number;
+  MonitoringProgramID: number;
+  SiteName: string;
+  SiteKind: 'site' | 'area' | 'line';
+  Latitude: number;
+  Longitude: number;
 }
 
 interface ProgramSummary {
@@ -59,6 +95,8 @@ interface ProgramSummary {
   Template: Template;
   ImageCount: number;
   KeyPhotoUrl: string | null;
+  SiteCount: number;
+  PartnerNames: string[];
 }
 
 interface Partner {
@@ -184,13 +222,7 @@ test.describe('Sandbox.API contract', () => {
 
     expect(categories).toHaveLength(seed.categories);
     for (const category of categories) {
-      expect(Object.keys(category).sort()).toEqual([
-        'CategoryID',
-        'CategoryName',
-        'Folder',
-        'ProgramCount',
-        'ThemeColor',
-      ]);
+      expect(Object.keys(category).sort()).toEqual(CATEGORY_KEYS);
       expect(Number.isInteger(category.CategoryID)).toBe(true);
       expect(category.CategoryName).toEqual(expect.any(String));
       expect(category.CategoryName).not.toBe('');
@@ -420,6 +452,130 @@ test.describe('Sandbox.API contract', () => {
     expect(new Set(imageIds).size).toBe(seed.photos);
   });
 
+  test('GET /summary returns the four home page totals and the photo count', async ({
+    request,
+  }) => {
+    const response = await request.get('summary');
+
+    expect(response.status()).toBe(200);
+    expect(response.headers()['content-type']).toContain('application/json');
+    expect(await response.json()).toEqual({
+      ProgramCount: seed.summary.programs,
+      CategoryCount: seed.summary.categories,
+      MappedSiteCount: seed.summary.mappedSites,
+      PartnerCount: seed.summary.partners,
+      PhotoCount: seed.summary.photos,
+    });
+  });
+
+  test('GET /categories gives each category a blurb, a goal, an icon, and a site count', async ({
+    request,
+  }) => {
+    const categories = (await (await request.get('categories')).json()) as Category[];
+
+    for (const category of categories) {
+      const label = category.CategoryName;
+      expect(category.Blurb, label).toEqual(expect.any(String));
+      expect(category.Blurb.trim(), label).not.toBe('');
+      expect(category.CategoryDescription, label).toEqual(expect.any(String));
+      expect(category.CategoryDescription.trim(), label).not.toBe('');
+      expect(category.IconUrl === null || HTTPS_URL.test(category.IconUrl), label).toBe(true);
+      expect(Number.isInteger(category.SiteCount), label).toBe(true);
+      expect(category.SiteCount, label).toBeGreaterThanOrEqual(0);
+    }
+
+    // The per-category site counts add up to every mapped site.
+    expect(categories.reduce((sum, category) => sum + category.SiteCount, 0)).toBe(
+      seed.summary.mappedSites,
+    );
+    const byName = new Map(categories.map((category) => [category.CategoryName, category]));
+    for (const expected of [seed.airQuality, seed.waterQuality, seed.recreation]) {
+      expect(byName.get(expected.name)).toEqual(
+        expect.objectContaining({
+          Folder: expected.folder,
+          ProgramCount: expected.programs,
+          SiteCount: expected.sites,
+        }),
+      );
+    }
+  });
+
+  test('GET /monitoring-programs gives each program a SiteCount and its PartnerNames', async ({
+    request,
+  }) => {
+    const programs = (await (await request.get('monitoring-programs')).json()) as ProgramSummary[];
+    const categories = (await (await request.get('categories')).json()) as Category[];
+
+    for (const program of programs) {
+      const label = `program ${program.MonitoringProgramID}`;
+      expect(Number.isInteger(program.SiteCount), label).toBe(true);
+      expect(program.SiteCount, label).toBeGreaterThanOrEqual(0);
+      expect(Array.isArray(program.PartnerNames), label).toBe(true);
+      expect(program.PartnerNames, label).toHaveLength(program.PartnerCount);
+      for (const name of program.PartnerNames) {
+        expect(name, label).toEqual(expect.any(String));
+        expect(name.trim(), label).not.toBe('');
+      }
+    }
+
+    expect(programs.reduce((sum, program) => sum + program.SiteCount, 0)).toBe(
+      seed.summary.mappedSites,
+    );
+    // The partner total in /summary counts distinct organizations.
+    expect(new Set(programs.flatMap((program) => program.PartnerNames)).size).toBe(
+      seed.summary.partners,
+    );
+    // Each category's SiteCount is the sum over its programs.
+    for (const category of categories) {
+      const sum = programs
+        .filter((program) => program.CategoryID === category.CategoryID)
+        .reduce((total, program) => total + program.SiteCount, 0);
+      expect(sum, category.CategoryName).toBe(category.SiteCount);
+    }
+  });
+
+  test('GET /monitoring-sites returns 1,750 points: 789 sites, 927 areas, and 34 lines', async ({
+    request,
+  }) => {
+    const sitesResponse = await request.get('monitoring-sites');
+    expect(sitesResponse.status()).toBe(200);
+    expect(sitesResponse.headers()['content-type']).toContain('application/json');
+    const sites = (await sitesResponse.json()) as MonitoringSite[];
+    const programs = (await (await request.get('monitoring-programs')).json()) as ProgramSummary[];
+    const programIds = new Set(programs.map((program) => program.MonitoringProgramID));
+
+    expect(sites).toHaveLength(seed.sites.total);
+    for (const site of sites) {
+      const label = `site ${site.MonitoringSiteID}`;
+      expect(Object.keys(site).sort(), label).toEqual(SITE_KEYS);
+      expect(Number.isInteger(site.MonitoringSiteID), label).toBe(true);
+      expect(programIds.has(site.MonitoringProgramID), `${label}: a known program`).toBe(true);
+      expect(['site', 'area', 'line'], label).toContain(site.SiteKind);
+      expect(typeof site.SiteName, label).toBe('string');
+      // In and around the Lake Tahoe Region.
+      expect(site.Latitude, label).toBeGreaterThan(38.5);
+      expect(site.Latitude, label).toBeLessThan(39.6);
+      expect(site.Longitude, label).toBeGreaterThan(-120.6);
+      expect(site.Longitude, label).toBeLessThan(-119.5);
+    }
+    expect(new Set(sites.map((site) => site.MonitoringSiteID)).size).toBe(seed.sites.total);
+
+    const kinds = { site: 0, area: 0, line: 0 };
+    for (const site of sites) kinds[site.SiteKind] += 1;
+    expect(kinds).toEqual({ site: seed.sites.site, area: seed.sites.area, line: seed.sites.line });
+
+    // Each program's SiteCount is the number of points it has here.
+    const perProgram = new Map<number, number>();
+    for (const site of sites) {
+      perProgram.set(site.MonitoringProgramID, (perProgram.get(site.MonitoringProgramID) ?? 0) + 1);
+    }
+    for (const program of programs) {
+      expect(perProgram.get(program.MonitoringProgramID) ?? 0, `program ${program.MonitoringProgramID}`).toBe(
+        program.SiteCount,
+      );
+    }
+  });
+
   test('GET /monitoring-programs/{id} answers 404 for an unknown id', async ({ request }) => {
     const response = await request.get(programPath(seed.unknownId));
 
@@ -467,7 +623,7 @@ test.describe('Sandbox.API contract', () => {
     expect(after).toEqual(before);
   });
 
-  test('GET /openapi/v1.json lists the four paths and their methods', async ({ request }) => {
+  test('GET /openapi/v1.json lists the six paths and their methods', async ({ request }) => {
     const response = await request.get('openapi/v1.json');
     expect(response.status()).toBe(200);
     const document = (await response.json()) as {
@@ -489,11 +645,15 @@ test.describe('Sandbox.API contract', () => {
       '/health',
       '/monitoring-programs',
       '/monitoring-programs/{id}',
+      '/monitoring-sites',
+      '/summary',
     ]);
     expect(methodsByPath.get('/health')).toEqual(['get']);
     expect(methodsByPath.get('/categories')).toEqual(['get']);
     expect(methodsByPath.get('/monitoring-programs')).toEqual(['get']);
     expect(methodsByPath.get('/monitoring-programs/{id}')).toEqual(['get', 'patch']);
+    expect(methodsByPath.get('/monitoring-sites')).toEqual(['get']);
+    expect(methodsByPath.get('/summary')).toEqual(['get']);
   });
 
   test('PATCH /monitoring-programs/41 saves IsFeatured, reads back, and is restored', async ({

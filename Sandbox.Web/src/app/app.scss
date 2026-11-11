@@ -7,14 +7,19 @@
   min-height: 100dvh;
 }
 
-.app-bar {
-  background: var(--color-background-default-knockout);
+.app-bar,
+.app-nav {
   color: var(--color-content-default-knockout);
   // The brand focus ring is hard to see on navy; use the bar's own text color.
   --focus-ring-color: currentColor;
 }
 
+.app-bar {
+  background: var(--color-background-default-knockout);
+}
+
 .app-bar__inner,
+.app-nav__list,
 .app-main,
 .app-footer__inner {
   width: 100%;
@@ -49,9 +54,64 @@
   opacity: 0.5;
 }
 
+// ---------- Nav row: a shade darker than the bar, sticky, the active item underlined in
+// the monitoring green as on monitoring.laketahoeinfo.org ----------
+
+.app-nav {
+  position: sticky;
+  top: 0;
+  // Above the home map (its own stacking context at z-index 0) and the cards.
+  z-index: 10;
+  background: color-mix(in srgb, var(--color-background-default-knockout) 82%, var(--color-gray-dark-1));
+  box-shadow: var(--elevation-2);
+}
+
+.app-nav__list {
+  display: flex;
+  gap: var(--spacing-100);
+  margin-block: 0;
+  list-style: none;
+  // A very narrow screen scrolls the row sideways inside itself, never the page.
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.app-nav__link {
+  display: block;
+  padding: var(--spacing-300) var(--spacing-300) calc(var(--spacing-300) - var(--border-width-300));
+  border-bottom: var(--border-width-300) solid transparent;
+  color: color-mix(in srgb, var(--color-content-default-knockout) 78%, transparent);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.app-nav__link:hover {
+  color: var(--color-content-default-knockout);
+  text-decoration: none;
+}
+
+.app-nav__link.is-active {
+  color: var(--color-content-default-knockout);
+  border-bottom-color: var(--color-background-brand);
+}
+
+.app-nav__link:focus-visible {
+  outline: var(--border-width-focus) solid currentColor;
+  outline-offset: calc(-1 * var(--border-width-focus));
+}
+
+// ---------- Page and footer ----------
+
 .app-main {
   flex: 1 1 auto;
   padding-block: var(--spacing-500) var(--spacing-800);
+}
+
+// A full-bleed page (the home page) lays out its own column.
+.app-main--full {
+  max-width: none;
+  padding-inline: 0;
+  padding-top: 0;
 }
 
 .app-footer {
@@ -67,4 +127,27 @@
   gap: var(--spacing-200);
   margin-block: 0;
   padding-block: var(--spacing-400);
+}
+
+@media (max-width: 30rem) {
+  .app-bar__inner,
+  .app-nav__list,
+  .app-main,
+  .app-footer__inner {
+    padding-inline: var(--spacing-400);
+  }
+
+  .app-nav__list {
+    padding-inline: var(--spacing-200);
+    gap: 0;
+  }
+
+  .app-nav__link {
+    padding-inline: var(--spacing-200);
+    font-size: var(--typography-label-sm-font-size);
+  }
+
+  .app-main--full {
+    padding-inline: 0;
+  }
 }
