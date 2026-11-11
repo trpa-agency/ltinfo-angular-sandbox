@@ -9,12 +9,6 @@
 
   // THE HERO'S LOOK, in one place. Restyle the hero by changing these. The photo itself is
   // HERO_URL in home.ts.
-  --home-hero-bg: var(--color-background-default-knockout);
-  --home-hero-text: var(--color-content-default-knockout);
-  --home-hero-eyebrow: var(--color-background-brand-muted);
-  --home-hero-scrim-strong: color-mix(in srgb, var(--home-hero-bg) 92%, transparent);
-  --home-hero-scrim-mid: color-mix(in srgb, var(--home-hero-bg) 72%, transparent);
-  --home-hero-scrim-weak: color-mix(in srgb, var(--home-hero-bg) 30%, transparent);
 }
 
 .hero__inner,
@@ -27,69 +21,33 @@
 
 // ---------- Hero ----------
 
+// The page header: a white band under the nav with a hairline below it.
 .hero {
-  position: relative;
-  overflow: hidden;
-  background: var(--home-hero-bg);
-  color: var(--home-hero-text);
-  // The brand focus ring is hard to see on navy; use the hero's own text color.
-  --focus-ring-color: currentColor;
-}
-
-.hero__img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.hero__img.is-loaded {
-  opacity: 1;
-}
-
-// A navy scrim, heavy behind the text and lighter toward the far edge.
-.hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    var(--home-hero-scrim-strong) 0%,
-    var(--home-hero-scrim-mid) 55%,
-    var(--home-hero-scrim-weak) 100%
-  );
+  background: var(--color-background-elevation-raised);
+  border-bottom: var(--border-width-default) solid var(--color-border-default);
+  color: var(--color-content-default);
 }
 
 .hero__inner {
-  position: relative;
-  z-index: 1;
-  padding-block: var(--spacing-650) var(--spacing-700);
-}
-
-.hero__eyebrow {
-  margin: 0;
-  color: var(--home-hero-eyebrow);
+  padding-block: var(--spacing-600) var(--spacing-600);
 }
 
 .hero__title {
-  margin: var(--spacing-150) 0 var(--spacing-300);
-  color: inherit;
+  margin: 0 0 var(--spacing-200);
+  color: var(--color-content-default);
 }
 
 .hero__intro {
-  max-width: 45rem;
+  max-width: 42rem;
   margin: 0;
-  color: color-mix(in srgb, var(--home-hero-text) 90%, transparent);
+  color: var(--color-content-default-secondary);
 }
 
 .hero__stats {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-300) var(--spacing-650);
-  margin: var(--spacing-600) 0 0;
+  gap: var(--spacing-300) var(--spacing-700);
+  margin: var(--spacing-500) 0 0;
 }
 
 .hero-stat {
@@ -99,23 +57,20 @@
 
 .hero-stat__value {
   margin: 0;
-  color: inherit;
+  color: var(--color-content-default);
   font-variant-numeric: tabular-nums;
 }
 
 .hero-stat__label {
-  color: color-mix(in srgb, var(--home-hero-text) 80%, transparent);
+  color: var(--color-content-default-secondary);
 }
 
-// Before the totals arrive: a bar where the number will be, so nothing moves.
 .hero-stat.is-loading .hero-stat__value {
   min-width: 3ch;
   min-height: 1lh;
   border-radius: var(--radius-sm);
-  background: color-mix(in srgb, var(--home-hero-text) 18%, transparent);
+  background: var(--color-background-elevation-sunken);
 }
-
-// ---------- Body and sections ----------
 
 .home__body {
   display: flex;
@@ -214,7 +169,6 @@
   background: var(--color-background-elevation-raised);
   border: var(--border-width-default) solid var(--card-border-color, var(--color-border-default));
   border-radius: var(--radius-md);
-  box-shadow: var(--elevation-1);
   overflow: hidden;
   // The map fills what the window leaves after the nav row, the panel head, the legend, and
   // the source line, within limits.
@@ -227,20 +181,6 @@
   gap: var(--spacing-250);
   padding: var(--spacing-300) var(--spacing-400);
   border-bottom: var(--border-width-default) solid var(--color-border-default-subtle);
-}
-
-.map-panel__swatch {
-  flex: none;
-  width: 12px;
-  height: 12px;
-  border-radius: var(--radius-full);
-  background: var(--swatch);
-  box-shadow: 0 0 0 var(--border-width-default) var(--color-border-default);
-  transition: background-color 0.2s ease;
-}
-
-.map-panel__swatch.is-neutral {
-  background: var(--color-content-default);
 }
 
 .map-panel__title,
@@ -267,39 +207,33 @@
 .map-legend {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-100) var(--spacing-300);
-  padding: var(--spacing-250) var(--spacing-400);
+  gap: var(--spacing-150);
+  padding: var(--spacing-300) var(--spacing-400);
   border-top: var(--border-width-default) solid var(--color-border-default-subtle);
 }
 
+// Quiet chips: 4px corners, hairline border. Pressed is a brand outline, not a fill.
 .map-legend__item {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-150);
-  padding: var(--spacing-050) 0;
-  border: 0;
-  background: none;
+  padding: var(--spacing-050) var(--spacing-200);
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  background: var(--color-background-elevation-raised);
   color: var(--color-content-default);
   cursor: pointer;
 }
 
-.map-legend__item:hover,
+.map-legend__item:hover {
+  background: var(--color-background-default);
+}
+
 .map-legend__item[aria-pressed='true'] {
-  text-decoration: underline;
-  text-underline-offset: var(--spacing-050);
+  border-color: var(--color-border-default-focus);
+  box-shadow: inset 0 0 0 var(--border-width-default) var(--color-border-default-focus);
 }
 
 .map-legend__item:focus-visible {
   outline: var(--border-width-focus) solid var(--color-border-default-focus);
   outline-offset: var(--spacing-050);
-}
-
-.map-legend__item i {
-  flex: none;
-  width: 10px;
-  height: 10px;
-  border-radius: var(--radius-full);
-  background: var(--cat);
 }
 
 .map-panel__foot {
@@ -345,9 +279,37 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .hero__img,
-  .map-panel__swatch {
-    transition: none;
+// ---------- Option 2: every program listed beside the map ----------
+
+[data-option='2'] .cat-grid.is-listed {
+  gap: var(--spacing-600) var(--spacing-500);
+}
+
+// ---------- Option 3: the map first, the categories under it ----------
+
+[data-option='3'] {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+[data-option='3'] .map-panel {
+  order: -1;
+  position: relative;
+  top: 0;
+  --home-map-height: clamp(22rem, 52dvh, 32rem);
+}
+
+[data-option='3'] .cat-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 60rem) {
+  [data-option='3'] .cat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 30rem) {
+  [data-option='3'] .cat-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

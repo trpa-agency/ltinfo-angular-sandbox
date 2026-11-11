@@ -1,6 +1,6 @@
-// One threshold category. --cat is data: the category's Threshold Dashboard color. Every
-// other value is a token. A light --cat (Air Quality) gets the .on-light fallbacks, so white
-// never sits on a color it cannot be read on.
+// A threshold category: a white card with a hairline border on the gray canvas, the
+// category icon in a neutral disc, and its programs as dense rows. No category hues;
+// selection shows as a brand outline, never a color fill or a lift.
 
 :host {
   display: block;
@@ -8,35 +8,18 @@
 }
 
 .cat {
-  --_cat: var(--cat, var(--color-background-brand));
-  --_on-cat: var(--color-background-elevation-raised);
-
   display: flex;
   flex-direction: column;
   background: var(--color-background-elevation-raised);
-  border: var(--border-width-default) solid var(--card-border-color, var(--color-border-default));
-  border-bottom: var(--border-width-400) solid var(--_cat);
+  border: var(--border-width-default) solid var(--color-border-default);
   border-radius: var(--radius-md);
-  box-shadow: var(--elevation-1);
   overflow: hidden;
-  transition:
-    box-shadow 0.18s ease,
-    transform 0.18s ease;
+  transition: border-color 0.15s ease;
 }
 
-// The card whose sites are on the map lifts, so the link between card and map is visible.
-.cat:hover,
-.cat.is-hot {
-  box-shadow: var(--elevation-3);
-  transform: translateY(calc(-1 * var(--spacing-050)));
-}
-
-.cat.is-open {
-  transform: none;
-}
-
-.cat.on-light {
-  --_on-cat: var(--color-content-default);
+.cat.is-hot:not(.is-listed),
+.cat.is-open:not(.is-listed) {
+  border-color: var(--color-border-default-focus);
 }
 
 .cat__heading {
@@ -44,20 +27,25 @@
   font: inherit;
 }
 
-// The whole collapsed card is the button. The page sets --cat-head-min on the grid to the
-// tallest natural head, so every collapsed card is the same height.
 .cat__head {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-300);
   width: 100%;
-  min-height: var(--cat-head-min, 0);
-  padding: 0;
+  padding: var(--spacing-300) var(--spacing-400);
   border: 0;
   background: none;
   color: inherit;
   font: inherit;
   text-align: start;
+}
+
+button.cat__head {
   cursor: pointer;
+}
+
+button.cat__head:hover {
+  background: var(--color-background-default);
 }
 
 .cat__head:focus-visible {
@@ -65,141 +53,79 @@
   outline-offset: calc(-1 * var(--border-width-focus));
 }
 
-.cat__band {
-  position: relative;
-  display: block;
-  flex: none;
-  height: var(--spacing-650);
-  background: var(--_cat);
-}
-
-// The white icon in a circle of the category color, half over the band.
+// The Threshold Dashboard icons are white; on a neutral disc they are drawn dark.
 .cat__icon {
-  position: absolute;
-  inset-inline-start: var(--spacing-400);
-  bottom: calc(-1 * var(--spacing-500));
-  z-index: 1;
-  display: grid;
-  place-items: center;
-  width: var(--spacing-700);
-  height: var(--spacing-700);
-  border: var(--border-width-300) solid var(--color-background-elevation-raised);
-  border-radius: var(--radius-full);
-  background: var(--_cat);
-  box-shadow: var(--elevation-2);
-}
-
-.cat__icon img {
-  display: block;
-  width: 26px;
-  height: 26px;
-  object-fit: contain;
-}
-
-// The icon files are white; on a light color they are drawn dark instead.
-.on-light .cat__icon img {
-  filter: brightness(0) opacity(0.75);
-}
-
-.cat__count {
-  position: absolute;
-  inset-inline-end: var(--spacing-300);
-  top: 50%;
-  transform: translateY(-50%);
-  padding: var(--spacing-050) var(--spacing-250);
-  border-radius: var(--radius-pill);
-  background: color-mix(in srgb, var(--color-background-elevation-raised) 92%, transparent);
-  color: var(--color-content-default);
-  white-space: nowrap;
-}
-
-.cat__body {
-  flex: 1 1 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-content: start;
-  gap: var(--spacing-050) var(--spacing-300);
-  padding: var(--spacing-600) var(--spacing-400) var(--spacing-300);
-}
-
-// The name and blurb take the full width; the chevron shares the last row with the count.
-.cat__name {
-  display: block;
-  grid-column: 1 / -1;
-  color: var(--color-content-default);
-}
-
-.cat__blurb {
-  display: block;
-  grid-column: 1 / -1;
-  color: var(--color-content-default-secondary);
-}
-
-.cat__meta {
-  display: block;
-  grid-column: 1;
-  grid-row: 3;
-  align-self: center;
-  margin-top: var(--spacing-150);
-  color: var(--color-content-default-secondary);
-}
-
-.cat__meta strong {
-  font-weight: var(--typography-font-weight-semibold);
-  color: var(--color-content-default);
-}
-
-.cat__chev {
-  grid-column: 2;
-  grid-row: 3;
-  align-self: end;
+  flex: none;
   display: grid;
   place-items: center;
   width: var(--spacing-600);
   height: var(--spacing-600);
   border-radius: var(--radius-full);
   background: var(--color-background-elevation-sunken);
-  color: var(--color-content-default);
-  transition:
-    transform 0.2s ease,
-    background-color 0.2s ease;
 }
 
-.cat__chev svg,
-.prog__arrow svg {
-  width: 16px;
-  height: 16px;
+.cat__icon img {
+  display: block;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: brightness(0);
+  opacity: 0.72;
+}
+
+.cat__text {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.cat__name {
+  color: var(--color-content-default);
+}
+
+.cat__meta {
+  color: var(--color-content-default-secondary);
+}
+
+.cat__chev {
+  flex: none;
+  display: grid;
+  place-items: center;
+  color: var(--color-content-default-secondary);
+  transition: transform 0.2s ease;
+}
+
+.cat__chev svg {
+  width: 18px;
+  height: 18px;
   fill: none;
   stroke: currentColor;
-  stroke-width: 2.2;
+  stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
 .is-open .cat__chev {
   transform: rotate(180deg);
-  background: var(--_cat);
-  color: var(--_on-cat);
 }
 
-// ---------- The drop-down program list ----------
+// ---------- The program list: drops down when the card is open ----------
 
-// Closed, the list takes no height and is out of the tab order and the accessibility tree
-// (visibility); open, it slides to its natural height.
 .cat__drop {
   display: grid;
   grid-template-rows: 0fr;
   visibility: hidden;
   transition:
-    grid-template-rows 0.25s ease,
-    visibility 0s linear 0.25s;
+    grid-template-rows 0.22s ease,
+    visibility 0s linear 0.22s;
 }
 
 .is-open .cat__drop {
   grid-template-rows: 1fr;
   visibility: visible;
   transition:
-    grid-template-rows 0.25s ease,
+    grid-template-rows 0.22s ease,
     visibility 0s;
 }
 
@@ -210,20 +136,18 @@
 
 .cat__programs {
   margin: 0;
-  padding: var(--spacing-100) var(--spacing-200) var(--spacing-250);
+  padding: var(--spacing-100) var(--spacing-200);
   border-top: var(--border-width-default) solid var(--color-border-default-subtle);
   list-style: none;
 }
 
-.cat__programs li + li {
-  border-top: var(--border-width-default) solid var(--color-border-default-subtle);
-}
-
+// Dense rows: the name, and the site count right-aligned in the same line.
 .prog {
   display: flex;
-  align-items: center;
-  gap: var(--spacing-250);
-  padding: var(--spacing-200);
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-300);
+  padding: var(--spacing-150) var(--spacing-200);
   border-radius: var(--radius-sm);
   color: var(--color-content-default);
   text-decoration: none;
@@ -231,8 +155,8 @@
 
 .prog:hover,
 .prog:focus-visible {
-  background: color-mix(in srgb, var(--_cat) 10%, var(--color-background-elevation-raised));
-  color: var(--color-content-default);
+  background: var(--color-background-default);
+  color: var(--color-content-link);
   text-decoration: none;
 }
 
@@ -241,53 +165,61 @@
   outline-offset: calc(-1 * var(--border-width-focus));
 }
 
-.prog__dot {
-  flex: none;
-  width: 9px;
-  height: 9px;
-  border-radius: var(--radius-full);
-  background: var(--_cat);
-  box-shadow: 0 0 0 var(--border-width-default) var(--color-border-default);
-}
-
-// The name takes the full width; the site count sits quietly under it.
-.prog__text {
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: column;
+.prog__name {
   min-width: 0;
 }
 
 .prog__sites {
+  flex: none;
   color: var(--color-content-default-secondary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .prog__sites.is-none {
   color: var(--color-content-default-tertiary);
 }
 
-.prog__arrow {
-  flex: none;
-  display: grid;
-  color: var(--color-content-disabled);
-}
-
-.prog:hover .prog__arrow,
-.prog:focus-visible .prog__arrow {
-  color: var(--color-content-default);
-}
-
 .cat__actions {
   display: flex;
   justify-content: flex-end;
-  padding: 0 var(--spacing-400) var(--spacing-300);
+  padding: var(--spacing-100) var(--spacing-400) var(--spacing-300);
 }
 
 .cat__none {
   margin: 0;
-  padding: var(--spacing-300) var(--spacing-400) var(--spacing-400);
+  padding: var(--spacing-250) var(--spacing-400) var(--spacing-300);
   border-top: var(--border-width-default) solid var(--color-border-default-subtle);
   color: var(--color-content-default-secondary);
+}
+
+// ---------- Listed: every program shown, no disclosure (the directory option) ----------
+
+.cat.is-listed {
+  border: 0;
+  border-radius: 0;
+  background: none;
+  overflow: visible;
+}
+
+.is-listed .cat__head {
+  padding: 0 0 var(--spacing-200);
+}
+
+.is-listed .cat__programs {
+  padding: 0;
+  border-top: var(--border-width-default) solid var(--color-border-default);
+}
+
+.is-listed .prog {
+  border-radius: 0;
+  padding-inline: var(--spacing-100);
+  border-bottom: var(--border-width-default) solid var(--color-border-default-subtle);
+}
+
+.is-listed .cat__none {
+  padding-inline: 0;
+  border-top-color: var(--color-border-default);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -296,10 +228,5 @@
   .cat__drop,
   .is-open .cat__drop {
     transition: none;
-  }
-
-  .cat:hover,
-  .cat.is-hot {
-    transform: none;
   }
 }

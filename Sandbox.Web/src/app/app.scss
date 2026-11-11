@@ -1,5 +1,5 @@
-// The LT Info shell. The navy comes from the theme: theme-ltinfo.css pins the
-// knockout surface role to the host's navy, so no color is written here.
+// The shell. Neutral chrome, per Ecology: a white bar and nav on the gray canvas,
+// separated by hairlines, with brand color only on the active nav item.
 
 :host {
   display: flex;
@@ -9,13 +9,8 @@
 
 .app-bar,
 .app-nav {
-  color: var(--color-content-default-knockout);
-  // The brand focus ring is hard to see on navy; use the bar's own text color.
-  --focus-ring-color: currentColor;
-}
-
-.app-bar {
-  background: var(--color-background-default-knockout);
+  color: var(--color-content-default);
+  background: var(--color-background-elevation-raised);
 }
 
 .app-bar__inner,
@@ -50,8 +45,7 @@
 .app-brand__divider {
   width: var(--border-width-default);
   height: 1.25em;
-  background: currentColor;
-  opacity: 0.5;
+  background: var(--color-border-default);
 }
 
 // ---------- Nav row: a shade darker than the bar, sticky, the active item underlined in
@@ -62,8 +56,8 @@
   top: 0;
   // Above the home map (its own stacking context at z-index 0) and the cards.
   z-index: 10;
-  background: color-mix(in srgb, var(--color-background-default-knockout) 82%, var(--color-gray-dark-1));
-  box-shadow: var(--elevation-2);
+  border-top: var(--border-width-default) solid var(--color-border-default-subtle);
+  border-bottom: var(--border-width-default) solid var(--color-border-default);
 }
 
 .app-nav__list {
@@ -80,23 +74,23 @@
   display: block;
   padding: var(--spacing-300) var(--spacing-300) calc(var(--spacing-300) - var(--border-width-300));
   border-bottom: var(--border-width-300) solid transparent;
-  color: color-mix(in srgb, var(--color-content-default-knockout) 78%, transparent);
+  color: var(--color-content-default-secondary);
   text-decoration: none;
   white-space: nowrap;
 }
 
 .app-nav__link:hover {
-  color: var(--color-content-default-knockout);
+  color: var(--color-content-default);
   text-decoration: none;
 }
 
 .app-nav__link.is-active {
-  color: var(--color-content-default-knockout);
+  color: var(--color-content-default);
   border-bottom-color: var(--color-background-brand);
 }
 
 .app-nav__link:focus-visible {
-  outline: var(--border-width-focus) solid currentColor;
+  outline: var(--border-width-focus) solid var(--color-border-default-focus);
   outline-offset: calc(-1 * var(--border-width-focus));
 }
 

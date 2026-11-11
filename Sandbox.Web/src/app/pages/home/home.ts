@@ -93,6 +93,11 @@ export class Home {
   protected readonly state = signal<LoadState<HomeData>>({ status: 'loading' });
 
   protected readonly search = signal('');
+  /** Layout under comparison: ?option=1 (cards beside the map), 2 (directory), 3 (map first). */
+  protected readonly option = toSignal(
+    this.route.queryParamMap.pipe(map((params) => (['2', '3'].includes(params.get('option') ?? '') ? Number(params.get('option')) : 1))),
+    { initialValue: 1 },
+  );
   private readonly hoverCategory = signal<string | null>(null);
   private readonly hoverProgram = signal<MonitoringProgramSummary | null>(null);
 

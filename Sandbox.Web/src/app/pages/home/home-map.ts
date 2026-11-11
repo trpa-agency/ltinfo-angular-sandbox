@@ -38,8 +38,9 @@ const HOME_ICON =
   '<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>';
 
 /** Sizes and weights of a site in color and a site grayed out. Colors come from data and tokens. */
-const ON_STYLE = { radius: 5, weight: 1, opacity: 1, fillOpacity: 0.95 };
-const OFF_STYLE = { radius: 3.5, weight: 0.5, opacity: 0.4, fillOpacity: 0.35 };
+// Small enough that 1,750 points read as a pattern rather than a blob at the basin view.
+const ON_STYLE = { radius: 3.5, weight: 0.75, opacity: 1, fillOpacity: 0.9 };
+const OFF_STYLE = { radius: 2.5, weight: 0.5, opacity: 0.4, fillOpacity: 0.3 };
 /** Token expressions resolved at runtime, since Leaflet draws on a canvas that cannot read CSS. */
 const GRAY_TOKEN = 'var(--color-gray-8)';
 const OUTLINE_TOKEN = 'var(--color-background-elevation-raised)';

@@ -9,8 +9,10 @@ import type { Category, MonitoringProgramSummary } from '../../api/models';
  * restyle, return something else here (a token expression such as var(--x) works for CSS,
  * and the map resolves token expressions before drawing).
  */
-export function categoryColor(item: { ThemeColor: string }): string {
-  return item.ThemeColor;
+export function categoryColor(_item: { ThemeColor: string }): string {
+  // Ecology default: containers stay neutral and one data color carries the sites. The
+  // Threshold Dashboard theme colors (item.ThemeColor) are not used on this page.
+  return 'var(--color-background-dataviz-categorical-1)';
 }
 
 /** A category with its programs, sorted by name, ready for a card. */

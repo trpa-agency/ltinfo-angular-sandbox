@@ -1,34 +1,20 @@
 <!-- The home page is one scrolling page: the hero and its totals, then three sections the
      nav row scrolls to (categories with the site map, All Programs, About Monitoring). -->
 
-<!-- mon-lego-checked: the hero is custom (a full-bleed photo band with knockout text, which no
-     Ecology component draws); its totals are plain markup because esa-stat is styled for a
-     light surface. -->
 @let page = state();
+<!-- The page header: what this is, then the four totals. Neutral, like the rest of the page. -->
 <section class="hero" aria-labelledby="home-title">
-  <!-- 1.9 MB, so it never blocks anything: the navy band shows until the file arrives. -->
-  <img
-    class="hero__img"
-    [class.is-loaded]="heroLoaded()"
-    [src]="heroUrl"
-    alt=""
-    decoding="async"
-    fetchpriority="low"
-    (load)="heroLoaded.set(true)"
-  />
   <div class="hero__inner">
-    <p class="hero__eyebrow typography-eyebrow-md">Lake Tahoe Info</p>
     <h1 id="home-title" class="hero__title typography-display-sm">Monitoring Programs</h1>
     <p class="hero__intro typography-body-lg">
-      Monitoring tells us how the Lake Tahoe Region is changing and whether threshold standards are
-      being met. Explore what is monitored, where, how, and by whom. Select a category to see its
-      programs, or hover over one to see where it monitors.
+      What is monitored in the Lake Tahoe Region, where, how, and by whom, and how it tracks the
+      threshold standards.
     </p>
     <!-- Label first for screen readers ("monitoring programs, 36"); drawn with the number on top. -->
     <dl class="hero__stats" aria-label="Totals">
       @for (stat of totals(); track stat.label) {
         <div class="hero-stat" [class.is-loading]="stat.value === null">
-          <dt class="hero-stat__label typography-label-sm">{{ stat.label }}</dt>
+          <dt class="hero-stat__label typography-body-sm">{{ stat.label }}</dt>
           <dd class="hero-stat__value typography-heading-lg">{{ stat.value }}</dd>
         </div>
       }
@@ -54,7 +40,9 @@
   } @else {
     <!-- ============ Threshold categories and the site map ============ -->
     <section id="categories" class="home-section" aria-labelledby="categories-title">
-      <div class="home-layout">
+      <!-- Three layouts to compare while the design is open: ?option=1 cards beside the map
+           (default), 2 every program listed beside the map, 3 the map first with cards below. -->
+      <div class="home-layout" [attr.data-option]="option()">
         <div class="home-cats">
           <div class="section-head">
             <div class="section-head__text">
@@ -66,14 +54,11 @@
               >
                 Threshold categories
               </h2>
-              <p class="section-head__lead typography-body-sm">
-                Select a category to list its monitoring programs.
-              </p>
             </div>
             <app-home-search class="section-head__search" [(value)]="search" />
           </div>
 
-          <div class="cat-grid" #grid>
+          <div class="cat-grid" #grid [class.is-listed]="option() === 2">
             @for (card of cards(); track card.group.category.CategoryID) {
               @if (!card.hidden) {
                 <app-category-card
@@ -81,6 +66,7 @@
                   [programs]="card.programs"
                   [open]="card.open"
                   [hot]="hotFolder() === card.group.category.Folder"
+                  [listed]="option() === 2"
                   (toggle)="toggle(card.group.category.Folder)"
                   (hover)="hover(card.group.category.Folder, $event)"
                   (leave)="leaveProgram()"
@@ -110,12 +96,6 @@
         <aside class="map-panel" aria-labelledby="map-title">
           @let mapFocus = focus();
           <div class="map-panel__head">
-            <span
-              class="map-panel__swatch"
-              [class.is-neutral]="!mapFocus.color"
-              [style.--swatch]="mapFocus.color"
-              aria-hidden="true"
-            ></span>
             <div>
               <h3 id="map-title" class="map-panel__title typography-label-md-strong">{{ mapFocus.title }}</h3>
               <p class="map-panel__sub typography-body-xs">{{ mapFocus.sub }}</p>
@@ -135,20 +115,18 @@
             @for (group of mappedGroups(); track group.category.CategoryID) {
               <button
                 type="button"
-                class="map-legend__item typography-body-xs"
-                [style.--cat]="group.color"
+                class="map-legend__item typography-body-sm"
                 [attr.aria-pressed]="selected() === group.category.Folder"
                 (mouseenter)="hover(group.category.Folder, null)"
                 (focus)="hover(group.category.Folder, null)"
                 (click)="selectFromLegend(group.category.Folder)"
               >
-                <i aria-hidden="true"></i>{{ group.category.CategoryName }}
+                {{ group.category.CategoryName }}
               </button>
             }
           </div>
           <p class="map-panel__foot typography-body-xs">
-            Site locations from Lake Tahoe Info, captured Oct. 29, 2026. Programs without fixed sites
-            do not appear on the map.
+            Sites from Lake Tahoe Info as of Oct. 29, 2026. Programs without fixed sites are not mapped.
           </p>
         </aside>
       </div>
@@ -166,9 +144,6 @@
           >
             All Programs
           </h2>
-          <p class="section-head__lead typography-body-sm">
-            Every monitoring program in one table. Search or filter, then open a program.
-          </p>
         </div>
       </div>
       <app-program-list [categories]="page.data.categories" [programs]="page.data.programs" />
