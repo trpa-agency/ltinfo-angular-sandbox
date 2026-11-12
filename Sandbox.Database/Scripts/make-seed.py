@@ -10,6 +10,9 @@ Sources, all public:
   - the TRPA LTInfo_Monitoring map service, for one point per area or line
   - site-profiles.json beside this file: each program's site profile settings, merged into
     its DashboardConfig as siteProfile (keys are program ids; keys starting with _ are notes)
+  - extra-categories.json beside this file: categories removed and added on top of
+    programs.json, the programs placed under the new ones, and pages built from threshold
+    indicators that have no monitoring program (from the Threshold Dashboard record)
 
     python Sandbox.Database/Scripts/make-seed.py [path to programs.json]
 
@@ -23,6 +26,7 @@ API = "https://internalapi.laketahoeinfo.org"
 MAP_SERVICE = "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer"
 CONFIG_KEYS = ("measures", "sitesLayer", "sitesPerYear", "mapLayer", "overlays")
 SITE_PROFILES = os.path.join(HERE, "site-profiles.json")
+EXTRA_CATEGORIES = os.path.join(HERE, "extra-categories.json")
 
 
 def site_profiles():
@@ -50,10 +54,73 @@ def text(s):
     s = re.sub(r"(?is)<(script|style)[^>]*>.*?</\1>", "", s)
     s = re.sub(r"(?i)</p>|<br\s*/?>|</li>", "\n", s)
     s = re.sub(r"<[^>]+>", "", s)
-    s = html.unescape(s).replace("\xa0", " ")
+    s = html.unescape(s).replace("\xa0", " ").replace("�", "").replace("‐", "-")
     s = re.sub(r"[ \t]+", " ", s)
     s = re.sub(r"\s*\n\s*", "\n\n", s).strip()
     return s or None
+
+
+def paragraphs(value):
+    """A list of paragraphs, or one string, as the seed's plain text."""
+    if isinstance(value, list):
+        value = "\n\n".join(v for v in value if v)
+    return value or None
+
+
+def indicator_page(entry):
+    """A page for a threshold indicator with no monitoring program, from its Threshold Dashboard record.
+
+    The story is what the indicator measures, why it matters, and its standard; the approach is
+    how TRPA evaluates it. A retired indicator opens with why it is no longer reported alone."""
+    rec = get(f"/threshold-indicators/{entry['indicator']}") or {}
+    ind = get(f"/indicators/{rec['IndicatorID']}") if rec.get("IndicatorID") else None
+    desc = [text(rec.get("ThresholdIndicatorPublicDescription")) or text((ind or {}).get("IndicatorDefinition")),
+            text(rec.get("Relevance"))]
+    standard = text(rec.get("ApplicableStandard"))
+    if standard:
+        desc.append("Threshold standard: " + standard)
+    if not rec.get("IsActive", True):
+        desc.insert(0, text(rec.get("InactivationDetailedExplanation")) or "This indicator is no longer evaluated on the Threshold Dashboard.")
+    guid = (rec.get("OverviewImageFileResourceGUID") or "").lower()
+    return {
+        "id": entry["id"], "name": entry.get("name") or rec.get("IndicatorDisplayName"), "ltinfo": False,
+        "template": entry.get("template", "context"), "featured": False,
+        "description": paragraphs([d for d in desc if d]), "approach": text(rec.get("TRPAIndicator")),
+        "partners": entry.get("partners", ["Tahoe Regional Planning Agency"]),
+        "images": [(guid, text(rec.get("OverviewImageCaption")), None)] if re.fullmatch(r"[0-9a-f-]{36}", guid) else [],
+    }
+
+
+def merged_categories(data):
+    """The categories of programs.json with extra-categories.json applied: removed categories dropped
+    and the new ones appended, each new program entry resolved to the shape programs.json uses."""
+    if not os.path.exists(EXTRA_CATEGORIES):
+        return data["categories"], {}
+    extra = json.load(io.open(EXTRA_CATEGORIES, encoding="utf-8"))
+    removed = set(extra.get("remove", []))
+    pool = {p["id"]: p for c in data["categories"] if c["folder"] in removed for p in c["programs"]}
+    placed = set()
+    categories = [c for c in data["categories"] if c["folder"] not in removed]
+    for c in extra.get("categories", []):
+        programs = []
+        for e in c.get("programs", []):
+            if e.get("indicator"):
+                p = indicator_page(e)
+            elif e.get("ltinfo") is False:
+                p = dict(e, description=paragraphs(e.get("description")), approach=paragraphs(e.get("approach")))
+            elif e["id"] in pool:
+                p = dict(pool[e["id"]], **{k: v for k, v in e.items() if k != "id"})
+            else:
+                p = {"template": "context", "featured": False, "describeFromIndicators": True, **e}
+            placed.add(e["id"])
+            programs.append(p)
+        categories.append({"thresholdCategoryId": c["id"], "name": c["name"], "folder": c["folder"],
+                           "themeColor": c.get("themeColor") or "#7c7c7c", "blurb": c.get("blurb"),
+                           "goal": c.get("goal"), "icon": c.get("icon"), "programs": programs})
+    dropped = sorted(set(pool) - placed)
+    if dropped:
+        print("  programs of removed categories that extra-categories.json does not place:", dropped)
+    return categories, extra.get("organizations", {})
 
 
 def home_page_data(repo):
@@ -122,30 +189,43 @@ def main():
         "",
     ]
     profiles = site_profiles()
+    categories, short_names = merged_categories(data)
     orgs, links, programs, images = {}, [], [], []
-    for ci, c in enumerate(data["categories"], 1):
+
+    def link_partner(pid, name, short, sort):
+        if name not in orgs:
+            orgs[name] = (len(orgs) + 1, short)
+        if (pid, orgs[name][0]) in {(a, b) for a, b, _ in links}:
+            return False
+        links.append((pid, orgs[name][0], sort))
+        return True
+
+    for ci, c in enumerate(categories, 1):
         sc = snap_categories.get(c["folder"], {})
         lines.append(
             "INSERT INTO dbo.MonitoringProgramCategory (MonitoringProgramCategoryID, MonitoringProgramCategoryName, Folder, ThemeColor, SortOrder, Blurb, CategoryDescription, IconName) "
             f"VALUES ({c['thresholdCategoryId']}, {q(c['name'])}, {q(c['folder'])}, {q(c['themeColor'])}, {ci * 10}, "
-            f"{q(blurbs.get(c['folder']))}, {q(sc.get('description'))}, {q(sc.get('apiName'))});"
+            f"{q(blurbs.get(c['folder']) or c.get('blurb'))}, {q(sc.get('description') or c.get('goal'))}, {q(sc.get('apiName') or c.get('icon'))});"
         )
         for p in c["programs"]:
             desc, appr = text(p.get("description")), text(p.get("approach"))
+            name = p.get("name")
             n_partners = n_images = 0
             if p.get("ltinfo", True):
                 rec = get(f"/monitoring-programs/{p['id']}")
                 if rec:
                     desc = text(rec.get("MonitoringProgramDescription")) or desc
                     appr = text(rec.get("MonitoringApproach")) or appr
+                    name = name or rec.get("MonitoringProgramName")
+                if not desc and p.get("describeFromIndicators"):
+                    # Many uncategorized LT Info programs added here have no description: say what their
+                    # threshold indicators measure instead.
+                    defs = [text((get(f"/indicators/{i['IndicatorID']}") or {}).get("IndicatorDefinition"))
+                            for i in (get(f"/monitoring-programs/{p['id']}/indicators") or [])]
+                    desc = paragraphs([d for d in defs if d])
                 for si, o in enumerate(sorted(get(f"/monitoring-programs/{p['id']}/partners") or [], key=lambda o: o.get("SortOrder") or 0), 1):
-                    name = (o.get("OrganizationName") or "").strip()
-                    if not name:
-                        continue
-                    if name not in orgs:
-                        orgs[name] = (len(orgs) + 1, o.get("OrganizationShortName") or None)
-                    if (p["id"], orgs[name][0]) not in {(a, b) for a, b, _ in links}:
-                        links.append((p["id"], orgs[name][0], si * 10))
+                    org = (o.get("OrganizationName") or "").strip()
+                    if org and link_partner(p["id"], org, o.get("OrganizationShortName") or None, si * 10):
                         n_partners += 1
                 for im in sorted(get(f"/monitoring-programs/{p['id']}/images") or [], key=lambda i: (not i.get("IsKeyPhoto"), i.get("SortOrder") or 0)):
                     guid = (im.get("FileResourceGUID") or "").lower()
@@ -153,12 +233,21 @@ def main():
                         continue
                     n_images += 1
                     images.append((p["id"], guid, text(im.get("Caption")), text(im.get("PhotoCredit")), 1 if im.get("IsKeyPhoto") else 0, n_images * 10))
+            else:
+                for si, org in enumerate(p.get("partners", []), 1):
+                    if link_partner(p["id"], org, short_names.get(org), si * 10):
+                        n_partners += 1
+                for guid, caption, credit in p.get("images", []):
+                    n_images += 1
+                    images.append((p["id"], guid, caption, credit, 1 if n_images == 1 else 0, n_images * 10))
+            if not name:
+                raise SystemExit(f"program {p['id']} has no name")
             config = {k: p[k] for k in CONFIG_KEYS if p.get(k)}
             if p["id"] in profiles:
                 config["siteProfile"] = profiles[p["id"]]
-            programs.append((p["id"], p["name"], c["thresholdCategoryId"], desc, appr, 1 if p.get("featured") else 0,
+            programs.append((p["id"], name, c["thresholdCategoryId"], desc, appr, 1 if p.get("featured") else 0,
                              p.get("template", "charts"), json.dumps(config, separators=(",", ":")) if config else None))
-            print(f"  {p['id']:>5} {p['name'][:38]:38} {p.get('template', 'charts'):8} partners={n_partners} photos={n_images} config={'y' if config else '-'}")
+            print(f"  {p['id']:>5} {name[:38]:38} {p.get('template', 'charts'):8} partners={n_partners} photos={n_images} config={'y' if config else '-'}")
     lines.append("")
     for pid, name, cid, desc, appr, feat, template, config in programs:
         lines.append(
@@ -198,7 +287,7 @@ def main():
     out = os.path.join(HERE, "seed.sql")
     io.open(out, "w", encoding="utf-8", newline="\n").write("\n".join(lines) + "\n")
     with_photos = len({i[0] for i in images})
-    print(f"seed.sql: {len(data['categories'])} categories, {len(programs)} programs, {len(orgs)} organizations, {len(links)} partner links, "
+    print(f"seed.sql: {len(categories)} categories, {len(programs)} programs, {len(orgs)} organizations, {len(links)} partner links, "
           f"{len(images)} photos across {with_photos} programs, {len(profiles)} site profiles, mapped locations {kinds} (snapshot captured {snapshot.get('captured')}), {os.path.getsize(out)} bytes")
 
 

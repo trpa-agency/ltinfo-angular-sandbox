@@ -255,7 +255,7 @@ test.describe('Sandbox.API contract', () => {
     );
   });
 
-  test('GET /monitoring-programs returns 36 programs in the documented shape', async ({
+  test('GET /monitoring-programs returns 81 programs in the documented shape', async ({
     request,
   }) => {
     const [programsResponse, categoriesResponse] = await Promise.all([
@@ -322,7 +322,7 @@ test.describe('Sandbox.API contract', () => {
       seed.templates,
     );
 
-    // 55 photos across 28 programs.
+    // 64 photos across 37 programs.
     expect(programs.reduce((sum, program) => sum + program.ImageCount, 0)).toBe(seed.photos);
     expect(programs.filter((program) => program.ImageCount > 0)).toHaveLength(
       seed.programsWithPhotos,
@@ -453,7 +453,7 @@ test.describe('Sandbox.API contract', () => {
       expectDashboardConfig(program);
     }
 
-    // 55 photos across 28 programs, counted from the photos themselves.
+    // 64 photos across 37 programs, counted from the photos themselves.
     expect(details.reduce((sum, program) => sum + program.Images.length, 0)).toBe(seed.photos);
     expect(details.filter((program) => program.Images.length > 0)).toHaveLength(
       seed.programsWithPhotos,

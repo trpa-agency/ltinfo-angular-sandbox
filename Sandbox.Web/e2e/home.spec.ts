@@ -315,9 +315,10 @@ test.describe('Home page', () => {
       })
       .toBe(true);
 
-    // A legend entry for each category with mapped sites: all but Recreation and Wildlife.
+    // A legend entry for each category with mapped sites: all but Recreation, Fire Dynamics, and
+    // Forest Structure.
     // Quiet chips that all look alike: no category swatches.
-    await expect(page.locator('.map-legend__item')).toHaveCount(8);
+    await expect(page.locator('.map-legend__item')).toHaveCount(7);
     const chips = await page
       .locator('.map-legend__item:not([aria-pressed="true"])')
       .evaluateAll((items) => items.map((item) => `${getComputedStyle(item).backgroundColor} ${getComputedStyle(item).borderTopColor}`));
@@ -400,6 +401,7 @@ test.describe('Home page', () => {
 
   test('Featured Programs shows six photo links, one per category first, and All opens the featured list', async ({
     page,
+    request,
   }) => {
     // The key photos are full-size files from LT Info: the HAB photo is 5 MB and has taken 24
     // seconds on its own.
@@ -416,10 +418,13 @@ test.describe('Home page', () => {
       await img.scrollIntoViewIfNeeded();
       await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0), { timeout: PANEL_TIMEOUT_MS }).toBe(true);
     }
-    // One per category before any category repeats: featured programs come from five
-    // categories, so the first five cards are five different categories.
-    const categories = (await cards.locator('.featured__category').allTextContents()).map((c) => c.trim());
-    expect(new Set(categories.slice(0, 5)).size).toBe(5);
+    // One per category before any category repeats: the first cards are as many different
+    // categories as the featured programs come from (four in the seed).
+    const featuredCategories = new Set(
+      (await programs(request)).filter((program) => program.IsFeatured).map((program) => program.CategoryName),
+    ).size;
+    const shown = (await cards.locator('.featured__category').allTextContents()).map((c) => c.trim());
+    expect(new Set(shown.slice(0, featuredCategories)).size).toBe(featuredCategories);
     // The photo frames line up: every frame has the same height.
     const heights = await strip.locator('.featured__photo').evaluateAll((els) => els.map((e) => Math.round(e.getBoundingClientRect().height)));
     expect(new Set(heights).size).toBe(1);

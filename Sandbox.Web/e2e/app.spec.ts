@@ -195,7 +195,7 @@ test.describe('All Programs list', () => {
     await expect(heroTotal(page, 'monitoring programs')).toHaveText(String(seed.programs));
   });
 
-  test('lists all 36 programs', async ({ page }) => {
+  test('lists all 81 programs', async ({ page }) => {
     await expect(rows(page)).toHaveCount(seed.programs);
     await expect(resultCount(page)).toHaveText(`Showing ${seed.programs} of ${seed.programs}`);
     await expect(page.locator('table.programs-table thead th')).toHaveText([
@@ -250,7 +250,7 @@ test.describe('All Programs list', () => {
     }[];
     const ozone = programs.find((item) => item.MonitoringProgramID === seed.ozone.id)!;
 
-    // Every row has the thumbnail box; 28 of them hold a photo.
+    // Every row has the thumbnail box; 37 of them hold a photo.
     await expect(rows(page).locator('.thumb')).toHaveCount(seed.programs);
     await expect(rows(page).locator('img.thumb__img')).toHaveCount(seed.programsWithPhotos);
 
@@ -304,7 +304,7 @@ test.describe('All Programs list', () => {
     await expect(categorySelect(page)).toContainText(seed.ozone.category);
   });
 
-  test('layout filter shows the 5 Content programs, then the 13 Map programs', async ({ page }) => {
+  test('layout filter shows the 50 Content programs, then the 13 Map programs', async ({ page }) => {
     await layoutSelect(page).click();
     // Each option carries its count.
     await expect(page.getByRole('option', { name: `Map (${seed.templates.map})` })).toBeVisible();

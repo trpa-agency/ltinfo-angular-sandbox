@@ -1,0 +1,331 @@
+{
+  "_about": "Category changes make-seed.py applies on top of the dashboard repo's programs.json. remove drops categories by folder; their programs are placed again under the new categories by id. A program entry is one of: {id} for a program from programs.json or LT Info (name overrides the LT Info name); {id, indicator} for a threshold indicator with no monitoring program, built from its Threshold Dashboard record, id 9600 plus its threshold indicator id; or {id, ltinfo: false, ...} written here, with description and approach as lists of paragraphs. Category ids from 11. organizations gives short names for partners LT Info does not have.",
+  "_sources": "Forest Structure and Fire Dynamics: the Forest Health Threshold Standards Update story map collection (https://storymaps.arcgis.com/collections/d89adce0aa9047efb018e49a6f8eff87) for the standards and their background, and the monitoring approach sections of the ForestHealth repo's monitoring/forest-structure.html and monitoring/fire-dynamics.html. Biodiversity's goal joins the adopted Threshold Dashboard descriptions of the three categories it replaces (Vegetation Preservation, Fisheries, and Wildlife). Indicator pages: the Threshold Dashboard records at internalapi.laketahoeinfo.org/threshold-indicators/{id}.",
+  "remove": [
+    "fisheries",
+    "vegetation-preservation",
+    "wildlife"
+  ],
+  "organizations": {
+    "Tahoe Fire and Fuels Team": "TFFT"
+  },
+  "categories": [
+    {
+      "id": 11,
+      "name": "Forest Structure",
+      "folder": "forest-structure",
+      "themeColor": "#415414",
+      "blurb": "Seral stage, canopy cover, and stand density of the conifer forest.",
+      "goal": "Restore a balanced mosaic of forest ages, from young trees to old growth, and of open and closed canopies, and keep stands at densities that leave forests less vulnerable to drought, insects, disease, and severe wildfire.",
+      "programs": [
+        {
+          "id": 9790,
+          "name": "Seral Stage and Canopy Cover",
+          "template": "context",
+          "partners": [
+            "Tahoe Regional Planning Agency",
+            "Tahoe Fire and Fuels Team"
+          ],
+          "description": [
+            "Seral stage is the developmental phase of a forest, from young regeneration to mature stands of large trees. Canopy cover is the share of the forest floor shaded by tree crowns, from open to closed. Together they shape how a forest grows and changes, and the wildlife and ecosystems it can support.",
+            "More than a century ago, natural fire kept a mosaic of early, mid, and late seral stands across the Tahoe Basin, with a balance of open and closed canopies. Clear-cutting in the Comstock era, followed by more than 100 years of fire suppression and past management, left many stands dense, uniform, and heavy with fuel. Dense, middle-aged forest is overrepresented today.",
+            "The Seral Stage and Canopy Cover threshold standard calls for at least 75 percent of forested acres to fall within desired ranges for seral stage and canopy cover. The ranges are set for each of three forest types, Jeffrey pine, Sierra mixed conifer, and red fir, and reflect conditions that support resilience, habitat diversity, and fire-adapted forest structure.",
+            "Meeting the ranges takes both active management, such as thinning and beneficial fire to open up canopies, and protection that lets existing stands mature into late seral forest."
+          ],
+          "approach": [
+            "Seral stage and canopy cover are mapped across the conifer forest from the Sierra Nevada Regional Resource Kit, 30-meter remote sensing products summarized by forest type. Seral stage follows quadratic mean diameter: early under 5 inches, mid 5 to 25 inches, and late over 25 inches. Closed canopy is 40 percent cover or more in Jeffrey pine, and 50 percent or more in Sierra mixed conifer and red fir.",
+            "Each forest type's acres are compared with its desired share in five classes: early seral, mid seral open, mid seral closed, late seral open, and late seral closed.",
+            "Jeffrey pine: early 5 to 15 percent, mid open 25 to 30 percent, mid closed 5 to 10 percent, late open 40 to 50 percent, and late closed 5 to 10 percent.",
+            "Sierra mixed conifer: early 10 to 20 percent, mid open 15 to 20 percent, mid closed 5 to 15 percent, late open 25 to 35 percent, and late closed 15 to 25 percent.",
+            "Red fir: early 10 to 20 percent, mid open 15 to 25 percent, mid closed 15 to 25 percent, late open 30 to 40 percent, and late closed 20 to 30 percent."
+          ],
+          "ltinfo": false
+        },
+        {
+          "id": 9789,
+          "name": "Stand Density",
+          "template": "context",
+          "partners": [
+            "Tahoe Regional Planning Agency",
+            "Tahoe Fire and Fuels Team"
+          ],
+          "description": [
+            "Stand density measures how many trees grow in an area (trees per acre) and the total cross-section of their trunks (basal area, in square feet per acre).",
+            "After a century of fire suppression, Tahoe's forests are far denser than they were historically. Crowded trees compete for water, nutrients, and sunlight, and stressed trees are more vulnerable to drought, insects, and disease. Recent droughts have raised mortality: the USDA Forest Service aerial detection survey recorded more than 1.7 million dead trees across 66,000 acres of the Tahoe Basin in 2023.",
+            "The Stand Density threshold standard calls for at least 50 percent of forested area to fall within recommended ranges of trees per acre and basal area for its forest type and seral stage. Thinning overcrowded stands reduces competition among trees and improves their resilience to drought and wildfire."
+          ],
+          "approach": [
+            "Trees per acre and basal area are mapped across the conifer forest from the Sierra Nevada Regional Resource Kit, 30-meter remote sensing products, and tested together against the recommended maximum for each forest type and seral stage. An acre at or below both values is within range.",
+            "Jeffrey pine: early seral 200 trees and 30 square feet of basal area per acre, mid seral 70 trees and 80 square feet, and late seral 55 trees and 100 square feet.",
+            "Sierra mixed conifer: early seral 300 trees and 40 square feet, mid seral 90 trees and 130 square feet, and late seral 75 trees and 180 square feet.",
+            "Red fir: early seral 300 trees and 50 square feet, mid seral 100 trees and 175 square feet, and late seral 80 trees and 250 square feet."
+          ],
+          "ltinfo": false
+        },
+        {
+          "id": 83
+        },
+        {
+          "id": 58,
+          "name": "Late Seral and Old Growth Forest"
+        },
+        {
+          "id": 21,
+          "name": "Yellow Pine and Red Fir Abundance"
+        },
+        {
+          "id": 81
+        },
+        {
+          "id": 9680,
+          "indicator": 80,
+          "name": "Limit Size of New Forest Openings"
+        },
+        {
+          "id": 9681,
+          "indicator": 81,
+          "name": "Stand Composition and Age"
+        },
+        {
+          "id": 9684,
+          "indicator": 84,
+          "name": "Appropriate Forest Management Practices"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Fire Dynamics",
+      "folder": "fire-dynamics",
+      "themeColor": "#9C3E27",
+      "blurb": "Modeled fire behavior around communities and across the forested landscape.",
+      "goal": "Keep fire behavior defensible around neighborhoods and evacuation routes, and limit the size and extent of large, high-severity fire patches across the forested landscape.",
+      "programs": [
+        {
+          "id": 9793,
+          "name": "WUI Defense Zone Fire Dynamics",
+          "template": "context",
+          "partners": [
+            "Tahoe Regional Planning Agency",
+            "Tahoe Fire and Fuels Team"
+          ],
+          "description": [
+            "The wildland urban interface (WUI) is where homes and communities meet Tahoe's forests and wildlands, and it covers nearly half of the Region's land area. It has two zones: the Defense Zone, the land immediately around structures and roads and the highest priority for fire suppression, and the Threat Zone, the forest around the Defense Zone where fires are more likely to start.",
+            "Flame length is a key measure of how intense a fire could become. Flames of four feet or less are the upper limit at which firefighters can safely engage a wildfire and defend homes directly.",
+            "The WUI Defense Zone Fire Dynamics threshold standard calls for at least 90 percent of the Defense Zone to have predicted flame lengths of four feet or less under extreme fire weather, such as red flag days. The aim is the whole Defense Zone; the standard is set at 90 percent because treatments run in a constant cycle, so some areas will always be due for retreatment. Outside the standard itself, management should keep any areas with longer predicted flames small, under one acre, widely dispersed, and more than 100 feet from homes and infrastructure.",
+            "The 2021 Caldor Fire showed why the measure matters. In the 13 years before it, the Tahoe Fire and Fuels Team and partner agencies had treated fuels across the fire's path. As the fire moved from untreated forest into fuel reduction areas near Meyers, flame lengths dropped from roughly 150 feet to about 15 feet, and firefighters could shift to direct attack. Of the roughly 10,000 acres that burned in the Basin, 3,800 acres were previously treated areas next to homes and neighborhoods."
+          ],
+          "approach": [
+            "Flame lengths are modeled under 90th percentile fire weather with the Pyrologix Wildfire Exposure Simulation Tool, delivered through the Sierra Nevada Regional Resource Kit at 30-meter resolution. The Defense Zone extends roughly a quarter mile from community edges; its wildland portion outside urban land use, 44,920 acres, is the area assessed.",
+            "The program tracks the share of that area predicted to burn with flame lengths of four feet or less. Fuel reduction reported by Tahoe Fire and Fuels Team agencies to the EIP Project Tracker is read with the modeling, since treatment is what moves predicted flame lengths."
+          ],
+          "ltinfo": false
+        },
+        {
+          "id": 9792,
+          "name": "Landscape Fire Dynamics",
+          "template": "context",
+          "partners": [
+            "Tahoe Regional Planning Agency",
+            "Tahoe Fire and Fuels Team"
+          ],
+          "description": [
+            "Fire has long shaped Sierra Nevada forests. Frequent, low-intensity fire every decade or two at Tahoe's lower elevations kept fuels in check and forests open and diverse. A century of fire suppression has let fuels build up and forests become overstocked, raising the risk of large, high-severity fires that burn hotter, are harder to control, and can damage soils, wildlife habitat, communities, and infrastructure.",
+            "The size of high-severity patches matters. Bigger patches kill more trees and leave fewer surviving seed sources for the forest to recover, and they increase erosion and the threat to lake clarity. Thinning and prescribed fire break up large patches of potential high-intensity fire.",
+            "The Landscape Fire Dynamics threshold standard limits the area of modeled high-severity fire patches of 200 acres or more to less than 5 percent of the forested landscape.",
+            "In the 2021 Caldor Fire, many treated areas burned at low severity, but nearly 5,000 acres burned at high severity in large patches, closely matching what the modeling predicted."
+          ],
+          "approach": [
+            "Fire severity is modeled across the Basin under 90th percentile fire weather with the Pyrologix Wildfire Exposure Simulation Tool, delivered through the Sierra Nevada Regional Resource Kit. Each 30-meter cell gets a probability of burning at low, moderate, or high severity.",
+            "The program tracks the share of the assessed landscape, 157,843 acres of vegetation outside urban areas, designated wilderness, and water, likely to burn at high severity in contiguous patches of 200 acres or more.",
+            "Observed fires check the modeling over time: wildfire perimeters from the CAL FIRE statewide fire history, and post-fire burn severity from USDA Forest Service mapping for large fires such as Caldor."
+          ],
+          "ltinfo": false
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Biodiversity",
+      "folder": "biodiversity",
+      "themeColor": "#4A6118",
+      "blurb": "Sensitive and uncommon plants, native vegetation, fish, and special interest wildlife.",
+      "goal": "Maintain vegetation community richness and diversity, preserve uncommon plant communities and sustainable populations of sensitive plants, maintain and improve stream and lake fish habitat, and provide and protect suitable habitat for special interest species.",
+      "programs": [
+        {
+          "id": 39
+        },
+        {
+          "id": 54,
+          "name": "Tahoe Draba"
+        },
+        {
+          "id": 55,
+          "name": "Long-Petaled Lewisia"
+        },
+        {
+          "id": 56,
+          "name": "Cup Lake Draba"
+        },
+        {
+          "id": 57,
+          "name": "Galena Creek Rockcress"
+        },
+        {
+          "id": 22,
+          "name": "Deep Water Plants"
+        },
+        {
+          "id": 53,
+          "name": "Freel Peak Cushion Plant Community"
+        },
+        {
+          "id": 52,
+          "name": "Grass Lake Sphagnum Fen"
+        },
+        {
+          "id": 51,
+          "name": "Hell Hole Sphagnum Fen"
+        },
+        {
+          "id": 50,
+          "name": "Osgood Swamp"
+        },
+        {
+          "id": 25,
+          "name": "Pope Marsh"
+        },
+        {
+          "id": 23,
+          "name": "Upper Truckee Marsh"
+        },
+        {
+          "id": 24,
+          "name": "Taylor Creek Marsh"
+        },
+        {
+          "id": 17,
+          "name": "Vegetation Type"
+        },
+        {
+          "id": 18,
+          "name": "Meadow and Wetland Vegetation"
+        },
+        {
+          "id": 19,
+          "name": "Deciduous Riparian Vegetation"
+        },
+        {
+          "id": 20,
+          "name": "Shrub Abundance"
+        },
+        {
+          "id": 9682,
+          "indicator": 82,
+          "name": "Stream Environment Zone Vegetation"
+        },
+        {
+          "id": 9683,
+          "indicator": 83,
+          "name": "Native Vegetation and Land Capability"
+        },
+        {
+          "id": 63
+        },
+        {
+          "id": 32,
+          "name": "Stream Habitat Condition"
+        },
+        {
+          "id": 27
+        },
+        {
+          "id": 74,
+          "name": "Lahontan Cutthroat Trout Recovery"
+        },
+        {
+          "id": 9621,
+          "indicator": 21,
+          "name": "Instream Flow"
+        },
+        {
+          "id": 9622,
+          "indicator": 22,
+          "name": "Stream Intakes Diverted to Lake Sources"
+        },
+        {
+          "id": 2
+        },
+        {
+          "id": 4,
+          "name": "Nesting Bald Eagle"
+        },
+        {
+          "id": 3,
+          "name": "Wintering Bald Eagle"
+        },
+        {
+          "id": 5,
+          "name": "Golden Eagle"
+        },
+        {
+          "id": 6
+        },
+        {
+          "id": 29
+        },
+        {
+          "id": 7
+        },
+        {
+          "id": 79
+        },
+        {
+          "id": 9765,
+          "indicator": 165,
+          "name": "Deer Disturbance-Free Zone"
+        },
+        {
+          "id": 9756,
+          "indicator": 156,
+          "name": "Riparian Habitat"
+        },
+        {
+          "id": 9768,
+          "indicator": 168,
+          "name": "Osprey Disturbance-Free Zone"
+        },
+        {
+          "id": 9770,
+          "indicator": 170,
+          "name": "Nesting Bald Eagle Disturbance-Free Zone"
+        },
+        {
+          "id": 9769,
+          "indicator": 169,
+          "name": "Wintering Bald Eagle Disturbance-Free Zone"
+        },
+        {
+          "id": 9771,
+          "indicator": 171,
+          "name": "Golden Eagle Disturbance-Free Zone"
+        },
+        {
+          "id": 9763,
+          "indicator": 163,
+          "name": "Peregrine Falcon Disturbance-Free Zone"
+        },
+        {
+          "id": 9767,
+          "indicator": 167,
+          "name": "Northern Goshawk Disturbance-Free Zone"
+        },
+        {
+          "id": 9764,
+          "indicator": 164,
+          "name": "Waterfowl Disturbance-Free Zone"
+        }
+      ]
+    }
+  ]
+}

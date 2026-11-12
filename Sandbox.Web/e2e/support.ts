@@ -25,17 +25,17 @@ export const TEMPLATE_LABELS: Record<Template, string> = {
 /** What Sandbox.Database seeds. Change a number here when the seed changes. */
 export const seed = {
   database: 'LTInfoSandbox',
-  programs: 36,
+  programs: 81,
   categories: 10,
   featured: 17,
   /** The 17 programs seed.sql marks IsFeatured = 1, so a stray one is named in the failure. */
   featuredIds: [13, 16, 33, 34, 36, 39, 61, 62, 63, 64, 65, 66, 68, 69, 76, 77, 82],
-  partnerLinks: 134,
+  partnerLinks: 216,
   /** How many programs use each page layout. */
-  templates: { map: 13, charts: 18, context: 5 },
-  /** Program photos: 55 files across 28 programs; the other 8 programs have none. */
-  photos: 55,
-  programsWithPhotos: 28,
+  templates: { map: 13, charts: 18, context: 50 },
+  /** Program photos: 64 files across 37 programs; the other 44 programs have none. */
+  photos: 64,
+  programsWithPhotos: 37,
   /** The charts layout, and the program the detail and write tests use. One photo. */
   ozone: {
     id: 41,
@@ -53,7 +53,7 @@ export const seed = {
   yellowCress: {
     id: 39,
     name: 'Tahoe Yellow Cress Monitoring',
-    category: 'Vegetation Preservation',
+    category: 'Biodiversity',
     template: 'map',
     photos: 4,
     chartPanels: 3,
@@ -71,14 +71,14 @@ export const seed = {
   subalpineConifer: {
     id: 83,
     name: 'Subalpine Conifer',
-    category: 'Vegetation Preservation',
+    category: 'Forest Structure',
     template: 'context',
     photos: 0,
   },
   airQualityPrograms: 5,
   unknownId: 999999,
   /** GET /summary, and the four totals in the home page hero. */
-  summary: { programs: 36, categories: 10, mappedSites: 1750, partners: 43, photos: 55 },
+  summary: { programs: 81, categories: 10, mappedSites: 1750, partners: 47, photos: 64 },
   /** GET /monitoring-sites: one point per site, and one per mapped area or line. */
   sites: { total: 1750, site: 789, area: 927, line: 34 },
   /** Three categories the home page tests open. Folder is the /category/:folder address. */

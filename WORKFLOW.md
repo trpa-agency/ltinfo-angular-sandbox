@@ -8,7 +8,7 @@ A practice copy of how ESA's apps are put together, small enough to read in one 
 |---|---|
 | `Sandbox.Web` | Angular 21 app styled with Ecology, plus its browser tests in `e2e/` |
 | `Sandbox.API` | .NET 10 API, the same JSON shape as the real LT Info API |
-| `Sandbox.Database` | table scripts and seed data (36 real programs, 43 partners) |
+| `Sandbox.Database` | table scripts and seed data (81 real programs and indicators, 47 partners) |
 | `Sandbox.Tests` | the container that runs the tests |
 | `Build` | PowerShell scripts: database, one-time SQL Server setup, deploy |
 | `docker-compose` | the files that start the containers |
@@ -44,6 +44,8 @@ Every program page uses one of three layouts, stored per program in the database
 All three share the header (name, four summary tiles, key photo) and show the program's photos. Add `?template=map`, `charts`, or `context` to a program address to preview another layout; the Page layout control saves it.
 
 The charts and maps read live data from the TRPA LTInfo_Monitoring map service. What each program charts and maps is its `DashboardConfig` in the database, with the keys documented in the dashboard repo's `templates/README.md`. To regenerate the seed from that repo and LT Info, run `python Sandbox.Database/Scripts/make-seed.py`, then `Build\DatabaseBuild.ps1 -Reseed`.
+
+The categories differ from the dashboard repo's on purpose: `Sandbox.Database/Scripts/extra-categories.json` removes Vegetation Preservation, Fisheries, and Wildlife, and adds Forest Structure, Fire Dynamics, and Biodiversity. Their pages are the old categories' programs, the LT Info programs that cover the same threshold indicators, pages built from Threshold Dashboard records for indicators with no program (ids 9600 plus the threshold indicator id), and the four forest health standards written from the Forest Health Threshold Standards Update story maps.
 
 Test pages for the two building blocks: http://localhost:4200/dev/charts (every chart shape) and http://localhost:4200/dev/map (sites, areas with a year pick, a layer with no list).
 
