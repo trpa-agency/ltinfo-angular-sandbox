@@ -128,13 +128,15 @@ def demographics():
     os.makedirs(DEMOGRAPHICS, exist_ok=True)
     put = lambda name, title, file, rows, note=None: write(name, title, FIGURES + file, rows, note, DEMOGRAPHICS)
 
-    data = traces(FIGURES + "Demographics_Tahoe_AgeProfile.html")
-    rows = []
-    for year, (men, women) in zip((1990, 2000, 2010, 2020), zip(data[0::2], data[1::2])):
-        for sex, trace in (("Men", men), ("Women", women)):
-            rows += [{"Age": age, "Year": str(year), "Sex": sex, "Percent": r(abs(v) * 100)} for age, v in zip(trace["y"], trace["x"])]
-    put("age-profile", "Age profile of the Tahoe Basin by census year, percent of men and of women", "Demographics_Tahoe_AgeProfile.html", rows,
-        "Panels in census order, 1990 to 2020.")
+    for name, file, area in (("age-profile", "Demographics_Tahoe_AgeProfile.html", "the Tahoe Basin"),
+                             ("age-profile-counties", "Demographics_County_AgeProfile.html", "the five surrounding counties")):
+        data = traces(FIGURES + file)
+        rows = []
+        for year, (men, women) in zip((1990, 2000, 2010, 2020), zip(data[0::2], data[1::2])):
+            for sex, trace in (("Men", men), ("Women", women)):
+                rows += [{"Age": age, "Year": str(year), "Sex": sex, "Percent": r(abs(v) * 100)} for age, v in zip(trace["y"], trace["x"])]
+        put(name, f"Age profile of {area} by census year, percent of men and of women", file, rows,
+            "Panels in census order, 1990 to 2020.")
 
     rows = [{"Year": str(int(x)), "Area": t["name"], "Percent": r(y * 100)}
             for t in traces(FIGURES + "Demographics_Tahoe_Senior_Population.html") for x, y in zip(t["x"], t["y"])]

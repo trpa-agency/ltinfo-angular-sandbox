@@ -304,7 +304,7 @@ test.describe('All Programs list', () => {
     await expect(categorySelect(page)).toContainText(seed.ozone.category);
   });
 
-  test('layout filter shows the 10 Content programs, then the 35 Map programs', async ({ page }) => {
+  test('layout filter shows the 10 Content programs, then the 36 Map programs', async ({ page }) => {
     await layoutSelect(page).click();
     // Each option carries its count.
     await expect(page.getByRole('option', { name: `Map (${seed.templates.map})` })).toBeVisible();

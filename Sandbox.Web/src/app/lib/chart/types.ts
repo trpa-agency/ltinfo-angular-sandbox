@@ -49,6 +49,11 @@ export interface ChartSpec {
   categoryLabels?: Record<string, string>;
   threshold?: ChartThreshold | null;
   series: ChartSeries[];
+  /**
+   * A population pyramid: some series are drawn as negative values, to the left of zero, and the
+   * value axis and tooltips show every value as positive.
+   */
+  mirrored?: boolean;
   /** SVG height in CSS pixels. Default 320. Horizontal charts grow with their bar count. */
   height?: number;
 }

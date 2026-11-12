@@ -503,7 +503,12 @@ export class SitesMap {
     const options: Leaflet.GeoJSONOptions & { renderer: Leaflet.Renderer } = {
       renderer,
       pointToLayer: (feature, latlng) =>
-        L.circleMarker(latlng, { ...POINT_STYLE, renderer, fillColor: this.resolveColor(spec.color(feature as unknown as Feature)) }),
+        L.circleMarker(
+          latlng,
+          spec.dots
+            ? { radius: 1.6, stroke: false, fillOpacity: 0.9, renderer, fillColor: this.resolveColor(spec.color(feature as unknown as Feature)) }
+            : { ...POINT_STYLE, renderer, fillColor: this.resolveColor(spec.color(feature as unknown as Feature)) },
+        ),
       style: (feature) => {
         const color = this.resolveColor(spec.color(feature as unknown as Feature));
         return spec.geometry === 'line'

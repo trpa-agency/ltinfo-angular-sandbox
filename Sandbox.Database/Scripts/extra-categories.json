@@ -3520,11 +3520,41 @@
           "mapLayer": {
             "service": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
             "layer": 31,
-            "title": "Communities",
+            "title": "Population change, 2010 to 2020",
             "unit": "community",
             "unitPlural": "Communities",
             "name": "NEIGHBORHOOD",
             "countAsSites": false,
+            "colorBy": "Population_Percent_Change",
+            "colorByLabel": "Population change",
+            "breaks": [
+              {
+                "max": -5,
+                "label": "Down 5 to 15 percent",
+                "color": "var(--mon-chlorophyll-2)"
+              },
+              {
+                "max": 0,
+                "label": "Down less than 5 percent",
+                "color": "var(--mon-chlorophyll-3)"
+              },
+              {
+                "max": 5,
+                "label": "Up less than 5 percent",
+                "color": "var(--mon-chlorophyll-5)"
+              },
+              {
+                "max": 15,
+                "label": "Up 5 to 15 percent",
+                "color": "var(--mon-chlorophyll-6)"
+              }
+            ],
+            "meta": [
+              {
+                "field": "Population_Percent_Change",
+                "suffix": " percent"
+              }
+            ],
             "fields": [
               {
                 "field": "Neighborhood_Population_2010",
@@ -3545,6 +3575,10 @@
               {
                 "field": "Neighborhood_Seasonal_2020",
                 "label": "Seasonal homes, 2020"
+              },
+              {
+                "field": "Seasonal_Unit_Percent_Change",
+                "label": "Seasonal homes change (percent)"
               }
             ]
           },
@@ -3611,8 +3645,8 @@
           ],
           "measures": [
             {
-              "title": "Age profile by census",
-              "sub": "Share of men or women in each five-year age group at each census. Choose men or women.",
+              "title": "Age profile, Tahoe Basin",
+              "sub": "Share of men (left) and of women (right) in each five-year age group. Choose a census year.",
               "json": "data/demographics/age-profile.json",
               "sourceHref": "https://trpa-agency.github.io/Demographics/Open_Data_Figures/Demographics_Tahoe_AgeProfile.html",
               "sourceLabel": "Tahoe Open Data demographics",
@@ -3620,33 +3654,85 @@
               "xType": "category",
               "xLabel": "Age",
               "xOrder": [
-                "Under 5",
-                "5 to 9",
-                "10 to 14",
-                "15 to 19",
-                "20 to 24",
-                "25 to 29",
-                "30 to 34",
-                "35 to 39",
-                "40 to 44",
-                "45 to 49",
-                "50 to 54",
-                "55 to 59",
-                "60 to 64",
-                "65 to 69",
-                "70 to 74",
-                "75 to 79",
+                "Over 85",
                 "80 to 84",
-                "Over 85"
+                "75 to 79",
+                "70 to 74",
+                "65 to 69",
+                "60 to 64",
+                "55 to 59",
+                "50 to 54",
+                "45 to 49",
+                "40 to 44",
+                "35 to 39",
+                "30 to 34",
+                "25 to 29",
+                "20 to 24",
+                "15 to 19",
+                "10 to 14",
+                "5 to 9",
+                "Under 5"
               ],
               "y": "Percent",
-              "seriesBy": "Year",
-              "seriesLabel": "Census",
-              "pick": "Sex",
-              "pickLabel": "Sex",
-              "pickDefault": "Women",
-              "yLabel": "Percent",
-              "span": "span-12"
+              "seriesBy": "Sex",
+              "seriesLabel": "Sex",
+              "seriesOrder": [
+                "Men",
+                "Women"
+              ],
+              "mirror": "Men",
+              "pick": "Year",
+              "pickLabel": "Census",
+              "pickDefault": "2020",
+              "yLabel": "Percent of men or of women",
+              "type": "stacked",
+              "orientation": "h",
+              "span": "span-6"
+            },
+            {
+              "title": "Age profile, five surrounding counties",
+              "sub": "The same profile for the five counties around the Basin, for comparison.",
+              "json": "data/demographics/age-profile-counties.json",
+              "sourceHref": "https://trpa-agency.github.io/Demographics/Open_Data_Figures/Demographics_County_AgeProfile.html",
+              "sourceLabel": "Tahoe Open Data demographics",
+              "x": "Age",
+              "xType": "category",
+              "xLabel": "Age",
+              "xOrder": [
+                "Over 85",
+                "80 to 84",
+                "75 to 79",
+                "70 to 74",
+                "65 to 69",
+                "60 to 64",
+                "55 to 59",
+                "50 to 54",
+                "45 to 49",
+                "40 to 44",
+                "35 to 39",
+                "30 to 34",
+                "25 to 29",
+                "20 to 24",
+                "15 to 19",
+                "10 to 14",
+                "5 to 9",
+                "Under 5"
+              ],
+              "y": "Percent",
+              "seriesBy": "Sex",
+              "seriesLabel": "Sex",
+              "seriesOrder": [
+                "Men",
+                "Women"
+              ],
+              "mirror": "Men",
+              "pick": "Year",
+              "pickLabel": "Census",
+              "pickDefault": "2020",
+              "yLabel": "Percent of men or of women",
+              "type": "stacked",
+              "orientation": "h",
+              "span": "span-6"
             },
             {
               "title": "Residents 65 and older",
@@ -3670,7 +3756,7 @@
           "id": 9903,
           "ltinfo": false,
           "name": "Race and Ethnicity",
-          "template": "charts",
+          "template": "map",
           "partners": [
             "Tahoe Regional Planning Agency"
           ],
@@ -3680,7 +3766,8 @@
           "approach": [
             "Figures come from the U.S. Census Bureau's decennial census and American Community Survey (ACS) 5-year estimates, queried through the Census Bureau's API and summarized for the Tahoe Region by TRPA. Decennial counts are a full count every 10 years; ACS estimates are yearly averages of five years of samples, so they move more smoothly and carry a margin of error.",
             "In 2020 the census boundaries changed. The Lake Tahoe Region is made up of 31 census tracts and 78 block groups along the California and Nevada border. The Carson City tract straddles the TRPA boundary with most of its people outside it, so it is left out.",
-            "The tables and boundaries are on the TRPA Demographics map service, and the code behind the figures is in TRPA's Demographics repository on GitHub."
+            "The tables and boundaries are on the TRPA Demographics map service, and the code behind the figures is in TRPA's Demographics repository on GitHub.",
+            "The race map places one dot for every 25 people at random within each census tract, from the American Community Survey 5-year estimates for 2019 to 2023 (Esri's ACS Population by Race and Hispanic Origin layer, the one the Tahoe Open Data map uses). Dots show how many people live in each tract, not where in the tract they live, and tracts on the Basin's edge reach past the TRPA boundary."
           ],
           "measures": [
             {
@@ -3709,7 +3796,64 @@
               "type": "stacked",
               "span": "span-12"
             }
-          ]
+          ],
+          "mapLayer": {
+            "service": "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/ACS_Population_by_Race_and_Hispanic_Origin_Boundaries/FeatureServer",
+            "layer": 2,
+            "where": "GEOID IN ('06017030201','06017030202','06017030301','06017030302','06017030402','06017030403','06017030404','06017030502','06017030504','06017030506','06017030507','06017031601','06017031602','06017032001','06017032002','06061020104','06061020105','06061020106','06061020107','06061022100','06061022200','06061022300','32005001600','32005001700','32005001800','32031003305','32031003306','32031003307','32031003308','32031003310','32031003311')",
+            "title": "Race and Hispanic origin, one dot for 25 people",
+            "unit": "census tract",
+            "unitPlural": "Census tracts",
+            "name": "NAME",
+            "list": false,
+            "countAsSites": false,
+            "colorByLabel": "Race and Hispanic origin",
+            "dotDensity": {
+              "dotValue": 25,
+              "fields": [
+                {
+                  "field": "B03002_003E",
+                  "label": "White (non-Hispanic)",
+                  "color": "var(--mon-stevens9-3)"
+                },
+                {
+                  "field": "B03002_012E",
+                  "label": "Hispanic or Latino",
+                  "color": "var(--mon-stevens9-5)"
+                },
+                {
+                  "field": "B03002_006E",
+                  "label": "Asian",
+                  "color": "var(--mon-stevens9-7)"
+                },
+                {
+                  "field": "B03002_009E",
+                  "label": "Two or more races",
+                  "color": "var(--mon-stevens9-9)"
+                },
+                {
+                  "field": "B03002_004E",
+                  "label": "Black or African American",
+                  "color": "var(--mon-stevens9-1)"
+                },
+                {
+                  "field": "B03002_005E",
+                  "label": "American Indian or Alaska Native",
+                  "color": "var(--mon-stevens9-2)"
+                },
+                {
+                  "field": "B03002_007E",
+                  "label": "Pacific Islander or Native Hawaiian",
+                  "color": "var(--mon-stevens9-6)"
+                },
+                {
+                  "field": "B03002_008E",
+                  "label": "Other race",
+                  "color": "var(--mon-stevens9-8)"
+                }
+              ]
+            }
+          }
         },
         {
           "id": 9904,
@@ -3731,11 +3875,46 @@
           "mapLayer": {
             "service": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
             "layer": 31,
-            "title": "Communities",
+            "title": "Change in seasonal homes, 2010 to 2020",
             "unit": "community",
             "unitPlural": "Communities",
             "name": "NEIGHBORHOOD",
             "countAsSites": false,
+            "colorBy": "Seasonal_Unit_Percent_Change",
+            "colorByLabel": "Seasonal homes change",
+            "breaks": [
+              {
+                "max": -14,
+                "label": "Down 14 to 24 percent",
+                "color": "var(--mon-chlorophyll-2)"
+              },
+              {
+                "max": 0,
+                "label": "Down less than 14 percent",
+                "color": "var(--mon-chlorophyll-3)"
+              },
+              {
+                "max": 2,
+                "label": "Up less than 2 percent",
+                "color": "var(--mon-chlorophyll-4)"
+              },
+              {
+                "max": 7,
+                "label": "Up 2 to 7 percent",
+                "color": "var(--mon-chlorophyll-5)"
+              },
+              {
+                "max": 16,
+                "label": "Up 7 to 16 percent",
+                "color": "var(--mon-chlorophyll-6)"
+              }
+            ],
+            "meta": [
+              {
+                "field": "Seasonal_Unit_Percent_Change",
+                "suffix": " percent"
+              }
+            ],
             "fields": [
               {
                 "field": "Neighborhood_Population_2010",
@@ -3756,6 +3935,10 @@
               {
                 "field": "Neighborhood_Seasonal_2020",
                 "label": "Seasonal homes, 2020"
+              },
+              {
+                "field": "Seasonal_Unit_Percent_Change",
+                "label": "Seasonal homes change (percent)"
               }
             ]
           },

@@ -463,6 +463,151 @@ export interface MapLayerConfig {
   list?: boolean;
   /** false to draw the areas on the home page map without counting them as mapped sites. */
   countAsSites?: boolean;
+  /**
+   * Classes of the numeric colorBy field, for a choropleth: a value up to a class max (and above
+   * the class before) takes that color and label. Values above the last max take the last class.
+   */
+  breaks?: ClassBreak[];
+  /**
+   * Draws each polygon as dots instead: one dot for every dotValue counted in each field, placed
+   * at random inside the polygon (seeded, so the same dots every load) in the field color.
+   */
+  dotDensity?: DotDensityConfig;
+}
+
+export interface ClassBreak {
+  max: number;
+  label: string;
+  color: string;
+}
+
+export interface DotDensityConfig {
+  /** How many counted per dot, such as 25 people. */
+  dotValue: number;
+  fields: { field: string; label: string; color: string }[];
+}
+
+/** The property a choropleth class or a dot group is stored under, and colored by. */
+export const CLASS_FIELD = '__class';
+
+/** The class label for a value, or null for no number. */
+export function classOf(breaks: ClassBreak[], value: unknown): string | null {
+  const n = value == null || value === '' ? NaN : Number(value);
+  if (!Number.isFinite(n) || !breaks.length) return null;
+  return (breaks.find((b) => n <= b.max) ?? breaks[breaks.length - 1]).label;
+}
+
+/** The layer as the map, list, and legend draw it: colored by the derived class when it has breaks or dots. */
+export function displayLayer(cfg: MapLayerConfig): MapLayerConfig {
+  if (cfg.dotDensity) {
+    return {
+      ...cfg,
+      colorBy: CLASS_FIELD,
+      colors: Object.fromEntries(cfg.dotDensity.fields.map((f) => [f.label, f.color])),
+      labels: undefined,
+      list: false,
+      name: CLASS_FIELD,
+      meta: [],
+      fields: [{ field: CLASS_FIELD, label: cfg.colorByLabel || 'Group' }],
+    };
+  }
+  if (cfg.breaks) {
+    return { ...cfg, colorBy: CLASS_FIELD, colors: Object.fromEntries(cfg.breaks.map((b) => [b.label, b.color])), labels: undefined };
+  }
+  return cfg;
+}
+
+/** The features as drawn: each tagged with its class, or replaced by its dots. */
+export function prepareAreaFeatures(cfg: MapLayerConfig, features: Feature[]): Feature[] {
+  if (cfg.dotDensity) return dotDensityFeatures(features, cfg.dotDensity);
+  if (cfg.breaks && cfg.colorBy) {
+    const breaks = cfg.breaks;
+    const field = cfg.colorBy;
+    return features.map((f) => ({ ...f, properties: { ...f.properties, [CLASS_FIELD]: classOf(breaks, f.properties?.[field]) } }));
+  }
+  return features;
+}
+
+/** A small seeded random number generator (mulberry32), so dots land in the same places every load. */
+function seededRandom(seed: number): () => number {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function hashText(value: string): number {
+  let h = 2166136261;
+  for (let i = 0; i < value.length; i++) h = Math.imul(h ^ value.charCodeAt(i), 16777619);
+  return h >>> 0;
+}
+
+type Ring = [number, number][];
+
+/** The polygons of a Polygon or MultiPolygon, each as its rings (outer first, then holes). */
+function polygonsOf(geometry: Geometry | null): Ring[][] {
+  if (!geometry) return [];
+  if (geometry.type === 'Polygon') return [geometry.coordinates as Ring[]];
+  if (geometry.type === 'MultiPolygon') return geometry.coordinates as Ring[][];
+  return [];
+}
+
+function inRing(x: number, y: number, ring: Ring): boolean {
+  let inside = false;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    const [xi, yi] = ring[i];
+    const [xj, yj] = ring[j];
+    if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
+}
+
+function inPolygons(x: number, y: number, polygons: Ring[][]): boolean {
+  return polygons.some(([outer, ...holes]) => !!outer && inRing(x, y, outer) && !holes.some((hole) => inRing(x, y, hole)));
+}
+
+/**
+ * Dots for a dot density map: for each polygon and field, round(count / dotValue) points placed at
+ * random inside the polygon. Seeded by the polygon key, so a reload draws the same map. The dots
+ * come back interleaved across groups, so no group is drawn wholly on top of another.
+ */
+export function dotDensityFeatures(features: Feature[], cfg: DotDensityConfig): Feature[] {
+  const dots: { order: number; feature: Feature }[] = [];
+  for (const feature of features) {
+    const polygons = polygonsOf(feature.geometry);
+    const outer = polygons.flatMap((p) => p[0] ?? []);
+    if (!outer.length) continue;
+    const xs = outer.map((c) => c[0]);
+    const ys = outer.map((c) => c[1]);
+    const [minX, maxX, minY, maxY] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
+    const key = featureKey(feature);
+    const random = seededRandom(hashText(key));
+    for (const group of cfg.fields) {
+      const count = Math.round(Number(feature.properties?.[group.field] ?? 0) / cfg.dotValue);
+      for (let i = 0; i < count; i++) {
+        for (let tries = 0; tries < 100; tries++) {
+          const x = minX + random() * (maxX - minX);
+          const y = minY + random() * (maxY - minY);
+          if (!inPolygons(x, y, polygons)) continue;
+          dots.push({
+            order: random(),
+            feature: {
+              type: 'Feature',
+              id: `${key}-${group.field}-${i}`,
+              geometry: { type: 'Point', coordinates: [x, y] },
+              properties: { [CLASS_FIELD]: group.label },
+            },
+          });
+          break;
+        }
+      }
+    }
+  }
+  return dots.sort((a, b) => a.order - b.order).map((d) => d.feature);
 }
 
 export function areaWhere(cfg: MapLayerConfig, picked?: string | number | null): string {
@@ -480,6 +625,7 @@ export function areaOutFields(cfg: MapLayerConfig, extra: string[] = []): string
       cfg.name,
       cfg.colorBy,
       cfg.pick,
+      ...(cfg.dotDensity?.fields || []).map((f) => f.field),
       ...(cfg.meta || []).map((m) => m.field),
       ...(cfg.fields || []).map((f) => f.field),
       ...extra,
@@ -701,6 +847,8 @@ export function overlayPopup(cfg: OverlayConfig, feature: Feature, foot?: string
 export interface ProgramLayerSpec {
   title: string;
   geometry: 'point' | 'fill' | 'line';
+  /** Point features are dots of a dot density map: small, unoutlined. */
+  dots?: boolean;
   features: Feature[];
   key: (feature: Feature) => string;
   color: (feature: Feature) => string;
@@ -765,6 +913,7 @@ export function areasLayerSpec(cfg: MapLayerConfig, features: Feature[], fallbac
   return {
     title: cfg.title || 'Areas',
     geometry: cfg.geometry === 'line' ? 'line' : 'fill',
+    dots: !!cfg.dotDensity,
     features,
     key: featureKey,
     color: (feature) => areaColor(cfg, cfg.colorBy ? feature.properties?.[cfg.colorBy] : null, fallback),

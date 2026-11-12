@@ -70,6 +70,11 @@ export interface Measure {
   seriesBy?: string;
   seriesLabel?: string;
   seriesNames?: Record<string, string>;
+  /**
+   * A population pyramid: the series (seriesBy value or y field) drawn to the left of zero, as
+   * horizontal stacked bars. Its values stay positive in the table and the CSV.
+   */
+  mirror?: string;
   /** The order of category x values (stages, classes); values not listed follow, sorted. */
   xOrder?: string[];
   /** The order of the seriesBy values (stages, classes); values not listed follow, sorted. */
@@ -308,13 +313,17 @@ export function measureChartSpec(m: Measure, rows: Attributes[]): ChartSpec {
     categories: band ? keys : undefined,
     categoryLabels,
     threshold: std == null ? null : { value: std, label: `${(m.standard && m.standard.label) || 'Threshold'}: ${fmtValue(std, m.format)}` },
+    ...(m.mirror ? { mirrored: true } : {}),
     series: series.map((s) => ({
       name: s.name,
       ...(m.seriesColors?.[s.key] ? { color: m.seriesColors[s.key] } : {}),
-      points: s.rows.map((r) => ({
-        x: xKind === 'linear' ? Number(r[m.x]) : String(r[m.x]),
-        y: toNumber(r[s.field]),
-      })),
+      points: s.rows.map((r) => {
+        const y = toNumber(r[s.field]);
+        return {
+          x: xKind === 'linear' ? Number(r[m.x]) : String(r[m.x]),
+          y: y != null && m.mirror && s.key === m.mirror ? -y : y,
+        };
+      }),
     })),
   };
 }

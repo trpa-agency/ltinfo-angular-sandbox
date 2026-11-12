@@ -29,6 +29,8 @@ import {
   areaQueryParams,
   areasCsv,
   areasLayerSpec,
+  displayLayer,
+  prepareAreaFeatures,
   areasSummary,
   collapseSites,
   fetchAttributes,
@@ -555,10 +557,14 @@ export class SitesPanel {
       // The profile's join fields (SEZ_ID) ride along on each area.
       const extra = profileFields(await this.profileReady);
       if (!current()) return;
-      const [features, overlays] = await Promise.all([
+      const [raw, overlays] = await Promise.all([
         fetchGeoJson(http, layer.layer, areaQueryParams(layer, picked, true, extra), { service: layer.service, onPage: this.onPage(current) }),
         this.overlays,
       ]);
+      // A choropleth tags each area with its class; a dot density layer becomes its dots. The map,
+      // list, and legend draw what is shown; the CSV and the tiles keep the areas as served.
+      const shown = displayLayer(layer);
+      const features = prepareAreaFeatures(layer, raw);
       if (!current()) return;
       this.progress.set(0);
       this.selectedKey.set(null);
@@ -569,15 +575,15 @@ export class SitesPanel {
         this.items.set([]);
         this.groups.set([]);
         this.csv = null;
-        this.loaded.emit(areasSummary(cfg, features, picked));
+        this.loaded.emit(areasSummary(cfg, raw, picked));
         this.setState('empty');
         return;
       }
-      this.layers.set({ program: areasLayerSpec(layer, features, cfg.color, cfg.program), overlays });
-      this.items.set(areaListItems(layer, features, cfg.color));
-      this.groups.set(areaGroups(layer));
-      this.csv = () => areasCsv(layer, features, picked, cfg.program);
-      this.loaded.emit(areasSummary(cfg, features, picked));
+      this.layers.set({ program: areasLayerSpec(shown, features, cfg.color, cfg.program), overlays });
+      this.items.set(areaListItems(shown, features, cfg.color));
+      this.groups.set(areaGroups(shown));
+      this.csv = () => areasCsv(layer, raw, picked, cfg.program);
+      this.loaded.emit(areasSummary(cfg, raw, picked));
       this.setState('ready');
     } catch (error) {
       if (!current()) return;

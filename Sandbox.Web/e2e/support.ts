@@ -32,7 +32,7 @@ export const seed = {
   featuredIds: [13, 16, 33, 34, 36, 39, 61, 62, 63, 64, 65, 66, 68, 69, 76, 77, 82],
   partnerLinks: 261,
   /** How many programs use each page layout. */
-  templates: { map: 35, charts: 45, context: 10 },
+  templates: { map: 36, charts: 44, context: 10 },
   /** Program photos: 66 files across 39 programs; the other 51 programs have none. */
   photos: 66,
   programsWithPhotos: 39,

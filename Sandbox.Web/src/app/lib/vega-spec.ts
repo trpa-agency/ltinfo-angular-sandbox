@@ -266,7 +266,7 @@ export function vegaLiteSpec(spec: ChartSpec, theme: VegaTheme, options: VegaSpe
     valueAt.forEach((m, i) => {
       const y = m.get(k);
       if (y == null) return;
-      row[tooltipValueField(i)] = formatValue(y, spec.format);
+      row[tooltipValueField(i)] = formatValue(spec.mirrored ? Math.abs(y) : y, spec.format);
       if (y > 0) total += y;
     });
     stackMax = Math.max(stackMax, total);
@@ -300,6 +300,8 @@ export function vegaLiteSpec(spec: ChartSpec, theme: VegaTheme, options: VegaSpe
       labelPadding: 6,
       tickCount: horizontal ? Math.max(2, Math.min(6, Math.floor(plotWidth / 80))) : 5,
       ...(percent ? { format: '.0%' } : {}),
+      // A pyramid reads outward from zero on both sides.
+      ...(spec.mirrored ? { labelExpr: "format(abs(datum.value), ',')" } : {}),
     },
     ...(isBar ? { stack: stacked ? 'zero' : null } : {}),
   };
