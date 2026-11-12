@@ -100,7 +100,7 @@ export const seed = {
 
 /** The home page sections, in page order, with the nav item that scrolls to each. */
 export const HOME_SECTIONS = [
-  { id: 'categories', nav: 'Monitoring Programs', heading: 'Threshold Categories' },
+  { id: 'categories', nav: 'Monitoring Programs', heading: 'Categories' },
   { id: 'all-programs', nav: 'All Programs', heading: 'All Programs' },
   { id: 'about', nav: 'About Monitoring', heading: 'About Monitoring' },
 ] as const;

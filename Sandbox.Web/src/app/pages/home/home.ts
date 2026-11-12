@@ -164,7 +164,7 @@ export class Home {
     const value = (count: number | undefined): string | null => (summary ? formatCount(count ?? 0) : null);
     return [
       { label: 'monitoring programs', value: value(summary?.ProgramCount) },
-      { label: 'threshold categories', value: value(summary?.CategoryCount) },
+      { label: 'categories', value: value(summary?.CategoryCount) },
       { label: 'mapped monitoring sites', value: value(summary?.MappedSiteCount) },
       { label: 'partner organizations', value: value(summary?.PartnerCount) },
     ];

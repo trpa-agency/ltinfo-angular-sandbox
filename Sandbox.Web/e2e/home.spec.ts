@@ -37,7 +37,7 @@ const cards = (page: Page): Locator => page.locator('app-category-card');
 const card = (page: Page, folder: string): Locator => page.locator(`.cat[data-folder="${folder}"]`);
 const cardHead = (page: Page, folder: string): Locator => card(page, folder).locator('.cat__head');
 /**
- * Blank space the pointer can rest on: the Threshold Categories heading, just above the cards.
+ * Blank space the pointer can rest on: the Categories heading, just above the cards.
  * It is in view whenever the cards are, so reaching it never scrolls the page under the
  * pointer (a scroll would slide a card under the pointer and hover it). The map footer was
  * used before; with Featured Programs under the cards it can sit below the fold.
@@ -140,7 +140,7 @@ test.describe('Home page', () => {
     const stats = page.locator('.hero-stat');
     await expect(stats.locator('dt')).toHaveText([
       'monitoring programs',
-      'threshold categories',
+      'categories',
       'mapped monitoring sites',
       'partner organizations',
     ]);
@@ -472,7 +472,7 @@ test.describe('Nav row and sections', () => {
     // The same item again, after scrolling away, still scrolls back.
     await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
     await navLink(page, 'Monitoring Programs').click();
-    await expect.poll(() => headingInView(page, sectionHeading(page, 'Threshold Categories'))).toBe(true);
+    await expect.poll(() => headingInView(page, sectionHeading(page, 'Categories'))).toBe(true);
   });
 
   test('the current nav item follows the section in view', async ({ page }) => {
