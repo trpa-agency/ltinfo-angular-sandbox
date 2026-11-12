@@ -289,41 +289,6 @@
           "id": 9756,
           "indicator": 156,
           "name": "Riparian Habitat"
-        },
-        {
-          "id": 9768,
-          "indicator": 168,
-          "name": "Osprey Disturbance-Free Zone"
-        },
-        {
-          "id": 9770,
-          "indicator": 170,
-          "name": "Nesting Bald Eagle Disturbance-Free Zone"
-        },
-        {
-          "id": 9769,
-          "indicator": 169,
-          "name": "Wintering Bald Eagle Disturbance-Free Zone"
-        },
-        {
-          "id": 9771,
-          "indicator": 171,
-          "name": "Golden Eagle Disturbance-Free Zone"
-        },
-        {
-          "id": 9763,
-          "indicator": 163,
-          "name": "Peregrine Falcon Disturbance-Free Zone"
-        },
-        {
-          "id": 9767,
-          "indicator": 167,
-          "name": "Northern Goshawk Disturbance-Free Zone"
-        },
-        {
-          "id": 9764,
-          "indicator": 164,
-          "name": "Waterfowl Disturbance-Free Zone"
         }
       ]
     }

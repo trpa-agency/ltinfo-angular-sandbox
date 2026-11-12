@@ -255,7 +255,7 @@ test.describe('Sandbox.API contract', () => {
     );
   });
 
-  test('GET /monitoring-programs returns 81 programs in the documented shape', async ({
+  test('GET /monitoring-programs returns 74 programs in the documented shape', async ({
     request,
   }) => {
     const [programsResponse, categoriesResponse] = await Promise.all([
