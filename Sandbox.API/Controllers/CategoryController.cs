@@ -8,8 +8,15 @@ namespace Sandbox.API.Controllers;
 [ApiController]
 public class CategoryController(SandboxDbContext dbContext) : ControllerBase
 {
-    // The white category icons the Threshold Dashboard publishes, by IconName.
+    // The white category icons the Threshold Dashboard publishes, by IconName. An IconName with a
+    // slash is instead a path in the web app (category-icons/...), for categories the Threshold
+    // Dashboard has no icon for.
     private const string IconBaseUrl = "https://thresholds.laketahoeinfo.org/assets/img/threshold-icons/";
+
+    private static string? IconUrl(string? iconName) =>
+        string.IsNullOrWhiteSpace(iconName) ? null
+        : iconName.Contains('/') ? iconName
+        : $"{IconBaseUrl}{iconName}-white-icon.png";
 
     [HttpGet("categories")]
     public async Task<ActionResult<List<CategoryDto>>> List()
@@ -33,7 +40,7 @@ public class CategoryController(SandboxDbContext dbContext) : ControllerBase
         return Ok(rows.Select(x => new CategoryDto(
             x.MonitoringProgramCategoryID, x.MonitoringProgramCategoryName, x.Folder, x.ThemeColor, x.ProgramCount,
             x.Blurb, x.CategoryDescription,
-            string.IsNullOrWhiteSpace(x.IconName) ? null : $"{IconBaseUrl}{x.IconName}-white-icon.png",
+            IconUrl(x.IconName),
             x.SiteCount)).ToList());
     }
 

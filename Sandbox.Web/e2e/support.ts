@@ -25,17 +25,17 @@ export const TEMPLATE_LABELS: Record<Template, string> = {
 /** What Sandbox.Database seeds. Change a number here when the seed changes. */
 export const seed = {
   database: 'LTInfoSandbox',
-  programs: 74,
+  programs: 85,
   categories: 10,
   featured: 17,
   /** The 17 programs seed.sql marks IsFeatured = 1, so a stray one is named in the failure. */
   featuredIds: [13, 16, 33, 34, 36, 39, 61, 62, 63, 64, 65, 66, 68, 69, 76, 77, 82],
-  partnerLinks: 209,
+  partnerLinks: 256,
   /** How many programs use each page layout. */
-  templates: { map: 13, charts: 18, context: 43 },
-  /** Program photos: 64 files across 37 programs; the other 37 programs have none. */
-  photos: 64,
-  programsWithPhotos: 37,
+  templates: { map: 33, charts: 42, context: 10 },
+  /** Program photos: 66 files across 39 programs; the other 47 programs have none. */
+  photos: 66,
+  programsWithPhotos: 39,
   /** The charts layout, and the program the detail and write tests use. One photo. */
   ozone: {
     id: 41,
@@ -67,24 +67,33 @@ export const seed = {
     template: 'context',
     photos: 1,
   },
-  /** The content layout with no photo at all. */
-  subalpineConifer: {
-    id: 83,
-    name: 'Subalpine Conifer',
+  /** The content layout with no photo and one chart, from a JSON file: a page built from a threshold indicator. */
+  standComposition: {
+    id: 9681,
+    name: 'Stand Composition and Age',
     category: 'Forest Structure',
     template: 'context',
     photos: 0,
+    chartPanels: 1,
   },
-  airQualityPrograms: 5,
+  /** A page with no chart or map settings at all. */
+  instreamFlow: {
+    id: 9621,
+    name: 'Instream Flow',
+    category: 'Biodiversity',
+    template: 'context',
+  },
+  airQualityPrograms: 9,
   unknownId: 999999,
   /** GET /summary, and the four totals in the home page hero. */
-  summary: { programs: 74, categories: 10, mappedSites: 1750, partners: 47, photos: 64 },
+  summary: { programs: 85, categories: 10, mappedSites: 1750, partners: 51, photos: 66 },
   /** GET /monitoring-sites: one point per site, and one per mapped area or line. */
   sites: { total: 1750, site: 789, area: 927, line: 34 },
   /** Three categories the home page tests open. Folder is the /category/:folder address. */
-  airQuality: { name: 'Air Quality', folder: 'air-quality', programs: 5, sites: 30 },
-  waterQuality: { name: 'Water Quality', folder: 'water-quality', programs: 11, sites: 350 },
-  recreation: { name: 'Recreation', folder: 'recreation', programs: 0, sites: 0 },
+  airQuality: { name: 'Air Quality', folder: 'air-quality', programs: 9, sites: 30 },
+  waterQuality: { name: 'Water Quality', folder: 'water-quality', programs: 13, sites: 350 },
+  /** One program and no mapped sites. */
+  recreation: { name: 'Recreation', folder: 'recreation', programs: 1, sites: 0, program: 'Recreation Threshold Monitoring' },
   /** A Water Quality program with mapped sites, for the program hover. */
   periphyton: { id: 13, name: 'Periphyton', sites: 54 },
 } as const;

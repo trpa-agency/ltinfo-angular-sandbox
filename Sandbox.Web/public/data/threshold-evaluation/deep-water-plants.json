@@ -1,0 +1,147 @@
+{
+ "title": "Macrophyte occurrence in deepwater samples by depth (percent)",
+ "source": "https://thresholds.laketahoeinfo.org/ThresholdIndicator/Detail/94",
+ "note": "Approximate: read from the published chart image.",
+ "rows": [
+  {
+   "Depth (m)": "11-20",
+   "Period": "1962-1963",
+   "Percent": 3
+  },
+  {
+   "Depth (m)": "11-20",
+   "Period": "2008-2009",
+   "Percent": 5
+  },
+  {
+   "Depth (m)": "21-30",
+   "Period": "1962-1963",
+   "Percent": 17
+  },
+  {
+   "Depth (m)": "21-30",
+   "Period": "2008-2009",
+   "Percent": 10
+  },
+  {
+   "Depth (m)": "31-40",
+   "Period": "1962-1963",
+   "Percent": 25
+  },
+  {
+   "Depth (m)": "31-40",
+   "Period": "2008-2009",
+   "Percent": 0
+  },
+  {
+   "Depth (m)": "41-50",
+   "Period": "1962-1963",
+   "Percent": 33
+  },
+  {
+   "Depth (m)": "41-50",
+   "Period": "2008-2009",
+   "Percent": 5
+  },
+  {
+   "Depth (m)": "51-60",
+   "Period": "1962-1963",
+   "Percent": 100
+  },
+  {
+   "Depth (m)": "51-60",
+   "Period": "2008-2009",
+   "Percent": 5
+  },
+  {
+   "Depth (m)": "61-70",
+   "Period": "1962-1963",
+   "Percent": 42
+  },
+  {
+   "Depth (m)": "61-70",
+   "Period": "2008-2009",
+   "Percent": 8
+  },
+  {
+   "Depth (m)": "71-80",
+   "Period": "1962-1963",
+   "Percent": 78
+  },
+  {
+   "Depth (m)": "71-80",
+   "Period": "2008-2009",
+   "Percent": 13
+  },
+  {
+   "Depth (m)": "81-90",
+   "Period": "1962-1963",
+   "Percent": 72
+  },
+  {
+   "Depth (m)": "81-90",
+   "Period": "2008-2009",
+   "Percent": 20
+  },
+  {
+   "Depth (m)": "91-100",
+   "Period": "1962-1963",
+   "Percent": 80
+  },
+  {
+   "Depth (m)": "91-100",
+   "Period": "2008-2009",
+   "Percent": 0
+  },
+  {
+   "Depth (m)": "101-110",
+   "Period": "1962-1963",
+   "Percent": 63
+  },
+  {
+   "Depth (m)": "101-110",
+   "Period": "2008-2009",
+   "Percent": 0
+  },
+  {
+   "Depth (m)": "121-130",
+   "Period": "1962-1963",
+   "Percent": 6
+  },
+  {
+   "Depth (m)": "121-130",
+   "Period": "2008-2009",
+   "Percent": 0
+  },
+  {
+   "Depth (m)": "131-140",
+   "Period": "1962-1963",
+   "Percent": 4
+  },
+  {
+   "Depth (m)": "131-140",
+   "Period": "2008-2009",
+   "Percent": 0
+  },
+  {
+   "Depth (m)": "151-160",
+   "Period": "1962-1963",
+   "Percent": 50
+  },
+  {
+   "Depth (m)": "151-160",
+   "Period": "2008-2009",
+   "Percent": 0
+  },
+  {
+   "Depth (m)": "251-300",
+   "Period": "1962-1963",
+   "Percent": 20
+  },
+  {
+   "Depth (m)": "251-300",
+   "Period": "2008-2009",
+   "Percent": 0
+  }
+ ]
+}

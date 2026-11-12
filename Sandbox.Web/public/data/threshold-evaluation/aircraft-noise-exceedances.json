@@ -1,0 +1,35 @@
+{
+ "title": "Single noise event exceedances at Lake Tahoe Airport",
+ "source": "https://thresholds.laketahoeinfo.org/ThresholdIndicator/Detail/100",
+ "note": "Approximate: read from the published chart image (City of South Lake Tahoe airport noise monitoring).",
+ "rows": [
+  {
+   "Year": 2008,
+   "Exceedances": 1540
+  },
+  {
+   "Year": 2009,
+   "Exceedances": 1110
+  },
+  {
+   "Year": 2010,
+   "Exceedances": 1875
+  },
+  {
+   "Year": 2011,
+   "Exceedances": 1460
+  },
+  {
+   "Year": 2012,
+   "Exceedances": 1480
+  },
+  {
+   "Year": 2013,
+   "Exceedances": 1700
+  },
+  {
+   "Year": 2014,
+   "Exceedances": 1035
+  }
+ ]
+}

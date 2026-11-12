@@ -1,0 +1,67 @@
+{
+ "title": "Grass Lake moss cover classes (hectares)",
+ "source": "https://thresholds.laketahoeinfo.org/ThresholdIndicator/Detail/95",
+ "note": "Approximate: read from the published chart image (USFS sphagnum fen monitoring).",
+ "rows": [
+  {
+   "Cover class": "Meesia, 5 to 50 percent",
+   "Year": "2004",
+   "Hectares": 13.5
+  },
+  {
+   "Cover class": "Meesia, 50 to 100 percent",
+   "Year": "2004",
+   "Hectares": 2.7
+  },
+  {
+   "Cover class": "Sphagnum, 5 to 50 percent",
+   "Year": "2004",
+   "Hectares": 9.6
+  },
+  {
+   "Cover class": "Sphagnum, 50 to 100 percent",
+   "Year": "2004",
+   "Hectares": 0.0
+  },
+  {
+   "Cover class": "Meesia, 5 to 50 percent",
+   "Year": "2009",
+   "Hectares": 5.8
+  },
+  {
+   "Cover class": "Meesia, 50 to 100 percent",
+   "Year": "2009",
+   "Hectares": 0.0
+  },
+  {
+   "Cover class": "Sphagnum, 5 to 50 percent",
+   "Year": "2009",
+   "Hectares": 20.9
+  },
+  {
+   "Cover class": "Sphagnum, 50 to 100 percent",
+   "Year": "2009",
+   "Hectares": 0.6
+  },
+  {
+   "Cover class": "Meesia, 5 to 50 percent",
+   "Year": "2010",
+   "Hectares": 12.3
+  },
+  {
+   "Cover class": "Meesia, 50 to 100 percent",
+   "Year": "2010",
+   "Hectares": 0.2
+  },
+  {
+   "Cover class": "Sphagnum, 5 to 50 percent",
+   "Year": "2010",
+   "Hectares": 16.5
+  },
+  {
+   "Cover class": "Sphagnum, 50 to 100 percent",
+   "Year": "2010",
+   "Hectares": 1.3
+  }
+ ]
+}

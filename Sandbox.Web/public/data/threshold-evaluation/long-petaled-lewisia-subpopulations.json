@@ -1,0 +1,31 @@
+{
+ "title": "Long-petaled lewisia subpopulations",
+ "source": "https://trpa-agency.github.io/ThresholdEvaluation/2023/Vegetation/Chart/Final/Vegetation_Lewisia.html",
+ "rows": [
+  {
+   "Year": 2004,
+   "Subpopulations": 6,
+   "Threshold": 2
+  },
+  {
+   "Year": 2006,
+   "Subpopulations": 7,
+   "Threshold": 2
+  },
+  {
+   "Year": 2009,
+   "Subpopulations": 8,
+   "Threshold": 2
+  },
+  {
+   "Year": 2014,
+   "Subpopulations": 12,
+   "Threshold": 2
+  },
+  {
+   "Year": 2023,
+   "Subpopulations": 17,
+   "Threshold": 2
+  }
+ ]
+}

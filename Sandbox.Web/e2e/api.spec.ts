@@ -12,6 +12,7 @@ test.use({ baseURL: `${API_URL}/` });
 
 const HEX_COLOR = /^#[0-9A-Fa-f]{6}$/;
 const HTTPS_URL = /^https:\/\/\S+$/;
+const LOCAL_ICON_OR_HTTPS = /^(https:\/\/\S+|category-icons\/[A-Za-z]+-white-icon\.svg)$/;
 
 const SUMMARY_KEYS = [
   'CategoryID',
@@ -114,7 +115,7 @@ interface ProgramImage {
 }
 
 interface DashboardConfig {
-  measures?: { title: string; layer: number | string; x: string; y: unknown }[];
+  measures?: { title: string; layer?: number | string; service?: string; csv?: string; json?: string; x: string; y: unknown }[];
   sitesLayer?: { layer: number | string };
   sitesPerYear?: { layer: number | string; year: string; site: string };
   mapLayer?: { layer: number | string };
@@ -182,7 +183,14 @@ function expectDashboardConfig(program: ProgramDetail): void {
     for (const measure of config.measures) {
       expect(measure.title, label).toEqual(expect.any(String));
       expect(measure.title, label).not.toBe('');
-      expect(isLayerId(measure.layer), `${label}: measure layer`).toBe(true);
+      // A map service layer, or a CSV or JSON file for numbers no service publishes yet.
+      expect(
+        isLayerId(measure.layer) ||
+          (measure.layer === undefined &&
+            (/^https:\/\/\S+\.csv$/.test(String(measure.csv)) || /^data\/[\w/-]+\.json$/.test(String(measure.json)))),
+        `${label}: measure layer or csv`,
+      ).toBe(true);
+      if (measure.service !== undefined) expect(measure.service, `${label}: measure service`).toMatch(/^https:\/\/\S+\/(MapServer|FeatureServer)$/);
       expect(measure.x, label).toEqual(expect.any(String));
       expect(typeof measure.y === 'string' || Array.isArray(measure.y), `${label}: measure y`).toBe(
         true,
@@ -255,7 +263,7 @@ test.describe('Sandbox.API contract', () => {
     );
   });
 
-  test('GET /monitoring-programs returns 74 programs in the documented shape', async ({
+  test('GET /monitoring-programs returns 85 programs in the documented shape', async ({
     request,
   }) => {
     const [programsResponse, categoriesResponse] = await Promise.all([
@@ -322,7 +330,7 @@ test.describe('Sandbox.API contract', () => {
       seed.templates,
     );
 
-    // 64 photos across 37 programs.
+    // 66 photos across 39 programs.
     expect(programs.reduce((sum, program) => sum + program.ImageCount, 0)).toBe(seed.photos);
     expect(programs.filter((program) => program.ImageCount > 0)).toHaveLength(
       seed.programsWithPhotos,
@@ -333,7 +341,7 @@ test.describe('Sandbox.API contract', () => {
       seed.ozone,
       seed.yellowCress,
       seed.socioEconomic,
-      seed.subalpineConifer,
+      seed.standComposition,
     ]) {
       expect(programs.find((program) => program.MonitoringProgramID === expected.id)).toEqual(
         expect.objectContaining({
@@ -412,24 +420,25 @@ test.describe('Sandbox.API contract', () => {
     expect(config!.sitesPerYear).toEqual(expect.any(Object));
   });
 
-  test('GET /monitoring-programs/83 returns no photos and no chart or map settings', async ({
+  test('GET /monitoring-programs/9681 returns no photos, and 9621 no chart or map settings', async ({
     request,
   }) => {
     const program = (await (
-      await request.get(programPath(seed.subalpineConifer.id))
+      await request.get(programPath(seed.standComposition.id))
     ).json()) as ProgramDetail;
 
     expect(Object.keys(program).sort()).toEqual(DETAIL_KEYS);
     expect(program).toEqual(
       expect.objectContaining({
-        MonitoringProgramName: seed.subalpineConifer.name,
+        MonitoringProgramName: seed.standComposition.name,
         Template: 'context',
         ImageCount: 0,
         KeyPhotoUrl: null,
         Images: [],
-        DashboardConfig: null,
       }),
     );
+    const bare = (await (await request.get(programPath(seed.instreamFlow.id))).json()) as ProgramDetail;
+    expect(bare).toEqual(expect.objectContaining({ MonitoringProgramName: seed.instreamFlow.name, DashboardConfig: null }));
   });
 
   test('every program detail carries Images and DashboardConfig in the documented shape', async ({
@@ -453,7 +462,7 @@ test.describe('Sandbox.API contract', () => {
       expectDashboardConfig(program);
     }
 
-    // 64 photos across 37 programs, counted from the photos themselves.
+    // 66 photos across 39 programs, counted from the photos themselves.
     expect(details.reduce((sum, program) => sum + program.Images.length, 0)).toBe(seed.photos);
     expect(details.filter((program) => program.Images.length > 0)).toHaveLength(
       seed.programsWithPhotos,
@@ -492,7 +501,8 @@ test.describe('Sandbox.API contract', () => {
       expect(category.Blurb.trim(), label).not.toBe('');
       expect(category.CategoryDescription, label).toEqual(expect.any(String));
       expect(category.CategoryDescription.trim(), label).not.toBe('');
-      expect(category.IconUrl === null || HTTPS_URL.test(category.IconUrl), label).toBe(true);
+      // A Threshold Dashboard icon, or one of the web app's own for categories it has none for.
+      expect(category.IconUrl ?? '', label).toMatch(LOCAL_ICON_OR_HTTPS);
       expect(Number.isInteger(category.SiteCount), label).toBe(true);
       expect(category.SiteCount, label).toBeGreaterThanOrEqual(0);
     }

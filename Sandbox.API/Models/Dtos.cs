@@ -8,7 +8,8 @@ public record HealthDto(string Status, string Database, int ProgramCount);
 
 /// <summary>
 /// A threshold category. Blurb is the one line on its home page card; CategoryDescription is the
-/// threshold goal; IconUrl is its white icon on the Threshold Dashboard, or null.
+/// threshold goal; IconUrl is its white icon on the Threshold Dashboard, a
+/// category-icons/ path in the web app for a category the Threshold Dashboard has none for, or null.
 /// </summary>
 public record CategoryDto(int CategoryID, string CategoryName, string Folder, string ThemeColor, int ProgramCount,
     string? Blurb, string? CategoryDescription, string? IconUrl, int SiteCount);

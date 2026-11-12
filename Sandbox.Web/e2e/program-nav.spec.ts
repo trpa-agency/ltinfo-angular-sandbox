@@ -3,7 +3,7 @@
 // reader moves between programs. On a narrow screen it folds into one disclosure above the page.
 import type { Locator, Page } from '@playwright/test';
 
-import { expect, test } from './support';
+import { expect, seed, test } from './support';
 
 const menu = (page: Page): Locator => page.locator('app-program-nav');
 const current = (page: Page): Locator => menu(page).locator('.pnav__link[aria-current="page"]');
@@ -16,10 +16,9 @@ test.describe('Program page category menu', () => {
     await expect(current(page)).toHaveText('Ozone (O3)');
     await expect(openGroups(page)).toHaveText(['Air Quality']);
     // The other Air Quality programs are one click away.
-    await expect(menu(page).locator('.pnav__group[open] .pnav__link')).toHaveCount(5);
-    // Nine categories have programs; Recreation has none and is left out.
-    await expect(menu(page).locator('.pnav__group')).toHaveCount(9);
-    await expect(menu(page).locator('.pnav__group-name', { hasText: 'Recreation' })).toHaveCount(0);
+    await expect(menu(page).locator('.pnav__group[open] .pnav__link')).toHaveCount(seed.airQualityPrograms);
+    // Every category has programs, so every category is a group.
+    await expect(menu(page).locator('.pnav__group')).toHaveCount(seed.categories);
   });
 
   test('moving to a sibling keeps the menu and marks the new program', async ({ page }) => {

@@ -20,6 +20,8 @@ export interface ChartPoint {
 export interface ChartSeries {
   name: string;
   points: ChartPoint[];
+  /** A fixed color for this series, as any CSS color or var() token; the theme's order otherwise. */
+  color?: string;
 }
 
 export interface ChartThreshold {

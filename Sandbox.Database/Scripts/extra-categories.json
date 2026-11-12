@@ -1,6 +1,6 @@
 {
-  "_about": "Category changes make-seed.py applies on top of the dashboard repo's programs.json. remove drops categories by folder; their programs are placed again under the new categories by id. A program entry is one of: {id} for a program from programs.json or LT Info (name overrides the LT Info name); {id, indicator} for a threshold indicator with no monitoring program, built from its Threshold Dashboard record, id 9600 plus its threshold indicator id; or {id, ltinfo: false, ...} written here, with description and approach as lists of paragraphs. Category ids from 11. organizations gives short names for partners LT Info does not have.",
-  "_sources": "Forest Structure and Fire Dynamics: the Forest Health Threshold Standards Update story map collection (https://storymaps.arcgis.com/collections/d89adce0aa9047efb018e49a6f8eff87) for the standards and their background, and the monitoring approach sections of the ForestHealth repo's monitoring/forest-structure.html and monitoring/fire-dynamics.html. Biodiversity's goal joins the adopted Threshold Dashboard descriptions of the three categories it replaces (Vegetation Preservation, Fisheries, and Wildlife). Indicator pages: the Threshold Dashboard records at internalapi.laketahoeinfo.org/threshold-indicators/{id}.",
+  "_about": "Category changes make-seed.py applies on top of the dashboard repo's programs.json. remove drops categories by folder; add appends programs to kept categories, by folder; their programs are placed again under the new categories by id. A program entry is one of: {id} for a program from programs.json or LT Info (name overrides the LT Info name); {id, indicator} for a threshold indicator with no monitoring program, built from its Threshold Dashboard record, id 9600 plus its threshold indicator id; or {id, ltinfo: false, ...} written here, with description and approach as lists of paragraphs. Category ids from 11. organizations gives short names for partners LT Info does not have. icon is a path in Sandbox.Web/public for categories the Threshold Dashboard has no icon for.",
+  "_sources": "Forest Structure and Fire Dynamics: the Forest Health Threshold Standards Update story map collection (https://storymaps.arcgis.com/collections/d89adce0aa9047efb018e49a6f8eff87) for the standards and their background, and the monitoring approach sections of the ForestHealth repo's monitoring/forest-structure.html and monitoring/fire-dynamics.html. Biodiversity's goal joins the adopted Threshold Dashboard descriptions of the three categories it replaces (Vegetation Preservation, Fisheries, and Wildlife). Indicator pages: the Threshold Dashboard records at internalapi.laketahoeinfo.org/threshold-indicators/{id}. Added programs: the LT Info monitoring programs not in programs.json that have a monitoring approach, partners, and usually threshold indicators, reviewed Nov. 11, 2026. Left out: 67 Air Quality (umbrella of the five pollutant programs), 37 Infrastructure (empty), 75 bike ped test, 80 Effective Population (one line), 28 East Shore Parking Counts (no partners or indicators), and 31 Nearshore Resource Allocation Program (coordination umbrella).",
   "remove": [
     "fisheries",
     "vegetation-preservation",
@@ -8,6 +8,602 @@
   ],
   "organizations": {
     "Tahoe Fire and Fuels Team": "TFFT"
+  },
+  "add": {
+    "recreation": [
+      {
+        "id": 1,
+        "name": "Recreation Threshold Monitoring",
+        "template": "map",
+        "measures": [
+          {
+            "title": "PAOT allocations by category",
+            "sub": "Persons at one time (PAOT) in the Regional Plan: assigned as of the 2015 evaluation, assigned 2015 to 2019, and remaining.",
+            "layer": 57,
+            "x": "PAOT_Categories",
+            "xType": "category",
+            "xLabel": "PAOT category",
+            "y": [
+              {
+                "field": "Assigned_2015_Evaluation",
+                "name": "Assigned as of 2015 evaluation"
+              },
+              {
+                "field": "Assigned_2015_2019",
+                "name": "Assigned 2015 to 2019"
+              },
+              {
+                "field": "PAOTs_Remaining",
+                "name": "Remaining"
+              }
+            ],
+            "yLabel": "PAOTs",
+            "type": "stacked",
+            "span": "span-6"
+          },
+          {
+            "title": "PAOTs assigned each year",
+            "sub": "PAOTs assigned to projects each year, all categories.",
+            "layer": 59,
+            "x": "Year",
+            "y": "Value",
+            "yName": "PAOTs assigned",
+            "yLabel": "PAOTs",
+            "type": "bar",
+            "span": "span-6"
+          }
+        ],
+        "sitesLayer": {
+          "service": "https://maps.trpa.org/server/rest/services/Recreation/MapServer",
+          "layer": 1,
+          "name": "RECREATION_NAME",
+          "status": "OWNERSHIP",
+          "unit": "recreation site"
+        }
+      }
+    ],
+    "noise": [
+      {
+        "id": 8,
+        "name": "Watercraft Noise",
+        "template": "map",
+        "measures": [
+          {
+            "title": "Watercraft noise exceedances by site",
+            "sub": "Average daily exceedances of the shoreline watercraft noise standard in peak season (July to Labor Day). Choose a site.",
+            "layer": 7,
+            "x": "YEAR_OF_COUNT",
+            "y": "COUNT_VALUE",
+            "yName": "Exceedances per day",
+            "yLabel": "Exceedances per day",
+            "pick": "SITE_NAME",
+            "pickLabel": "Site",
+            "type": "bar",
+            "span": "span-12"
+          }
+        ],
+        "sitesLayer": {
+          "layer": 7,
+          "name": "SITE_NAME",
+          "year": "YEAR_OF_COUNT"
+        },
+        "sitesPerYear": {
+          "layer": 7,
+          "year": "YEAR_OF_COUNT",
+          "site": "SITE_NAME"
+        }
+      },
+      {
+        "id": 9,
+        "name": "Cumulative Noise Events",
+        "template": "map",
+        "measures": [
+          {
+            "title": "Noise in critical wildlife habitat",
+            "sub": "Average CNEL of all critical wildlife habitat sites, by monitoring period, in decibels.",
+            "layer": 74,
+            "where": "Category = 'Critical Wildlife Habitat'",
+            "x": "Year",
+            "xType": "category",
+            "xLabel": "Period",
+            "y": "Value",
+            "yName": "Average CNEL",
+            "yLabel": "Average CNEL (dB)",
+            "type": "bar",
+            "standard": {
+              "field": "Threshold_Value"
+            },
+            "span": "span-6"
+          },
+          {
+            "title": "Critical wildlife habitat noise by site",
+            "sub": "Maximum-day CNEL at each critical wildlife habitat site, in decibels.",
+            "layer": 6,
+            "where": "CNEL_LAND_USE = 'CRITICAL WILDLIFE HABITAT'",
+            "x": "YEAR_OF_COUNT",
+            "y": "COUNT_VALUE",
+            "yLabel": "CNEL (dB)",
+            "seriesBy": "SITE_NAME",
+            "seriesLabel": "Site",
+            "type": "bar",
+            "standard": {
+              "value": 45
+            },
+            "span": "span-6"
+          },
+          {
+            "title": "Noise in transportation corridors",
+            "sub": "Average CNEL at each highway monitoring site, in decibels, against the corridor limit. Choose a highway.",
+            "layer": 11,
+            "x": "YEAR_OF_COUNT",
+            "y": "CNEL_AVG_VALUE",
+            "yLabel": "Average CNEL (dB)",
+            "seriesBy": "SITE_NAME",
+            "seriesLabel": "Site",
+            "pick": "HIGHWAY",
+            "pickLabel": "Highway",
+            "pickDefault": "50",
+            "standard": {
+              "field": "CNEL_LIMIT",
+              "label": "Corridor limit"
+            },
+            "type": "bar",
+            "span": "span-12"
+          }
+        ],
+        "sitesLayer": {
+          "layer": 6,
+          "name": "SITE_NAME",
+          "year": "YEAR_OF_COUNT",
+          "where": "CNEL_LAND_USE = 'CRITICAL WILDLIFE HABITAT'"
+        },
+        "sitesPerYear": {
+          "layer": 6,
+          "year": "YEAR_OF_COUNT",
+          "site": "SITE_NAME",
+          "where": "CNEL_LAND_USE = 'CRITICAL WILDLIFE HABITAT'"
+        }
+      },
+      {
+        "id": 60,
+        "name": "Aircraft Noise",
+        "template": "charts",
+        "measures": [
+          {
+            "title": "Airport single noise event exceedances",
+            "sub": "Single noise events above the standard at Lake Tahoe Airport each year. Approximate: read from the published chart image.",
+            "json": "data/threshold-evaluation/aircraft-noise-exceedances.json",
+            "sourceHref": "https://thresholds.laketahoeinfo.org/ThresholdIndicator/Detail/100",
+            "sourceLabel": "Threshold Dashboard chart (image)",
+            "x": "Year",
+            "y": "Exceedances",
+            "yName": "Exceedances",
+            "yLabel": "Exceedances",
+            "type": "bar",
+            "span": "span-12"
+          }
+        ]
+      }
+    ],
+    "water-quality": [
+      {
+        "id": 10,
+        "name": "Phytoplankton Primary Productivity",
+        "template": "charts",
+        "measures": [
+          {
+            "title": "Phytoplankton primary productivity",
+            "sub": "Annual mean algal growth at the Lake Tahoe Index Station, in grams of carbon per square meter per year. The threshold standard is 52.",
+            "layer": 75,
+            "x": "Year",
+            "y": "Primary_Productivity",
+            "yName": "Primary productivity",
+            "yLabel": "Primary productivity (gC/m2/yr)",
+            "standard": {
+              "value": 52
+            },
+            "span": "span-12"
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "name": "Vertical Extinction Coefficient",
+        "template": "charts",
+        "measures": [
+          {
+            "title": "Vertical extinction coefficient",
+            "sub": "Annual average light extinction at the Lake Tahoe Index Station, per meter, with one standard deviation above and below. Higher values mean less clear water.",
+            "layer": 89,
+            "x": "Year",
+            "y": [
+              {
+                "field": "Annual_Average",
+                "name": "Annual average"
+              },
+              {
+                "field": "sd_plus1",
+                "name": "Plus one standard deviation"
+              },
+              {
+                "field": "sd_minus1",
+                "name": "Minus one standard deviation"
+              }
+            ],
+            "yLabel": "VEC (1/m)",
+            "standard": {
+              "field": "State_Standard",
+              "label": "State standard"
+            },
+            "zero": false,
+            "span": "span-12"
+          }
+        ]
+      }
+    ],
+    "air-quality": [
+      {
+        "id": 43,
+        "name": "Regional Visibility",
+        "template": "charts",
+        "measures": [
+          {
+            "title": "Regional visibility",
+            "sub": "Three-year mean light extinction at DL Bliss State Park, in inverse megameters. Lower is clearer. Choose average (50th percentile) or worst (90th percentile) days.",
+            "layer": 46,
+            "where": "Pollutant = 'Regional Visibility'",
+            "x": "Year",
+            "y": "Value",
+            "yName": "Light extinction",
+            "yLabel": "Light extinction (Mm-1)",
+            "pick": "Indicator",
+            "pickLabel": "Statistic",
+            "pickDefault": "3-year mean (50th Percentile, Mm-1)",
+            "standard": {
+              "field": "Threshold_Value"
+            },
+            "span": "span-12"
+          }
+        ],
+        "sitesLayer": {
+          "layer": 16,
+          "name": "name",
+          "code": "id",
+          "active": "Active_2023",
+          "where": "id = 'BSP'",
+          "unit": "station"
+        },
+        "sitesPerYear": {
+          "layer": 46,
+          "year": "Year",
+          "site": "Site",
+          "where": "Pollutant = 'Regional Visibility' AND Value IS NOT NULL",
+          "unit": "station"
+        }
+      },
+      {
+        "id": 44,
+        "name": "Sub-Regional Visibility",
+        "template": "charts",
+        "measures": [
+          {
+            "title": "Sub-regional visibility",
+            "sub": "Three-year mean light extinction at South Lake Tahoe, in inverse megameters. Lower is clearer. Choose average (50th percentile) or worst (90th percentile) days.",
+            "layer": 46,
+            "where": "Pollutant = 'Sub-Regional Visibility'",
+            "x": "Year",
+            "y": "Value",
+            "yName": "Light extinction",
+            "yLabel": "Light extinction (Mm-1)",
+            "seriesBy": "Site",
+            "seriesLabel": "Station",
+            "seriesNames": {
+              "LTCC": "Lake Tahoe Community College",
+              "SOLA": "South Lake Tahoe (1993 to 1996)"
+            },
+            "pick": "Indicator",
+            "pickLabel": "Statistic",
+            "standard": {
+              "field": "Threshold_Value"
+            },
+            "span": "span-12"
+          }
+        ],
+        "sitesLayer": {
+          "layer": 16,
+          "name": "name",
+          "code": "id",
+          "active": "Active_2023",
+          "where": "id = 'LTC'",
+          "unit": "station"
+        },
+        "sitesPerYear": {
+          "layer": 46,
+          "year": "Year",
+          "site": "Site",
+          "where": "Pollutant = 'Sub-Regional Visibility' AND Value IS NOT NULL",
+          "unit": "station"
+        }
+      },
+      {
+        "id": 73,
+        "name": "Nitrogen Dioxide (NO2)",
+        "template": "charts",
+        "measures": [
+          {
+            "title": "Annual average nitrogen dioxide",
+            "sub": "Annual average NO2 at the Stateline station, in parts per billion, against the California annual standard.",
+            "layer": 46,
+            "where": "Indicator = 'NO2 - ANNUAL AVG.'",
+            "x": "Year",
+            "y": "Value",
+            "yName": "NO2",
+            "yLabel": "NO2 (ppb)",
+            "standard": {
+              "value": 30,
+              "label": "California standard"
+            },
+            "span": "span-6"
+          },
+          {
+            "title": "Peak 1-hour nitrogen dioxide",
+            "sub": "Highest and 98th percentile 1-hour NO2 at Stateline, in parts per billion. Choose a statistic.",
+            "layer": 46,
+            "where": "Pollutant = 'NO2' AND Indicator <> 'NO2 - ANNUAL AVG.'",
+            "x": "Year",
+            "y": "Value",
+            "yLabel": "NO2 (ppb)",
+            "pick": "Indicator",
+            "pickLabel": "Statistic",
+            "span": "span-6"
+          },
+          {
+            "title": "Daily maximum nitrogen dioxide",
+            "sub": "Daily 1-hour maximum NO2 at Stateline.",
+            "layer": 17,
+            "where": "variable LIKE 'N_2 - 1 hr max%'",
+            "x": "date",
+            "xType": "date",
+            "xLabel": "Date",
+            "y": "value",
+            "yName": "NO2",
+            "yLabel": "NO2 (ppb)",
+            "span": "span-12"
+          }
+        ],
+        "sitesLayer": {
+          "layer": 16,
+          "name": "name",
+          "code": "id",
+          "active": "Active_2023",
+          "where": "id = 'STL'",
+          "unit": "station"
+        },
+        "sitesPerYear": {
+          "layer": 46,
+          "year": "Year",
+          "site": "Site",
+          "where": "Pollutant = 'NO2'",
+          "unit": "station"
+        }
+      },
+      {
+        "id": 40,
+        "name": "Winter Traffic Volume, Presidents' Weekend",
+        "template": "charts",
+        "measures": [
+          {
+            "title": "Presidents' Weekend traffic volume",
+            "sub": "Average daily traffic over Presidents' Weekend at the Park Avenue count site in South Lake Tahoe. The threshold is a ceiling of 24,000 vehicles.",
+            "layer": 97,
+            "x": "Year",
+            "y": "Value",
+            "yName": "Vehicles",
+            "yLabel": "Vehicles per day",
+            "type": "bar",
+            "standard": {
+              "field": "Threshold",
+              "label": "Threshold"
+            },
+            "span": "span-12"
+          }
+        ],
+        "sitesLayer": {
+          "layer": 105,
+          "name": "id",
+          "unit": "count site"
+        }
+      }
+    ],
+    "transportation-and-sustainable-communities": [
+      {
+        "id": 47,
+        "name": "Vehicle Miles Traveled",
+        "template": "charts",
+        "measures": [
+          {
+            "title": "Vehicle miles traveled",
+            "sub": "Estimated vehicle miles traveled per day in the Tahoe Region. The threshold is 10 percent below the 1981 base year.",
+            "layer": 92,
+            "x": "Year",
+            "y": "VMT",
+            "yName": "VMT",
+            "yLabel": "Vehicle miles per day",
+            "standard": {
+              "value": 1309316,
+              "label": "Threshold"
+            },
+            "zero": false,
+            "span": "span-12"
+          }
+        ]
+      }
+    ],
+    "soil-conservation": [
+      {
+        "id": 48,
+        "name": "Land Coverage",
+        "template": "map",
+        "mapLayer": {
+          "service": "https://maps.trpa.org/server/rest/services/Soils_and_Land_Capability/MapServer",
+          "layer": 4,
+          "where": "CAPABILITY IN ('1A','1B','1C','2','3','4','5','6','7')",
+          "title": "Land capability (Bailey 1974)",
+          "unit": "land capability area",
+          "unitPlural": "Land capability areas",
+          "name": "CAPABILITY",
+          "list": false,
+          "countAsSites": false,
+          "colorBy": "CAPABILITY",
+          "colorByLabel": "Land capability district",
+          "colors": {
+            "1A": "#d1ff73",
+            "1B": "#ffff00",
+            "1C": "#4ce600",
+            "2": "#4c7300",
+            "3": "#0084a8",
+            "4": "#ffd37f",
+            "5": "#ffaa00",
+            "6": "#cd8966",
+            "7": "#734c00"
+          },
+          "labels": {
+            "1A": "District 1A",
+            "1B": "District 1B",
+            "1C": "District 1C",
+            "2": "District 2",
+            "3": "District 3",
+            "4": "District 4",
+            "5": "District 5",
+            "6": "District 6",
+            "7": "District 7"
+          },
+          "fields": [
+            {
+              "field": "CAPABILITY",
+              "label": "Land capability district"
+            },
+            {
+              "field": "PERCENT_COVERAGE_ALLOWED",
+              "label": "Coverage allowed (share)"
+            },
+            {
+              "field": "Acres",
+              "label": "Acres"
+            }
+          ]
+        },
+        "measures": [
+          {
+            "title": "Coverage against the allowance, 2023",
+            "sub": "Acres of impervious coverage in each land capability district and the coverage the district allows, 2023 Threshold Evaluation.",
+            "json": "data/threshold-evaluation/land-coverage-by-district.json",
+            "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/SoilConservation/Chart/Final/SoilConservation_1A.html",
+            "sourceLabel": "2023 Threshold Evaluation",
+            "x": "District",
+            "xType": "category",
+            "xLabel": "Land capability district",
+            "y": [
+              {
+                "field": "Coverage 2023",
+                "name": "Coverage, 2023"
+              },
+              {
+                "field": "Allowed",
+                "name": "Allowed"
+              }
+            ],
+            "seriesColors": {
+              "Coverage 2023": "var(--mon-turbid-5)",
+              "Allowed": "var(--mon-turbid-2)"
+            },
+            "yLabel": "Acres",
+            "type": "bar",
+            "span": "span-12"
+          },
+          {
+            "title": "Impervious surface, 2019",
+            "sub": "Acres of mapped impervious surface by type, hard and soft surfaces.",
+            "service": "https://maps.trpa.org/server/rest/services/Impervious_Surface_2019/MapServer",
+            "layer": 0,
+            "x": "Feature",
+            "xType": "category",
+            "xLabel": "Surface type",
+            "y": "Shape.STArea() / 4046.8564224",
+            "stat": "sum",
+            "seriesBy": "Surface",
+            "seriesLabel": "Surface",
+            "yLabel": "Acres",
+            "type": "stacked",
+            "span": "span-6"
+          },
+          {
+            "title": "Impervious surface, 2010",
+            "sub": "Acres of mapped impervious surface by type, hard and soft surfaces, from the 2010 LiDAR mapping.",
+            "service": "https://maps.trpa.org/server/rest/services/Impervious_Surface_2010/MapServer",
+            "layer": 0,
+            "x": "Feature",
+            "xType": "category",
+            "xLabel": "Surface type",
+            "y": "Shape.STArea() / 4046.8564224",
+            "stat": "sum",
+            "seriesBy": "Surface",
+            "seriesLabel": "Surface",
+            "yLabel": "Acres",
+            "type": "stacked",
+            "span": "span-6"
+          },
+          {
+            "title": "Coverage change, 2010 to 2019",
+            "sub": "Acres of impervious coverage added, removed, or changed in type between the two mappings. Mapping corrections are left out.",
+            "service": "https://maps.trpa.org/server/rest/services/Impervious_Surface_Change_2010_to_2019/MapServer",
+            "layer": 0,
+            "where": "General_Status IN ('New Coverage','Removed Coverage','Changed Coverage Type')",
+            "x": "General_Status",
+            "xType": "category",
+            "xLabel": "Change",
+            "y": "SquareFeet / 43560",
+            "stat": "sum",
+            "yName": "Acres",
+            "yLabel": "Acres",
+            "type": "bar",
+            "span": "span-12"
+          },
+          {
+            "title": "Land capability district acres",
+            "sub": "Acres in each Bailey (1974) land capability district, from 1A (most sensitive) to 7.",
+            "service": "https://maps.trpa.org/server/rest/services/Soils_and_Land_Capability/MapServer",
+            "layer": 4,
+            "where": "CAPABILITY IN ('1A','1B','1C','2','3','4','5','6','7')",
+            "x": "CAPABILITY",
+            "xType": "category",
+            "xLabel": "Land capability district",
+            "y": "Acres",
+            "stat": "sum",
+            "yName": "Acres",
+            "yLabel": "Acres",
+            "type": "bar",
+            "span": "span-6"
+          },
+          {
+            "title": "Coverage allowed by district",
+            "sub": "Acres of impervious coverage the Bailey coefficients allow in each district: 1 percent in districts 1 and 2, up to 30 percent in districts 6 and 7.",
+            "service": "https://maps.trpa.org/server/rest/services/Soils_and_Land_Capability/MapServer",
+            "layer": 4,
+            "where": "CAPABILITY IN ('1A','1B','1C','2','3','4','5','6','7')",
+            "x": "CAPABILITY",
+            "xType": "category",
+            "xLabel": "Land capability district",
+            "y": "Acres * PERCENT_COVERAGE_ALLOWED",
+            "stat": "sum",
+            "yName": "Allowed acres",
+            "yLabel": "Acres",
+            "type": "bar",
+            "span": "span-6"
+          }
+        ]
+      }
+    ]
   },
   "categories": [
     {
@@ -17,11 +613,12 @@
       "themeColor": "#415414",
       "blurb": "Seral stage, canopy cover, and stand density of the conifer forest.",
       "goal": "Restore a balanced mosaic of forest ages, from young trees to old growth, and of open and closed canopies, and keep stands at densities that leave forests less vulnerable to drought, insects, disease, and severe wildfire.",
+      "icon": "category-icons/ForestStructure-white-icon.svg",
       "programs": [
         {
           "id": 9790,
           "name": "Seral Stage and Canopy Cover",
-          "template": "context",
+          "template": "charts",
           "partners": [
             "Tahoe Regional Planning Agency",
             "Tahoe Fire and Fuels Team"
@@ -39,12 +636,64 @@
             "Sierra mixed conifer: early 10 to 20 percent, mid open 15 to 20 percent, mid closed 5 to 15 percent, late open 25 to 35 percent, and late closed 15 to 25 percent.",
             "Red fir: early 10 to 20 percent, mid open 15 to 25 percent, mid closed 15 to 25 percent, late open 30 to 40 percent, and late closed 20 to 30 percent."
           ],
-          "ltinfo": false
+          "ltinfo": false,
+          "measures": [
+            {
+              "title": "Seral stage and canopy cover by forest type",
+              "sub": "Percent of each forest type's assessed acres in each seral stage and canopy class, 2023 assessment (September 2026 rerun).",
+              "csv": "https://trpa-agency.github.io/ForestHealth/output/seral_stage_with_classification.csv",
+              "x": "Seral Stage",
+              "xType": "category",
+              "xLabel": "Seral stage and canopy",
+              "y": "Current Area %",
+              "yName": "Percent of acres",
+              "yLabel": "Percent of acres",
+              "type": "bar",
+              "pick": "Forest Type",
+              "pickLabel": "Forest type",
+              "span": "span-12",
+              "xOrder": [
+                "Early",
+                "Mid (open canopy)",
+                "Mid (closed canopy)",
+                "Late (open canopy)",
+                "Late (closed canopy)"
+              ]
+            },
+            {
+              "title": "Acres by seral stage and canopy class",
+              "sub": "Assessed acres of each forest type in each class, 2023 assessment (September 2026 rerun).",
+              "csv": "https://trpa-agency.github.io/ForestHealth/output/seral_stage_with_classification.csv",
+              "x": "Forest Type",
+              "xType": "category",
+              "xLabel": "Forest type",
+              "y": "Area (acres)",
+              "seriesBy": "Seral Stage",
+              "seriesLabel": "Seral stage and canopy",
+              "yLabel": "Acres",
+              "type": "stacked",
+              "span": "span-12",
+              "seriesOrder": [
+                "Early",
+                "Mid (open canopy)",
+                "Mid (closed canopy)",
+                "Late (open canopy)",
+                "Late (closed canopy)"
+              ],
+              "seriesColors": {
+                "Early": "var(--mon-greens-1)",
+                "Mid (open canopy)": "var(--mon-greens-2)",
+                "Mid (closed canopy)": "var(--mon-greens-3)",
+                "Late (open canopy)": "var(--mon-greens-4)",
+                "Late (closed canopy)": "var(--mon-greens-5)"
+              }
+            }
+          ]
         },
         {
           "id": 9789,
           "name": "Stand Density",
-          "template": "context",
+          "template": "charts",
           "partners": [
             "Tahoe Regional Planning Agency",
             "Tahoe Fire and Fuels Team"
@@ -60,36 +709,447 @@
             "Sierra mixed conifer: early seral 300 trees and 40 square feet, mid seral 90 trees and 130 square feet, and late seral 75 trees and 180 square feet.",
             "Red fir: early seral 300 trees and 50 square feet, mid seral 100 trees and 175 square feet, and late seral 80 trees and 250 square feet."
           ],
-          "ltinfo": false
+          "ltinfo": false,
+          "measures": [
+            {
+              "title": "Acres within the recommended density",
+              "sub": "Percent of each forest type and seral stage at or below the recommended trees per acre and basal area, 2023 assessment (September 2026 rerun).",
+              "csv": "https://trpa-agency.github.io/ForestHealth/output/stand_density_forest_type_attainment_new.csv",
+              "x": "Seral Stage",
+              "xType": "category",
+              "xLabel": "Seral stage",
+              "y": "Percent Meeting Threshold",
+              "seriesBy": "Forest Type",
+              "seriesLabel": "Forest type",
+              "yLabel": "Percent of acres",
+              "type": "bar",
+              "span": "span-12"
+            },
+            {
+              "title": "Acres assessed and acres within range",
+              "sub": "Assessed acres and acres at or below the recommended density, by seral stage.",
+              "csv": "https://trpa-agency.github.io/ForestHealth/output/stand_density_forest_type_attainment_new.csv",
+              "x": "Seral Stage",
+              "xType": "category",
+              "xLabel": "Seral stage",
+              "y": [
+                {
+                  "field": "Total Acres",
+                  "name": "Assessed"
+                },
+                {
+                  "field": "Acres Meeting Threshold",
+                  "name": "Within range"
+                }
+              ],
+              "yLabel": "Acres",
+              "type": "bar",
+              "pick": "Forest Type",
+              "pickLabel": "Forest type",
+              "span": "span-12"
+            }
+          ]
         },
         {
-          "id": 83
+          "id": 83,
+          "template": "context",
+          "measures": [
+            {
+              "title": "Subalpine conifer acres by dominant tree",
+              "sub": "Acres of subalpine conifer forest by dominant tree, from the 2010 EcObject LiDAR vegetation map.",
+              "layer": 98,
+              "where": "WHRTYPE = 'SCN'",
+              "x": "REGIONAL_DOMINANCE_TYPE_1",
+              "xType": "category",
+              "xLabel": "Dominant tree",
+              "xNames": {
+                "SA": "Subalpine conifer mix",
+                "WB": "Whitebark pine",
+                "WW": "Western white pine",
+                "MH": "Mountain hemlock"
+              },
+              "y": "Acres",
+              "stat": "sum",
+              "yName": "Acres",
+              "yLabel": "Acres",
+              "type": "bar",
+              "orientation": "h",
+              "sort": "desc"
+            },
+            {
+              "title": "Subalpine conifer acres by tree size",
+              "sub": "Acres by California Wildlife Habitat Relationships tree size class (2010).",
+              "layer": 98,
+              "where": "WHRTYPE = 'SCN'",
+              "x": "WHRSIZE",
+              "xType": "category",
+              "xLabel": "Tree size",
+              "xNames": {
+                "2": "Sapling (1 to 6 in.)",
+                "3": "Pole (6 to 11 in.)",
+                "4": "Small tree (11 to 24 in.)",
+                "5": "Medium to large (over 24 in.)",
+                "6": "Multilayered"
+              },
+              "y": "Acres",
+              "stat": "sum",
+              "yName": "Acres",
+              "yLabel": "Acres",
+              "type": "bar"
+            }
+          ]
         },
         {
           "id": 58,
-          "name": "Late Seral and Old Growth Forest"
+          "name": "Late Seral and Old Growth Forest",
+          "template": "charts",
+          "measures": [
+            {
+              "title": "Seral stage by elevation zone",
+              "sub": "Percent of undisturbed vegetation in each seral stage, across all forest and in each elevation zone, 2023 Threshold Evaluation.",
+              "json": "data/threshold-evaluation/seral-stage-by-zone.json",
+              "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/Vegetation/Chart/Final/Vegetation_SeralStage.html",
+              "sourceLabel": "2023 Threshold Evaluation",
+              "x": "Zone",
+              "xType": "category",
+              "xLabel": "Zone",
+              "xOrder": [
+                "All forest",
+                "Montane",
+                "Upper montane",
+                "Subalpine"
+              ],
+              "y": "Percent",
+              "seriesBy": "Seral stage",
+              "seriesLabel": "Seral stage",
+              "seriesOrder": [
+                "Early Seral",
+                "Mid Seral",
+                "Late Seral",
+                "Not Classified",
+                "Not classified"
+              ],
+              "seriesColors": {
+                "Early Seral": "var(--mon-greens-1)",
+                "Mid Seral": "var(--mon-greens-3)",
+                "Late Seral": "var(--mon-greens-6)",
+                "Not Classified": "var(--color-content-disabled)"
+              },
+              "yLabel": "Percent of undisturbed vegetation",
+              "type": "stacked",
+              "span": "span-12"
+            }
+          ],
+          "mapLayer": {
+            "service": "https://maps.trpa.org/server/rest/services/Vegetation_Late_Seral/MapServer",
+            "layer": 0,
+            "title": "Late seral forest (2010)",
+            "unit": "stand",
+            "unitPlural": "Stands",
+            "name": "TRPA_VegType",
+            "list": false,
+            "countAsSites": false,
+            "colorBy": "SeralStage",
+            "colorByLabel": "Seral stage",
+            "colors": {
+              "Late Seral Open": "var(--mon-greens-4)",
+              "Late Seral Closed": "var(--mon-greens-6)"
+            },
+            "fields": [
+              {
+                "field": "TRPA_VegType",
+                "label": "Vegetation type"
+              },
+              {
+                "field": "SeralStage",
+                "label": "Seral stage"
+              },
+              {
+                "field": "QMD",
+                "label": "Quadratic mean diameter (in.)"
+              },
+              {
+                "field": "Acres",
+                "label": "Acres"
+              }
+            ]
+          }
         },
         {
           "id": 21,
-          "name": "Yellow Pine and Red Fir Abundance"
+          "name": "Yellow Pine and Red Fir Abundance",
+          "template": "charts",
+          "measures": [
+            {
+              "title": "Yellow pine and red fir forest by successional stage",
+              "sub": "Acres of yellow pine and red fir forest in each successional stage, from the 2010 EcObject LiDAR vegetation map. Every stage but mature counts toward this indicator.",
+              "layer": 98,
+              "where": "TRPA_VegType IN ('Yellow Pine Forest','Red Fir Forest') AND Top_Succes <> ''",
+              "x": "Top_Succes",
+              "xType": "category",
+              "xLabel": "Successional stage",
+              "y": "Acres",
+              "stat": "sum",
+              "seriesBy": "TRPA_VegType",
+              "seriesLabel": "Forest type",
+              "yLabel": "Acres",
+              "type": "bar",
+              "span": "span-12"
+            },
+            {
+              "title": "Jeffrey pine and red fir dominated stands outside the mature stage",
+              "sub": "Acres where Jeffrey pine or red fir is the dominant tree, by successional stage other than mature (2010).",
+              "layer": 98,
+              "where": "REGIONAL_DOMINANCE_TYPE_1 IN ('JP','RF') AND Top_Succes NOT IN ('Mature','')",
+              "x": "Top_Succes",
+              "xType": "category",
+              "xLabel": "Successional stage",
+              "y": "Acres",
+              "stat": "sum",
+              "seriesBy": "REGIONAL_DOMINANCE_TYPE_1",
+              "seriesLabel": "Dominant tree",
+              "seriesNames": {
+                "JP": "Jeffrey pine",
+                "RF": "Red fir"
+              },
+              "yLabel": "Acres",
+              "type": "stacked"
+            }
+          ]
         },
         {
-          "id": 81
+          "id": 81,
+          "template": "charts",
+          "measures": [
+            {
+              "title": "Acres by vegetation type",
+              "sub": "Acres of each TRPA vegetation type in the 2010 EcObject LiDAR vegetation map of the Tahoe Basin.",
+              "layer": 98,
+              "where": "TRPA_VegType <> ''",
+              "x": "TRPA_VegType",
+              "xType": "category",
+              "xLabel": "Vegetation type",
+              "y": "Acres",
+              "stat": "sum",
+              "yName": "Acres",
+              "yLabel": "Acres",
+              "type": "bar",
+              "orientation": "h",
+              "sort": "desc"
+            },
+            {
+              "title": "Forest acres by horizontal pattern",
+              "sub": "Acres of forest in each tree spatial pattern class, from individual trees to dense clumps (2010).",
+              "layer": 98,
+              "where": "TRPA_VegType IN ('Yellow Pine Forest','Red Fir Forest','Subalpine Forest')",
+              "x": "SpatialVar",
+              "xType": "category",
+              "xLabel": "Spatial pattern",
+              "y": "Acres",
+              "stat": "sum",
+              "seriesBy": "TRPA_VegType",
+              "seriesLabel": "Forest type",
+              "yLabel": "Acres",
+              "type": "stacked"
+            }
+          ]
         },
         {
           "id": 9680,
           "indicator": 80,
-          "name": "Limit Size of New Forest Openings"
+          "name": "Limit Size of New Forest Openings",
+          "template": "map",
+          "mapLayer": {
+            "service": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
+            "layer": 5,
+            "where": "gridcode = 4",
+            "title": "Caldor Fire high severity burn (2021)",
+            "unit": "burn patch",
+            "unitPlural": "Burn patches",
+            "name": "gridcode",
+            "list": false,
+            "countAsSites": false,
+            "colorBy": "gridcode",
+            "colorByLabel": "Vegetation burn severity",
+            "colors": {
+              "4": "#895a44"
+            },
+            "labels": {
+              "4": "High"
+            },
+            "fields": []
+          },
+          "overlays": [
+            {
+              "service": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
+              "layer": 6,
+              "title": "Fire history (LTBMU, 1967 to 2016)",
+              "name": "FIRE_NAME",
+              "geometry": "fill",
+              "color": "#b53535",
+              "where": "UNIT_ID = 'TMU'",
+              "fields": [
+                {
+                  "field": "FIRE_NAME",
+                  "label": "Fire"
+                },
+                {
+                  "field": "YEAR_",
+                  "label": "Year"
+                },
+                {
+                  "field": "GIS_ACRES",
+                  "label": "Acres"
+                }
+              ]
+            }
+          ],
+          "measures": [
+            {
+              "title": "Caldor Fire vegetation burn severity",
+              "sub": "Acres of the 2021 Caldor Fire in each vegetation burn severity class, the whole fire and not only the Tahoe Basin.",
+              "service": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
+              "layer": 5,
+              "where": "gridcode IN (1,2,3,4)",
+              "x": "gridcode",
+              "xType": "category",
+              "xLabel": "Burn severity",
+              "xNames": {
+                "1": "Unburned or very low",
+                "2": "Low",
+                "3": "Moderate",
+                "4": "High"
+              },
+              "y": "Shape.STArea() / 4046.8564224",
+              "stat": "sum",
+              "seriesBy": "gridcode",
+              "seriesLabel": "Burn severity",
+              "seriesNames": {
+                "1": "Unburned or very low",
+                "2": "Low",
+                "3": "Moderate",
+                "4": "High"
+              },
+              "seriesOrder": [
+                "1",
+                "2",
+                "3",
+                "4"
+              ],
+              "seriesColors": {
+                "1": "#9ebbd7",
+                "2": "#6699cd",
+                "3": "#cdcd66",
+                "4": "#895a44"
+              },
+              "yLabel": "Acres",
+              "type": "stacked",
+              "span": "span-12"
+            }
+          ]
         },
         {
           "id": 9681,
           "indicator": 81,
-          "name": "Stand Composition and Age"
+          "name": "Stand Composition and Age",
+          "template": "context",
+          "measures": [
+            {
+              "title": "Seral stage by canopy class",
+              "sub": "Percent of undisturbed vegetation in each seral stage, open and closed canopy, 2023 Threshold Evaluation.",
+              "json": "data/threshold-evaluation/stand-composition.json",
+              "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/Vegetation/Chart/Final/Vegetation_Composition.html",
+              "sourceLabel": "2023 Threshold Evaluation",
+              "x": "Seral stage",
+              "xType": "category",
+              "xLabel": "Seral stage",
+              "xOrder": [
+                "Early Seral",
+                "Mid Seral",
+                "Late Seral",
+                "Not Classified",
+                "Not classified"
+              ],
+              "xNames": {
+                "Early Seral": "Early",
+                "Mid Seral": "Mid",
+                "Late Seral": "Late",
+                "Not classified": "Not classified"
+              },
+              "y": "Percent",
+              "seriesBy": "Canopy",
+              "seriesLabel": "Canopy",
+              "seriesOrder": [
+                "Open",
+                "Closed"
+              ],
+              "seriesNames": {
+                "Not stated": "Not classified"
+              },
+              "seriesColors": {
+                "Open": "var(--mon-greens-2)",
+                "Closed": "var(--mon-greens-5)",
+                "Not stated": "var(--color-content-disabled)"
+              },
+              "yLabel": "Percent of undisturbed vegetation",
+              "type": "stacked",
+              "span": "span-12"
+            }
+          ]
         },
         {
           "id": 9684,
           "indicator": 84,
-          "name": "Appropriate Forest Management Practices"
+          "name": "Appropriate Forest Management Practices",
+          "template": "context",
+          "measures": [
+            {
+              "title": "Forest fuel treatment acres by zone",
+              "sub": "Acres of forest fuel reduction treatment completed each year, by forest management zone, 2023 Threshold Evaluation.",
+              "json": "data/threshold-evaluation/forest-fuel-treatment.json",
+              "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/Vegetation/Chart/Final/ForestFuelTreatment.html",
+              "sourceLabel": "2023 Threshold Evaluation",
+              "x": "Year",
+              "y": "Acres",
+              "seriesBy": "Zone",
+              "seriesLabel": "Zone",
+              "seriesOrder": [
+                "Defense Zone",
+                "Threat Zone",
+                "General Forest",
+                "Urban Core"
+              ],
+              "seriesColors": {
+                "Defense Zone": "#e69800",
+                "Threat Zone": "#f5ca7a",
+                "General Forest": "#abcd66",
+                "Urban Core": "var(--color-content-disabled)"
+              },
+              "yLabel": "Acres",
+              "type": "stacked",
+              "span": "span-12"
+            },
+            {
+              "title": "Forest fuel treatment acres",
+              "sub": "Acres of initial and maintenance forest fuel reduction treatment completed each year in the Tahoe Basin, through 2020.",
+              "layer": 90,
+              "where": "Year IS NOT NULL",
+              "x": "Year",
+              "y": [
+                {
+                  "field": "Initial",
+                  "name": "Initial"
+                },
+                {
+                  "field": "Maintenance",
+                  "name": "Maintenance"
+                }
+              ],
+              "yLabel": "Acres",
+              "type": "stacked",
+              "span": "span-12"
+            }
+          ]
         }
       ]
     },
@@ -100,11 +1160,12 @@
       "themeColor": "#9C3E27",
       "blurb": "Modeled fire behavior around communities and across the forested landscape.",
       "goal": "Keep fire behavior defensible around neighborhoods and evacuation routes, and limit the size and extent of large, high-severity fire patches across the forested landscape.",
+      "icon": "category-icons/FireDynamics-white-icon.svg",
       "programs": [
         {
           "id": 9793,
           "name": "WUI Defense Zone Fire Dynamics",
-          "template": "context",
+          "template": "charts",
           "partners": [
             "Tahoe Regional Planning Agency",
             "Tahoe Fire and Fuels Team"
@@ -119,12 +1180,143 @@
             "Flame lengths are modeled under 90th percentile fire weather with the Pyrologix Wildfire Exposure Simulation Tool, delivered through the Sierra Nevada Regional Resource Kit at 30-meter resolution. The Defense Zone extends roughly a quarter mile from community edges; its wildland portion outside urban land use, 44,920 acres, is the area assessed.",
             "The program tracks the share of that area predicted to burn with flame lengths of four feet or less. Fuel reduction reported by Tahoe Fire and Fuels Team agencies to the EIP Project Tracker is read with the modeling, since treatment is what moves predicted flame lengths."
           ],
-          "ltinfo": false
+          "ltinfo": false,
+          "measures": [
+            {
+              "title": "WUI Defense Zone by most likely fire severity",
+              "sub": "Acres of the mapped WUI Defense Zone, urban footprint included, by most likely fire severity under 90th percentile fire weather. Low severity stands in for flame lengths of four feet or less.",
+              "service": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
+              "layer": 3,
+              "where": "ManagementZone = 'WUI Defense Zone'",
+              "x": "ManagementZone",
+              "xType": "category",
+              "xLabel": "Management zone",
+              "y": "Acres",
+              "stat": "sum",
+              "yLabel": "Acres",
+              "type": "stacked",
+              "seriesBy": "MostLikelyFireSeverity",
+              "seriesLabel": "Most likely fire severity",
+              "seriesNames": {
+                "Low Severity": "Low",
+                "Moderate Severity": "Moderate",
+                "High Severity": "High"
+              },
+              "seriesColors": {
+                "Low Severity": "#6699cd",
+                "Moderate Severity": "#cdcd66",
+                "High Severity": "#895a44"
+              },
+              "seriesOrder": [
+                "Low Severity",
+                "Moderate Severity",
+                "High Severity"
+              ]
+            },
+            {
+              "title": "Most likely fire severity by management zone",
+              "sub": "Acres of each forest management zone by most likely fire severity under 90th percentile fire weather.",
+              "service": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
+              "layer": 3,
+              "where": "ManagementZone <> ''",
+              "x": "ManagementZone",
+              "xType": "category",
+              "xLabel": "Management zone",
+              "y": "Acres",
+              "stat": "sum",
+              "seriesBy": "MostLikelyFireSeverity",
+              "seriesLabel": "Severity",
+              "seriesNames": {
+                "Low Severity": "Low",
+                "Moderate Severity": "Moderate",
+                "High Severity": "High"
+              },
+              "yLabel": "Acres",
+              "type": "stacked",
+              "seriesColors": {
+                "Low Severity": "#6699cd",
+                "Moderate Severity": "#cdcd66",
+                "High Severity": "#895a44"
+              },
+              "seriesOrder": [
+                "Low Severity",
+                "Moderate Severity",
+                "High Severity"
+              ],
+              "xOrder": [
+                "WUI Defense Zone",
+                "WUI Threat Zone",
+                "General Forest",
+                "Desolation Wilderness",
+                "Granite Chief Wilderness",
+                "Mt. Rose Wilderness"
+              ]
+            },
+            {
+              "title": "Forest fuel treatment acres by zone",
+              "sub": "Acres of forest fuel reduction treatment completed each year, by forest management zone, 2023 Threshold Evaluation.",
+              "json": "data/threshold-evaluation/forest-fuel-treatment.json",
+              "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/Vegetation/Chart/Final/ForestFuelTreatment.html",
+              "sourceLabel": "2023 Threshold Evaluation",
+              "x": "Year",
+              "y": "Acres",
+              "seriesBy": "Zone",
+              "seriesLabel": "Zone",
+              "seriesOrder": [
+                "Defense Zone",
+                "Threat Zone",
+                "General Forest",
+                "Urban Core"
+              ],
+              "seriesColors": {
+                "Defense Zone": "#e69800",
+                "Threat Zone": "#f5ca7a",
+                "General Forest": "#abcd66",
+                "Urban Core": "var(--color-content-disabled)"
+              },
+              "yLabel": "Acres",
+              "type": "stacked",
+              "span": "span-12"
+            }
+          ],
+          "mapLayer": {
+            "service": "https://maps.trpa.org/server/rest/services/Datadownloader_PlanningandJurisdictions/MapServer",
+            "layer": 26,
+            "title": "Forest management zones",
+            "unit": "zone",
+            "unitPlural": "Zones",
+            "name": "Name",
+            "countAsSites": false,
+            "colorBy": "Name",
+            "colorByLabel": "Zone",
+            "meta": [
+              {
+                "field": "Acres",
+                "suffix": " acres"
+              }
+            ],
+            "fields": [
+              {
+                "field": "Name",
+                "label": "Zone"
+              },
+              {
+                "field": "Acres",
+                "label": "Acres"
+              }
+            ],
+            "where": "Name LIKE 'WUI%'",
+            "colors": {
+              "WUI Defense Zone": "#e69800",
+              "WUI Threat Zone": "#f5ca7a"
+            }
+          },
+          "overlays": []
         },
         {
           "id": 9792,
           "name": "Landscape Fire Dynamics",
-          "template": "context",
+          "template": "charts",
           "partners": [
             "Tahoe Regional Planning Agency",
             "Tahoe Fire and Fuels Team"
@@ -140,7 +1332,147 @@
             "The program tracks the share of the assessed landscape, 157,843 acres of vegetation outside urban areas, designated wilderness, and water, likely to burn at high severity in contiguous patches of 200 acres or more.",
             "Observed fires check the modeling over time: wildfire perimeters from the CAL FIRE statewide fire history, and post-fire burn severity from USDA Forest Service mapping for large fires such as Caldor."
           ],
-          "ltinfo": false
+          "ltinfo": false,
+          "measures": [
+            {
+              "title": "Most likely high severity fire by management zone",
+              "sub": "Acres where high severity is the most likely outcome under 90th percentile fire weather, all patch sizes. The standard counts only patches of 200 acres or more.",
+              "service": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
+              "layer": 3,
+              "where": "MostLikelyFireSeverity = 'High Severity' AND ManagementZone <> ''",
+              "x": "ManagementZone",
+              "xType": "category",
+              "xLabel": "Management zone",
+              "y": "Acres",
+              "stat": "sum",
+              "yName": "High severity acres",
+              "yLabel": "Acres",
+              "type": "bar",
+              "orientation": "h",
+              "sort": "desc",
+              "xOrder": [
+                "WUI Defense Zone",
+                "WUI Threat Zone",
+                "General Forest",
+                "Desolation Wilderness",
+                "Granite Chief Wilderness",
+                "Mt. Rose Wilderness"
+              ]
+            },
+            {
+              "title": "Most likely fire severity by management zone",
+              "sub": "Acres of each forest management zone by most likely fire severity under 90th percentile fire weather.",
+              "service": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
+              "layer": 3,
+              "where": "ManagementZone <> ''",
+              "x": "ManagementZone",
+              "xType": "category",
+              "xLabel": "Management zone",
+              "y": "Acres",
+              "stat": "sum",
+              "seriesBy": "MostLikelyFireSeverity",
+              "seriesLabel": "Severity",
+              "seriesNames": {
+                "Low Severity": "Low",
+                "Moderate Severity": "Moderate",
+                "High Severity": "High"
+              },
+              "yLabel": "Acres",
+              "type": "stacked",
+              "seriesColors": {
+                "Low Severity": "#6699cd",
+                "Moderate Severity": "#cdcd66",
+                "High Severity": "#895a44"
+              },
+              "seriesOrder": [
+                "Low Severity",
+                "Moderate Severity",
+                "High Severity"
+              ],
+              "xOrder": [
+                "WUI Defense Zone",
+                "WUI Threat Zone",
+                "General Forest",
+                "Desolation Wilderness",
+                "Granite Chief Wilderness",
+                "Mt. Rose Wilderness"
+              ]
+            },
+            {
+              "title": "Area burned on the Lake Tahoe Basin Management Unit",
+              "sub": "Acres burned each year in LTBMU fires in the CAL FIRE fire perimeter record, which runs through 2020.",
+              "service": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
+              "layer": 6,
+              "where": "UNIT_ID = 'TMU'",
+              "x": "YEAR_",
+              "xLabel": "Year",
+              "y": "GIS_ACRES",
+              "stat": "sum",
+              "yName": "Acres burned",
+              "yLabel": "Acres",
+              "type": "bar"
+            }
+          ],
+          "mapLayer": {
+            "service": "https://maps.trpa.org/server/rest/services/Datadownloader_PlanningandJurisdictions/MapServer",
+            "layer": 26,
+            "title": "Forest management zones",
+            "unit": "zone",
+            "unitPlural": "Zones",
+            "name": "Name",
+            "countAsSites": false,
+            "colorBy": "Name",
+            "colorByLabel": "Zone",
+            "meta": [
+              {
+                "field": "Acres",
+                "suffix": " acres"
+              }
+            ],
+            "fields": [
+              {
+                "field": "Name",
+                "label": "Zone"
+              },
+              {
+                "field": "Acres",
+                "label": "Acres"
+              }
+            ],
+            "colors": {
+              "WUI Defense Zone": "#e69800",
+              "WUI Threat Zone": "#f5ca7a",
+              "General Forest": "#abcd66",
+              "Desolation Wilderness": "#728944",
+              "Mt. Rose Wilderness": "#728944",
+              "Granite Chief Wilderness": "#728944"
+            }
+          },
+          "overlays": [
+            {
+              "service": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
+              "layer": 6,
+              "title": "Fire history (LTBMU, 1967 to 2016)",
+              "name": "FIRE_NAME",
+              "geometry": "fill",
+              "color": "#b53535",
+              "where": "UNIT_ID = 'TMU'",
+              "fields": [
+                {
+                  "field": "FIRE_NAME",
+                  "label": "Fire"
+                },
+                {
+                  "field": "YEAR_",
+                  "label": "Year"
+                },
+                {
+                  "field": "GIS_ACRES",
+                  "label": "Acres"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -151,93 +1483,1720 @@
       "themeColor": "#4A6118",
       "blurb": "Sensitive and uncommon plants, native vegetation, fish, and special interest wildlife.",
       "goal": "Maintain vegetation community richness and diversity, preserve uncommon plant communities and sustainable populations of sensitive plants, maintain and improve stream and lake fish habitat, and provide and protect suitable habitat for special interest species.",
+      "icon": "category-icons/Biodiversity-white-icon.svg",
       "programs": [
         {
           "id": 39
         },
         {
           "id": 54,
-          "name": "Tahoe Draba"
+          "name": "Tahoe Draba",
+          "template": "map",
+          "measures": [
+            {
+              "title": "Subpopulations over time",
+              "sub": "Known Tahoe draba subpopulations in each survey year, with the threshold minimum, 2023 Threshold Evaluation.",
+              "json": "data/threshold-evaluation/tahoe-draba-subpopulations.json",
+              "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/Vegetation/Chart/Final/Vegetation_TahoeDraba.html",
+              "sourceLabel": "2023 Threshold Evaluation",
+              "x": "Year",
+              "y": "Subpopulations",
+              "yName": "Subpopulations",
+              "yLabel": "Subpopulations",
+              "type": "bar",
+              "standard": {
+                "field": "Threshold"
+              },
+              "span": "span-12"
+            },
+            {
+              "title": "Subpopulation sites by population",
+              "sub": "Mapped Tahoe draba subpopulation sites in each population, with the threshold minimum.",
+              "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+              "layer": 1,
+              "where": "USDA_Code = 'DRASA2'",
+              "x": "EOName",
+              "xType": "category",
+              "xLabel": "Population",
+              "y": "OBJECTID",
+              "stat": "count",
+              "yName": "Subpopulation sites",
+              "yLabel": "Subpopulation sites",
+              "type": "bar"
+            },
+            {
+              "title": "Plants by population",
+              "sub": "Plants counted or estimated at the last survey of each site (USFS, through 2018).",
+              "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+              "layer": 1,
+              "where": "USDA_Code = 'DRASA2'",
+              "x": "EOName",
+              "xType": "category",
+              "xLabel": "Population",
+              "y": "PlantCount",
+              "stat": "sum",
+              "yName": "Plants",
+              "yLabel": "Plants",
+              "type": "bar"
+            }
+          ],
+          "mapLayer": {
+            "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+            "layer": 1,
+            "where": "USDA_Code = 'DRASA2'",
+            "title": "Tahoe draba subpopulations",
+            "unit": "subpopulation",
+            "unitPlural": "Subpopulations",
+            "name": "SITE_ID_FS",
+            "countAsSites": false,
+            "colorBy": "EOName",
+            "colorByLabel": "Population",
+            "colors": {
+              "Freel Peak": "var(--mon-stevens4-1)",
+              "Heavenly": "var(--mon-stevens4-2)",
+              "Hell Hole": "var(--mon-stevens4-3)",
+              "Relay Peak": "var(--mon-stevens4-4)"
+            },
+            "meta": [
+              {
+                "field": "EOName"
+              },
+              {
+                "field": "PlantCount",
+                "suffix": " plants"
+              }
+            ],
+            "fields": [
+              {
+                "field": "EOName",
+                "label": "Population"
+              },
+              {
+                "field": "PlantCount",
+                "label": "Plants"
+              },
+              {
+                "field": "CountType",
+                "label": "Count type"
+              },
+              {
+                "field": "SurveyLast",
+                "label": "Last survey"
+              },
+              {
+                "field": "Acres",
+                "label": "Acres"
+              }
+            ]
+          }
         },
         {
           "id": 55,
-          "name": "Long-Petaled Lewisia"
+          "name": "Long-Petaled Lewisia",
+          "template": "map",
+          "measures": [
+            {
+              "title": "Subpopulations over time",
+              "sub": "Known long-petaled lewisia subpopulations in each survey year, with the threshold minimum, 2023 Threshold Evaluation.",
+              "json": "data/threshold-evaluation/long-petaled-lewisia-subpopulations.json",
+              "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/Vegetation/Chart/Final/Vegetation_Lewisia.html",
+              "sourceLabel": "2023 Threshold Evaluation",
+              "x": "Year",
+              "y": "Subpopulations",
+              "yName": "Subpopulations",
+              "yLabel": "Subpopulations",
+              "type": "bar",
+              "standard": {
+                "field": "Threshold"
+              },
+              "span": "span-12"
+            },
+            {
+              "title": "Subpopulation sites by population",
+              "sub": "Mapped long-petaled lewisia subpopulation sites in each population, with the threshold minimum.",
+              "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+              "layer": 1,
+              "where": "USDA_Code = 'LELO2'",
+              "x": "EOName",
+              "xType": "category",
+              "xLabel": "Population",
+              "y": "OBJECTID",
+              "stat": "count",
+              "yName": "Subpopulation sites",
+              "yLabel": "Subpopulation sites",
+              "type": "bar"
+            },
+            {
+              "title": "Plants by population",
+              "sub": "Plants counted or estimated at the last survey of each site (USFS, through 2018).",
+              "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+              "layer": 1,
+              "where": "USDA_Code = 'LELO2'",
+              "x": "EOName",
+              "xType": "category",
+              "xLabel": "Population",
+              "y": "PlantCount",
+              "stat": "sum",
+              "yName": "Plants",
+              "yLabel": "Plants",
+              "type": "bar"
+            }
+          ],
+          "mapLayer": {
+            "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+            "layer": 1,
+            "where": "USDA_Code = 'LELO2'",
+            "title": "Long-petaled lewisia subpopulations",
+            "unit": "subpopulation",
+            "unitPlural": "Subpopulations",
+            "name": "SITE_ID_FS",
+            "countAsSites": false,
+            "colorBy": "EOName",
+            "colorByLabel": "Population",
+            "colors": {
+              "Azure Lake": "var(--mon-stevens9-1)",
+              "Dicks Peak": "var(--mon-stevens9-2)",
+              "Jacks Peak": "var(--mon-stevens9-3)",
+              "Ralston Peak": "var(--mon-stevens9-4)",
+              "Triangle Lake": "var(--mon-stevens9-5)"
+            },
+            "meta": [
+              {
+                "field": "EOName"
+              },
+              {
+                "field": "PlantCount",
+                "suffix": " plants"
+              }
+            ],
+            "fields": [
+              {
+                "field": "EOName",
+                "label": "Population"
+              },
+              {
+                "field": "PlantCount",
+                "label": "Plants"
+              },
+              {
+                "field": "CountType",
+                "label": "Count type"
+              },
+              {
+                "field": "SurveyLast",
+                "label": "Last survey"
+              },
+              {
+                "field": "Acres",
+                "label": "Acres"
+              }
+            ]
+          }
         },
         {
           "id": 56,
-          "name": "Cup Lake Draba"
+          "name": "Cup Lake Draba",
+          "template": "map",
+          "measures": [
+            {
+              "title": "Subpopulations over time",
+              "sub": "Known Cup Lake draba subpopulations in each survey year, with the threshold minimum, 2023 Threshold Evaluation.",
+              "json": "data/threshold-evaluation/cup-lake-draba-subpopulations.json",
+              "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/Vegetation/Chart/Final/Vegetation_CupDraba.html",
+              "sourceLabel": "2023 Threshold Evaluation",
+              "x": "Year",
+              "y": "Subpopulations",
+              "yName": "Subpopulations",
+              "yLabel": "Subpopulations",
+              "type": "bar",
+              "standard": {
+                "field": "Threshold"
+              },
+              "span": "span-12"
+            },
+            {
+              "title": "Subpopulation sites by population",
+              "sub": "Mapped Cup Lake draba subpopulation sites in each population, with the threshold minimum.",
+              "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+              "layer": 1,
+              "where": "USDA_Code = 'DRASM'",
+              "x": "EOName",
+              "xType": "category",
+              "xLabel": "Population",
+              "y": "OBJECTID",
+              "stat": "count",
+              "yName": "Subpopulation sites",
+              "yLabel": "Subpopulation sites",
+              "type": "bar"
+            },
+            {
+              "title": "Plants by population",
+              "sub": "Plants counted or estimated at the last survey of each site (USFS, through 2018).",
+              "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+              "layer": 1,
+              "where": "USDA_Code = 'DRASM'",
+              "x": "EOName",
+              "xType": "category",
+              "xLabel": "Population",
+              "y": "PlantCount",
+              "stat": "sum",
+              "yName": "Plants",
+              "yLabel": "Plants",
+              "type": "bar"
+            }
+          ],
+          "mapLayer": {
+            "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+            "layer": 1,
+            "where": "USDA_Code = 'DRASM'",
+            "title": "Cup Lake draba subpopulations",
+            "unit": "subpopulation",
+            "unitPlural": "Subpopulations",
+            "name": "SITE_ID_FS",
+            "countAsSites": false,
+            "colorBy": "EOName",
+            "colorByLabel": "Population",
+            "colors": {
+              "Saucer Lake": "var(--mon-stevens4-1)"
+            },
+            "meta": [
+              {
+                "field": "EOName"
+              },
+              {
+                "field": "PlantCount",
+                "suffix": " plants"
+              }
+            ],
+            "fields": [
+              {
+                "field": "EOName",
+                "label": "Population"
+              },
+              {
+                "field": "PlantCount",
+                "label": "Plants"
+              },
+              {
+                "field": "CountType",
+                "label": "Count type"
+              },
+              {
+                "field": "SurveyLast",
+                "label": "Last survey"
+              },
+              {
+                "field": "Acres",
+                "label": "Acres"
+              }
+            ]
+          }
         },
         {
           "id": 57,
-          "name": "Galena Creek Rockcress"
+          "name": "Galena Creek Rockcress",
+          "template": "map",
+          "measures": [
+            {
+              "title": "Subpopulation sites by population",
+              "sub": "Mapped Galena Creek rockcress subpopulation sites in each population, with the threshold minimum.",
+              "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+              "layer": 1,
+              "where": "USDA_Code = 'ARRID'",
+              "x": "EOName",
+              "xType": "category",
+              "xLabel": "Population",
+              "y": "OBJECTID",
+              "stat": "count",
+              "yName": "Subpopulation sites",
+              "yLabel": "Subpopulation sites",
+              "type": "bar"
+            },
+            {
+              "title": "Plants by population",
+              "sub": "Plants counted or estimated at the last survey of each site (USFS, through 2018).",
+              "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+              "layer": 1,
+              "where": "USDA_Code = 'ARRID'",
+              "x": "EOName",
+              "xType": "category",
+              "xLabel": "Population",
+              "y": "PlantCount",
+              "stat": "sum",
+              "yName": "Plants",
+              "yLabel": "Plants",
+              "type": "bar"
+            }
+          ],
+          "mapLayer": {
+            "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+            "layer": 1,
+            "where": "USDA_Code = 'ARRID'",
+            "title": "Galena Creek rockcress subpopulations",
+            "unit": "subpopulation",
+            "unitPlural": "Subpopulations",
+            "name": "SITE_ID_FS",
+            "countAsSites": false,
+            "colorBy": "EOName",
+            "colorByLabel": "Population",
+            "colors": {
+              "Incline": "var(--mon-stevens4-1)",
+              "Martis": "var(--mon-stevens4-2)"
+            },
+            "meta": [
+              {
+                "field": "EOName"
+              },
+              {
+                "field": "PlantCount",
+                "suffix": " plants"
+              }
+            ],
+            "fields": [
+              {
+                "field": "EOName",
+                "label": "Population"
+              },
+              {
+                "field": "PlantCount",
+                "label": "Plants"
+              },
+              {
+                "field": "CountType",
+                "label": "Count type"
+              },
+              {
+                "field": "SurveyLast",
+                "label": "Last survey"
+              },
+              {
+                "field": "Acres",
+                "label": "Acres"
+              }
+            ]
+          }
         },
         {
           "id": 22,
-          "name": "Deep Water Plants"
+          "name": "Deep Water Plants",
+          "template": "charts",
+          "measures": [
+            {
+              "title": "Deepwater plants by depth",
+              "sub": "Percent of lakebed samples with macrophytes, by depth, 1962 to 1963 against 2008 to 2009. Approximate: read from the published chart image.",
+              "json": "data/threshold-evaluation/deep-water-plants.json",
+              "sourceHref": "https://thresholds.laketahoeinfo.org/ThresholdIndicator/Detail/94",
+              "sourceLabel": "Threshold Dashboard chart (image)",
+              "x": "Depth (m)",
+              "xType": "category",
+              "xLabel": "Depth (m)",
+              "xOrder": [
+                "11-20",
+                "21-30",
+                "31-40",
+                "41-50",
+                "51-60",
+                "61-70",
+                "71-80",
+                "81-90",
+                "91-100",
+                "101-110",
+                "121-130",
+                "131-140",
+                "151-160",
+                "251-300"
+              ],
+              "y": "Percent",
+              "seriesBy": "Period",
+              "seriesLabel": "Survey",
+              "yLabel": "Samples with plants (percent)",
+              "type": "bar",
+              "span": "span-12"
+            }
+          ]
         },
         {
           "id": 53,
-          "name": "Freel Peak Cushion Plant Community"
+          "name": "Freel Peak Cushion Plant Community",
+          "template": "charts",
+          "measures": [
+            {
+              "title": "Species richness on the Freel Peak summits",
+              "sub": "Plant species recorded in the GLORIA summit plots in each survey year. Read from the published chart.",
+              "json": "data/threshold-evaluation/freel-peak-species-richness.json",
+              "sourceHref": "https://thresholds.laketahoeinfo.org/ThresholdIndicator/Detail/97",
+              "sourceLabel": "Threshold Dashboard chart (image)",
+              "x": "Year",
+              "y": "Species",
+              "seriesBy": "Summit",
+              "seriesLabel": "Summit",
+              "yLabel": "Species",
+              "zero": false,
+              "span": "span-12"
+            }
+          ]
         },
         {
           "id": 52,
-          "name": "Grass Lake Sphagnum Fen"
+          "name": "Grass Lake Sphagnum Fen",
+          "template": "map",
+          "measures": [
+            {
+              "title": "Overall condition score",
+              "sub": "SEZ assessment score by threshold evaluation year, meadow units.",
+              "layer": 106,
+              "where": "Assessment_Unit_Name IN ('Grass Lake meadow') AND SEZ_Type LIKE '%Meadow%'",
+              "x": "Threshold_Year",
+              "xType": "category",
+              "xLabel": "Evaluation year",
+              "y": "Final_Percent",
+              "stat": "avg",
+              "seriesBy": "Assessment_Unit_Name",
+              "seriesLabel": "Assessment unit",
+              "yLabel": "Score (percent)",
+              "type": "bar"
+            },
+            {
+              "title": "Vegetation indicator scores",
+              "sub": "Points out of 12 (A 12, B 9, C 6, D 3), meadow units.",
+              "layer": 106,
+              "where": "Assessment_Unit_Name IN ('Grass Lake meadow') AND SEZ_Type LIKE '%Meadow%'",
+              "x": "Threshold_Year",
+              "xType": "category",
+              "xLabel": "Evaluation year",
+              "y": [
+                {
+                  "field": "VegetationVigor_Score",
+                  "name": "Vegetation vigor"
+                },
+                {
+                  "field": "Invasives_Scores",
+                  "name": "Invasive species"
+                },
+                {
+                  "field": "Conifer_Encroachment_Score",
+                  "name": "Conifer encroachment"
+                }
+              ],
+              "yLabel": "Points",
+              "type": "bar",
+              "pick": "Assessment_Unit_Name",
+              "pickLabel": "Assessment unit"
+            },
+            {
+              "title": "Moss cover classes",
+              "sub": "Hectares of Meesia and Sphagnum moss cover by class, USFS fen monitoring. Approximate: read from the published chart image.",
+              "json": "data/threshold-evaluation/grass-lake-fen-cover.json",
+              "sourceHref": "https://thresholds.laketahoeinfo.org/ThresholdIndicator/Detail/95",
+              "sourceLabel": "Threshold Dashboard chart (image)",
+              "x": "Cover class",
+              "xType": "category",
+              "xLabel": "Cover class",
+              "y": "Hectares",
+              "seriesBy": "Year",
+              "seriesLabel": "Year",
+              "yLabel": "Hectares",
+              "type": "bar",
+              "span": "span-12"
+            }
+          ],
+          "mapLayer": {
+            "layer": 106,
+            "where": "Assessment_Unit_Name IN ('Grass Lake meadow')",
+            "title": "SEZ assessment unit",
+            "unit": "assessment unit",
+            "unitPlural": "Assessment units",
+            "name": "Assessment_Unit_Name",
+            "colorBy": "Final_Rating",
+            "colorByLabel": "Overall rating",
+            "colors": {
+              "A": "var(--mon-chlorophyll-6)",
+              "B": "var(--mon-chlorophyll-5)",
+              "C": "var(--mon-chlorophyll-3)",
+              "D": "var(--mon-chlorophyll-2)",
+              "Not Assessed": "var(--color-content-disabled)"
+            },
+            "labels": {
+              "A": "Rating A",
+              "B": "Rating B",
+              "C": "Rating C",
+              "D": "Rating D"
+            },
+            "pick": "Threshold_Year",
+            "pickLabel": "Evaluation year",
+            "meta": [
+              {
+                "field": "SEZ_Type"
+              },
+              {
+                "field": "Acres",
+                "suffix": " acres"
+              }
+            ],
+            "fields": [
+              {
+                "field": "Final_Rating",
+                "label": "Overall rating"
+              },
+              {
+                "field": "Final_Percent",
+                "label": "Score (percent)"
+              },
+              {
+                "field": "VegetationVigor_Rating",
+                "label": "Vegetation vigor"
+              },
+              {
+                "field": "Invasive_Rating",
+                "label": "Invasive species"
+              },
+              {
+                "field": "Conifer_Encroachment_Rating",
+                "label": "Conifer encroachment"
+              },
+              {
+                "field": "Acres",
+                "label": "Acres"
+              }
+            ]
+          },
+          "overlays": [
+            {
+              "service": "https://maps.trpa.org/server/rest/services/DataDownloader_SoilsandHydro/MapServer",
+              "layer": 41,
+              "title": "USFS fen mapping",
+              "name": "LOCATION_N",
+              "geometry": "fill",
+              "color": "var(--mon-stevens4-1)",
+              "where": "LOCATION_N = 'Grass Lake'",
+              "fields": [
+                {
+                  "field": "PERC_FEN",
+                  "label": "Percent fen"
+                },
+                {
+                  "field": "MEADOW_TYP",
+                  "label": "Type"
+                },
+                {
+                  "field": "DESCRIPTIO",
+                  "label": "Description"
+                }
+              ]
+            }
+          ]
         },
         {
           "id": 51,
-          "name": "Hell Hole Sphagnum Fen"
+          "name": "Hell Hole Sphagnum Fen",
+          "template": "map",
+          "measures": [
+            {
+              "title": "Overall condition score",
+              "sub": "SEZ assessment score by threshold evaluation year, meadow units.",
+              "layer": 106,
+              "where": "Assessment_Unit_Name IN ('Hell Hole meadows - 1', 'Hell Hole Meadows - 2') AND SEZ_Type LIKE '%Meadow%'",
+              "x": "Threshold_Year",
+              "xType": "category",
+              "xLabel": "Evaluation year",
+              "y": "Final_Percent",
+              "stat": "avg",
+              "seriesBy": "Assessment_Unit_Name",
+              "seriesLabel": "Assessment unit",
+              "yLabel": "Score (percent)",
+              "type": "bar"
+            },
+            {
+              "title": "Vegetation indicator scores",
+              "sub": "Points out of 12 (A 12, B 9, C 6, D 3), meadow units.",
+              "layer": 106,
+              "where": "Assessment_Unit_Name IN ('Hell Hole meadows - 1', 'Hell Hole Meadows - 2') AND SEZ_Type LIKE '%Meadow%'",
+              "x": "Threshold_Year",
+              "xType": "category",
+              "xLabel": "Evaluation year",
+              "y": [
+                {
+                  "field": "VegetationVigor_Score",
+                  "name": "Vegetation vigor"
+                },
+                {
+                  "field": "Invasives_Scores",
+                  "name": "Invasive species"
+                },
+                {
+                  "field": "Conifer_Encroachment_Score",
+                  "name": "Conifer encroachment"
+                }
+              ],
+              "yLabel": "Points",
+              "type": "bar",
+              "pick": "Assessment_Unit_Name",
+              "pickLabel": "Assessment unit"
+            }
+          ],
+          "mapLayer": {
+            "layer": 106,
+            "where": "Assessment_Unit_Name IN ('Hell Hole meadows - 1', 'Hell Hole Meadows - 2')",
+            "title": "SEZ assessment unit",
+            "unit": "assessment unit",
+            "unitPlural": "Assessment units",
+            "name": "Assessment_Unit_Name",
+            "colorBy": "Final_Rating",
+            "colorByLabel": "Overall rating",
+            "colors": {
+              "A": "var(--mon-chlorophyll-6)",
+              "B": "var(--mon-chlorophyll-5)",
+              "C": "var(--mon-chlorophyll-3)",
+              "D": "var(--mon-chlorophyll-2)",
+              "Not Assessed": "var(--color-content-disabled)"
+            },
+            "labels": {
+              "A": "Rating A",
+              "B": "Rating B",
+              "C": "Rating C",
+              "D": "Rating D"
+            },
+            "pick": "Threshold_Year",
+            "pickLabel": "Evaluation year",
+            "meta": [
+              {
+                "field": "SEZ_Type"
+              },
+              {
+                "field": "Acres",
+                "suffix": " acres"
+              }
+            ],
+            "fields": [
+              {
+                "field": "Final_Rating",
+                "label": "Overall rating"
+              },
+              {
+                "field": "Final_Percent",
+                "label": "Score (percent)"
+              },
+              {
+                "field": "VegetationVigor_Rating",
+                "label": "Vegetation vigor"
+              },
+              {
+                "field": "Invasive_Rating",
+                "label": "Invasive species"
+              },
+              {
+                "field": "Conifer_Encroachment_Rating",
+                "label": "Conifer encroachment"
+              },
+              {
+                "field": "Acres",
+                "label": "Acres"
+              }
+            ]
+          },
+          "overlays": [
+            {
+              "service": "https://maps.trpa.org/server/rest/services/DataDownloader_SoilsandHydro/MapServer",
+              "layer": 41,
+              "title": "USFS fen mapping",
+              "name": "LOCATION_N",
+              "geometry": "fill",
+              "color": "var(--mon-stevens4-1)",
+              "where": "LOCATION_N LIKE '%Hell Hole%'",
+              "fields": [
+                {
+                  "field": "PERC_FEN",
+                  "label": "Percent fen"
+                },
+                {
+                  "field": "MEADOW_TYP",
+                  "label": "Type"
+                },
+                {
+                  "field": "DESCRIPTIO",
+                  "label": "Description"
+                }
+              ]
+            }
+          ]
         },
         {
           "id": 50,
-          "name": "Osgood Swamp"
+          "name": "Osgood Swamp",
+          "template": "map",
+          "measures": [
+            {
+              "title": "Overall condition score",
+              "sub": "SEZ assessment score by threshold evaluation year, meadow units.",
+              "layer": 106,
+              "where": "Assessment_Unit_Name IN ('Osgood Swamp') AND SEZ_Type LIKE '%Meadow%'",
+              "x": "Threshold_Year",
+              "xType": "category",
+              "xLabel": "Evaluation year",
+              "y": "Final_Percent",
+              "stat": "avg",
+              "seriesBy": "Assessment_Unit_Name",
+              "seriesLabel": "Assessment unit",
+              "yLabel": "Score (percent)",
+              "type": "bar"
+            },
+            {
+              "title": "Vegetation indicator scores",
+              "sub": "Points out of 12 (A 12, B 9, C 6, D 3), meadow units.",
+              "layer": 106,
+              "where": "Assessment_Unit_Name IN ('Osgood Swamp') AND SEZ_Type LIKE '%Meadow%'",
+              "x": "Threshold_Year",
+              "xType": "category",
+              "xLabel": "Evaluation year",
+              "y": [
+                {
+                  "field": "VegetationVigor_Score",
+                  "name": "Vegetation vigor"
+                },
+                {
+                  "field": "Invasives_Scores",
+                  "name": "Invasive species"
+                },
+                {
+                  "field": "Conifer_Encroachment_Score",
+                  "name": "Conifer encroachment"
+                }
+              ],
+              "yLabel": "Points",
+              "type": "bar",
+              "pick": "Assessment_Unit_Name",
+              "pickLabel": "Assessment unit"
+            }
+          ],
+          "mapLayer": {
+            "layer": 106,
+            "where": "Assessment_Unit_Name IN ('Osgood Swamp')",
+            "title": "SEZ assessment unit",
+            "unit": "assessment unit",
+            "unitPlural": "Assessment units",
+            "name": "Assessment_Unit_Name",
+            "colorBy": "Final_Rating",
+            "colorByLabel": "Overall rating",
+            "colors": {
+              "A": "var(--mon-chlorophyll-6)",
+              "B": "var(--mon-chlorophyll-5)",
+              "C": "var(--mon-chlorophyll-3)",
+              "D": "var(--mon-chlorophyll-2)",
+              "Not Assessed": "var(--color-content-disabled)"
+            },
+            "labels": {
+              "A": "Rating A",
+              "B": "Rating B",
+              "C": "Rating C",
+              "D": "Rating D"
+            },
+            "pick": "Threshold_Year",
+            "pickLabel": "Evaluation year",
+            "meta": [
+              {
+                "field": "SEZ_Type"
+              },
+              {
+                "field": "Acres",
+                "suffix": " acres"
+              }
+            ],
+            "fields": [
+              {
+                "field": "Final_Rating",
+                "label": "Overall rating"
+              },
+              {
+                "field": "Final_Percent",
+                "label": "Score (percent)"
+              },
+              {
+                "field": "VegetationVigor_Rating",
+                "label": "Vegetation vigor"
+              },
+              {
+                "field": "Invasive_Rating",
+                "label": "Invasive species"
+              },
+              {
+                "field": "Conifer_Encroachment_Rating",
+                "label": "Conifer encroachment"
+              },
+              {
+                "field": "Acres",
+                "label": "Acres"
+              }
+            ]
+          },
+          "overlays": [
+            {
+              "service": "https://maps.trpa.org/server/rest/services/DataDownloader_SoilsandHydro/MapServer",
+              "layer": 41,
+              "title": "USFS fen mapping",
+              "name": "LOCATION_N",
+              "geometry": "fill",
+              "color": "var(--mon-stevens4-1)",
+              "where": "LOCATION_N = 'Osgood Swamp'",
+              "fields": [
+                {
+                  "field": "PERC_FEN",
+                  "label": "Percent fen"
+                },
+                {
+                  "field": "MEADOW_TYP",
+                  "label": "Type"
+                },
+                {
+                  "field": "DESCRIPTIO",
+                  "label": "Description"
+                }
+              ]
+            }
+          ]
         },
         {
           "id": 25,
-          "name": "Pope Marsh"
+          "name": "Pope Marsh",
+          "template": "map",
+          "measures": [
+            {
+              "title": "Overall condition score",
+              "sub": "SEZ assessment score by threshold evaluation year, meadow units.",
+              "layer": 106,
+              "where": "Assessment_Unit_Name IN ('Pope marsh meadow') AND SEZ_Type LIKE '%Meadow%'",
+              "x": "Threshold_Year",
+              "xType": "category",
+              "xLabel": "Evaluation year",
+              "y": "Final_Percent",
+              "stat": "avg",
+              "seriesBy": "Assessment_Unit_Name",
+              "seriesLabel": "Assessment unit",
+              "yLabel": "Score (percent)",
+              "type": "bar"
+            },
+            {
+              "title": "Vegetation indicator scores",
+              "sub": "Points out of 12 (A 12, B 9, C 6, D 3), meadow units.",
+              "layer": 106,
+              "where": "Assessment_Unit_Name IN ('Pope marsh meadow') AND SEZ_Type LIKE '%Meadow%'",
+              "x": "Threshold_Year",
+              "xType": "category",
+              "xLabel": "Evaluation year",
+              "y": [
+                {
+                  "field": "VegetationVigor_Score",
+                  "name": "Vegetation vigor"
+                },
+                {
+                  "field": "Invasives_Scores",
+                  "name": "Invasive species"
+                },
+                {
+                  "field": "Conifer_Encroachment_Score",
+                  "name": "Conifer encroachment"
+                }
+              ],
+              "yLabel": "Points",
+              "type": "bar",
+              "pick": "Assessment_Unit_Name",
+              "pickLabel": "Assessment unit"
+            }
+          ],
+          "mapLayer": {
+            "layer": 106,
+            "where": "Assessment_Unit_Name IN ('Pope marsh meadow')",
+            "title": "SEZ assessment unit",
+            "unit": "assessment unit",
+            "unitPlural": "Assessment units",
+            "name": "Assessment_Unit_Name",
+            "colorBy": "Final_Rating",
+            "colorByLabel": "Overall rating",
+            "colors": {
+              "A": "var(--mon-chlorophyll-6)",
+              "B": "var(--mon-chlorophyll-5)",
+              "C": "var(--mon-chlorophyll-3)",
+              "D": "var(--mon-chlorophyll-2)",
+              "Not Assessed": "var(--color-content-disabled)"
+            },
+            "labels": {
+              "A": "Rating A",
+              "B": "Rating B",
+              "C": "Rating C",
+              "D": "Rating D"
+            },
+            "pick": "Threshold_Year",
+            "pickLabel": "Evaluation year",
+            "meta": [
+              {
+                "field": "SEZ_Type"
+              },
+              {
+                "field": "Acres",
+                "suffix": " acres"
+              }
+            ],
+            "fields": [
+              {
+                "field": "Final_Rating",
+                "label": "Overall rating"
+              },
+              {
+                "field": "Final_Percent",
+                "label": "Score (percent)"
+              },
+              {
+                "field": "VegetationVigor_Rating",
+                "label": "Vegetation vigor"
+              },
+              {
+                "field": "Invasive_Rating",
+                "label": "Invasive species"
+              },
+              {
+                "field": "Conifer_Encroachment_Rating",
+                "label": "Conifer encroachment"
+              },
+              {
+                "field": "Acres",
+                "label": "Acres"
+              }
+            ]
+          },
+          "overlays": [
+            {
+              "layer": 42,
+              "title": "Aquatic vegetation survey zones",
+              "name": "Location_1",
+              "geometry": "fill",
+              "color": "var(--mon-stevens4-1)",
+              "where": "Location_1 = 'Pope Marsh'",
+              "fields": [
+                {
+                  "field": "Strata",
+                  "label": "Stratum"
+                }
+              ]
+            }
+          ]
         },
         {
           "id": 23,
-          "name": "Upper Truckee Marsh"
+          "name": "Upper Truckee Marsh",
+          "template": "map",
+          "measures": [
+            {
+              "title": "Overall condition score",
+              "sub": "SEZ assessment score by threshold evaluation year, meadow units.",
+              "layer": 106,
+              "where": "Assessment_Unit_Name IN ('UTR marsh - Trout Creek side', 'UTR Marsh - UTR side') AND SEZ_Type LIKE '%Meadow%'",
+              "x": "Threshold_Year",
+              "xType": "category",
+              "xLabel": "Evaluation year",
+              "y": "Final_Percent",
+              "stat": "avg",
+              "seriesBy": "Assessment_Unit_Name",
+              "seriesLabel": "Assessment unit",
+              "yLabel": "Score (percent)",
+              "type": "bar"
+            },
+            {
+              "title": "Vegetation indicator scores",
+              "sub": "Points out of 12 (A 12, B 9, C 6, D 3), meadow units.",
+              "layer": 106,
+              "where": "Assessment_Unit_Name IN ('UTR marsh - Trout Creek side', 'UTR Marsh - UTR side') AND SEZ_Type LIKE '%Meadow%'",
+              "x": "Threshold_Year",
+              "xType": "category",
+              "xLabel": "Evaluation year",
+              "y": [
+                {
+                  "field": "VegetationVigor_Score",
+                  "name": "Vegetation vigor"
+                },
+                {
+                  "field": "Invasives_Scores",
+                  "name": "Invasive species"
+                },
+                {
+                  "field": "Conifer_Encroachment_Score",
+                  "name": "Conifer encroachment"
+                }
+              ],
+              "yLabel": "Points",
+              "type": "bar",
+              "pick": "Assessment_Unit_Name",
+              "pickLabel": "Assessment unit"
+            }
+          ],
+          "mapLayer": {
+            "layer": 106,
+            "where": "Assessment_Unit_Name IN ('UTR marsh - Trout Creek side', 'UTR Marsh - UTR side')",
+            "title": "SEZ assessment unit",
+            "unit": "assessment unit",
+            "unitPlural": "Assessment units",
+            "name": "Assessment_Unit_Name",
+            "colorBy": "Final_Rating",
+            "colorByLabel": "Overall rating",
+            "colors": {
+              "A": "var(--mon-chlorophyll-6)",
+              "B": "var(--mon-chlorophyll-5)",
+              "C": "var(--mon-chlorophyll-3)",
+              "D": "var(--mon-chlorophyll-2)",
+              "Not Assessed": "var(--color-content-disabled)"
+            },
+            "labels": {
+              "A": "Rating A",
+              "B": "Rating B",
+              "C": "Rating C",
+              "D": "Rating D"
+            },
+            "pick": "Threshold_Year",
+            "pickLabel": "Evaluation year",
+            "meta": [
+              {
+                "field": "SEZ_Type"
+              },
+              {
+                "field": "Acres",
+                "suffix": " acres"
+              }
+            ],
+            "fields": [
+              {
+                "field": "Final_Rating",
+                "label": "Overall rating"
+              },
+              {
+                "field": "Final_Percent",
+                "label": "Score (percent)"
+              },
+              {
+                "field": "VegetationVigor_Rating",
+                "label": "Vegetation vigor"
+              },
+              {
+                "field": "Invasive_Rating",
+                "label": "Invasive species"
+              },
+              {
+                "field": "Conifer_Encroachment_Rating",
+                "label": "Conifer encroachment"
+              },
+              {
+                "field": "Acres",
+                "label": "Acres"
+              }
+            ]
+          },
+          "overlays": [
+            {
+              "layer": 42,
+              "title": "Aquatic vegetation survey zones",
+              "name": "Location_1",
+              "geometry": "fill",
+              "color": "var(--mon-stevens4-1)",
+              "where": "Location_1 LIKE 'Upper Truckee Marsh%'",
+              "fields": [
+                {
+                  "field": "Strata",
+                  "label": "Stratum"
+                }
+              ]
+            }
+          ]
         },
         {
           "id": 24,
-          "name": "Taylor Creek Marsh"
+          "name": "Taylor Creek Marsh",
+          "template": "map",
+          "measures": [
+            {
+              "title": "Overall condition score",
+              "sub": "SEZ assessment score by threshold evaluation year, meadow units.",
+              "layer": 106,
+              "where": "Assessment_Unit_Name IN ('Taylor Creek marsh') AND SEZ_Type LIKE '%Meadow%'",
+              "x": "Threshold_Year",
+              "xType": "category",
+              "xLabel": "Evaluation year",
+              "y": "Final_Percent",
+              "stat": "avg",
+              "seriesBy": "Assessment_Unit_Name",
+              "seriesLabel": "Assessment unit",
+              "yLabel": "Score (percent)",
+              "type": "bar"
+            },
+            {
+              "title": "Vegetation indicator scores",
+              "sub": "Points out of 12 (A 12, B 9, C 6, D 3), meadow units.",
+              "layer": 106,
+              "where": "Assessment_Unit_Name IN ('Taylor Creek marsh') AND SEZ_Type LIKE '%Meadow%'",
+              "x": "Threshold_Year",
+              "xType": "category",
+              "xLabel": "Evaluation year",
+              "y": [
+                {
+                  "field": "VegetationVigor_Score",
+                  "name": "Vegetation vigor"
+                },
+                {
+                  "field": "Invasives_Scores",
+                  "name": "Invasive species"
+                },
+                {
+                  "field": "Conifer_Encroachment_Score",
+                  "name": "Conifer encroachment"
+                }
+              ],
+              "yLabel": "Points",
+              "type": "bar",
+              "pick": "Assessment_Unit_Name",
+              "pickLabel": "Assessment unit"
+            }
+          ],
+          "mapLayer": {
+            "layer": 106,
+            "where": "Assessment_Unit_Name IN ('Taylor Creek marsh')",
+            "title": "SEZ assessment unit",
+            "unit": "assessment unit",
+            "unitPlural": "Assessment units",
+            "name": "Assessment_Unit_Name",
+            "colorBy": "Final_Rating",
+            "colorByLabel": "Overall rating",
+            "colors": {
+              "A": "var(--mon-chlorophyll-6)",
+              "B": "var(--mon-chlorophyll-5)",
+              "C": "var(--mon-chlorophyll-3)",
+              "D": "var(--mon-chlorophyll-2)",
+              "Not Assessed": "var(--color-content-disabled)"
+            },
+            "labels": {
+              "A": "Rating A",
+              "B": "Rating B",
+              "C": "Rating C",
+              "D": "Rating D"
+            },
+            "pick": "Threshold_Year",
+            "pickLabel": "Evaluation year",
+            "meta": [
+              {
+                "field": "SEZ_Type"
+              },
+              {
+                "field": "Acres",
+                "suffix": " acres"
+              }
+            ],
+            "fields": [
+              {
+                "field": "Final_Rating",
+                "label": "Overall rating"
+              },
+              {
+                "field": "Final_Percent",
+                "label": "Score (percent)"
+              },
+              {
+                "field": "VegetationVigor_Rating",
+                "label": "Vegetation vigor"
+              },
+              {
+                "field": "Invasive_Rating",
+                "label": "Invasive species"
+              },
+              {
+                "field": "Conifer_Encroachment_Rating",
+                "label": "Conifer encroachment"
+              },
+              {
+                "field": "Acres",
+                "label": "Acres"
+              }
+            ]
+          },
+          "overlays": [
+            {
+              "layer": 42,
+              "title": "Aquatic vegetation survey zones",
+              "name": "Location_1",
+              "geometry": "fill",
+              "color": "var(--mon-stevens4-1)",
+              "where": "Location_1 = 'Taylor Creek Marsh'",
+              "fields": [
+                {
+                  "field": "Strata",
+                  "label": "Stratum"
+                }
+              ]
+            }
+          ]
         },
         {
           "id": 17,
-          "name": "Vegetation Type"
+          "name": "Vegetation Type",
+          "template": "charts",
+          "measures": [
+            {
+              "title": "Undisturbed acres by vegetation community",
+              "sub": "Acres of each vegetation community outside developed land, from the 2010 vegetation map.",
+              "layer": 91,
+              "where": "Development = 'Undeveloped' AND TRPA_VegType <> ''",
+              "x": "TRPA_VegType",
+              "xType": "category",
+              "xLabel": "Vegetation community",
+              "y": "SUM_Acres",
+              "stat": "sum",
+              "yName": "Acres",
+              "yLabel": "Acres",
+              "type": "bar",
+              "orientation": "h",
+              "sort": "desc",
+              "span": "span-12"
+            },
+            {
+              "title": "Habitat types within each community",
+              "sub": "Undisturbed acres of each California Wildlife Habitat Relationships type within each community (2010).",
+              "layer": 91,
+              "where": "Development = 'Undeveloped' AND TRPA_VegType <> ''",
+              "x": "TRPA_VegType",
+              "xType": "category",
+              "xLabel": "Vegetation community",
+              "y": "SUM_Acres",
+              "stat": "sum",
+              "seriesBy": "WHRTYPE",
+              "seriesLabel": "Habitat type",
+              "seriesNames": {
+                "ADS": "Alpine dwarf shrub",
+                "MCP": "Montane chaparral",
+                "ASP": "Aspen",
+                "MHC": "Montane hardwood-conifer",
+                "MRI": "Montane riparian",
+                "PGS": "Perennial grassland",
+                "WTM": "Wet meadow",
+                "EPN": "Eastside pine",
+                "JPN": "Jeffrey pine",
+                "LPN": "Lodgepole pine",
+                "SMC": "Sierran mixed conifer",
+                "WFR": "White fir",
+                "RFR": "Red fir",
+                "JUN": "Juniper",
+                "SCN": "Subalpine conifer",
+                "BAR": "Barren",
+                "BBR": "Bitterbrush",
+                "LSG": "Low sage",
+                "SGB": "Sagebrush",
+                "LAC": "Lacustrine"
+              },
+              "yLabel": "Acres",
+              "type": "stacked",
+              "orientation": "h",
+              "span": "span-12"
+            }
+          ]
         },
         {
           "id": 18,
-          "name": "Meadow and Wetland Vegetation"
+          "name": "Meadow and Wetland Vegetation",
+          "template": "charts",
+          "measures": [
+            {
+              "title": "Meadow and wetland acres",
+              "sub": "Undisturbed and disturbed acres (2010), with the minimum of 4 percent of undisturbed vegetation (6,858 acres).",
+              "layer": 91,
+              "where": "TRPA_VegType IN ('Meadow','Wetland')",
+              "x": "Development",
+              "xType": "category",
+              "xLabel": "Condition",
+              "y": "SUM_Acres",
+              "stat": "sum",
+              "seriesBy": "TRPA_VegType",
+              "seriesLabel": "Type",
+              "yLabel": "Acres",
+              "type": "stacked",
+              "standard": {
+                "value": 6857.5,
+                "label": "Threshold minimum"
+              }
+            }
+          ]
         },
         {
           "id": 19,
-          "name": "Deciduous Riparian Vegetation"
+          "name": "Deciduous Riparian Vegetation",
+          "template": "charts",
+          "measures": [
+            {
+              "title": "Deciduous riparian acres",
+              "sub": "Undisturbed and disturbed acres by habitat type (2010), with the minimum of 4 percent of undisturbed vegetation (6,858 acres).",
+              "layer": 91,
+              "where": "TRPA_VegType = 'Deciduous Riparian'",
+              "x": "Development",
+              "xType": "category",
+              "xLabel": "Condition",
+              "y": "SUM_Acres",
+              "stat": "sum",
+              "seriesBy": "WHRTYPE",
+              "seriesLabel": "Habitat type",
+              "seriesNames": {
+                "ADS": "Alpine dwarf shrub",
+                "MCP": "Montane chaparral",
+                "ASP": "Aspen",
+                "MHC": "Montane hardwood-conifer",
+                "MRI": "Montane riparian",
+                "PGS": "Perennial grassland",
+                "WTM": "Wet meadow",
+                "EPN": "Eastside pine",
+                "JPN": "Jeffrey pine",
+                "LPN": "Lodgepole pine",
+                "SMC": "Sierran mixed conifer",
+                "WFR": "White fir",
+                "RFR": "Red fir",
+                "JUN": "Juniper",
+                "SCN": "Subalpine conifer",
+                "BAR": "Barren",
+                "BBR": "Bitterbrush",
+                "LSG": "Low sage",
+                "SGB": "Sagebrush",
+                "LAC": "Lacustrine"
+              },
+              "yLabel": "Acres",
+              "type": "stacked",
+              "standard": {
+                "value": 6857.5,
+                "label": "Threshold minimum"
+              }
+            }
+          ]
         },
         {
           "id": 20,
-          "name": "Shrub Abundance"
+          "name": "Shrub Abundance",
+          "template": "charts",
+          "measures": [
+            {
+              "title": "Shrub acres",
+              "sub": "Undisturbed and disturbed acres by habitat type (2010), with the maximum of 25 percent of undisturbed vegetation (42,860 acres).",
+              "layer": 91,
+              "where": "TRPA_VegType = 'Shrub'",
+              "x": "Development",
+              "xType": "category",
+              "xLabel": "Condition",
+              "y": "SUM_Acres",
+              "stat": "sum",
+              "seriesBy": "WHRTYPE",
+              "seriesLabel": "Habitat type",
+              "seriesNames": {
+                "ADS": "Alpine dwarf shrub",
+                "MCP": "Montane chaparral",
+                "ASP": "Aspen",
+                "MHC": "Montane hardwood-conifer",
+                "MRI": "Montane riparian",
+                "PGS": "Perennial grassland",
+                "WTM": "Wet meadow",
+                "EPN": "Eastside pine",
+                "JPN": "Jeffrey pine",
+                "LPN": "Lodgepole pine",
+                "SMC": "Sierran mixed conifer",
+                "WFR": "White fir",
+                "RFR": "Red fir",
+                "JUN": "Juniper",
+                "SCN": "Subalpine conifer",
+                "BAR": "Barren",
+                "BBR": "Bitterbrush",
+                "LSG": "Low sage",
+                "SGB": "Sagebrush",
+                "LAC": "Lacustrine"
+              },
+              "yLabel": "Acres",
+              "type": "stacked",
+              "standard": {
+                "value": 42859.5,
+                "label": "Threshold maximum"
+              }
+            }
+          ]
         },
         {
           "id": 9682,
           "indicator": 82,
-          "name": "Stream Environment Zone Vegetation"
+          "name": "Stream Environment Zone Vegetation",
+          "template": "map",
+          "measures": [
+            {
+              "title": "Riparian, meadow, and wetland acres by condition",
+              "sub": "Undisturbed and disturbed acres of each community (2010).",
+              "layer": 91,
+              "where": "TRPA_VegType IN ('Deciduous Riparian','Meadow','Wetland')",
+              "x": "TRPA_VegType",
+              "xType": "category",
+              "xLabel": "Community",
+              "y": "SUM_Acres",
+              "stat": "sum",
+              "seriesBy": "Development",
+              "seriesLabel": "Condition",
+              "yLabel": "Acres",
+              "type": "stacked"
+            },
+            {
+              "title": "SEZ acres restored by project year",
+              "sub": "Acres of stream environment zone restored by completed projects, by year.",
+              "layer": 77,
+              "x": "YearCompleted",
+              "y": "AcresRestored",
+              "stat": "sum",
+              "yName": "Acres restored",
+              "yLabel": "Acres",
+              "type": "bar"
+            }
+          ],
+          "mapLayer": {
+            "service": "https://maps.trpa.org/server/rest/services/SEZ_Viewer_Base_Data/MapServer",
+            "layer": 7,
+            "title": "Riparian areas",
+            "unit": "riparian area",
+            "unitPlural": "Riparian areas",
+            "name": "Class_name",
+            "countAsSites": false,
+            "meta": [
+              {
+                "field": "Acres",
+                "suffix": " acres"
+              }
+            ],
+            "fields": [
+              {
+                "field": "Acres",
+                "label": "Acres"
+              }
+            ]
+          },
+          "overlays": [
+            {
+              "service": "https://maps.trpa.org/server/rest/services/DataDownloader_SoilsandHydro/MapServer",
+              "layer": 42,
+              "title": "Aspen stands (USFS)",
+              "name": "Acres",
+              "geometry": "fill",
+              "color": "var(--mon-stevens4-4)",
+              "fields": [
+                {
+                  "field": "Acres",
+                  "label": "Acres"
+                }
+              ]
+            },
+            {
+              "service": "https://maps.trpa.org/server/rest/services/DataDownloader_SoilsandHydro/MapServer",
+              "layer": 40,
+              "title": "Meadows (UC Davis and USFS)",
+              "name": "ID",
+              "geometry": "fill",
+              "color": "var(--mon-stevens4-2)",
+              "fields": [
+                {
+                  "field": "AREA_ACRE",
+                  "label": "Acres"
+                }
+              ]
+            },
+            {
+              "service": "https://maps.trpa.org/server/rest/services/DataDownloader_SoilsandHydro/MapServer",
+              "layer": 41,
+              "title": "Fens (USFS)",
+              "name": "LOCATION_N",
+              "geometry": "fill",
+              "color": "var(--mon-stevens4-1)",
+              "fields": [
+                {
+                  "field": "PERC_FEN",
+                  "label": "Percent fen"
+                },
+                {
+                  "field": "DESCRIPTIO",
+                  "label": "Description"
+                }
+              ]
+            }
+          ]
         },
         {
           "id": 9683,
           "indicator": 83,
-          "name": "Native Vegetation and Land Capability"
+          "name": "Native Vegetation and Land Capability",
+          "template": "charts",
+          "measures": [
+            {
+              "title": "Land capability district acres",
+              "sub": "Acres in each land capability district (NRCS 2007 mapping).",
+              "service": "https://maps.trpa.org/server/rest/services/Soils_and_Land_Capability/MapServer",
+              "layer": 6,
+              "where": "Land_Capab <> ' '",
+              "x": "Land_Capab",
+              "xType": "category",
+              "xLabel": "Land capability district",
+              "y": "GISAcre",
+              "stat": "sum",
+              "yName": "Acres",
+              "yLabel": "Acres",
+              "type": "bar"
+            },
+            {
+              "title": "Impervious cover by land capability district, 2019",
+              "sub": "Acres of impervious surface in each district, by surface type.",
+              "layer": 81,
+              "where": "Feature IS NOT NULL AND Land_Capab IS NOT NULL",
+              "x": "Land_Capab",
+              "xType": "category",
+              "xLabel": "Land capability district",
+              "y": "GISAcre",
+              "stat": "sum",
+              "seriesBy": "Feature",
+              "seriesLabel": "Surface",
+              "yLabel": "Acres",
+              "type": "stacked"
+            },
+            {
+              "title": "Coverage allowed under Bailey (1974) coefficients",
+              "sub": "District acres times the Bailey coverage coefficient for each district.",
+              "layer": 81,
+              "where": "Land_Capab IS NOT NULL",
+              "x": "Land_Capab",
+              "xType": "category",
+              "xLabel": "Land capability district",
+              "y": "GISAcre * Bailey_Co",
+              "stat": "sum",
+              "yName": "Allowed acres",
+              "yLabel": "Acres",
+              "type": "bar"
+            }
+          ]
         },
         {
           "id": 63
         },
         {
           "id": 32,
-          "name": "Stream Habitat Condition"
+          "name": "Stream Habitat Condition",
+          "template": "map",
+          "measures": [
+            {
+              "title": "Stream miles by rating",
+              "sub": "Miles of stream in each habitat condition rating, by rating year.",
+              "layer": 32,
+              "x": "Final_Rating",
+              "xType": "category",
+              "xLabel": "Rating",
+              "y": "Stream_Miles",
+              "stat": "sum",
+              "yLabel": "Stream miles",
+              "type": "bar",
+              "seriesBy": "Rating_Year",
+              "seriesLabel": "Rating year"
+            },
+            {
+              "title": "Streams by condition class",
+              "sub": "Share of sampled streams in each CSCI condition class, by sampling period.",
+              "layer": 83,
+              "x": "Year",
+              "xType": "category",
+              "xLabel": "Period",
+              "y": "Value",
+              "yLabel": "Share of streams",
+              "format": ".0%",
+              "type": "stacked",
+              "seriesBy": "Condition_Class",
+              "seriesLabel": "Condition class"
+            }
+          ],
+          "mapLayer": {
+            "layer": 32,
+            "title": "Stream habitat condition",
+            "unit": "stream reach",
+            "unitPlural": "Stream reaches",
+            "name": "Assessment",
+            "colorBy": "Final_Rating",
+            "colorByLabel": "Rating",
+            "colors": {
+              "A": "var(--mon-chlorophyll-6)",
+              "B": "var(--mon-chlorophyll-5)",
+              "C": "var(--mon-chlorophyll-3)",
+              "D": "var(--mon-chlorophyll-2)",
+              "Not Assessed": "var(--color-content-disabled)"
+            },
+            "pick": "Rating_Year",
+            "pickLabel": "Rating year",
+            "meta": [
+              {
+                "field": "Stream_Miles",
+                "suffix": " miles"
+              }
+            ],
+            "fields": [
+              {
+                "field": "Final_Rating",
+                "label": "Rating"
+              },
+              {
+                "field": "Stream_Condition",
+                "label": "Condition"
+              },
+              {
+                "field": "Stream_Miles",
+                "label": "Miles"
+              },
+              {
+                "field": "Ownership",
+                "label": "Owner"
+              }
+            ]
+          }
         },
         {
-          "id": 27
+          "id": 27,
+          "template": "charts",
+          "measures": [
+            {
+              "title": "Lake Tahoe fish habitat by type",
+              "sub": "Acres of nearshore fish habitat by type, from 2015 mapping. Feed and cover plus spawning habitat count as excellent habitat; the standard is 5,948 acres.",
+              "layer": 104,
+              "x": "Habitat2015",
+              "xType": "category",
+              "xLabel": "Habitat type",
+              "xNames": {
+                "1": "Marginal",
+                "2": "Feed and cover",
+                "3": "Spawning"
+              },
+              "y": "Acres",
+              "stat": "sum",
+              "yName": "Acres",
+              "yLabel": "Acres",
+              "type": "bar"
+            },
+            {
+              "title": "Lakebed substrate",
+              "sub": "Acres of each lakebed substrate type in the nearshore, from 2015 mapping.",
+              "layer": 104,
+              "x": "Substrate2015",
+              "xType": "category",
+              "xLabel": "Substrate",
+              "xNames": {
+                "1": "Sand",
+                "2": "Cobble",
+                "3": "Boulder",
+                "4": "Sand, cobble, and boulder",
+                "5": "Gravel to large boulder",
+                "6": "Cobble, boulder, and bedrock",
+                "7": "Periphyton",
+                "11": "Gravel",
+                "13": "Gravel to small boulder"
+              },
+              "y": "Acres",
+              "stat": "sum",
+              "yLabel": "Acres",
+              "type": "bar",
+              "orientation": "h",
+              "sort": "desc"
+            }
+          ]
         },
         {
           "id": 74,
@@ -251,44 +3210,283 @@
         {
           "id": 9622,
           "indicator": 22,
-          "name": "Stream Intakes Diverted to Lake Sources"
+          "name": "Stream Intakes Diverted to Lake Sources",
+          "template": "map",
+          "sitesLayer": {
+            "service": "https://maps.trpa.org/server/rest/services/Shoreline_Resources/MapServer",
+            "layer": 4,
+            "name": "SITE_NAME",
+            "code": "SID",
+            "status": "STATUS",
+            "unit": "intake"
+          }
         },
         {
-          "id": 2
+          "id": 2,
+          "mapLayer": {
+            "service": "https://maps.trpa.org/server/rest/services/Wildlife_Activity/MapServer",
+            "layer": 3,
+            "title": "Osprey nest buffers",
+            "unit": "nest",
+            "unitPlural": "Nests",
+            "name": "NEST_ID",
+            "countAsSites": false,
+            "colorBy": "NEST_STATUS",
+            "colorByLabel": "Nest status",
+            "colors": {
+              "Active, Successful": "var(--mon-stevens4-2)",
+              "Active, Not Successful": "var(--mon-stevens4-3)",
+              "Not Active, Not Successful": "var(--mon-stevens4-1)",
+              "Nest Gone": "var(--mon-stevens4-4)"
+            },
+            "pick": "Year",
+            "pickLabel": "Survey year",
+            "fields": [
+              {
+                "field": "NEST_STATUS",
+                "label": "Status"
+              },
+              {
+                "field": "Year",
+                "label": "Year"
+              }
+            ]
+          },
+          "template": "charts"
         },
         {
           "id": 4,
-          "name": "Nesting Bald Eagle"
+          "name": "Nesting Bald Eagle",
+          "mapLayer": {
+            "service": "https://maps.trpa.org/server/rest/services/Wildlife_Activity/MapServer",
+            "layer": 0,
+            "title": "Bald eagle nest buffers",
+            "unit": "nest",
+            "unitPlural": "Nests",
+            "name": "Nest_Name",
+            "countAsSites": false,
+            "meta": [
+              {
+                "field": "Years_Active"
+              }
+            ],
+            "fields": [
+              {
+                "field": "Years_Active",
+                "label": "Years active"
+              },
+              {
+                "field": "Years_Reproductive",
+                "label": "Years reproductive"
+              }
+            ]
+          },
+          "template": "charts"
         },
         {
           "id": 3,
-          "name": "Wintering Bald Eagle"
+          "name": "Wintering Bald Eagle",
+          "template": "charts",
+          "measures": [
+            {
+              "title": "Wintering bald eagles",
+              "sub": "Bald eagles counted in the annual winter survey, with the threshold of 2.",
+              "layer": 96,
+              "where": "Wildlife_Species = 'Bald Eagle - winter'",
+              "x": "Year",
+              "y": "Total",
+              "yName": "Individuals",
+              "yLabel": "Individuals",
+              "type": "bar",
+              "span": "span-12",
+              "standard": {
+                "value": 2
+              }
+            }
+          ],
+          "mapLayer": {
+            "service": "https://maps.trpa.org/server/rest/services/Wildlife_Habitat/MapServer",
+            "layer": 1,
+            "title": "Bald eagle winter habitat",
+            "unit": "habitat area",
+            "unitPlural": "Habitat areas",
+            "name": "WINTER_HABITAT",
+            "countAsSites": false,
+            "fields": [
+              {
+                "field": "WINTER_HABITAT",
+                "label": "Area"
+              }
+            ]
+          }
         },
         {
           "id": 5,
-          "name": "Golden Eagle"
+          "name": "Golden Eagle",
+          "template": "map",
+          "mapLayer": {
+            "service": "https://maps.trpa.org/server/rest/services/Wildlife_Activity/MapServer",
+            "layer": 1,
+            "title": "Golden eagle nest buffers",
+            "unit": "nest buffer",
+            "unitPlural": "Nest buffers",
+            "name": "Species",
+            "list": false,
+            "countAsSites": false,
+            "fields": [
+              {
+                "field": "Buffer_Distance",
+                "label": "Buffer (m)"
+              }
+            ]
+          }
         },
         {
-          "id": 6
+          "id": 6,
+          "mapLayer": {
+            "service": "https://maps.trpa.org/server/rest/services/Wildlife_Activity/MapServer",
+            "layer": 2,
+            "title": "Peregrine falcon nest buffers",
+            "unit": "nest",
+            "unitPlural": "Nests",
+            "name": "SITE_NAME",
+            "countAsSites": false,
+            "meta": [
+              {
+                "field": "Years_Used"
+              }
+            ],
+            "fields": [
+              {
+                "field": "Years_Used",
+                "label": "Years used"
+              }
+            ]
+          },
+          "template": "charts"
         },
         {
-          "id": 29
+          "id": 29,
+          "mapLayer": {
+            "service": "https://maps.trpa.org/server/rest/services/Wildlife_Habitat/MapServer",
+            "layer": 0,
+            "title": "Goshawk threshold zones",
+            "unit": "territory",
+            "unitPlural": "Territories",
+            "name": "Territory",
+            "countAsSites": false,
+            "meta": [
+              {
+                "field": "Acres",
+                "suffix": " acres"
+              }
+            ],
+            "fields": [
+              {
+                "field": "Acres",
+                "label": "Acres"
+              }
+            ]
+          }
         },
         {
-          "id": 7
-        },
-        {
-          "id": 79
+          "id": 7,
+          "mapLayer": {
+            "service": "https://maps.trpa.org/server/rest/services/Wildlife_Habitat/MapServer",
+            "layer": 2,
+            "title": "Waterfowl habitat",
+            "unit": "site",
+            "unitPlural": "Sites",
+            "name": "NAME",
+            "countAsSites": false,
+            "fields": [
+              {
+                "field": "NAME",
+                "label": "Site"
+              }
+            ]
+          }
         },
         {
           "id": 9765,
           "indicator": 165,
-          "name": "Deer Disturbance-Free Zone"
+          "name": "Deer Disturbance-Free Zone",
+          "template": "map",
+          "measures": [
+            {
+              "title": "Fawning habitat by vegetation type",
+              "sub": "Acres of mapped deer fawning habitat (1996), the disturbance-free zone, by vegetation type.",
+              "layer": 45,
+              "x": "WHRTYPE",
+              "xType": "category",
+              "xLabel": "Vegetation type",
+              "xNames": {
+                "KMC": "Klamath mixed conifer",
+                "JPN": "Jeffrey pine",
+                "WFR": "White fir",
+                "LPN": "Lodgepole pine",
+                "RFR": "Red fir",
+                "SCN": "Subalpine conifer"
+              },
+              "y": "ACRES",
+              "stat": "sum",
+              "yName": "Acres",
+              "yLabel": "Acres",
+              "type": "bar",
+              "orientation": "h",
+              "sort": "desc"
+            }
+          ],
+          "mapLayer": {
+            "layer": 45,
+            "title": "Deer fawning habitat",
+            "unit": "habitat area",
+            "unitPlural": "Habitat areas",
+            "name": "WHRTYPE",
+            "list": false,
+            "countAsSites": false,
+            "fields": [
+              {
+                "field": "WHRTYPE",
+                "label": "Habitat type"
+              },
+              {
+                "field": "ACRES",
+                "label": "Acres"
+              },
+              {
+                "field": "SUITBILTY",
+                "label": "Suitability"
+              }
+            ]
+          }
         },
         {
           "id": 9756,
           "indicator": 156,
-          "name": "Riparian Habitat"
+          "name": "Riparian Habitat",
+          "template": "context",
+          "mapLayer": {
+            "service": "https://maps.trpa.org/server/rest/services/SEZ_Viewer_Base_Data/MapServer",
+            "layer": 7,
+            "title": "Riparian areas",
+            "unit": "riparian area",
+            "unitPlural": "Riparian areas",
+            "name": "Class_name",
+            "countAsSites": false,
+            "meta": [
+              {
+                "field": "Acres",
+                "suffix": " acres"
+              }
+            ],
+            "fields": [
+              {
+                "field": "Acres",
+                "label": "Acres"
+              }
+            ]
+          }
         }
       ]
     }

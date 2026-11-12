@@ -88,35 +88,39 @@ def indicator_page(entry):
         "description": paragraphs([d for d in desc if d]), "approach": text(rec.get("TRPAIndicator")),
         "partners": entry.get("partners", ["Tahoe Regional Planning Agency"]),
         "images": [(guid, text(rec.get("OverviewImageCaption")), None)] if re.fullmatch(r"[0-9a-f-]{36}", guid) else [],
+        **{k: entry[k] for k in CONFIG_KEYS if k in entry},
     }
 
 
 def merged_categories(data):
-    """The categories of programs.json with extra-categories.json applied: removed categories dropped
-    and the new ones appended, each new program entry resolved to the shape programs.json uses."""
+    """The categories of programs.json with extra-categories.json applied: removed categories dropped,
+    programs added to kept ones, and the new ones appended, each program entry resolved to the shape
+    programs.json uses."""
     if not os.path.exists(EXTRA_CATEGORIES):
         return data["categories"], {}
     extra = json.load(io.open(EXTRA_CATEGORIES, encoding="utf-8"))
     removed = set(extra.get("remove", []))
     pool = {p["id"]: p for c in data["categories"] if c["folder"] in removed for p in c["programs"]}
     placed = set()
-    categories = [c for c in data["categories"] if c["folder"] not in removed]
+
+    def resolve(e):
+        placed.add(e["id"])
+        if e.get("indicator"):
+            return indicator_page(e)
+        if e.get("ltinfo") is False:
+            return dict(e, description=paragraphs(e.get("description")), approach=paragraphs(e.get("approach")))
+        if e["id"] in pool:
+            return dict(pool[e["id"]], **{k: v for k, v in e.items() if k != "id"})
+        return {"template": "context", "featured": False, "describeFromIndicators": True, **e}
+
+    additions = extra.get("add", {})
+    categories = [dict(c, programs=c["programs"] + [resolve(e) for e in additions.get(c["folder"], [])])
+                  for c in data["categories"] if c["folder"] not in removed]
     for c in extra.get("categories", []):
-        programs = []
-        for e in c.get("programs", []):
-            if e.get("indicator"):
-                p = indicator_page(e)
-            elif e.get("ltinfo") is False:
-                p = dict(e, description=paragraphs(e.get("description")), approach=paragraphs(e.get("approach")))
-            elif e["id"] in pool:
-                p = dict(pool[e["id"]], **{k: v for k, v in e.items() if k != "id"})
-            else:
-                p = {"template": "context", "featured": False, "describeFromIndicators": True, **e}
-            placed.add(e["id"])
-            programs.append(p)
         categories.append({"thresholdCategoryId": c["id"], "name": c["name"], "folder": c["folder"],
                            "themeColor": c.get("themeColor") or "#7c7c7c", "blurb": c.get("blurb"),
-                           "goal": c.get("goal"), "icon": c.get("icon"), "programs": programs})
+                           "goal": c.get("goal"), "icon": c.get("icon"),
+                           "programs": [resolve(e) for e in c.get("programs", [])]})
     dropped = sorted(set(pool) - placed)
     if dropped:
         print("  programs of removed categories that extra-categories.json does not place:", dropped)

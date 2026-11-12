@@ -2,6 +2,9 @@
 // loaded before this file; see the "styles" list in angular.json. Everything
 // here reads those tokens, so there is no literal color, size, or font.
 
+// The data palettes (Phosphor) and the dataviz roles re-pointed to them.
+@use 'styles/palettes';
+
 *,
 *::before,
 *::after {

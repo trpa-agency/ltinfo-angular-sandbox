@@ -1,5 +1,5 @@
 /*
- * csv.ts: RFC 4180 CSV from rows and columns. Pure, no DOM. The download step
+ * csv.ts: RFC 4180 CSV from rows and columns, and rows from CSV text. Pure, no DOM. The download step
  * (Blob plus an anchor click) lives in the component that owns the button.
  */
 
@@ -41,4 +41,53 @@ export function slugify(s: string): string {
 /** File name from the parts that identify the data: program, title, and picked value. */
 export function csvFileName(parts: (string | number | null | undefined)[]): string {
   return `${slugify(parts.filter((p) => p != null && p !== '').join(' '))}.csv`;
+}
+
+/**
+ * Rows from CSV text with a header row: one object per line keyed by header. Quoted fields may
+ * hold commas, doubled quotes, and line breaks. A field that is a plain number becomes a number;
+ * an empty field becomes null. Blank lines are skipped.
+ */
+export function parseCsv(text: string): Record<string, string | number | null>[] {
+  const records: string[][] = [];
+  let record: string[] = [];
+  let field = '';
+  let quoted = false;
+  const src = text.replace(/^\uFEFF/, '');
+  for (let i = 0; i < src.length; i++) {
+    const c = src[i];
+    if (quoted) {
+      if (c === '"' && src[i + 1] === '"') {
+        field += '"';
+        i++;
+      } else if (c === '"') quoted = false;
+      else field += c;
+    } else if (c === '"') quoted = true;
+    else if (c === ',') {
+      record.push(field);
+      field = '';
+    } else if (c === '\n' || c === '\r') {
+      if (c === '\r' && src[i + 1] === '\n') i++;
+      record.push(field);
+      records.push(record);
+      record = [];
+      field = '';
+    } else field += c;
+  }
+  if (field !== '' || record.length) {
+    record.push(field);
+    records.push(record);
+  }
+  const [header, ...lines] = records.filter((r) => r.some((v) => v.trim() !== ''));
+  if (!header) return [];
+  const names = header.map((h) => h.trim());
+  return lines.map((line) =>
+    Object.fromEntries(
+      names.map((name, j) => {
+        const raw = (line[j] ?? '').trim();
+        if (raw === '') return [name, null];
+        return [name, /^-?\d+(\.\d+)?([eE][-+]?\d+)?$/.test(raw) ? Number(raw) : raw];
+      }),
+    ),
+  );
 }

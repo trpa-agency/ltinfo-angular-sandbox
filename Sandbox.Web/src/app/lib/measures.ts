@@ -10,6 +10,7 @@
 
 import type { Attributes, ServiceOptions } from './map-service';
 import { normalizeDate, queryFeatures, queryStatistics, unpivot } from './map-service';
+import { parseCsv } from './csv';
 import type { AxisKind, ChartSpec, ChartType } from './chart/types';
 import { MONTHS, formatValue } from './chart/format';
 import { plural, yearOf } from './sites';
@@ -36,7 +37,23 @@ export type MeasureSpan = 'span-12' | 'span-6';
 export interface Measure {
   title: string;
   sub?: string;
-  layer: number | string;
+  /** Layer or table ID in the service. Omitted when csv is set. */
+  layer?: number | string;
+  /** The map service the layer is in; the LTInfo_Monitoring service when omitted. */
+  service?: string;
+  /**
+   * A CSV file to read instead of a map service layer, for numbers no service publishes yet.
+   * Its rows are charted as they are: where and stat do not apply.
+   */
+  csv?: string;
+  /**
+   * A JSON file to read instead of a map service layer: an array of rows, or an object whose
+   * rows key holds them. Charted as they are, like csv.
+   */
+  json?: string;
+  /** Where a csv or json file's numbers were published, for the source line under the chart. */
+  sourceHref?: string;
+  sourceLabel?: string;
   where?: string;
   x: string;
   xLabel?: string;
@@ -53,6 +70,15 @@ export interface Measure {
   seriesBy?: string;
   seriesLabel?: string;
   seriesNames?: Record<string, string>;
+  /** The order of category x values (stages, classes); values not listed follow, sorted. */
+  xOrder?: string[];
+  /** The order of the seriesBy values (stages, classes); values not listed follow, sorted. */
+  seriesOrder?: string[];
+  /**
+   * A fixed color per series, keyed by seriesBy value or y field, as a CSS color or a palette
+   * token such as var(--mon-greens-3). Series without one take the theme's order.
+   */
+  seriesColors?: Record<string, string>;
   seriesPrefix?: string;
   pick?: string;
   pickLabel?: string;
@@ -71,6 +97,8 @@ export interface Measure {
 
 export interface MeasureSeries {
   name: string;
+  /** The seriesBy value, or the y field, the series stands for. */
+  key: string;
   field: string;
   rows: Attributes[];
 }
@@ -106,20 +134,32 @@ export function measureYs(m: Measure): MeasureY[] {
 /** Rows for a measure from the map service, long and normalized. */
 export async function queryMeasure(m: Measure, opts: ServiceOptions = {}): Promise<Attributes[]> {
   const groups = [m.x, m.seriesBy, m.pick].filter((f): f is string => !!f);
+  const layer = m.layer ?? '';
   let rows: Attributes[];
-  if (m.stat) {
+  if (m.csv) {
+    const response = await fetch(m.csv);
+    if (!response.ok) throw new Error(`${m.csv} returned ${response.status}`);
+    rows = parseCsv(await response.text());
+  } else if (m.json) {
+    const response = await fetch(m.json);
+    if (!response.ok) throw new Error(`${m.json} returned ${response.status}`);
+    const body = (await response.json()) as Attributes[] | { rows?: Attributes[] };
+    rows = Array.isArray(body) ? body : (body.rows ?? []);
+  } else if (m.layer == null) {
+    throw new Error(`${m.title} has neither a layer nor a csv`);
+  } else if (m.stat) {
     rows = await queryStatistics(
-      m.layer,
+      layer,
       { where: m.where, groupBy: groups, statisticType: m.stat, onField: typeof m.y === 'string' ? m.y : m.y[0].field, outName: 'value' },
       opts,
     );
   } else if (m.unpivot) {
-    rows = await queryFeatures(m.layer, { where: m.where }, opts);
+    rows = await queryFeatures(layer, { where: m.where }, opts);
     rows = unpivot(rows, m.unpivot.prefix, m.x, typeof m.y === 'string' ? m.y : m.y[0].field);
   } else {
     const fields = [...groups, ...measureYs(m).map((y) => y.field)];
     if (m.standard && m.standard.field) fields.push(m.standard.field);
-    rows = await queryFeatures(m.layer, { where: m.where, outFields: [...new Set(fields)], orderByFields: m.x }, opts);
+    rows = await queryFeatures(layer, { where: m.where, outFields: [...new Set(fields)], orderByFields: m.x }, opts);
   }
   return rows.map((r) => {
     const row: Attributes = { ...r };
@@ -142,7 +182,9 @@ export function measureView(m: Measure, rows: Attributes[]): Attributes[] {
   } else if (!m.xType || m.xType === 'month') {
     out = [...out].sort((a, b) => Number(a[m.x]) - Number(b[m.x]));
   } else {
-    out = [...out].sort((a, b) => String(a[m.x]).localeCompare(String(b[m.x])));
+    const order = m.xOrder ?? [];
+    const rank = (v: unknown): number => (order.includes(String(v)) ? order.indexOf(String(v)) : order.length);
+    out = [...out].sort((a, b) => rank(a[m.x]) - rank(b[m.x]) || String(a[m.x]).localeCompare(String(b[m.x])));
   }
   return m.limit ? out.slice(0, m.limit) : out;
 }
@@ -152,14 +194,17 @@ export function measureSeries(m: Measure, rows: Attributes[]): MeasureSeries[] {
   const ys = measureYs(m);
   if (m.seriesBy) {
     const by = m.seriesBy;
-    const values = [...new Set(rows.map((r) => String(r[by])))].sort();
+    const order = m.seriesOrder ?? [];
+    const rank = (v: string): number => (order.includes(v) ? order.indexOf(v) : order.length);
+    const values = [...new Set(rows.map((r) => String(r[by])))].sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
     return values.map((v) => ({
       name: (m.seriesNames && m.seriesNames[v]) || `${m.seriesPrefix || ''}${v}`,
+      key: v,
       field: ys[0].field,
       rows: rows.filter((r) => String(r[by]) === v),
     }));
   }
-  return ys.map((y) => ({ name: y.name || m.yLabel || 'Value', field: y.field, rows }));
+  return ys.map((y) => ({ name: y.name || m.yLabel || 'Value', key: y.field, field: y.field, rows }));
 }
 
 /** Table columns behind the chart: x, series, pick, each y, and the threshold field. */
@@ -265,6 +310,7 @@ export function measureChartSpec(m: Measure, rows: Attributes[]): ChartSpec {
     threshold: std == null ? null : { value: std, label: `${(m.standard && m.standard.label) || 'Threshold'}: ${fmtValue(std, m.format)}` },
     series: series.map((s) => ({
       name: s.name,
+      ...(m.seriesColors?.[s.key] ? { color: m.seriesColors[s.key] } : {}),
       points: s.rows.map((r) => ({
         x: xKind === 'linear' ? Number(r[m.x]) : String(r[m.x]),
         y: toNumber(r[s.field]),
@@ -297,6 +343,8 @@ export function panelSpans(measures: Measure[]): MeasureSpan[] {
  */
 export interface SitesPerYearConfig {
   layer: number | string;
+  /** The map service the layer is in; the LTInfo_Monitoring service when omitted. */
+  service?: string;
   year: string;
   site: string;
   where?: string;
@@ -322,6 +370,7 @@ export function sitesPerYearMeasure(cfg: SitesPerYearConfig): Measure {
     title: `${capitalize(units)} monitored each year`,
     sub: `Number of ${units} with a record in each year.`,
     layer: cfg.layer,
+    service: cfg.service,
     x: SITES_PER_YEAR_X,
     xLabel: 'Year',
     y: SITES_PER_YEAR_Y,
@@ -369,6 +418,8 @@ export type PanelSource = { kind: 'sites-per-year'; config: SitesPerYearConfig }
 
 /** The rows for a panel: its source when it has one, else the measure query. */
 export function queryPanelRows(measure: Measure, source: PanelSource | null, opts: ServiceOptions = {}): Promise<Attributes[]> {
-  if (source?.kind === 'sites-per-year') return querySitesPerYear(source.config, opts);
-  return queryMeasure(measure, opts);
+  const service = source?.kind === 'sites-per-year' ? source.config.service : measure.service;
+  const options = service ? { ...opts, service } : opts;
+  if (source?.kind === 'sites-per-year') return querySitesPerYear(source.config, options);
+  return queryMeasure(measure, options);
 }

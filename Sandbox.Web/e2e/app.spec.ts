@@ -195,7 +195,7 @@ test.describe('All Programs list', () => {
     await expect(heroTotal(page, 'monitoring programs')).toHaveText(String(seed.programs));
   });
 
-  test('lists all 74 programs', async ({ page }) => {
+  test('lists all 85 programs', async ({ page }) => {
     await expect(rows(page)).toHaveCount(seed.programs);
     await expect(resultCount(page)).toHaveText(`Showing ${seed.programs} of ${seed.programs}`);
     await expect(page.locator('table.programs-table thead th')).toHaveText([
@@ -250,7 +250,7 @@ test.describe('All Programs list', () => {
     }[];
     const ozone = programs.find((item) => item.MonitoringProgramID === seed.ozone.id)!;
 
-    // Every row has the thumbnail box; 37 of them hold a photo.
+    // Every row has the thumbnail box; 39 of them hold a photo.
     await expect(rows(page).locator('.thumb')).toHaveCount(seed.programs);
     await expect(rows(page).locator('img.thumb__img')).toHaveCount(seed.programsWithPhotos);
 
@@ -266,7 +266,7 @@ test.describe('All Programs list', () => {
 
     // A program without one: the box is there, with no image in it, in the neutral well
     // color and with no colored edge.
-    const empty = rowOf(page, seed.subalpineConifer.name);
+    const empty = rowOf(page, seed.standComposition.name);
     await expect(empty.locator('.thumb')).toHaveCount(1);
     await expect(empty.locator('img')).toHaveCount(0);
     await expect(empty.locator('.thumb')).toHaveCSS(
@@ -304,7 +304,7 @@ test.describe('All Programs list', () => {
     await expect(categorySelect(page)).toContainText(seed.ozone.category);
   });
 
-  test('layout filter shows the 43 Content programs, then the 13 Map programs', async ({ page }) => {
+  test('layout filter shows the 10 Content programs, then the 33 Map programs', async ({ page }) => {
     await layoutSelect(page).click();
     // Each option carries its count.
     await expect(page.getByRole('option', { name: `Map (${seed.templates.map})` })).toBeVisible();
@@ -320,7 +320,7 @@ test.describe('All Programs list', () => {
     await expect(resultCount(page)).toHaveText(
       `Showing ${seed.templates.context} of ${seed.programs}`,
     );
-    await expect(rowOf(page, seed.subalpineConifer.name)).toHaveCount(1);
+    await expect(rowOf(page, seed.standComposition.name)).toHaveCount(1);
     await expect(rowOf(page, seed.ozone.name)).toHaveCount(0);
 
     await layoutSelect(page).click();
@@ -670,10 +670,10 @@ test.describe('The three templates', () => {
     ).toBeVisible();
   });
 
-  test('program 83 has no photo: the header text takes the full width, and nothing is broken', async ({
+  test('program 9681 has no photo: the header text takes the full width, and nothing is broken', async ({
     page,
   }) => {
-    const { id, name } = seed.subalpineConifer;
+    const { id, name } = seed.standComposition;
     await openProgram(page, id, name);
 
     await expect(program(page)).toHaveAttribute('data-template', 'context');
@@ -690,18 +690,20 @@ test.describe('The three templates', () => {
     await expect(page.locator('app-photo-gallery')).toHaveCount(0);
     await expect(page.getByRole('heading', { name: 'Photos' })).toHaveCount(0);
 
-    // The rest of the content layout is there.
-    await expect(header(page).locator('.lead')).toContainText('subalpine conifer');
-    await expect(sections(page).first().locator('.prose')).toContainText('Ground-based plot data');
-    await expectPanelsSettled(page, 0, 0);
+    // The rest of the content layout is there. A first paragraph this long stays in the story
+    // rather than leading in the header.
+    await expect(header(page).locator('.lead')).toHaveCount(0);
+    await expect(sections(page).first().locator('.prose')).toContainText('stand composition and age management standard');
+    await expect(sections(page).first().locator('.prose')).toContainText('proper juxtaposition of vegetation communities');
+    await expectPanelsSettled(page, seed.standComposition.chartPanels, 0);
   });
 
   test('a map or charts layout with nothing configured shows the house empty states', async ({
     page,
   }) => {
-    // Subalpine Conifer has no chart or map settings. Previewed in the charts
+    // Instream Flow has no chart or map settings. Previewed in the charts
     // layout, each data section says what is absent and what it will show.
-    const { id, name } = seed.subalpineConifer;
+    const { id, name } = seed.instreamFlow;
     await openProgram(page, id, name, '?template=charts');
 
     await expect(program(page)).toHaveAttribute('data-template', 'charts');
@@ -709,7 +711,6 @@ test.describe('The three templates', () => {
       ['No measurements loaded yet', 'This section will show measurement charts'],
       ['No sites loaded yet', 'This section will show a map of the monitoring sites'],
       ['No site records loaded yet', 'This section will show how many sites were monitored'],
-      ['No partners loaded yet', 'This section will show the partner organizations'],
     ]) {
       await expect(page.getByRole('heading', { name: title })).toBeVisible();
       await expect(page.getByText(description)).toBeVisible();
@@ -1026,7 +1027,7 @@ test.describe('At 375 px wide', () => {
     { ...seed.yellowCress, charts: seed.yellowCress.chartPanels, maps: seed.yellowCress.sitesPanels },
     { ...seed.ozone, charts: seed.ozone.chartPanels, maps: seed.ozone.sitesPanels },
     { ...seed.socioEconomic, charts: 0, maps: 0 },
-    { ...seed.subalpineConifer, charts: 0, maps: 0 },
+    { ...seed.standComposition, charts: seed.standComposition.chartPanels, maps: 0 },
   ]) {
     test(`the ${TEMPLATE_LABELS[target.template]} layout of program ${target.id} does not scroll sideways`, async ({
       page,

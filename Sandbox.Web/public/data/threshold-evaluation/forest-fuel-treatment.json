@@ -1,0 +1,151 @@
+{
+ "title": "Forest fuel treatment acres by zone",
+ "source": "https://trpa-agency.github.io/ThresholdEvaluation/2023/Vegetation/Chart/Final/ForestFuelTreatment.html",
+ "rows": [
+  {
+   "Year": 2015,
+   "Zone": "Defense Zone",
+   "Acres": 1893.9
+  },
+  {
+   "Year": 2015,
+   "Zone": "Urban Core",
+   "Acres": 11.4
+  },
+  {
+   "Year": 2016,
+   "Zone": "Defense Zone",
+   "Acres": 2874.2
+  },
+  {
+   "Year": 2016,
+   "Zone": "Urban Core",
+   "Acres": 5.0
+  },
+  {
+   "Year": 2017,
+   "Zone": "Defense Zone",
+   "Acres": 1552.3
+  },
+  {
+   "Year": 2017,
+   "Zone": "Threat Zone",
+   "Acres": 37.0
+  },
+  {
+   "Year": 2017,
+   "Zone": "Urban Core",
+   "Acres": 3.9
+  },
+  {
+   "Year": 2018,
+   "Zone": "Defense Zone",
+   "Acres": 1484.3
+  },
+  {
+   "Year": 2018,
+   "Zone": "General Forest",
+   "Acres": 120.0
+  },
+  {
+   "Year": 2018,
+   "Zone": "Threat Zone",
+   "Acres": 150.0
+  },
+  {
+   "Year": 2018,
+   "Zone": "Urban Core",
+   "Acres": 23.1
+  },
+  {
+   "Year": 2019,
+   "Zone": "Defense Zone",
+   "Acres": 3117.6
+  },
+  {
+   "Year": 2019,
+   "Zone": "General Forest",
+   "Acres": 120.0
+  },
+  {
+   "Year": 2019,
+   "Zone": "Threat Zone",
+   "Acres": 596.0
+  },
+  {
+   "Year": 2019,
+   "Zone": "Urban Core",
+   "Acres": 11.0
+  },
+  {
+   "Year": 2020,
+   "Zone": "Defense Zone",
+   "Acres": 2432.6
+  },
+  {
+   "Year": 2020,
+   "Zone": "General Forest",
+   "Acres": 0.0
+  },
+  {
+   "Year": 2020,
+   "Zone": "Threat Zone",
+   "Acres": 1.0
+  },
+  {
+   "Year": 2020,
+   "Zone": "Urban Core",
+   "Acres": 31.5
+  },
+  {
+   "Year": 2021,
+   "Zone": "Defense Zone",
+   "Acres": 990.0
+  },
+  {
+   "Year": 2021,
+   "Zone": "Threat Zone",
+   "Acres": 43.2
+  },
+  {
+   "Year": 2021,
+   "Zone": "Urban Core",
+   "Acres": 43.0
+  },
+  {
+   "Year": 2022,
+   "Zone": "Defense Zone",
+   "Acres": 1564.5
+  },
+  {
+   "Year": 2022,
+   "Zone": "Threat Zone",
+   "Acres": 340.0
+  },
+  {
+   "Year": 2022,
+   "Zone": "Urban Core",
+   "Acres": 21.0
+  },
+  {
+   "Year": 2023,
+   "Zone": "Defense Zone",
+   "Acres": 907.9
+  },
+  {
+   "Year": 2023,
+   "Zone": "General Forest",
+   "Acres": 8.0
+  },
+  {
+   "Year": 2023,
+   "Zone": "Threat Zone",
+   "Acres": 158.2
+  },
+  {
+   "Year": 2023,
+   "Zone": "Urban Core",
+   "Acres": 15.0
+  }
+ ]
+}

@@ -435,7 +435,7 @@ export class SitesPanel {
   private async loadOverlays(cfg: SitesPanelConfig, http: FetchLike): Promise<OverlaySpec[]> {
     const configs = cfg.overlays ?? [];
     const results = await Promise.allSettled(
-      configs.map((o) => fetchGeoJson(http, o.layer, overlayQueryParams(o)).then((f) => overlaySpec(o, f, cfg.program))),
+      configs.map((o) => fetchGeoJson(http, o.layer, overlayQueryParams(o), { service: o.service }).then((f) => overlaySpec(o, f, cfg.program))),
     );
     const out: OverlaySpec[] = [];
     results.forEach((result, i) => {
@@ -462,7 +462,7 @@ export class SitesPanel {
     try {
       // The profile settings arrive with the sites, so the first click already has them.
       const [features, overlays] = await Promise.all([
-        fetchGeoJson(http, layer.layer, sitesQueryParams(layer), { onPage: this.onPage(current) }),
+        fetchGeoJson(http, layer.layer, sitesQueryParams(layer), { service: layer.service, onPage: this.onPage(current) }),
         this.loadOverlays(cfg, http),
         this.profileReady,
       ]);
@@ -527,7 +527,7 @@ export class SitesPanel {
     let choices: (string | number)[] = [];
     if (layer.pick) {
       try {
-        choices = pickChoices(await fetchAttributes(http, layer.layer, pickStatsParams(layer)), layer.pick);
+        choices = pickChoices(await fetchAttributes(http, layer.layer, pickStatsParams(layer), layer.service), layer.pick);
       } catch (error) {
         if (run !== this.run) return;
         console.warn(`Map layer ${layer.layer} pick values did not load: ${String(error)}`);
@@ -556,7 +556,7 @@ export class SitesPanel {
       const extra = profileFields(await this.profileReady);
       if (!current()) return;
       const [features, overlays] = await Promise.all([
-        fetchGeoJson(http, layer.layer, areaQueryParams(layer, picked, true, extra), { onPage: this.onPage(current) }),
+        fetchGeoJson(http, layer.layer, areaQueryParams(layer, picked, true, extra), { service: layer.service, onPage: this.onPage(current) }),
         this.overlays,
       ]);
       if (!current()) return;

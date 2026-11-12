@@ -1,0 +1,86 @@
+{
+ "title": "Seral stage by elevation zone, percent of undisturbed vegetation",
+ "source": "https://trpa-agency.github.io/ThresholdEvaluation/2023/Vegetation/Chart/Final/Vegetation_SeralStage.html",
+ "rows": [
+  {
+   "Zone": "All forest",
+   "Seral stage": "Early Seral",
+   "Percent": 14.09
+  },
+  {
+   "Zone": "All forest",
+   "Seral stage": "Late Seral",
+   "Percent": 1.69
+  },
+  {
+   "Zone": "All forest",
+   "Seral stage": "Mid Seral",
+   "Percent": 59.5
+  },
+  {
+   "Zone": "All forest",
+   "Seral stage": "Not Classified",
+   "Percent": 24.19
+  },
+  {
+   "Zone": "Montane",
+   "Seral stage": "Early Seral",
+   "Percent": 13.93
+  },
+  {
+   "Zone": "Montane",
+   "Seral stage": "Late Seral",
+   "Percent": 2.23
+  },
+  {
+   "Zone": "Montane",
+   "Seral stage": "Mid Seral",
+   "Percent": 70.32
+  },
+  {
+   "Zone": "Montane",
+   "Seral stage": "Not Classified",
+   "Percent": 11.97
+  },
+  {
+   "Zone": "Upper montane",
+   "Seral stage": "Early Seral",
+   "Percent": 16.08
+  },
+  {
+   "Zone": "Upper montane",
+   "Seral stage": "Late Seral",
+   "Percent": 1.84
+  },
+  {
+   "Zone": "Upper montane",
+   "Seral stage": "Mid Seral",
+   "Percent": 65.85
+  },
+  {
+   "Zone": "Upper montane",
+   "Seral stage": "Not Classified",
+   "Percent": 16.14
+  },
+  {
+   "Zone": "Subalpine",
+   "Seral stage": "Early Seral",
+   "Percent": 7.11
+  },
+  {
+   "Zone": "Subalpine",
+   "Seral stage": "Late Seral",
+   "Percent": 0.05
+  },
+  {
+   "Zone": "Subalpine",
+   "Seral stage": "Mid Seral",
+   "Percent": 14.34
+  },
+  {
+   "Zone": "Subalpine",
+   "Seral stage": "Not Classified",
+   "Percent": 78.48
+  }
+ ]
+}

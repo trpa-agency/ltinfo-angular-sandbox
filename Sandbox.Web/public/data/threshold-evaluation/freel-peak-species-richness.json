@@ -1,0 +1,52 @@
+{
+ "title": "Species richness on the Freel Peak summits (GLORIA plots)",
+ "source": "https://thresholds.laketahoeinfo.org/ThresholdIndicator/Detail/97",
+ "note": "Read from the published chart image; the points sit on whole-number gridlines.",
+ "rows": [
+  {
+   "Summit": "Freel East Summit",
+   "Year": 2006,
+   "Species": 26
+  },
+  {
+   "Summit": "Freel East Summit",
+   "Year": 2011,
+   "Species": 26
+  },
+  {
+   "Summit": "Freel East Summit",
+   "Year": 2022,
+   "Species": 28
+  },
+  {
+   "Summit": "Freel Peak",
+   "Year": 2006,
+   "Species": 26
+  },
+  {
+   "Summit": "Freel Peak",
+   "Year": 2011,
+   "Species": 29
+  },
+  {
+   "Summit": "Freel Peak",
+   "Year": 2022,
+   "Species": 29
+  },
+  {
+   "Summit": "Freel Southwest",
+   "Year": 2006,
+   "Species": 23
+  },
+  {
+   "Summit": "Freel Southwest",
+   "Year": 2011,
+   "Species": 20
+  },
+  {
+   "Summit": "Freel Southwest",
+   "Year": 2022,
+   "Species": 19
+  }
+ ]
+}

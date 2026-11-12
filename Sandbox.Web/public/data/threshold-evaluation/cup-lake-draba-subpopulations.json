@@ -1,0 +1,31 @@
+{
+ "title": "Cup Lake draba subpopulations",
+ "source": "https://trpa-agency.github.io/ThresholdEvaluation/2023/Vegetation/Chart/Final/Vegetation_CupDraba.html",
+ "rows": [
+  {
+   "Year": 2004,
+   "Subpopulations": 6,
+   "Threshold": 2
+  },
+  {
+   "Year": 2009,
+   "Subpopulations": 5,
+   "Threshold": 2
+  },
+  {
+   "Year": 2011,
+   "Subpopulations": 6,
+   "Threshold": 2
+  },
+  {
+   "Year": 2015,
+   "Subpopulations": 10,
+   "Threshold": 2
+  },
+  {
+   "Year": 2023,
+   "Subpopulations": 11,
+   "Threshold": 2
+  }
+ ]
+}

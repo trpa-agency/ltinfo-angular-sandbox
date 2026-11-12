@@ -1,0 +1,31 @@
+{
+ "title": "Tahoe draba subpopulations",
+ "source": "https://trpa-agency.github.io/ThresholdEvaluation/2023/Vegetation/Chart/Final/Vegetation_TahoeDraba.html",
+ "rows": [
+  {
+   "Year": 2004,
+   "Subpopulations": 22,
+   "Threshold": 5
+  },
+  {
+   "Year": 2005,
+   "Subpopulations": 25,
+   "Threshold": 5
+  },
+  {
+   "Year": 2009,
+   "Subpopulations": 34,
+   "Threshold": 5
+  },
+  {
+   "Year": 2014,
+   "Subpopulations": 41,
+   "Threshold": 5
+  },
+  {
+   "Year": 2023,
+   "Subpopulations": 43,
+   "Threshold": 5
+  }
+ ]
+}

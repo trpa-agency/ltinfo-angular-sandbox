@@ -160,13 +160,19 @@ test.describe('Home page', () => {
     await openHome(page);
 
     await expect(cards(page).locator('.cat__name')).toHaveText(names);
+    // Every card has its icon, and every icon has loaded, the web app's own included.
+    const icons = cards(page).locator('.cat__icon img');
+    await expect(icons).toHaveCount(names.length);
+    await expect
+      .poll(() => icons.evaluateAll((imgs) => imgs.every((img) => (img as HTMLImageElement).complete && (img as HTMLImageElement).naturalWidth > 0)))
+      .toBe(true);
     for (const expected of [seed.airQuality, seed.waterQuality]) {
       await expect(card(page, expected.folder).locator('.cat__meta')).toHaveText(
         `${expected.programs} programs, ${expected.sites} mapped sites`,
       );
     }
     const recreation = card(page, seed.recreation.folder);
-    await expect(recreation.locator('.cat__meta')).toHaveText('0 programs');
+    await expect(recreation.locator('.cat__meta')).toHaveText('1 program');
 
     // Neutral cards: every card has the same border and background, whatever its category.
     const looks = await page
@@ -187,10 +193,11 @@ test.describe('Home page', () => {
       expect(right.x).toBeGreaterThan(left.x);
     }
 
-    // A category with no programs says so when opened.
+    // A category with one program and no mapped sites lists it when opened.
     await cardHead(page, seed.recreation.folder).click();
-    await expect(recreation.locator('.cat__none')).toHaveText('No programs yet.');
-    await expect(programLinks(recreation)).toHaveCount(0);
+    await expect(programLinks(recreation)).toHaveCount(1);
+    await expect(programLinks(recreation)).toContainText(seed.recreation.program);
+    await expect(recreation.locator('.prog__sites')).toHaveText('No mapped sites');
   });
 
   test('opening a card lists its programs, and a program link opens its page', async ({
@@ -553,8 +560,8 @@ test.describe('About Monitoring', () => {
     expect(new Set(rows).size, rows.join(' | ')).toBe(1);
 
     const goal = (folder: string): Locator => page.locator(`.goal[data-folder="${folder}"]`);
-    await expect(goal(seed.recreation.folder).locator('.goal__link')).toHaveText('No programs yet');
-    const link = goal(seed.waterQuality.folder).getByRole('link', { name: '11 programs' });
+    await expect(goal(seed.recreation.folder).getByRole('link', { name: '1 program' })).toBeVisible();
+    const link = goal(seed.waterQuality.folder).getByRole('link', { name: '13 programs' });
     await expect(link).toHaveAttribute('href', `/category/${seed.waterQuality.folder}`);
 
     // The link opens the category on the map, above.

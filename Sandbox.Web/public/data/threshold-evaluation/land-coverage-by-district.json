@@ -1,0 +1,51 @@
+{
+ "title": "Impervious coverage and coverage allowed by land capability district, 2023",
+ "source": "https://trpa-agency.github.io/ThresholdEvaluation/2023/SoilConservation/Chart/Final/SoilConservation_1A.html",
+ "rows": [
+  {
+   "District": "1A",
+   "Coverage 2023": 210.6,
+   "Allowed": 239.7
+  },
+  {
+   "District": "1B",
+   "Coverage 2023": 797.3,
+   "Allowed": 114.0
+  },
+  {
+   "District": "1C",
+   "Coverage 2023": 494.5,
+   "Allowed": 537.3
+  },
+  {
+   "District": "2",
+   "Coverage 2023": 304.9,
+   "Allowed": 232.5
+  },
+  {
+   "District": "3",
+   "Coverage 2023": 381.7,
+   "Allowed": 884.7
+  },
+  {
+   "District": "4",
+   "Coverage 2023": 1322.9,
+   "Allowed": 6289.5
+  },
+  {
+   "District": "5",
+   "Coverage 2023": 1134.2,
+   "Allowed": 3046.9
+  },
+  {
+   "District": "6",
+   "Coverage 2023": 2287.0,
+   "Allowed": 6960.0
+  },
+  {
+   "District": "7",
+   "Coverage 2023": 1352.2,
+   "Allowed": 1504.5
+  }
+ ]
+}

@@ -60,7 +60,7 @@ export interface Category {
   Blurb: string;
   /** The threshold goal for the category. */
   CategoryDescription: string;
-  /** The white category icon on the Threshold Dashboard, or null. */
+  /** The white category icon on the Threshold Dashboard, a category-icons/ path in this app, or null. */
   IconUrl: string | null;
   /** Mapped sites across the category's programs. */
   SiteCount: number;

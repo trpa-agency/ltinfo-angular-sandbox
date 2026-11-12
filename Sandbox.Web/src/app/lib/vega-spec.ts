@@ -88,11 +88,11 @@ export interface SeriesStyle {
   dash: number[];
 }
 
-/** Color, point shape, and dash for series i (0-based). */
-export function seriesStyle(i: number, theme: VegaTheme): SeriesStyle {
+/** Color, point shape, and dash for series i (0-based); color, when given, is the series' fixed color. */
+export function seriesStyle(i: number, theme: VegaTheme, color?: string): SeriesStyle {
   const colors = theme.seriesColors.length ? theme.seriesColors : DEFAULT_VEGA_THEME.seriesColors;
   return {
-    color: colors[i % colors.length],
+    color: color || colors[i % colors.length],
     shape: POINT_SHAPES[i % POINT_SHAPES.length],
     dash: i < 2 ? [1, 0] : [...LINE_DASHES[(i - 2) % LINE_DASHES.length]],
   };
@@ -195,7 +195,7 @@ export function vegaLiteSpec(spec: ChartSpec, theme: VegaTheme, options: VegaSpe
     [xTitle],
   );
   const multi = names.length > 1;
-  const styles = names.map((_, i) => seriesStyle(i, theme));
+  const styles = names.map((_, i) => seriesStyle(i, theme, spec.series[i]?.color));
 
   // Positions along the category axis, and what each is called.
   const keys = categoryKeys(spec, kind);

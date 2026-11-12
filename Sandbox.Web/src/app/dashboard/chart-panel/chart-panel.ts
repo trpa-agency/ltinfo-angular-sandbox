@@ -39,6 +39,7 @@ import {
   queryPanelRows,
 } from '../../lib/measures';
 import type { PanelState } from '../../lib/sites';
+import { serviceLabel } from '../../lib/sites';
 import type { VegaTheme } from '../../lib/vega-spec';
 import {
   DEFAULT_VEGA_THEME,
@@ -101,6 +102,9 @@ const SHAPE_PATHS: Record<string, string> = {
 
 /** CSS custom properties the chart theme is read from, with the LT Info values as fallbacks. */
 const SERIES_TOKENS = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => `--color-background-dataviz-categorical-${n}`);
+
+/** Stevens 4 (src/styles/_palettes.scss), for charts with four series or fewer. */
+const FEW_SERIES_TOKENS = [1, 2, 3, 4].map((n) => `--mon-stevens4-${n}`);
 
 let nextId = 0;
 
@@ -207,7 +211,16 @@ export class ChartPanel {
   private readonly chart = computed(() => measureChartSpec(this.current(), this.rows()));
   protected readonly description = computed(() => chartDescription(this.chart()));
   protected readonly empty = computed(() => this.emptyText() ?? emptyStateText(this.current()));
-  protected readonly sourceUrl = computed(() => layerUrl(this.current().layer));
+  protected readonly sourceUrl = computed(() => {
+    const m = this.current();
+    return m.sourceHref ?? m.csv ?? m.json ?? layerUrl(m.layer ?? '', m.service);
+  });
+  protected readonly sourceLabel = computed(() => {
+    const m = this.current();
+    const file = m.csv ?? m.json;
+    if (m.sourceLabel) return m.sourceLabel;
+    return file ? `Data file ${decodeURIComponent(file.split('/').pop() || file)}` : `${serviceLabel(m.service)}, layer ${m.layer}`;
+  });
 
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly chartEl = viewChild<ElementRef<HTMLElement>>('chart');
@@ -332,10 +345,10 @@ export class ChartPanel {
       try {
         // vega-embed brings Vega and Vega-Lite with it; the import keeps all three out of the initial bundle.
         const { default: embed } = await import('vega-embed');
-        const theme = this.theme();
+        const theme = this.theme(chart.series.length);
         await fontReady(theme);
         if (id !== this.drawId) return;
-        const spec = vegaLiteSpec(chart, theme, { width });
+        const spec = vegaLiteSpec(this.resolvedColors(chart), theme, { width });
         this.tooltip.set(null);
         this.embedded?.finalize();
         this.embedded = null;
@@ -363,13 +376,32 @@ export class ChartPanel {
     });
   }
 
-  /** The chart theme from the design tokens in effect on this element. */
-  private theme(): VegaTheme {
+  /**
+   * A series color as Vega needs it: a var(--token, fallback) expression read from the tokens in
+   * effect on this element, anything else as given.
+   */
+  private resolveColor(value: string | undefined): string | undefined {
+    const m = value ? /^var\(\s*(--[\w-]+)\s*(?:,\s*([^)]+))?\)$/.exec(value.trim()) : null;
+    if (!m) return value;
+    return getComputedStyle(this.host.nativeElement).getPropertyValue(m[1]).trim() || m[2]?.trim() || undefined;
+  }
+
+  /** The chart with each fixed series color resolved to a real color. */
+  private resolvedColors(chart: ReturnType<typeof measureChartSpec>): ReturnType<typeof measureChartSpec> {
+    return { ...chart, series: chart.series.map((s) => (s.color ? { ...s, color: this.resolveColor(s.color) } : s)) };
+  }
+
+  /**
+   * The chart theme from the design tokens in effect on this element. Series colors are Stevens 4
+   * for a chart with four series or fewer, else the categorical role (Stevens 9).
+   */
+  private theme(seriesCount: number = SERIES_TOKENS.length): VegaTheme {
     const css = getComputedStyle(this.host.nativeElement);
     const token = (name: string, fallback: string): string => css.getPropertyValue(name).trim() || fallback;
     const d = DEFAULT_VEGA_THEME;
+    const slots = seriesCount <= FEW_SERIES_TOKENS.length ? FEW_SERIES_TOKENS : SERIES_TOKENS;
     return {
-      seriesColors: SERIES_TOKENS.map((name, i) => token(name, d.seriesColors[i])),
+      seriesColors: slots.map((name, i) => token(name, d.seriesColors[i])),
       textColor: token('--color-content-default-secondary', d.textColor),
       titleColor: token('--color-content-default', d.titleColor),
       gridColor: token('--color-border-default-subtle', d.gridColor),
@@ -391,13 +423,13 @@ export class ChartPanel {
       this.tooltip.set(null);
       return;
     }
-    const theme = this.theme();
+    const theme = this.theme(chart.series.length);
     const bars = chart.type === 'bar' || chart.type === 'stacked';
     const rows: TooltipRow[] = [];
     chart.series.forEach((s, i) => {
       const text = row[tooltipValueField(i)];
       if (text == null || text === '') return;
-      const style = seriesStyle(i, theme);
+      const style = seriesStyle(i, theme, this.resolveColor(s.color));
       rows.push({ name: s.name, value: String(text), color: style.color, path: SHAPE_PATHS[bars ? 'square' : style.shape] });
     });
     // Beside the pointer, on whichever side has room in the window.

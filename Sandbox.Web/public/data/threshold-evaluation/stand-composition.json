@@ -1,0 +1,48 @@
+{
+ "title": "Seral stage by canopy class, percent of undisturbed vegetation",
+ "source": "https://trpa-agency.github.io/ThresholdEvaluation/2023/Vegetation/Chart/Final/Vegetation_Composition.html",
+ "rows": [
+  {
+   "Class": "Early Seral Closed",
+   "Seral stage": "Early Seral",
+   "Canopy": "Closed",
+   "Percent": 0.61
+  },
+  {
+   "Class": "Early Seral Open",
+   "Seral stage": "Early Seral",
+   "Canopy": "Open",
+   "Percent": 13.48
+  },
+  {
+   "Class": "Late Seral Closed",
+   "Seral stage": "Late Seral",
+   "Canopy": "Closed",
+   "Percent": 1.0
+  },
+  {
+   "Class": "Late Seral Open",
+   "Seral stage": "Late Seral",
+   "Canopy": "Open",
+   "Percent": 0.69
+  },
+  {
+   "Class": "Mid Seral Closed",
+   "Seral stage": "Mid Seral",
+   "Canopy": "Closed",
+   "Percent": 22.61
+  },
+  {
+   "Class": "Mid Seral Open",
+   "Seral stage": "Mid Seral",
+   "Canopy": "Open",
+   "Percent": 36.89
+  },
+  {
+   "Class": "N/A",
+   "Seral stage": "Not classified",
+   "Canopy": null,
+   "Percent": 24.19
+  }
+ ]
+}

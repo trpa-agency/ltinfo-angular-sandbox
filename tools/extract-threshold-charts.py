@@ -1,0 +1,117 @@
+"""Writes the 2023 Threshold Evaluation chart data as JSON for the program pages.
+
+The Threshold Dashboard's charts are static: Plotly pages on GitHub Pages
+(trpa-agency.github.io/ThresholdEvaluation/2023/...) with their numbers embedded, or plain images
+on LT Info. This reads the numbers out of the Plotly pages, adds the few charts that exist only as
+images (values read from the image, marked approximate except where the points sit on gridlines),
+and writes one JSON file per chart to Sandbox.Web/public/data/threshold-evaluation/. Program
+pages chart them with a measure's json key.
+
+    python -I tools/extract-threshold-charts.py
+"""
+import io, json, os, urllib.request
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(HERE, "..", "Sandbox.Web", "public", "data", "threshold-evaluation")
+TE = "https://trpa-agency.github.io/ThresholdEvaluation/2023/"
+LTINFO = "https://thresholds.laketahoeinfo.org/ThresholdIndicator/Detail/"
+
+
+def page(url):
+    req = urllib.request.Request(url, headers={"user-agent": "ltinfo-angular-sandbox"})
+    return urllib.request.urlopen(req, timeout=90).read().decode("utf-8", "replace")
+
+
+def traces(url):
+    """The data traces of a Plotly page written by Python. The page inlines the Plotly bundle,
+    which has its own Plotly.newPlot text, so the call that draws the chart is the last one."""
+    html = page(url)
+    i = html.rfind("Plotly.newPlot(")
+    s = html[html.index(",", i) + 1:].lstrip()
+    data, _ = json.JSONDecoder().raw_decode(s)
+    return data
+
+
+def write(name, title, source, rows, note=None):
+    body = {"title": title, "source": source, **({"note": note} if note else {}), "rows": rows}
+    path = os.path.join(OUT, f"{name}.json")
+    io.open(path, "w", encoding="utf-8", newline="\n").write(json.dumps(body, indent=1, ensure_ascii=False) + "\n")
+    print(f"  {name}.json: {len(rows)} rows")
+
+
+def r(v, n=2):
+    return None if v is None else round(v, n)
+
+
+def subpopulations(name, file, title):
+    url = TE + "Vegetation/Chart/Final/" + file
+    bars, threshold = traces(url)[:2]
+    rows = [{"Year": x, "Subpopulations": y, "Threshold": t} for x, y, t in zip(bars["x"], bars["y"], threshold["y"])]
+    write(name, title, url, rows)
+
+
+def bar_classes(file):
+    """One bar trace per class (x is a one-item list): the class name and its value."""
+    return [(t["x"][0], t["y"][0]) for t in traces(TE + file)]
+
+
+def main():
+    os.makedirs(OUT, exist_ok=True)
+
+    subpopulations("tahoe-draba-subpopulations", "Vegetation_TahoeDraba.html", "Tahoe draba subpopulations")
+    subpopulations("long-petaled-lewisia-subpopulations", "Vegetation_Lewisia.html", "Long-petaled lewisia subpopulations")
+    subpopulations("cup-lake-draba-subpopulations", "Vegetation_CupDraba.html", "Cup Lake draba subpopulations")
+
+    zones = [("All forest", "Vegetation_SeralStage.html"), ("Montane", "Vegetation_Seral_Montane.html"),
+             ("Upper montane", "Vegetation_Seral_UpperMontane.html"), ("Subalpine", "Vegetation_Seral_Subalpine.html")]
+    rows = [{"Zone": zone, "Seral stage": stage, "Percent": r(value)}
+            for zone, file in zones for stage, value in bar_classes("Vegetation/Chart/Final/" + file)]
+    write("seral-stage-by-zone", "Seral stage by elevation zone, percent of undisturbed vegetation",
+          TE + "Vegetation/Chart/Final/Vegetation_SeralStage.html", rows)
+
+    rows = []
+    for cls, value in bar_classes("Vegetation/Chart/Final/Vegetation_Composition.html"):
+        parts = cls.rsplit(" ", 1)
+        stage, canopy = (cls, None) if cls == "N/A" else (parts[0], parts[1])
+        rows.append({"Class": cls, "Seral stage": "Not classified" if cls == "N/A" else stage, "Canopy": canopy, "Percent": r(value)})
+    write("stand-composition", "Seral stage by canopy class, percent of undisturbed vegetation",
+          TE + "Vegetation/Chart/Final/Vegetation_Composition.html", rows)
+
+    url = TE + "Vegetation/Chart/Final/ForestFuelTreatment.html"
+    rows = sorted(({"Year": int(x), "Zone": t["name"], "Acres": r(y, 1)} for t in traces(url) for x, y in zip(t["x"], t["y"])),
+                  key=lambda row: (row["Year"], row["Zone"]))
+    write("forest-fuel-treatment", "Forest fuel treatment acres by zone", url, rows)
+
+    url = TE + "SoilConservation/Chart/Final/SoilConservation_1A.html"
+    allowed, coverage = traces(url)[:2]
+    rows = [{"District": d, "Coverage 2023": r(c, 1), "Allowed": r(a, 1)}
+            for d, a, c in zip(allowed["x"], allowed["y"], coverage["y"]) if d]
+    write("land-coverage-by-district", "Impervious coverage and coverage allowed by land capability district, 2023", url, rows)
+
+    # Charts published only as images on LT Info.
+    write("freel-peak-species-richness", "Species richness on the Freel Peak summits (GLORIA plots)", LTINFO + "97",
+          [{"Summit": s, "Year": y, "Species": n} for s, values in
+           (("Freel East Summit", (26, 26, 28)), ("Freel Peak", (26, 29, 29)), ("Freel Southwest", (23, 20, 19)))
+           for y, n in zip((2006, 2011, 2022), values)],
+          note="Read from the published chart image; the points sit on whole-number gridlines.")
+
+    depths = ["11-20", "21-30", "31-40", "41-50", "51-60", "61-70", "71-80", "81-90", "91-100", "101-110", "121-130", "131-140", "151-160", "251-300"]
+    early = [3, 17, 25, 33, 100, 42, 78, 72, 80, 63, 6, 4, 50, 20]
+    late = [5, 10, 0, 5, 5, 8, 13, 20, 0, 0, 0, 0, 0, 0]
+    write("deep-water-plants", "Macrophyte occurrence in deepwater samples by depth (percent)", LTINFO + "94",
+          [{"Depth (m)": d, "Period": p, "Percent": v} for d, a, b in zip(depths, early, late) for p, v in (("1962-1963", a), ("2008-2009", b))],
+          note="Approximate: read from the published chart image.")
+
+    classes = ["Meesia, 5 to 50 percent", "Meesia, 50 to 100 percent", "Sphagnum, 5 to 50 percent", "Sphagnum, 50 to 100 percent"]
+    by_year = {2004: [13.5, 2.7, 9.6, 0.0], 2009: [5.8, 0.0, 20.9, 0.6], 2010: [12.3, 0.2, 16.5, 1.3]}
+    write("grass-lake-fen-cover", "Grass Lake moss cover classes (hectares)", LTINFO + "95",
+          [{"Cover class": c, "Year": str(y), "Hectares": v} for y, values in by_year.items() for c, v in zip(classes, values)],
+          note="Approximate: read from the published chart image (USFS sphagnum fen monitoring).")
+
+    write("aircraft-noise-exceedances", "Single noise event exceedances at Lake Tahoe Airport", LTINFO + "100",
+          [{"Year": y, "Exceedances": n} for y, n in zip(range(2008, 2015), (1540, 1110, 1875, 1460, 1480, 1700, 1035))],
+          note="Approximate: read from the published chart image (City of South Lake Tahoe airport noise monitoring).")
+
+
+if __name__ == "__main__":
+    main()

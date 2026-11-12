@@ -210,6 +210,8 @@ export interface SiteFields {
 /** A program's sitesLayer in programs.json (see templates/README.md in the reference repo). */
 export interface SitesLayerConfig extends SiteFields {
   layer: number;
+  /** The map service the layer is in; the LTInfo_Monitoring service when omitted. */
+  service?: string;
   where?: string;
   /** What a site is called: "site", "station", "counter". */
   unit?: string;
@@ -436,6 +438,8 @@ export interface FieldLabel {
 /** A program's mapLayer in programs.json. */
 export interface MapLayerConfig {
   layer: number;
+  /** The map service the layer is in; the LTInfo_Monitoring service when omitted. */
+  service?: string;
   title?: string;
   unit?: string;
   unitPlural?: string;
@@ -652,6 +656,8 @@ export function areaPopup(cfg: MapLayerConfig, feature: Feature, fallback: strin
 /** One entry of a program's overlays in programs.json. */
 export interface OverlayConfig {
   layer: number;
+  /** The map service the layer is in; the LTInfo_Monitoring service when omitted. */
+  service?: string;
   title: string;
   /** Field for the popup title; the overlay title when absent. */
   name?: string;
@@ -900,12 +906,19 @@ export function sitesPanelTitle(cfg: SitesPanelConfig): string {
   return `Monitoring ${plural(2, sitesPanelUnit(cfg))}`;
 }
 
+/** "TRPA Fire map service" for a maps.trpa.org service URL, "the map service" for any other host. */
+export function serviceLabel(service: string = SERVICE): string {
+  const name = /\/services\/(?:[^/]+\/)*([^/]+)\/(?:MapServer|FeatureServer)\/?$/.exec(service)?.[1];
+  return name && /^https:\/\/maps\.trpa\.org\//.test(service) ? `TRPA ${name} map service` : 'Map service';
+}
+
 /** The source line under the map: the layer behind it, or the GeoJSON URL. */
-export function sitesPanelSource(cfg: SitesPanelConfig, service: string = SERVICE): { href: string; label: string } | undefined {
-  const layer = cfg.mapLayer?.layer ?? cfg.sitesLayer?.layer;
-  if (layer != null) {
+export function sitesPanelSource(cfg: SitesPanelConfig): { href: string; label: string } | undefined {
+  const source = cfg.mapLayer ?? cfg.sitesLayer;
+  if (source) {
     const what = cfg.mapLayer?.title || `${plural(2, sitesPanelUnit(cfg))}`;
-    return { href: `${service}/${layer}`, label: `TRPA LTInfo_Monitoring map service, layer ${layer} (${what})` };
+    const service = source.service || SERVICE;
+    return { href: `${service}/${source.layer}`, label: `${serviceLabel(service)}, layer ${source.layer} (${what})` };
   }
   if (cfg.geojson) return { href: cfg.geojson.sourceHref || cfg.geojson.url, label: cfg.geojson.sourceLabel || 'Lake Tahoe Info monitoring sites (GeoJSON)' };
   return undefined;
