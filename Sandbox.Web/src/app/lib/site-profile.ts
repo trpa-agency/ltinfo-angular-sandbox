@@ -174,29 +174,41 @@ export interface SiteProfileConfig {
 
 /**
  * Photos stored as ArcGIS attachments on the site's rows in a map service layer (SEZ: the
- * 2019 evaluation rows of each assessment unit). The rows are found by a join, as a record is.
+ * 2019 evaluation rows of each assessment unit; scenic: the viewpoints along a corridor
+ * unit). The rows are found by a join, as a record is.
  */
 export interface ProfilePhotosConfig {
   /** Layer that holds the attachments; the program's own layer when omitted. */
   layer?: number;
-  /** How the site finds its rows in that layer, such as SEZ_ID to SEZ_ID. */
-  join: ProfileJoin;
+  /**
+   * How the site finds its rows in that layer, such as SEZ_ID to SEZ_ID. Several joins must
+   * all match (a scenic corridor's viewpoints share its UNIT and its CATEGORY).
+   */
+  join: ProfileJoin | ProfileJoin[];
   /** Extra filter, such as rows that carry attachments ("CountAttachments > 0"). */
   where?: string;
   /** Field naming the year the photos belong to ("Threshold_Year"). */
   year?: string;
+  /** Field naming the row each photo hangs on (a viewpoint ID), with an optional word before it. */
+  label?: { field: string; prefix?: string };
+  /**
+   * "grid" (the default): up to four tiles. "panorama": the first photo full width and the rest
+   * as a list, for wide photos that are too large to load four at a time.
+   */
+  layout?: 'grid' | 'panorama';
   /** Section title. */
   title?: string;
   /** Credit for every photo, shown in the larger view. */
   credit?: string;
 }
 
-/** One attached photo: its file in the map service, and the year of the row it hangs on. */
+/** One attached photo: its file in the map service, and the year and label of the row it hangs on. */
 export interface ProfilePhoto {
   url: string;
   name: string;
   bytes: number;
   year: string | null;
+  label: string | null;
 }
 
 /* ---------- Small helpers ---------- */
@@ -545,17 +557,19 @@ export async function loadPhotos(
   subject: ProfileSubject,
   service: string = SERVICE,
 ): Promise<ProfilePhoto[]> {
-  const value = joinValue(cfg.join.from, subject);
-  if (isBlank(value)) return [];
-  const literal = typeof value === 'number' ? sqlLiteral(value) : sqlLiteral(String(value).trim());
-  const join = `${cfg.join.to} = ${literal}`;
-  const where = cfg.where ? `(${join}) AND (${cfg.where})` : join;
+  const where = photosWhere(cfg, subject);
+  if (where == null) return [];
+  const labelField = cfg.label?.field;
   const rows = await fetchRows(fetchFn, layer, {
     where,
-    outFields: ['OBJECTID', cfg.year].filter(Boolean).join(','),
+    outFields: unique(['OBJECTID', cfg.year, labelField].filter(Boolean) as string[]).join(','),
     returnGeometry: false,
     orderByFields: cfg.year ? `${cfg.year} DESC` : undefined,
   });
+  // Labels such as viewpoint IDs read in natural order: 3.2 before 3.10.
+  if (labelField && !cfg.year) {
+    rows.sort((a, b) => String(a[labelField] ?? '').localeCompare(String(b[labelField] ?? ''), undefined, { numeric: true }));
+  }
   const lists = await Promise.all(
     rows.map(async (row) => {
       const oid = row['OBJECTID'];
@@ -564,12 +578,27 @@ export async function loadPhotos(
       const response = await fetchFn(`${base}?f=json`);
       const json = (await response.json()) as { attachmentInfos?: AttachmentInfo[] } | null;
       const year = cfg.year && !isBlank(row[cfg.year]) ? String(row[cfg.year]) : null;
+      const label = labelField && !isBlank(row[labelField]) ? `${cfg.label?.prefix ?? ''}${String(row[labelField]).trim()}` : null;
       return (json?.attachmentInfos || [])
         .filter((a) => (a.contentType || '').startsWith('image/'))
-        .map((a) => ({ url: `${base}/${a.id}`, name: a.name || '', bytes: a.size || 0, year }));
+        .map((a) => ({ url: `${base}/${a.id}`, name: a.name || '', bytes: a.size || 0, year, label }));
     }),
   );
   return lists.flat();
+}
+
+/** The where clause for a site's photo rows, or null when the site lacks a value a join needs. */
+export function photosWhere(cfg: ProfilePhotosConfig, subject: ProfileSubject): string | null {
+  const joins = Array.isArray(cfg.join) ? cfg.join : [cfg.join];
+  const clauses: string[] = [];
+  for (const join of joins) {
+    const value = joinValue(join.from, subject);
+    if (isBlank(value)) return null;
+    const literal = typeof value === 'number' ? sqlLiteral(value) : sqlLiteral(String(value).trim());
+    clauses.push(`${join.to} = ${literal}`);
+  }
+  if (cfg.where) clauses.push(cfg.where);
+  return clauses.length > 1 ? clauses.map((c) => `(${c})`).join(' AND ') : clauses[0];
 }
 
 /* ---------- Yearly values ---------- */

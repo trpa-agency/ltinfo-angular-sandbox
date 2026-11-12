@@ -68,6 +68,9 @@ async function clickFeature(page: Page): Promise<void> {
 }
 
 test.describe('Site profile', () => {
+  // Every test opens a live panel and then a profile, each allowed PANEL_TIMEOUT_MS.
+  test.describe.configure({ timeout: PANEL_TIMEOUT_MS * 3 });
+
   test('opens from a list row with the site name and its record chart', async ({ page }) => {
     await openProgram(page, 39);
     await rowNamed(page, 'Baldwin Beach').click();
@@ -163,6 +166,31 @@ test.describe('Site profile', () => {
     await page.keyboard.press('ArrowRight');
     await expect(dialog.locator('h2')).toHaveText(/photo 2 of 6\s*$/);
     await expect(dialog).toContainText('2019 evaluation');
+    await page.keyboard.press('Escape');
+    await expect(dialog).toBeHidden();
+  });
+
+  test('shows a scenic corridor unit its viewpoint panoramas, one loaded and the rest listed', async ({ page }) => {
+    // Emerald Bay roadway unit 3: 10 viewpoints, six with a photo. The panoramas run 10 MB and
+    // more, so only the first is an image in the card; the others open in the larger view.
+    await openProgram(page, 59);
+    await rows(page).filter({ hasText: 'Emerald Bay' }).filter({ hasText: 'Roadway' }).click();
+    await profileSettled(page);
+    await expect(profile(page).locator('.profile__section-title', { hasText: 'Viewpoints' })).toBeVisible({ timeout: PANEL_TIMEOUT_MS });
+    await expect(profile(page).locator('.profile__photo--wide img')).toHaveAttribute('src', /\/MapServer\/24\/\d+\/attachments\/\d+$/);
+    await expect(profile(page).locator('.profile__photo img')).toHaveCount(1);
+    await expect(profile(page).locator('.profile__photo-label')).toHaveText('Viewpoint 3.2-roadway');
+    const links = profile(page).locator('.profile__photo-link');
+    // Natural order: 3.11 after 3.7.
+    await expect(links).toHaveText(['Viewpoint 3.3-roadway', 'Viewpoint 3.5-roadway', 'Viewpoint 3.6-roadway', 'Viewpoint 3.7-roadway', 'Viewpoint 3.11-roadway']);
+
+    await links.last().click();
+    const dialog = profile(page).locator('dialog.profile__lightbox');
+    await expect(dialog).toBeVisible();
+    await expect(dialog.locator('h2')).toHaveText(/Emerald Bay, Viewpoint 3\.11-roadway, 6 of 6\s*$/);
+    await page.keyboard.press('ArrowRight');
+    await expect(dialog.locator('h2')).toHaveText(/Viewpoint 3\.2-roadway, 1 of 6\s*$/);
+    await expect(dialog).toContainText('TRPA scenic monitoring viewpoint photos');
     await page.keyboard.press('Escape');
     await expect(dialog).toBeHidden();
   });

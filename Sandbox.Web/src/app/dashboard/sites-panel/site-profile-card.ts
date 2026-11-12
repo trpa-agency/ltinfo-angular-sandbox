@@ -132,6 +132,7 @@ export class SiteProfileCard {
   protected readonly PHOTO_TILES = 4;
   protected readonly photoTitle = computed(() => this.profile()?.photos?.title || 'Photos');
   protected readonly photoCredit = computed(() => this.profile()?.photos?.credit || '');
+  protected readonly photoLayout = computed(() => this.profile()?.photos?.layout ?? 'grid');
   private readonly photoDialog = viewChild<ElementRef<HTMLDialogElement>>('photoDialog');
 
   protected readonly unitPlural = computed(() => plural(2, this.subject()?.unit || 'site'));
@@ -274,6 +275,18 @@ export class SiteProfileCard {
       rows: chartRows(yearly, medians, record.decimals),
       line: comparison == null && result.standard != null ? `${standardLine(yearly, result.standard, record) ?? ''}.` : '',
     };
+  }
+
+  /** A photo's own name: the row it hangs on (a viewpoint), else its place in the list. */
+  protected photoName(photo: ProfilePhoto, index: number): string {
+    return photo.label || `photo ${index + 1}`;
+  }
+
+  /** "Rosewood Creek, photo 2 of 6", or "Emerald Bay, Viewpoint 3.4-roadway, 2 of 4". */
+  protected lightboxTitle(photo: ProfilePhoto, index: number): string {
+    const count = this.photos().length;
+    const name = this.subject()?.name ?? '';
+    return photo.label ? `${name}, ${photo.label}, ${index + 1} of ${count}` : `${name}, photo ${index + 1} of ${count}`;
   }
 
   /** Opens the larger view at a photo. */

@@ -80,7 +80,8 @@
             }
           </ul>
         }
-        <table class="visually-hidden">
+        <!-- A hidden table needs a block wrapper: a table never shrinks below its content. -->
+        <div class="visually-hidden"><table>
           <caption>{{ chart.name }}</caption>
           <thead>
             <tr><th scope="col">Year</th><th scope="col">This site</th><th scope="col">Median of all {{ unitPlural() }}</th></tr>
@@ -90,7 +91,7 @@
               <tr><th scope="row">{{ row.year }}</th><td>{{ row.value }}</td><td>{{ row.median }}</td></tr>
             }
           </tbody>
-        </table>
+        </table></div>
       </figure>
     }
 
@@ -110,6 +111,31 @@
         <h5 class="profile__section-title typography-label-sm-strong" [id]="headingId + '-photos'">
           {{ photoTitle() }}@if (list[0].year) {<span class="profile__photos-year">, {{ list[0].year }}</span>}
         </h5>
+        @if (photoLayout() === 'panorama') {
+          <!-- Wide photos of 10 MB and more: one loads, the rest open on demand. -->
+          <button
+            type="button"
+            class="profile__photo profile__photo--wide"
+            (click)="openPhoto(0)"
+            [attr.aria-label]="'Open ' + photoName(list[0], 0) + ' of ' + subject()?.name"
+          >
+            <img [src]="list[0].url" alt="" loading="lazy" decoding="async" />
+          </button>
+          @if (list[0].label) {
+            <p class="profile__photo-label typography-body-xs">{{ list[0].label }}</p>
+          }
+          @if (list.length > 1) {
+            <ul class="profile__photo-list" role="list">
+              @for (photo of list.slice(1); track photo.url; let i = $index) {
+                <li>
+                  <button type="button" class="profile__photo-link typography-body-sm" (click)="openPhoto(i + 1)">
+                    {{ photoName(photo, i + 1) }}
+                  </button>
+                </li>
+              }
+            </ul>
+          }
+        } @else {
         <ul class="profile__photos" role="list">
           @for (photo of list.slice(0, PHOTO_TILES); track photo.url; let i = $index) {
             <li>
@@ -127,6 +153,7 @@
             </li>
           }
         </ul>
+        }
       </section>
     } @else if (photosLoading()) {
       <p class="profile__photos-loading typography-body-xs" role="status">Loading photos</p>
@@ -223,7 +250,7 @@
         <div role="img" [attr.aria-label]="chart.name">
           <app-profile-chart [spec]="chart.spec" />
         </div>
-        <table class="visually-hidden">
+        <div class="visually-hidden"><table>
           <caption>{{ chart.name }}</caption>
           <thead>
             <tr><th scope="col">Year</th><th scope="col">This site</th></tr>
@@ -233,7 +260,7 @@
               <tr><th scope="row">{{ row.year }}</th><td>{{ row.value }}</td></tr>
             }
           </tbody>
-        </table>
+        </table></div>
         @if (chart.line) {
           <p class="profile__context-line typography-body-sm">{{ chart.line }}</p>
         }
@@ -252,11 +279,11 @@
         <div class="profile__lightbox-panel">
           <div class="profile__lightbox-bar">
             <h2 class="profile__lightbox-title typography-label-md-strong" [id]="headingId + '-lightbox'">
-              {{ subject()?.name }}, photo {{ photoIndex() + 1 }} of {{ photos().length }}
+              {{ lightboxTitle(photo, photoIndex()) }}
             </h2>
             <esa-button size="sm" variant="secondary" appearance="outline" (click)="photoDialog.close()">Close</esa-button>
           </div>
-          <img class="profile__lightbox-img" [src]="photo.url" [alt]="subject()?.name + ', photo ' + (photoIndex() + 1)" />
+          <img class="profile__lightbox-img" [src]="photo.url" [alt]="subject()?.name + ', ' + photoName(photo, photoIndex())" />
           <div class="profile__lightbox-foot">
             <span class="typography-body-sm">
               @if (photo.year) {{{ photo.year }} evaluation}@if (photo.year && photoCredit()) {. }@if (photoCredit()) {{{ photoCredit() }}}

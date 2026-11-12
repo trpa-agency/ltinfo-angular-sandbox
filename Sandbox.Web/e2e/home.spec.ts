@@ -12,7 +12,7 @@
 // and one data color for every site.
 import type { APIRequestContext, Locator, Page } from '@playwright/test';
 
-import { API_URL, DATA_COLOR_TOKEN, FONT_PATTERN, HOME_SECTIONS, expect, seed, test } from './support';
+import { API_URL, DATA_COLOR_TOKEN, FONT_PATTERN, HOME_SECTIONS, PANEL_TIMEOUT_MS, expect, seed, test } from './support';
 
 interface Category {
   CategoryName: string;
@@ -401,6 +401,9 @@ test.describe('Home page', () => {
   test('Featured Programs shows six photo links, one per category first, and All opens the featured list', async ({
     page,
   }) => {
+    // The key photos are full-size files from LT Info: the HAB photo is 5 MB and has taken 24
+    // seconds on its own.
+    test.setTimeout(PANEL_TIMEOUT_MS * 3);
     await openHome(page);
     const strip = page.locator('app-featured-programs');
     await expect(strip.getByRole('heading', { name: 'Featured Programs' })).toBeVisible();
@@ -411,7 +414,7 @@ test.describe('Home page', () => {
       await expect(cards.nth(i)).toHaveAttribute('href', /\/programs\/\d+$/);
       const img = cards.nth(i).locator('img');
       await img.scrollIntoViewIfNeeded();
-      await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0), { timeout: 30_000 }).toBe(true);
+      await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0), { timeout: PANEL_TIMEOUT_MS }).toBe(true);
     }
     // One per category before any category repeats: featured programs come from five
     // categories, so the first five cards are five different categories.

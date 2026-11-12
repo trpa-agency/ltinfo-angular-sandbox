@@ -407,7 +407,27 @@
         "label": "Unit",
         "field": "UNIT"
       }
-    ]
+    ],
+    "photos": {
+      "layer": 24,
+      "join": [
+        {
+          "from": "UNIT",
+          "to": "UNIT"
+        },
+        {
+          "from": "CATEGORY",
+          "to": "CATEGORY"
+        }
+      ],
+      "label": {
+        "field": "ID",
+        "prefix": "Viewpoint "
+      },
+      "layout": "panorama",
+      "title": "Viewpoints",
+      "credit": "TRPA scenic monitoring viewpoint photos"
+    }
   },
   "14": {
     "facts": [

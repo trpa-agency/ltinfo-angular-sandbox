@@ -144,6 +144,15 @@ interface ConsoleFixtures {
 }
 
 export const test = base.extend<ConsoleFixtures>({
+  // Navigation waits for the document, not the load event. Load also waits on images from
+  // outside hosts (LT Info key photos have taken 18 seconds), which would fail a test for
+  // their speed; every test waits for what the reader sees instead.
+  page: async ({ page }, use) => {
+    const goto = page.goto.bind(page);
+    page.goto = (url, options) => goto(url, { waitUntil: 'domcontentloaded', ...options });
+    await use(page);
+  },
+
   allowedConsoleErrors: [[], { option: true }],
 
   // Automatic: every browser test collects errors, and fails after its last
