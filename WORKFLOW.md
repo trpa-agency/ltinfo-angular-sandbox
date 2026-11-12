@@ -8,7 +8,7 @@ A practice copy of how ESA's apps are put together, small enough to read in one 
 |---|---|
 | `Sandbox.Web` | Angular 21 app styled with Ecology, plus its browser tests in `e2e/` |
 | `Sandbox.API` | .NET 10 API, the same JSON shape as the real LT Info API |
-| `Sandbox.Database` | table scripts and seed data (85 real programs and indicators, 51 partners) |
+| `Sandbox.Database` | table scripts and seed data (90 real programs and indicators, 51 partners) |
 | `Sandbox.Tests` | the container that runs the tests |
 | `Build` | PowerShell scripts: database, one-time SQL Server setup, deploy |
 | `docker-compose` | the files that start the containers |
@@ -27,7 +27,7 @@ The database is the **SQL Server installed on this machine** (database `LTInfoSa
 powershell -File Build\Deploy.ps1
 ```
 
-It builds the database, builds the release images, starts the site, waits until it is healthy, and runs the 96 automated tests against it. About six minutes. The site is then at http://localhost:8080 and stays up, restarting with Docker.
+It builds the database, builds the release images, starts the site, waits until it is healthy, and runs the 100 automated tests against it. About six minutes. The site is then at http://localhost:8080 and stays up, restarting with Docker.
 
 The deploy puts the seed rows back first so the tests start from known data. Add `-KeepData` to leave your rows alone and skip the tests.
 
@@ -43,11 +43,15 @@ Every program page uses one of three layouts, stored per program in the database
 
 All three share the header (name, four summary tiles, key photo) and show the program's photos. Add `?template=map`, `charts`, or `context` to a program address to preview another layout; the Page layout control saves it.
 
-The charts and maps read live data from the TRPA LTInfo_Monitoring map service. What each program charts and maps is its `DashboardConfig` in the database, with the keys documented in the dashboard repo's `templates/README.md`. Two keys exist only here: `service` on a chart, map layer, sites layer, sites-per-year chart, or overlay reads that layer from another ArcGIS map service (LTInfo_Monitoring when omitted), and `csv` on a chart reads a CSV file instead of a layer, charting its rows as they are (no `where` or `stat`); `json` does the same for a JSON file of rows. `tools/extract-threshold-charts.py` writes the 2023 Threshold Evaluation charts (static Plotly pages and a few images) as JSON to `Sandbox.Web/public/data/threshold-evaluation/`, and `sourceHref` and `sourceLabel` credit the source under each chart. `xOrder`, `seriesOrder`, and `seriesColors` set the order of classes and fixed colors per series.
+The charts and maps read live data from the TRPA LTInfo_Monitoring map service. What each program charts and maps is its `DashboardConfig` in the database, with the keys documented in the dashboard repo's `templates/README.md`. Two keys exist only here: `service` on a chart, map layer, sites layer, sites-per-year chart, or overlay reads that layer from another ArcGIS map service (LTInfo_Monitoring when omitted), and `csv` on a chart reads a CSV file instead of a layer, charting its rows as they are (no `where` or `stat`); `json` does the same for a JSON file of rows. `tools/extract-static-charts.py` writes the 2023 Threshold Evaluation charts (static Plotly pages and a few images) as JSON to `Sandbox.Web/public/data/threshold-evaluation/`, and `sourceHref` and `sourceLabel` credit the source under each chart. `xOrder`, `seriesOrder`, and `seriesColors` set the order of classes and fixed colors per series.
+
+Visitors see no staff controls. Add `?staff=1` to any address for staff mode (remembered in that browser; `?staff=0` turns it off): it shows the Page layout control, Program Settings, the Layout column and filter in All Programs, and the connection line in the footer. It hides controls rather than securing them; in LT Info they sit behind the admin role. The tests run in staff mode except `e2e/visitor.spec.ts`.
+
+`Sandbox.Web/src/styles/_access.scss` re-points two of Ecology's roles for accessibility: links use grass 11 (4.9:1 on white, where the default brand green is 3.0:1), and text roles never fall below 16 px for prose and 13 px for small text on narrow screens. Both are worth raising with ESA, since the design system is theirs.
 
 Data colors come from `Sandbox.Web/src/styles/_palettes.scss`: Phosphor palettes (Turbid sequential, Chlorophyll and Frostfire diverging, Stevens 4 and Stevens 9 qualitative, Gold-Purple bivariate, and Greens for seral stage) as `--mon-*` tokens, with Ecology's dataviz roles re-pointed to them. Configs name the tokens, for example `var(--mon-greens-3)`. Charts with four series or fewer use Stevens 4. Land capability, fire severity, Caldor burn severity, and the WUI zones copy the map service's own symbology. To regenerate the seed from that repo and LT Info, run `python Sandbox.Database/Scripts/make-seed.py`, then `Build\DatabaseBuild.ps1 -Reseed`.
 
-The categories differ from the dashboard repo's on purpose: `Sandbox.Database/Scripts/extra-categories.json` removes Vegetation Preservation, Fisheries, and Wildlife, and adds Forest Structure, Fire Dynamics, and Biodiversity. Their pages are the old categories' programs, the LT Info programs that cover the same threshold indicators, pages built from Threshold Dashboard records for indicators with no program (ids 9600 plus the threshold indicator id), and the four forest health standards written from the Forest Health Threshold Standards Update story maps.
+The categories differ from the dashboard repo's on purpose: `Sandbox.Database/Scripts/extra-categories.json` removes Vegetation Preservation, Fisheries, and Wildlife, and adds Forest Structure, Fire Dynamics, Biodiversity, and Demographics. Demographics follows the Tahoe Open Data demographics page and reads the TRPA Demographics map service; it also takes Socio-Economic (68) from Transportation, since that program's dashboard is the same page. Their pages are the old categories' programs, the LT Info programs that cover the same threshold indicators, pages built from Threshold Dashboard records for indicators with no program (ids 9600 plus the threshold indicator id), and the four forest health standards written from the Forest Health Threshold Standards Update story maps.
 
 Test pages for the two building blocks: http://localhost:4200/dev/charts (every chart shape) and http://localhost:4200/dev/map (sites, areas with a year pick, a layer with no list).
 

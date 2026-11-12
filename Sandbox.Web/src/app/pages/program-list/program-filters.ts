@@ -49,6 +49,8 @@ export class ProgramFilters {
   readonly categories = input.required<Category[]>();
   /** How many programs use each layout, for the counts in the Layout list. */
   readonly layoutCounts = input.required<Record<Template, number>>();
+  /** The Layout filter is for staff; visitors filter by what a program is, not how it is laid out. */
+  readonly showLayout = input(true);
 
   // Two-way bound by the parent: [(search)], [(categoryId)], [(layout)], [(featured)].
   readonly search = model('');

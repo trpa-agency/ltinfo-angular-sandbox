@@ -1,4 +1,5 @@
-"""Writes the 2023 Threshold Evaluation chart data as JSON for the program pages.
+"""Writes static chart data as JSON for the program pages: the 2023 Threshold Evaluation charts
+and the Tahoe Open Data demographics figures.
 
 The Threshold Dashboard's charts are static: Plotly pages on GitHub Pages
 (trpa-agency.github.io/ThresholdEvaluation/2023/...) with their numbers embedded, or plain images
@@ -7,12 +8,20 @@ images (values read from the image, marked approximate except where the points s
 and writes one JSON file per chart to Sandbox.Web/public/data/threshold-evaluation/. Program
 pages chart them with a measure's json key.
 
-    python -I tools/extract-threshold-charts.py
+The demographics figures are the Plotly pages behind https://www.tahoeopendata.org/pages/demographics
+(trpa-agency.github.io/Demographics/Open_Data_Figures/), written to
+Sandbox.Web/public/data/demographics/. Their underlying table, Demographic Summaries
+(maps.trpa.org Demographics/MapServer/18), is charted live where its rows are labeled plainly.
+
+    python -I tools/extract-static-charts.py
 """
 import io, json, os, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, "..", "Sandbox.Web", "public", "data", "threshold-evaluation")
+DATA = os.path.join(HERE, "..", "Sandbox.Web", "public", "data")
+OUT = os.path.join(DATA, "threshold-evaluation")
+DEMOGRAPHICS = os.path.join(DATA, "demographics")
+FIGURES = "https://trpa-agency.github.io/Demographics/Open_Data_Figures/"
 TE = "https://trpa-agency.github.io/ThresholdEvaluation/2023/"
 LTINFO = "https://thresholds.laketahoeinfo.org/ThresholdIndicator/Detail/"
 
@@ -32,9 +41,9 @@ def traces(url):
     return data
 
 
-def write(name, title, source, rows, note=None):
+def write(name, title, source, rows, note=None, folder=None):
     body = {"title": title, "source": source, **({"note": note} if note else {}), "rows": rows}
-    path = os.path.join(OUT, f"{name}.json")
+    path = os.path.join(folder or OUT, f"{name}.json")
     io.open(path, "w", encoding="utf-8", newline="\n").write(json.dumps(body, indent=1, ensure_ascii=False) + "\n")
     print(f"  {name}.json: {len(rows)} rows")
 
@@ -113,5 +122,34 @@ def main():
           note="Approximate: read from the published chart image (City of South Lake Tahoe airport noise monitoring).")
 
 
+def demographics():
+    """The Open Data demographics figures. The age profile has four unlabeled panels in census order
+    (1990, 2000, 2010, 2020; the page's text dates the peaks), each a share of men and of women."""
+    os.makedirs(DEMOGRAPHICS, exist_ok=True)
+    put = lambda name, title, file, rows, note=None: write(name, title, FIGURES + file, rows, note, DEMOGRAPHICS)
+
+    data = traces(FIGURES + "Demographics_Tahoe_AgeProfile.html")
+    rows = []
+    for year, (men, women) in zip((1990, 2000, 2010, 2020), zip(data[0::2], data[1::2])):
+        for sex, trace in (("Men", men), ("Women", women)):
+            rows += [{"Age": age, "Year": str(year), "Sex": sex, "Percent": r(abs(v) * 100)} for age, v in zip(trace["y"], trace["x"])]
+    put("age-profile", "Age profile of the Tahoe Basin by census year, percent of men and of women", "Demographics_Tahoe_AgeProfile.html", rows,
+        "Panels in census order, 1990 to 2020.")
+
+    rows = [{"Year": str(int(x)), "Area": t["name"], "Percent": r(y * 100)}
+            for t in traces(FIGURES + "Demographics_Tahoe_Senior_Population.html") for x, y in zip(t["x"], t["y"])]
+    put("population-over-65", "Share of the population 65 and older", "Demographics_Tahoe_Senior_Population.html", rows)
+
+    rows = [{"Year": x, "Group": t["name"], "Percent": r(y)} for t in traces(FIGURES + "Demographics_Tahoe_RaceDistribution.html") for x, y in zip(t["x"], t["y"])]
+    put("race-and-ethnicity", "Race and Hispanic origin in the Tahoe Basin, percent", "Demographics_Tahoe_RaceDistribution.html", rows)
+
+    rows = [{"Year": x, "Occupancy": t["name"], "Percent": r(y)} for t in traces(FIGURES + "Demographics_Tahoe_HousingUnits.html") for x, y in zip(t["x"], t["y"])]
+    put("housing-occupancy", "Housing units by occupancy, percent", "Demographics_Tahoe_HousingUnits.html", rows)
+
+    rows = [{"Year": x, "Area": t["name"], "Income": round(y)} for t in traces(FIGURES + "Demographics_Tahoe_County_Median_Income_Line.html") for x, y in zip(t["x"], t["y"])]
+    put("median-income-by-county", "Median household income within the Basin by county, 2021 dollars", "Demographics_Tahoe_County_Median_Income_Line.html", rows)
+
+
 if __name__ == "__main__":
     main()
+    demographics()

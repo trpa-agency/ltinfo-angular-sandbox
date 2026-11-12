@@ -1,0 +1,126 @@
+{
+ "title": "Race and Hispanic origin in the Tahoe Basin, percent",
+ "source": "https://trpa-agency.github.io/Demographics/Open_Data_Figures/Demographics_Tahoe_RaceDistribution.html",
+ "rows": [
+  {
+   "Year": "2000",
+   "Group": "White (non-Hispanic)",
+   "Percent": 76.23
+  },
+  {
+   "Year": "2010",
+   "Group": "White (non-Hispanic)",
+   "Percent": 71.97
+  },
+  {
+   "Year": "2020",
+   "Group": "White (non-Hispanic)",
+   "Percent": 69.11
+  },
+  {
+   "Year": "2000",
+   "Group": "Hispanic or Latino",
+   "Percent": 17.56
+  },
+  {
+   "Year": "2010",
+   "Group": "Hispanic or Latino",
+   "Percent": 21.95
+  },
+  {
+   "Year": "2020",
+   "Group": "Hispanic or Latino",
+   "Percent": 21.54
+  },
+  {
+   "Year": "2000",
+   "Group": "Black or African American",
+   "Percent": 0.48
+  },
+  {
+   "Year": "2010",
+   "Group": "Black or African American",
+   "Percent": 0.49
+  },
+  {
+   "Year": "2020",
+   "Group": "Black or African American",
+   "Percent": 0.46
+  },
+  {
+   "Year": "2000",
+   "Group": "Asian",
+   "Percent": 3.22
+  },
+  {
+   "Year": "2010",
+   "Group": "Asian",
+   "Percent": 3.19
+  },
+  {
+   "Year": "2020",
+   "Group": "Asian",
+   "Percent": 3.44
+  },
+  {
+   "Year": "2000",
+   "Group": "American Indian/Alaskan Native",
+   "Percent": 0.54
+  },
+  {
+   "Year": "2010",
+   "Group": "American Indian/Alaskan Native",
+   "Percent": 0.43
+  },
+  {
+   "Year": "2020",
+   "Group": "American Indian/Alaskan Native",
+   "Percent": 0.39
+  },
+  {
+   "Year": "2000",
+   "Group": "Pacific Islander/Hawaiian Native",
+   "Percent": 0.12
+  },
+  {
+   "Year": "2010",
+   "Group": "Pacific Islander/Hawaiian Native",
+   "Percent": 0.13
+  },
+  {
+   "Year": "2020",
+   "Group": "Pacific Islander/Hawaiian Native",
+   "Percent": 0.13
+  },
+  {
+   "Year": "2000",
+   "Group": "Other race",
+   "Percent": 0.13
+  },
+  {
+   "Year": "2010",
+   "Group": "Other race",
+   "Percent": 0.12
+  },
+  {
+   "Year": "2020",
+   "Group": "Other race",
+   "Percent": 0.6
+  },
+  {
+   "Year": "2000",
+   "Group": "Two or more races",
+   "Percent": 1.71
+  },
+  {
+   "Year": "2010",
+   "Group": "Two or more races",
+   "Percent": 1.72
+  },
+  {
+   "Year": "2020",
+   "Group": "Two or more races",
+   "Percent": 4.33
+  }
+ ]
+}

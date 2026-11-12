@@ -4,6 +4,8 @@
 
 // The data palettes (Phosphor) and the dataviz roles re-pointed to them.
 @use 'styles/palettes';
+// Link contrast and text size floors over Ecology's default theme.
+@use 'styles/access';
 
 *,
 *::before,

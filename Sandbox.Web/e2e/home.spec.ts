@@ -152,7 +152,7 @@ test.describe('Home page', () => {
     ]);
   });
 
-  test('ten category cards, alphabetical, with their program and site counts', async ({
+  test('the category cards, alphabetical, with their program and site counts', async ({
     page,
     request,
   }) => {
@@ -183,9 +183,9 @@ test.describe('Home page', () => {
     expect(new Set(looks).size, looks.join(' | ')).toBe(1);
 
     // Two across, and the two collapsed cards of each row are one height, even where a long
-    // name wraps.
+    // name wraps. With an odd count the last card sits alone.
     const heights = await page.locator('.cat__head').evaluateAll((heads) => heads.map((head) => (head as HTMLElement).offsetHeight));
-    for (let row = 0; row < heights.length; row += 2) {
+    for (let row = 0; row + 1 < heights.length; row += 2) {
       expect(heights[row + 1], `head heights ${heights.join(', ')}`).toBe(heights[row]);
       const left = (await cards(page).nth(row).boundingBox())!;
       const right = (await cards(page).nth(row + 1).boundingBox())!;
@@ -531,7 +531,7 @@ test.describe('Nav row and sections', () => {
 });
 
 test.describe('About Monitoring', () => {
-  test('lists the ten category goals, each linking to its category', async ({ page, request }) => {
+  test('lists every category goal, each linking to its category', async ({ page, request }) => {
     const expected = [...(await categories(request))].sort((a, b) => a.CategoryName.localeCompare(b.CategoryName, 'en'));
     await page.goto('/#about');
     const goals = page.locator('.goal');

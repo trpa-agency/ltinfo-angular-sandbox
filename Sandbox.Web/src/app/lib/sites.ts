@@ -171,6 +171,8 @@ export function formatValue(value: unknown): string {
 /** "site" to "sites", "assessment unit" to "assessment units"; a unit that already ends in s is left alone. */
 export function plural(count: number, unit: string): string {
   if (count === 1) return unit;
+  if (/(ch|sh|x|z)$/.test(unit)) return `${unit}es`;
+  if (/[^aeiou]y$/.test(unit)) return `${unit.slice(0, -1)}ies`;
   return unit.endsWith('s') ? unit : `${unit}s`;
 }
 
@@ -547,7 +549,13 @@ export function featureKey(feature: Feature): string {
 /** "Channeled Meadow · 16.7 acres" from the meta fields that have a value. */
 export function metaText(meta: FieldLabel[] | undefined, props: Record<string, unknown>): string {
   return (meta || [])
-    .map((m) => (props[m.field] == null || props[m.field] === '' ? '' : `${formatValue(props[m.field])}${m.suffix || ''}`))
+    .map((m) => {
+      const value = props[m.field];
+      if (value == null || value === '') return '';
+      // A plural unit in the suffix reads singular for exactly one: "1 mile", "1 plant".
+      const suffix = Number(value) === 1 && /^ \w+s$/.test(m.suffix || '') ? m.suffix!.slice(0, -1) : m.suffix || '';
+      return `${formatValue(value)}${suffix}`;
+    })
     .filter(Boolean)
     .join(META_SEPARATOR);
 }
@@ -1060,7 +1068,7 @@ export function summaryTiles(state: TileState): Tile[] {
     active =
       sites.active == null
         ? { key: 'active', label: 'Active sites', value: TILE_NA, sub: 'No active flag in the source' }
-        : { key: 'active', label: 'Active sites', value: n(sites.active), sub: 'Marked active in the source' };
+        : { key: 'active', label: 'Active sites', value: n(sites.active), sub: '' };
   }
 
   const years = recordYears(state.years);
@@ -1068,8 +1076,8 @@ export function summaryTiles(state: TileState): Tile[] {
   let first: Tile;
   let last: Tile;
   if (years.length) {
-    first = { key: 'first', label: 'Record began', value: String(years[0]), sub: 'First year in the data' };
-    last = { key: 'last', label: 'Latest data', value: String(years[years.length - 1]), sub: 'Most recent year in the data' };
+    first = { key: 'first', label: 'Record began', value: String(years[0]), sub: '' };
+    last = { key: 'last', label: 'Latest data', value: String(years[years.length - 1]), sub: '' };
   } else if (waiting && (state.hasDatedCharts || state.hasSiteSource)) {
     first = { key: 'first', label: 'Record began', value: TILE_LOADING, sub: 'Loading' };
     last = { key: 'last', label: 'Latest data', value: TILE_LOADING, sub: 'Loading' };

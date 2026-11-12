@@ -25,15 +25,15 @@ export const TEMPLATE_LABELS: Record<Template, string> = {
 /** What Sandbox.Database seeds. Change a number here when the seed changes. */
 export const seed = {
   database: 'LTInfoSandbox',
-  programs: 85,
-  categories: 10,
+  programs: 90,
+  categories: 11,
   featured: 17,
   /** The 17 programs seed.sql marks IsFeatured = 1, so a stray one is named in the failure. */
   featuredIds: [13, 16, 33, 34, 36, 39, 61, 62, 63, 64, 65, 66, 68, 69, 76, 77, 82],
-  partnerLinks: 256,
+  partnerLinks: 261,
   /** How many programs use each page layout. */
-  templates: { map: 33, charts: 42, context: 10 },
-  /** Program photos: 66 files across 39 programs; the other 47 programs have none. */
+  templates: { map: 35, charts: 45, context: 10 },
+  /** Program photos: 66 files across 39 programs; the other 51 programs have none. */
   photos: 66,
   programsWithPhotos: 39,
   /** The charts layout, and the program the detail and write tests use. One photo. */
@@ -63,7 +63,7 @@ export const seed = {
   socioEconomic: {
     id: 68,
     name: 'Socio-Economic',
-    category: 'Transportation and Sustainable Communities',
+    category: 'Demographics',
     template: 'context',
     photos: 1,
   },
@@ -86,7 +86,7 @@ export const seed = {
   airQualityPrograms: 9,
   unknownId: 999999,
   /** GET /summary, and the four totals in the home page hero. */
-  summary: { programs: 85, categories: 10, mappedSites: 1750, partners: 51, photos: 66 },
+  summary: { programs: 90, categories: 11, mappedSites: 1750, partners: 51, photos: 66 },
   /** GET /monitoring-sites: one point per site, and one per mapped area or line. */
   sites: { total: 1750, site: 789, area: 927, line: 34 },
   /** Three categories the home page tests open. Folder is the /category/:folder address. */
@@ -146,6 +146,12 @@ export async function resolvedColor(page: Page, token: string): Promise<string> 
 export const PANEL_TIMEOUT_MS = 120_000;
 
 interface ConsoleFixtures {
+  /**
+   * Staff mode (the layout control, Program Settings, the layout column and filter, the
+   * connection footer). On for most tests, which exercise those controls; visitor.spec.ts turns
+   * it off to check what the public sees.
+   */
+  staff: boolean;
   /** Console errors a test expects. Anything else fails the test. */
   allowedConsoleErrors: RegExp[];
   /** Every console error and uncaught exception the page has raised so far. */
@@ -156,7 +162,10 @@ export const test = base.extend<ConsoleFixtures>({
   // Navigation waits for the document, not the load event. Load also waits on images from
   // outside hosts (LT Info key photos have taken 18 seconds), which would fail a test for
   // their speed; every test waits for what the reader sees instead.
-  page: async ({ page }, use) => {
+  staff: [true, { option: true }],
+
+  page: async ({ page, staff }, use) => {
+    if (staff) await page.addInitScript(() => window.localStorage.setItem('mon-staff', '1'));
     const goto = page.goto.bind(page);
     page.goto = (url, options) => goto(url, { waitUntil: 'domcontentloaded', ...options });
     await use(page);

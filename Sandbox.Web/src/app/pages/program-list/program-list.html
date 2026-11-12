@@ -9,6 +9,7 @@
       [(search)]="search"
       [(categoryId)]="categoryId"
       [layoutCounts]="layoutCounts()"
+      [showLayout]="staff.on()"
       [(layout)]="layout"
       [(featured)]="featured"
     />
@@ -21,7 +22,9 @@
           <tr class="typography-label-sm-strong">
             <th scope="col">Program</th>
             <th scope="col">Category</th>
-            <th scope="col">Layout</th>
+            @if (staff.on()) {
+              <th scope="col">Layout</th>
+            }
             <th scope="col" class="is-number">Partners</th>
             <th scope="col">Featured</th>
           </tr>
@@ -51,9 +54,11 @@
                 </span>
               </th>
               <td class="is-category">{{ program.CategoryName }}</td>
+              @if (staff.on()) {
               <td>
                 <esa-badge [value]="layoutLabels[program.Template]" size="sm" />
               </td>
+              }
               <td class="is-number">{{ program.PartnerCount }}</td>
               <td>
                 @if (program.IsFeatured) {

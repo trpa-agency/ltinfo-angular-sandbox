@@ -103,8 +103,8 @@ const SHAPE_PATHS: Record<string, string> = {
 /** CSS custom properties the chart theme is read from, with the LT Info values as fallbacks. */
 const SERIES_TOKENS = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => `--color-background-dataviz-categorical-${n}`);
 
-/** Stevens 4 (src/styles/_palettes.scss), for charts with four series or fewer. */
-const FEW_SERIES_TOKENS = [1, 2, 3, 4].map((n) => `--mon-stevens4-${n}`);
+/** Stevens 4 (src/styles/_palettes.scss), strongest first, for charts with four series or fewer. */
+const FEW_SERIES_TOKENS = [4, 2, 1, 3].map((n) => `--mon-stevens4-${n}`);
 
 let nextId = 0;
 

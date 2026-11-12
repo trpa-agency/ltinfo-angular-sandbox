@@ -1,0 +1,281 @@
+{
+ "title": "Median household income within the Basin by county, 2021 dollars",
+ "source": "https://trpa-agency.github.io/Demographics/Open_Data_Figures/Demographics_Tahoe_County_Median_Income_Line.html",
+ "rows": [
+  {
+   "Year": 2011,
+   "Area": "Basin (Median)",
+   "Income": 65835
+  },
+  {
+   "Year": 2012,
+   "Area": "Basin (Median)",
+   "Income": 64576
+  },
+  {
+   "Year": 2013,
+   "Area": "Basin (Median)",
+   "Income": 62979
+  },
+  {
+   "Year": 2014,
+   "Area": "Basin (Median)",
+   "Income": 62341
+  },
+  {
+   "Year": 2015,
+   "Area": "Basin (Median)",
+   "Income": 64726
+  },
+  {
+   "Year": 2016,
+   "Area": "Basin (Median)",
+   "Income": 65787
+  },
+  {
+   "Year": 2017,
+   "Area": "Basin (Median)",
+   "Income": 65553
+  },
+  {
+   "Year": 2018,
+   "Area": "Basin (Median)",
+   "Income": 67617
+  },
+  {
+   "Year": 2019,
+   "Area": "Basin (Median)",
+   "Income": 70582
+  },
+  {
+   "Year": 2020,
+   "Area": "Basin (Median)",
+   "Income": 75045
+  },
+  {
+   "Year": 2021,
+   "Area": "Basin (Median)",
+   "Income": 79291
+  },
+  {
+   "Year": 2011,
+   "Area": "Douglas",
+   "Income": 77049
+  },
+  {
+   "Year": 2012,
+   "Area": "Douglas",
+   "Income": 75214
+  },
+  {
+   "Year": 2013,
+   "Area": "Douglas",
+   "Income": 68575
+  },
+  {
+   "Year": 2014,
+   "Area": "Douglas",
+   "Income": 64309
+  },
+  {
+   "Year": 2015,
+   "Area": "Douglas",
+   "Income": 75519
+  },
+  {
+   "Year": 2016,
+   "Area": "Douglas",
+   "Income": 72789
+  },
+  {
+   "Year": 2017,
+   "Area": "Douglas",
+   "Income": 67588
+  },
+  {
+   "Year": 2018,
+   "Area": "Douglas",
+   "Income": 67574
+  },
+  {
+   "Year": 2019,
+   "Area": "Douglas",
+   "Income": 75336
+  },
+  {
+   "Year": 2020,
+   "Area": "Douglas",
+   "Income": 71752
+  },
+  {
+   "Year": 2021,
+   "Area": "Douglas",
+   "Income": 73716
+  },
+  {
+   "Year": 2011,
+   "Area": "El Dorado",
+   "Income": 56852
+  },
+  {
+   "Year": 2012,
+   "Area": "El Dorado",
+   "Income": 56071
+  },
+  {
+   "Year": 2013,
+   "Area": "El Dorado",
+   "Income": 54994
+  },
+  {
+   "Year": 2014,
+   "Area": "El Dorado",
+   "Income": 54359
+  },
+  {
+   "Year": 2015,
+   "Area": "El Dorado",
+   "Income": 55836
+  },
+  {
+   "Year": 2016,
+   "Area": "El Dorado",
+   "Income": 58455
+  },
+  {
+   "Year": 2017,
+   "Area": "El Dorado",
+   "Income": 59419
+  },
+  {
+   "Year": 2018,
+   "Area": "El Dorado",
+   "Income": 61815
+  },
+  {
+   "Year": 2019,
+   "Area": "El Dorado",
+   "Income": 61678
+  },
+  {
+   "Year": 2020,
+   "Area": "El Dorado",
+   "Income": 64817
+  },
+  {
+   "Year": 2021,
+   "Area": "El Dorado",
+   "Income": 67726
+  },
+  {
+   "Year": 2011,
+   "Area": "Placer",
+   "Income": 74069
+  },
+  {
+   "Year": 2012,
+   "Area": "Placer",
+   "Income": 74050
+  },
+  {
+   "Year": 2013,
+   "Area": "Placer",
+   "Income": 68464
+  },
+  {
+   "Year": 2014,
+   "Area": "Placer",
+   "Income": 67933
+  },
+  {
+   "Year": 2015,
+   "Area": "Placer",
+   "Income": 62061
+  },
+  {
+   "Year": 2016,
+   "Area": "Placer",
+   "Income": 65135
+  },
+  {
+   "Year": 2017,
+   "Area": "Placer",
+   "Income": 63505
+  },
+  {
+   "Year": 2018,
+   "Area": "Placer",
+   "Income": 60229
+  },
+  {
+   "Year": 2019,
+   "Area": "Placer",
+   "Income": 61268
+  },
+  {
+   "Year": 2020,
+   "Area": "Placer",
+   "Income": 73867
+  },
+  {
+   "Year": 2021,
+   "Area": "Placer",
+   "Income": 81953
+  },
+  {
+   "Year": 2011,
+   "Area": "Washoe",
+   "Income": 98480
+  },
+  {
+   "Year": 2012,
+   "Area": "Washoe",
+   "Income": 81271
+  },
+  {
+   "Year": 2013,
+   "Area": "Washoe",
+   "Income": 82409
+  },
+  {
+   "Year": 2014,
+   "Area": "Washoe",
+   "Income": 80456
+  },
+  {
+   "Year": 2015,
+   "Area": "Washoe",
+   "Income": 85049
+  },
+  {
+   "Year": 2016,
+   "Area": "Washoe",
+   "Income": 90501
+  },
+  {
+   "Year": 2017,
+   "Area": "Washoe",
+   "Income": 95994
+  },
+  {
+   "Year": 2018,
+   "Area": "Washoe",
+   "Income": 99528
+  },
+  {
+   "Year": 2019,
+   "Area": "Washoe",
+   "Income": 105159
+  },
+  {
+   "Year": 2020,
+   "Area": "Washoe",
+   "Income": 124286
+  },
+  {
+   "Year": 2021,
+   "Area": "Washoe",
+   "Income": 135467
+  }
+ ]
+}

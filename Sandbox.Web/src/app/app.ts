@@ -16,6 +16,7 @@ import { catchError, filter, map, merge, of, switchMap, timer } from 'rxjs';
 import { LoadState, failed, ready } from './api/load-state';
 import { HealthStatus } from './api/models';
 import { SandboxApiService } from './api/sandbox-api.service';
+import { StaffMode } from './staff-mode';
 import { EsaBadge } from './ecology/esa-badge';
 import { HOME_SECTIONS, HomeSectionId, HomeSections } from './pages/home/home-sections';
 
@@ -38,6 +39,13 @@ export class App {
   private readonly api = inject(SandboxApiService);
   private readonly router = inject(Router);
   private readonly sections = inject(HomeSections);
+  protected readonly staff = inject(StaffMode);
+
+  /** Moves focus to the page content without changing the address. */
+  protected skipToMain(event: Event): void {
+    event.preventDefault();
+    document.getElementById('main')?.focus();
+  }
 
   protected readonly health = signal<LoadState<HealthStatus>>({ status: 'loading' });
   protected readonly navItems = HOME_SECTIONS;

@@ -1,6 +1,6 @@
 {
   "_about": "Category changes make-seed.py applies on top of the dashboard repo's programs.json. remove drops categories by folder; add appends programs to kept categories, by folder; their programs are placed again under the new categories by id. A program entry is one of: {id} for a program from programs.json or LT Info (name overrides the LT Info name); {id, indicator} for a threshold indicator with no monitoring program, built from its Threshold Dashboard record, id 9600 plus its threshold indicator id; or {id, ltinfo: false, ...} written here, with description and approach as lists of paragraphs. Category ids from 11. organizations gives short names for partners LT Info does not have. icon is a path in Sandbox.Web/public for categories the Threshold Dashboard has no icon for.",
-  "_sources": "Forest Structure and Fire Dynamics: the Forest Health Threshold Standards Update story map collection (https://storymaps.arcgis.com/collections/d89adce0aa9047efb018e49a6f8eff87) for the standards and their background, and the monitoring approach sections of the ForestHealth repo's monitoring/forest-structure.html and monitoring/fire-dynamics.html. Biodiversity's goal joins the adopted Threshold Dashboard descriptions of the three categories it replaces (Vegetation Preservation, Fisheries, and Wildlife). Indicator pages: the Threshold Dashboard records at internalapi.laketahoeinfo.org/threshold-indicators/{id}. Added programs: the LT Info monitoring programs not in programs.json that have a monitoring approach, partners, and usually threshold indicators, reviewed Nov. 11, 2026. Left out: 67 Air Quality (umbrella of the five pollutant programs), 37 Infrastructure (empty), 75 bike ped test, 80 Effective Population (one line), 28 East Shore Parking Counts (no partners or indicators), and 31 Nearshore Resource Allocation Program (coordination umbrella).",
+  "_sources": "Forest Structure and Fire Dynamics: the Forest Health Threshold Standards Update story map collection (https://storymaps.arcgis.com/collections/d89adce0aa9047efb018e49a6f8eff87) for the standards and their background, and the monitoring approach sections of the ForestHealth repo's monitoring/forest-structure.html and monitoring/fire-dynamics.html. Biodiversity's goal joins the adopted Threshold Dashboard descriptions of the three categories it replaces (Vegetation Preservation, Fisheries, and Wildlife). Indicator pages: the Threshold Dashboard records at internalapi.laketahoeinfo.org/threshold-indicators/{id}. Added programs: the LT Info monitoring programs not in programs.json that have a monitoring approach, partners, and usually threshold indicators, reviewed Nov. 11, 2026. Left out: 67 Air Quality (umbrella of the five pollutant programs), 37 Infrastructure (empty), 75 bike ped test, 80 Effective Population (one line), 28 East Shore Parking Counts (no partners or indicators), and 31 Nearshore Resource Allocation Program (coordination umbrella). Demographics: the Tahoe Open Data demographics page (https://www.tahoeopendata.org/pages/demographics) for the text, its figures for the age, race, occupancy, and county income charts, and the Demographics map service (Demographic Summaries table and community change layer) for the rest.",
   "remove": [
     "fisheries",
     "vegetation-preservation",
@@ -3487,6 +3487,397 @@
               }
             ]
           }
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Demographics",
+      "folder": "demographics",
+      "themeColor": "#7c7c7c",
+      "blurb": "Population, age, race and ethnicity, housing, and income of the Tahoe Region.",
+      "goal": "Describe who lives in the Tahoe Region and how that is changing, from census counts and estimates, to inform housing, transportation, and community planning.",
+      "icon": "category-icons/Demographics-white-icon.svg",
+      "programs": [
+        {
+          "id": 9901,
+          "ltinfo": false,
+          "name": "Population",
+          "template": "map",
+          "partners": [
+            "Tahoe Regional Planning Agency"
+          ],
+          "description": [
+            "The Lake Tahoe Region had 55,836 residents at the 2020 census. Population peaked at 62,843 in 2000; over the 30 years from 1990 to 2020 it grew 6 percent, while the five surrounding counties grew 92 percent, Nevada 138 percent, and California 33 percent.",
+            "In 2020, 72 percent of the Region's residents lived in the California portion of the Basin and 28 percent in Nevada, and 64 percent lived in south shore communities. California communities declined 2 percent from 2010 to 2020 and are 12 percent below the 2000 peak, while Nevada communities grew 7 percent.",
+            "Incline Village and Crystal Bay grew fastest from 2010 to 2020, up 8 percent. Homewood fell 9 percent and Tahoma 7 percent. The City of South Lake Tahoe declined 2 percent, and Meyers grew 3 percent. The Placer County communities on the north and west shores declined 4 percent from 2010 and are 17 percent below the 2000 peak; only Lake Forest and Dollar Hill grew, up 3 percent."
+          ],
+          "approach": [
+            "Figures come from the U.S. Census Bureau's decennial census and American Community Survey (ACS) 5-year estimates, queried through the Census Bureau's API and summarized for the Tahoe Region by TRPA. Decennial counts are a full count every 10 years; ACS estimates are yearly averages of five years of samples, so they move more smoothly and carry a margin of error.",
+            "In 2020 the census boundaries changed. The Lake Tahoe Region is made up of 31 census tracts and 78 block groups along the California and Nevada border. The Carson City tract straddles the TRPA boundary with most of its people outside it, so it is left out.",
+            "The tables and boundaries are on the TRPA Demographics map service, and the code behind the figures is in TRPA's Demographics repository on GitHub."
+          ],
+          "mapLayer": {
+            "service": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+            "layer": 31,
+            "title": "Communities",
+            "unit": "community",
+            "unitPlural": "Communities",
+            "name": "NEIGHBORHOOD",
+            "countAsSites": false,
+            "fields": [
+              {
+                "field": "Neighborhood_Population_2010",
+                "label": "Population, 2010"
+              },
+              {
+                "field": "Neighborhood_Population_2020",
+                "label": "Population, 2020"
+              },
+              {
+                "field": "Population_Percent_Change",
+                "label": "Population change (percent)"
+              },
+              {
+                "field": "Neighborhood_HousingUnits_2020",
+                "label": "Housing units, 2020"
+              },
+              {
+                "field": "Neighborhood_Seasonal_2020",
+                "label": "Seasonal homes, 2020"
+              }
+            ]
+          },
+          "measures": [
+            {
+              "title": "Population at each census",
+              "sub": "Residents of the Lake Tahoe Region counted in each decennial census.",
+              "service": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+              "layer": 18,
+              "where": "Geography = 'Basin' AND Category = 'Total Population' AND Source LIKE '%Decennial%'",
+              "x": "Year",
+              "y": "Value",
+              "yName": "Residents",
+              "yLabel": "Residents",
+              "type": "bar"
+            },
+            {
+              "title": "Population estimates between censuses",
+              "sub": "American Community Survey 5-year estimates of the Region's population.",
+              "service": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+              "layer": 18,
+              "where": "Geography = 'Basin' AND Category = 'Total Population' AND (Source = 'acs/acs5' OR Source LIKE '%ACS%')",
+              "x": "Year",
+              "y": "Value",
+              "yName": "Residents",
+              "yLabel": "Residents",
+              "zero": false
+            },
+            {
+              "title": "Population change by community, 2010 to 2020",
+              "sub": "Change in each community's population between the 2010 and 2020 censuses.",
+              "service": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+              "layer": 31,
+              "where": "1=1",
+              "x": "NEIGHBORHOOD",
+              "y": "Population_Percent_Change",
+              "xType": "category",
+              "xLabel": "Community",
+              "yName": "Change",
+              "yLabel": "Change (percent)",
+              "type": "bar",
+              "orientation": "h",
+              "sort": "desc",
+              "span": "span-12"
+            }
+          ]
+        },
+        {
+          "id": 9902,
+          "ltinfo": false,
+          "name": "Age",
+          "template": "charts",
+          "partners": [
+            "Tahoe Regional Planning Agency"
+          ],
+          "description": [
+            "The Basin's residents have grown older over three decades and are now slightly older than those of nearby counties and urban areas. The baby boom generation shows in the age profile: the largest age group was 30 to 40 in 1990, 40 to 50 in 2000, and 60 to 70 by 2020.",
+            "Millennials form a second peak, at ages 25 to 40, that the surrounding five counties do not show, perhaps because of the Region's appeal to people seeking an active outdoor life. One resident in five was 65 or older in 2020, up from fewer than one in 10 in 1990."
+          ],
+          "approach": [
+            "Figures come from the U.S. Census Bureau's decennial census and American Community Survey (ACS) 5-year estimates, queried through the Census Bureau's API and summarized for the Tahoe Region by TRPA. Decennial counts are a full count every 10 years; ACS estimates are yearly averages of five years of samples, so they move more smoothly and carry a margin of error.",
+            "In 2020 the census boundaries changed. The Lake Tahoe Region is made up of 31 census tracts and 78 block groups along the California and Nevada border. The Carson City tract straddles the TRPA boundary with most of its people outside it, so it is left out.",
+            "The tables and boundaries are on the TRPA Demographics map service, and the code behind the figures is in TRPA's Demographics repository on GitHub."
+          ],
+          "measures": [
+            {
+              "title": "Age profile by census",
+              "sub": "Share of men or women in each five-year age group at each census. Choose men or women.",
+              "json": "data/demographics/age-profile.json",
+              "sourceHref": "https://trpa-agency.github.io/Demographics/Open_Data_Figures/Demographics_Tahoe_AgeProfile.html",
+              "sourceLabel": "Tahoe Open Data demographics",
+              "x": "Age",
+              "xType": "category",
+              "xLabel": "Age",
+              "xOrder": [
+                "Under 5",
+                "5 to 9",
+                "10 to 14",
+                "15 to 19",
+                "20 to 24",
+                "25 to 29",
+                "30 to 34",
+                "35 to 39",
+                "40 to 44",
+                "45 to 49",
+                "50 to 54",
+                "55 to 59",
+                "60 to 64",
+                "65 to 69",
+                "70 to 74",
+                "75 to 79",
+                "80 to 84",
+                "Over 85"
+              ],
+              "y": "Percent",
+              "seriesBy": "Year",
+              "seriesLabel": "Census",
+              "pick": "Sex",
+              "pickLabel": "Sex",
+              "pickDefault": "Women",
+              "yLabel": "Percent",
+              "span": "span-12"
+            },
+            {
+              "title": "Residents 65 and older",
+              "sub": "Share of the population 65 and older, the Basin against the five surrounding counties.",
+              "json": "data/demographics/population-over-65.json",
+              "sourceHref": "https://trpa-agency.github.io/Demographics/Open_Data_Figures/Demographics_Tahoe_Senior_Population.html",
+              "sourceLabel": "Tahoe Open Data demographics",
+              "x": "Year",
+              "xType": "category",
+              "xLabel": "Census",
+              "y": "Percent",
+              "seriesBy": "Area",
+              "seriesLabel": "Area",
+              "yLabel": "Percent of residents",
+              "type": "bar",
+              "span": "span-12"
+            }
+          ]
+        },
+        {
+          "id": 9903,
+          "ltinfo": false,
+          "name": "Race and Ethnicity",
+          "template": "charts",
+          "partners": [
+            "Tahoe Regional Planning Agency"
+          ],
+          "description": [
+            "The Basin's population has grown more diverse since the 2000 census. The share of residents who identify as Hispanic or Latino rose from 18 percent in 2000 to 22 percent in 2020, and Black, Indigenous, and other people of color made up about 31 percent of residents in 2020, up from 24 percent in 2000."
+          ],
+          "approach": [
+            "Figures come from the U.S. Census Bureau's decennial census and American Community Survey (ACS) 5-year estimates, queried through the Census Bureau's API and summarized for the Tahoe Region by TRPA. Decennial counts are a full count every 10 years; ACS estimates are yearly averages of five years of samples, so they move more smoothly and carry a margin of error.",
+            "In 2020 the census boundaries changed. The Lake Tahoe Region is made up of 31 census tracts and 78 block groups along the California and Nevada border. The Carson City tract straddles the TRPA boundary with most of its people outside it, so it is left out.",
+            "The tables and boundaries are on the TRPA Demographics map service, and the code behind the figures is in TRPA's Demographics repository on GitHub."
+          ],
+          "measures": [
+            {
+              "title": "Race and Hispanic origin",
+              "sub": "Share of residents by race and Hispanic origin at each census since 2000.",
+              "json": "data/demographics/race-and-ethnicity.json",
+              "sourceHref": "https://trpa-agency.github.io/Demographics/Open_Data_Figures/Demographics_Tahoe_RaceDistribution.html",
+              "sourceLabel": "Tahoe Open Data demographics",
+              "x": "Year",
+              "xType": "category",
+              "xLabel": "Census",
+              "y": "Percent",
+              "seriesBy": "Group",
+              "seriesLabel": "Race and Hispanic origin",
+              "seriesOrder": [
+                "White (non-Hispanic)",
+                "Hispanic or Latino",
+                "Asian",
+                "Two or more races",
+                "Black or African American",
+                "American Indian/Alaskan Native",
+                "Pacific Islander/Hawaiian Native",
+                "Other race"
+              ],
+              "yLabel": "Percent of residents",
+              "type": "stacked",
+              "span": "span-12"
+            }
+          ]
+        },
+        {
+          "id": 9904,
+          "ltinfo": false,
+          "name": "Housing",
+          "template": "map",
+          "partners": [
+            "Tahoe Regional Planning Agency"
+          ],
+          "description": [
+            "Over four decades, homes occupied by full-time residents have held at slightly under half of all housing in the Basin, except in 2000, when they rose to 55 percent. Seasonal, recreational, or occasional use accounted for almost half of all housing in 2020.",
+            "The Basin had 49,592 housing units at the 2020 census, of which 21,883 were seasonal homes, up from 12,757 in 1990."
+          ],
+          "approach": [
+            "Figures come from the U.S. Census Bureau's decennial census and American Community Survey (ACS) 5-year estimates, queried through the Census Bureau's API and summarized for the Tahoe Region by TRPA. Decennial counts are a full count every 10 years; ACS estimates are yearly averages of five years of samples, so they move more smoothly and carry a margin of error.",
+            "In 2020 the census boundaries changed. The Lake Tahoe Region is made up of 31 census tracts and 78 block groups along the California and Nevada border. The Carson City tract straddles the TRPA boundary with most of its people outside it, so it is left out.",
+            "The tables and boundaries are on the TRPA Demographics map service, and the code behind the figures is in TRPA's Demographics repository on GitHub."
+          ],
+          "mapLayer": {
+            "service": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+            "layer": 31,
+            "title": "Communities",
+            "unit": "community",
+            "unitPlural": "Communities",
+            "name": "NEIGHBORHOOD",
+            "countAsSites": false,
+            "fields": [
+              {
+                "field": "Neighborhood_Population_2010",
+                "label": "Population, 2010"
+              },
+              {
+                "field": "Neighborhood_Population_2020",
+                "label": "Population, 2020"
+              },
+              {
+                "field": "Population_Percent_Change",
+                "label": "Population change (percent)"
+              },
+              {
+                "field": "Neighborhood_HousingUnits_2020",
+                "label": "Housing units, 2020"
+              },
+              {
+                "field": "Neighborhood_Seasonal_2020",
+                "label": "Seasonal homes, 2020"
+              }
+            ]
+          },
+          "measures": [
+            {
+              "title": "Housing units by occupancy",
+              "sub": "Share of housing units occupied by owners or renters, or vacant, at each census.",
+              "json": "data/demographics/housing-occupancy.json",
+              "sourceHref": "https://trpa-agency.github.io/Demographics/Open_Data_Figures/Demographics_Tahoe_HousingUnits.html",
+              "sourceLabel": "Tahoe Open Data demographics",
+              "x": "Year",
+              "xType": "category",
+              "xLabel": "Census",
+              "y": "Percent",
+              "seriesBy": "Occupancy",
+              "seriesLabel": "Occupancy",
+              "seriesOrder": [
+                "Owner Occupied",
+                "Renter Occupied",
+                "Vacant: seasonal or occasional use",
+                "Vacant: other"
+              ],
+              "seriesNames": {
+                "Owner Occupied": "Owner occupied",
+                "Renter Occupied": "Renter occupied",
+                "Vacant: seasonal or occasional use": "Seasonal or occasional use",
+                "Vacant: other": "Vacant, other"
+              },
+              "yLabel": "Percent of housing units",
+              "type": "stacked",
+              "span": "span-12"
+            },
+            {
+              "title": "Housing units and seasonal homes at each census",
+              "sub": "All housing units and those held for seasonal, recreational, or occasional use.",
+              "service": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+              "layer": 18,
+              "where": "Geography = 'Basin' AND Category IN ('Total Housing Units','Vacant Housing Units: Seasonal, recreational, or occasional use') AND Source LIKE 'dec/%' AND Code <> 'H0060003'",
+              "x": "Year",
+              "y": "Value",
+              "seriesBy": "Category",
+              "seriesLabel": "Housing",
+              "seriesNames": {
+                "Total Housing Units": "All housing units",
+                "Vacant Housing Units: Seasonal, recreational, or occasional use": "Seasonal homes"
+              },
+              "yLabel": "Housing units",
+              "type": "bar"
+            },
+            {
+              "title": "Change in seasonal homes by community, 2010 to 2020",
+              "sub": "Change in each community's seasonal, recreational, or occasional-use homes between the 2010 and 2020 censuses.",
+              "service": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+              "layer": 31,
+              "where": "1=1",
+              "x": "NEIGHBORHOOD",
+              "y": "Seasonal_Unit_Percent_Change",
+              "xType": "category",
+              "xLabel": "Community",
+              "yName": "Change",
+              "yLabel": "Change (percent)",
+              "type": "bar",
+              "orientation": "h",
+              "sort": "desc"
+            }
+          ]
+        },
+        {
+          "id": 9905,
+          "ltinfo": false,
+          "name": "Income",
+          "template": "charts",
+          "partners": [
+            "Tahoe Regional Planning Agency"
+          ],
+          "description": [
+            "Household incomes in the Basin have generally risen over the past decade, with a notable rise from 2019 to 2021, the latest years with census estimates. In the Washoe County part of the Basin, median income adjusted for inflation rose 29 percent from 2019 to 2021, while elsewhere in the Basin it held roughly steady."
+          ],
+          "approach": [
+            "Figures come from the U.S. Census Bureau's decennial census and American Community Survey (ACS) 5-year estimates, queried through the Census Bureau's API and summarized for the Tahoe Region by TRPA. Decennial counts are a full count every 10 years; ACS estimates are yearly averages of five years of samples, so they move more smoothly and carry a margin of error.",
+            "In 2020 the census boundaries changed. The Lake Tahoe Region is made up of 31 census tracts and 78 block groups along the California and Nevada border. The Carson City tract straddles the TRPA boundary with most of its people outside it, so it is left out.",
+            "The tables and boundaries are on the TRPA Demographics map service, and the code behind the figures is in TRPA's Demographics repository on GitHub."
+          ],
+          "measures": [
+            {
+              "title": "Median household income",
+              "sub": "Median household income in the Basin in 2021 dollars, from the 1990 and 2000 censuses and ACS 5-year estimates after.",
+              "service": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+              "layer": 18,
+              "where": "Geography = 'Basin' AND Category = 'Household Income (2021 Inflation Adjusted Dollars)'",
+              "x": "Year",
+              "y": "Value",
+              "yName": "Median income",
+              "yLabel": "Dollars (2021)",
+              "type": "bar",
+              "span": "span-12"
+            },
+            {
+              "title": "Median household income by county",
+              "sub": "Median household income in each county's part of the Basin, 2021 dollars.",
+              "json": "data/demographics/median-income-by-county.json",
+              "sourceHref": "https://trpa-agency.github.io/Demographics/Open_Data_Figures/Demographics_Tahoe_County_Median_Income_Line.html",
+              "sourceLabel": "Tahoe Open Data demographics",
+              "x": "Year",
+              "y": "Income",
+              "seriesBy": "Area",
+              "seriesLabel": "Area",
+              "seriesOrder": [
+                "Basin (Median)",
+                "Douglas",
+                "El Dorado",
+                "Placer",
+                "Washoe"
+              ],
+              "yLabel": "Dollars (2021)",
+              "zero": false,
+              "span": "span-12"
+            }
+          ]
+        },
+        {
+          "id": 68
         }
       ]
     }

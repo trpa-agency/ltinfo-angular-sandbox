@@ -1,0 +1,33 @@
+// Accessibility floors on Ecology's default theme, from the Nov. 11, 2026 UX review. Each
+// re-points a semantic role; Ecology's primitives are left as they are. Both are worth raising
+// with ESA, since the design system is theirs.
+//
+// Link color: --color-content-link is the brand fill (grass 9, #46a758), 3.0:1 on white, short
+// of the 4.5:1 text needs. Grass 11 (#2a7e3b) is 4.9:1 and is the step the selected segment of a
+// toggle already uses.
+//
+// Text size: Ecology's font sizes clamp with the viewport, so at 375 px body text was 12.2 px
+// and meta text 10.2 px. The roles below keep their fluid size but never fall below 16 px for
+// prose and 13 px for small text, meta, and labels.
+
+:root {
+  --mon-type-floor-prose: 1rem;
+  --mon-type-floor-small: 0.8125rem;
+
+  --color-content-link: var(--color-grass-11);
+  --color-content-link-hover: var(--color-grass-12);
+
+  --typography-body-lg-font-size: max(var(--font-size-300), var(--mon-type-floor-prose));
+  --typography-body-md-font-size: max(var(--font-size-200), var(--mon-type-floor-prose));
+  --typography-body-sm-font-size: max(var(--font-size-150), var(--mon-type-floor-small));
+  --typography-body-xs-font-size: max(var(--font-size-100), var(--mon-type-floor-small));
+  --typography-body-2xs-font-size: max(var(--font-size-050), var(--mon-type-floor-small));
+  --typography-meta-font-size: max(var(--font-size-100), var(--mon-type-floor-small));
+  --typography-label-xs-font-size: max(var(--font-size-100), var(--mon-type-floor-small));
+  --typography-label-xs-strong-font-size: max(var(--font-size-100), var(--mon-type-floor-small));
+  --typography-label-sm-font-size: max(var(--font-size-150), var(--mon-type-floor-small));
+  --typography-label-sm-strong-font-size: max(var(--font-size-150), var(--mon-type-floor-small));
+  --typography-label-md-font-size: max(var(--font-size-200), var(--mon-type-floor-small));
+  --typography-label-md-strong-font-size: max(var(--font-size-200), var(--mon-type-floor-small));
+  --typography-title-sm-strong-font-size: max(var(--font-size-250), var(--mon-type-floor-prose));
+}

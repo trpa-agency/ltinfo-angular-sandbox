@@ -24,6 +24,7 @@
     (change)="onCategory($event)"
   ></esa-select>
 
+  @if (showLayout()) {
   <esa-select
     class="filters__layout"
     label="Layout"
@@ -33,6 +34,7 @@
     [value]="layout()"
     (change)="onLayout($event)"
   ></esa-select>
+  }
 
   <esa-button-toggle
     class="filters__featured"

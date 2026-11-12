@@ -57,7 +57,29 @@ def text(s):
     s = html.unescape(s).replace("\xa0", " ").replace("�", "").replace("‐", "-")
     s = re.sub(r"[ \t]+", " ", s)
     s = re.sub(r"\s*\n\s*", "\n\n", s).strip()
-    return s or None
+    return tidy(s) or None
+
+
+# A threshold standard's code at the start of a paragraph, such as "VP15:" or "F2)".
+STANDARD_CODE = re.compile(r"^[A-Z]{1,3}\d{1,2}[a-z]?\s*[:)]\s*")
+
+
+def tidy(s):
+    """House style on CMS text: standard codes off the front of paragraphs, a percent sign and an
+    ampersand in prose written out, a last paragraph cut off mid-word in the source trimmed back to
+    its last whole sentence, and repeated paragraphs dropped."""
+    out = []
+    for p in s.split("\n\n"):
+        p = STANDARD_CODE.sub("", p.strip())
+        p = re.sub(r"(\d)\s?%", r"\1 percent", p).replace(" & ", " and ")
+        if p and p not in out:
+            out.append(p)
+    if out and len(out[-1]) > 200 and out[-1][-1].islower():
+        # A sentence ends at a period before a capital, but not after "al." or "e.g." in a citation.
+        ends = [m.end() for m in re.finditer(r"(?<!\bal)(?<!\be\.g)\.(?=\s+[A-Z“\"])", out[-1])]
+        if ends:
+            out[-1] = out[-1][: ends[-1]]
+    return "\n\n".join(out)
 
 
 def paragraphs(value):
@@ -78,7 +100,7 @@ def indicator_page(entry):
             text(rec.get("Relevance"))]
     standard = text(rec.get("ApplicableStandard"))
     if standard:
-        desc.append("Threshold standard: " + standard)
+        desc.append("Threshold standard: " + STANDARD_CODE.sub("", standard))
     if not rec.get("IsActive", True):
         desc.insert(0, text(rec.get("InactivationDetailedExplanation")) or "This indicator is no longer evaluated on the Threshold Dashboard.")
     guid = (rec.get("OverviewImageFileResourceGUID") or "").lower()
@@ -101,6 +123,11 @@ def merged_categories(data):
     extra = json.load(io.open(EXTRA_CATEGORIES, encoding="utf-8"))
     removed = set(extra.get("remove", []))
     pool = {p["id"]: p for c in data["categories"] if c["folder"] in removed for p in c["programs"]}
+    # Every programs.json program by id, so a new category can also take one from a kept category
+    # (it then leaves that category).
+    everything = {p["id"]: p for c in data["categories"] for p in c["programs"]}
+    moved = {e["id"] for c in extra.get("categories", []) for e in c.get("programs", [])
+             if e["id"] in everything and e["id"] not in pool}
     placed = set()
 
     def resolve(e):
@@ -109,12 +136,12 @@ def merged_categories(data):
             return indicator_page(e)
         if e.get("ltinfo") is False:
             return dict(e, description=paragraphs(e.get("description")), approach=paragraphs(e.get("approach")))
-        if e["id"] in pool:
-            return dict(pool[e["id"]], **{k: v for k, v in e.items() if k != "id"})
+        if e["id"] in everything:
+            return dict(everything[e["id"]], **{k: v for k, v in e.items() if k != "id"})
         return {"template": "context", "featured": False, "describeFromIndicators": True, **e}
 
     additions = extra.get("add", {})
-    categories = [dict(c, programs=c["programs"] + [resolve(e) for e in additions.get(c["folder"], [])])
+    categories = [dict(c, programs=[p for p in c["programs"] if p["id"] not in moved] + [resolve(e) for e in additions.get(c["folder"], [])])
                   for c in data["categories"] if c["folder"] not in removed]
     for c in extra.get("categories", []):
         categories.append({"thresholdCategoryId": c["id"], "name": c["name"], "folder": c["folder"],

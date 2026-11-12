@@ -25,18 +25,22 @@
       @let program = page.data;
       @let layout = shown() ?? program.Template;
 
-      <!-- The back link and the layout control share one line. Picking a layout
+      <!-- The back link and, in staff mode, the layout control share one line. Picking a layout
            previews it through ?template=; Save layout sends PATCH. -->
-      <app-layout-control
-        [saved]="program.Template"
-        [shown]="layout"
-        [saving]="savingLayout()"
-        [error]="layoutError()"
-        (pick)="preview($event, program.Template)"
-        (save)="saveLayout(program)"
-      >
+      @if (staff.on()) {
+        <app-layout-control
+          [saved]="program.Template"
+          [shown]="layout"
+          [saving]="savingLayout()"
+          [error]="layoutError()"
+          (pick)="preview($event, program.Template)"
+          (save)="saveLayout(program)"
+        >
+          <p class="back typography-label-md"><a routerLink="/" fragment="all-programs">All Programs</a></p>
+        </app-layout-control>
+      } @else {
         <p class="back typography-label-md"><a routerLink="/" fragment="all-programs">All Programs</a></p>
-      </app-layout-control>
+      }
 
       <!-- One of three templates. -->
       <div class="program" [attr.data-template]="layout">
@@ -53,7 +57,8 @@
         }
       </div>
 
-      <!-- The write path: this button sends PATCH /api/monitoring-programs/:id. -->
+      <!-- The write path, staff mode only: this button sends PATCH /api/monitoring-programs/:id. -->
+      @if (staff.on()) {
       <section class="settings" aria-labelledby="settings-title">
         <h2 id="settings-title" class="settings__title typography-title-sm-strong">Program Settings</h2>
         <esa-card [title]="'Featured'">
@@ -73,6 +78,7 @@
           <p class="featured__error typography-body-sm" role="alert">{{ saveError() }}</p>
         </esa-card>
       </section>
+      }
 
       <!-- The larger view of a photo. One dialog for the hero and the gallery. -->
       <app-photo-lightbox />

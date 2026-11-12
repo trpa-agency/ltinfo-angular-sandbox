@@ -1,0 +1,86 @@
+{
+ "title": "Housing units by occupancy, percent",
+ "source": "https://trpa-agency.github.io/Demographics/Open_Data_Figures/Demographics_Tahoe_HousingUnits.html",
+ "rows": [
+  {
+   "Year": "1990",
+   "Occupancy": "Owner Occupied",
+   "Percent": 23.94
+  },
+  {
+   "Year": "2000",
+   "Occupancy": "Owner Occupied",
+   "Percent": 32.42
+  },
+  {
+   "Year": "2010",
+   "Occupancy": "Owner Occupied",
+   "Percent": 26.95
+  },
+  {
+   "Year": "2020",
+   "Occupancy": "Owner Occupied",
+   "Percent": 28.54
+  },
+  {
+   "Year": "1990",
+   "Occupancy": "Renter Occupied",
+   "Percent": 24.5
+  },
+  {
+   "Year": "2000",
+   "Occupancy": "Renter Occupied",
+   "Percent": 22.96
+  },
+  {
+   "Year": "2010",
+   "Occupancy": "Renter Occupied",
+   "Percent": 21.92
+  },
+  {
+   "Year": "2020",
+   "Occupancy": "Renter Occupied",
+   "Percent": 21.12
+  },
+  {
+   "Year": "1990",
+   "Occupancy": "Vacant: other",
+   "Percent": 18.21
+  },
+  {
+   "Year": "2000",
+   "Occupancy": "Vacant: other",
+   "Percent": 5.02
+  },
+  {
+   "Year": "2010",
+   "Occupancy": "Vacant: other",
+   "Percent": 7.2
+  },
+  {
+   "Year": "2020",
+   "Occupancy": "Vacant: other",
+   "Percent": 6.22
+  },
+  {
+   "Year": "1990",
+   "Occupancy": "Vacant: seasonal or occasional use",
+   "Percent": 33.35
+  },
+  {
+   "Year": "2000",
+   "Occupancy": "Vacant: seasonal or occasional use",
+   "Percent": 39.6
+  },
+  {
+   "Year": "2010",
+   "Occupancy": "Vacant: seasonal or occasional use",
+   "Percent": 43.92
+  },
+  {
+   "Year": "2020",
+   "Occupancy": "Vacant: seasonal or occasional use",
+   "Percent": 44.13
+  }
+ ]
+}

@@ -1,0 +1,46 @@
+{
+ "title": "Share of the population 65 and older",
+ "source": "https://trpa-agency.github.io/Demographics/Open_Data_Figures/Demographics_Tahoe_Senior_Population.html",
+ "rows": [
+  {
+   "Year": "1990",
+   "Area": "Tahoe Basin",
+   "Percent": 8.28
+  },
+  {
+   "Year": "2000",
+   "Area": "Tahoe Basin",
+   "Percent": 9.21
+  },
+  {
+   "Year": "2010",
+   "Area": "Tahoe Basin",
+   "Percent": 12.26
+  },
+  {
+   "Year": "2020",
+   "Area": "Tahoe Basin",
+   "Percent": 19.67
+  },
+  {
+   "Year": "1990",
+   "Area": "Surrounding 5-Counties",
+   "Percent": 11.68
+  },
+  {
+   "Year": "2000",
+   "Area": "Surrounding 5-Counties",
+   "Percent": 11.96
+  },
+  {
+   "Year": "2010",
+   "Area": "Surrounding 5-Counties",
+   "Percent": 14.07
+  },
+  {
+   "Year": "2020",
+   "Area": "Surrounding 5-Counties",
+   "Percent": 19.86
+  }
+ ]
+}

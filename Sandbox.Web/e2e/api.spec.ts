@@ -236,7 +236,7 @@ test.describe('Sandbox.API contract', () => {
     });
   });
 
-  test('GET /categories returns 10 categories in the documented shape', async ({ request }) => {
+  test('GET /categories returns 11 categories in the documented shape', async ({ request }) => {
     const response = await request.get('categories');
     expect(response.status()).toBe(200);
     const categories = (await response.json()) as Category[];
@@ -263,7 +263,7 @@ test.describe('Sandbox.API contract', () => {
     );
   });
 
-  test('GET /monitoring-programs returns 85 programs in the documented shape', async ({
+  test('GET /monitoring-programs returns 90 programs in the documented shape', async ({
     request,
   }) => {
     const [programsResponse, categoriesResponse] = await Promise.all([

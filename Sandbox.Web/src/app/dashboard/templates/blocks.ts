@@ -143,7 +143,8 @@ export class SitesBlock {
         (loaded)="tracker().chartLoaded($event)"
         (settled)="tracker().chartSettled(key, $event)"
       />
-    } @else {
+    } @else if (!data().sites) {
+      <!-- Only on a page with no sites or map at all; a page that maps areas has nothing to count here. -->
       <esa-card [title]="'Sites monitored each year'">
         <div class="empty">
           <esa-empty-state

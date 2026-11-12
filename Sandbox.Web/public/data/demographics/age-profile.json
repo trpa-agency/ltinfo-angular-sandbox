@@ -1,0 +1,871 @@
+{
+ "title": "Age profile of the Tahoe Basin by census year, percent of men and of women",
+ "source": "https://trpa-agency.github.io/Demographics/Open_Data_Figures/Demographics_Tahoe_AgeProfile.html",
+ "note": "Panels in census order, 1990 to 2020.",
+ "rows": [
+  {
+   "Age": "Under 5",
+   "Year": "1990",
+   "Sex": "Men",
+   "Percent": 6.64
+  },
+  {
+   "Age": "5 to 9",
+   "Year": "1990",
+   "Sex": "Men",
+   "Percent": 6.86
+  },
+  {
+   "Age": "10 to 14",
+   "Year": "1990",
+   "Sex": "Men",
+   "Percent": 5.1
+  },
+  {
+   "Age": "15 to 19",
+   "Year": "1990",
+   "Sex": "Men",
+   "Percent": 4.71
+  },
+  {
+   "Age": "20 to 24",
+   "Year": "1990",
+   "Sex": "Men",
+   "Percent": 6.21
+  },
+  {
+   "Age": "25 to 29",
+   "Year": "1990",
+   "Sex": "Men",
+   "Percent": 8.77
+  },
+  {
+   "Age": "30 to 34",
+   "Year": "1990",
+   "Sex": "Men",
+   "Percent": 11.08
+  },
+  {
+   "Age": "35 to 39",
+   "Year": "1990",
+   "Sex": "Men",
+   "Percent": 12.91
+  },
+  {
+   "Age": "40 to 44",
+   "Year": "1990",
+   "Sex": "Men",
+   "Percent": 10.59
+  },
+  {
+   "Age": "45 to 49",
+   "Year": "1990",
+   "Sex": "Men",
+   "Percent": 6.16
+  },
+  {
+   "Age": "50 to 54",
+   "Year": "1990",
+   "Sex": "Men",
+   "Percent": 4.23
+  },
+  {
+   "Age": "55 to 59",
+   "Year": "1990",
+   "Sex": "Men",
+   "Percent": 4.44
+  },
+  {
+   "Age": "60 to 64",
+   "Year": "1990",
+   "Sex": "Men",
+   "Percent": 4.14
+  },
+  {
+   "Age": "65 to 69",
+   "Year": "1990",
+   "Sex": "Men",
+   "Percent": 3.41
+  },
+  {
+   "Age": "70 to 74",
+   "Year": "1990",
+   "Sex": "Men",
+   "Percent": 2.46
+  },
+  {
+   "Age": "75 to 79",
+   "Year": "1990",
+   "Sex": "Men",
+   "Percent": 1.44
+  },
+  {
+   "Age": "80 to 84",
+   "Year": "1990",
+   "Sex": "Men",
+   "Percent": 0.54
+  },
+  {
+   "Age": "Over 85",
+   "Year": "1990",
+   "Sex": "Men",
+   "Percent": 0.29
+  },
+  {
+   "Age": "Under 5",
+   "Year": "1990",
+   "Sex": "Women",
+   "Percent": 7.83
+  },
+  {
+   "Age": "5 to 9",
+   "Year": "1990",
+   "Sex": "Women",
+   "Percent": 6.97
+  },
+  {
+   "Age": "10 to 14",
+   "Year": "1990",
+   "Sex": "Women",
+   "Percent": 5.48
+  },
+  {
+   "Age": "15 to 19",
+   "Year": "1990",
+   "Sex": "Women",
+   "Percent": 4.74
+  },
+  {
+   "Age": "20 to 24",
+   "Year": "1990",
+   "Sex": "Women",
+   "Percent": 5.41
+  },
+  {
+   "Age": "25 to 29",
+   "Year": "1990",
+   "Sex": "Women",
+   "Percent": 8.49
+  },
+  {
+   "Age": "30 to 34",
+   "Year": "1990",
+   "Sex": "Women",
+   "Percent": 12.0
+  },
+  {
+   "Age": "35 to 39",
+   "Year": "1990",
+   "Sex": "Women",
+   "Percent": 11.77
+  },
+  {
+   "Age": "40 to 44",
+   "Year": "1990",
+   "Sex": "Women",
+   "Percent": 8.77
+  },
+  {
+   "Age": "45 to 49",
+   "Year": "1990",
+   "Sex": "Women",
+   "Percent": 5.38
+  },
+  {
+   "Age": "50 to 54",
+   "Year": "1990",
+   "Sex": "Women",
+   "Percent": 4.92
+  },
+  {
+   "Age": "55 to 59",
+   "Year": "1990",
+   "Sex": "Women",
+   "Percent": 4.33
+  },
+  {
+   "Age": "60 to 64",
+   "Year": "1990",
+   "Sex": "Women",
+   "Percent": 4.69
+  },
+  {
+   "Age": "65 to 69",
+   "Year": "1990",
+   "Sex": "Women",
+   "Percent": 3.16
+  },
+  {
+   "Age": "70 to 74",
+   "Year": "1990",
+   "Sex": "Women",
+   "Percent": 2.68
+  },
+  {
+   "Age": "75 to 79",
+   "Year": "1990",
+   "Sex": "Women",
+   "Percent": 2.02
+  },
+  {
+   "Age": "80 to 84",
+   "Year": "1990",
+   "Sex": "Women",
+   "Percent": 0.8
+  },
+  {
+   "Age": "Over 85",
+   "Year": "1990",
+   "Sex": "Women",
+   "Percent": 0.57
+  },
+  {
+   "Age": "Under 5",
+   "Year": "2000",
+   "Sex": "Men",
+   "Percent": 5.44
+  },
+  {
+   "Age": "5 to 9",
+   "Year": "2000",
+   "Sex": "Men",
+   "Percent": 6.23
+  },
+  {
+   "Age": "10 to 14",
+   "Year": "2000",
+   "Sex": "Men",
+   "Percent": 6.83
+  },
+  {
+   "Age": "15 to 19",
+   "Year": "2000",
+   "Sex": "Men",
+   "Percent": 6.21
+  },
+  {
+   "Age": "20 to 24",
+   "Year": "2000",
+   "Sex": "Men",
+   "Percent": 7.14
+  },
+  {
+   "Age": "25 to 29",
+   "Year": "2000",
+   "Sex": "Men",
+   "Percent": 7.84
+  },
+  {
+   "Age": "30 to 34",
+   "Year": "2000",
+   "Sex": "Men",
+   "Percent": 7.67
+  },
+  {
+   "Age": "35 to 39",
+   "Year": "2000",
+   "Sex": "Men",
+   "Percent": 8.43
+  },
+  {
+   "Age": "40 to 44",
+   "Year": "2000",
+   "Sex": "Men",
+   "Percent": 9.09
+  },
+  {
+   "Age": "45 to 49",
+   "Year": "2000",
+   "Sex": "Men",
+   "Percent": 9.36
+  },
+  {
+   "Age": "50 to 54",
+   "Year": "2000",
+   "Sex": "Men",
+   "Percent": 7.96
+  },
+  {
+   "Age": "55 to 59",
+   "Year": "2000",
+   "Sex": "Men",
+   "Percent": 5.2
+  },
+  {
+   "Age": "60 to 64",
+   "Year": "2000",
+   "Sex": "Men",
+   "Percent": 3.99
+  },
+  {
+   "Age": "65 to 69",
+   "Year": "2000",
+   "Sex": "Men",
+   "Percent": 3.2
+  },
+  {
+   "Age": "70 to 74",
+   "Year": "2000",
+   "Sex": "Men",
+   "Percent": 2.48
+  },
+  {
+   "Age": "75 to 79",
+   "Year": "2000",
+   "Sex": "Men",
+   "Percent": 1.71
+  },
+  {
+   "Age": "80 to 84",
+   "Year": "2000",
+   "Sex": "Men",
+   "Percent": 0.79
+  },
+  {
+   "Age": "Over 85",
+   "Year": "2000",
+   "Sex": "Men",
+   "Percent": 0.42
+  },
+  {
+   "Age": "Under 5",
+   "Year": "2000",
+   "Sex": "Women",
+   "Percent": 5.64
+  },
+  {
+   "Age": "5 to 9",
+   "Year": "2000",
+   "Sex": "Women",
+   "Percent": 6.7
+  },
+  {
+   "Age": "10 to 14",
+   "Year": "2000",
+   "Sex": "Women",
+   "Percent": 7.04
+  },
+  {
+   "Age": "15 to 19",
+   "Year": "2000",
+   "Sex": "Women",
+   "Percent": 5.99
+  },
+  {
+   "Age": "20 to 24",
+   "Year": "2000",
+   "Sex": "Women",
+   "Percent": 6.09
+  },
+  {
+   "Age": "25 to 29",
+   "Year": "2000",
+   "Sex": "Women",
+   "Percent": 6.77
+  },
+  {
+   "Age": "30 to 34",
+   "Year": "2000",
+   "Sex": "Women",
+   "Percent": 7.19
+  },
+  {
+   "Age": "35 to 39",
+   "Year": "2000",
+   "Sex": "Women",
+   "Percent": 8.5
+  },
+  {
+   "Age": "40 to 44",
+   "Year": "2000",
+   "Sex": "Women",
+   "Percent": 9.63
+  },
+  {
+   "Age": "45 to 49",
+   "Year": "2000",
+   "Sex": "Women",
+   "Percent": 9.17
+  },
+  {
+   "Age": "50 to 54",
+   "Year": "2000",
+   "Sex": "Women",
+   "Percent": 7.72
+  },
+  {
+   "Age": "55 to 59",
+   "Year": "2000",
+   "Sex": "Women",
+   "Percent": 5.39
+  },
+  {
+   "Age": "60 to 64",
+   "Year": "2000",
+   "Sex": "Women",
+   "Percent": 4.28
+  },
+  {
+   "Age": "65 to 69",
+   "Year": "2000",
+   "Sex": "Women",
+   "Percent": 3.44
+  },
+  {
+   "Age": "70 to 74",
+   "Year": "2000",
+   "Sex": "Women",
+   "Percent": 2.71
+  },
+  {
+   "Age": "75 to 79",
+   "Year": "2000",
+   "Sex": "Women",
+   "Percent": 2.0
+  },
+  {
+   "Age": "80 to 84",
+   "Year": "2000",
+   "Sex": "Women",
+   "Percent": 0.96
+  },
+  {
+   "Age": "Over 85",
+   "Year": "2000",
+   "Sex": "Women",
+   "Percent": 0.76
+  },
+  {
+   "Age": "Under 5",
+   "Year": "2010",
+   "Sex": "Men",
+   "Percent": 5.06
+  },
+  {
+   "Age": "5 to 9",
+   "Year": "2010",
+   "Sex": "Men",
+   "Percent": 4.82
+  },
+  {
+   "Age": "10 to 14",
+   "Year": "2010",
+   "Sex": "Men",
+   "Percent": 4.79
+  },
+  {
+   "Age": "15 to 19",
+   "Year": "2010",
+   "Sex": "Men",
+   "Percent": 5.82
+  },
+  {
+   "Age": "20 to 24",
+   "Year": "2010",
+   "Sex": "Men",
+   "Percent": 7.52
+  },
+  {
+   "Age": "25 to 29",
+   "Year": "2010",
+   "Sex": "Men",
+   "Percent": 8.28
+  },
+  {
+   "Age": "30 to 34",
+   "Year": "2010",
+   "Sex": "Men",
+   "Percent": 7.24
+  },
+  {
+   "Age": "35 to 39",
+   "Year": "2010",
+   "Sex": "Men",
+   "Percent": 6.5
+  },
+  {
+   "Age": "40 to 44",
+   "Year": "2010",
+   "Sex": "Men",
+   "Percent": 6.51
+  },
+  {
+   "Age": "45 to 49",
+   "Year": "2010",
+   "Sex": "Men",
+   "Percent": 7.35
+  },
+  {
+   "Age": "50 to 54",
+   "Year": "2010",
+   "Sex": "Men",
+   "Percent": 8.39
+  },
+  {
+   "Age": "55 to 59",
+   "Year": "2010",
+   "Sex": "Men",
+   "Percent": 8.53
+  },
+  {
+   "Age": "60 to 64",
+   "Year": "2010",
+   "Sex": "Men",
+   "Percent": 7.13
+  },
+  {
+   "Age": "65 to 69",
+   "Year": "2010",
+   "Sex": "Men",
+   "Percent": 5.0
+  },
+  {
+   "Age": "70 to 74",
+   "Year": "2010",
+   "Sex": "Men",
+   "Percent": 3.19
+  },
+  {
+   "Age": "75 to 79",
+   "Year": "2010",
+   "Sex": "Men",
+   "Percent": 2.04
+  },
+  {
+   "Age": "80 to 84",
+   "Year": "2010",
+   "Sex": "Men",
+   "Percent": 1.11
+  },
+  {
+   "Age": "Over 85",
+   "Year": "2010",
+   "Sex": "Men",
+   "Percent": 0.71
+  },
+  {
+   "Age": "Under 5",
+   "Year": "2010",
+   "Sex": "Women",
+   "Percent": 5.45
+  },
+  {
+   "Age": "5 to 9",
+   "Year": "2010",
+   "Sex": "Women",
+   "Percent": 4.95
+  },
+  {
+   "Age": "10 to 14",
+   "Year": "2010",
+   "Sex": "Women",
+   "Percent": 5.28
+  },
+  {
+   "Age": "15 to 19",
+   "Year": "2010",
+   "Sex": "Women",
+   "Percent": 5.7
+  },
+  {
+   "Age": "20 to 24",
+   "Year": "2010",
+   "Sex": "Women",
+   "Percent": 6.49
+  },
+  {
+   "Age": "25 to 29",
+   "Year": "2010",
+   "Sex": "Women",
+   "Percent": 7.27
+  },
+  {
+   "Age": "30 to 34",
+   "Year": "2010",
+   "Sex": "Women",
+   "Percent": 6.5
+  },
+  {
+   "Age": "35 to 39",
+   "Year": "2010",
+   "Sex": "Women",
+   "Percent": 6.13
+  },
+  {
+   "Age": "40 to 44",
+   "Year": "2010",
+   "Sex": "Women",
+   "Percent": 6.52
+  },
+  {
+   "Age": "45 to 49",
+   "Year": "2010",
+   "Sex": "Women",
+   "Percent": 7.86
+  },
+  {
+   "Age": "50 to 54",
+   "Year": "2010",
+   "Sex": "Women",
+   "Percent": 8.99
+  },
+  {
+   "Age": "55 to 59",
+   "Year": "2010",
+   "Sex": "Women",
+   "Percent": 8.9
+  },
+  {
+   "Age": "60 to 64",
+   "Year": "2010",
+   "Sex": "Women",
+   "Percent": 7.44
+  },
+  {
+   "Age": "65 to 69",
+   "Year": "2010",
+   "Sex": "Women",
+   "Percent": 4.81
+  },
+  {
+   "Age": "70 to 74",
+   "Year": "2010",
+   "Sex": "Women",
+   "Percent": 3.1
+  },
+  {
+   "Age": "75 to 79",
+   "Year": "2010",
+   "Sex": "Women",
+   "Percent": 1.96
+  },
+  {
+   "Age": "80 to 84",
+   "Year": "2010",
+   "Sex": "Women",
+   "Percent": 1.46
+  },
+  {
+   "Age": "Over 85",
+   "Year": "2010",
+   "Sex": "Women",
+   "Percent": 1.19
+  },
+  {
+   "Age": "Under 5",
+   "Year": "2020",
+   "Sex": "Men",
+   "Percent": 4.23
+  },
+  {
+   "Age": "5 to 9",
+   "Year": "2020",
+   "Sex": "Men",
+   "Percent": 4.29
+  },
+  {
+   "Age": "10 to 14",
+   "Year": "2020",
+   "Sex": "Men",
+   "Percent": 5.28
+  },
+  {
+   "Age": "15 to 19",
+   "Year": "2020",
+   "Sex": "Men",
+   "Percent": 5.2
+  },
+  {
+   "Age": "20 to 24",
+   "Year": "2020",
+   "Sex": "Men",
+   "Percent": 4.79
+  },
+  {
+   "Age": "25 to 29",
+   "Year": "2020",
+   "Sex": "Men",
+   "Percent": 6.82
+  },
+  {
+   "Age": "30 to 34",
+   "Year": "2020",
+   "Sex": "Men",
+   "Percent": 7.7
+  },
+  {
+   "Age": "35 to 39",
+   "Year": "2020",
+   "Sex": "Men",
+   "Percent": 7.16
+  },
+  {
+   "Age": "40 to 44",
+   "Year": "2020",
+   "Sex": "Men",
+   "Percent": 6.27
+  },
+  {
+   "Age": "45 to 49",
+   "Year": "2020",
+   "Sex": "Men",
+   "Percent": 6.15
+  },
+  {
+   "Age": "50 to 54",
+   "Year": "2020",
+   "Sex": "Men",
+   "Percent": 6.24
+  },
+  {
+   "Age": "55 to 59",
+   "Year": "2020",
+   "Sex": "Men",
+   "Percent": 7.42
+  },
+  {
+   "Age": "60 to 64",
+   "Year": "2020",
+   "Sex": "Men",
+   "Percent": 8.51
+  },
+  {
+   "Age": "65 to 69",
+   "Year": "2020",
+   "Sex": "Men",
+   "Percent": 7.97
+  },
+  {
+   "Age": "70 to 74",
+   "Year": "2020",
+   "Sex": "Men",
+   "Percent": 5.89
+  },
+  {
+   "Age": "75 to 79",
+   "Year": "2020",
+   "Sex": "Men",
+   "Percent": 3.29
+  },
+  {
+   "Age": "80 to 84",
+   "Year": "2020",
+   "Sex": "Men",
+   "Percent": 1.67
+  },
+  {
+   "Age": "Over 85",
+   "Year": "2020",
+   "Sex": "Men",
+   "Percent": 1.11
+  },
+  {
+   "Age": "Under 5",
+   "Year": "2020",
+   "Sex": "Women",
+   "Percent": 4.34
+  },
+  {
+   "Age": "5 to 9",
+   "Year": "2020",
+   "Sex": "Women",
+   "Percent": 4.55
+  },
+  {
+   "Age": "10 to 14",
+   "Year": "2020",
+   "Sex": "Women",
+   "Percent": 5.47
+  },
+  {
+   "Age": "15 to 19",
+   "Year": "2020",
+   "Sex": "Women",
+   "Percent": 4.89
+  },
+  {
+   "Age": "20 to 24",
+   "Year": "2020",
+   "Sex": "Women",
+   "Percent": 4.66
+  },
+  {
+   "Age": "25 to 29",
+   "Year": "2020",
+   "Sex": "Women",
+   "Percent": 6.39
+  },
+  {
+   "Age": "30 to 34",
+   "Year": "2020",
+   "Sex": "Women",
+   "Percent": 7.48
+  },
+  {
+   "Age": "35 to 39",
+   "Year": "2020",
+   "Sex": "Women",
+   "Percent": 7.2
+  },
+  {
+   "Age": "40 to 44",
+   "Year": "2020",
+   "Sex": "Women",
+   "Percent": 6.1
+  },
+  {
+   "Age": "45 to 49",
+   "Year": "2020",
+   "Sex": "Women",
+   "Percent": 5.91
+  },
+  {
+   "Age": "50 to 54",
+   "Year": "2020",
+   "Sex": "Women",
+   "Percent": 6.75
+  },
+  {
+   "Age": "55 to 59",
+   "Year": "2020",
+   "Sex": "Women",
+   "Percent": 8.34
+  },
+  {
+   "Age": "60 to 64",
+   "Year": "2020",
+   "Sex": "Women",
+   "Percent": 8.53
+  },
+  {
+   "Age": "65 to 69",
+   "Year": "2020",
+   "Sex": "Women",
+   "Percent": 7.83
+  },
+  {
+   "Age": "70 to 74",
+   "Year": "2020",
+   "Sex": "Women",
+   "Percent": 5.72
+  },
+  {
+   "Age": "75 to 79",
+   "Year": "2020",
+   "Sex": "Women",
+   "Percent": 3.09
+  },
+  {
+   "Age": "80 to 84",
+   "Year": "2020",
+   "Sex": "Women",
+   "Percent": 1.51
+  },
+  {
+   "Age": "Over 85",
+   "Year": "2020",
+   "Sex": "Women",
+   "Percent": 1.25
+  }
+ ]
+}

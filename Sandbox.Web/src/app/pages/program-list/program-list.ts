@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { Category, MonitoringProgramSummary, Template } from '../../api/models';
@@ -6,6 +6,7 @@ import { TEMPLATE_LABELS } from '../../dashboard/templates/template-info';
 import { EsaBadge } from '../../ecology/esa-badge';
 import { EsaButton } from '../../ecology/esa-button';
 import { EsaEmptyState } from '../../ecology/esa-empty-state';
+import { StaffMode } from '../../staff-mode';
 import { FeaturedFilter, LayoutFilter, ProgramFilters } from './program-filters';
 
 // The All Programs list: the four filters, the table, and the record count, in one
@@ -20,6 +21,8 @@ import { FeaturedFilter, LayoutFilter, ProgramFilters } from './program-filters'
   styleUrl: './program-list.scss',
 })
 export class ProgramList {
+  /** The Layout column and filter are staff mode only. */
+  protected readonly staff = inject(StaffMode);
   readonly categories = input.required<Category[]>();
   readonly programs = input.required<MonitoringProgramSummary[]>();
 

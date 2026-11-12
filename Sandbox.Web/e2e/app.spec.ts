@@ -195,7 +195,7 @@ test.describe('All Programs list', () => {
     await expect(heroTotal(page, 'monitoring programs')).toHaveText(String(seed.programs));
   });
 
-  test('lists all 85 programs', async ({ page }) => {
+  test('lists all 90 programs', async ({ page }) => {
     await expect(rows(page)).toHaveCount(seed.programs);
     await expect(resultCount(page)).toHaveText(`Showing ${seed.programs} of ${seed.programs}`);
     await expect(page.locator('table.programs-table thead th')).toHaveText([
@@ -304,7 +304,7 @@ test.describe('All Programs list', () => {
     await expect(categorySelect(page)).toContainText(seed.ozone.category);
   });
 
-  test('layout filter shows the 10 Content programs, then the 33 Map programs', async ({ page }) => {
+  test('layout filter shows the 10 Content programs, then the 35 Map programs', async ({ page }) => {
     await layoutSelect(page).click();
     // Each option carries its count.
     await expect(page.getByRole('option', { name: `Map (${seed.templates.map})` })).toBeVisible();
@@ -660,8 +660,8 @@ test.describe('The three templates', () => {
     await expect(page.getByText('No measurements loaded yet')).toHaveCount(0);
     await expect(page.getByText('No sites loaded yet')).toHaveCount(0);
 
-    // The tiles say why they have no number.
-    await expect(tiles(page).locator('.esa-stat__value')).toHaveText(['n/a', 'n/a', 'n/a', 'n/a']);
+    // Every tile would read n/a, so there are none.
+    await expect(tiles(page)).toHaveCount(0);
 
     // No partners: the house empty state, what is absent and what the section will show.
     await expect(page.getByRole('heading', { name: 'No partners loaded yet' })).toBeVisible();
@@ -1046,10 +1046,10 @@ test.describe('At 375 px wide', () => {
         expect(bounds.x).toBeGreaterThanOrEqual(0);
         expect(bounds.x + bounds.width).toBeLessThanOrEqual(375);
       }
-      // The four tiles reflow to two across.
+      // The tiles shown (those with something to report) reflow to two across.
       const tileBoxes = await Promise.all((await tiles(page).all()).map((tile) => tile.boundingBox()));
-      expect(tileBoxes[0]!.y).toBe(tileBoxes[1]!.y);
-      expect(tileBoxes[2]!.y).toBeGreaterThan(tileBoxes[0]!.y);
+      if (tileBoxes.length >= 2) expect(tileBoxes[0]!.y).toBe(tileBoxes[1]!.y);
+      if (tileBoxes.length >= 3) expect(tileBoxes[2]!.y).toBeGreaterThan(tileBoxes[0]!.y);
     });
   }
 

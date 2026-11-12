@@ -1,3 +1,8 @@
+<!-- Hidden until a keyboard user tabs to it; it moves focus past the header and nav to the page. -->
+<a class="skip-link visually-hidden visually-hidden--focusable typography-label-md" href="#main" (click)="skipToMain($event)"
+  >Skip to main content</a
+>
+
 <header class="app-bar">
   <div class="app-bar__inner">
     <a class="app-brand" routerLink="/">
@@ -29,10 +34,12 @@
   </ul>
 </nav>
 
-<main class="app-main" [class.app-main--full]="fullBleed()" [class.app-main--wide]="wide()">
+<main id="main" tabindex="-1" class="app-main" [class.app-main--full]="fullBleed()" [class.app-main--wide]="wide()">
   <router-outlet />
 </main>
 
+<!-- The connection line is for staff: it names the stack, which a visitor has no use for. -->
+@if (staff.on()) {
 <footer class="app-footer">
   @let check = health();
   <p class="app-footer__inner typography-meta" role="status">
@@ -52,3 +59,4 @@
     }
   </p>
 </footer>
+}

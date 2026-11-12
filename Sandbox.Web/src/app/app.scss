@@ -154,3 +154,15 @@
     padding-inline: 0;
   }
 }
+
+// The skip link, once focused: a plain chip at the top of the page, over the header.
+.skip-link:focus {
+  position: absolute;
+  top: var(--spacing-200);
+  left: var(--spacing-200);
+  z-index: 1000;
+  padding: var(--spacing-200) var(--spacing-400);
+  border-radius: var(--radius-sm);
+  background: var(--color-background-elevation-raised);
+  color: var(--color-content-default);
+}

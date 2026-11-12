@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
 
@@ -16,6 +17,7 @@ import { parseTemplate } from '../../dashboard/templates/template-info';
 import { EsaButton } from '../../ecology/esa-button';
 import { EsaCard } from '../../ecology/esa-card';
 import { EsaEmptyState } from '../../ecology/esa-empty-state';
+import { StaffMode } from '../../staff-mode';
 import { LayoutControl } from './layout-control';
 import { ProgramNav } from './program-nav';
 
@@ -48,6 +50,8 @@ export class ProgramDetail {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly viewer = inject(PhotoViewer);
+  private readonly title = inject(Title);
+  protected readonly staff = inject(StaffMode);
 
   protected readonly state = signal<LoadState<MonitoringProgramDetail>>({ status: 'loading' });
   /** The program in the address, for the category menu, known before the program loads. */
@@ -83,9 +87,11 @@ export class ProgramDetail {
         }),
         switchMap((id) =>
           this.api.getProgram(id).pipe(
-            tap((program) =>
-              this.viewer.setProgram(program.MonitoringProgramName, program.Images),
-            ),
+            tap((program) => {
+              this.viewer.setProgram(program.MonitoringProgramName, program.Images);
+              // The page title names the program, so tabs, history, and screen readers tell pages apart.
+              this.title.setTitle(`${program.MonitoringProgramName} | Monitoring Dashboard | LT Info sandbox`);
+            }),
             map((program) => ready(program)),
             catchError((error: unknown) => of(this.loadFailed(id, error))),
           ),
