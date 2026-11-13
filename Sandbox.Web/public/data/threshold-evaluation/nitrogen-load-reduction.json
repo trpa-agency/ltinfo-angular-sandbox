@@ -1,0 +1,38 @@
+{
+ "title": "Nitrogen load reduction achieved (pounds per year)",
+ "source": "https://trpa-agency.github.io/ThresholdEvaluation/2023/WaterQuality/Chart/Final/Nitrogen_Load_Reduction.html",
+ "rows": [
+  {
+   "Year": 2016,
+   "Pounds per year": 2314
+  },
+  {
+   "Year": 2017,
+   "Pounds per year": 2598
+  },
+  {
+   "Year": 2018,
+   "Pounds per year": 3830
+  },
+  {
+   "Year": 2019,
+   "Pounds per year": 4204
+  },
+  {
+   "Year": 2020,
+   "Pounds per year": 4398
+  },
+  {
+   "Year": 2021,
+   "Pounds per year": 4611
+  },
+  {
+   "Year": 2022,
+   "Pounds per year": 4646
+  },
+  {
+   "Year": 2023,
+   "Pounds per year": 4382
+  }
+ ]
+}

@@ -1,10 +1,13 @@
 {
-  "_about": "Category changes make-seed.py applies on top of the dashboard repo's programs.json. remove drops categories by folder; add appends programs to kept categories, by folder; their programs are placed again under the new categories by id. A program entry is one of: {id} for a program from programs.json or LT Info (name overrides the LT Info name); {id, indicator} for a threshold indicator with no monitoring program, built from its Threshold Dashboard record, id 9600 plus its threshold indicator id; or {id, ltinfo: false, ...} written here, with description and approach as lists of paragraphs. Category ids from 11. organizations gives short names for partners LT Info does not have. icon is a path in Sandbox.Web/public for categories the Threshold Dashboard has no icon for.",
+  "_about": "Category changes make-seed.py applies on top of the dashboard repo's programs.json. remove drops categories by folder; drop leaves programs out by id, wherever they come from (68 Socio-Economic, Nov. 12, 2026); add appends programs to kept categories, by folder; their programs are placed again under the new categories by id. A program entry is one of: {id} for a program from programs.json or LT Info (name overrides the LT Info name); {id, indicator} for a threshold indicator with no monitoring program, built from its Threshold Dashboard record, id 9600 plus its threshold indicator id; or {id, ltinfo: false, ...} written here, with description and approach as lists of paragraphs. Category ids from 11. relatedIndicators on an entry, and related (program id to LT Info indicator ids) for programs from programs.json, name the LT Info indicators whose pages on the other dashboards the program links to, besides the ones LT Info links it to. organizations gives short names for partners LT Info does not have. icon is a path in Sandbox.Web/public for categories the Threshold Dashboard has no icon for.",
   "_sources": "Forest Structure and Fire Dynamics: the Forest Health Threshold Standards Update story map collection (https://storymaps.arcgis.com/collections/d89adce0aa9047efb018e49a6f8eff87) for the standards and their background, and the monitoring approach sections of the ForestHealth repo's monitoring/forest-structure.html and monitoring/fire-dynamics.html. Biodiversity's goal joins the adopted Threshold Dashboard descriptions of the three categories it replaces (Vegetation Preservation, Fisheries, and Wildlife). Indicator pages: the Threshold Dashboard records at internalapi.laketahoeinfo.org/threshold-indicators/{id}. Added programs: the LT Info monitoring programs not in programs.json that have a monitoring approach, partners, and usually threshold indicators, reviewed Nov. 11, 2026. Left out: 67 Air Quality (umbrella of the five pollutant programs), 37 Infrastructure (empty), 75 bike ped test, 80 Effective Population (one line), 28 East Shore Parking Counts (no partners or indicators), and 31 Nearshore Resource Allocation Program (coordination umbrella). Demographics: the Tahoe Open Data demographics page (https://www.tahoeopendata.org/pages/demographics) for the text, its figures for the age, race, occupancy, and county income charts, and the Demographics map service (Demographic Summaries table and community change layer) for the rest.",
   "remove": [
     "fisheries",
     "vegetation-preservation",
     "wildlife"
+  ],
+  "drop": [
+    68
   ],
   "organizations": {
     "Tahoe Fire and Fuels Team": "TFFT"
@@ -238,6 +241,81 @@
             "zero": false,
             "span": "span-12"
           }
+        ]
+      },
+      {
+        "id": 9777,
+        "indicator": 177,
+        "name": "Phosphorus Load Reduction",
+        "template": "charts",
+        "measures": [
+          {
+            "title": "Phosphorus load reduction achieved",
+            "sub": "Pounds of phosphorus kept out of Lake Tahoe each year by projects that TMDL implementors credit through the Lake Clarity Crediting Program, 2023 Threshold Evaluation.",
+            "json": "data/threshold-evaluation/phosphorus-load-reduction.json",
+            "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/WaterQuality/Chart/Final/Phosphorous_Load_Reduction.html",
+            "sourceLabel": "2023 Threshold Evaluation",
+            "x": "Year",
+            "xLabel": "Year",
+            "y": "Pounds per year",
+            "yName": "Load reduction",
+            "yLabel": "Pounds per year",
+            "type": "bar",
+            "span": "span-12"
+          }
+        ],
+        "relatedIndicators": [
+          3
+        ]
+      },
+      {
+        "id": 9778,
+        "indicator": 178,
+        "name": "Nitrogen Load Reduction",
+        "template": "charts",
+        "measures": [
+          {
+            "title": "Nitrogen load reduction achieved",
+            "sub": "Pounds of nitrogen kept out of Lake Tahoe each year by projects that TMDL implementors credit through the Lake Clarity Crediting Program, 2023 Threshold Evaluation.",
+            "json": "data/threshold-evaluation/nitrogen-load-reduction.json",
+            "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/WaterQuality/Chart/Final/Nitrogen_Load_Reduction.html",
+            "sourceLabel": "2023 Threshold Evaluation",
+            "x": "Year",
+            "xLabel": "Year",
+            "y": "Pounds per year",
+            "yName": "Load reduction",
+            "yLabel": "Pounds per year",
+            "type": "bar",
+            "span": "span-12"
+          }
+        ],
+        "relatedIndicators": [
+          2
+        ]
+      },
+      {
+        "id": 9779,
+        "indicator": 179,
+        "name": "Fine Sediment Load Reduction",
+        "template": "charts",
+        "measures": [
+          {
+            "title": "Fine sediment load reduction achieved",
+            "sub": "Pounds of fine sediment kept out of Lake Tahoe each year by projects that TMDL implementors credit through the Lake Clarity Crediting Program, 2023 Threshold Evaluation.",
+            "json": "data/threshold-evaluation/fine-sediment-load-reduction.json",
+            "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/WaterQuality/Chart/Final/Fine_Sediment_Load_Reduction.html",
+            "sourceLabel": "2023 Threshold Evaluation",
+            "x": "Year",
+            "xLabel": "Year",
+            "y": "Pounds per year",
+            "yName": "Load reduction",
+            "yLabel": "Pounds per year",
+            "type": "bar",
+            "span": "span-12"
+          }
+        ],
+        "relatedIndicators": [
+          1
         ]
       }
     ],
@@ -667,6 +745,9 @@
               "type": "bar",
               "span": "span-12"
             }
+          ],
+          "relatedIndicators": [
+            300
           ]
         },
         {
@@ -713,6 +794,9 @@
               "type": "bar",
               "span": "span-12"
             }
+          ],
+          "relatedIndicators": [
+            299
           ]
         },
         {
@@ -1381,7 +1465,10 @@
           ],
           "ltinfo": false,
           "measures": [],
-          "overlays": []
+          "overlays": [],
+          "relatedIndicators": [
+            270
+          ]
         },
         {
           "id": 9797,
@@ -1521,7 +1608,11 @@
               "Granite Chief Wilderness": "#728944"
             }
           },
-          "overlays": []
+          "overlays": [],
+          "relatedIndicators": [
+            302,
+            303
+          ]
         },
         {
           "id": 9798,
@@ -1641,7 +1732,10 @@
               }
             ]
           },
-          "overlays": []
+          "overlays": [],
+          "relatedIndicators": [
+            268
+          ]
         }
       ]
     },
@@ -3793,6 +3887,9 @@
               "sort": "desc",
               "span": "span-12"
             }
+          ],
+          "relatedIndicators": [
+            237
           ]
         },
         {
@@ -4022,8 +4119,314 @@
                 }
               ]
             }
-          }
+          },
+          "relatedIndicators": [
+            293
+          ]
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Climate and Lake Conditions",
+      "folder": "climate-and-lake-conditions",
+      "themeColor": "#2c5f72",
+      "blurb": "Greenhouse gas emissions, smoke, lake level and temperature, precipitation, and renewable energy.",
+      "goal": "Track how a changing climate is reaching the Tahoe Region, from smoke days and a warmer lake to less snow, and the Region's progress cutting the emissions that drive it.",
+      "icon": "category-icons/Climate-white-icon.svg",
+      "programs": [
+        {
+          "id": 9911,
+          "name": "Greenhouse Gas Emissions",
+          "template": "charts",
+          "partners": [
+            "Tahoe Regional Planning Agency"
+          ],
+          "ltinfo": false,
+          "relatedIndicators": [
+            262,
+            40
+          ],
+          "description": [
+            "Greenhouse gases such as carbon dioxide and methane trap heat in the atmosphere and drive climate change. In the Tahoe Region most emissions come from heating and powering buildings and from driving.",
+            "The Region set a goal of cutting emissions 15 percent below 2005 levels by 2020, which it met, and of reaching net zero by 2045."
+          ],
+          "approach": [
+            "TRPA inventories the Region's greenhouse gas emissions every few years from energy use, fuel sales, vehicle miles traveled, solid waste, and wastewater, following the U.S. Community Protocol. Emissions are reported in metric tons of carbon dioxide equivalent."
+          ],
+          "measures": [
+            {
+              "title": "Greenhouse gas emissions by sector",
+              "sub": "Metric tons of carbon dioxide equivalent in each inventory year.",
+              "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+              "layer": 127,
+              "x": "Year",
+              "xType": "category",
+              "xLabel": "Inventory year",
+              "y": "MT_CO2",
+              "stat": "sum",
+              "seriesBy": "Category",
+              "seriesLabel": "Sector",
+              "yLabel": "Metric tons CO2e",
+              "type": "stacked",
+              "span": "span-12"
+            }
+          ]
         },
+        {
+          "id": 9912,
+          "name": "Air Quality and Wildfire Smoke",
+          "template": "charts",
+          "partners": [
+            "Tahoe Regional Planning Agency"
+          ],
+          "ltinfo": false,
+          "relatedIndicators": [
+            263
+          ],
+          "description": [
+            "Wildfire smoke now brings the Tahoe Region its worst air of the year. Fine particles in smoke reach deep into the lungs, and smoke days are expected to grow as fire seasons lengthen."
+          ],
+          "approach": [
+            "A network of low-cost PurpleAir sensors around the Basin measures fine particulate matter (PM2.5) continuously. Readings from sensors that pass quality checks are averaged each day and converted to the U.S. Environmental Protection Agency's Air Quality Index. Values above 100 are unhealthy for sensitive groups."
+          ],
+          "measures": [
+            {
+              "title": "Daily air quality index",
+              "sub": "Daily mean Air Quality Index from PurpleAir sensors in the Basin, 2017 to 2024.",
+              "json": "data/climate/air-quality-index.json",
+              "sourceHref": "https://trpa-agency.github.io/ClimateResilienceDashboard/html/1.2.a_Purple_Air_v2.html",
+              "sourceLabel": "Climate Resilience Dashboard",
+              "x": "Date",
+              "xType": "date",
+              "xLabel": "Date",
+              "y": "Air quality index",
+              "yName": "Air quality index",
+              "yLabel": "Air quality index",
+              "type": "line",
+              "span": "span-12",
+              "standard": {
+                "value": 100,
+                "label": "Unhealthy for sensitive groups"
+              }
+            }
+          ]
+        },
+        {
+          "id": 9913,
+          "name": "Lake Level",
+          "template": "charts",
+          "partners": [
+            "Tahoe Regional Planning Agency"
+          ],
+          "ltinfo": false,
+          "relatedIndicators": [
+            264
+          ],
+          "description": [
+            "Lake Tahoe's surface rises with snowmelt and falls through dry years. Below the natural rim, 6,223 feet, no water flows out into the Truckee River. Above it, the dam at Tahoe City holds the lake no higher than the legal limit of 6,229.1 feet.",
+            "A warmer climate shifts precipitation from snow to rain and lengthens droughts, which makes the swings between full and low lake more extreme."
+          ],
+          "approach": [
+            "The U.S. Geological Survey gauges the lake level at Tahoe City. The chart shows the weekly mean against the natural rim and the legal limit."
+          ],
+          "measures": [
+            {
+              "title": "Lake Tahoe water level",
+              "sub": "Weekly mean elevation of the lake surface, feet above sea level, 2007 to 2025.",
+              "json": "data/climate/lake-level.json",
+              "sourceHref": "https://trpa-agency.github.io/ClimateResilienceDashboard/html/1.3.a_Lake_Level.html",
+              "sourceLabel": "Climate Resilience Dashboard",
+              "x": "Date",
+              "xType": "date",
+              "xLabel": "Date",
+              "y": [
+                {
+                  "field": "Water level",
+                  "name": "Water level"
+                },
+                {
+                  "field": "Legal high water",
+                  "name": "Legal limit"
+                },
+                {
+                  "field": "Natural rim",
+                  "name": "Natural rim"
+                }
+              ],
+              "yLabel": "Feet above sea level",
+              "type": "line",
+              "zero": false,
+              "span": "span-12"
+            }
+          ]
+        },
+        {
+          "id": 9914,
+          "name": "Lake Surface Temperature",
+          "template": "charts",
+          "partners": [
+            "Tahoe Regional Planning Agency"
+          ],
+          "ltinfo": false,
+          "relatedIndicators": [
+            265
+          ],
+          "description": [
+            "Lake Tahoe's surface water has warmed over the last half century. Warmer water mixes less often, holds less oxygen at depth, and favors algae and warm-water invasive species."
+          ],
+          "approach": [
+            "A buoy at mid-lake records the surface temperature through the year. The chart shows the daily mean in degrees Fahrenheit for the most recent year published."
+          ],
+          "measures": [
+            {
+              "title": "Mid-lake surface temperature",
+              "sub": "Daily mean surface temperature at mid-lake, degrees Fahrenheit, January 2024 to January 2025.",
+              "json": "data/climate/lake-temperature.json",
+              "sourceHref": "https://trpa-agency.github.io/ClimateResilienceDashboard/html/1.3.b_Lake_Temp.html",
+              "sourceLabel": "Climate Resilience Dashboard",
+              "x": "Date",
+              "xType": "date",
+              "xLabel": "Date",
+              "y": "Temperature",
+              "yName": "Surface temperature",
+              "yLabel": "Degrees Fahrenheit",
+              "type": "line",
+              "zero": false,
+              "span": "span-12"
+            }
+          ]
+        },
+        {
+          "id": 9915,
+          "name": "Precipitation and Snow",
+          "template": "charts",
+          "partners": [
+            "Tahoe Regional Planning Agency",
+            "UC Berkeley Central Sierra Snow Laboratory"
+          ],
+          "ltinfo": false,
+          "relatedIndicators": [
+            267
+          ],
+          "description": [
+            "Most of the Tahoe Region's water arrives as winter snow, which melts slowly into streams and the lake through spring and summer. As the climate warms, more of it falls as rain, runs off sooner, and leaves less snowpack for the dry season."
+          ],
+          "approach": [
+            "The Central Sierra Snow Laboratory near Donner Pass, just outside the Basin, has a daily record of precipitation and snowfall from 1970. Totals here are by calendar year. The share falling as snow comes from the same record."
+          ],
+          "measures": [
+            {
+              "title": "Share of precipitation as snow and rain",
+              "sub": "Percent of each year's precipitation that fell as snow and as rain, 1987 to 2019.",
+              "json": "data/climate/snow-and-rain.json",
+              "sourceHref": "https://trpa-agency.github.io/ClimateResilienceDashboard/html/1.3.d_Precip.html",
+              "sourceLabel": "Climate Resilience Dashboard",
+              "x": "Year",
+              "xLabel": "Year",
+              "y": "Percent",
+              "seriesBy": "Form",
+              "seriesLabel": "Falls as",
+              "seriesOrder": [
+                "Snow",
+                "Rain"
+              ],
+              "seriesColors": {
+                "Snow": "var(--mon-turbid-2)",
+                "Rain": "var(--mon-turbid-6)"
+              },
+              "yLabel": "Percent",
+              "type": "stacked",
+              "span": "span-12"
+            },
+            {
+              "title": "Total precipitation",
+              "sub": "Millimeters of precipitation, rain and the water in snow, by calendar year, 1970 to 2019.",
+              "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+              "layer": 145,
+              "x": "Year",
+              "xLabel": "Year",
+              "y": "Full_Day_Total_Precip_mm",
+              "stat": "sum",
+              "yName": "Precipitation",
+              "yLabel": "Millimeters",
+              "type": "bar"
+            },
+            {
+              "title": "New snowfall",
+              "sub": "Centimeters of new snow, by calendar year, 1970 to 2019.",
+              "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+              "layer": 145,
+              "x": "Year",
+              "xLabel": "Year",
+              "y": "New_Snow_cm",
+              "stat": "sum",
+              "yName": "New snow",
+              "yLabel": "Centimeters",
+              "type": "bar"
+            }
+          ]
+        },
+        {
+          "id": 9916,
+          "name": "Renewable Energy",
+          "template": "charts",
+          "partners": [
+            "Tahoe Regional Planning Agency",
+            "Liberty Utilities",
+            "NV Energy"
+          ],
+          "ltinfo": false,
+          "relatedIndicators": [
+            278,
+            276
+          ],
+          "description": [
+            "Electricity generation is one of the Region's largest sources of greenhouse gas emissions. Shifting the power supply to solar, wind, geothermal, and hydropower lowers emissions without asking residents to use less."
+          ],
+          "approach": [
+            "Liberty Utilities serves the California side of the Basin and NV Energy the Nevada side. Each reports the share of its power mix from renewable sources each year."
+          ],
+          "measures": [
+            {
+              "title": "Electricity from renewable sources",
+              "sub": "Share of each utility's power mix from renewable and non-renewable sources.",
+              "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+              "layer": 144,
+              "x": "Year",
+              "xLabel": "Year",
+              "y": "Share",
+              "stat": "sum",
+              "seriesBy": "Type",
+              "seriesLabel": "Source",
+              "seriesOrder": [
+                "Renewables",
+                "Non-Renewable"
+              ],
+              "seriesNames": {
+                "Renewables": "Renewable",
+                "Non-Renewable": "Non-renewable"
+              },
+              "pick": "Source",
+              "pickLabel": "Utility",
+              "format": ".0%",
+              "yLabel": "Share of power mix",
+              "type": "stacked",
+              "span": "span-12"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "name": "Housing and Economy",
+      "folder": "housing-and-economy",
+      "themeColor": "#646820",
+      "blurb": "Housing, deed-restricted homes, prices and rents, jobs, income, and the visitor economy.",
+      "goal": "Track whether people who work in the Region can afford to live here, and how resilient the Region's economy is.",
+      "icon": "category-icons/Housing-white-icon.svg",
+      "programs": [
         {
           "id": 9904,
           "ltinfo": false,
@@ -4173,6 +4576,9 @@
               "orientation": "h",
               "sort": "desc"
             }
+          ],
+          "relatedIndicators": [
+            287
           ]
         },
         {
@@ -4226,12 +4632,342 @@
               "zero": false,
               "span": "span-12"
             }
+          ],
+          "relatedIndicators": [
+            285
           ]
         },
         {
-          "id": 68
+          "id": 9921,
+          "name": "Deed-Restricted Housing",
+          "template": "map",
+          "partners": [
+            "Tahoe Regional Planning Agency"
+          ],
+          "ltinfo": false,
+          "relatedIndicators": [
+            277,
+            275
+          ],
+          "description": [
+            "A deed restriction keeps a home affordable, or reserved for people who work in the Region, for as long as the restriction is recorded. TRPA grants development bonuses and other incentives for housing that carries one.",
+            "Restrictions come in three income levels: affordable, for households earning up to 80 percent of area median income; moderate, up to 120 percent; and achievable, for local workers at any income."
+          ],
+          "approach": [
+            "TRPA records each deed restriction with its parcel, type, and number of units, and maps the parcels that carry one."
+          ],
+          "measures": [
+            {
+              "title": "Deed-restricted units by type",
+              "sub": "Housing units with a recorded deed restriction, by income level.",
+              "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+              "layer": 148,
+              "x": "Deed_Restriction_Type",
+              "xType": "category",
+              "xLabel": "Restriction",
+              "xOrder": [
+                "Affordable",
+                "Moderate",
+                "Achievable"
+              ],
+              "y": "Units",
+              "stat": "sum",
+              "yName": "Units",
+              "yLabel": "Units",
+              "type": "bar"
+            }
+          ],
+          "mapLayer": {
+            "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+            "layer": 20,
+            "title": "Deed-restricted parcels",
+            "unit": "parcel",
+            "unitPlural": "Parcels",
+            "name": "APO_ADDRESS",
+            "countAsSites": false,
+            "where": "DeedRestrictionStatus = 'Recorded'",
+            "colorBy": "DeedRestrictionType",
+            "colorByLabel": "Restriction",
+            "colors": {
+              "Affordable Housing": "var(--mon-stevens4-1)",
+              "Moderate Income Housing": "var(--mon-stevens4-2)",
+              "Achievable Housing": "var(--mon-stevens4-3)"
+            },
+            "labels": {
+              "Affordable Housing": "Affordable",
+              "Moderate Income Housing": "Moderate",
+              "Achievable Housing": "Achievable"
+            },
+            "fields": [
+              {
+                "field": "APN",
+                "label": "APN"
+              },
+              {
+                "field": "DeedRestrictionType",
+                "label": "Restriction"
+              },
+              {
+                "field": "RecordingDate",
+                "label": "Recorded"
+              },
+              {
+                "field": "JURISDICTION",
+                "label": "Jurisdiction"
+              }
+            ]
+          }
+        },
+        {
+          "id": 9922,
+          "name": "Home Prices and Rents",
+          "template": "charts",
+          "partners": [
+            "Tahoe Regional Planning Agency"
+          ],
+          "ltinfo": false,
+          "relatedIndicators": [
+            286
+          ],
+          "description": [
+            "Home prices in the Tahoe Region have risen far faster than local wages, and many homes sell as second homes or vacation rentals. The gap pushes people who work here to live outside the Basin and commute in."
+          ],
+          "approach": [
+            "Home sale prices are the average of each month's mean residential sale price in the Basin. Rents are the asking rent per unit in multifamily buildings, by quarter, from a commercial rental market survey."
+          ],
+          "measures": [
+            {
+              "title": "Average home sale price",
+              "sub": "Mean of the monthly average residential sale price, by year, dollars.",
+              "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+              "layer": 147,
+              "x": "year",
+              "xLabel": "Year",
+              "y": "Purchase_Amt",
+              "stat": "avg",
+              "yName": "Average sale price",
+              "yLabel": "Dollars",
+              "type": "bar"
+            },
+            {
+              "title": "Asking rent per unit",
+              "sub": "Average monthly asking rent per multifamily unit, by quarter, dollars.",
+              "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+              "layer": 146,
+              "x": "Period",
+              "xType": "category",
+              "xLabel": "Quarter",
+              "y": "Asking_Rent_Per_Unit",
+              "yName": "Asking rent",
+              "yLabel": "Dollars a month",
+              "type": "line",
+              "zero": false
+            }
+          ]
+        },
+        {
+          "id": 9924,
+          "name": "Transient Occupancy Tax",
+          "template": "charts",
+          "partners": [
+            "Tahoe Regional Planning Agency"
+          ],
+          "ltinfo": false,
+          "relatedIndicators": [
+            289
+          ],
+          "description": [
+            "Transient occupancy tax is charged on hotel, motel, and short-term rental stays. Its revenue tracks the visitor economy the Region depends on, and how it shifts with snow years, fire seasons, and the economy."
+          ],
+          "approach": [
+            "Each local jurisdiction reports the tax collected in each fiscal year, July through June. El Dorado County's collections are not in the fiscal-year record, so the totals cover the other four jurisdictions."
+          ],
+          "measures": [
+            {
+              "title": "Transient occupancy tax collected",
+              "sub": "Dollars collected each fiscal year, by jurisdiction.",
+              "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+              "layer": 137,
+              "where": "Duration = 'FY'",
+              "x": "Fiscal_Year",
+              "xType": "category",
+              "xLabel": "Fiscal year",
+              "y": "TOT_Collected",
+              "stat": "sum",
+              "seriesBy": "Jurisdiction",
+              "seriesLabel": "Jurisdiction",
+              "yLabel": "Dollars",
+              "type": "stacked",
+              "span": "span-12"
+            }
+          ]
+        },
+        {
+          "id": 9925,
+          "name": "Jobs and Wages",
+          "template": "charts",
+          "partners": [
+            "Tahoe Regional Planning Agency",
+            "U.S. Census Bureau"
+          ],
+          "ltinfo": false,
+          "relatedIndicators": [
+            290
+          ],
+          "description": [
+            "Steady, well-paid jobs let people who work in the Region afford to live here. Tahoe's economy leans on seasonal tourism and recreation, which keeps many jobs part-year and many wages low."
+          ],
+          "approach": [
+            "The U.S. Census Bureau's Longitudinal Employer-Household Dynamics program counts jobs by work location each year from unemployment insurance records, in three monthly earnings bands. The 2022 count is about double 2021, which looks like a processing error, so the chart ends at 2021."
+          ],
+          "measures": [
+            {
+              "title": "Jobs in the Basin by monthly earnings",
+              "sub": "Jobs located in the Basin each year, by monthly earnings band, 2002 to 2021.",
+              "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+              "layer": 142,
+              "where": "Year <= 2021",
+              "x": "Year",
+              "xLabel": "Year",
+              "y": [
+                {
+                  "field": "CE01",
+                  "name": "$1,250 or less"
+                },
+                {
+                  "field": "CE02",
+                  "name": "$1,251 to $3,333"
+                },
+                {
+                  "field": "CE03",
+                  "name": "More than $3,333"
+                }
+              ],
+              "stat": "sum",
+              "yLabel": "Jobs",
+              "type": "stacked",
+              "span": "span-12"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Aquatic Invasive Species",
+      "folder": "aquatic-invasive-species",
+      "themeColor": "#0d5b73",
+      "blurb": "Watercraft inspections, invasive plant control, and aquatic plant surveys.",
+      "goal": "Keep new aquatic invasive species out of the Region's waters, and control and remove the ones already here.",
+      "icon": "category-icons/AquaticInvasiveSpecies-white-icon.svg",
+      "programs": [
+        {
+          "id": 14
+        },
+        {
+          "id": 9093
+        },
+        {
+          "id": 78
+        },
+        {
+          "id": 9034
+        },
+        {
+          "id": 9786,
+          "indicator": 186,
+          "name": "No Active Aquatic Invasive Plant Infestations",
+          "template": "charts",
+          "measures": [
+            {
+              "title": "Aquatic invasive plant sites by status",
+              "sub": "Percent of known infestation sites in each management status, 2023 Threshold Evaluation.",
+              "json": "data/threshold-evaluation/ais-site-status.json",
+              "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/WaterQuality/Chart/Final/AIS_Infestation.html",
+              "sourceLabel": "2023 Threshold Evaluation",
+              "x": "Year",
+              "xLabel": "Year",
+              "y": "Percent",
+              "seriesBy": "Status",
+              "seriesLabel": "Status",
+              "seriesOrder": [
+                "Planning",
+                "Control",
+                "Surveillance"
+              ],
+              "yLabel": "Percent of sites",
+              "type": "stacked",
+              "span": "span-12"
+            }
+          ]
+        },
+        {
+          "id": 9787,
+          "indicator": 187,
+          "name": "Aquatic Invasive Plants in the Tahoe Keys",
+          "template": "charts",
+          "measures": [
+            {
+              "title": "Aquatic invasive plant volume in the Tahoe Keys",
+              "sub": "Cubic yards of each invasive plant in the Tahoe Keys lagoons, 2023 Threshold Evaluation.",
+              "json": "data/threshold-evaluation/tahoe-keys-aquatic-plants.json",
+              "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/WaterQuality/Chart/Final/Tahoe_Keys_Infestation.html",
+              "sourceLabel": "2023 Threshold Evaluation",
+              "x": "Year",
+              "xType": "category",
+              "xLabel": "Year",
+              "y": "Cubic yards",
+              "seriesBy": "Species",
+              "seriesLabel": "Species",
+              "yLabel": "Cubic yards",
+              "type": "bar",
+              "span": "span-12"
+            }
+          ]
         }
       ]
     }
-  ]
+  ],
+  "related": {
+    "66": [
+      266
+    ],
+    "14": [
+      271
+    ],
+    "9093": [
+      271
+    ],
+    "9786": [
+      271
+    ],
+    "9787": [
+      271
+    ],
+    "16": [
+      273,
+      274
+    ],
+    "49": [
+      272
+    ],
+    "36": [
+      279
+    ],
+    "47": [
+      280
+    ],
+    "69": [
+      282
+    ],
+    "33": [
+      284
+    ],
+    "9925": [
+      288
+    ],
+    "9681": [
+      269
+    ]
+  }
 }

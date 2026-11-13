@@ -14,7 +14,7 @@
       <!-- The partners sit under the story when the gallery has the side column,
            and take the main column when the header lead was the whole story. -->
       @if (galleryPhotos().length > 0 || !showStory()) {
-        <app-program-partners [partners]="program().Partners" />
+        <app-program-partners [partners]="program().Partners" [links]="program().RelatedLinks ?? []" />
       }
     </div>
     @if (galleryPhotos().length > 0) {
@@ -25,7 +25,7 @@
       </div>
     } @else if (showStory()) {
       <div class="split__side">
-        <app-program-partners [partners]="program().Partners" />
+        <app-program-partners [partners]="program().Partners" [links]="program().RelatedLinks ?? []" />
       </div>
     }
   </div>

@@ -1,0 +1,96 @@
+{
+ "title": "Aquatic invasive plant sites by management status, percent",
+ "source": "https://trpa-agency.github.io/ThresholdEvaluation/2023/WaterQuality/Chart/Final/AIS_Infestation.html",
+ "rows": [
+  {
+   "Year": 2018,
+   "Status": "Planning",
+   "Percent": 40.0
+  },
+  {
+   "Year": 2019,
+   "Status": "Planning",
+   "Percent": 35.29
+  },
+  {
+   "Year": 2020,
+   "Status": "Planning",
+   "Percent": 41.18
+  },
+  {
+   "Year": 2021,
+   "Status": "Planning",
+   "Percent": 77.14
+  },
+  {
+   "Year": 2022,
+   "Status": "Planning",
+   "Percent": 62.86
+  },
+  {
+   "Year": 2023,
+   "Status": "Planning",
+   "Percent": 36.11
+  },
+  {
+   "Year": 2018,
+   "Status": "Control",
+   "Percent": 25.0
+  },
+  {
+   "Year": 2019,
+   "Status": "Control",
+   "Percent": 41.18
+  },
+  {
+   "Year": 2020,
+   "Status": "Control",
+   "Percent": 29.41
+  },
+  {
+   "Year": 2021,
+   "Status": "Control",
+   "Percent": 11.43
+  },
+  {
+   "Year": 2022,
+   "Status": "Control",
+   "Percent": 11.43
+  },
+  {
+   "Year": 2023,
+   "Status": "Control",
+   "Percent": 30.56
+  },
+  {
+   "Year": 2018,
+   "Status": "Surveillance",
+   "Percent": 35.0
+  },
+  {
+   "Year": 2019,
+   "Status": "Surveillance",
+   "Percent": 23.53
+  },
+  {
+   "Year": 2020,
+   "Status": "Surveillance",
+   "Percent": 29.41
+  },
+  {
+   "Year": 2021,
+   "Status": "Surveillance",
+   "Percent": 11.43
+  },
+  {
+   "Year": 2022,
+   "Status": "Surveillance",
+   "Percent": 25.71
+  },
+  {
+   "Year": 2023,
+   "Status": "Surveillance",
+   "Percent": 33.33
+  }
+ ]
+}

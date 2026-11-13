@@ -25,17 +25,17 @@ export const TEMPLATE_LABELS: Record<Template, string> = {
 /** What Sandbox.Database seeds. Change a number here when the seed changes. */
 export const seed = {
   database: 'LTInfoSandbox',
-  programs: 93,
-  categories: 11,
-  featured: 17,
-  /** The 17 programs seed.sql marks IsFeatured = 1, so a stray one is named in the failure. */
-  featuredIds: [13, 16, 33, 34, 36, 39, 61, 62, 63, 64, 65, 66, 68, 69, 76, 77, 82],
-  partnerLinks: 269,
+  programs: 107,
+  categories: 14,
+  featured: 16,
+  /** The 16 programs seed.sql marks IsFeatured = 1, so a stray one is named in the failure. */
+  featuredIds: [13, 16, 33, 34, 36, 39, 61, 62, 63, 64, 65, 66, 69, 76, 77, 82],
+  partnerLinks: 288,
   /** How many programs use each page layout. */
-  templates: { map: 39, charts: 44, context: 10 },
-  /** Program photos: 66 files across 39 programs; the other 54 programs have none. */
-  photos: 66,
-  programsWithPhotos: 39,
+  templates: { map: 40, charts: 58, context: 9 },
+  /** Program photos: 67 files across 40 programs; the other 67 programs have none. */
+  photos: 67,
+  programsWithPhotos: 40,
   /** The charts layout, and the program the detail and write tests use. One photo. */
   ozone: {
     id: 41,
@@ -60,10 +60,11 @@ export const seed = {
     sitesPanels: 1,
   },
   /** The content layout, with one photo and no charts or map configured. */
-  socioEconomic: {
-    id: 68,
-    name: 'Socio-Economic',
-    category: 'Demographics',
+  nearshoreHealth: {
+    id: 76,
+    name: 'Nearshore Human Health, E. coli Monitoring',
+    category: 'Water Quality',
+    partners: 4,
     template: 'context',
     photos: 1,
   },
@@ -83,15 +84,17 @@ export const seed = {
     category: 'Biodiversity',
     template: 'context',
   },
+  /** A climate page with a link back to its Climate Resilience Dashboard outcome. */
+  lakeLevel: { id: 9913, name: 'Lake Level', climatePage: 'Lake Conditions' },
   airQualityPrograms: 9,
   unknownId: 999999,
   /** GET /summary, and the four totals in the home page hero. */
-  summary: { programs: 93, categories: 11, mappedSites: 1750, partners: 54, photos: 66 },
+  summary: { programs: 107, categories: 14, mappedSites: 1750, partners: 58, photos: 67 },
   /** GET /monitoring-sites: one point per site, and one per mapped area or line. */
   sites: { total: 1750, site: 789, area: 927, line: 34 },
   /** Three categories the home page tests open. Folder is the /category/:folder address. */
   airQuality: { name: 'Air Quality', folder: 'air-quality', programs: 9, sites: 30 },
-  waterQuality: { name: 'Water Quality', folder: 'water-quality', programs: 13, sites: 350 },
+  waterQuality: { name: 'Water Quality', folder: 'water-quality', programs: 12, sites: 107 },
   /** One program and no mapped sites. */
   recreation: { name: 'Recreation', folder: 'recreation', programs: 1, sites: 0, program: 'Recreation Threshold Monitoring' },
   /** A Water Quality program with mapped sites, for the program hover. */

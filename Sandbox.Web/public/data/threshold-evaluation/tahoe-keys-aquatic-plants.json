@@ -1,0 +1,36 @@
+{
+ "title": "Aquatic invasive plant volume in the Tahoe Keys lagoons, cubic yards",
+ "source": "https://trpa-agency.github.io/ThresholdEvaluation/2023/WaterQuality/Chart/Final/Tahoe_Keys_Infestation.html",
+ "rows": [
+  {
+   "Year": 2020,
+   "Species": "Eurasian Watermilfoil",
+   "Cubic yards": 131729
+  },
+  {
+   "Year": 2021,
+   "Species": "Eurasian Watermilfoil",
+   "Cubic yards": 130000
+  },
+  {
+   "Year": 2020,
+   "Species": "Coontail",
+   "Cubic yards": 181720
+  },
+  {
+   "Year": 2021,
+   "Species": "Coontail",
+   "Cubic yards": 169600
+  },
+  {
+   "Year": 2020,
+   "Species": "Curlyleaf Pondweed",
+   "Cubic yards": 188664
+  },
+  {
+   "Year": 2021,
+   "Species": "Curlyleaf Pondweed",
+   "Cubic yards": 82500
+  }
+ ]
+}

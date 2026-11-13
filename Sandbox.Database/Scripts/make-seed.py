@@ -18,7 +18,7 @@ Sources, all public:
 
 The default path assumes the dashboard repo is cloned beside this one.
 """
-import html, io, json, os, re, sys, urllib.parse, urllib.request
+import csv, html, io, json, os, re, sys, urllib.parse, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_PROGRAMS = os.path.join(HERE, "..", "..", "..", "ltinfo-monitoring-dashboard", "programs.json")
@@ -110,8 +110,54 @@ def indicator_page(entry):
         "description": paragraphs([d for d in desc if d]), "approach": text(rec.get("TRPAIndicator")),
         "partners": entry.get("partners", ["Tahoe Regional Planning Agency"]),
         "images": [(guid, text(rec.get("OverviewImageCaption")), None)] if re.fullmatch(r"[0-9a-f-]{36}", guid) else [],
+        "relatedIndicators": ([rec["IndicatorID"]] if rec.get("IndicatorID") else []) + entry.get("relatedIndicators", []),
         **{k: entry[k] for k in CONFIG_KEYS if k in entry},
     }
+
+
+DASHBOARDS = {
+    "thresholds": "Threshold Dashboard",
+    "climate": "Climate Resilience Dashboard",
+    "clarity": "Lake Clarity Tracker",
+    "transportation": "Transportation Tracker",
+}
+_indicators, _outcomes = {}, {}
+
+
+def related_links(indicator_ids):
+    """Links from a monitoring page to the pages of the other LT Info dashboards that report the same
+    indicators: its Threshold Dashboard indicators, Climate Resilience Dashboard outcomes, and the Lake
+    Clarity and Transportation tracker pages. Built from each LT Info indicator's reporting flags."""
+    if not _outcomes:
+        _outcomes.update({o["ClimateResilienceOutcomeID"]: o for o in get("/climate-resilience-outcomes") or []})
+    out, seen = [], set()
+
+    def add(dashboard, label, url):
+        if url not in seen:
+            seen.add(url)
+            out.append({"Dashboard": DASHBOARDS[dashboard], "Label": label, "Url": url})
+
+    for i in dict.fromkeys(indicator_ids):
+        if i not in _indicators:
+            _indicators[i] = get(f"/indicators/{i}") or {}
+        ind = _indicators[i]
+        if not ind.get("IsActive"):
+            continue
+        name = (ind.get("IndicatorDisplayName") or "").strip()
+        if ind.get("IsReportedInThresholdDashboard") and ind.get("ThresholdIndicatorID"):
+            add("thresholds", name, f"https://thresholds.laketahoeinfo.org/threshold/indicators/{ind['ThresholdIndicatorID']}")
+        outcome = _outcomes.get(ind.get("ClimateResilienceOutcomeID"))
+        if ind.get("IsReportedInClimateResilienceDashboard") and outcome:
+            add("climate", outcome["ShortName"], f"https://climate.laketahoeinfo.org/{outcome['OutcomeSlug']}")
+        if ind.get("IsReportedInLakeClarity"):
+            if re.search(r"clarity|secchi", name, re.I):
+                add("clarity", "Water Clarity", "https://clarity.laketahoeinfo.org/results/water-clarity")
+            else:
+                add("clarity", "Results Overview", "https://clarity.laketahoeinfo.org/results/overview")
+        if ind.get("IsReportedInTransportationDashboard") or ind.get("IsReportedInTransportationTracker"):
+            add("transportation", "Data Trends", "https://transportation.laketahoeinfo.org/transportation/data-trends")
+    order = list(DASHBOARDS.values())
+    return sorted(out, key=lambda l: order.index(l["Dashboard"]))
 
 
 def merged_categories(data):
@@ -122,6 +168,8 @@ def merged_categories(data):
         return data["categories"], {}
     extra = json.load(io.open(EXTRA_CATEGORIES, encoding="utf-8"))
     removed = set(extra.get("remove", []))
+    # Programs left out everywhere, wherever programs.json or a category list puts them.
+    drop = set(extra.get("drop", []))
     pool = {p["id"]: p for c in data["categories"] if c["folder"] in removed for p in c["programs"]}
     # Every programs.json program by id, so a new category can also take one from a kept category
     # (it then leaves that category).
@@ -141,13 +189,13 @@ def merged_categories(data):
         return {"template": "context", "featured": False, "describeFromIndicators": True, **e}
 
     additions = extra.get("add", {})
-    categories = [dict(c, programs=[p for p in c["programs"] if p["id"] not in moved] + [resolve(e) for e in additions.get(c["folder"], [])])
+    categories = [dict(c, programs=[p for p in c["programs"] if p["id"] not in moved | drop] + [resolve(e) for e in additions.get(c["folder"], []) if e["id"] not in drop])
                   for c in data["categories"] if c["folder"] not in removed]
     for c in extra.get("categories", []):
         categories.append({"thresholdCategoryId": c["id"], "name": c["name"], "folder": c["folder"],
                            "themeColor": c.get("themeColor") or "#7c7c7c", "blurb": c.get("blurb"),
                            "goal": c.get("goal"), "icon": c.get("icon"),
-                           "programs": [resolve(e) for e in c.get("programs", [])]})
+                           "programs": [resolve(e) for e in c.get("programs", []) if e["id"] not in drop]})
     dropped = sorted(set(pool) - placed)
     if dropped:
         print("  programs of removed categories that extra-categories.json does not place:", dropped)
@@ -207,6 +255,22 @@ def q(s):
     return "NULL" if s is None else "N'" + str(s).replace("'", "''") + "'"
 
 
+def write_crosslinks(rows):
+    """The other direction, for ESA: each page on the other dashboards and the monitoring pages that
+    report its indicators, so those pages can link back. LT Info programs have a monitoring page
+    address now; the rest are pages the redesign adds."""
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cross-links.csv")
+    out = io.StringIO()
+    w = csv.writer(out, lineterminator=chr(10))
+    w.writerow(["Dashboard", "Dashboard page", "Dashboard page address", "Monitoring page", "Monitoring program ID", "Monitoring page address now"])
+    order = list(DASHBOARDS.values())
+    for dash, label, url, pid, name in sorted(rows, key=lambda r: (order.index(r[0]), r[1], r[4])):
+        now = f"https://monitoring.laketahoeinfo.org/monitoring-programs/{pid}" if pid < 9000 else "new page"
+        w.writerow([dash, label, url, name, pid, now])
+    io.open(path, "w", encoding="utf-8", newline="").write(out.getvalue())
+    print(f"cross-links.csv: {len(rows)} links from {len({r[3] for r in rows})} monitoring pages")
+
+
 def main():
     path = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_PROGRAMS
     data = json.load(io.open(path, encoding="utf-8"))
@@ -221,7 +285,8 @@ def main():
     ]
     profiles = site_profiles()
     categories, short_names = merged_categories(data)
-    orgs, links, programs, images = {}, [], [], []
+    related_ids = json.load(io.open(EXTRA_CATEGORIES, encoding="utf-8")).get("related", {}) if os.path.exists(EXTRA_CATEGORIES) else {}
+    orgs, links, programs, images, crosslinks = {}, [], [], [], []
 
     def link_partner(pid, name, short, sort):
         if name not in orgs:
@@ -276,15 +341,23 @@ def main():
             config = {k: p[k] for k in CONFIG_KEYS if p.get(k)}
             if p["id"] in profiles:
                 config["siteProfile"] = profiles[p["id"]]
+            indicator_ids = list(p.get("relatedIndicators", [])) + related_ids.get(str(p["id"]), [])
+            if p.get("ltinfo", True):
+                indicator_ids += [i["IndicatorID"] for i in (get(f"/monitoring-programs/{p['id']}/indicators") or []) if i.get("IndicatorID")]
+            related = related_links(indicator_ids)
+            for link in related:
+                crosslinks.append((link["Dashboard"], link["Label"], link["Url"], p["id"], name))
             programs.append((p["id"], name, c["thresholdCategoryId"], desc, appr, 1 if p.get("featured") else 0,
-                             p.get("template", "charts"), json.dumps(config, separators=(",", ":")) if config else None))
+                             p.get("template", "charts"), json.dumps(config, separators=(",", ":")) if config else None,
+                             json.dumps(related, separators=(",", ":")) if related else None))
             print(f"  {p['id']:>5} {name[:38]:38} {p.get('template', 'charts'):8} partners={n_partners} photos={n_images} config={'y' if config else '-'}")
     lines.append("")
-    for pid, name, cid, desc, appr, feat, template, config in programs:
+    for pid, name, cid, desc, appr, feat, template, config, related in programs:
         lines.append(
-            "INSERT INTO dbo.MonitoringProgram (MonitoringProgramID, MonitoringProgramName, MonitoringProgramCategoryID, MonitoringProgramDescription, MonitoringApproach, IsFeatured, Template, DashboardConfig) "
-            f"VALUES ({pid}, {q(name)}, {cid}, {q(desc)}, {q(appr)}, {feat}, {q(template)}, {q(config)});"
+            "INSERT INTO dbo.MonitoringProgram (MonitoringProgramID, MonitoringProgramName, MonitoringProgramCategoryID, MonitoringProgramDescription, MonitoringApproach, IsFeatured, Template, DashboardConfig, RelatedLinks) "
+            f"VALUES ({pid}, {q(name)}, {cid}, {q(desc)}, {q(appr)}, {feat}, {q(template)}, {q(config)}, {q(related)});"
         )
+    write_crosslinks(crosslinks)
     lines += ["", "SET IDENTITY_INSERT dbo.Organization ON;"]
     for name, (oid, short) in orgs.items():
         lines.append(f"INSERT INTO dbo.Organization (OrganizationID, OrganizationName, OrganizationShortName) VALUES ({oid}, {q(name)}, {q(short)});")

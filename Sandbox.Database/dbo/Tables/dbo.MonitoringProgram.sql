@@ -24,3 +24,10 @@ IF COL_LENGTH(N'dbo.MonitoringProgram', N'Template') IS NULL
 IF COL_LENGTH(N'dbo.MonitoringProgram', N'DashboardConfig') IS NULL
     ALTER TABLE dbo.MonitoringProgram ADD DashboardConfig nvarchar(max) NULL
         CONSTRAINT CK_MonitoringProgram_DashboardConfig_IsJson CHECK (DashboardConfig IS NULL OR ISJSON(DashboardConfig) = 1);
+
+-- Links to the pages of the other LT Info dashboards (Threshold Dashboard, Climate Resilience
+-- Dashboard, Lake Clarity Tracker, Transportation Tracker) that report the program's indicators,
+-- as a JSON array of { Dashboard, Label, Url }.
+IF COL_LENGTH(N'dbo.MonitoringProgram', N'RelatedLinks') IS NULL
+    ALTER TABLE dbo.MonitoringProgram ADD RelatedLinks nvarchar(max) NULL
+        CONSTRAINT CK_MonitoringProgram_RelatedLinks_IsJson CHECK (RelatedLinks IS NULL OR ISJSON(RelatedLinks) = 1);

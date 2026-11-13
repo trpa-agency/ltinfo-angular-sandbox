@@ -21,6 +21,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, "..", "Sandbox.Web", "public", "data")
 OUT = os.path.join(DATA, "threshold-evaluation")
 DEMOGRAPHICS = os.path.join(DATA, "demographics")
+CLIMATE = os.path.join(DATA, "climate")
+CRD = "https://trpa-agency.github.io/ClimateResilienceDashboard/html/"
 FIGURES = "https://trpa-agency.github.io/Demographics/Open_Data_Figures/"
 TE = "https://trpa-agency.github.io/ThresholdEvaluation/2023/"
 LTINFO = "https://thresholds.laketahoeinfo.org/ThresholdIndicator/Detail/"
@@ -121,6 +123,22 @@ def main():
           [{"Year": y, "Exceedances": n} for y, n in zip(range(2008, 2015), (1540, 1110, 1875, 1460, 1480, 1700, 1035))],
           note="Approximate: read from the published chart image (City of South Lake Tahoe airport noise monitoring).")
 
+    # Load reductions credited to TMDL implementors through the Lake Clarity Crediting Program.
+    for name, file, title in (("phosphorus-load-reduction", "Phosphorous_Load_Reduction.html", "Phosphorus load reduction achieved"),
+                              ("nitrogen-load-reduction", "Nitrogen_Load_Reduction.html", "Nitrogen load reduction achieved"),
+                              ("fine-sediment-load-reduction", "Fine_Sediment_Load_Reduction.html", "Fine sediment load reduction achieved")):
+        url = TE + "WaterQuality/Chart/Final/" + file
+        bars = traces(url)[0]
+        write(name, title + " (pounds per year)", url, [{"Year": int(x), "Pounds per year": round(y)} for x, y in zip(bars["x"], bars["y"])])
+
+    # Aquatic invasive species standards.
+    url = TE + "WaterQuality/Chart/Final/AIS_Infestation.html"
+    rows = [{"Year": int(x), "Status": t["name"], "Percent": r(y)} for t in traces(url) for x, y in zip(t["x"], t["y"])]
+    write("ais-site-status", "Aquatic invasive plant sites by management status, percent", url, rows)
+    url = TE + "WaterQuality/Chart/Final/Tahoe_Keys_Infestation.html"
+    rows = [{"Year": int(x), "Species": t["name"], "Cubic yards": round(y)} for t in traces(url) for x, y in zip(t["x"], t["y"])]
+    write("tahoe-keys-aquatic-plants", "Aquatic invasive plant volume in the Tahoe Keys lagoons, cubic yards", url, rows)
+
 
 def demographics():
     """The Open Data demographics figures. The age profile has four unlabeled panels in census order
@@ -152,6 +170,32 @@ def demographics():
     put("median-income-by-county", "Median household income within the Basin by county, 2021 dollars", "Demographics_Tahoe_County_Median_Income_Line.html", rows)
 
 
+def climate():
+    """The Climate Resilience Dashboard charts whose numbers no map service table publishes: lake
+    level, mid-lake surface temperature, the PurpleAir air quality index, and snow and rain shares."""
+    os.makedirs(CLIMATE, exist_ok=True)
+    put = lambda name, title, file, rows, note=None: write(name, title, CRD + file, rows, note, CLIMATE)
+    day = lambda x: str(x)[:10]
+
+    level, high, rim = traces(CRD + "1.3.a_Lake_Level.html")[:3]
+    rows = [{"Date": day(x), "Water level": r(y), "Legal high water": h, "Natural rim": n}
+            for x, y, h, n in zip(level["x"], level["y"], high["y"], rim["y"]) if y is not None]
+    put("lake-level", "Lake Tahoe water level, weekly mean, feet above sea level", "1.3.a_Lake_Level.html", rows)
+
+    temp = traces(CRD + "1.3.b_Lake_Temp.html")[0]
+    rows = [{"Date": day(x), "Temperature": r(y, 1)} for x, y in zip(temp["x"], temp["y"]) if y is not None]
+    put("lake-temperature", "Lake Tahoe mid-lake surface temperature, daily, degrees Fahrenheit", "1.3.b_Lake_Temp.html", rows)
+
+    aqi = traces(CRD + "1.2.a_Purple_Air_v2.html")[0]
+    rows = [{"Date": day(x), "Air quality index": r(y, 1)} for x, y in zip(aqi["x"], aqi["y"]) if y is not None]
+    put("air-quality-index", "Daily air quality index from PurpleAir sensors in the Basin", "1.2.a_Purple_Air_v2.html", rows)
+
+    rows = [{"Year": int(x), "Form": t["name"].replace("% ", ""), "Percent": r(y, 1)}
+            for t in traces(CRD + "1.3.d_Precip.html") for x, y in zip(t["x"], t["y"])]
+    put("snow-and-rain", "Share of precipitation falling as snow and as rain, percent", "1.3.d_Precip.html", rows)
+
+
 if __name__ == "__main__":
     main()
     demographics()
+    climate()

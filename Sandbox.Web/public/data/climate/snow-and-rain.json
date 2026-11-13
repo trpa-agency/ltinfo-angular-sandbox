@@ -1,0 +1,336 @@
+{
+ "title": "Share of precipitation falling as snow and as rain, percent",
+ "source": "https://trpa-agency.github.io/ClimateResilienceDashboard/html/1.3.d_Precip.html",
+ "rows": [
+  {
+   "Year": 1987,
+   "Form": "Snow",
+   "Percent": 60.3
+  },
+  {
+   "Year": 1988,
+   "Form": "Snow",
+   "Percent": 76.0
+  },
+  {
+   "Year": 1989,
+   "Form": "Snow",
+   "Percent": 66.1
+  },
+  {
+   "Year": 1990,
+   "Form": "Snow",
+   "Percent": 77.0
+  },
+  {
+   "Year": 1991,
+   "Form": "Snow",
+   "Percent": 72.8
+  },
+  {
+   "Year": 1992,
+   "Form": "Snow",
+   "Percent": 68.2
+  },
+  {
+   "Year": 1993,
+   "Form": "Snow",
+   "Percent": 67.6
+  },
+  {
+   "Year": 1994,
+   "Form": "Snow",
+   "Percent": 85.2
+  },
+  {
+   "Year": 1995,
+   "Form": "Snow",
+   "Percent": 61.0
+  },
+  {
+   "Year": 1996,
+   "Form": "Snow",
+   "Percent": 54.7
+  },
+  {
+   "Year": 1997,
+   "Form": "Snow",
+   "Percent": 68.9
+  },
+  {
+   "Year": 1998,
+   "Form": "Snow",
+   "Percent": 76.0
+  },
+  {
+   "Year": 1999,
+   "Form": "Snow",
+   "Percent": 79.8
+  },
+  {
+   "Year": 2000,
+   "Form": "Snow",
+   "Percent": 72.4
+  },
+  {
+   "Year": 2001,
+   "Form": "Snow",
+   "Percent": 82.7
+  },
+  {
+   "Year": 2002,
+   "Form": "Snow",
+   "Percent": 70.4
+  },
+  {
+   "Year": 2003,
+   "Form": "Snow",
+   "Percent": 79.7
+  },
+  {
+   "Year": 2004,
+   "Form": "Snow",
+   "Percent": 81.9
+  },
+  {
+   "Year": 2005,
+   "Form": "Snow",
+   "Percent": 51.8
+  },
+  {
+   "Year": 2006,
+   "Form": "Snow",
+   "Percent": 72.3
+  },
+  {
+   "Year": 2007,
+   "Form": "Snow",
+   "Percent": 80.6
+  },
+  {
+   "Year": 2008,
+   "Form": "Snow",
+   "Percent": 77.4
+  },
+  {
+   "Year": 2009,
+   "Form": "Snow",
+   "Percent": 67.3
+  },
+  {
+   "Year": 2010,
+   "Form": "Snow",
+   "Percent": 74.7
+  },
+  {
+   "Year": 2011,
+   "Form": "Snow",
+   "Percent": 82.4
+  },
+  {
+   "Year": 2012,
+   "Form": "Snow",
+   "Percent": 63.7
+  },
+  {
+   "Year": 2013,
+   "Form": "Snow",
+   "Percent": 51.0
+  },
+  {
+   "Year": 2014,
+   "Form": "Snow",
+   "Percent": 51.6
+  },
+  {
+   "Year": 2015,
+   "Form": "Snow",
+   "Percent": 53.0
+  },
+  {
+   "Year": 2016,
+   "Form": "Snow",
+   "Percent": 57.3
+  },
+  {
+   "Year": 2017,
+   "Form": "Snow",
+   "Percent": 63.9
+  },
+  {
+   "Year": 2018,
+   "Form": "Snow",
+   "Percent": 62.2
+  },
+  {
+   "Year": 2019,
+   "Form": "Snow",
+   "Percent": 76.8
+  },
+  {
+   "Year": 1987,
+   "Form": "Rain",
+   "Percent": 39.7
+  },
+  {
+   "Year": 1988,
+   "Form": "Rain",
+   "Percent": 24.0
+  },
+  {
+   "Year": 1989,
+   "Form": "Rain",
+   "Percent": 33.9
+  },
+  {
+   "Year": 1990,
+   "Form": "Rain",
+   "Percent": 23.0
+  },
+  {
+   "Year": 1991,
+   "Form": "Rain",
+   "Percent": 27.2
+  },
+  {
+   "Year": 1992,
+   "Form": "Rain",
+   "Percent": 31.8
+  },
+  {
+   "Year": 1993,
+   "Form": "Rain",
+   "Percent": 32.4
+  },
+  {
+   "Year": 1994,
+   "Form": "Rain",
+   "Percent": 14.8
+  },
+  {
+   "Year": 1995,
+   "Form": "Rain",
+   "Percent": 39.0
+  },
+  {
+   "Year": 1996,
+   "Form": "Rain",
+   "Percent": 45.3
+  },
+  {
+   "Year": 1997,
+   "Form": "Rain",
+   "Percent": 31.1
+  },
+  {
+   "Year": 1998,
+   "Form": "Rain",
+   "Percent": 24.0
+  },
+  {
+   "Year": 1999,
+   "Form": "Rain",
+   "Percent": 20.2
+  },
+  {
+   "Year": 2000,
+   "Form": "Rain",
+   "Percent": 27.6
+  },
+  {
+   "Year": 2001,
+   "Form": "Rain",
+   "Percent": 17.3
+  },
+  {
+   "Year": 2002,
+   "Form": "Rain",
+   "Percent": 29.6
+  },
+  {
+   "Year": 2003,
+   "Form": "Rain",
+   "Percent": 20.3
+  },
+  {
+   "Year": 2004,
+   "Form": "Rain",
+   "Percent": 18.1
+  },
+  {
+   "Year": 2005,
+   "Form": "Rain",
+   "Percent": 48.2
+  },
+  {
+   "Year": 2006,
+   "Form": "Rain",
+   "Percent": 27.7
+  },
+  {
+   "Year": 2007,
+   "Form": "Rain",
+   "Percent": 19.4
+  },
+  {
+   "Year": 2008,
+   "Form": "Rain",
+   "Percent": 22.6
+  },
+  {
+   "Year": 2009,
+   "Form": "Rain",
+   "Percent": 32.7
+  },
+  {
+   "Year": 2010,
+   "Form": "Rain",
+   "Percent": 25.3
+  },
+  {
+   "Year": 2011,
+   "Form": "Rain",
+   "Percent": 17.6
+  },
+  {
+   "Year": 2012,
+   "Form": "Rain",
+   "Percent": 36.3
+  },
+  {
+   "Year": 2013,
+   "Form": "Rain",
+   "Percent": 49.0
+  },
+  {
+   "Year": 2014,
+   "Form": "Rain",
+   "Percent": 48.4
+  },
+  {
+   "Year": 2015,
+   "Form": "Rain",
+   "Percent": 47.0
+  },
+  {
+   "Year": 2016,
+   "Form": "Rain",
+   "Percent": 42.7
+  },
+  {
+   "Year": 2017,
+   "Form": "Rain",
+   "Percent": 36.1
+  },
+  {
+   "Year": 2018,
+   "Form": "Rain",
+   "Percent": 37.8
+  },
+  {
+   "Year": 2019,
+   "Form": "Rain",
+   "Percent": 23.2
+  }
+ ]
+}

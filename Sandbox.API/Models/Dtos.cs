@@ -56,7 +56,14 @@ public class MonitoringProgramDetailDto : MonitoringProgramSimpleDto
     /// sitesLayer, sitesPerYear, mapLayer, and overlays. Null when the program has none.
     /// </summary>
     public JsonObject? DashboardConfig { get; set; }
+    /// <summary>
+    /// Pages on the other LT Info dashboards that report the program's indicators: the Threshold
+    /// Dashboard, the Climate Resilience Dashboard, and the Lake Clarity and Transportation trackers.
+    /// </summary>
+    public List<RelatedLinkDto> RelatedLinks { get; set; } = [];
 }
+
+public record RelatedLinkDto(string Dashboard, string Label, string Url);
 
 public class MonitoringProgramPatchDto
 {

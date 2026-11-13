@@ -7,13 +7,13 @@
 //   app-sites-block         the map and site list
 //   app-per-year-block      the "sites monitored each year" chart
 //   app-program-story       description and monitoring approach
-//   app-program-partners    the partner organizations
+//   app-program-partners    the partner organizations, and the program's pages on the other dashboards
 //
 // A block with nothing to show renders the house empty state: what is absent,
 // then what the section will show.
-import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, booleanAttribute, computed, input } from '@angular/core';
 
-import type { Partner } from '../../api/models';
+import type { Partner, RelatedLink } from '../../api/models';
 import { EsaBadge } from '../../ecology/esa-badge';
 import { EsaCard } from '../../ecology/esa-card';
 import { EsaEmptyState } from '../../ecology/esa-empty-state';
@@ -215,6 +215,7 @@ export class ProgramStory {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [EsaBadge, EsaCard, EsaEmptyState],
   template: `
+    <div class="side-stack">
     <esa-card [title]="'Partners'">
       <!-- A block with one root element is projected into the slot its root names. -->
       @if (partners().length > 0) {
@@ -244,11 +245,33 @@ export class ProgramStory {
         </div>
       }
     </esa-card>
+    <!-- mon-lego-checked: esa-card holds the list; Ecology has no link-list lego, so the grouped
+         list of plain links is custom. -->
+    @if (groups().length > 0) {
+      <esa-card [title]="'On Other Dashboards'" class="dashboards">
+        @for (group of groups(); track group.dashboard) {
+          <h3 class="dashboards__name typography-label">{{ group.dashboard }}</h3>
+          <ul class="dashboards__links">
+            @for (link of group.links; track link.Url) {
+              <li><a [href]="link.Url" target="_blank" rel="noopener">{{ link.Label }}</a></li>
+            }
+          </ul>
+        }
+      </esa-card>
+    }
+    </div>
   `,
   styleUrl: './blocks.scss',
 })
 export class ProgramPartners {
   readonly partners = input.required<readonly Partner[]>();
+  /** Pages on the other LT Info dashboards for the program's indicators, grouped by dashboard. */
+  readonly links = input<readonly RelatedLink[]>([]);
+  protected readonly groups = computed(() => {
+    const byDashboard = new Map<string, RelatedLink[]>();
+    for (const link of this.links()) byDashboard.set(link.Dashboard, [...(byDashboard.get(link.Dashboard) ?? []), link]);
+    return [...byDashboard].map(([dashboard, links]) => ({ dashboard, links }));
+  });
 
   protected readonly empty = EMPTY_TEXT.partners;
 }

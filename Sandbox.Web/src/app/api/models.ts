@@ -109,4 +109,13 @@ export interface MonitoringProgramDetail extends MonitoringProgramSummary {
   /** Key photo first. */
   Images: ProgramImage[];
   DashboardConfig: DashboardConfig | null;
+  /** Pages on the other LT Info dashboards that report this program's indicators. */
+  RelatedLinks: RelatedLink[];
+}
+
+/** A page on another LT Info dashboard: Threshold, Climate Resilience, Lake Clarity, or Transportation. */
+export interface RelatedLink {
+  Dashboard: string;
+  Label: string;
+  Url: string;
 }

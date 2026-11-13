@@ -322,10 +322,9 @@ test.describe('Home page', () => {
       })
       .toBe(true);
 
-    // A legend entry for each category with mapped sites: all but Recreation, Fire Dynamics, and
-    // Forest Structure.
+    // A legend entry for each category with mapped sites: eight of the 14.
     // Quiet chips that all look alike: no category swatches.
-    await expect(page.locator('.map-legend__item')).toHaveCount(7);
+    await expect(page.locator('.map-legend__item')).toHaveCount(8);
     const chips = await page
       .locator('.map-legend__item:not([aria-pressed="true"])')
       .evaluateAll((items) => items.map((item) => `${getComputedStyle(item).backgroundColor} ${getComputedStyle(item).borderTopColor}`));
@@ -561,7 +560,7 @@ test.describe('About Monitoring', () => {
 
     const goal = (folder: string): Locator => page.locator(`.goal[data-folder="${folder}"]`);
     await expect(goal(seed.recreation.folder).getByRole('link', { name: '1 program' })).toBeVisible();
-    const link = goal(seed.waterQuality.folder).getByRole('link', { name: '13 programs' });
+    const link = goal(seed.waterQuality.folder).getByRole('link', { name: `${seed.waterQuality.programs} programs` });
     await expect(link).toHaveAttribute('href', `/category/${seed.waterQuality.folder}`);
 
     // The link opens the category on the map, above.

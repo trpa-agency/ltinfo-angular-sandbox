@@ -36,6 +36,7 @@ const DETAIL_KEYS = [
   'MonitoringApproach',
   'MonitoringProgramDescription',
   'Partners',
+  'RelatedLinks',
 ].sort();
 
 const IMAGE_KEYS = ['Caption', 'IsKeyPhoto', 'MonitoringProgramImageID', 'PhotoCredit', 'Url'];
@@ -129,7 +130,16 @@ interface ProgramDetail extends ProgramSummary {
   Partners: Partner[];
   Images: ProgramImage[];
   DashboardConfig: DashboardConfig | null;
+  RelatedLinks: { Dashboard: string; Label: string; Url: string }[];
 }
+
+/** The dashboards a program page links to, and the host each one's pages live on. */
+const RELATED_HOSTS: Record<string, string> = {
+  'Threshold Dashboard': 'https://thresholds.laketahoeinfo.org/',
+  'Climate Resilience Dashboard': 'https://climate.laketahoeinfo.org/',
+  'Lake Clarity Tracker': 'https://clarity.laketahoeinfo.org/',
+  'Transportation Tracker': 'https://transportation.laketahoeinfo.org/',
+};
 
 const programPath = (id: number): string => `monitoring-programs/${id}`;
 
@@ -236,7 +246,7 @@ test.describe('Sandbox.API contract', () => {
     });
   });
 
-  test('GET /categories returns 11 categories in the documented shape', async ({ request }) => {
+  test('GET /categories returns every category in the documented shape', async ({ request }) => {
     const response = await request.get('categories');
     expect(response.status()).toBe(200);
     const categories = (await response.json()) as Category[];
@@ -340,7 +350,7 @@ test.describe('Sandbox.API contract', () => {
     for (const expected of [
       seed.ozone,
       seed.yellowCress,
-      seed.socioEconomic,
+      seed.nearshoreHealth,
       seed.standComposition,
     ]) {
       expect(programs.find((program) => program.MonitoringProgramID === expected.id)).toEqual(
@@ -460,9 +470,23 @@ test.describe('Sandbox.API contract', () => {
       expect(program).toEqual(expect.objectContaining(summaries[index]));
       expectImages(program);
       expectDashboardConfig(program);
+      // Links to the other dashboards: a known dashboard, a page on its host, no repeats.
+      for (const link of program.RelatedLinks) {
+        expect(Object.keys(link).sort()).toEqual(['Dashboard', 'Label', 'Url']);
+        expect(link.Label).not.toBe('');
+        expect(link.Url.startsWith(RELATED_HOSTS[link.Dashboard] ?? 'unknown dashboard')).toBe(true);
+      }
+      expect(new Set(program.RelatedLinks.map((link) => link.Url)).size).toBe(program.RelatedLinks.length);
     }
+    // The climate pages link back to their Climate Resilience Dashboard outcome.
+    const lakeLevel = details.find((program) => program.MonitoringProgramID === seed.lakeLevel.id)!;
+    expect(lakeLevel.RelatedLinks).toContainEqual({
+      Dashboard: 'Climate Resilience Dashboard',
+      Label: 'Lake Conditions',
+      Url: 'https://climate.laketahoeinfo.org/lake-conditions',
+    });
 
-    // 66 photos across 39 programs, counted from the photos themselves.
+    // The photos, counted from the photos themselves.
     expect(details.reduce((sum, program) => sum + program.Images.length, 0)).toBe(seed.photos);
     expect(details.filter((program) => program.Images.length > 0)).toHaveLength(
       seed.programsWithPhotos,

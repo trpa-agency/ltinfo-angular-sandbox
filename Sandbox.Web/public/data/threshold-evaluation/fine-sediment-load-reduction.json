@@ -1,0 +1,38 @@
+{
+ "title": "Fine sediment load reduction achieved (pounds per year)",
+ "source": "https://trpa-agency.github.io/ThresholdEvaluation/2023/WaterQuality/Chart/Final/Fine_Sediment_Load_Reduction.html",
+ "rows": [
+  {
+   "Year": 2016,
+   "Pounds per year": 278143
+  },
+  {
+   "Year": 2017,
+   "Pounds per year": 302341
+  },
+  {
+   "Year": 2018,
+   "Pounds per year": 443727
+  },
+  {
+   "Year": 2019,
+   "Pounds per year": 476992
+  },
+  {
+   "Year": 2020,
+   "Pounds per year": 523236
+  },
+  {
+   "Year": 2021,
+   "Pounds per year": 598718
+  },
+  {
+   "Year": 2022,
+   "Pounds per year": 607837
+  },
+  {
+   "Year": 2023,
+   "Pounds per year": 553325
+  }
+ ]
+}

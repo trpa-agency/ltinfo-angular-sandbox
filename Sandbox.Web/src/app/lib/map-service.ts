@@ -51,6 +51,8 @@ export interface StatisticsQuery {
   onField: string;
   /** Name of the statistic column in the result rows; "value" by default. */
   outName?: string;
+  /** More fields to compute the same statistic on, each into its own column. */
+  more?: { onField: string; outName: string }[];
 }
 
 interface ArcGISFeature {
@@ -141,6 +143,7 @@ export async function queryStatistics(
     groupByFieldsForStatistics: q.groupBy.join(','),
     outStatistics: JSON.stringify([
       { statisticType: q.statisticType, onStatisticField: q.onField, outStatisticFieldName: outName },
+      ...(q.more ?? []).map((f) => ({ statisticType: q.statisticType, onStatisticField: f.onField, outStatisticFieldName: f.outName })),
     ]),
     returnGeometry: 'false',
     f: 'json',

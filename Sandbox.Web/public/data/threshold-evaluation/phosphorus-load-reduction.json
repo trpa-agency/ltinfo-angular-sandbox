@@ -1,0 +1,38 @@
+{
+ "title": "Phosphorus load reduction achieved (pounds per year)",
+ "source": "https://trpa-agency.github.io/ThresholdEvaluation/2023/WaterQuality/Chart/Final/Phosphorous_Load_Reduction.html",
+ "rows": [
+  {
+   "Year": 2016,
+   "Pounds per year": 811
+  },
+  {
+   "Year": 2017,
+   "Pounds per year": 894
+  },
+  {
+   "Year": 2018,
+   "Pounds per year": 1332
+  },
+  {
+   "Year": 2019,
+   "Pounds per year": 1449
+  },
+  {
+   "Year": 2020,
+   "Pounds per year": 1550
+  },
+  {
+   "Year": 2021,
+   "Pounds per year": 1696
+  },
+  {
+   "Year": 2022,
+   "Pounds per year": 1721
+  },
+  {
+   "Year": 2023,
+   "Pounds per year": 1583
+  }
+ ]
+}

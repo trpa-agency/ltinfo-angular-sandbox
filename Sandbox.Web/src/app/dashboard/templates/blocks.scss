@@ -125,3 +125,30 @@ app-sites-panel {
 .count {
   display: inline-flex;
 }
+
+// ---- app-program-partners: the program's pages on the other dashboards ----
+// A second card under the partners, its links grouped by dashboard.
+.side-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-400);
+}
+
+.dashboards__name {
+  margin: 0;
+  color: var(--color-content-default-primary);
+
+  &:not(:first-child) {
+    margin-top: var(--spacing-400);
+  }
+}
+
+.dashboards__links {
+  margin: var(--spacing-150) 0 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    padding-block: var(--spacing-100);
+  }
+}

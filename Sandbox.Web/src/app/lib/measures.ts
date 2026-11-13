@@ -131,8 +131,9 @@ const toNumber = (v: unknown): number | null => {
 
 /** The y fields a measure charts: the server statistic, the listed fields, or the one y field. */
 export function measureYs(m: Measure): MeasureY[] {
-  if (m.stat) return [{ field: 'value', name: m.yName || m.yLabel }];
+  // Several y fields with a stat: each is computed into a column of its own name.
   if (Array.isArray(m.y)) return m.y;
+  if (m.stat) return [{ field: 'value', name: m.yName || m.yLabel }];
   return [{ field: m.y, name: m.yName || m.yLabel }];
 }
 
@@ -153,9 +154,13 @@ export async function queryMeasure(m: Measure, opts: ServiceOptions = {}): Promi
   } else if (m.layer == null) {
     throw new Error(`${m.title} has neither a layer nor a csv`);
   } else if (m.stat) {
+    const ys = typeof m.y === 'string' ? null : m.y;
     rows = await queryStatistics(
       layer,
-      { where: m.where, groupBy: groups, statisticType: m.stat, onField: typeof m.y === 'string' ? m.y : m.y[0].field, outName: 'value' },
+      ys
+        ? { where: m.where, groupBy: groups, statisticType: m.stat, onField: ys[0].field, outName: ys[0].field,
+            more: ys.slice(1).map((y) => ({ onField: y.field, outName: y.field })) }
+        : { where: m.where, groupBy: groups, statisticType: m.stat, onField: m.y as string, outName: 'value' },
       opts,
     );
   } else if (m.unpivot) {

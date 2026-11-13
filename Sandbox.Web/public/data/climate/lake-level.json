@@ -1,0 +1,5412 @@
+{
+ "title": "Lake Tahoe water level, weekly mean, feet above sea level",
+ "source": "https://trpa-agency.github.io/ClimateResilienceDashboard/html/1.3.a_Lake_Level.html",
+ "rows": [
+  {
+   "Date": "2007-10-07",
+   "Water level": 6225.6,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2007-10-14",
+   "Water level": 6225.47,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2007-10-21",
+   "Water level": 6225.37,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2007-10-28",
+   "Water level": 6225.27,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2007-11-04",
+   "Water level": 6225.24,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2007-11-11",
+   "Water level": 6225.19,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2007-11-18",
+   "Water level": 6225.17,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2007-11-25",
+   "Water level": 6225.08,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2007-12-02",
+   "Water level": 6224.96,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2007-12-09",
+   "Water level": 6224.87,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2007-12-16",
+   "Water level": 6224.83,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2007-12-23",
+   "Water level": 6224.78,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2007-12-30",
+   "Water level": 6224.75,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-01-06",
+   "Water level": 6224.78,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-01-13",
+   "Water level": 6225.06,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-01-20",
+   "Water level": 6225.03,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-01-27",
+   "Water level": 6224.97,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-02-03",
+   "Water level": 6225.04,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-02-10",
+   "Water level": 6225.13,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-02-17",
+   "Water level": 6225.09,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-02-24",
+   "Water level": 6225.08,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-03-02",
+   "Water level": 6225.18,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-03-09",
+   "Water level": 6225.14,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-03-16",
+   "Water level": 6225.14,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-03-23",
+   "Water level": 6225.15,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-03-30",
+   "Water level": 6225.14,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-04-06",
+   "Water level": 6225.12,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-04-13",
+   "Water level": 6225.09,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-04-20",
+   "Water level": 6225.09,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-04-27",
+   "Water level": 6225.07,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-05-04",
+   "Water level": 6225.09,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-05-11",
+   "Water level": 6225.15,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-05-18",
+   "Water level": 6225.24,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-05-25",
+   "Water level": 6225.37,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-06-01",
+   "Water level": 6225.46,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-06-08",
+   "Water level": 6225.47,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-06-15",
+   "Water level": 6225.47,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-06-22",
+   "Water level": 6225.47,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-06-29",
+   "Water level": 6225.43,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-07-06",
+   "Water level": 6225.36,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-07-13",
+   "Water level": 6225.29,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-07-20",
+   "Water level": 6225.19,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-07-27",
+   "Water level": 6225.06,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-08-03",
+   "Water level": 6224.91,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-08-10",
+   "Water level": 6224.77,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-08-17",
+   "Water level": 6224.63,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-08-24",
+   "Water level": 6224.48,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-08-31",
+   "Water level": 6224.34,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-09-07",
+   "Water level": 6224.13,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-09-14",
+   "Water level": 6224.02,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-09-21",
+   "Water level": 6223.91,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-09-28",
+   "Water level": 6223.77,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-10-05",
+   "Water level": 6223.69,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-10-12",
+   "Water level": 6223.59,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-10-19",
+   "Water level": 6223.44,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-10-26",
+   "Water level": 6223.37,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-11-02",
+   "Water level": 6223.33,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-11-09",
+   "Water level": 6223.35,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-11-16",
+   "Water level": 6223.31,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-11-23",
+   "Water level": 6223.27,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-11-30",
+   "Water level": 6223.24,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-12-07",
+   "Water level": 6223.19,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-12-14",
+   "Water level": 6223.13,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-12-21",
+   "Water level": 6223.1,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2008-12-28",
+   "Water level": 6223.17,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-01-04",
+   "Water level": 6223.22,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-01-11",
+   "Water level": 6223.2,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-01-18",
+   "Water level": 6223.18,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-01-25",
+   "Water level": 6223.21,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-02-01",
+   "Water level": 6223.28,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-02-08",
+   "Water level": 6223.27,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-02-15",
+   "Water level": 6223.28,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-02-22",
+   "Water level": 6223.29,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-03-01",
+   "Water level": 6223.34,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-03-08",
+   "Water level": 6223.59,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-03-15",
+   "Water level": 6223.62,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-03-22",
+   "Water level": 6223.62,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-03-29",
+   "Water level": 6223.69,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-04-05",
+   "Water level": 6223.68,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-04-12",
+   "Water level": 6223.67,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-04-19",
+   "Water level": 6223.68,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-04-26",
+   "Water level": 6223.72,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-05-03",
+   "Water level": 6223.79,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-05-10",
+   "Water level": 6224.1,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-05-17",
+   "Water level": 6224.25,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-05-24",
+   "Water level": 6224.39,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-05-31",
+   "Water level": 6224.49,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-06-07",
+   "Water level": 6224.58,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-06-14",
+   "Water level": 6224.61,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-06-21",
+   "Water level": 6224.61,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-06-28",
+   "Water level": 6224.58,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-07-05",
+   "Water level": 6224.55,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-07-12",
+   "Water level": 6224.43,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-07-19",
+   "Water level": 6224.34,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-07-26",
+   "Water level": 6224.25,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-08-02",
+   "Water level": 6224.17,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-08-09",
+   "Water level": 6224.04,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-08-16",
+   "Water level": 6223.91,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-08-23",
+   "Water level": 6223.81,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-08-30",
+   "Water level": 6223.72,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-09-06",
+   "Water level": 6223.6,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-09-13",
+   "Water level": 6223.48,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-09-20",
+   "Water level": 6223.4,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-09-27",
+   "Water level": 6223.31,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-10-04",
+   "Water level": 6223.18,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-10-11",
+   "Water level": 6223.03,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-10-18",
+   "Water level": 6223.07,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-10-25",
+   "Water level": 6223.08,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-11-01",
+   "Water level": 6222.99,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-11-08",
+   "Water level": 6222.93,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-11-15",
+   "Water level": 6222.85,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-11-22",
+   "Water level": 6222.79,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-11-29",
+   "Water level": 6222.74,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-12-06",
+   "Water level": 6222.66,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-12-13",
+   "Water level": 6222.71,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-12-20",
+   "Water level": 6222.8,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2009-12-27",
+   "Water level": 6222.79,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-01-03",
+   "Water level": 6222.78,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-01-10",
+   "Water level": 6222.78,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-01-17",
+   "Water level": 6222.83,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-01-24",
+   "Water level": 6222.96,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-01-31",
+   "Water level": 6223.04,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-02-07",
+   "Water level": 6223.05,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-02-14",
+   "Water level": 6223.07,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-02-21",
+   "Water level": 6223.06,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-02-28",
+   "Water level": 6223.12,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-03-07",
+   "Water level": 6223.21,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-03-14",
+   "Water level": 6223.22,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-03-21",
+   "Water level": 6223.24,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-03-28",
+   "Water level": 6223.24,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-04-04",
+   "Water level": 6223.34,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-04-11",
+   "Water level": 6223.43,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-04-18",
+   "Water level": 6223.44,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-04-25",
+   "Water level": 6223.5,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-05-02",
+   "Water level": 6223.63,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-05-09",
+   "Water level": 6223.68,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-05-16",
+   "Water level": 6223.78,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-05-23",
+   "Water level": 6223.88,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-05-30",
+   "Water level": 6223.96,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-06-06",
+   "Water level": 6224.08,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-06-13",
+   "Water level": 6224.35,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-06-20",
+   "Water level": 6224.47,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-06-27",
+   "Water level": 6224.56,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-07-04",
+   "Water level": 6224.63,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-07-11",
+   "Water level": 6224.64,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-07-18",
+   "Water level": 6224.63,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-07-25",
+   "Water level": 6224.58,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-08-01",
+   "Water level": 6224.49,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-08-08",
+   "Water level": 6224.35,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-08-15",
+   "Water level": 6224.26,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-08-22",
+   "Water level": 6224.13,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-08-29",
+   "Water level": 6223.96,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-09-05",
+   "Water level": 6223.82,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-09-12",
+   "Water level": 6223.7,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-09-19",
+   "Water level": 6223.61,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-09-26",
+   "Water level": 6223.51,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-10-03",
+   "Water level": 6223.48,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-10-10",
+   "Water level": 6223.57,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-10-17",
+   "Water level": 6223.53,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-10-24",
+   "Water level": 6223.5,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-10-31",
+   "Water level": 6223.7,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-11-07",
+   "Water level": 6223.67,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-11-14",
+   "Water level": 6223.68,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-11-21",
+   "Water level": 6223.63,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-11-28",
+   "Water level": 6223.71,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-12-05",
+   "Water level": 6223.72,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-12-12",
+   "Water level": 6223.79,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-12-19",
+   "Water level": 6223.97,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2010-12-26",
+   "Water level": 6224.37,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-01-02",
+   "Water level": 6224.47,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-01-09",
+   "Water level": 6224.55,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-01-16",
+   "Water level": 6224.54,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-01-23",
+   "Water level": 6224.56,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-01-30",
+   "Water level": 6224.56,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-02-06",
+   "Water level": 6224.56,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-02-13",
+   "Water level": 6224.53,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-02-20",
+   "Water level": 6224.64,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-02-27",
+   "Water level": 6224.8,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-03-06",
+   "Water level": 6224.89,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-03-13",
+   "Water level": 6224.99,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-03-20",
+   "Water level": 6225.26,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-03-27",
+   "Water level": 6225.55,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-04-03",
+   "Water level": 6225.64,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-04-10",
+   "Water level": 6225.72,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-04-17",
+   "Water level": 6225.77,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-04-24",
+   "Water level": 6225.91,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-05-01",
+   "Water level": 6226.03,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-05-08",
+   "Water level": 6226.14,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-05-15",
+   "Water level": 6226.32,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-05-22",
+   "Water level": 6226.52,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-05-29",
+   "Water level": 6226.68,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-06-05",
+   "Water level": 6226.8,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-06-12",
+   "Water level": 6227.07,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-06-19",
+   "Water level": 6227.34,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-06-26",
+   "Water level": 6227.65,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-07-03",
+   "Water level": 6227.96,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-07-10",
+   "Water level": 6228.23,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-07-17",
+   "Water level": 6228.35,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-07-24",
+   "Water level": 6228.38,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-07-31",
+   "Water level": 6228.41,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-08-07",
+   "Water level": 6228.4,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-08-14",
+   "Water level": 6228.33,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-08-21",
+   "Water level": 6228.23,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-08-28",
+   "Water level": 6228.16,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-09-04",
+   "Water level": 6228.06,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-09-11",
+   "Water level": 6227.96,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-09-18",
+   "Water level": 6227.88,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-09-25",
+   "Water level": 6227.8,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-10-02",
+   "Water level": 6227.72,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-10-09",
+   "Water level": 6227.62,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-10-16",
+   "Water level": 6227.58,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-10-23",
+   "Water level": 6227.55,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-10-30",
+   "Water level": 6227.48,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-11-06",
+   "Water level": 6227.39,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-11-13",
+   "Water level": 6227.31,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-11-20",
+   "Water level": 6227.25,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-11-27",
+   "Water level": 6227.15,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-12-04",
+   "Water level": 6227.09,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-12-11",
+   "Water level": 6226.99,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-12-18",
+   "Water level": 6226.93,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2011-12-25",
+   "Water level": 6226.85,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-01-01",
+   "Water level": 6226.78,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-01-08",
+   "Water level": 6226.73,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-01-15",
+   "Water level": 6226.67,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-01-22",
+   "Water level": 6226.63,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-01-29",
+   "Water level": 6226.91,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-02-05",
+   "Water level": 6226.89,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-02-12",
+   "Water level": 6226.85,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-02-19",
+   "Water level": 6226.83,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-02-26",
+   "Water level": 6226.78,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-03-04",
+   "Water level": 6226.81,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-03-11",
+   "Water level": 6226.79,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-03-18",
+   "Water level": 6226.83,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-03-25",
+   "Water level": 6227.02,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-04-01",
+   "Water level": 6227.06,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-04-08",
+   "Water level": 6227.12,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-04-15",
+   "Water level": 6227.13,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-04-22",
+   "Water level": 6227.18,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-04-29",
+   "Water level": 6227.33,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-05-06",
+   "Water level": 6227.47,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-05-13",
+   "Water level": 6227.52,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-05-20",
+   "Water level": 6227.59,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-05-27",
+   "Water level": 6227.62,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-06-03",
+   "Water level": 6227.64,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-06-10",
+   "Water level": 6227.66,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-06-17",
+   "Water level": 6227.63,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-06-24",
+   "Water level": 6227.57,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-07-01",
+   "Water level": 6227.45,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-07-08",
+   "Water level": 6227.38,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-07-15",
+   "Water level": 6227.31,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-07-22",
+   "Water level": 6227.18,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-07-29",
+   "Water level": 6227.1,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-08-05",
+   "Water level": 6227.0,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-08-12",
+   "Water level": 6226.9,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-08-19",
+   "Water level": 6226.82,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-08-26",
+   "Water level": 6226.69,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-09-02",
+   "Water level": 6226.52,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-09-09",
+   "Water level": 6226.4,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-09-16",
+   "Water level": 6226.31,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-09-23",
+   "Water level": 6226.2,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-09-30",
+   "Water level": 6226.08,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-10-07",
+   "Water level": 6226.0,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-10-14",
+   "Water level": 6225.86,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-10-21",
+   "Water level": 6225.76,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-10-28",
+   "Water level": 6225.65,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-11-04",
+   "Water level": 6225.57,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-11-11",
+   "Water level": 6225.51,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-11-18",
+   "Water level": 6225.44,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-11-25",
+   "Water level": 6225.42,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-12-02",
+   "Water level": 6225.47,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-12-09",
+   "Water level": 6225.88,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-12-16",
+   "Water level": 6225.94,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-12-23",
+   "Water level": 6225.96,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2012-12-30",
+   "Water level": 6226.15,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-01-06",
+   "Water level": 6226.15,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-01-13",
+   "Water level": 6226.12,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-01-20",
+   "Water level": 6226.05,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-01-27",
+   "Water level": 6226.04,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-02-03",
+   "Water level": 6226.02,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-02-10",
+   "Water level": 6225.96,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-02-17",
+   "Water level": 6225.91,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-02-24",
+   "Water level": 6225.88,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-03-03",
+   "Water level": 6225.82,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-03-10",
+   "Water level": 6225.85,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-03-17",
+   "Water level": 6225.86,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-03-24",
+   "Water level": 6225.89,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-03-31",
+   "Water level": 6225.91,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-04-07",
+   "Water level": 6225.97,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-04-14",
+   "Water level": 6225.99,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-04-21",
+   "Water level": 6226.0,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-04-28",
+   "Water level": 6226.01,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-05-05",
+   "Water level": 6226.05,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-05-12",
+   "Water level": 6226.23,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-05-19",
+   "Water level": 6226.31,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-05-26",
+   "Water level": 6226.3,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-06-02",
+   "Water level": 6226.3,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-06-09",
+   "Water level": 6226.31,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-06-16",
+   "Water level": 6226.3,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-06-23",
+   "Water level": 6226.19,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-06-30",
+   "Water level": 6226.15,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-07-07",
+   "Water level": 6226.12,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-07-14",
+   "Water level": 6226.02,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-07-21",
+   "Water level": 6225.92,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-07-28",
+   "Water level": 6225.84,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-08-04",
+   "Water level": 6225.71,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-08-11",
+   "Water level": 6225.56,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-08-18",
+   "Water level": 6225.42,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-08-25",
+   "Water level": 6225.32,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-09-01",
+   "Water level": 6225.18,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-09-08",
+   "Water level": 6225.06,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-09-15",
+   "Water level": 6224.96,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-09-22",
+   "Water level": 6224.83,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-09-29",
+   "Water level": 6224.66,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-10-06",
+   "Water level": 6224.49,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-10-13",
+   "Water level": 6224.36,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-10-20",
+   "Water level": 6224.27,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-10-27",
+   "Water level": 6224.21,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-11-03",
+   "Water level": 6224.15,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-11-10",
+   "Water level": 6224.06,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-11-17",
+   "Water level": 6223.99,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-11-24",
+   "Water level": 6223.92,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-12-01",
+   "Water level": 6223.81,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-12-08",
+   "Water level": 6223.75,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-12-15",
+   "Water level": 6223.7,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-12-22",
+   "Water level": 6223.66,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2013-12-29",
+   "Water level": 6223.62,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-01-05",
+   "Water level": 6223.59,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-01-12",
+   "Water level": 6223.55,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-01-19",
+   "Water level": 6223.53,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-01-26",
+   "Water level": 6223.51,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-02-02",
+   "Water level": 6223.56,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-02-09",
+   "Water level": 6223.64,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-02-16",
+   "Water level": 6224.05,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-02-23",
+   "Water level": 6224.05,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-03-02",
+   "Water level": 6224.09,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-03-09",
+   "Water level": 6224.18,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-03-16",
+   "Water level": 6224.2,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-03-23",
+   "Water level": 6224.18,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-03-30",
+   "Water level": 6224.19,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-04-06",
+   "Water level": 6224.25,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-04-13",
+   "Water level": 6224.26,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-04-20",
+   "Water level": 6224.29,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-04-27",
+   "Water level": 6224.34,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-05-04",
+   "Water level": 6224.36,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-05-11",
+   "Water level": 6224.35,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-05-18",
+   "Water level": 6224.35,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-05-25",
+   "Water level": 6224.41,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-06-01",
+   "Water level": 6224.43,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-06-08",
+   "Water level": 6224.41,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-06-15",
+   "Water level": 6224.36,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-06-22",
+   "Water level": 6224.24,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-06-29",
+   "Water level": 6224.16,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-07-06",
+   "Water level": 6224.1,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-07-13",
+   "Water level": 6224.04,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-07-20",
+   "Water level": 6224.0,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-07-27",
+   "Water level": 6223.98,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-08-03",
+   "Water level": 6223.9,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-08-10",
+   "Water level": 6223.84,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-08-17",
+   "Water level": 6223.78,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-08-24",
+   "Water level": 6223.67,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-08-31",
+   "Water level": 6223.57,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-09-07",
+   "Water level": 6223.47,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-09-14",
+   "Water level": 6223.38,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-09-21",
+   "Water level": 6223.28,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-09-28",
+   "Water level": 6223.18,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-10-05",
+   "Water level": 6223.15,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-10-12",
+   "Water level": 6223.09,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-10-19",
+   "Water level": 6223.0,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-10-26",
+   "Water level": 6222.88,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-11-02",
+   "Water level": 6222.79,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-11-09",
+   "Water level": 6222.72,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-11-16",
+   "Water level": 6222.67,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-11-23",
+   "Water level": 6222.59,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-11-30",
+   "Water level": 6222.56,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-12-07",
+   "Water level": 6222.61,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-12-14",
+   "Water level": 6222.63,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-12-21",
+   "Water level": 6222.59,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2014-12-28",
+   "Water level": 6222.6,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-01-04",
+   "Water level": 6222.52,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-01-11",
+   "Water level": 6222.49,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-01-18",
+   "Water level": 6222.47,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-01-25",
+   "Water level": 6222.44,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-02-01",
+   "Water level": 6222.43,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-02-08",
+   "Water level": 6222.46,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-02-15",
+   "Water level": 6222.79,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-02-22",
+   "Water level": 6222.83,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-03-01",
+   "Water level": 6222.82,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-03-08",
+   "Water level": 6222.83,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-03-15",
+   "Water level": 6222.83,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-03-22",
+   "Water level": 6222.83,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-03-29",
+   "Water level": 6222.83,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-04-05",
+   "Water level": 6222.81,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-04-12",
+   "Water level": 6222.78,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-04-19",
+   "Water level": 6222.75,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-04-26",
+   "Water level": 6222.77,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-05-03",
+   "Water level": 6222.86,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-05-10",
+   "Water level": 6222.88,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-05-17",
+   "Water level": 6222.87,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-05-24",
+   "Water level": 6222.9,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-05-31",
+   "Water level": 6222.97,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-06-07",
+   "Water level": 6222.95,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-06-14",
+   "Water level": 6222.99,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-06-21",
+   "Water level": 6222.97,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-06-28",
+   "Water level": 6222.92,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-07-05",
+   "Water level": 6222.91,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-07-12",
+   "Water level": 6222.89,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-07-19",
+   "Water level": 6222.83,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-07-26",
+   "Water level": 6222.78,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-08-02",
+   "Water level": 6222.69,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-08-09",
+   "Water level": 6222.63,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-08-16",
+   "Water level": 6222.56,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-08-23",
+   "Water level": 6222.48,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-08-30",
+   "Water level": 6222.39,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-09-06",
+   "Water level": 6222.25,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-09-13",
+   "Water level": 6222.13,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-09-20",
+   "Water level": 6222.03,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-09-27",
+   "Water level": 6221.95,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-10-04",
+   "Water level": 6221.92,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-10-11",
+   "Water level": 6221.88,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-10-18",
+   "Water level": 6221.85,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-10-25",
+   "Water level": 6221.82,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-11-01",
+   "Water level": 6221.79,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-11-08",
+   "Water level": 6221.67,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-11-15",
+   "Water level": 6221.63,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-11-22",
+   "Water level": 6221.55,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-11-29",
+   "Water level": 6221.53,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-12-06",
+   "Water level": 6221.4,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-12-13",
+   "Water level": 6221.39,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-12-20",
+   "Water level": 6221.47,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2015-12-27",
+   "Water level": 6221.6,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-01-03",
+   "Water level": 6221.62,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-01-10",
+   "Water level": 6221.62,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-01-17",
+   "Water level": 6221.67,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-01-24",
+   "Water level": 6221.78,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-01-31",
+   "Water level": 6221.89,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-02-07",
+   "Water level": 6222.07,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-02-14",
+   "Water level": 6222.09,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-02-21",
+   "Water level": 6222.17,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-02-28",
+   "Water level": 6222.23,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-03-06",
+   "Water level": 6222.27,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-03-13",
+   "Water level": 6222.52,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-03-20",
+   "Water level": 6222.67,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-03-27",
+   "Water level": 6222.8,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-04-03",
+   "Water level": 6222.86,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-04-10",
+   "Water level": 6222.93,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-04-17",
+   "Water level": 6223.1,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-04-24",
+   "Water level": 6223.2,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-05-01",
+   "Water level": 6223.35,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-05-08",
+   "Water level": 6223.45,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-05-15",
+   "Water level": 6223.62,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-05-22",
+   "Water level": 6223.74,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-05-29",
+   "Water level": 6223.83,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-06-05",
+   "Water level": 6223.93,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-06-12",
+   "Water level": 6224.02,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-06-19",
+   "Water level": 6224.0,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-06-26",
+   "Water level": 6223.98,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-07-03",
+   "Water level": 6223.96,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-07-10",
+   "Water level": 6223.89,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-07-17",
+   "Water level": 6223.8,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-07-24",
+   "Water level": 6223.7,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-07-31",
+   "Water level": 6223.64,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-08-07",
+   "Water level": 6223.57,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-08-14",
+   "Water level": 6223.46,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-08-21",
+   "Water level": 6223.39,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-08-28",
+   "Water level": 6223.33,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-09-04",
+   "Water level": 6223.21,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-09-11",
+   "Water level": 6223.07,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-09-18",
+   "Water level": 6222.95,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-09-25",
+   "Water level": 6222.83,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-10-02",
+   "Water level": 6222.71,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-10-09",
+   "Water level": 6222.57,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-10-16",
+   "Water level": 6222.51,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-10-23",
+   "Water level": 6222.75,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-10-30",
+   "Water level": 6222.74,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-11-06",
+   "Water level": 6222.88,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-11-13",
+   "Water level": 6222.89,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-11-20",
+   "Water level": 6222.84,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-11-27",
+   "Water level": 6222.82,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-12-04",
+   "Water level": 6222.78,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-12-11",
+   "Water level": 6222.77,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-12-18",
+   "Water level": 6223.11,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2016-12-25",
+   "Water level": 6223.28,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-01-01",
+   "Water level": 6223.31,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-01-08",
+   "Water level": 6223.53,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-01-15",
+   "Water level": 6224.48,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-01-22",
+   "Water level": 6224.77,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-01-29",
+   "Water level": 6225.06,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-02-05",
+   "Water level": 6225.11,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-02-12",
+   "Water level": 6225.68,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-02-19",
+   "Water level": 6226.25,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-02-26",
+   "Water level": 6226.7,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-03-05",
+   "Water level": 6226.79,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-03-12",
+   "Water level": 6226.88,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-03-19",
+   "Water level": 6226.9,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-03-26",
+   "Water level": 6227.06,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-04-02",
+   "Water level": 6227.19,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-04-09",
+   "Water level": 6227.32,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-04-16",
+   "Water level": 6227.53,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-04-23",
+   "Water level": 6227.66,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-04-30",
+   "Water level": 6227.67,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-05-07",
+   "Water level": 6227.72,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-05-14",
+   "Water level": 6228.0,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-05-21",
+   "Water level": 6228.09,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-05-28",
+   "Water level": 6228.21,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-06-04",
+   "Water level": 6228.42,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-06-11",
+   "Water level": 6228.59,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-06-18",
+   "Water level": 6228.64,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-06-25",
+   "Water level": 6228.79,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-07-02",
+   "Water level": 6228.91,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-07-09",
+   "Water level": 6228.95,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-07-16",
+   "Water level": 6228.98,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-07-23",
+   "Water level": 6228.94,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-07-30",
+   "Water level": 6228.91,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-08-06",
+   "Water level": 6228.88,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-08-13",
+   "Water level": 6228.82,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-08-20",
+   "Water level": 6228.72,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-08-27",
+   "Water level": 6228.67,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-09-03",
+   "Water level": 6228.59,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-09-10",
+   "Water level": 6228.52,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-09-17",
+   "Water level": 6228.49,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-09-24",
+   "Water level": 6228.33,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-10-01",
+   "Water level": 6228.21,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-10-08",
+   "Water level": 6228.1,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-10-15",
+   "Water level": 6227.99,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-10-22",
+   "Water level": 6227.93,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-10-29",
+   "Water level": 6227.92,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-11-05",
+   "Water level": 6227.87,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-11-12",
+   "Water level": 6227.8,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-11-19",
+   "Water level": 6227.94,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-11-26",
+   "Water level": 6228.1,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-12-03",
+   "Water level": 6228.09,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-12-10",
+   "Water level": 6227.95,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-12-17",
+   "Water level": 6227.87,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-12-24",
+   "Water level": 6227.79,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2017-12-31",
+   "Water level": 6227.75,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-01-07",
+   "Water level": 6227.76,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-01-14",
+   "Water level": 6227.87,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-01-21",
+   "Water level": 6227.91,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-01-28",
+   "Water level": 6227.93,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-02-04",
+   "Water level": 6227.95,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-02-11",
+   "Water level": 6227.95,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-02-18",
+   "Water level": 6227.92,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-02-25",
+   "Water level": 6227.86,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-03-04",
+   "Water level": 6227.89,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-03-11",
+   "Water level": 6227.99,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-03-18",
+   "Water level": 6228.12,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-03-25",
+   "Water level": 6228.45,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-04-01",
+   "Water level": 6228.59,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-04-08",
+   "Water level": 6228.59,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-04-15",
+   "Water level": 6228.75,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-04-22",
+   "Water level": 6228.67,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-04-29",
+   "Water level": 6228.65,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-05-06",
+   "Water level": 6228.68,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-05-13",
+   "Water level": 6228.73,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-05-20",
+   "Water level": 6228.83,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-05-27",
+   "Water level": 6228.94,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-06-03",
+   "Water level": 6229.01,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-06-10",
+   "Water level": 6229.02,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-06-17",
+   "Water level": 6229.0,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-06-24",
+   "Water level": 6228.97,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-07-01",
+   "Water level": 6228.92,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-07-08",
+   "Water level": 6228.84,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-07-15",
+   "Water level": 6228.77,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-07-22",
+   "Water level": 6228.7,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-07-29",
+   "Water level": 6228.64,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-08-05",
+   "Water level": 6228.53,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-08-12",
+   "Water level": 6228.39,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-08-19",
+   "Water level": 6228.28,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-08-26",
+   "Water level": 6228.13,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-09-02",
+   "Water level": 6227.96,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-09-09",
+   "Water level": 6227.85,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-09-16",
+   "Water level": 6227.68,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-09-23",
+   "Water level": 6227.51,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-09-30",
+   "Water level": 6227.4,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-10-07",
+   "Water level": 6227.33,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-10-14",
+   "Water level": 6227.24,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-10-21",
+   "Water level": 6227.1,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-10-28",
+   "Water level": 6227.02,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-11-04",
+   "Water level": 6226.94,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-11-11",
+   "Water level": 6226.85,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-11-18",
+   "Water level": 6226.75,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-11-25",
+   "Water level": 6226.74,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-12-02",
+   "Water level": 6226.84,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-12-09",
+   "Water level": 6226.84,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-12-16",
+   "Water level": 6226.79,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-12-23",
+   "Water level": 6226.72,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2018-12-30",
+   "Water level": 6226.74,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-01-06",
+   "Water level": 6226.67,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-01-13",
+   "Water level": 6226.74,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-01-20",
+   "Water level": 6226.88,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-01-27",
+   "Water level": 6227.08,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-02-03",
+   "Water level": 6227.09,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-02-10",
+   "Water level": 6227.38,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-02-17",
+   "Water level": 6227.64,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-02-24",
+   "Water level": 6228.03,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-03-03",
+   "Water level": 6228.04,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-03-10",
+   "Water level": 6228.1,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-03-17",
+   "Water level": 6228.02,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-03-24",
+   "Water level": 6227.92,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-03-31",
+   "Water level": 6227.89,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-04-07",
+   "Water level": 6227.92,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-04-14",
+   "Water level": 6227.93,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-04-21",
+   "Water level": 6227.92,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-04-28",
+   "Water level": 6227.97,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-05-05",
+   "Water level": 6228.09,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-05-12",
+   "Water level": 6228.2,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-05-19",
+   "Water level": 6228.34,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-05-26",
+   "Water level": 6228.42,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-06-02",
+   "Water level": 6228.5,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-06-09",
+   "Water level": 6228.64,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-06-16",
+   "Water level": 6228.8,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-06-23",
+   "Water level": 6228.96,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-06-30",
+   "Water level": 6228.99,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-07-07",
+   "Water level": 6229.01,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-07-14",
+   "Water level": 6229.02,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-07-21",
+   "Water level": 6229.03,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-07-28",
+   "Water level": 6229.02,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-08-04",
+   "Water level": 6228.96,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-08-11",
+   "Water level": 6228.86,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-08-18",
+   "Water level": 6228.73,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-08-25",
+   "Water level": 6228.64,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-09-01",
+   "Water level": 6228.54,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-09-08",
+   "Water level": 6228.43,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-09-15",
+   "Water level": 6228.26,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-09-22",
+   "Water level": 6228.11,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-09-29",
+   "Water level": 6227.99,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-10-06",
+   "Water level": 6227.84,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-10-13",
+   "Water level": 6227.73,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-10-20",
+   "Water level": 6227.62,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-10-27",
+   "Water level": 6227.54,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-11-03",
+   "Water level": 6227.42,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-11-10",
+   "Water level": 6227.37,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-11-17",
+   "Water level": 6227.33,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-11-24",
+   "Water level": 6227.27,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-12-01",
+   "Water level": 6227.23,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-12-08",
+   "Water level": 6227.44,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-12-15",
+   "Water level": 6227.54,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-12-22",
+   "Water level": 6227.56,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2019-12-29",
+   "Water level": 6227.54,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-01-05",
+   "Water level": 6227.5,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-01-12",
+   "Water level": 6227.46,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-01-19",
+   "Water level": 6227.43,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-01-26",
+   "Water level": 6227.43,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-02-02",
+   "Water level": 6227.45,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-02-09",
+   "Water level": 6227.42,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-02-16",
+   "Water level": 6227.36,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-02-23",
+   "Water level": 6227.34,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-03-01",
+   "Water level": 6227.32,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-03-08",
+   "Water level": 6227.31,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-03-15",
+   "Water level": 6227.3,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-03-22",
+   "Water level": 6227.48,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-03-29",
+   "Water level": 6227.49,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-04-05",
+   "Water level": 6227.46,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-04-12",
+   "Water level": 6227.53,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-04-19",
+   "Water level": 6227.55,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-04-26",
+   "Water level": 6227.58,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-05-03",
+   "Water level": 6227.66,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-05-10",
+   "Water level": 6227.72,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-05-17",
+   "Water level": 6227.75,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-05-24",
+   "Water level": 6227.85,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-05-31",
+   "Water level": 6227.91,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-06-07",
+   "Water level": 6227.96,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-06-14",
+   "Water level": 6227.94,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-06-21",
+   "Water level": 6227.89,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-06-28",
+   "Water level": 6227.86,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-07-05",
+   "Water level": 6227.78,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-07-12",
+   "Water level": 6227.7,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-07-19",
+   "Water level": 6227.63,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-07-26",
+   "Water level": 6227.56,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-08-02",
+   "Water level": 6227.47,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-08-09",
+   "Water level": 6227.35,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-08-16",
+   "Water level": 6227.24,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-08-23",
+   "Water level": 6227.14,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-08-30",
+   "Water level": 6227.04,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-09-06",
+   "Water level": 6226.92,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-09-13",
+   "Water level": 6226.78,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-09-20",
+   "Water level": 6226.66,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-09-27",
+   "Water level": 6226.52,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-10-04",
+   "Water level": 6226.4,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-10-11",
+   "Water level": 6226.34,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-10-18",
+   "Water level": 6226.25,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-10-25",
+   "Water level": 6226.15,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-11-01",
+   "Water level": 6225.98,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-11-08",
+   "Water level": 6225.9,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-11-15",
+   "Water level": 6225.8,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-11-22",
+   "Water level": 6225.79,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-11-29",
+   "Water level": 6225.76,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-12-06",
+   "Water level": 6225.69,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-12-13",
+   "Water level": 6225.63,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-12-20",
+   "Water level": 6225.67,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2020-12-27",
+   "Water level": 6225.65,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-01-03",
+   "Water level": 6225.62,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-01-10",
+   "Water level": 6225.6,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-01-17",
+   "Water level": 6225.58,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-01-24",
+   "Water level": 6225.52,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-01-31",
+   "Water level": 6225.58,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-02-07",
+   "Water level": 6225.64,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-02-14",
+   "Water level": 6225.65,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-02-21",
+   "Water level": 6225.69,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-02-28",
+   "Water level": 6225.66,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-03-07",
+   "Water level": 6225.61,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-03-14",
+   "Water level": 6225.57,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-03-21",
+   "Water level": 6225.53,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-03-28",
+   "Water level": 6225.48,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-04-04",
+   "Water level": 6225.41,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-04-11",
+   "Water level": 6225.37,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-04-18",
+   "Water level": 6225.36,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-04-25",
+   "Water level": 6225.32,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-05-02",
+   "Water level": 6225.27,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-05-09",
+   "Water level": 6225.25,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-05-16",
+   "Water level": 6225.22,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-05-23",
+   "Water level": 6225.18,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-05-30",
+   "Water level": 6225.11,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-06-06",
+   "Water level": 6225.07,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-06-13",
+   "Water level": 6224.96,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-06-20",
+   "Water level": 6224.88,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-06-27",
+   "Water level": 6224.82,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-07-04",
+   "Water level": 6224.75,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-07-11",
+   "Water level": 6224.66,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-07-18",
+   "Water level": 6224.54,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-07-25",
+   "Water level": 6224.4,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-08-01",
+   "Water level": 6224.29,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-08-08",
+   "Water level": 6224.16,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-08-15",
+   "Water level": 6224.05,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-08-22",
+   "Water level": 6223.92,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-08-29",
+   "Water level": 6223.77,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-09-05",
+   "Water level": 6223.68,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-09-12",
+   "Water level": 6223.61,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-09-19",
+   "Water level": 6223.53,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-09-26",
+   "Water level": 6223.38,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-10-03",
+   "Water level": 6223.25,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-10-10",
+   "Water level": 6223.14,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-10-17",
+   "Water level": 6223.0,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-10-24",
+   "Water level": 6222.94,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-10-31",
+   "Water level": 6223.5,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-11-07",
+   "Water level": 6223.51,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-11-14",
+   "Water level": 6223.54,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-11-21",
+   "Water level": 6223.54,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-11-28",
+   "Water level": 6223.48,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-12-05",
+   "Water level": 6223.46,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-12-12",
+   "Water level": 6223.48,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-12-19",
+   "Water level": 6223.74,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2021-12-26",
+   "Water level": 6223.89,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-01-02",
+   "Water level": 6224.14,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-01-09",
+   "Water level": 6224.11,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-01-16",
+   "Water level": 6224.08,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-01-23",
+   "Water level": 6224.07,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-01-30",
+   "Water level": 6224.04,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-02-06",
+   "Water level": 6224.0,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-02-13",
+   "Water level": 6223.97,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-02-20",
+   "Water level": 6223.95,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-02-27",
+   "Water level": 6223.94,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-03-06",
+   "Water level": 6223.93,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-03-13",
+   "Water level": 6223.92,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-03-20",
+   "Water level": 6223.91,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-03-27",
+   "Water level": 6223.94,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-04-03",
+   "Water level": 6224.0,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-04-10",
+   "Water level": 6224.05,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-04-17",
+   "Water level": 6224.11,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-04-24",
+   "Water level": 6224.21,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-05-01",
+   "Water level": 6224.28,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-05-08",
+   "Water level": 6224.29,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-05-15",
+   "Water level": 6224.34,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-05-22",
+   "Water level": 6224.38,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-05-29",
+   "Water level": 6224.43,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-06-05",
+   "Water level": 6224.45,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-06-12",
+   "Water level": 6224.48,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-06-19",
+   "Water level": 6224.49,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-06-26",
+   "Water level": 6224.43,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-07-03",
+   "Water level": 6224.39,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-07-10",
+   "Water level": 6224.3,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-07-17",
+   "Water level": 6224.24,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-07-24",
+   "Water level": 6224.16,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-07-31",
+   "Water level": 6224.08,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-08-07",
+   "Water level": 6224.01,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-08-14",
+   "Water level": 6223.93,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-08-21",
+   "Water level": 6223.83,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-08-28",
+   "Water level": 6223.74,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-09-04",
+   "Water level": 6223.64,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-09-11",
+   "Water level": 6223.57,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-09-18",
+   "Water level": 6223.45,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-09-25",
+   "Water level": 6223.35,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-10-02",
+   "Water level": 6223.29,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-10-09",
+   "Water level": 6223.22,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-10-16",
+   "Water level": 6223.16,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-10-23",
+   "Water level": 6223.08,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-10-30",
+   "Water level": 6222.94,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-11-06",
+   "Water level": 6222.85,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-11-13",
+   "Water level": 6222.83,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-11-20",
+   "Water level": 6222.75,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-11-27",
+   "Water level": 6222.68,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-12-04",
+   "Water level": 6222.64,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-12-11",
+   "Water level": 6222.74,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-12-18",
+   "Water level": 6222.94,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2022-12-25",
+   "Water level": 6222.92,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-01-01",
+   "Water level": 6223.18,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-01-08",
+   "Water level": 6223.8,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-01-15",
+   "Water level": 6224.14,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-01-22",
+   "Water level": 6224.39,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-01-29",
+   "Water level": 6224.37,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-02-05",
+   "Water level": 6224.34,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-02-12",
+   "Water level": 6224.45,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-02-19",
+   "Water level": 6224.43,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-02-26",
+   "Water level": 6224.44,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-03-05",
+   "Water level": 6224.62,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-03-12",
+   "Water level": 6224.83,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-03-19",
+   "Water level": 6225.22,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-03-26",
+   "Water level": 6225.32,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-04-02",
+   "Water level": 6225.37,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-04-09",
+   "Water level": 6225.39,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-04-16",
+   "Water level": 6225.45,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-04-23",
+   "Water level": 6225.56,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-04-30",
+   "Water level": 6225.73,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-05-07",
+   "Water level": 6226.0,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-05-14",
+   "Water level": 6226.18,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-05-21",
+   "Water level": 6226.44,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-05-28",
+   "Water level": 6226.85,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-06-04",
+   "Water level": 6227.19,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-06-11",
+   "Water level": 6227.5,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-06-18",
+   "Water level": 6227.81,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-06-25",
+   "Water level": 6227.97,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-07-02",
+   "Water level": 6228.1,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-07-09",
+   "Water level": 6228.22,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-07-16",
+   "Water level": 6228.27,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-07-23",
+   "Water level": 6228.28,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-07-30",
+   "Water level": 6228.23,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-08-06",
+   "Water level": 6228.14,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-08-13",
+   "Water level": 6228.05,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-08-20",
+   "Water level": 6228.01,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-08-27",
+   "Water level": 6228.02,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-09-03",
+   "Water level": 6227.94,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-09-10",
+   "Water level": 6227.86,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-09-17",
+   "Water level": 6227.8,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-09-24",
+   "Water level": 6227.73,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-10-01",
+   "Water level": 6227.6,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-10-08",
+   "Water level": 6227.54,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-10-15",
+   "Water level": 6227.44,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-10-22",
+   "Water level": 6227.37,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-10-29",
+   "Water level": 6227.31,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-11-05",
+   "Water level": 6227.2,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-11-12",
+   "Water level": 6227.19,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-11-19",
+   "Water level": 6227.15,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-11-26",
+   "Water level": 6227.15,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-12-03",
+   "Water level": 6227.09,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-12-10",
+   "Water level": 6227.07,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-12-17",
+   "Water level": 6227.06,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-12-24",
+   "Water level": 6227.16,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2023-12-31",
+   "Water level": 6227.18,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-01-07",
+   "Water level": 6227.17,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-01-14",
+   "Water level": 6227.2,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-01-21",
+   "Water level": 6227.26,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-01-28",
+   "Water level": 6227.29,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-02-04",
+   "Water level": 6227.31,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-02-11",
+   "Water level": 6227.41,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-02-18",
+   "Water level": 6227.41,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-02-25",
+   "Water level": 6227.57,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-03-03",
+   "Water level": 6227.65,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-03-10",
+   "Water level": 6227.96,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-03-17",
+   "Water level": 6227.94,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-03-24",
+   "Water level": 6227.95,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-03-31",
+   "Water level": 6228.07,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-04-07",
+   "Water level": 6228.16,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-04-14",
+   "Water level": 6228.16,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-04-21",
+   "Water level": 6228.21,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-04-28",
+   "Water level": 6228.32,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-05-05",
+   "Water level": 6228.43,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-05-12",
+   "Water level": 6228.55,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-05-19",
+   "Water level": 6228.67,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-05-26",
+   "Water level": 6228.8,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-06-02",
+   "Water level": 6228.9,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-06-09",
+   "Water level": 6228.99,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-06-16",
+   "Water level": 6229.03,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-06-23",
+   "Water level": 6228.96,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-06-30",
+   "Water level": 6228.9,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-07-07",
+   "Water level": 6228.84,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-07-14",
+   "Water level": 6228.77,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-07-21",
+   "Water level": 6228.69,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-07-28",
+   "Water level": 6228.6,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-08-04",
+   "Water level": 6228.45,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-08-11",
+   "Water level": 6228.35,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-08-18",
+   "Water level": 6228.17,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-08-25",
+   "Water level": 6227.97,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-09-01",
+   "Water level": 6227.82,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-09-08",
+   "Water level": 6227.73,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-09-15",
+   "Water level": 6227.63,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-09-22",
+   "Water level": 6227.51,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-09-29",
+   "Water level": 6227.47,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-10-06",
+   "Water level": 6227.41,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-10-13",
+   "Water level": 6227.34,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-10-20",
+   "Water level": 6227.25,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-10-27",
+   "Water level": 6227.11,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-11-03",
+   "Water level": 6226.99,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-11-10",
+   "Water level": 6226.89,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-11-17",
+   "Water level": 6226.8,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-11-24",
+   "Water level": 6226.73,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-12-01",
+   "Water level": 6226.74,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-12-08",
+   "Water level": 6226.72,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-12-15",
+   "Water level": 6226.7,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-12-22",
+   "Water level": 6226.78,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2024-12-29",
+   "Water level": 6226.84,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  },
+  {
+   "Date": "2025-01-05",
+   "Water level": 6226.93,
+   "Legal high water": 6229,
+   "Natural rim": 6223
+  }
+ ]
+}

@@ -17,6 +17,15 @@ test.describe('A visitor', () => {
     await expect(page.getByRole('link', { name: 'All Programs' }).first()).toBeVisible();
   });
 
+  test("sees the program's pages on the other LT Info dashboards", async ({ page }) => {
+    await page.goto(`/programs/${seed.lakeLevel.id}`);
+    const card = page.locator('esa-card.dashboards');
+    await expect(card.getByRole('heading', { name: 'Climate Resilience Dashboard' })).toBeVisible();
+    const link = card.getByRole('link', { name: seed.lakeLevel.climatePage });
+    await expect(link).toHaveAttribute('href', 'https://climate.laketahoeinfo.org/lake-conditions');
+    await expect(link).toHaveAttribute('target', '_blank');
+  });
+
   test('sees no layout column or filter in the All Programs list', async ({ page }) => {
     await page.goto('/#all-programs');
     await expect(page.locator('table.programs-table tbody tr')).toHaveCount(seed.programs);

@@ -223,7 +223,7 @@ test.describe('All Programs list', () => {
     // The stored word "context" is never shown; the reader sees "Content".
     await expect(rowOf(page, seed.ozone.name).locator(LAYOUT_CELL)).toHaveText('Charts');
     await expect(rowOf(page, seed.yellowCress.name).locator(LAYOUT_CELL)).toHaveText('Map');
-    await expect(rowOf(page, seed.socioEconomic.name).locator(LAYOUT_CELL)).toHaveText('Content');
+    await expect(rowOf(page, seed.nearshoreHealth.name).locator(LAYOUT_CELL)).toHaveText('Content');
     await expect(rowOf(page, seed.ozone.name).locator(`${LAYOUT_CELL} .esa-badge`)).toHaveCount(1);
     // Quiet badges: the neutral variant, never a color.
     await expect(rows(page).locator('.esa-badge:not(.esa-badge--neutral)')).toHaveCount(0);
@@ -634,10 +634,10 @@ test.describe('The three templates', () => {
     await expectPanelsSettled(page, charts, maps);
   });
 
-  test('program 68 uses the content template: the story leads, with no empty data sections', async ({
+  test('program 76 uses the content template: the story leads, with no empty data sections', async ({
     page,
   }) => {
-    const { id, name } = seed.socioEconomic;
+    const { id, name } = seed.nearshoreHealth;
     await openProgram(page, id, name);
 
     await expect(program(page)).toHaveAttribute('data-template', 'context');
@@ -645,13 +645,14 @@ test.describe('The three templates', () => {
     await expect(page.locator('app-map-template, app-charts-template')).toHaveCount(0);
     await expect(layoutRadio(page, 'context')).toHaveAttribute('aria-checked', 'true');
 
-    // The story leads: the first paragraph of the description sits in the header
-    // as the lead, and the first section is the story.
-    await expect(header(page).locator('.lead')).toContainText('TRPA monitors socio-economic data');
+    // The story leads. Its first paragraph is longer than a header lead, so the
+    // header has none and the story, the first section, opens with it.
+    await expect(header(page).locator('.lead')).toHaveCount(0);
+    await expect(sections(page).first().locator('.prose')).toContainText('The Nearshore Human Health monitoring program collects');
     expect(
       await sections(page).evaluateAll((list) => list.map((el) => el.getAttribute('data-section'))),
     ).toEqual(['about']);
-    await expect(sections(page).first().locator('.prose')).toContainText('U.S. Census Bureau');
+    await expect(sections(page).first().locator('.prose')).toContainText('popular beaches around Lake Tahoe');
 
     // Nothing is configured for charts or a map, so those sections are left out,
     // not shown empty.
@@ -663,11 +664,9 @@ test.describe('The three templates', () => {
     // Every tile would read n/a, so there are none.
     await expect(tiles(page)).toHaveCount(0);
 
-    // No partners: the house empty state, what is absent and what the section will show.
-    await expect(page.getByRole('heading', { name: 'No partners loaded yet' })).toBeVisible();
-    await expect(
-      page.getByText('This section will show the partner organizations from Lake Tahoe Info.'),
-    ).toBeVisible();
+    // Its four partners from Lake Tahoe Info, listed rather than the empty state.
+    await expect(page.getByRole('heading', { name: 'No partners loaded yet' })).toHaveCount(0);
+    await expect(page.locator('ul.partners li')).toHaveCount(seed.nearshoreHealth.partners);
   });
 
   test('program 9681 has no photo: the header text takes the full width, and nothing is broken', async ({
@@ -1026,7 +1025,7 @@ test.describe('At 375 px wide', () => {
   for (const target of [
     { ...seed.yellowCress, charts: seed.yellowCress.chartPanels, maps: seed.yellowCress.sitesPanels },
     { ...seed.ozone, charts: seed.ozone.chartPanels, maps: seed.ozone.sitesPanels },
-    { ...seed.socioEconomic, charts: 0, maps: 0 },
+    { ...seed.nearshoreHealth, charts: 0, maps: 0 },
     { ...seed.standComposition, charts: seed.standComposition.chartPanels, maps: 0 },
   ]) {
     test(`the ${TEMPLATE_LABELS[target.template]} layout of program ${target.id} does not scroll sideways`, async ({
@@ -1081,7 +1080,7 @@ test.describe('Console on a clean load', () => {
   for (const target of [
     { ...seed.yellowCress, charts: seed.yellowCress.chartPanels, maps: seed.yellowCress.sitesPanels },
     { ...seed.ozone, charts: seed.ozone.chartPanels, maps: seed.ozone.sitesPanels },
-    { ...seed.socioEconomic, charts: 0, maps: 0 },
+    { ...seed.nearshoreHealth, charts: 0, maps: 0 },
   ]) {
     test(`the ${TEMPLATE_LABELS[target.template]} layout of program ${target.id} logs no errors`, async ({
       page,

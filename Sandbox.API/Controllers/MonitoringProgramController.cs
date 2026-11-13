@@ -1,3 +1,4 @@
+using System.Text.Json;
 using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -119,6 +120,7 @@ public class MonitoringProgramController(SandboxDbContext dbContext) : Controlle
                         .ToList()
                 },
                 x.DashboardConfig,
+                x.RelatedLinks,
                 Images = x.MonitoringProgramImages
                     .OrderByDescending(i => i.IsKeyPhoto).ThenBy(i => i.SortOrder)
                     .Select(i => new { i.MonitoringProgramImageID, i.FileResourceGUID, i.Caption, i.PhotoCredit, i.IsKeyPhoto })
@@ -137,6 +139,9 @@ public class MonitoringProgramController(SandboxDbContext dbContext) : Controlle
         detail.ImageCount = detail.Images.Count;
         detail.KeyPhotoUrl = detail.Images.FirstOrDefault()?.Url;
         detail.DashboardConfig = string.IsNullOrWhiteSpace(row.DashboardConfig) ? null : JsonNode.Parse(row.DashboardConfig) as JsonObject;
+        detail.RelatedLinks = string.IsNullOrWhiteSpace(row.RelatedLinks)
+            ? []
+            : JsonSerializer.Deserialize<List<RelatedLinkDto>>(row.RelatedLinks) ?? [];
         return detail;
     }
 

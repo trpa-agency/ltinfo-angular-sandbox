@@ -39,6 +39,8 @@ public class MonitoringProgram
     public string Template { get; set; } = "charts";
     /// <summary>Chart and map settings for the TRPA map service, as JSON.</summary>
     public string? DashboardConfig { get; set; }
+    /// <summary>Links to the other LT Info dashboards' pages for the same indicators, as JSON.</summary>
+    public string? RelatedLinks { get; set; }
 
     public MonitoringProgramCategory MonitoringProgramCategory { get; set; } = null!;
     public List<MonitoringProgramOrganization> MonitoringProgramOrganizations { get; set; } = [];
