@@ -48,6 +48,12 @@ export interface ChartSpec {
   /** Display names for category keys (month names, habitat codes). */
   categoryLabels?: Record<string, string>;
   threshold?: ChartThreshold | null;
+  /**
+   * Mark stretches of the axis with no values as "No Data". On by default for a date axis,
+   * where a hole in a dated record is missing data; a year axis asks for it, since years are
+   * often sparse by design (a census, a survey every five years).
+   */
+  gaps?: boolean;
   series: ChartSeries[];
   /**
    * A population pyramid: some series are drawn as negative values, to the left of zero, and the

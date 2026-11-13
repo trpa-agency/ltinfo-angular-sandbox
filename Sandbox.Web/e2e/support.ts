@@ -25,15 +25,15 @@ export const TEMPLATE_LABELS: Record<Template, string> = {
 /** What Sandbox.Database seeds. Change a number here when the seed changes. */
 export const seed = {
   database: 'LTInfoSandbox',
-  programs: 109,
+  programs: 111,
   categories: 14,
   featured: 16,
   /** The 16 programs seed.sql marks IsFeatured = 1, so a stray one is named in the failure. */
   featuredIds: [13, 16, 33, 34, 36, 39, 61, 62, 63, 64, 65, 66, 69, 76, 77, 82],
-  partnerLinks: 291,
+  partnerLinks: 303,
   /** How many programs use each page layout. */
-  templates: { map: 41, charts: 59, context: 9 },
-  /** Program photos: 67 files across 40 programs; the other 69 programs have none. */
+  templates: { map: 42, charts: 60, context: 9 },
+  /** Program photos: 67 files across 40 programs; the other 71 programs have none. */
   photos: 67,
   programsWithPhotos: 40,
   /** The charts layout, and the program the detail and write tests use. One photo. */
@@ -109,12 +109,35 @@ export const seed = {
       'Safety events by type',
     ],
   },
+  /** A map page on three small services: calcium sites as the sites, eDNA samples as an overlay. */
+  calciumEdna: {
+    id: 9932,
+    name: 'Calcium and eDNA Sampling',
+    category: 'Aquatic Invasive Species',
+    sites: 77,
+    /** The three measures; the sites-sampled-each-year chart makes four panels. */
+    charts: ['Sites with the highest calcium, 2025', 'Average calcium by survey day', 'eDNA samples by agency'],
+  },
+  /** A charts page on two partner tables TRPA compiles: lodging reports and park visitor counts. */
+  visitation: {
+    id: 9933,
+    name: 'Visitation and Lodging',
+    category: 'Housing and Economy',
+    partners: 7,
+    charts: [
+      'Room nights rented each year, by jurisdiction',
+      'Room nights rented each year, by lodging type',
+      'Hotel and motel occupancy by month',
+      'Sand Harbor visitors by season',
+      'Sand Harbor visitors by month',
+    ],
+  },
   airQualityPrograms: 9,
   unknownId: 999999,
   /** GET /summary, and the four totals in the home page hero. */
-  summary: { programs: 109, categories: 14, mappedSites: 1765, partners: 58, photos: 67 },
+  summary: { programs: 111, categories: 14, mappedSites: 1842, partners: 60, photos: 67 },
   /** GET /monitoring-sites: one point per site, and one per mapped area or line. */
-  sites: { total: 1765, site: 804, area: 927, line: 34 },
+  sites: { total: 1842, site: 881, area: 927, line: 34 },
   /** Three categories the home page tests open. Folder is the /category/:folder address. */
   airQuality: { name: 'Air Quality', folder: 'air-quality', programs: 9, sites: 30 },
   waterQuality: { name: 'Water Quality', folder: 'water-quality', programs: 12, sites: 107 },

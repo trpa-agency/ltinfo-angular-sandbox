@@ -581,7 +581,7 @@ test.describe('Sandbox.API contract', () => {
     }
   });
 
-  test('GET /monitoring-sites returns 1,765 points: 804 sites, 927 areas, and 34 lines', async ({
+  test('GET /monitoring-sites returns 1,842 points: 881 sites, 927 areas, and 34 lines', async ({
     request,
   }) => {
     const sitesResponse = await request.get('monitoring-sites');

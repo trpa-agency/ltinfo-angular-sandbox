@@ -297,7 +297,7 @@
    },
    {
     "title": "People walking and biking each day",
-    "sub": "People counted on foot and on bicycles at the camera each day. Only days with a count are drawn.",
+    "sub": "People counted on foot and on bicycles at the camera each day.",
     "service": "https://maps.trpa.org/server/rest/services/Transportation_SMART/FeatureServer",
     "pick": "LocationName",
     "pickLabel": "Camera",
@@ -320,7 +320,7 @@
      "bicycle": "Biking",
      "person_mobility_device": "Mobility device"
     },
-    "type": "stacked"
+    "type": "line"
    },
    {
     "title": "Safety events by type",
@@ -358,6 +358,16 @@
    "name": "LocationName",
    "status": "Status",
    "unit": "camera"
+  },
+  "siteProfile": {
+   "photos": {
+    "join": {
+     "from": "name",
+     "to": "LocationName"
+    },
+    "layout": "panorama",
+    "title": "Aerial view of the intersection"
+   }
   }
  },
  "RelatedLinks": [

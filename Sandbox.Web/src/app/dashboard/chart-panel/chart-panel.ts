@@ -45,6 +45,7 @@ import {
   DEFAULT_VEGA_THEME,
   TOOLTIP_LABEL_FIELD,
   chartDescription,
+  chartGaps,
   seriesStyle,
   tooltipValueField,
   vegaLiteSpec,
@@ -143,7 +144,12 @@ function fontReady(theme: VegaTheme): Promise<void> {
   selector: 'app-chart-panel',
   changeDetection: ChangeDetectionStrategy.OnPush,
   // Contract: the host element always carries data-state = loading | ready | empty | error.
-  host: { '[attr.data-state]': 'state()', '[attr.data-rows]': 'state() === "ready" ? rows().length : null' },
+  host: {
+    '[attr.data-state]': 'state()',
+    '[attr.data-rows]': 'state() === "ready" ? rows().length : null',
+    // How many "No Data" blocks the chart draws, for the tests.
+    '[attr.data-gaps]': 'state() === "ready" ? gaps() : null',
+  },
   // esa-select and esa-button-toggle are Lit elements, which Angular does not know.
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [EsaButton, EsaCard, EsaEmptyState],
@@ -210,6 +216,7 @@ export class ChartPanel {
   });
   private readonly chart = computed(() => measureChartSpec(this.current(), this.rows()));
   protected readonly description = computed(() => chartDescription(this.chart()));
+  protected readonly gaps = computed(() => chartGaps(this.chart()).length);
   protected readonly empty = computed(() => this.emptyText() ?? emptyStateText(this.current()));
   protected readonly sourceUrl = computed(() => {
     const m = this.current();
@@ -407,6 +414,7 @@ export class ChartPanel {
       gridColor: token('--color-border-default-subtle', d.gridColor),
       axisColor: token('--color-border-default', d.axisColor),
       thresholdColor: token('--color-content-default-secondary', d.thresholdColor),
+      gapColor: token('--color-background-elevation-sunken', d.gapColor),
       surfaceColor: token('--color-background-elevation-raised', d.surfaceColor),
       fontFamily: token('--typography-font-family-sans', d.fontFamily),
       fontSize: d.fontSize,

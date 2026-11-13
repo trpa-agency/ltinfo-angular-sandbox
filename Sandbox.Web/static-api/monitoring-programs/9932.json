@@ -1,0 +1,231 @@
+{
+ "MonitoringProgramDescription": "Quagga and zebra mussels need calcium to build their shells, so the calcium in the water is one measure of where they could take hold if they arrived. TRPA samples calcium at 77 marinas, boat ramps, creek mouths, and other nearshore sites.\n\nEnvironmental DNA (eDNA) sampling filters water for the genetic traces that plants and animals leave behind, which can show that an invasive species is present before anyone sees it. In July and August 2024, five agencies collected 103 eDNA samples, nearly all at creek mouths.",
+ "MonitoringApproach": "Each calcium sample records the site, date, depth, calcium reading, conductivity, and water temperature. Readings were taken in 2021 and 2025. Twelve records dated 2026 have no readings yet. Each site is assigned a sample year from 2025 to 2027, so about a third of the sites are sampled each year.\n\nEach eDNA sample records the sampling agency, site, bottom sediment, and number of filters used. TRPA collected 69 of the 103 samples. The Lahontan Water Board, the Nevada Division of Environmental Protection, the UC Davis Tahoe Environmental Research Center, and the California Tahoe Conservancy collected the rest. The map service holds no lab results for them yet.\n\nRead the first survey with care. The April 2021 readings, with a median of 37, run three to four times higher than the July 2021 and June 2025 readings, with medians of 11 and 10. The map service does not say why, so the first survey may not be comparable with the later ones, and the ranking here uses 2025 only.\n\nThe map service labels calcium readings in parts per billion. Confirm the unit before comparing a reading with a published mussel threshold. Thirteen calcium samples have no site name, and 54 have no conductivity reading.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 21,
+   "OrganizationName": "California Lahontan Regional Water Quality Control Board",
+   "OrganizationShortName": "Lahontan"
+  },
+  {
+   "OrganizationID": 22,
+   "OrganizationName": "Nevada Division of Environmental Protection",
+   "OrganizationShortName": "NDEP"
+  },
+  {
+   "OrganizationID": 24,
+   "OrganizationName": "UC Davis Tahoe Environmental Research Center",
+   "OrganizationShortName": "TERC"
+  },
+  {
+   "OrganizationID": 20,
+   "OrganizationName": "California Tahoe Conservancy",
+   "OrganizationShortName": "CTC"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Sites with the highest calcium, 2025",
+    "sub": "Calcium reading at the sites sampled in June 2025, the 15 highest. The map service labels the unit parts per billion.",
+    "service": "https://maps.trpa.org/server/rest/services/Calcium_Survey/MapServer",
+    "layer": 0,
+    "where": "SURVEY_SITE IS NOT NULL AND CALCIUM_READING IS NOT NULL AND SURVEY_DATE >= DATE '2025-01-01'",
+    "x": "SURVEY_SITE",
+    "xType": "category",
+    "xLabel": "Site",
+    "xNames": {
+     "T1": "Cave Rock Boat Ramp (T1)",
+     "T10": "Mouth of McFall Creek (T10)",
+     "T11": "Northern end of Nevada Beach (T11)",
+     "T12": "Mouth of Edgewood Creek (T12)",
+     "T13": "Lakeside Marina (T13)",
+     "T14": "Timber Cove (T14)",
+     "T15": "Mouth of Trout Creek/Upper Truckee (T15)",
+     "T16": "West Channel of Homeowner's Lagoon (Tahoe Keys) (T16)",
+     "T17": "Taylor Creek inflow (T17)",
+     "T18": "Cascade Properties, just north of Cascade Creek (T18)",
+     "T19": "Eagle Point (T19)",
+     "T2": "Eldorado Marina Boat Ramp (T2)",
+     "T20": "Emerald Bay @ Vikingsholm pier (T20)",
+     "T21": "West shore of Emerald Bay (diving buoy) (T21)",
+     "T22": "East shore of Emerald Bay (boad camp) (T22)",
+     "T23": "North of Emerald bay, sandy cove (T23)",
+     "T24": "North of Emerald Bay, south of Bliss State Park campground (T24)",
+     "T25": "Rubicon Point (T25)",
+     "T26": "South Rubicon Bay (T26)",
+     "T27": "North Rubicon Bay properties (T27)",
+     "T28": "Meek's Bay Vista (T28)",
+     "T29": "Sugar Pine Point south of Ehrman Mansion (T29)",
+     "T3": "Tahoe Keys Marina (T3)",
+     "T30": "Mouth of General Creek (T30)",
+     "T31": "Sugar Pine Point (T31)",
+     "T32": "Tahoma (T32)",
+     "T33": "McKinney Creek mouth/Chamber's Landing (T33)",
+     "T34": "Kings Beach boat dock, 80 m from launch (T34)",
+     "T35": "North Tahoe Marina (T35)",
+     "T36": "Tahoe Vista Recreation Area (National Ave.) Boating Facility (T36)",
+     "T37": "Sierra Boatworks Marina (T37)",
+     "T38": "Lake Forest Boat Ramp (T38)",
+     "T39": "Tahoe City Marina (T39)",
+     "T4": "Camp Richardson Marina (T4)",
+     "T40": "Sunnyside Marina (T40)",
+     "T41": "Obexer's Marina (T41)",
+     "T42": "Meek's Bay Marina (T42)",
+     "T43": "Just north of Madden Creek (T43)",
+     "T44": "Mouth of Blackwood Creek (T44)",
+     "T45": "North of Kaspian Beach (T45)",
+     "T46": "Mouth of Ward Creek (T46)",
+     "T47": "North of Sunnyside (T47)",
+     "T48": "Tahoe Pines area (T48)",
+     "T49": "Tahoe outlet (T49)",
+     "T5": "Fallen Leaf Lake Marina (T5)",
+     "T51": "Dollar Point Homeowner's Pier (T51)",
+     "T52": "Between Chinquiapin and Dollar Properties (T52)",
+     "T53": "Ferguson Ave Cedar Flat (T53)",
+     "T54": "Northeast of Watson Creek (T54)",
+     "T55": "Flick Point (Carneliean Bay) (T55)",
+     "T56": "Tonopalo- The Beach (T56)",
+     "T57": "Cal Neva Beach (T57)",
+     "T58": "Below Yont's house (T58)",
+     "T59": "Western Crystal Bay Marina (T59)",
+     "T6": "Zephyr Cove Marina (T6)",
+     "T60": "East of Burntcedar Beach (T60)",
+     "T61": "Between Incline Creek and Incline Ramp (T61)",
+     "T62": "Incline near Pinecone Circle (T62)",
+     "T63": "Mouth of Tunnel Creek (T63)",
+     "T64": "Memorial Point (T64)",
+     "T66": "South of South Sand Harbor (T66)",
+     "T67": "Beach at Thunderbird Lodge (T67)",
+     "T69": "Chimney Beach Duplicate (calm) (T69)",
+     "T7": "Sand Harbor Boat Ramp (T7)",
+     "T71": "USFS Beaches (nude) north of cabins (T71)",
+     "T72": "Skunk Harbor north (T72)",
+     "T73": "Skunk Harbor south (T73)",
+     "T74": "Osprey nests (T74)",
+     "T75": "North of Slaughterhouse Creek (T75)",
+     "T76": "Glenbrook Creek (T76)",
+     "T77": "Ledbetter's house (T77)",
+     "T78": "Logan Schoals Marina entrance (T78)",
+     "T79": "North of Cave Rock (T79)",
+     "T8": "Skyland Subdivision (1 mi. south of Cave Rock) (T8)",
+     "T80": "Ski Run Marina (T80)",
+     "T9": "Dreyfus property (T9)"
+    },
+    "y": "CALCIUM_READING",
+    "stat": "avg",
+    "yName": "Calcium reading",
+    "yLabel": "Calcium reading",
+    "type": "bar",
+    "orientation": "h",
+    "sort": "desc",
+    "limit": 15,
+    "span": "span-12"
+   },
+   {
+    "title": "Average calcium by survey day",
+    "sub": "Average of the calcium readings taken on each survey day. The April 2021 surveys read three to four times higher than every survey since.",
+    "service": "https://maps.trpa.org/server/rest/services/Calcium_Survey/MapServer",
+    "layer": 0,
+    "where": "SURVEY_DATE IS NOT NULL AND CALCIUM_READING IS NOT NULL",
+    "x": "SURVEY_DATE",
+    "xType": "date",
+    "xLabel": "Survey day",
+    "y": "CALCIUM_READING",
+    "stat": "avg",
+    "yName": "Average calcium reading",
+    "yLabel": "Calcium reading",
+    "type": "line"
+   },
+   {
+    "title": "eDNA samples by agency",
+    "sub": "eDNA samples collected in July and August 2024, by the agency that took them.",
+    "service": "https://maps.trpa.org/server/rest/services/eDNA_Samples/MapServer",
+    "layer": 0,
+    "x": "sampler_agency",
+    "xType": "category",
+    "xLabel": "Agency",
+    "xNames": {
+     "TRPA": "TRPA",
+     "Lahontan": "Lahontan Water Board",
+     "NDEP": "Nevada Division of Environmental Protection",
+     "TERC": "UC Davis Tahoe Environmental Research Center",
+     "CTC": "California Tahoe Conservancy",
+     "USFS": "U.S. Forest Service",
+     "TWSA": "Tahoe Water Suppliers Association"
+    },
+    "y": "OBJECTID",
+    "stat": "count",
+    "yName": "Samples",
+    "yLabel": "Samples",
+    "type": "bar",
+    "orientation": "h",
+    "sort": "desc"
+   }
+  ],
+  "sitesLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/Calcium_Sites/MapServer",
+   "layer": 0,
+   "name": "description",
+   "code": "SITE_NAME",
+   "status": "sample_year",
+   "unit": "site"
+  },
+  "sitesPerYear": {
+   "service": "https://maps.trpa.org/server/rest/services/Calcium_Survey/MapServer",
+   "layer": 0,
+   "year": "SURVEY_DATE",
+   "site": "SURVEY_SITE",
+   "extract": true,
+   "unit": "site"
+  },
+  "overlays": [
+   {
+    "service": "https://maps.trpa.org/server/rest/services/eDNA_Samples/MapServer",
+    "layer": 0,
+    "title": "eDNA samples, 2024",
+    "name": "site_description",
+    "geometry": "point",
+    "fields": [
+     {
+      "field": "sampler_agency",
+      "label": "Sampled by"
+     },
+     {
+      "field": "primary_bottom_sediment",
+      "label": "Bottom sediment"
+     },
+     {
+      "field": "number_of_filters_used",
+      "label": "Filters used"
+     }
+    ]
+   }
+  ]
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 9932,
+ "MonitoringProgramName": "Calcium and eDNA Sampling",
+ "CategoryID": 17,
+ "CategoryName": "Aquatic Invasive Species",
+ "ThemeColor": "#0d5b73",
+ "IsFeatured": false,
+ "PartnerCount": 5,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 77,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "California Lahontan Regional Water Quality Control Board",
+  "Nevada Division of Environmental Protection",
+  "UC Davis Tahoe Environmental Research Center",
+  "California Tahoe Conservancy"
+ ]
+}

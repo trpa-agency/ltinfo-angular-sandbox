@@ -129,6 +129,7 @@ export class ProfileChart {
       gridColor: token('--color-border-default-subtle', d.gridColor),
       axisColor: token('--color-border-default', d.axisColor),
       thresholdColor: token('--color-content-default-secondary', d.thresholdColor),
+      gapColor: token('--color-background-elevation-sunken', d.gapColor),
       surfaceColor: token('--color-background-elevation-raised', d.surfaceColor),
       fontFamily: token('--typography-font-family-sans', d.fontFamily),
       fontSize: d.fontSize,

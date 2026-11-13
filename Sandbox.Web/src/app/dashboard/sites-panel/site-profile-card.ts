@@ -319,8 +319,10 @@ export class SiteProfileCard {
     const cfg = profile?.photos;
     const layer = cfg?.layer ?? panel.mapLayer?.layer ?? panel.sitesLayer?.layer;
     if (!cfg || layer == null) return;
+    // The photos sit beside the program's own layer unless the settings name another service.
+    const service = cfg.service ?? panel.mapLayer?.service ?? panel.sitesLayer?.service;
     this.photosLoading.set(true);
-    loadPhotos(http, cfg, layer, subject)
+    loadPhotos(http, cfg, layer, subject, service)
       .then((photos) => {
         if (run === this.run) this.photos.set(photos);
       })

@@ -6,3 +6,4 @@
 !Sandbox.Tests/run-e2e.sh
 !Sandbox.Web/playwright.config.ts
 !Sandbox.Web/e2e
+!Sandbox.Web/src/app/lib

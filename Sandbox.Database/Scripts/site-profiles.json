@@ -456,5 +456,15 @@
         "S": "Surveillance"
       }
     }
+  },
+  "9931": {
+    "photos": {
+      "join": {
+        "from": "name",
+        "to": "LocationName"
+      },
+      "layout": "panorama",
+      "title": "Aerial view of the intersection"
+    }
   }
 }

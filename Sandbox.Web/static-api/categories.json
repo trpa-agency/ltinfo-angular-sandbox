@@ -136,7 +136,7 @@
   "CategoryName": "Housing and Economy",
   "Folder": "housing-and-economy",
   "ThemeColor": "#646820",
-  "ProgramCount": 7,
+  "ProgramCount": 8,
   "Blurb": "Housing, deed-restricted homes, prices and rents, jobs, income, and the visitor economy.",
   "CategoryDescription": "Track whether people who work in the Region can afford to live here, and how resilient the Region's economy is.",
   "IconUrl": "category-icons/Housing-white-icon.svg",
@@ -147,10 +147,10 @@
   "CategoryName": "Aquatic Invasive Species",
   "Folder": "aquatic-invasive-species",
   "ThemeColor": "#0d5b73",
-  "ProgramCount": 6,
+  "ProgramCount": 7,
   "Blurb": "Watercraft inspections, invasive plant control, and aquatic plant surveys.",
   "CategoryDescription": "Keep new aquatic invasive species out of the Region's waters, and control and remove the ones already here.",
   "IconUrl": "category-icons/AquaticInvasiveSpecies-white-icon.svg",
-  "SiteCount": 243
+  "SiteCount": 320
  }
 ]

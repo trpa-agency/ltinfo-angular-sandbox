@@ -5,7 +5,7 @@
 // maps.trpa.org live, so its panels only have to settle.
 import type { Locator, Page } from '@playwright/test';
 
-import { API_URL, expect, seed, test } from './support';
+import { API_URL, PANEL_TIMEOUT_MS as PROFILE_TIMEOUT_MS, expect, seed, test } from './support';
 
 const PANEL_TIMEOUT_MS = 60_000;
 
@@ -104,6 +104,41 @@ test.describe('SMART Traffic Cameras', () => {
     for (const measure of detail.DashboardConfig.measures) {
       expect(measure).toMatchObject({ service, pick: 'LocationName' });
     }
+  });
+
+  test('a camera opens with the aerial view attached to it in the map service', async ({ page, request }) => {
+    test.setTimeout(PROFILE_TIMEOUT_MS * 3);
+    const detail = (await (await request.get(`${API_URL}/monitoring-programs/${id}`)).json()) as {
+      DashboardConfig: { siteProfile: { photos: { join: { from: string; to: string }; layout: string } } };
+    };
+    expect(detail.DashboardConfig.siteProfile.photos).toMatchObject({ join: { from: 'name', to: 'LocationName' }, layout: 'panorama' });
+
+    await openProgram(page, id, name);
+    const panel = page.locator('app-sites-panel');
+    await expect(panel).toHaveAttribute('data-state', /^(ready|empty|error)$/, { timeout: PROFILE_TIMEOUT_MS });
+    // The cameras come from maps.trpa.org; when it does not answer there is no camera to open.
+    test.skip((await panel.getAttribute('data-state')) !== 'ready', 'The camera service did not answer.');
+
+    await page.locator('.site-list__row:not([disabled])').filter({ hasText: 'Hwy 50 at Hwy 89' }).first().click();
+    const profile = page.locator('app-site-profile');
+    await expect(profile.locator('.profile__name')).toHaveText('Hwy 50 at Hwy 89');
+    await expect(profile.locator('.profile__section-title')).toHaveText('Aerial view of the intersection', { timeout: PROFILE_TIMEOUT_MS });
+    await expect(profile.locator('.profile__photo--wide img')).toHaveAttribute(
+      'src',
+      new RegExp(`^${service}/0/\\d+/attachments/\\d+$`),
+    );
+  });
+
+  test('the walking and biking chart marks the months with no counts as No Data', async ({ page }) => {
+    test.setTimeout(PANEL_TIMEOUT_MS * 3);
+    await openProgram(page, id, name);
+    const walking = chartPanels(page).filter({ hasText: 'People walking and biking each day' });
+    await expect(walking).toHaveAttribute('data-state', /^(ready|empty|error)$/, { timeout: PANEL_TIMEOUT_MS });
+    test.skip((await walking.getAttribute('data-state')) !== 'ready', 'The camera service did not answer.');
+    // The camera shown first is the one with the longest record, which has a hole of a month
+    // in spring 2025 and another from mid-July.
+    expect(Number(await walking.getAttribute('data-gaps'))).toBeGreaterThan(0);
+    await expect(walking.locator('.visually-hidden').first()).toContainText('No data between');
   });
 
   test('the Data Model page lists the camera service as partner data in a TRPA pipeline', async ({ page }) => {

@@ -1,0 +1,179 @@
+{
+ "MonitoringProgramDescription": "No one counts every visitor to the Tahoe Region, so visitation is read from the records that do exist: the room nights that hotels, motels, casinos, and vacation rentals report to the jurisdictions that tax them, and the visitor counts that parks keep at their gates.\n\nLodging records here run from 2018 to 2024 for the City of South Lake Tahoe, Placer County, Douglas County, and the Stateline casino core, and from 2019 for Washoe County. Sand Harbor visitor counts run from 2010 to 2022.",
+ "MonitoringApproach": "TRPA compiles lodging reports from the City of South Lake Tahoe, Placer County, Douglas County, the Reno-Sparks Convention and Visitors Authority (for Washoe County), and the Nevada Gaming Control Board (for the Stateline casino core). Each record is one area, lodging type, and reporting period, with the rooms available, the rooms rented, and the occupancy rate.\n\nThe reports are not alike. South Lake Tahoe, Douglas County, Washoe County, and the casino core report by month, and Placer County reports by quarter. Washoe County reports rooms rented only, so it has no occupancy rate. El Dorado County outside the city is not in the table.\n\nSand Harbor visitor counts come from Nevada State Parks, by month. A season runs from May through April.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 12,
+   "OrganizationName": "City of South Lake Tahoe",
+   "OrganizationShortName": "CSLT"
+  },
+  {
+   "OrganizationID": 17,
+   "OrganizationName": "Placer County, CA",
+   "OrganizationShortName": "PLCO"
+  },
+  {
+   "OrganizationID": 27,
+   "OrganizationName": "Douglas County, NV",
+   "OrganizationShortName": "DGCO"
+  },
+  {
+   "OrganizationID": 56,
+   "OrganizationName": "Reno-Sparks Convention and Visitors Authority",
+   "OrganizationShortName": "RSCVA"
+  },
+  {
+   "OrganizationID": 57,
+   "OrganizationName": "Nevada Gaming Control Board",
+   "OrganizationShortName": null
+  },
+  {
+   "OrganizationID": 39,
+   "OrganizationName": "Nevada Tahoe Resource Team – Nevada Division of State Parks",
+   "OrganizationShortName": "NV State Parks"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Room nights rented each year, by jurisdiction",
+    "sub": "Rooms rented in hotels, motels, casino hotels, and vacation rentals. 2018 has no Washoe County figures, and 2024 is incomplete.",
+    "service": "https://maps.trpa.org/server/rest/services/Transportation_Planning/MapServer",
+    "layer": 13,
+    "where": "RoomsRented IS NOT NULL",
+    "x": "Year",
+    "xLabel": "Year",
+    "y": "RoomsRented",
+    "stat": "sum",
+    "yLabel": "Room nights",
+    "seriesBy": "Jurisdiction",
+    "seriesLabel": "Jurisdiction",
+    "seriesOrder": [
+     "South Lake Tahoe",
+     "Douglas County",
+     "Placer County",
+     "Washoe County"
+    ],
+    "seriesNames": {
+     "South Lake Tahoe": "City of South Lake Tahoe"
+    },
+    "type": "stacked"
+   },
+   {
+    "title": "Room nights rented each year, by lodging type",
+    "sub": "The same room nights, by the kind of lodging. 2018 has no Washoe County figures, and 2024 is incomplete.",
+    "service": "https://maps.trpa.org/server/rest/services/Transportation_Planning/MapServer",
+    "layer": 13,
+    "where": "RoomsRented IS NOT NULL",
+    "x": "Year",
+    "xLabel": "Year",
+    "y": "RoomsRented",
+    "stat": "sum",
+    "yLabel": "Room nights",
+    "seriesBy": "Category",
+    "seriesLabel": "Lodging",
+    "seriesOrder": [
+     "HotelMotel",
+     "Casino",
+     "VHR"
+    ],
+    "seriesNames": {
+     "HotelMotel": "Hotels and motels",
+     "Casino": "Casino hotels",
+     "VHR": "Vacation rentals"
+    },
+    "type": "stacked"
+   },
+   {
+    "title": "Hotel and motel occupancy by month",
+    "sub": "Share of available rooms rented in each month, one line a year. Zones 1 to 5 are in the City of South Lake Tahoe.",
+    "service": "https://maps.trpa.org/server/rest/services/Transportation_Planning/MapServer",
+    "layer": 13,
+    "where": "MonthNum IS NOT NULL AND OccupancyRate IS NOT NULL AND Category <> 'VHR'",
+    "x": "MonthNum",
+    "xType": "month",
+    "xLabel": "Month",
+    "y": "OccupancyRate",
+    "stat": "avg",
+    "yLabel": "Occupancy",
+    "format": ".0%",
+    "seriesBy": "Year",
+    "seriesLabel": "Year",
+    "pick": "AreaName",
+    "pickLabel": "Area",
+    "pickDefault": "Casino Core",
+    "type": "line",
+    "span": "span-12"
+   },
+   {
+    "title": "Sand Harbor visitors by season",
+    "sub": "Visitors counted at Sand Harbor in each season, May through April.",
+    "service": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+    "layer": 33,
+    "x": "Season",
+    "xType": "category",
+    "xLabel": "Season",
+    "y": "Visitor_Numbers",
+    "stat": "sum",
+    "yName": "Visitors",
+    "yLabel": "Visitors",
+    "type": "bar"
+   },
+   {
+    "title": "Sand Harbor visitors by month",
+    "sub": "Average visitors in each month of the year, over the 12 seasons from 2010 to 2022.",
+    "service": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+    "layer": 33,
+    "x": "Month",
+    "xType": "category",
+    "xLabel": "Month",
+    "xOrder": [
+     "January",
+     "February",
+     "March",
+     "April",
+     "May",
+     "June",
+     "July",
+     "August",
+     "September",
+     "October",
+     "November",
+     "December"
+    ],
+    "y": "Visitor_Numbers",
+    "stat": "avg",
+    "yName": "Average visitors",
+    "yLabel": "Visitors",
+    "type": "bar"
+   }
+  ]
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 9933,
+ "MonitoringProgramName": "Visitation and Lodging",
+ "CategoryID": 16,
+ "CategoryName": "Housing and Economy",
+ "ThemeColor": "#646820",
+ "IsFeatured": false,
+ "PartnerCount": 7,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "City of South Lake Tahoe",
+  "Placer County, CA",
+  "Douglas County, NV",
+  "Reno-Sparks Convention and Visitors Authority",
+  "Nevada Gaming Control Board",
+  "Nevada Tahoe Resource Team – Nevada Division of State Parks"
+ ]
+}

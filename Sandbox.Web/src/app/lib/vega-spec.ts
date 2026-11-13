@@ -34,6 +34,8 @@ export interface VegaTheme {
   axisColor: string;
   /** The threshold rule. */
   thresholdColor: string;
+  /** The block over a stretch of the axis with no data. */
+  gapColor: string;
   /** The surface behind the marks: point outlines and the gaps between stacked segments. */
   surfaceColor: string;
   fontFamily: string;
@@ -58,6 +60,7 @@ export const DEFAULT_VEGA_THEME: VegaTheme = {
   gridColor: '#efefef',
   axisColor: '#dcdcdc',
   thresholdColor: '#656565',
+  gapColor: '#efefef',
   surfaceColor: '#ffffff',
   fontFamily: "'Lexend Deca', system-ui, sans-serif",
   fontSize: 11,
@@ -103,6 +106,60 @@ export function isoToMs(iso: string): number {
   const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
   return m ? Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])) : Number.NaN;
 }
+
+/** What the block over a stretch with no data says. */
+export const GAP_LABEL = 'No Data';
+/** A stretch is a gap when it is at least this many times the usual step between values... */
+export const GAP_FACTOR = 4;
+/** ...and at least this share of the whole axis, so the block is wide enough to see. */
+export const GAP_MIN_SHARE = 0.04;
+/** Fewer values than this have no usual step to compare against. */
+export const GAP_MIN_VALUES = 5;
+
+/** A stretch of the axis with no value in any series: the last key before it and the first after. */
+export interface ChartGap {
+  from: string;
+  to: string;
+  /** The share of the whole axis the stretch covers, 0 to 1. */
+  share: number;
+}
+
+/**
+ * The obvious holes in a record on a date or year axis: stretches between two values that are
+ * several times the usual step and a visible share of the axis. Five days missing from a daily
+ * record of six months is not one; two months missing is. Text categories, months of the year,
+ * and ranked horizontal bars have no gaps. See ChartSpec.gaps for when it is on.
+ */
+export function chartGaps(spec: ChartSpec): ChartGap[] {
+  const continuous = spec.xKind === 'time' || spec.xKind === 'linear';
+  if (!continuous || spec.horizontal || !(spec.gaps ?? spec.xKind === 'time')) return [];
+  const at = (key: string): number => (spec.xKind === 'time' ? isoToMs(key) : Number(key));
+  const seen = new Map<number, string>();
+  for (const s of spec.series) {
+    for (const p of s.points) {
+      if (p.y == null || !Number.isFinite(p.y)) continue;
+      const n = at(String(p.x));
+      if (Number.isFinite(n)) seen.set(n, String(p.x));
+    }
+  }
+  const values = [...seen.keys()].sort((a, b) => a - b);
+  if (values.length < GAP_MIN_VALUES) return [];
+  const steps = values.slice(1).map((v, i) => v - values[i]);
+  const usual = [...steps].sort((a, b) => a - b)[Math.floor((steps.length - 1) / 2)];
+  const whole = values[values.length - 1] - values[0];
+  const gaps: ChartGap[] = [];
+  steps.forEach((step, i) => {
+    if (step >= GAP_FACTOR * usual && step / whole >= GAP_MIN_SHARE) {
+      gaps.push({ from: seen.get(values[i])!, to: seen.get(values[i + 1])!, share: step / whole });
+    }
+  });
+  return gaps;
+}
+
+/** The key of the placeholder band a bar chart gives gap i, and its blank, distinct axis label. */
+const gapKey = (i: number): string => `__gap_${i}`;
+const isGapKey = (key: string): boolean => key.startsWith('__gap_');
+const gapBlank = (i: number): string => ' '.repeat(i + 1);
 
 /** Estimated width of a label in pixels. Lexend Deca is a wide face, about 0.6 em a glyph. */
 function textWidth(s: string, fontSize: number): number {
@@ -172,7 +229,11 @@ export function chartDescription(spec: ChartSpec): string {
     ? `${labels.length} bars ranked from ${first} to ${last}`
     : `${spec.xLabel || 'Position'} from ${first} to ${last}`;
   const threshold = spec.threshold && !horizontal ? ` ${spec.threshold.label} drawn as a dashed line.` : '';
-  return `${n} series (${shown}). ${range}.${threshold}`;
+  // The natural axis names the dates in full, whatever the chart shape draws them as.
+  const gaps = chartGaps(spec)
+    .map((g) => ` No data between ${keyLabel(spec, spec.xKind, g.from)} and ${keyLabel(spec, spec.xKind, g.to)}.`)
+    .join('');
+  return `${n} series (${shown}). ${range}.${threshold}${gaps}`;
 }
 
 type Json = Record<string, unknown>;
@@ -197,15 +258,23 @@ export function vegaLiteSpec(spec: ChartSpec, theme: VegaTheme, options: VegaSpe
   const multi = names.length > 1;
   const styles = names.map((_, i) => seriesStyle(i, theme, spec.series[i]?.color));
 
-  // Positions along the category axis, and what each is called.
+  // Positions along the category axis, and what each is called. A bar chart has no empty
+  // stretch of axis to show a gap in, so each gap gets one placeholder band of its own.
+  const gaps = chartGaps(spec);
   const keys = categoryKeys(spec, kind);
-  const labels = keys.map((k) => keyLabel(spec, kind, k));
+  if (isBar) {
+    gaps.forEach((g, i) => {
+      const after = keys.indexOf(g.from);
+      if (after >= 0) keys.splice(after + 1, 0, gapKey(i));
+    });
+  }
+  const labels = keys.map((k) => (isGapKey(k) ? gapBlank(Number(k.slice(6))) : keyLabel(spec, kind, k)));
   const labelsUnique = new Set(labels).size === labels.length;
   const position = new Map<string, string | number>();
   keys.forEach((k, i) => {
     if (kind === 'linear') position.set(k, Number(k));
     else if (kind === 'time') position.set(k, isoToMs(k));
-    else position.set(k, labelsUnique ? labels[i] : k);
+    else position.set(k, labelsUnique || isGapKey(k) ? labels[i] : k);
   });
   const domain = keys.map((k) => position.get(k) as string | number);
 
@@ -260,7 +329,19 @@ export function vegaLiteSpec(spec: ChartSpec, theme: VegaTheme, options: VegaSpe
       for (let j = phase; j < rows.length; j += stride) rows[j]['m'] = 1;
     });
   }
+  // A line stops at a gap instead of running straight across it: a row with no value, in the
+  // middle of the gap, breaks each series there.
+  if (!isBar) {
+    for (const g of gaps) {
+      const middle = ((position.get(g.from) as number) + (position.get(g.to) as number)) / 2;
+      names.forEach((name, i) => long.push({ x: middle, y: null, s: name, o: i }));
+    }
+  }
   for (const k of keys) {
+    if (isGapKey(k)) {
+      wide.push({ x: position.get(k), [TOOLTIP_LABEL_FIELD]: GAP_LABEL });
+      continue;
+    }
     const row: Json = { x: position.get(k), [TOOLTIP_LABEL_FIELD]: keyLabel(spec, kind, k) };
     let total = 0;
     valueAt.forEach((m, i) => {
@@ -325,6 +406,43 @@ export function vegaLiteSpec(spec: ChartSpec, theme: VegaTheme, options: VegaSpe
   const sizeProp = horizontal ? 'height' : 'width';
 
   const layers: Json[] = [];
+  // Gaps go under the marks: a gray block over the stretch with no data, and what it means.
+  // The words run level where the block is wide enough for them, and up the block where not.
+  if (gaps.length) {
+    const labelWidth = textWidth(GAP_LABEL, fontSize) + 12;
+    const gapText = {
+      type: 'text',
+      text: GAP_LABEL,
+      [valChannel]: { expr: `${horizontal ? 'width' : 'height'} / 2` },
+      align: 'center',
+      baseline: 'middle',
+      color: theme.textColor,
+      fontSize,
+      fontWeight: 500,
+    };
+    if (isBar) {
+      const bands = gaps.map((_, i) => ({ x: position.get(gapKey(i)) })).filter((row) => row.x != null);
+      layers.push({ data: { values: bands }, mark: { type: 'bar', fill: theme.gapColor }, encoding: { [catChannel]: category } });
+      layers.push({ data: { values: bands }, mark: { ...gapText, angle: 270 }, encoding: { [catChannel]: category } });
+    } else {
+      const blocks = gaps.map((g) => {
+        const from = position.get(g.from) as number;
+        const to = position.get(g.to) as number;
+        return { x: from, x2: to, middle: (from + to) / 2, wide: g.share * (plotWidth - 20) >= labelWidth };
+      });
+      layers.push({
+        data: { values: blocks },
+        mark: { type: 'rect', fill: theme.gapColor },
+        encoding: { [catChannel]: category, [`${catChannel}2`]: { field: 'x2' } },
+      });
+      for (const level of [true, false]) {
+        const rows = blocks.filter((b) => b.wide === level).map((b) => ({ x: b.middle }));
+        if (rows.length) {
+          layers.push({ data: { values: rows }, mark: { ...gapText, angle: level ? 0 : 270 }, encoding: { [catChannel]: category } });
+        }
+      }
+    }
+  }
   if (isBar) {
     const grouped = multi && !stacked;
     const inner = 0.08;

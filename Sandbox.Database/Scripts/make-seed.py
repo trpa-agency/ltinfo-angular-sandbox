@@ -256,7 +256,8 @@ def representative_points(area):
 def site_points(cfg):
     """One point per feature of a sites layer on a map service, for a page written in
     extra-categories.json whose sites the dashboard repo's snapshot never captured."""
-    params = {"where": cfg.get("where") or "1=1", "outFields": cfg["name"], "returnGeometry": "true", "outSR": 4326, "f": "geojson"}
+    fields = ",".join(f for f in (cfg["name"], cfg.get("code")) if f)
+    params = {"where": cfg.get("where") or "1=1", "outFields": fields, "returnGeometry": "true", "outSR": 4326, "f": "geojson"}
     url = f"{cfg.get('service') or MAP_SERVICE}/{cfg['layer']}/query?{urllib.parse.urlencode(params)}"
     req = urllib.request.Request(url, headers={"user-agent": "ltinfo-angular-sandbox-seed"})
     with urllib.request.urlopen(req, timeout=120) as r:
@@ -267,7 +268,9 @@ def site_points(cfg):
         if g.get("type") != "Point":
             continue
         x, y = g["coordinates"][:2]
-        name = (f.get("properties") or {}).get(cfg["name"])
+        props = f.get("properties") or {}
+        # A site with no name is listed by its code, as the page lists it.
+        name = props.get(cfg["name"]) or props.get(cfg.get("code") or "")
         points.append((round(y, 6), round(x, 6), str(name).strip() if name not in (None, "") else None))
     return sorted(points, key=lambda pt: pt[2] or "")
 

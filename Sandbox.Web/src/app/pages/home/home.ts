@@ -300,8 +300,31 @@ export class Home {
     const section = document.getElementById(id);
     if (!section) return;
     section.scrollIntoView({ behavior: this.behavior(smooth), block: 'start' });
+    if (smooth) this.landOn(section);
     this.sections.active.set(id);
     if (focus) section.querySelector<HTMLElement>('[data-section-heading]')?.focus({ preventScroll: true });
+  }
+
+  /**
+   * A smooth scroll aims at where the section is when it starts. A photo or the map arriving
+   * above it on the way moves the section, and the scroll stops short. So when the scroll
+   * ends, go to the section itself, unless the reader has taken over the scrolling.
+   */
+  private landOn(section: HTMLElement): void {
+    const taken = ['wheel', 'touchstart', 'keydown'] as const;
+    const stop = (): void => {
+      window.clearTimeout(timer);
+      document.removeEventListener('scrollend', land);
+      for (const type of taken) window.removeEventListener(type, stop);
+    };
+    const land = (): void => {
+      stop();
+      section.scrollIntoView({ behavior: 'auto', block: 'start' });
+    };
+    // scrollend does not fire when the page was already there, or in a browser without it.
+    const timer = window.setTimeout(land, 1500);
+    document.addEventListener('scrollend', land, { once: true });
+    for (const type of taken) window.addEventListener(type, stop, { once: true, passive: true });
   }
 
   private scrollToCard(folder: string, alignTop: boolean): void {

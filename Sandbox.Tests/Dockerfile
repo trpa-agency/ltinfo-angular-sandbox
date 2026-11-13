@@ -48,6 +48,8 @@ RUN npm ci --no-audit --no-fund \
 
 COPY Sandbox.Web/playwright.config.ts /work/Sandbox.Web/playwright.config.ts
 COPY Sandbox.Web/e2e /work/Sandbox.Web/e2e
+# The pure chart and data code, for the specs that test it in Node without a browser.
+COPY Sandbox.Web/src/app/lib /work/Sandbox.Web/src/app/lib
 # A file checked out on Windows has no execute bit, so set it here.
 COPY --chmod=755 Sandbox.Tests/run-e2e.sh ./run-e2e.sh
 

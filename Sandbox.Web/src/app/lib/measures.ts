@@ -95,6 +95,11 @@ export interface Measure {
   standard?: MeasureStandard;
   /** false lets the value axis start above zero. */
   zero?: boolean;
+  /**
+   * Draws a gray "No Data" block over a long stretch with no values. On by default on a date
+   * axis; true turns it on for a year axis, and false turns it off.
+   */
+  gaps?: boolean;
   span?: MeasureSpan;
   xNames?: Record<string, string>;
   unpivot?: { prefix: string };
@@ -319,6 +324,7 @@ export function measureChartSpec(m: Measure, rows: Attributes[]): ChartSpec {
     categoryLabels,
     threshold: std == null ? null : { value: std, label: `${(m.standard && m.standard.label) || 'Threshold'}: ${fmtValue(std, m.format)}` },
     ...(m.mirror ? { mirrored: true } : {}),
+    ...(m.gaps != null ? { gaps: m.gaps } : {}),
     series: series.map((s) => ({
       name: s.name,
       ...(m.seriesColors?.[s.key] ? { color: m.seriesColors[s.key] } : {}),

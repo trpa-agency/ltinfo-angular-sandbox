@@ -1813,6 +1813,28 @@
   ]
  },
  {
+  "MonitoringProgramID": 9933,
+  "MonitoringProgramName": "Visitation and Lodging",
+  "CategoryID": 16,
+  "CategoryName": "Housing and Economy",
+  "ThemeColor": "#646820",
+  "IsFeatured": false,
+  "PartnerCount": 7,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "City of South Lake Tahoe",
+   "Placer County, CA",
+   "Douglas County, NV",
+   "Reno-Sparks Convention and Visitors Authority",
+   "Nevada Gaming Control Board",
+   "Nevada Tahoe Resource Team – Nevada Division of State Parks"
+  ]
+ },
+ {
   "MonitoringProgramID": 14,
   "MonitoringProgramName": "Aquatic Invasive Plants",
   "CategoryID": 17,
@@ -1872,6 +1894,26 @@
   "KeyPhotoUrl": null,
   "SiteCount": 200,
   "PartnerNames": []
+ },
+ {
+  "MonitoringProgramID": 9932,
+  "MonitoringProgramName": "Calcium and eDNA Sampling",
+  "CategoryID": 17,
+  "CategoryName": "Aquatic Invasive Species",
+  "ThemeColor": "#0d5b73",
+  "IsFeatured": false,
+  "PartnerCount": 5,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 77,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "California Lahontan Regional Water Quality Control Board",
+   "Nevada Division of Environmental Protection",
+   "UC Davis Tahoe Environmental Research Center",
+   "California Tahoe Conservancy"
+  ]
  },
  {
   "MonitoringProgramID": 9786,

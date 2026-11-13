@@ -8,7 +8,7 @@ A practice copy of how ESA's apps are put together, small enough to read in one 
 |---|---|
 | `Sandbox.Web` | Angular 21 app styled with Ecology, plus its browser tests in `e2e/` |
 | `Sandbox.API` | .NET 10 API, the same JSON shape as the real LT Info API |
-| `Sandbox.Database` | table scripts and seed data (109 real programs and indicators, 58 partners) |
+| `Sandbox.Database` | table scripts and seed data (111 real programs and indicators, 60 partners) |
 | `Sandbox.Tests` | the container that runs the tests |
 | `Build` | PowerShell scripts: database, one-time SQL Server setup, deploy |
 | `docker-compose` | the files that start the containers |
@@ -27,7 +27,7 @@ The database is the **SQL Server installed on this machine** (database `LTInfoSa
 powershell -File Build\Deploy.ps1
 ```
 
-It builds the database, builds the release images, starts the site, waits until it is healthy, and runs the 116 automated tests against it. About six minutes. The site is then at http://localhost:8080 and stays up, restarting with Docker.
+It builds the database, builds the release images, starts the site, waits until it is healthy, and runs the 133 automated tests against it. About six minutes. The site is then at http://localhost:8080 and stays up, restarting with Docker.
 
 The deploy puts the seed rows back first so the tests start from known data. Add `-KeepData` to leave your rows alone and skip the tests.
 
@@ -55,6 +55,10 @@ The categories differ from the dashboard repo's on purpose: `Sandbox.Database/Sc
 
 Two pages show the two ways data that is not TRPA's own, or not yet published, gets in. SMART Traffic Cameras (Transportation) reads the Transportation_SMART feature service: Tahoe Transportation District cameras, read by Derq's software and loaded to maps.trpa.org by the SMART_Phase1 script in TRPA's Transportation repository. Its 15 cameras are seeded as mapped sites from the service's camera layer, which `make-seed.py` does for any page written in `extra-categories.json` that has a `sitesLayer`. Affordable and Workforce Housing (Housing and Economy) charts TRPA Long Range Planning's parcel inventory, a spreadsheet no service publishes: `python -I tools/extract-housing-inventory.py` reads the copy behind the Housing Progress page and writes three files to `Sandbox.Web/public/data/housing/`, printing the checks it ran on the source. Rerun it when the inventory changes.
 
+Two more pages read raw monitoring records that sat on maps.trpa.org with no page. Calcium and eDNA Sampling (Aquatic Invasive Species) maps the 77 calcium sites from the Calcium_Sites service, draws the 2024 eDNA samples over them, and charts the Calcium_Survey and eDNA_Samples services. Visitation and Lodging (Housing and Economy, beside Transient Occupancy Tax) charts the lodging reports TRPA compiles in the Occupancy Rates table of the Transportation_Planning service and the Sand Harbor visitor counts in the Demographics service.
+
+A chart on a date axis marks an obvious hole in its record with a gray block that says No Data, and a line stops at the hole instead of running across it. A hole counts when it is at least four times the usual step between values and at least four percent of the axis: two months missing from a daily record, not a five-day outage. A bar chart has no empty axis to shade, so it gets one placeholder band for the gap. `gaps: true` on a measure turns this on for a year axis, where it is off because years are often sparse by design (a census, a survey every five years), and `gaps: false` turns it off. The rule and what is drawn are in `chartGaps` and `vegaLiteSpec` in `lib/vega-spec.ts`, tested in `e2e/chart-gaps.spec.ts`, which runs in Node with no browser; the test image copies `src/app/lib` for it.
+
 Every program page lists its pages on the other LT Info dashboards (Threshold Dashboard, Climate Resilience Dashboard, Lake Clarity Tracker, and Transportation Tracker) in an On Other Dashboards card. `make-seed.py` builds them from the LT Info indicators each program reports, using each indicator's dashboard flags, and stores them in the program's `RelatedLinks` column. `relatedIndicators` on an entry in `extra-categories.json`, or `related` (program id to LT Info indicator ids), adds indicators LT Info does not link the program to. The other direction, the links those dashboards should carry back to monitoring pages, is written to `Sandbox.Database/Scripts/cross-links.csv` for ESA.
 
 Test pages for the two building blocks: http://localhost:4200/dev/charts (every chart shape) and http://localhost:4200/dev/map (sites, areas with a year pick, a layer with no list).
@@ -65,7 +69,7 @@ The app uses Ecology's default theme (DM Sans, neutral white surfaces) with no `
 
 ## Site profiles
 
-Clicking a site on a program map, or its row in the list, opens its profile in the list column: the site's record chart against the median of all sites and any standard, its facts, rank, and program-specific detail (SEZ indicators, invasive plant status by year, LTIMP samples). What each program shows is set in `Sandbox.Database/Scripts/site-profiles.json`; rerun `make-seed.py`, then `Build\DatabaseBuild.ps1 -Reseed`.
+Clicking a site on a program map, or its row in the list, opens its profile in the list column: the site's record chart against the median of all sites and any standard, its facts, rank, and program-specific detail (SEZ indicators, invasive plant status by year, LTIMP samples). What each program shows is set in `Sandbox.Database/Scripts/site-profiles.json`; rerun `make-seed.py`, then `Build\DatabaseBuild.ps1 -Reseed`. A site's record and its attached photos are read from the map service its own layer is in, unless the settings name another with `service`. The SMART cameras use this for the aerial view attached to each camera.
 
 ## Develop
 

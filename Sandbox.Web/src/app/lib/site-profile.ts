@@ -73,6 +73,8 @@ export interface ProfileJoin {
 export interface ProfileRecordConfig {
   /** Record layer or table. The program's sitesLayer or mapLayer when omitted. */
   layer?: number;
+  /** The map service the record layer is in; the service of the program's own layer when omitted. */
+  service?: string;
   /** Base filter. The sitesLayer where clause when the layer is the program's sites layer. */
   where?: string;
   /** Required for an area layer or a layer other than the sites layer. */
@@ -180,6 +182,8 @@ export interface SiteProfileConfig {
 export interface ProfilePhotosConfig {
   /** Layer that holds the attachments; the program's own layer when omitted. */
   layer?: number;
+  /** The map service that layer is in; the service of the program's own layer when omitted. */
+  service?: string;
   /**
    * How the site finds its rows in that layer, such as SEZ_ID to SEZ_ID. Several joins must
    * all match (a scenic corridor's viewpoints share its UNIT and its CATEGORY).
@@ -368,11 +372,14 @@ export interface ResolvedRecord extends ProfileRecordConfig {
 }
 
 /** The layer and filter the panel itself draws, for a record or a profile that names none. */
-function programSource(panel: SitesPanelConfig): { layer: number; where: string; site?: { code?: string; name: string } } | null {
-  if (panel.mapLayer) return { layer: panel.mapLayer.layer, where: panel.mapLayer.where || '' };
+function programSource(
+  panel: SitesPanelConfig,
+): { layer: number; service?: string; where: string; site?: { code?: string; name: string } } | null {
+  if (panel.mapLayer) return { layer: panel.mapLayer.layer, service: panel.mapLayer.service, where: panel.mapLayer.where || '' };
   if (panel.sitesLayer) {
     return {
       layer: panel.sitesLayer.layer,
+      service: panel.sitesLayer.service,
       where: panel.sitesLayer.where || '',
       site: { code: panel.sitesLayer.code, name: panel.sitesLayer.name },
     };
@@ -390,8 +397,10 @@ export function resolveRecord(record: ProfileRecordConfig, panel: SitesPanelConf
   if (layer == null) return null;
   const sameLayer = program != null && layer === program.layer;
   const where = record.where ?? (sameLayer ? program.where : '');
-  if (record.join) return { ...record, layer, where, keyBy: { kind: 'join', join: record.join } };
-  if (sameLayer && program.site) return { ...record, layer, where, keyBy: { kind: 'site', ...program.site } };
+  // A record sits beside the program's own layer unless the settings name another service.
+  const service = record.service ?? program?.service;
+  if (record.join) return { ...record, layer, service, where, keyBy: { kind: 'join', join: record.join } };
+  if (sameLayer && program.site) return { ...record, layer, service, where, keyBy: { kind: 'site', ...program.site } };
   return null;
 }
 
@@ -404,6 +413,7 @@ export function resolveRowSource(panel: SitesPanelConfig): ResolvedRecord | null
     value: '',
     label: '',
     layer: program.layer,
+    service: program.service,
     where: program.where,
     keyBy: { kind: 'site', ...program.site },
   };
@@ -516,7 +526,13 @@ interface AttributeResponse {
 }
 
 /** Attribute rows of an f=json query, paged with resultOffset when the server says there are more. */
-export async function fetchRows(fetchFn: FetchLike, layer: number, params: QueryParams, pageSize: number = 2000): Promise<Row[]> {
+export async function fetchRows(
+  fetchFn: FetchLike,
+  layer: number,
+  params: QueryParams,
+  pageSize: number = 2000,
+  service: string = SERVICE,
+): Promise<Row[]> {
   const out: Row[] = [];
   const paged = params['resultRecordCount'] == null && params['groupByFieldsForStatistics'] == null;
   for (let page = 0; page < 50; page++) {
@@ -525,7 +541,7 @@ export async function fetchRows(fetchFn: FetchLike, layer: number, params: Query
       query['resultOffset'] = page * pageSize;
       query['resultRecordCount'] = pageSize;
     }
-    const response = await fetchFn(queryUrl(layer, query));
+    const response = await fetchFn(queryUrl(layer, query, service));
     const json = (await response.json()) as AttributeResponse | null;
     if (!json || typeof json !== 'object') throw new Error(`Layer ${layer} returned no JSON`);
     if (json.error) throw new Error(json.error.message || `Layer ${layer} query failed`);
@@ -560,12 +576,18 @@ export async function loadPhotos(
   const where = photosWhere(cfg, subject);
   if (where == null) return [];
   const labelField = cfg.label?.field;
-  const rows = await fetchRows(fetchFn, layer, {
-    where,
-    outFields: unique(['OBJECTID', cfg.year, labelField].filter(Boolean) as string[]).join(','),
-    returnGeometry: false,
-    orderByFields: cfg.year ? `${cfg.year} DESC` : undefined,
-  });
+  const rows = await fetchRows(
+    fetchFn,
+    layer,
+    {
+      where,
+      outFields: unique(['OBJECTID', cfg.year, labelField].filter(Boolean) as string[]).join(','),
+      returnGeometry: false,
+      orderByFields: cfg.year ? `${cfg.year} DESC` : undefined,
+    },
+    2000,
+    service,
+  );
   // Labels such as viewpoint IDs read in natural order: 3.2 before 3.10.
   if (labelField && !cfg.year) {
     rows.sort((a, b) => String(a[labelField] ?? '').localeCompare(String(b[labelField] ?? ''), undefined, { numeric: true }));
@@ -1031,8 +1053,8 @@ export async function loadRecord(fetchFn: FetchLike, record: ResolvedRecord, sub
   const started = Date.now();
   if (record.stat) {
     const [stats, latestRows] = await Promise.all([
-      fetchRows(fetchFn, record.layer, siteStatsParams(record, where)),
-      fetchRows(fetchFn, record.layer, latestRowParams(record, where)),
+      fetchRows(fetchFn, record.layer, siteStatsParams(record, where), 2000, record.service),
+      fetchRows(fetchFn, record.layer, latestRowParams(record, where), 2000, record.service),
     ]);
     const latest = latestRows[0] ?? null;
     return {
@@ -1044,7 +1066,7 @@ export async function loadRecord(fetchFn: FetchLike, record: ResolvedRecord, sub
       ms: Date.now() - started,
     };
   }
-  const rows = await fetchRows(fetchFn, record.layer, siteRowsParams(record, where));
+  const rows = await fetchRows(fetchFn, record.layer, siteRowsParams(record, where), 2000, record.service);
   const yearly = record.value ? yearlyFromRows(record, rows) : [];
   const valued = record.value ? rows.filter((r) => numberOf(r[record.value]) != null) : rows;
   const latest = valued[valued.length - 1] ?? rows[rows.length - 1] ?? null;
@@ -1056,10 +1078,10 @@ const comparisons = new Map<string, Promise<Comparison>>();
 /** Every site's values for a record, fetched once per layer, filter, and fields, then shared. */
 export function loadComparison(fetchFn: FetchLike, record: ResolvedRecord): Promise<Comparison> {
   const params = comparisonParams(record);
-  const cacheKey = JSON.stringify([record.layer, params]);
+  const cacheKey = JSON.stringify([record.service ?? '', record.layer, params]);
   let pending = comparisons.get(cacheKey);
   if (!pending) {
-    pending = fetchRows(fetchFn, record.layer, params).then((rows) => comparisonFromRows(record, rows));
+    pending = fetchRows(fetchFn, record.layer, params, 2000, record.service).then((rows) => comparisonFromRows(record, rows));
     // A failed load is not cached, so the next profile tries again.
     pending.catch(() => comparisons.delete(cacheKey));
     comparisons.set(cacheKey, pending);
