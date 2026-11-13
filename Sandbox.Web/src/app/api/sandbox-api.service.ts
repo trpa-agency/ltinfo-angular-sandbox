@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 
+import type { ProgramConfig } from '../lib/data-lineage';
 import {
   Category,
   HealthStatus,
@@ -57,6 +58,11 @@ export class SandboxApiService {
 
   getProgram(id: number): Observable<MonitoringProgramDetail> {
     return this.http.get<MonitoringProgramDetail>(url(`monitoring-programs/${id}`));
+  }
+
+  /** Every program's chart and map settings, for the Data Model page. */
+  getDashboardConfigs(): Observable<ProgramConfig[]> {
+    return this.http.get<ProgramConfig[]>(url('dashboard-configs'));
   }
 
   /** The write path: one click here changes one row in SQL Server. */

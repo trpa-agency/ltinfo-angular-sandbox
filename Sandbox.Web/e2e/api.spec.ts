@@ -623,6 +623,32 @@ test.describe('Sandbox.API contract', () => {
     }
   });
 
+  test('GET /dashboard-configs returns the settings of every program that has them, in ID order', async ({
+    request,
+  }) => {
+    const response = await request.get('dashboard-configs');
+    expect(response.status()).toBe(200);
+    const rows = (await response.json()) as { MonitoringProgramID: number; DashboardConfig: Record<string, unknown> }[];
+
+    expect(rows.length).toBeGreaterThan(0);
+    const ids = rows.map((row) => row.MonitoringProgramID);
+    expect(ids).toEqual([...ids].sort((a, b) => a - b));
+    for (const row of rows) {
+      expect(Object.keys(row).sort()).toEqual(['DashboardConfig', 'MonitoringProgramID']);
+      expect(row.DashboardConfig).not.toBeNull();
+    }
+
+    // The same settings the program's own route returns.
+    const ozone = rows.find((row) => row.MonitoringProgramID === seed.ozone.id)!;
+    const detail = (await (await request.get(`monitoring-programs/${seed.ozone.id}`)).json()) as {
+      DashboardConfig: Record<string, unknown>;
+    };
+    expect(ozone.DashboardConfig).toEqual(detail.DashboardConfig);
+
+    // A program with no settings is left out.
+    expect(ids).not.toContain(seed.instreamFlow.id);
+  });
+
   test('GET /monitoring-programs/{id} answers 404 for an unknown id', async ({ request }) => {
     const response = await request.get(programPath(seed.unknownId));
 
@@ -670,7 +696,7 @@ test.describe('Sandbox.API contract', () => {
     expect(after).toEqual(before);
   });
 
-  test('GET /openapi/v1.json lists the six paths and their methods', async ({ request }) => {
+  test('GET /openapi/v1.json lists the seven paths and their methods', async ({ request }) => {
     const response = await request.get('openapi/v1.json');
     expect(response.status()).toBe(200);
     const document = (await response.json()) as {
@@ -689,6 +715,7 @@ test.describe('Sandbox.API contract', () => {
     );
     expect([...methodsByPath.keys()].sort()).toEqual([
       '/categories',
+      '/dashboard-configs',
       '/health',
       '/monitoring-programs',
       '/monitoring-programs/{id}',
@@ -697,6 +724,7 @@ test.describe('Sandbox.API contract', () => {
     ]);
     expect(methodsByPath.get('/health')).toEqual(['get']);
     expect(methodsByPath.get('/categories')).toEqual(['get']);
+    expect(methodsByPath.get('/dashboard-configs')).toEqual(['get']);
     expect(methodsByPath.get('/monitoring-programs')).toEqual(['get']);
     expect(methodsByPath.get('/monitoring-programs/{id}')).toEqual(['get', 'patch']);
     expect(methodsByPath.get('/monitoring-sites')).toEqual(['get']);

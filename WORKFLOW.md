@@ -27,7 +27,7 @@ The database is the **SQL Server installed on this machine** (database `LTInfoSa
 powershell -File Build\Deploy.ps1
 ```
 
-It builds the database, builds the release images, starts the site, waits until it is healthy, and runs the 101 automated tests against it. About six minutes. The site is then at http://localhost:8080 and stays up, restarting with Docker.
+It builds the database, builds the release images, starts the site, waits until it is healthy, and runs the 110 automated tests against it. About six minutes. The site is then at http://localhost:8080 and stays up, restarting with Docker.
 
 The deploy puts the seed rows back first so the tests start from known data. Add `-KeepData` to leave your rows alone and skip the tests.
 
@@ -94,11 +94,21 @@ git switch main && git merge my-change
 
 In ESA's repo the last step becomes `git push` and a pull request.
 
+## Data Model page
+
+`/data-model` (linked from About Monitoring) has three parts:
+
+1. **Tables.** The six tables and how they join, drawn from the list in `pages/data-model/schema-diagram.ts`. Update that list when a table script in `Sandbox.Database/dbo/Tables` changes.
+2. **Ingestion Paths and Acceptance Criteria.** The five ways data reaches the dashboard: a TRPA web service, partner data through a TRPA pipeline, a partner's own web service, data entered in LT Info, and an extracted file. Each lists what the app checks and what a person confirms. The wording lives in `lib/ingest.ts` (`INGEST_PATHS`) and is a draft to edit.
+3. **Chart and Map Sources.** Every chart, map, site list, overlay, and site profile traced to its service layer or file, from `GET /dashboard-configs`. Nothing is typed by hand, so it follows the settings. Run Checks tests the source on screen: the layer exists and has a description, each field exists, the filter returns records, and a file cites its original source.
+
+A URL cannot tell TRPA data from partner data hosted at TRPA. List partner layers in `PARTNER_PIPELINE_LAYERS` in `lib/ingest.ts` to move them to the pipeline path; it starts empty, so every maps.trpa.org layer shows as a TRPA web service.
+
 ## A read-only copy on GitHub Pages
 
 GitHub Pages serves files only, so the Pages copy has no API and no database. The app reads a JSON snapshot instead, and the two save buttons (Featured and Save layout) say the copy is read-only. Charts and maps that read TRPA map services still query them live.
 
-1. With the stack running, take the snapshot: `node Sandbox.Web/scripts/export-static-api.mjs`. It writes one file per API route to `Sandbox.Web/static-api/`. Commit that folder; the Pages build cannot reach the database.
+1. With the stack running, take the snapshot: `node Sandbox.Web/scripts/export-static-api.mjs`. It writes one file per API route to `Sandbox.Web/static-api/`, including the settings behind the Data Model page. Commit that folder; the Pages build cannot reach the database.
 2. Build: `docker build --target pages-out --build-arg BASE_HREF=/<repo>/ --output dist/pages .` from `Sandbox.Web`. The base path is the repository name, because a project site lives at `https://<owner>.github.io/<repo>/`.
 3. Check it: `node Sandbox.Web/scripts/serve-pages.mjs`, then open http://127.0.0.1:4340/ltinfo-angular-sandbox/. It serves files the way Pages does, with no rewrites.
 4. Publish: push to a GitHub repository with Settings > Pages > Source set to GitHub Actions. `.github/workflows/pages.yml` builds and deploys on every push to `main`.

@@ -35,6 +35,7 @@ const snapshot = async (name) => JSON.parse(await readFile(join(root, 'static-ap
 const routes = [
   'programs',
   'about',
+  'data-model',
   ...(await snapshot('monitoring-programs')).map((p) => `programs/${p.MonitoringProgramID}`),
   ...(await snapshot('categories')).map((c) => `category/${c.Folder}`),
 ];

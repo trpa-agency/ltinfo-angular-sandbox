@@ -65,6 +65,9 @@ public class MonitoringProgramDetailDto : MonitoringProgramSimpleDto
 
 public record RelatedLinkDto(string Dashboard, string Label, string Url);
 
+/// <summary>One program's DashboardConfig, for the Data Model page.</summary>
+public record DashboardConfigDto(int MonitoringProgramID, JsonObject? DashboardConfig);
+
 public class MonitoringProgramPatchDto
 {
     public bool? IsFeatured { get; set; }

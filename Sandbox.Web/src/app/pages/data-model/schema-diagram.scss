@@ -1,0 +1,150 @@
+// The table diagram. Neutral cards like esa-card; color only on the key tags and the three
+// outside sources. Every value is a token.
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-300);
+}
+
+// Below about 860 px the diagram scrolls sideways inside its own box instead of shrinking
+// the type past reading size.
+.erd {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-card);
+  background: var(--color-background-default);
+  padding: var(--spacing-300);
+
+  &:focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+  }
+}
+
+.erd__svg {
+  display: block;
+  width: 100%;
+  min-width: 52rem;
+  height: auto;
+}
+
+.erd__card {
+  fill: var(--color-background-elevation-raised);
+  stroke: var(--color-border-default-strong);
+  stroke-width: 1;
+}
+
+.erd__head {
+  fill: var(--color-background-elevation-sunken);
+}
+
+.erd__rule {
+  stroke: var(--color-border-default);
+}
+
+.erd__entity--json {
+  .erd__card {
+    stroke-dasharray: 5 4;
+  }
+}
+
+.erd__name {
+  fill: var(--color-content-default);
+}
+
+.erd__field {
+  fill: var(--color-content-default);
+}
+
+.erd__note {
+  fill: var(--color-content-default-secondary);
+}
+
+.erd__key,
+.erd-key__tag {
+  fill: var(--color-content-default-secondary);
+  color: var(--color-content-default-secondary);
+
+  &[data-key='PK'] {
+    fill: var(--color-content-brand);
+    color: var(--color-content-brand);
+  }
+
+  &[data-key='JSON'] {
+    fill: var(--color-content-brand-secondary);
+    color: var(--color-content-brand-secondary);
+  }
+}
+
+.erd__link {
+  fill: none;
+  stroke: var(--color-border-default-strong);
+  stroke-width: 1.5;
+}
+
+.erd__link--dashed {
+  stroke-dasharray: 5 4;
+}
+
+.erd__mark {
+  fill: none;
+  stroke: var(--color-border-default-strong);
+  stroke-width: 1.5;
+}
+
+// The three outside sources, tinted by what they are.
+.erd__endpoint {
+  rect {
+    stroke-width: 1;
+  }
+
+  text {
+    fill: var(--color-content-default);
+  }
+
+  &[data-kind='service'] rect {
+    fill: var(--color-background-utility-info-subtle);
+    stroke: var(--color-border-utility-info);
+  }
+
+  &[data-kind='file'] rect {
+    fill: var(--color-background-utility-warning-subtle);
+    stroke: var(--color-border-utility-warning);
+  }
+
+  &[data-kind='ltinfo'] rect {
+    fill: var(--color-background-elevation-sunken);
+    stroke: var(--color-border-default-strong);
+  }
+}
+
+// ---- the key under the diagram ----
+
+.erd-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-200) var(--spacing-500);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-content-default-secondary);
+
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-150);
+  }
+}
+
+.erd-key__line {
+  width: 2.5rem;
+  height: 0.875rem;
+
+  path {
+    fill: none;
+    stroke: var(--color-border-default-strong);
+    stroke-width: 1.5;
+  }
+}

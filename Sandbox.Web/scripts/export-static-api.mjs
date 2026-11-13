@@ -34,9 +34,9 @@ health.SnapshotDate = `${MONTHS[now.getMonth()]} ${now.getDate()}, ${now.getFull
 const programs = await get('monitoring-programs');
 await rm(OUT, { recursive: true, force: true });
 await save('health', health);
-for (const route of ['summary', 'categories', 'monitoring-sites']) await save(route, await get(route));
+for (const route of ['summary', 'categories', 'monitoring-sites', 'dashboard-configs']) await save(route, await get(route));
 await save('monitoring-programs', programs);
 for (const { MonitoringProgramID: id } of programs) {
   await save(`monitoring-programs/${id}`, await get(`monitoring-programs/${id}`));
 }
-console.log(`Wrote ${programs.length + 5} files to static-api/ from ${API}, ${health.Database}.`);
+console.log(`Wrote ${programs.length + 6} files to static-api/ from ${API}, ${health.Database}.`);

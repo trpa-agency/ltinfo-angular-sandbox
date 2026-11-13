@@ -52,6 +52,20 @@ public class MonitoringProgramController(SandboxDbContext dbContext) : Controlle
         return Ok(rows.Select(x => x.Dto).ToList());
     }
 
+    // Every program's chart and map settings in one call, for the Data Model page.
+    [HttpGet("dashboard-configs")]
+    public async Task<ActionResult<List<DashboardConfigDto>>> DashboardConfigs()
+    {
+        var rows = await dbContext.MonitoringPrograms.AsNoTracking()
+            .Where(x => x.DashboardConfig != null)
+            .OrderBy(x => x.MonitoringProgramID)
+            .Select(x => new { x.MonitoringProgramID, x.DashboardConfig })
+            .ToListAsync();
+        return Ok(rows
+            .Select(x => new DashboardConfigDto(x.MonitoringProgramID, JsonNode.Parse(x.DashboardConfig!) as JsonObject))
+            .ToList());
+    }
+
     [HttpGet("monitoring-programs/{monitoringProgramID:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

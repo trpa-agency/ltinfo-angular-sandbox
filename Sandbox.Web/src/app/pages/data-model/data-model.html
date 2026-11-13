@@ -1,0 +1,281 @@
+<!-- mon-lego-checked: esa-stat for the totals, esa-text-field and esa-button-toggle for the
+     toolbar, esa-badge for source and use types, esa-button for the CSV, esa-card and
+     esa-empty-state for loading and errors. No lego draws a lineage tree, so the source list,
+     the tree lines, and the inventory table are custom, on tokens. -->
+<div class="dm">
+  <header class="dm__header">
+    <p class="back typography-label-md"><a routerLink="/" fragment="about">About Monitoring</a></p>
+    <h1 class="dm__title typography-heading-lg">Data Model</h1>
+  </header>
+
+  <section class="dm__section" aria-labelledby="dm-tables">
+    <h2 id="dm-tables" class="dm__h2 typography-title-strong">Tables</h2>
+    <app-schema-diagram />
+  </section>
+
+  <section class="dm__section" aria-labelledby="dm-paths">
+    <h2 id="dm-paths" class="dm__h2 typography-title-strong">Ingestion Paths and Acceptance Criteria</h2>
+    <ul class="paths">
+      @for (p of paths(); track p.path.id) {
+        <li class="path" [attr.data-path]="p.path.id">
+          <h3 class="path__name typography-title-sm-strong">{{ p.path.label }}</h3>
+          <p class="path__summary typography-body-sm">{{ p.path.summary }}</p>
+          <dl class="path__facts typography-body-sm">
+            <dt>Steward</dt>
+            <dd>{{ p.path.steward }}</dd>
+            @if (p.path.id !== 'ltinfo') {
+              <dt>In use</dt>
+              <dd>{{ sourceNoun(p.path, p.sources) }}, {{ useCountText(p.uses) }}</dd>
+            }
+          </dl>
+          @if (p.auto.length) {
+            <h4 class="path__group typography-label-sm-strong">Checked by the App</h4>
+            <ul class="path__criteria typography-body-sm">
+              @for (c of p.auto; track c.text) {
+                <li>{{ c.text }}</li>
+              }
+            </ul>
+          }
+          <h4 class="path__group typography-label-sm-strong">Confirmed by a Person</h4>
+          <ul class="path__criteria typography-body-sm">
+            @for (c of p.review; track c.text) {
+              <li>{{ c.text }}</li>
+            }
+          </ul>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="dm__section" aria-labelledby="dm-sources">
+    <h2 id="dm-sources" class="dm__h2 typography-title-strong">Chart and Map Sources</h2>
+
+    @let page = state();
+    @if (page.status === 'loading') {
+      <esa-card>
+        <div class="dm__empty"><esa-empty-state [title]="'Loading the chart and map settings'" /></div>
+      </esa-card>
+    } @else if (page.status === 'error') {
+      <esa-card>
+        <div class="dm__empty"><esa-empty-state [title]="page.title" [description]="page.description" /></div>
+      </esa-card>
+    } @else {
+      @let t = totals();
+      <div class="dm__tiles" role="group" aria-label="Source totals">
+        <esa-stat [value]="t.services" label="Map services" />
+        <esa-stat [value]="t.layers" label="Service layers" />
+        <esa-stat [value]="t.files" label="Data files" />
+        <esa-stat [value]="t.charts" label="Charts" />
+        <esa-stat [value]="t.maps" label="Maps and site lists" />
+      </div>
+
+      <div class="dm__toolbar">
+        <esa-text-field
+          class="dm__search"
+          label="Search"
+          placeholder="Program, chart, layer, or field"
+          size="sm"
+          [value]="search()"
+          (change)="onSearch($event)"
+        ></esa-text-field>
+        <esa-button-toggle label="View" size="sm" [options]="viewOptions" [value]="view()" (change)="onView($event)"></esa-button-toggle>
+      </div>
+
+      @if (!filtered().length) {
+        <esa-card>
+          <div class="dm__empty">
+            <esa-empty-state [title]="'Nothing matches ' + search()" [description]="'Try a program name, a chart title, a layer, or a field.'" />
+          </div>
+        </esa-card>
+      } @else if (view() === 'diagram') {
+        <div class="lineage">
+          <nav class="lineage__nav" aria-label="Sources">
+            @for (group of [{ label: 'Map services', list: serviceSources() }, { label: 'Data files', list: fileSources() }]; track group.label) {
+              @if (group.list.length) {
+                <h3 class="lineage__group typography-label-md-strong">{{ group.label }}</h3>
+                <ul class="lineage__list">
+                  @for (s of group.list; track s.key) {
+                    <li>
+                      <button
+                        type="button"
+                        class="pick typography-label-sm"
+                        [attr.aria-pressed]="s.key === selected()?.key"
+                        [attr.data-source]="s.name"
+                        (click)="pick(s)"
+                      >
+                        <span class="pick__name">{{ s.name }}</span>
+                        <span class="pick__count" [attr.aria-label]="useCountText(s.useCount)">{{ s.useCount }}</span>
+                      </button>
+                    </li>
+                  }
+                </ul>
+              }
+            }
+          </nav>
+
+          @let s = selected();
+          @if (s) {
+            <div class="flow" [attr.data-kind]="s.kind" aria-live="polite">
+              <div class="flow__source">
+                <esa-badge [value]="s.kind === 'service' ? 'Map service' : 'Data file'" [variant]="s.kind === 'service' ? 'info' : 'warning'" size="sm" />
+                <h3 class="flow__name typography-title-sm-strong">
+                  <a [href]="s.href" target="_blank" rel="noopener">{{ s.name }}</a>
+                </h3>
+                <p class="flow__meta typography-body-sm">
+                  {{ s.type }}, {{ s.programIds.length }} {{ s.programIds.length === 1 ? 'program' : 'programs' }},
+                  {{ useCountText(s.useCount) }}
+                </p>
+                <div class="flow__checks">
+                  <esa-button
+                    size="sm"
+                    variant="secondary"
+                    appearance="outline"
+                    [loading]="checking() === s.key"
+                    [disabled]="!!checking() && checking() !== s.key"
+                    (click)="runChecks(s)"
+                    >Run Checks</esa-button
+                  >
+                  @let total = score();
+                  @if (total) {
+                    <p class="flow__score typography-label-sm" role="status">
+                      <esa-badge [value]="total.pass + ' passed'" variant="success" size="sm" />
+                      @if (total.fail) {
+                        <esa-badge [value]="total.fail + ' failed'" variant="danger" size="sm" />
+                      }
+                      @if (total.layers < total.of) {
+                        <span>{{ total.layers }} of {{ total.of }} checked</span>
+                      }
+                    </p>
+                  }
+                </div>
+              </div>
+
+              <ol class="flow__layers">
+                @for (l of s.layers; track l.key) {
+                  <li class="flow__layer">
+                    @if (l.layer !== null) {
+                      <p class="layer typography-label-sm">
+                        <a class="layer__id typography-label-sm-strong" [href]="href(s, l.layer)" target="_blank" rel="noopener">Layer {{ l.layer }}</a>
+                        @let about = info(s.key, l.layer);
+                        @if (about) {
+                          <span class="layer__name">{{ about.name }}</span>
+                          @if (about.table) {
+                            <esa-badge value="Table" size="xs" />
+                          }
+                        } @else if (missing(s.key, l.layer)) {
+                          <esa-badge value="Not in the service" variant="danger" size="xs" />
+                        }
+                      </p>
+                    } @else if (s.kind === 'service') {
+                      <p class="layer typography-label-sm"><span class="layer__id typography-label-sm-strong">No layer set</span></p>
+                    } @else {
+                      <p class="layer typography-label-sm"><span class="layer__id typography-label-sm-strong">{{ s.key }}</span></p>
+                    }
+
+                    <p class="layer-path typography-body-xs">
+                      <esa-badge [value]="pathOf(s, l.layer).label" size="xs" />
+                      @for (c of layerChecks(l.key); track c.check) {
+                        <span class="check" [attr.data-status]="c.status">
+                          <esa-badge [value]="c.label" [variant]="checkVariant(c)" size="xs" />
+                          <span class="check__detail">{{ c.detail }}</span>
+                        </span>
+                      }
+                    </p>
+
+                    <ul class="flow__uses">
+                      @for (u of l.uses; track trackUse(u, $index)) {
+                        @let p = program(u.programId);
+                        <li class="use" [attr.data-use]="u.kind">
+                          <p class="use__head">
+                            <esa-badge [value]="useLabels[u.kind]" size="xs" />
+                            <span class="use__title typography-label-md-strong">{{ u.title }}</span>
+                          </p>
+                          <p class="use__program typography-body-sm">
+                            <span class="use__dot" aria-hidden="true" [style.--dm-category]="p?.ThemeColor"></span>
+                            <a [routerLink]="['/programs', u.programId]">{{ p?.MonitoringProgramName ?? 'Program ' + u.programId }}</a>
+                          </p>
+                          @if (u.fields.length || u.where || u.upstream) {
+                            <dl class="use__facts typography-body-xs">
+                              @if (u.fields.length) {
+                                <dt>Fields</dt>
+                                <dd>{{ u.fields.join(', ') }}</dd>
+                              }
+                              @if (u.where) {
+                                <dt>Filter</dt>
+                                <dd>{{ u.where }}</dd>
+                              }
+                              @if (u.upstream) {
+                                <dt>From</dt>
+                                <dd>{{ u.upstream }}</dd>
+                              }
+                              <dt>Setting</dt>
+                              <dd>{{ useKeys[u.kind] }}</dd>
+                            </dl>
+                          }
+                          @let checks = useChecks(s, l.key, u);
+                          @if (checks.length) {
+                            <ul class="use__checks typography-body-xs">
+                              @for (c of checks; track c.check) {
+                                <li class="check" [attr.data-status]="c.status">
+                                  <esa-badge [value]="c.label" [variant]="checkVariant(c)" size="xs" />
+                                  <span class="check__detail">{{ c.detail }}</span>
+                                </li>
+                              }
+                            </ul>
+                          }
+                        </li>
+                      }
+                    </ul>
+                  </li>
+                }
+              </ol>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="inventory">
+          <div class="inventory__scroll" tabindex="0" role="region" aria-label="Every chart and map with its source, scrolls sideways">
+            <table class="inventory__table typography-body-sm">
+              <thead>
+                <tr>
+                  <th scope="col">Source</th>
+                  <th scope="col">Layer</th>
+                  <th scope="col">Used As</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Program</th>
+                  <th scope="col">Fields</th>
+                  <th scope="col">Filter</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (r of rows(); track $index) {
+                  <tr>
+                    <td>
+                      <a [href]="r.href" target="_blank" rel="noopener">{{ r.source }}</a>
+                      <span class="inventory__sub">{{ r.sourceType }}</span>
+                    </td>
+                    <td>
+                      {{ r.layer }}
+                      @if (r.layerName) {
+                        <span class="inventory__sub">{{ r.layerName }}</span>
+                      }
+                    </td>
+                    <td>{{ r.use }}</td>
+                    <td>{{ r.title }}</td>
+                    <td><a [routerLink]="['/programs', r.programId]">{{ r.programName }}</a></td>
+                    <td>{{ r.fields }}</td>
+                    <td>{{ r.where }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          <div class="inventory__foot">
+            <p class="inventory__count typography-label-sm" role="status">{{ rows().length }} records</p>
+            <esa-button size="sm" variant="secondary" appearance="outline" (click)="downloadCsv()">Download CSV</esa-button>
+          </div>
+        </div>
+      }
+    }
+  </section>
+</div>
