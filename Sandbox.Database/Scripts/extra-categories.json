@@ -630,7 +630,7 @@
             "Meeting the ranges takes both active management, such as thinning and beneficial fire to open up canopies, and protection that lets existing stands mature into late seral forest."
           ],
           "approach": [
-            "Seral stage and canopy cover are mapped across the conifer forest from the Sierra Nevada Regional Resource Kit, 30-meter remote sensing products summarized by forest type. Seral stage follows quadratic mean diameter: early under 5 inches, mid 5 to 25 inches, and late over 25 inches. Closed canopy is 40 percent cover or more in Jeffrey pine, and 50 percent or more in Sierra mixed conifer and red fir.",
+            "Seral stage and canopy cover are mapped across the conifer forest from the Sierra Nevada Regional Resource Kit, 30-meter remote sensing products, in the 2023 assessment as published to the TRPA Vegetation service. Seral stage follows quadratic mean diameter: early under 5 inches, mid 5 to 25 inches, and late over 25 inches. Closed canopy is 40 percent cover or more in Jeffrey pine, and 50 percent or more in Sierra mixed conifer and red fir.",
             "Each forest type's acres are compared with its desired share in five classes: early seral, mid seral open, mid seral closed, late seral open, and late seral closed.",
             "Jeffrey pine: early 5 to 15 percent, mid open 25 to 30 percent, mid closed 5 to 10 percent, late open 40 to 50 percent, and late closed 5 to 10 percent.",
             "Sierra mixed conifer: early 10 to 20 percent, mid open 15 to 20 percent, mid closed 5 to 15 percent, late open 25 to 35 percent, and late closed 15 to 25 percent.",
@@ -639,54 +639,33 @@
           "ltinfo": false,
           "measures": [
             {
-              "title": "Seral stage and canopy cover by forest type",
-              "sub": "Percent of each forest type's assessed acres in each seral stage and canopy class, 2023 assessment (September 2026 rerun).",
-              "csv": "https://trpa-agency.github.io/ForestHealth/output/seral_stage_with_classification.csv",
-              "x": "Seral Stage",
+              "title": "Conifer forest acres by seral stage and canopy cover",
+              "sub": "Acres of conifer forest in each seral stage and canopy class, 2023 assessment.",
+              "service": "https://maps.trpa.org/server/rest/services/Vegetation/FeatureServer",
+              "layer": 3,
+              "x": "Composition",
               "xType": "category",
               "xLabel": "Seral stage and canopy",
-              "y": "Current Area %",
-              "yName": "Percent of acres",
-              "yLabel": "Percent of acres",
-              "type": "bar",
-              "pick": "Forest Type",
-              "pickLabel": "Forest type",
-              "span": "span-12",
               "xOrder": [
-                "Early",
-                "Mid (open canopy)",
-                "Mid (closed canopy)",
-                "Late (open canopy)",
-                "Late (closed canopy)"
-              ]
-            },
-            {
-              "title": "Acres by seral stage and canopy class",
-              "sub": "Assessed acres of each forest type in each class, 2023 assessment (September 2026 rerun).",
-              "csv": "https://trpa-agency.github.io/ForestHealth/output/seral_stage_with_classification.csv",
-              "x": "Forest Type",
-              "xType": "category",
-              "xLabel": "Forest type",
-              "y": "Area (acres)",
-              "seriesBy": "Seral Stage",
-              "seriesLabel": "Seral stage and canopy",
-              "yLabel": "Acres",
-              "type": "stacked",
-              "span": "span-12",
-              "seriesOrder": [
-                "Early",
-                "Mid (open canopy)",
-                "Mid (closed canopy)",
-                "Late (open canopy)",
-                "Late (closed canopy)"
+                "Early Seral",
+                "Mid Seral Open Canopy",
+                "Mid Seral Closed Canopy",
+                "Late Seral Open Canopy",
+                "Late Seral Closed Canopy"
               ],
-              "seriesColors": {
-                "Early": "var(--mon-greens-1)",
-                "Mid (open canopy)": "var(--mon-greens-2)",
-                "Mid (closed canopy)": "var(--mon-greens-3)",
-                "Late (open canopy)": "var(--mon-greens-4)",
-                "Late (closed canopy)": "var(--mon-greens-5)"
-              }
+              "xNames": {
+                "Early Seral": "Early",
+                "Mid Seral Open Canopy": "Mid, open canopy",
+                "Mid Seral Closed Canopy": "Mid, closed canopy",
+                "Late Seral Open Canopy": "Late, open canopy",
+                "Late Seral Closed Canopy": "Late, closed canopy"
+              },
+              "y": "Acres",
+              "stat": "sum",
+              "yName": "Acres",
+              "yLabel": "Acres",
+              "type": "bar",
+              "span": "span-12"
             }
           ]
         },
@@ -704,7 +683,7 @@
             "The Stand Density threshold standard calls for at least 50 percent of forested area to fall within recommended ranges of trees per acre and basal area for its forest type and seral stage. Thinning overcrowded stands reduces competition among trees and improves their resilience to drought and wildfire."
           ],
           "approach": [
-            "Trees per acre and basal area are mapped across the conifer forest from the Sierra Nevada Regional Resource Kit, 30-meter remote sensing products, and tested together against the recommended maximum for each forest type and seral stage. An acre at or below both values is within range.",
+            "Trees per acre and basal area are mapped across the conifer forest from the Sierra Nevada Regional Resource Kit, 30-meter remote sensing products, in the 2023 assessment as published to the TRPA Vegetation service, and tested together against the recommended maximum for each forest type and seral stage. An acre at or below both values is within range.",
             "Jeffrey pine: early seral 200 trees and 30 square feet of basal area per acre, mid seral 70 trees and 80 square feet, and late seral 55 trees and 100 square feet.",
             "Sierra mixed conifer: early seral 300 trees and 40 square feet, mid seral 90 trees and 130 square feet, and late seral 75 trees and 180 square feet.",
             "Red fir: early seral 300 trees and 50 square feet, mid seral 100 trees and 175 square feet, and late seral 80 trees and 250 square feet."
@@ -712,43 +691,264 @@
           "ltinfo": false,
           "measures": [
             {
-              "title": "Acres within the recommended density",
-              "sub": "Percent of each forest type and seral stage at or below the recommended trees per acre and basal area, 2023 assessment (September 2026 rerun).",
-              "csv": "https://trpa-agency.github.io/ForestHealth/output/stand_density_forest_type_attainment_new.csv",
-              "x": "Seral Stage",
+              "title": "Conifer forest acres within the recommended density",
+              "sub": "Acres at or below the recommended trees per acre and basal area for their forest type and seral stage, and acres over it, 2023 assessment.",
+              "service": "https://maps.trpa.org/server/rest/services/Vegetation/FeatureServer",
+              "layer": 4,
+              "x": "Status",
               "xType": "category",
-              "xLabel": "Seral stage",
-              "y": "Percent Meeting Threshold",
-              "seriesBy": "Forest Type",
-              "seriesLabel": "Forest type",
-              "yLabel": "Percent of acres",
-              "type": "bar",
-              "span": "span-12"
-            },
-            {
-              "title": "Acres assessed and acres within range",
-              "sub": "Assessed acres and acres at or below the recommended density, by seral stage.",
-              "csv": "https://trpa-agency.github.io/ForestHealth/output/stand_density_forest_type_attainment_new.csv",
-              "x": "Seral Stage",
-              "xType": "category",
-              "xLabel": "Seral stage",
-              "y": [
-                {
-                  "field": "Total Acres",
-                  "name": "Assessed"
-                },
-                {
-                  "field": "Acres Meeting Threshold",
-                  "name": "Within range"
-                }
+              "xLabel": "Stand density",
+              "xOrder": [
+                "Under Target",
+                "Over Target"
               ],
+              "xNames": {
+                "Under Target": "Within recommended density",
+                "Over Target": "Over recommended density"
+              },
+              "y": "Acres",
+              "stat": "sum",
+              "yName": "Acres",
               "yLabel": "Acres",
               "type": "bar",
-              "pick": "Forest Type",
-              "pickLabel": "Forest type",
               "span": "span-12"
             }
           ]
+        },
+        {
+          "id": 9794,
+          "name": "Large Trees",
+          "template": "map",
+          "partners": [
+            "Tahoe Regional Planning Agency",
+            "Tahoe Fire and Fuels Team"
+          ],
+          "description": [
+            "Large trees, more than 36 inches in diameter at breast height, are the backbone of an old forest. They store the most carbon, survive low-intensity fire behind thick bark, and give nesting and denning sites to wildlife such as the California spotted owl, northern goshawk, and Pacific marten.",
+            "Comstock-era logging cut most of the Basin's large trees in the late 1800s. The trees that escaped it, and the forest that has grown since, set how much old forest structure the Basin has today. Counting large trees over time shows whether that structure is recovering or being lost to drought, insects, and severe fire."
+          ],
+          "approach": [
+            "Individual trees were mapped across the Basin from airborne LiDAR flown in 2010, with each tree's diameter estimated from its LiDAR measurements. The layer holds the 84,373 trees estimated at more than 36 inches.",
+            "The map counts the trees in hexagons of 100 acres each. The count will be repeated with the next Basin-wide LiDAR flight, so the change in large trees can be measured."
+          ],
+          "ltinfo": false,
+          "measures": [
+            {
+              "title": "Large trees by diameter",
+              "sub": "Trees more than 36 inches in diameter at breast height, by estimated diameter, 2010 LiDAR.",
+              "json": "data/large-trees/trees-by-diameter.json",
+              "sourceHref": "https://maps.trpa.org/server/rest/services/Large_Trees_Reference/FeatureServer/0",
+              "sourceLabel": "TRPA Large_Trees_Reference map service, layer 0",
+              "x": "Diameter",
+              "xType": "category",
+              "xLabel": "Diameter at breast height",
+              "y": "Trees",
+              "yName": "Trees",
+              "yLabel": "Trees",
+              "type": "bar",
+              "span": "span-12"
+            }
+          ],
+          "mapLayer": {
+            "url": "data/large-trees/large-tree-hexagons.geojson",
+            "sourceHref": "https://maps.trpa.org/server/rest/services/Large_Trees_Reference/FeatureServer/0",
+            "sourceLabel": "TRPA Large_Trees_Reference map service, layer 0, counted in 100-acre hexagons",
+            "layer": 0,
+            "title": "Large trees per 100 acres",
+            "unit": "hexagon",
+            "unitPlural": "Hexagons",
+            "name": "Cell",
+            "countAsSites": false,
+            "list": false,
+            "colorBy": "Trees",
+            "colorByLabel": "Large trees per 100 acres",
+            "breaks": [
+              {
+                "max": 10,
+                "label": "1 to 10",
+                "color": "var(--mon-turbid-2)"
+              },
+              {
+                "max": 50,
+                "label": "11 to 50",
+                "color": "var(--mon-turbid-3)"
+              },
+              {
+                "max": 100,
+                "label": "51 to 100",
+                "color": "var(--mon-turbid-4)"
+              },
+              {
+                "max": 250,
+                "label": "101 to 250",
+                "color": "var(--mon-turbid-5)"
+              },
+              {
+                "max": 100000,
+                "label": "More than 250",
+                "color": "var(--mon-turbid-7)"
+              }
+            ],
+            "fields": [
+              {
+                "field": "Trees",
+                "label": "Large trees"
+              }
+            ]
+          },
+          "overlays": []
+        },
+        {
+          "id": 9795,
+          "name": "Tree Mortality",
+          "template": "map",
+          "partners": [
+            "USDA Forest Service",
+            "Tahoe Regional Planning Agency"
+          ],
+          "description": [
+            "Tree mortality is the forest dying faster than it grows back. Drought weakens trees, and bark beetles and other insects kill the weakened ones, often across whole hillsides. Dense stands, where trees compete for water, are hit hardest.",
+            "The 2023 survey found fir engraver beetles killing California red fir across the Basin's upper slopes, with Jeffrey pine beetle and mountain pine beetle in smaller patches. Dead trees add to the fuel that can carry severe fire, which ties tree mortality to both stand density and fire dynamics."
+          ],
+          "approach": [
+            "The USDA Forest Service aerial detection survey is flown over California's forests each summer. Surveyors sketch each area of recent damage from the air and record the host tree, the agent that killed it, the share of trees affected, and an estimate of trees killed.",
+            "This page reads the 2023 survey: the damage areas within or touching the TRPA boundary. Areas that cross the boundary are counted whole, so the totals run higher than the Basin alone. Each year's survey added to the service builds the trend."
+          ],
+          "ltinfo": false,
+          "measures": [
+            {
+              "title": "Acres with tree mortality by host tree",
+              "sub": "Acres of the 2023 damage areas by the tree species killed.",
+              "service": "https://maps.trpa.org/server/rest/services/Vegetation/FeatureServer",
+              "layer": 2,
+              "where": "WITHIN_TRPA_BNDY = 1",
+              "x": "HOST",
+              "xType": "category",
+              "xLabel": "Host tree",
+              "xNames": {
+                "California red fir - 20": "California red fir",
+                "Jeffrey pine - 116": "Jeffrey pine",
+                "whitebark pine - 101": "Whitebark pine",
+                "lodgepole pine - 108": "Lodgepole pine",
+                "white fir - 15": "White fir"
+              },
+              "y": "ACRES",
+              "stat": "sum",
+              "yName": "Acres",
+              "yLabel": "Acres",
+              "type": "bar",
+              "orientation": "h",
+              "sort": "desc"
+            },
+            {
+              "title": "Trees killed by agent",
+              "sub": "Estimated dead trees in the 2023 damage areas by the insect that killed them.",
+              "service": "https://maps.trpa.org/server/rest/services/Vegetation/FeatureServer",
+              "layer": 2,
+              "where": "WITHIN_TRPA_BNDY = 1",
+              "x": "DCA",
+              "xType": "category",
+              "xLabel": "Agent",
+              "xNames": {
+                "Fir Engraver - 11050": "Fir engraver",
+                "Jeffrey Pine Beetle - 11004": "Jeffrey pine beetle",
+                "Mountain Pine Beetle - 11006": "Mountain pine beetle"
+              },
+              "y": "NUMBER_OF_TREES",
+              "stat": "sum",
+              "yName": "Trees killed",
+              "yLabel": "Trees",
+              "type": "bar",
+              "orientation": "h",
+              "sort": "desc"
+            },
+            {
+              "title": "Acres by share of trees affected",
+              "sub": "Acres of the 2023 damage areas by the share of trees killed in each.",
+              "service": "https://maps.trpa.org/server/rest/services/Vegetation/FeatureServer",
+              "layer": 2,
+              "where": "WITHIN_TRPA_BNDY = 1 AND PCT_AFFECTED IS NOT NULL",
+              "x": "PCT_AFFECTED",
+              "xType": "category",
+              "xLabel": "Trees affected",
+              "xOrder": [
+                "Very Light (1-3%)",
+                "Light (4-10%)",
+                "Moderate (11-29%)",
+                "Severe (30-50%)",
+                "Very Severe (>50%)"
+              ],
+              "xNames": {
+                "Very Light (1-3%)": "Very light, 1 to 3 percent",
+                "Light (4-10%)": "Light, 4 to 10 percent",
+                "Moderate (11-29%)": "Moderate, 11 to 29 percent",
+                "Severe (30-50%)": "Severe, 30 to 50 percent",
+                "Very Severe (>50%)": "Very severe, more than 50 percent"
+              },
+              "y": "ACRES",
+              "stat": "sum",
+              "yName": "Acres",
+              "yLabel": "Acres",
+              "type": "bar",
+              "span": "span-12"
+            }
+          ],
+          "mapLayer": {
+            "service": "https://maps.trpa.org/server/rest/services/Vegetation/FeatureServer",
+            "layer": 2,
+            "where": "WITHIN_TRPA_BNDY = 1",
+            "title": "Tree mortality, 2023 aerial survey",
+            "unit": "damage area",
+            "unitPlural": "Damage areas",
+            "name": "HOST",
+            "countAsSites": false,
+            "list": false,
+            "colorBy": "PCT_AFFECTED",
+            "colorByLabel": "Trees affected",
+            "labels": {
+              "Very Light (1-3%)": "Very light, 1 to 3 percent",
+              "Light (4-10%)": "Light, 4 to 10 percent",
+              "Moderate (11-29%)": "Moderate, 11 to 29 percent",
+              "Severe (30-50%)": "Severe, 30 to 50 percent",
+              "Very Severe (>50%)": "Very severe, more than 50 percent"
+            },
+            "colors": {
+              "Very Light (1-3%)": "var(--mon-turbid-1)",
+              "Light (4-10%)": "var(--mon-turbid-2)",
+              "Moderate (11-29%)": "var(--mon-turbid-4)",
+              "Severe (30-50%)": "var(--mon-turbid-5)",
+              "Very Severe (>50%)": "var(--mon-turbid-7)"
+            },
+            "meta": [
+              {
+                "field": "ACRES",
+                "suffix": " acres"
+              }
+            ],
+            "fields": [
+              {
+                "field": "HOST",
+                "label": "Host tree"
+              },
+              {
+                "field": "DCA",
+                "label": "Agent"
+              },
+              {
+                "field": "PCT_AFFECTED",
+                "label": "Trees affected"
+              },
+              {
+                "field": "NUMBER_OF_TREES",
+                "label": "Trees killed"
+              },
+              {
+                "field": "ACRES",
+                "label": "Acres"
+              }
+            ]
+          },
+          "overlays": []
         },
         {
           "id": 83,
@@ -1158,61 +1358,51 @@
       "name": "Fire Dynamics",
       "folder": "fire-dynamics",
       "themeColor": "#9C3E27",
-      "blurb": "Modeled fire behavior around communities and across the forested landscape.",
+      "blurb": "Burn probability, likely fire severity, and area burned.",
       "goal": "Keep fire behavior defensible around neighborhoods and evacuation routes, and limit the size and extent of large, high-severity fire patches across the forested landscape.",
       "icon": "category-icons/FireDynamics-white-icon.svg",
       "programs": [
         {
-          "id": 9793,
-          "name": "WUI Defense Zone Fire Dynamics",
+          "id": 9796,
+          "name": "Annual Burn Probability",
+          "template": "charts",
+          "partners": [
+            "Tahoe Regional Planning Agency",
+            "Tahoe Fire and Fuels Team",
+            "Vibrant Planet"
+          ],
+          "description": [
+            "Annual burn probability is the chance that a given spot in the Basin burns in any one year. It comes from simulating thousands of fire seasons over the Basin's own fuels, weather, topography, and history of ignitions, and counting how often each 30-meter cell burns.",
+            "Burn probability is the likelihood half of wildfire hazard; likely fire severity is the intensity half. Together they show where fire is most likely to come and how hard it would burn. Fuel treatments lower both over time."
+          ],
+          "approach": [
+            "Vibrant Planet's Quantitative Wildfire Risk Assessment for the Lake Tahoe Basin models annual and 10-year burn probability with the FSim fire simulator, on fuels updated for disturbance and regrowth through the end of 2025. It replaces the 2022 CAL FIRE modeling the Region uses now, which reflects fuels through 2021.",
+            "Burn probability will be reported as the share of each forest management zone in each probability class, and repeated with each model update."
+          ],
+          "ltinfo": false,
+          "measures": [],
+          "overlays": []
+        },
+        {
+          "id": 9797,
+          "name": "Likely Fire Severity",
           "template": "charts",
           "partners": [
             "Tahoe Regional Planning Agency",
             "Tahoe Fire and Fuels Team"
           ],
           "description": [
-            "The wildland urban interface (WUI) is where homes and communities meet Tahoe's forests and wildlands, and it covers nearly half of the Region's land area. It has two zones: the Defense Zone, the land immediately around structures and roads and the highest priority for fire suppression, and the Threat Zone, the forest around the Defense Zone where fires are more likely to start.",
-            "Flame length is a key measure of how intense a fire could become. Flames of four feet or less are the upper limit at which firefighters can safely engage a wildfire and defend homes directly.",
-            "The WUI Defense Zone Fire Dynamics threshold standard calls for at least 90 percent of the Defense Zone to have predicted flame lengths of four feet or less under extreme fire weather, such as red flag days. The aim is the whole Defense Zone; the standard is set at 90 percent because treatments run in a constant cycle, so some areas will always be due for retreatment. Outside the standard itself, management should keep any areas with longer predicted flames small, under one acre, widely dispersed, and more than 100 feet from homes and infrastructure.",
-            "The 2021 Caldor Fire showed why the measure matters. In the 13 years before it, the Tahoe Fire and Fuels Team and partner agencies had treated fuels across the fire's path. As the fire moved from untreated forest into fuel reduction areas near Meyers, flame lengths dropped from roughly 150 feet to about 15 feet, and firefighters could shift to direct attack. Of the roughly 10,000 acres that burned in the Basin, 3,800 acres were previously treated areas next to homes and neighborhoods."
+            "Fire has long shaped Sierra Nevada forests. Frequent, low-intensity fire every decade or two at Tahoe's lower elevations kept fuels in check and forests open and diverse. A century of fire suppression has let fuels build up and forests become overstocked, raising the risk of large, high-severity fires that burn hotter, are harder to control, and can damage soils, wildlife habitat, communities, and infrastructure.",
+            "Likely fire severity is the outcome a fire would most likely have in each part of the forest under hot, dry, windy weather: low, moderate, or high severity. Low-severity fire clears brush and small trees and leaves most large trees alive. High-severity fire kills most trees, and large high-severity patches leave few surviving trees to reseed the forest.",
+            "Two threshold standards read it. The WUI Defense Zone standard calls for at least 90 percent of the Defense Zone, the land right around homes and roads, to have predicted flame lengths of four feet or less, the limit at which firefighters can safely attack a fire directly. The Landscape standard limits modeled high-severity patches of 200 acres or more to less than 5 percent of the forested landscape.",
+            "In the 2021 Caldor Fire, many treated areas burned at low severity, but nearly 5,000 acres burned at high severity in large patches, closely matching what the modeling predicted."
           ],
           "approach": [
-            "Flame lengths are modeled under 90th percentile fire weather with the Pyrologix Wildfire Exposure Simulation Tool, delivered through the Sierra Nevada Regional Resource Kit at 30-meter resolution. The Defense Zone extends roughly a quarter mile from community edges; its wildland portion outside urban land use, 44,920 acres, is the area assessed.",
-            "The program tracks the share of that area predicted to burn with flame lengths of four feet or less. Fuel reduction reported by Tahoe Fire and Fuels Team agencies to the EIP Project Tracker is read with the modeling, since treatment is what moves predicted flame lengths."
+            "Fire severity is modeled across the Basin under 90th percentile fire weather with the Pyrologix Wildfire Exposure Simulation Tool, delivered through the Sierra Nevada Regional Resource Kit. Each 30-meter cell gets its most likely severity, low, moderate, or high, summarized here by forest management zone.",
+            "Low severity stands in for flame lengths of four feet or less. Vibrant Planet's Quantitative Wildfire Risk Assessment will replace this run with flame length at the 90th, 95th, and 97th percentile of fire weather, on fuels updated through 2025."
           ],
           "ltinfo": false,
           "measures": [
-            {
-              "title": "WUI Defense Zone by most likely fire severity",
-              "sub": "Acres of the mapped WUI Defense Zone, urban footprint included, by most likely fire severity under 90th percentile fire weather. Low severity stands in for flame lengths of four feet or less.",
-              "service": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
-              "layer": 3,
-              "where": "ManagementZone = 'WUI Defense Zone'",
-              "x": "ManagementZone",
-              "xType": "category",
-              "xLabel": "Management zone",
-              "y": "Acres",
-              "stat": "sum",
-              "yLabel": "Acres",
-              "type": "stacked",
-              "seriesBy": "MostLikelyFireSeverity",
-              "seriesLabel": "Most likely fire severity",
-              "seriesNames": {
-                "Low Severity": "Low",
-                "Moderate Severity": "Moderate",
-                "High Severity": "High"
-              },
-              "seriesColors": {
-                "Low Severity": "#6699cd",
-                "Moderate Severity": "#cdcd66",
-                "High Severity": "#895a44"
-              },
-              "seriesOrder": [
-                "Low Severity",
-                "Moderate Severity",
-                "High Severity"
-              ]
-            },
             {
               "title": "Most likely fire severity by management zone",
               "sub": "Acres of each forest management zone by most likely fire severity under 90th percentile fire weather.",
@@ -1222,6 +1412,14 @@
               "x": "ManagementZone",
               "xType": "category",
               "xLabel": "Management zone",
+              "xOrder": [
+                "WUI Defense Zone",
+                "WUI Threat Zone",
+                "General Forest",
+                "Desolation Wilderness",
+                "Granite Chief Wilderness",
+                "Mt. Rose Wilderness"
+              ],
               "y": "Acres",
               "stat": "sum",
               "seriesBy": "MostLikelyFireSeverity",
@@ -1231,112 +1429,48 @@
                 "Moderate Severity": "Moderate",
                 "High Severity": "High"
               },
-              "yLabel": "Acres",
-              "type": "stacked",
-              "seriesColors": {
-                "Low Severity": "#6699cd",
-                "Moderate Severity": "#cdcd66",
-                "High Severity": "#895a44"
-              },
               "seriesOrder": [
                 "Low Severity",
                 "Moderate Severity",
                 "High Severity"
               ],
-              "xOrder": [
-                "WUI Defense Zone",
-                "WUI Threat Zone",
-                "General Forest",
-                "Desolation Wilderness",
-                "Granite Chief Wilderness",
-                "Mt. Rose Wilderness"
-              ]
-            },
-            {
-              "title": "Forest fuel treatment acres by zone",
-              "sub": "Acres of forest fuel reduction treatment completed each year, by forest management zone, 2023 Threshold Evaluation.",
-              "json": "data/threshold-evaluation/forest-fuel-treatment.json",
-              "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/Vegetation/Chart/Final/ForestFuelTreatment.html",
-              "sourceLabel": "2023 Threshold Evaluation",
-              "x": "Year",
-              "y": "Acres",
-              "seriesBy": "Zone",
-              "seriesLabel": "Zone",
-              "seriesOrder": [
-                "Defense Zone",
-                "Threat Zone",
-                "General Forest",
-                "Urban Core"
-              ],
               "seriesColors": {
-                "Defense Zone": "#e69800",
-                "Threat Zone": "#f5ca7a",
-                "General Forest": "#abcd66",
-                "Urban Core": "var(--color-content-disabled)"
+                "Low Severity": "#6699cd",
+                "Moderate Severity": "#cdcd66",
+                "High Severity": "#895a44"
               },
               "yLabel": "Acres",
               "type": "stacked",
               "span": "span-12"
-            }
-          ],
-          "mapLayer": {
-            "service": "https://maps.trpa.org/server/rest/services/Datadownloader_PlanningandJurisdictions/MapServer",
-            "layer": 26,
-            "title": "Forest management zones",
-            "unit": "zone",
-            "unitPlural": "Zones",
-            "name": "Name",
-            "countAsSites": false,
-            "colorBy": "Name",
-            "colorByLabel": "Zone",
-            "meta": [
-              {
-                "field": "Acres",
-                "suffix": " acres"
-              }
-            ],
-            "fields": [
-              {
-                "field": "Name",
-                "label": "Zone"
+            },
+            {
+              "title": "WUI Defense Zone by most likely fire severity",
+              "sub": "Acres of the mapped WUI Defense Zone, urban footprint included, by most likely fire severity. Low severity stands in for flame lengths of four feet or less.",
+              "service": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
+              "layer": 3,
+              "where": "ManagementZone = 'WUI Defense Zone'",
+              "x": "MostLikelyFireSeverity",
+              "xType": "category",
+              "xLabel": "Most likely fire severity",
+              "xOrder": [
+                "Low Severity",
+                "Moderate Severity",
+                "High Severity"
+              ],
+              "xNames": {
+                "Low Severity": "Low",
+                "Moderate Severity": "Moderate",
+                "High Severity": "High"
               },
-              {
-                "field": "Acres",
-                "label": "Acres"
-              }
-            ],
-            "where": "Name LIKE 'WUI%'",
-            "colors": {
-              "WUI Defense Zone": "#e69800",
-              "WUI Threat Zone": "#f5ca7a"
-            }
-          },
-          "overlays": []
-        },
-        {
-          "id": 9792,
-          "name": "Landscape Fire Dynamics",
-          "template": "charts",
-          "partners": [
-            "Tahoe Regional Planning Agency",
-            "Tahoe Fire and Fuels Team"
-          ],
-          "description": [
-            "Fire has long shaped Sierra Nevada forests. Frequent, low-intensity fire every decade or two at Tahoe's lower elevations kept fuels in check and forests open and diverse. A century of fire suppression has let fuels build up and forests become overstocked, raising the risk of large, high-severity fires that burn hotter, are harder to control, and can damage soils, wildlife habitat, communities, and infrastructure.",
-            "The size of high-severity patches matters. Bigger patches kill more trees and leave fewer surviving seed sources for the forest to recover, and they increase erosion and the threat to lake clarity. Thinning and prescribed fire break up large patches of potential high-intensity fire.",
-            "The Landscape Fire Dynamics threshold standard limits the area of modeled high-severity fire patches of 200 acres or more to less than 5 percent of the forested landscape.",
-            "In the 2021 Caldor Fire, many treated areas burned at low severity, but nearly 5,000 acres burned at high severity in large patches, closely matching what the modeling predicted."
-          ],
-          "approach": [
-            "Fire severity is modeled across the Basin under 90th percentile fire weather with the Pyrologix Wildfire Exposure Simulation Tool, delivered through the Sierra Nevada Regional Resource Kit. Each 30-meter cell gets a probability of burning at low, moderate, or high severity.",
-            "The program tracks the share of the assessed landscape, 157,843 acres of vegetation outside urban areas, designated wilderness, and water, likely to burn at high severity in contiguous patches of 200 acres or more.",
-            "Observed fires check the modeling over time: wildfire perimeters from the CAL FIRE statewide fire history, and post-fire burn severity from USDA Forest Service mapping for large fires such as Caldor."
-          ],
-          "ltinfo": false,
-          "measures": [
+              "y": "Acres",
+              "stat": "sum",
+              "yName": "Acres",
+              "yLabel": "Acres",
+              "type": "bar"
+            },
             {
               "title": "Most likely high severity fire by management zone",
-              "sub": "Acres where high severity is the most likely outcome under 90th percentile fire weather, all patch sizes. The standard counts only patches of 200 acres or more.",
+              "sub": "Acres where high severity is the most likely outcome, all patch sizes. The Landscape standard counts only patches of 200 acres or more.",
               "service": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
               "layer": 3,
               "where": "MostLikelyFireSeverity = 'High Severity' AND ManagementZone <> ''",
@@ -1349,68 +1483,7 @@
               "yLabel": "Acres",
               "type": "bar",
               "orientation": "h",
-              "sort": "desc",
-              "xOrder": [
-                "WUI Defense Zone",
-                "WUI Threat Zone",
-                "General Forest",
-                "Desolation Wilderness",
-                "Granite Chief Wilderness",
-                "Mt. Rose Wilderness"
-              ]
-            },
-            {
-              "title": "Most likely fire severity by management zone",
-              "sub": "Acres of each forest management zone by most likely fire severity under 90th percentile fire weather.",
-              "service": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
-              "layer": 3,
-              "where": "ManagementZone <> ''",
-              "x": "ManagementZone",
-              "xType": "category",
-              "xLabel": "Management zone",
-              "y": "Acres",
-              "stat": "sum",
-              "seriesBy": "MostLikelyFireSeverity",
-              "seriesLabel": "Severity",
-              "seriesNames": {
-                "Low Severity": "Low",
-                "Moderate Severity": "Moderate",
-                "High Severity": "High"
-              },
-              "yLabel": "Acres",
-              "type": "stacked",
-              "seriesColors": {
-                "Low Severity": "#6699cd",
-                "Moderate Severity": "#cdcd66",
-                "High Severity": "#895a44"
-              },
-              "seriesOrder": [
-                "Low Severity",
-                "Moderate Severity",
-                "High Severity"
-              ],
-              "xOrder": [
-                "WUI Defense Zone",
-                "WUI Threat Zone",
-                "General Forest",
-                "Desolation Wilderness",
-                "Granite Chief Wilderness",
-                "Mt. Rose Wilderness"
-              ]
-            },
-            {
-              "title": "Area burned on the Lake Tahoe Basin Management Unit",
-              "sub": "Acres burned each year in LTBMU fires in the CAL FIRE fire perimeter record, which runs through 2020.",
-              "service": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
-              "layer": 6,
-              "where": "UNIT_ID = 'TMU'",
-              "x": "YEAR_",
-              "xLabel": "Year",
-              "y": "GIS_ACRES",
-              "stat": "sum",
-              "yName": "Acres burned",
-              "yLabel": "Acres",
-              "type": "bar"
+              "sort": "desc"
             }
           ],
           "mapLayer": {
@@ -1448,31 +1521,127 @@
               "Granite Chief Wilderness": "#728944"
             }
           },
-          "overlays": [
+          "overlays": []
+        },
+        {
+          "id": 9798,
+          "name": "Area Burned",
+          "template": "map",
+          "partners": [
+            "CAL FIRE",
+            "Tahoe Fire and Fuels Team",
+            "Tahoe Regional Planning Agency"
+          ],
+          "description": [
+            "Area burned is the acres of wildfire inside the Basin each year. It is the observed record that the modeled measures, burn probability and likely fire severity, are checked against.",
+            "For most of the last century the Basin saw few large fires, a result of fire suppression rather than of a forest that does not burn. The 2007 Angora Fire burned about 3,100 acres and 254 homes near South Lake Tahoe. The 2021 Caldor Fire burned about 9,900 acres inside the Basin, the largest fire in the record here, before firefighters stopped it in treated forest near Meyers."
+          ],
+          "approach": [
+            "Fire perimeters come from CAL FIRE's statewide fire history, which maps fires on the California side of the Basin; Nevada fires and many small fires are not in it. Each perimeter is clipped to the TRPA boundary and measured in California Albers, so a fire that started outside the Basin counts only the acres that burned inside it.",
+            "The Tahoe Fire and Fuels Team fire history, 1988 to 2025, covers both states and will replace this record once it is published."
+          ],
+          "ltinfo": false,
+          "measures": [
             {
-              "service": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
-              "layer": 6,
-              "title": "Fire history (LTBMU, 1967 to 2016)",
-              "name": "FIRE_NAME",
-              "geometry": "fill",
-              "color": "#b53535",
-              "where": "UNIT_ID = 'TMU'",
-              "fields": [
-                {
-                  "field": "FIRE_NAME",
-                  "label": "Fire"
-                },
-                {
-                  "field": "YEAR_",
-                  "label": "Year"
-                },
-                {
-                  "field": "GIS_ACRES",
-                  "label": "Acres"
-                }
-              ]
+              "title": "Acres burned in the Basin by year",
+              "sub": "Acres inside the TRPA boundary within mapped fire perimeters, California side.",
+              "json": "data/fire-history/area-burned-by-year.json",
+              "sourceHref": "https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/California_Historic_Fire_Perimeters/FeatureServer/0",
+              "sourceLabel": "CAL FIRE California Historic Fire Perimeters, clipped to the TRPA boundary",
+              "x": "Year",
+              "xLabel": "Year",
+              "y": "Acres",
+              "yName": "Acres burned",
+              "yLabel": "Acres",
+              "type": "bar",
+              "span": "span-12"
+            },
+            {
+              "title": "Largest fires in the Basin",
+              "sub": "Acres each fire burned inside the TRPA boundary, the 12 largest in the record.",
+              "json": "data/fire-history/largest-fires.json",
+              "sourceHref": "https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/California_Historic_Fire_Perimeters/FeatureServer/0",
+              "sourceLabel": "CAL FIRE California Historic Fire Perimeters, clipped to the TRPA boundary",
+              "x": "Fire",
+              "xType": "category",
+              "xLabel": "Fire",
+              "y": "Acres",
+              "yName": "Acres in the Basin",
+              "yLabel": "Acres",
+              "type": "bar",
+              "orientation": "h",
+              "sort": "desc",
+              "span": "span-12"
             }
-          ]
+          ],
+          "mapLayer": {
+            "url": "data/fire-history/fire-perimeters.geojson",
+            "sourceHref": "https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/California_Historic_Fire_Perimeters/FeatureServer/0",
+            "sourceLabel": "CAL FIRE California Historic Fire Perimeters, clipped to the TRPA boundary",
+            "layer": 0,
+            "title": "Fire perimeters in the Basin",
+            "unit": "fire",
+            "unitPlural": "Fires",
+            "name": "Fire",
+            "countAsSites": false,
+            "colorBy": "Year",
+            "colorByLabel": "Year",
+            "breaks": [
+              {
+                "max": 1949,
+                "label": "Before 1950",
+                "color": "var(--mon-turbid-2)"
+              },
+              {
+                "max": 1989,
+                "label": "1950 to 1989",
+                "color": "var(--mon-turbid-3)"
+              },
+              {
+                "max": 2009,
+                "label": "1990 to 2009",
+                "color": "var(--mon-turbid-4)"
+              },
+              {
+                "max": 2019,
+                "label": "2010 to 2019",
+                "color": "var(--mon-turbid-5)"
+              },
+              {
+                "max": 9999,
+                "label": "2020 and later",
+                "color": "var(--mon-turbid-7)"
+              }
+            ],
+            "meta": [
+              {
+                "field": "Year"
+              },
+              {
+                "field": "Acres",
+                "suffix": " acres"
+              }
+            ],
+            "fields": [
+              {
+                "field": "Fire",
+                "label": "Fire"
+              },
+              {
+                "field": "Year",
+                "label": "Year"
+              },
+              {
+                "field": "Acres",
+                "label": "Acres in the Basin"
+              },
+              {
+                "field": "Cause",
+                "label": "Cause"
+              }
+            ]
+          },
+          "overlays": []
         }
       ]
     },

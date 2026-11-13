@@ -36,6 +36,7 @@ import {
   fetchAttributes,
   featureKey,
   fetchGeoJson,
+  fetchGeoJsonFile,
   INACTIVE_COLOR,
   overlayQueryParams,
   overlaySpec,
@@ -527,7 +528,7 @@ export class SitesPanel {
     this.setState('loading');
     this.overlays = this.loadOverlays(cfg, http);
     let choices: (string | number)[] = [];
-    if (layer.pick) {
+    if (layer.pick && !layer.url) {
       try {
         choices = pickChoices(await fetchAttributes(http, layer.layer, pickStatsParams(layer), layer.service), layer.pick);
       } catch (error) {
@@ -558,7 +559,9 @@ export class SitesPanel {
       const extra = profileFields(await this.profileReady);
       if (!current()) return;
       const [raw, overlays] = await Promise.all([
-        fetchGeoJson(http, layer.layer, areaQueryParams(layer, picked, true, extra), { service: layer.service, onPage: this.onPage(current) }),
+        layer.url
+          ? fetchGeoJsonFile(http, layer.url)
+          : fetchGeoJson(http, layer.layer, areaQueryParams(layer, picked, true, extra), { service: layer.service, onPage: this.onPage(current) }),
         this.overlays,
       ]);
       // A choropleth tags each area with its class; a dot density layer becomes its dots. The map,

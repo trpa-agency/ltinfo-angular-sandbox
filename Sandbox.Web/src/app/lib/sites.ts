@@ -124,6 +124,17 @@ export async function fetchGeoJson(
   return out;
 }
 
+/** The features of a GeoJSON FeatureCollection file, for a mapLayer with a url. */
+export async function fetchGeoJsonFile(fetchFn: FetchLike, url: string): Promise<Feature[]> {
+  const response = await fetchFn(url);
+  const json = (await response.json()) as FeatureCollection | null;
+  if (!json || typeof json !== 'object') throw new Error(`${url} returned no JSON`);
+  if (json.error) throw new Error(json.error.message || `${url} failed`);
+  const features = Array.isArray(json.features) ? json.features : [];
+  // Areas are keyed by id or OBJECTID; a file feature with neither takes its position.
+  return features.map((f, i) => (f.id ?? f.properties?.['OBJECTID'] ?? null) === null ? { ...f, id: i + 1 } : f);
+}
+
 /** Attribute rows from an f=json query, for statistics and group-by calls. */
 export async function fetchAttributes(
   fetchFn: FetchLike,
@@ -442,6 +453,14 @@ export interface MapLayerConfig {
   layer: number;
   /** The map service the layer is in; the LTInfo_Monitoring service when omitted. */
   service?: string;
+  /**
+   * A GeoJSON FeatureCollection file to draw instead of a service layer, for areas that need
+   * geometry work first (perimeters clipped to the Basin, points counted in hexagons). No pick.
+   */
+  url?: string;
+  /** The source line under the map when it reads a file: the service the file was made from. */
+  sourceHref?: string;
+  sourceLabel?: string;
   title?: string;
   unit?: string;
   unitPlural?: string;
@@ -1071,6 +1090,10 @@ export function serviceLabel(service: string = SERVICE): string {
 
 /** The source line under the map: the layer behind it, or the GeoJSON URL. */
 export function sitesPanelSource(cfg: SitesPanelConfig): { href: string; label: string } | undefined {
+  if (cfg.mapLayer?.url) {
+    const file = decodeURIComponent(cfg.mapLayer.url.split('/').pop() || cfg.mapLayer.url);
+    return { href: cfg.mapLayer.sourceHref || cfg.mapLayer.url, label: cfg.mapLayer.sourceLabel || `Data file ${file}` };
+  }
   const source = cfg.mapLayer ?? cfg.sitesLayer;
   if (source) {
     const what = cfg.mapLayer?.title || `${plural(2, sitesPanelUnit(cfg))}`;

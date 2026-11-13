@@ -25,15 +25,15 @@ export const TEMPLATE_LABELS: Record<Template, string> = {
 /** What Sandbox.Database seeds. Change a number here when the seed changes. */
 export const seed = {
   database: 'LTInfoSandbox',
-  programs: 90,
+  programs: 93,
   categories: 11,
   featured: 17,
   /** The 17 programs seed.sql marks IsFeatured = 1, so a stray one is named in the failure. */
   featuredIds: [13, 16, 33, 34, 36, 39, 61, 62, 63, 64, 65, 66, 68, 69, 76, 77, 82],
-  partnerLinks: 261,
+  partnerLinks: 269,
   /** How many programs use each page layout. */
-  templates: { map: 36, charts: 44, context: 10 },
-  /** Program photos: 66 files across 39 programs; the other 51 programs have none. */
+  templates: { map: 39, charts: 44, context: 10 },
+  /** Program photos: 66 files across 39 programs; the other 54 programs have none. */
   photos: 66,
   programsWithPhotos: 39,
   /** The charts layout, and the program the detail and write tests use. One photo. */
@@ -86,7 +86,7 @@ export const seed = {
   airQualityPrograms: 9,
   unknownId: 999999,
   /** GET /summary, and the four totals in the home page hero. */
-  summary: { programs: 90, categories: 11, mappedSites: 1750, partners: 51, photos: 66 },
+  summary: { programs: 93, categories: 11, mappedSites: 1750, partners: 54, photos: 66 },
   /** GET /monitoring-sites: one point per site, and one per mapped area or line. */
   sites: { total: 1750, site: 789, area: 927, line: 34 },
   /** Three categories the home page tests open. Folder is the /category/:folder address. */
