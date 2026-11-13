@@ -1,0 +1,99 @@
+{
+ "MonitoringProgramDescription": null,
+ "MonitoringApproach": "Portions of known and potential northern goshawk habitat are surveyed following well-accepted protocols including a combination of dawn acoustic surveys, stand search surveys, and broadcast surveys. Recent survey work has been conducted in response to proposed projects and has been primarily focused at assessment of project level impacts, not assessment of population status and trends in the Tahoe Basin. The last full population survey was completed in 2010.",
+ "Partners": [
+  {
+   "OrganizationID": 50,
+   "OrganizationName": "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+   "OrganizationShortName": "NDOW"
+  },
+  {
+   "OrganizationID": 7,
+   "OrganizationName": "California Department of Parks and Recreation",
+   "OrganizationShortName": "CDPR"
+  },
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2067,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/757a423b-bb56-4350-9df6-c27daf80ca3d",
+   "Caption": "Northern goshawk",
+   "PhotoCredit": "Paul Williams",
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Reproductively active goshawk territories",
+    "sub": "Active territories counted each year, with the threshold.",
+    "layer": 96,
+    "where": "Wildlife_Species = 'Northern Goshawk'",
+    "x": "Year",
+    "y": "Total",
+    "yName": "Active territories",
+    "yLabel": "Active territories",
+    "type": "bar",
+    "span": "span-12",
+    "standard": {
+     "field": "Threshold_Value"
+    }
+   }
+  ],
+  "mapLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/Wildlife_Habitat/MapServer",
+   "layer": 0,
+   "title": "Goshawk threshold zones",
+   "unit": "territory",
+   "unitPlural": "Territories",
+   "name": "Territory",
+   "countAsSites": false,
+   "meta": [
+    {
+     "field": "Acres",
+     "suffix": " acres"
+    }
+   ],
+   "fields": [
+    {
+     "field": "Acres",
+     "label": "Acres"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Northern Goshawk Population Sites",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/157"
+  }
+ ],
+ "MonitoringProgramID": 29,
+ "MonitoringProgramName": "Northern Goshawk",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 4,
+ "Template": "charts",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/757a423b-bb56-4350-9df6-c27daf80ca3d",
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+  "California Department of Parks and Recreation",
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+  "Tahoe Regional Planning Agency"
+ ]
+}

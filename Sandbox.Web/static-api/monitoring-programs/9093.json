@@ -1,0 +1,54 @@
+{
+ "MonitoringProgramDescription": "Watercraft inspected for aquatic invasive species before launching at Lake Tahoe each year, how many needed decontamination, and where the inspection stations are.",
+ "MonitoringApproach": null,
+ "Partners": [],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Watercraft inspected",
+    "sub": "Watercraft inspected each year, by whether they needed decontamination.",
+    "layer": 93,
+    "x": "Year",
+    "y": [
+     {
+      "field": "Watercraft_Decontaminated",
+      "name": "Decontaminated"
+     },
+     {
+      "field": "No_Decontamination_Necessary",
+      "name": "No decontamination needed"
+     }
+    ],
+    "yLabel": "Watercraft",
+    "type": "stacked",
+    "span": "span-12"
+   }
+  ],
+  "sitesLayer": {
+   "layer": 103,
+   "name": "STATION_NAME",
+   "status": "STATION_TYPE",
+   "unit": "station"
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Aquatic Invasive Species",
+   "Url": "https://climate.laketahoeinfo.org/aquatic-invasive-species"
+  }
+ ],
+ "MonitoringProgramID": 9093,
+ "MonitoringProgramName": "Watercraft Inspections",
+ "CategoryID": 17,
+ "CategoryName": "Aquatic Invasive Species",
+ "ThemeColor": "#0d5b73",
+ "IsFeatured": false,
+ "PartnerCount": 0,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 7,
+ "PartnerNames": []
+}

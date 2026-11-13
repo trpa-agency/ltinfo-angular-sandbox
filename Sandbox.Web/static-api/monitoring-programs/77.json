@@ -1,0 +1,84 @@
+{
+ "MonitoringProgramDescription": "TRPA monitors congestion on roadways throughout the region to assist with regional transportation planning. A well executed transportation management system incorporates monitoring data, real-time information, and dynamic operations that respond to seasonal congestion and periodic congestion.",
+ "MonitoringApproach": "Congestion can be characterized by many metrics and sourced from a variety of different data sources. For the purpose of analyzing congestion in the Tahoe region, TRPA uses the Regional Integrated Transportation Information System (RITIS) probe data analytics suite, provided by the Federal Highway Administration.\n\nThe data presented is median observed travel time in minutes for travel in both directions for the segment. The median is the midpoint of how long it took travelers to travel the length of the segment; 50 percent of trips were faster than this time and 50 percent were slower.",
+ "Partners": [],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2036,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/7ce5894d-67b7-4802-9d66-e48460bdbe58",
+   "Caption": "Stateline traffic",
+   "PhotoCredit": "Aurora Novis Rachid 2016",
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Travel time by season",
+    "sub": "Travel time on the selected corridor segment, by season. Choose a segment.",
+    "layer": 110,
+    "x": "Year",
+    "y": "Value",
+    "yLabel": "Travel time (minutes)",
+    "seriesBy": "Season",
+    "seriesLabel": "Season",
+    "pick": "Name",
+    "pickLabel": "Segment",
+    "type": "bar",
+    "span": "span-12"
+   }
+  ],
+  "sitesPerYear": {
+   "layer": 110,
+   "year": "Year",
+   "site": "Name",
+   "unit": "segment"
+  },
+  "mapLayer": {
+   "layer": 109,
+   "title": "Travel time segments",
+   "unit": "segment",
+   "unitPlural": "Segments",
+   "name": "NAME",
+   "geometry": "line",
+   "fields": [
+    {
+     "field": "NAME",
+     "label": "Segment"
+    }
+   ]
+  },
+  "overlays": [
+   {
+    "layer": 18,
+    "title": "Congestion road segments",
+    "name": "road",
+    "geometry": "line",
+    "color": "#989898",
+    "fields": [
+     {
+      "field": "direction",
+      "label": "Direction"
+     },
+     {
+      "field": "intersection",
+      "label": "Intersection"
+     }
+    ]
+   }
+  ]
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 77,
+ "MonitoringProgramName": "Congestion-Travel Time",
+ "CategoryID": 10,
+ "CategoryName": "Transportation and Sustainable Communities",
+ "ThemeColor": "#DB5B00",
+ "IsFeatured": true,
+ "PartnerCount": 0,
+ "Template": "charts",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/7ce5894d-67b7-4802-9d66-e48460bdbe58",
+ "SiteCount": 13,
+ "PartnerNames": []
+}

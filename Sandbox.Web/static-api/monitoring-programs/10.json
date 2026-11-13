@@ -1,0 +1,62 @@
+{
+ "MonitoringProgramDescription": "Maintain annual mean phytoplankton primary productivity at or below 52gmC/m2/yr.",
+ "MonitoringApproach": "Phytoplankton PPr measurements at Lake Tahoe have been made following the same standard operating procedure since the first observations were made in 1967 (Winder et al., 2009). Lake water is collected at the TERC west shore index station, which was found to be representative of the lake’s deepwater condition (Charles Remington Goldman, 1974). For each sampling event, water samples are collected from 13 different depths (between 0-105m) spanning the photic zone (i.e., the vertical zone in the water column exposed to sufficient sunlight for photosynthesis to occur), and analysed to determine carbon assimilation rates using very sensitive methods needed for pristine or oligotrophic waters (Charles Remington Goldman, 1974). Values from the various samples are aggregated to yield a depth-integrated PPr value. These depth-integrated values are aggregated over the calendar year to generate an estimate of annual average phytoplankton primary productivity.",
+ "Partners": [
+  {
+   "OrganizationID": 21,
+   "OrganizationName": "California Lahontan Regional Water Quality Control Board",
+   "OrganizationShortName": "Lahontan"
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 24,
+   "OrganizationName": "UC Davis Tahoe Environmental Research Center",
+   "OrganizationShortName": "TERC"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Phytoplankton primary productivity",
+    "sub": "Annual mean algal growth at the Lake Tahoe Index Station, in grams of carbon per square meter per year. The threshold standard is 52.",
+    "layer": 75,
+    "x": "Year",
+    "y": "Primary_Productivity",
+    "yName": "Primary productivity",
+    "yLabel": "Primary productivity (gC/m2/yr)",
+    "standard": {
+     "value": 52
+    },
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Phytoplankton Primary Productivity (Pelagic)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/113"
+  }
+ ],
+ "MonitoringProgramID": 10,
+ "MonitoringProgramName": "Phytoplankton Primary Productivity",
+ "CategoryID": 7,
+ "CategoryName": "Water Quality",
+ "ThemeColor": "#0F3F6F",
+ "IsFeatured": false,
+ "PartnerCount": 3,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "California Lahontan Regional Water Quality Control Board",
+  "Tahoe Regional Planning Agency",
+  "UC Davis Tahoe Environmental Research Center"
+ ]
+}

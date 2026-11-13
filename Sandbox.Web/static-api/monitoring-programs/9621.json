@@ -1,0 +1,42 @@
+{
+ "MonitoringProgramDescription": "This indicator measures whether streamflows have been altered by diversions. Alteration of streamflow regimes, such as water diversions, can result in adverse impacts to stream habitat diversity, function, and productivity of aquatic ecosystems and organisms. Past streamflow diversions exist in the Tahoe Region for a variety of reasons including providing water for agriculture and sending water to communities outside the Tahoe Region. Regional policies are aimed at removing existing streamflow diversions and prohibiting new diversions. There is no active monitoring of streamflow diversions but new streamflow diversions are not permitted.\n\nThere are 63 tributaries that drain into Lake Tahoe, and one tributary that drains from the basin. The amount of water flowing through a stream is primarily dependent on the size of its watershed and the amount of precipitation within a given year. Streams provide critical habitat to a diversity of native and non-native fish populations and other riverine-dependent organisms. Historic logging, grazing, and land use interrupted the hydrologic integrity of many of the streams and tributaries draining into Lake Tahoe, and the results of these legacy activities are evident today. Alteration of stream flow regimes, such as water diversions, can result in adverse impacts to stream habitat diversity, function, and productivity of aquatic ecosystems and organisms. A component of the TRPA Regional Plan is to maintain a healthy functioning fishery through the conservation and restoration of natural flow regimes.\n\nThreshold standard: Until instream flow standards are established in the Regional Plan to protect fishery values, a non-degradation standard shall apply to instream flows.",
+ "MonitoringApproach": "Three criteria were evaluated to determine the implementation status of the instream flow threshold standards:\n\n1. Has TRPA adopted appropriate policies, ordinances and programs to support the adopted threshold standards?\n\n2. Has TRPA permitted or otherwise allowed for new permanent diversions or alteration of stream flows since 1987?\n\n3. Does available scientific information support the need to adopt instream flow standards for Regional streams?",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2062,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/7a489461-0be1-43fd-92c6-fd764f628a5f",
+   "Caption": null,
+   "PhotoCredit": null,
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": null,
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Non-Degradation Standard for Instream Flow",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/21"
+  }
+ ],
+ "MonitoringProgramID": 9621,
+ "MonitoringProgramName": "Instream Flow",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "context",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/7a489461-0be1-43fd-92c6-fd764f628a5f",
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

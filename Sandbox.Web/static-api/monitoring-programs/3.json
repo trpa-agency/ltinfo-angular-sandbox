@@ -1,0 +1,99 @@
+{
+ "MonitoringProgramDescription": "Provide a minimum of 2 Bald Eagle (Winter) population sites.\n\nProvide disturbance zones and influence zones for Bald Eagle (Winter).",
+ "MonitoringApproach": "Professional and volunteer biologists stationed at a series of observation points surrounding Lake Tahoe record all observed eagles over the same four-hour period once a year following protocols developed by the National Wildlife Federation.",
+ "Partners": [
+  {
+   "OrganizationID": 51,
+   "OrganizationName": "Tahoe Institute for Natural Science",
+   "OrganizationShortName": "TINS"
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 50,
+   "OrganizationName": "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+   "OrganizationShortName": "NDOW"
+  },
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  },
+  {
+   "OrganizationID": 41,
+   "OrganizationName": "California Department of Fish & Wildlife",
+   "OrganizationShortName": "CDFW"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2065,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/4fc15216-360b-4088-8857-f332b5e37171",
+   "Caption": "Bald Eagle in the wintertime in Lake Tahoe",
+   "PhotoCredit": "TRPA",
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Wintering bald eagles",
+    "sub": "Bald eagles counted in the annual winter survey, with the threshold of 2.",
+    "layer": 96,
+    "where": "Wildlife_Species = 'Bald Eagle - winter'",
+    "x": "Year",
+    "y": "Total",
+    "yName": "Individuals",
+    "yLabel": "Individuals",
+    "type": "bar",
+    "span": "span-12",
+    "standard": {
+     "value": 2
+    }
+   }
+  ],
+  "mapLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/Wildlife_Habitat/MapServer",
+   "layer": 1,
+   "title": "Bald eagle winter habitat",
+   "unit": "habitat area",
+   "unitPlural": "Habitat areas",
+   "name": "WINTER_HABITAT",
+   "countAsSites": false,
+   "fields": [
+    {
+     "field": "WINTER_HABITAT",
+     "label": "Area"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Wintering Bald Eagle Population Sites",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/159"
+  }
+ ],
+ "MonitoringProgramID": 3,
+ "MonitoringProgramName": "Wintering Bald Eagle",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 5,
+ "Template": "charts",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/4fc15216-360b-4088-8857-f332b5e37171",
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Institute for Natural Science",
+  "Tahoe Regional Planning Agency",
+  "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+  "California Department of Fish & Wildlife"
+ ]
+}

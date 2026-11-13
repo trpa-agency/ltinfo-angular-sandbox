@@ -1,0 +1,80 @@
+{
+ "MonitoringProgramDescription": "Electricity generation is one of the Region's largest sources of greenhouse gas emissions. Shifting the power supply to solar, wind, geothermal, and hydropower lowers emissions without asking residents to use less.",
+ "MonitoringApproach": "Liberty Utilities serves the California side of the Basin and NV Energy the Nevada side. Each reports the share of its power mix from renewable sources each year.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 53,
+   "OrganizationName": "Liberty Utilities",
+   "OrganizationShortName": null
+  },
+  {
+   "OrganizationID": 54,
+   "OrganizationName": "NV Energy",
+   "OrganizationShortName": null
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Electricity from renewable sources",
+    "sub": "Share of each utility's power mix from renewable and non-renewable sources.",
+    "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+    "layer": 144,
+    "x": "Year",
+    "xLabel": "Year",
+    "y": "Share",
+    "stat": "sum",
+    "seriesBy": "Type",
+    "seriesLabel": "Source",
+    "seriesOrder": [
+     "Renewables",
+     "Non-Renewable"
+    ],
+    "seriesNames": {
+     "Renewables": "Renewable",
+     "Non-Renewable": "Non-renewable"
+    },
+    "pick": "Source",
+    "pickLabel": "Utility",
+    "format": ".0%",
+    "yLabel": "Share of power mix",
+    "type": "stacked",
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Renewable Energy",
+   "Url": "https://climate.laketahoeinfo.org/renewable-energy"
+  },
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Access to Housing",
+   "Url": "https://climate.laketahoeinfo.org/access-to-housing"
+  }
+ ],
+ "MonitoringProgramID": 9916,
+ "MonitoringProgramName": "Renewable Energy",
+ "CategoryID": 15,
+ "CategoryName": "Climate and Lake Conditions",
+ "ThemeColor": "#2c5f72",
+ "IsFeatured": false,
+ "PartnerCount": 3,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "Liberty Utilities",
+  "NV Energy"
+ ]
+}

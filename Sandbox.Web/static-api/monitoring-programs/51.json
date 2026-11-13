@@ -1,0 +1,164 @@
+{
+ "MonitoringProgramDescription": "Several monitoring regimes are in place at Hell Hole:\n\nAs part of the Region 5 Fen Assessment program, a total of 135 potential fens, including Hell Hole, have been assessed within the Lake Tahoe Region Management Unit since 2006 (Sikes et al. 2011). Of these, a total of 47 locations have been confirmed as fens. In addition to this inventory, the Forest Service collaborated with the California Native Plant Society in 2010 to develop a quantitative system for ranking the ecological integrity and quality of fens (Sikes et al., 2011). Using this ranking system, surveyors objectively score a fen on eight different criteria on a fivepoint scale. The criteria include such factors as rarity, biodiversity, impacts, accessibility, and uniqueness. The conservation significance rank is the sum of scores for each criterion and has a maximum value of 40 points.\n\nThe U.S. Forest Service Region 5 Range Monitoring Program quantifies the ecological condition of wetland plant communities (Weixelman et al. 2003, Weixelman and Gross In Review). The protocol is designed to classify meadows and wetlands according to dominant plant species, elevation, and site moisture characteristics, and then use a customized quantitative functional and wetland condition scorecard for that meadow type (Weixelman and Gross In Review). In 2004, two plots and permanent photo points were established at Hell Hole (Engelhardt and Gross 2011b). Plots were re-visited in 2009/2010 and in 2014 (Shana Gross pers. comm.), but the data and results have not been made available.\n\nLong-term monitoring of Sphagnum spp. and Meesia triquetra cover two important mosses at Hell Hole. Sphagnum spp. (peatmoss) is a Region 5 sensitive species (watch list) and potential an indicator of climate change. Meesia triquetra (three-ranked hump moss) is strongly associated with fens in the Sierra Nevada, and therefore naturally has limited distribution, but was removed from the Region 5 sensitive species list on the most recent revision (McKnight and Rowe 2015). Bryophytes are strongly dependent on wetland habitat, and thus changes in cover and distribution of these dominant species may be indicative of habitat degradation (Engelhardt and Gross 2011c). Permanent transects to monitor moss cover were established throughout Hell Hole in 2012 (Engelhardt and Gross 2011c).",
+ "MonitoringApproach": "Several monitoring regimes are in place at Hell Hole. See Program Description for an outline of these monitoring regimes.",
+ "Partners": [
+  {
+   "OrganizationID": 49,
+   "OrganizationName": "California Native Plant Society",
+   "OrganizationShortName": "CNPS"
+  },
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Overall condition score",
+    "sub": "SEZ assessment score by threshold evaluation year, meadow units.",
+    "layer": 106,
+    "where": "Assessment_Unit_Name IN ('Hell Hole meadows - 1', 'Hell Hole Meadows - 2') AND SEZ_Type LIKE '%Meadow%'",
+    "x": "Threshold_Year",
+    "xType": "category",
+    "xLabel": "Evaluation year",
+    "y": "Final_Percent",
+    "stat": "avg",
+    "seriesBy": "Assessment_Unit_Name",
+    "seriesLabel": "Assessment unit",
+    "yLabel": "Score (percent)",
+    "type": "bar"
+   },
+   {
+    "title": "Vegetation indicator scores",
+    "sub": "Points out of 12 (A 12, B 9, C 6, D 3), meadow units.",
+    "layer": 106,
+    "where": "Assessment_Unit_Name IN ('Hell Hole meadows - 1', 'Hell Hole Meadows - 2') AND SEZ_Type LIKE '%Meadow%'",
+    "x": "Threshold_Year",
+    "xType": "category",
+    "xLabel": "Evaluation year",
+    "y": [
+     {
+      "field": "VegetationVigor_Score",
+      "name": "Vegetation vigor"
+     },
+     {
+      "field": "Invasives_Scores",
+      "name": "Invasive species"
+     },
+     {
+      "field": "Conifer_Encroachment_Score",
+      "name": "Conifer encroachment"
+     }
+    ],
+    "yLabel": "Points",
+    "type": "bar",
+    "pick": "Assessment_Unit_Name",
+    "pickLabel": "Assessment unit"
+   }
+  ],
+  "mapLayer": {
+   "layer": 106,
+   "where": "Assessment_Unit_Name IN ('Hell Hole meadows - 1', 'Hell Hole Meadows - 2')",
+   "title": "SEZ assessment unit",
+   "unit": "assessment unit",
+   "unitPlural": "Assessment units",
+   "name": "Assessment_Unit_Name",
+   "colorBy": "Final_Rating",
+   "colorByLabel": "Overall rating",
+   "colors": {
+    "A": "var(--mon-chlorophyll-6)",
+    "B": "var(--mon-chlorophyll-5)",
+    "C": "var(--mon-chlorophyll-3)",
+    "D": "var(--mon-chlorophyll-2)",
+    "Not Assessed": "var(--color-content-disabled)"
+   },
+   "labels": {
+    "A": "Rating A",
+    "B": "Rating B",
+    "C": "Rating C",
+    "D": "Rating D"
+   },
+   "pick": "Threshold_Year",
+   "pickLabel": "Evaluation year",
+   "meta": [
+    {
+     "field": "SEZ_Type"
+    },
+    {
+     "field": "Acres",
+     "suffix": " acres"
+    }
+   ],
+   "fields": [
+    {
+     "field": "Final_Rating",
+     "label": "Overall rating"
+    },
+    {
+     "field": "Final_Percent",
+     "label": "Score (percent)"
+    },
+    {
+     "field": "VegetationVigor_Rating",
+     "label": "Vegetation vigor"
+    },
+    {
+     "field": "Invasive_Rating",
+     "label": "Invasive species"
+    },
+    {
+     "field": "Conifer_Encroachment_Rating",
+     "label": "Conifer encroachment"
+    },
+    {
+     "field": "Acres",
+     "label": "Acres"
+    }
+   ]
+  },
+  "overlays": [
+   {
+    "service": "https://maps.trpa.org/server/rest/services/DataDownloader_SoilsandHydro/MapServer",
+    "layer": 41,
+    "title": "USFS fen mapping",
+    "name": "LOCATION_N",
+    "geometry": "fill",
+    "color": "var(--mon-stevens4-1)",
+    "where": "LOCATION_N LIKE '%Hell Hole%'",
+    "fields": [
+     {
+      "field": "PERC_FEN",
+      "label": "Percent fen"
+     },
+     {
+      "field": "MEADOW_TYP",
+      "label": "Type"
+     },
+     {
+      "field": "DESCRIPTIO",
+      "label": "Description"
+     }
+    ]
+   }
+  ]
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 51,
+ "MonitoringProgramName": "Hell Hole Sphagnum Fen",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 2,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "California Native Plant Society",
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+ ]
+}

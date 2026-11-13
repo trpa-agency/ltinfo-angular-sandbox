@@ -1,0 +1,66 @@
+{
+ "MonitoringProgramDescription": "Aquatic Invasive Species (AIS) are non-native organisms that threaten the abundance and diversity of native organisms in Lake Tahoe. The Tahoe Keys is the largest and most persistent population of aquatic weeds growing in the region, infesting over 172 acres of waterways. All other lake-wide infestations combined account for approximately 20 acres. The 2015 Lake Tahoe Aquatic Invasive Species Implementation Plan lists the Tahoe Keys lagoons as the highest priority areas for control of AIS in Lake Tahoe.\n\nMaintaining the biological integrity of Lake Tahoe’s nearshore environment is a longtime goal of resource managers in the region and has been set forth in a variety of planning documents. Submerged aquatic vegetation is an important biological component within Lake Tahoe’s nearshore context.\n\nThe Tahoe Keys is the largest and most persistent population of aquatic weeds growing in the Region, infesting over 172 acres of waterways. Due to aquatic invasive plants’ proclivity to spread and establish new infestations through fragmentation throughout connected waterbodies, source fragements from the Tahoe Keys are a threat to the rest of Lake Tahoe.\n\nTwo aquatic invasive plants, Eurasian watermilfoil (Myriophyllum spicatum) and curly-leaf pondweed (Potamogeton crispus), are the primary targets of the threshold standard. Aquatic invasive plants, when left unchecked, can impact water quality, fish and wildlife habitat conditions, recreational fishing, human and animal health, vessel navigation, and the recreation values of water bodies.\n\nThe goal aligns with the management categories that are utilized by the Lake Tahoe Aquatic Invasive Species Coordinating Committee and conveys the reality of long-term management of aquatic invasive species.\n\nThreshold standard: Reduce average aquatic invasive plant abundance in the Tahoe Keys by a minimum of 75 percent from the 2020 baseline year.",
+ "MonitoringApproach": "Reduce average aquatic invasive plant abundance in the Tahoe Keys by a minimum of 75 percent from the 2020 baseline year.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2071,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/6612c131-dafe-4169-bb46-38d77c15db92",
+   "Caption": "Tahoe Keys",
+   "PhotoCredit": null,
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Aquatic invasive plant volume in the Tahoe Keys",
+    "sub": "Cubic yards of each invasive plant in the Tahoe Keys lagoons, 2023 Threshold Evaluation.",
+    "json": "data/threshold-evaluation/tahoe-keys-aquatic-plants.json",
+    "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/WaterQuality/Chart/Final/Tahoe_Keys_Infestation.html",
+    "sourceLabel": "2023 Threshold Evaluation",
+    "x": "Year",
+    "xType": "category",
+    "xLabel": "Year",
+    "y": "Cubic yards",
+    "seriesBy": "Species",
+    "seriesLabel": "Species",
+    "yLabel": "Cubic yards",
+    "type": "bar",
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Reduce Average Aquatic Invasive Plant Abundance in the Tahoe Keys",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/187"
+  },
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Aquatic Invasive Species",
+   "Url": "https://climate.laketahoeinfo.org/aquatic-invasive-species"
+  }
+ ],
+ "MonitoringProgramID": 9787,
+ "MonitoringProgramName": "Aquatic Invasive Plants in the Tahoe Keys",
+ "CategoryID": 17,
+ "CategoryName": "Aquatic Invasive Species",
+ "ThemeColor": "#0d5b73",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "charts",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/6612c131-dafe-4169-bb46-38d77c15db92",
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

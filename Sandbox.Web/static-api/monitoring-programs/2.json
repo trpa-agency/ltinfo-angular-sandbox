@@ -1,0 +1,107 @@
+{
+ "MonitoringProgramDescription": null,
+ "MonitoringApproach": "A shoreline survey is conducted by boat monthly during spring and summer months following standard protocols. Additional surveys are conducted at historic and likely nest sites at other lakes and upland areas. All suitable nesting habitat is surveyed for nest activity and nest success.",
+ "Partners": [
+  {
+   "OrganizationID": 7,
+   "OrganizationName": "California Department of Parks and Recreation",
+   "OrganizationShortName": "CDPR"
+  },
+  {
+   "OrganizationID": 50,
+   "OrganizationName": "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+   "OrganizationShortName": "NDOW"
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2063,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/71b8127a-2632-4ab7-9d8b-f6c4736b0e83",
+   "Caption": "Adult osprey at Lake Tahoe",
+   "PhotoCredit": "TRPA",
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Active osprey nests",
+    "sub": "Active nests counted each year, with the threshold.",
+    "layer": 96,
+    "where": "Wildlife_Species = 'Osprey'",
+    "x": "Year",
+    "y": "Total",
+    "yName": "Active nests",
+    "yLabel": "Active nests",
+    "type": "bar",
+    "span": "span-12",
+    "standard": {
+     "field": "Threshold_Value"
+    }
+   }
+  ],
+  "mapLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/Wildlife_Activity/MapServer",
+   "layer": 3,
+   "title": "Osprey nest buffers",
+   "unit": "nest",
+   "unitPlural": "Nests",
+   "name": "NEST_ID",
+   "countAsSites": false,
+   "colorBy": "NEST_STATUS",
+   "colorByLabel": "Nest status",
+   "colors": {
+    "Active, Successful": "var(--mon-stevens4-2)",
+    "Active, Not Successful": "var(--mon-stevens4-3)",
+    "Not Active, Not Successful": "var(--mon-stevens4-1)",
+    "Nest Gone": "var(--mon-stevens4-4)"
+   },
+   "pick": "Year",
+   "pickLabel": "Survey year",
+   "fields": [
+    {
+     "field": "NEST_STATUS",
+     "label": "Status"
+    },
+    {
+     "field": "Year",
+     "label": "Year"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Osprey Population Sites",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/158"
+  }
+ ],
+ "MonitoringProgramID": 2,
+ "MonitoringProgramName": "Osprey",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 4,
+ "Template": "charts",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/71b8127a-2632-4ab7-9d8b-f6c4736b0e83",
+ "SiteCount": 0,
+ "PartnerNames": [
+  "California Department of Parks and Recreation",
+  "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+  "Tahoe Regional Planning Agency",
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+ ]
+}

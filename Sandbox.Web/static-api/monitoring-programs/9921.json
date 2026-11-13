@@ -1,0 +1,96 @@
+{
+ "MonitoringProgramDescription": "A deed restriction keeps a home affordable, or reserved for people who work in the Region, for as long as the restriction is recorded. TRPA grants development bonuses and other incentives for housing that carries one.\n\nRestrictions come in three income levels: affordable, for households earning up to 80 percent of area median income; moderate, up to 120 percent; and achievable, for local workers at any income.",
+ "MonitoringApproach": "TRPA records each deed restriction with its parcel, type, and number of units, and maps the parcels that carry one.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Deed-restricted units by type",
+    "sub": "Housing units with a recorded deed restriction, by income level.",
+    "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+    "layer": 148,
+    "x": "Deed_Restriction_Type",
+    "xType": "category",
+    "xLabel": "Restriction",
+    "xOrder": [
+     "Affordable",
+     "Moderate",
+     "Achievable"
+    ],
+    "y": "Units",
+    "stat": "sum",
+    "yName": "Units",
+    "yLabel": "Units",
+    "type": "bar"
+   }
+  ],
+  "mapLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+   "layer": 20,
+   "title": "Deed-restricted parcels",
+   "unit": "parcel",
+   "unitPlural": "Parcels",
+   "name": "APO_ADDRESS",
+   "countAsSites": false,
+   "where": "DeedRestrictionStatus = 'Recorded'",
+   "colorBy": "DeedRestrictionType",
+   "colorByLabel": "Restriction",
+   "colors": {
+    "Affordable Housing": "var(--mon-stevens4-1)",
+    "Moderate Income Housing": "var(--mon-stevens4-2)",
+    "Achievable Housing": "var(--mon-stevens4-3)"
+   },
+   "labels": {
+    "Affordable Housing": "Affordable",
+    "Moderate Income Housing": "Moderate",
+    "Achievable Housing": "Achievable"
+   },
+   "fields": [
+    {
+     "field": "APN",
+     "label": "APN"
+    },
+    {
+     "field": "DeedRestrictionType",
+     "label": "Restriction"
+    },
+    {
+     "field": "RecordingDate",
+     "label": "Recorded"
+    },
+    {
+     "field": "JURISDICTION",
+     "label": "Jurisdiction"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Access to Housing",
+   "Url": "https://climate.laketahoeinfo.org/access-to-housing"
+  }
+ ],
+ "MonitoringProgramID": 9921,
+ "MonitoringProgramName": "Deed-Restricted Housing",
+ "CategoryID": 16,
+ "CategoryName": "Housing and Economy",
+ "ThemeColor": "#646820",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

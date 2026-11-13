@@ -1,0 +1,46 @@
+{
+ "MonitoringProgramDescription": "Annual burn probability is the chance that a given spot in the Basin burns in any one year. It comes from simulating thousands of fire seasons over the Basin's own fuels, weather, topography, and history of ignitions, and counting how often each 30-meter cell burns.\n\nBurn probability is the likelihood half of wildfire hazard; likely fire severity is the intensity half. Together they show where fire is most likely to come and how hard it would burn. Fuel treatments lower both over time.",
+ "MonitoringApproach": "Vibrant Planet's Quantitative Wildfire Risk Assessment for the Lake Tahoe Basin models annual and 10-year burn probability with the FSim fire simulator, on fuels updated for disturbance and regrowth through the end of 2025. It replaces the 2022 CAL FIRE modeling the Region uses now, which reflects fuels through 2021.\n\nBurn probability will be reported as the share of each forest management zone in each probability class, and repeated with each model update.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 33,
+   "OrganizationName": "Tahoe Fire and Fuels Team",
+   "OrganizationShortName": "TFFT"
+  },
+  {
+   "OrganizationID": 35,
+   "OrganizationName": "Vibrant Planet",
+   "OrganizationShortName": null
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": null,
+ "RelatedLinks": [
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Forest Resilience and Wildfire Risk",
+   "Url": "https://climate.laketahoeinfo.org/forest-resilience-and-wildfire-risk"
+  }
+ ],
+ "MonitoringProgramID": 9796,
+ "MonitoringProgramName": "Annual Burn Probability",
+ "CategoryID": 12,
+ "CategoryName": "Fire Dynamics",
+ "ThemeColor": "#9C3E27",
+ "IsFeatured": false,
+ "PartnerCount": 3,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "Tahoe Fire and Fuels Team",
+  "Vibrant Planet"
+ ]
+}

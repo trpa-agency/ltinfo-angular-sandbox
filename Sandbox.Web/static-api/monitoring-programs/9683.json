@@ -1,0 +1,89 @@
+{
+ "MonitoringProgramDescription": "The standard ensures that native vegetation is maintained consistent with the impervious coverage limits of the Bailey Land Capability Classification of the Lake Tahoe Region. Vegetation is integral to many scenic, wildlife, and recreational amenities in the Region. Vegetation also provides functional services including soil stabilization, nutrient cycling, surface water flow regulation, air purification, and noise control. The focus of vegetation preservation in the Region is to protect and maintain these and other attributes. The Bailey land capability system is implemented through the TRPA Code of Ordinances and regulates allowable coverage within land capability classes and has been in place and effective since 1987. At the parcel level, the application of the land capability system requires that areas not covered by impervious surfaces be left in a native or acceptably landscaped state.\n\nVegetation is integral to many scenic, wildlife, and recreational amenities in the Lake Tahoe Region. Vegetation also provides functional services including soil stabilization, nutrient cycling, surface water flow regulation, air purification, and noise control. The focus of vegetation preservation in the Region is to protect and maintain these and other attributes.\n\nThreshold standard: Native vegetation shall be maintained at a maximum level to be consistent with the limits defined in the Land Capability Classification of the Lake Tahoe Region, California-Nevada, A Guide for Planning (Bailey, 1974), for allowable impervious cover and permanent site disturbance. The report can be found on the TRPA website at: https://www.trpa.gov/wp-content/uploads/documents/archive/Bailey-Land-Capability-Report.pdf.",
+ "MonitoringApproach": "Are TRPA policies in place to conform to the adopted standard?",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2055,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/87bc2431-f4af-4153-b64f-69c43fe06968",
+   "Caption": null,
+   "PhotoCredit": null,
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Land capability district acres",
+    "sub": "Acres in each land capability district (NRCS 2007 mapping).",
+    "service": "https://maps.trpa.org/server/rest/services/Soils_and_Land_Capability/MapServer",
+    "layer": 6,
+    "where": "Land_Capab <> ' '",
+    "x": "Land_Capab",
+    "xType": "category",
+    "xLabel": "Land capability district",
+    "y": "GISAcre",
+    "stat": "sum",
+    "yName": "Acres",
+    "yLabel": "Acres",
+    "type": "bar"
+   },
+   {
+    "title": "Impervious cover by land capability district, 2019",
+    "sub": "Acres of impervious surface in each district, by surface type.",
+    "layer": 81,
+    "where": "Feature IS NOT NULL AND Land_Capab IS NOT NULL",
+    "x": "Land_Capab",
+    "xType": "category",
+    "xLabel": "Land capability district",
+    "y": "GISAcre",
+    "stat": "sum",
+    "seriesBy": "Feature",
+    "seriesLabel": "Surface",
+    "yLabel": "Acres",
+    "type": "stacked"
+   },
+   {
+    "title": "Coverage allowed under Bailey (1974) coefficients",
+    "sub": "District acres times the Bailey coverage coefficient for each district.",
+    "layer": 81,
+    "where": "Land_Capab IS NOT NULL",
+    "x": "Land_Capab",
+    "xType": "category",
+    "xLabel": "Land capability district",
+    "y": "GISAcre * Bailey_Co",
+    "stat": "sum",
+    "yName": "Allowed acres",
+    "yLabel": "Acres",
+    "type": "bar"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Consistency with Bailey Land Capability System",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/83"
+  }
+ ],
+ "MonitoringProgramID": 9683,
+ "MonitoringProgramName": "Native Vegetation and Land Capability",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "charts",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/87bc2431-f4af-4153-b64f-69c43fe06968",
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

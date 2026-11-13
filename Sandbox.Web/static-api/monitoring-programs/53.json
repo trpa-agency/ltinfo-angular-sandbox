@@ -1,0 +1,57 @@
+{
+ "MonitoringProgramDescription": "Provide for the non-degradation of the natural qualities of any plant community that is uncommon to the Basin or of exceptional scientific, ecological, or scenic value. This threshold shall apply to the Freel Peak Cushion Plant community.",
+ "MonitoringApproach": "Long-term monitoring plots were installed in 2006 on Freel Peak and 2\n\nadjacent summits following GLORIA protocol. Vascular plant and groundcover are visually estimated in 16 one-meter by one-meter permanent quadrats, and species presence is recorded in eight summit area\n\nsections. In addition, continuous soil temperatures are logged in four summit areas, and detailed repeat photography is taken. Plots are remeasured every 5 years. The U.S. Forest Service Pacific Southwest Research Station has taken the lead in organizing monitoring associated with the GLORIA project throughout California. GLORIA data provide the primary indicator of the status and trend of\n\nthe cushion plant community. In 2009, the LTBMU installed 4 permanent plots targeting the Tahoe draba population in the Freel Peak cushion plant community. The plots are visited every 3-5 years to provide a quantitative and consistent method for evaluating the status and trend of this sensitive species.",
+ "Partners": [
+  {
+   "OrganizationID": 48,
+   "OrganizationName": "U.S. Forest Service - Pacific Southwest Research Station",
+   "OrganizationShortName": "USFS - PSW"
+  },
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Species richness on the Freel Peak summits",
+    "sub": "Plant species recorded in the GLORIA summit plots in each survey year. Read from the published chart.",
+    "json": "data/threshold-evaluation/freel-peak-species-richness.json",
+    "sourceHref": "https://thresholds.laketahoeinfo.org/ThresholdIndicator/Detail/97",
+    "sourceLabel": "Threshold Dashboard chart (image)",
+    "x": "Year",
+    "y": "Species",
+    "seriesBy": "Summit",
+    "seriesLabel": "Summit",
+    "yLabel": "Species",
+    "zero": false,
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Freel Peak Cushion Plant Community",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/97"
+  }
+ ],
+ "MonitoringProgramID": 53,
+ "MonitoringProgramName": "Freel Peak Cushion Plant Community",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 2,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "U.S. Forest Service - Pacific Southwest Research Station",
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+ ]
+}

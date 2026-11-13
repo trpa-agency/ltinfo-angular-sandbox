@@ -1,0 +1,90 @@
+{
+ "MonitoringProgramDescription": "Relative Abundance - Of the total amount of undisturbed vegetation in the Tahoe Basin: Maintain no more than 25 percent dominant shrub association vegetation.",
+ "MonitoringApproach": "Updated vegetation maps were not available for this evaluation. Instead, the most recent data from 2009 is used. Periodically, the Tahoe vegetation map is updated with new satellite data (if available) and/or modeled and calibrated using field-based forest inventory and analysis data to assess the extent of different vegetation types and associated forest structure characteristics for the Region (USDA, 2009; Warbington et al., 2011). Vegetation types associated with shrubs were queried and enumerated from the most recently available vegetation map (U.S. Forest Service - Remote Sensing Lab Pacific Southwest Region: TMU_Strata_07 [published 2009]). As shown in Table 1 California Wildlife Habitat Relationship types were queried to represent shrub vegetation in this evaluation.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  },
+  {
+   "OrganizationID": 23,
+   "OrganizationName": "U.S. Geological Survey",
+   "OrganizationShortName": "USGS"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Shrub acres",
+    "sub": "Undisturbed and disturbed acres by habitat type (2010), with the maximum of 25 percent of undisturbed vegetation (42,860 acres).",
+    "layer": 91,
+    "where": "TRPA_VegType = 'Shrub'",
+    "x": "Development",
+    "xType": "category",
+    "xLabel": "Condition",
+    "y": "SUM_Acres",
+    "stat": "sum",
+    "seriesBy": "WHRTYPE",
+    "seriesLabel": "Habitat type",
+    "seriesNames": {
+     "ADS": "Alpine dwarf shrub",
+     "MCP": "Montane chaparral",
+     "ASP": "Aspen",
+     "MHC": "Montane hardwood-conifer",
+     "MRI": "Montane riparian",
+     "PGS": "Perennial grassland",
+     "WTM": "Wet meadow",
+     "EPN": "Eastside pine",
+     "JPN": "Jeffrey pine",
+     "LPN": "Lodgepole pine",
+     "SMC": "Sierran mixed conifer",
+     "WFR": "White fir",
+     "RFR": "Red fir",
+     "JUN": "Juniper",
+     "SCN": "Subalpine conifer",
+     "BAR": "Barren",
+     "BBR": "Bitterbrush",
+     "LSG": "Low sage",
+     "SGB": "Sagebrush",
+     "LAC": "Lacustrine"
+    },
+    "yLabel": "Acres",
+    "type": "stacked",
+    "standard": {
+     "value": 42859.5,
+     "label": "Threshold maximum"
+    }
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Relative Abundance of Shrub Vegetation Type",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/78"
+  }
+ ],
+ "MonitoringProgramID": 20,
+ "MonitoringProgramName": "Shrub Abundance",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 3,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+  "U.S. Geological Survey"
+ ]
+}

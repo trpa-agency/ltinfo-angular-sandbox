@@ -1,0 +1,95 @@
+{
+ "MonitoringProgramDescription": null,
+ "MonitoringApproach": "Air samples needed to calculate bext were collected at least every six days at D.L. Bliss State Park. This is an appropriate site for monitoring regional conditions because it is not influenced by urban sources ((L.-W. Antony Chen, Watson, John G., and Wang, Xiaoliang 2011)). Data are collected, analyzed, and reported by the IMPROVE (national Interagency Monitoring of Protected Environments) network using nationally accepted protocols.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 7,
+   "OrganizationName": "California Department of Parks and Recreation",
+   "OrganizationShortName": "CDPR"
+  },
+  {
+   "OrganizationID": 2,
+   "OrganizationName": "Desert Research Institute",
+   "OrganizationShortName": "DRI"
+  },
+  {
+   "OrganizationID": 8,
+   "OrganizationName": "University of California, Davis",
+   "OrganizationShortName": "UC Davis"
+  },
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2009,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/f90a6bf9-bb04-4e9f-baaf-6f1db4b08353",
+   "Caption": "TRPA air quality monitoring station.",
+   "PhotoCredit": "TRPA",
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Regional visibility",
+    "sub": "Three-year mean light extinction at DL Bliss State Park, in inverse megameters. Lower is clearer. Choose average (50th percentile) or worst (90th percentile) days.",
+    "layer": 46,
+    "where": "Pollutant = 'Regional Visibility'",
+    "x": "Year",
+    "y": "Value",
+    "yName": "Light extinction",
+    "yLabel": "Light extinction (Mm-1)",
+    "pick": "Indicator",
+    "pickLabel": "Statistic",
+    "pickDefault": "3-year mean (50th Percentile, Mm-1)",
+    "standard": {
+     "field": "Threshold_Value"
+    },
+    "span": "span-12"
+   }
+  ],
+  "sitesLayer": {
+   "layer": 16,
+   "name": "name",
+   "code": "id",
+   "active": "Active_2023",
+   "where": "id = 'BSP'",
+   "unit": "station"
+  },
+  "sitesPerYear": {
+   "layer": 46,
+   "year": "Year",
+   "site": "Site",
+   "where": "Pollutant = 'Regional Visibility' AND Value IS NOT NULL",
+   "unit": "station"
+  }
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 43,
+ "MonitoringProgramName": "Regional Visibility",
+ "CategoryID": 1,
+ "CategoryName": "Air Quality",
+ "ThemeColor": "#9CC3EA",
+ "IsFeatured": false,
+ "PartnerCount": 5,
+ "Template": "charts",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/f90a6bf9-bb04-4e9f-baaf-6f1db4b08353",
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "California Department of Parks and Recreation",
+  "Desert Research Institute",
+  "University of California, Davis",
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+ ]
+}

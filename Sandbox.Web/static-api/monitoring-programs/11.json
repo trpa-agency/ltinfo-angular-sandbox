@@ -1,0 +1,64 @@
+{
+ "MonitoringProgramDescription": "The vertical extinction coefficient must be less than 0.08 per meter when measured at any depth below the first meter (California and Nevada state standard).",
+ "MonitoringApproach": "VEC is measured at the Lake Tahoe Index Station at least 24 times annually and at least 12 times annually at the mid-lake station. VEC is measured by lowering a submersible photometer down through the water column.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 24,
+   "OrganizationName": "UC Davis Tahoe Environmental Research Center",
+   "OrganizationShortName": "TERC"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Vertical extinction coefficient",
+    "sub": "Annual average light extinction at the Lake Tahoe Index Station, per meter, with one standard deviation above and below. Higher values mean less clear water.",
+    "layer": 89,
+    "x": "Year",
+    "y": [
+     {
+      "field": "Annual_Average",
+      "name": "Annual average"
+     },
+     {
+      "field": "sd_plus1",
+      "name": "Plus one standard deviation"
+     },
+     {
+      "field": "sd_minus1",
+      "name": "Minus one standard deviation"
+     }
+    ],
+    "yLabel": "VEC (1/m)",
+    "standard": {
+     "field": "State_Standard",
+     "label": "State standard"
+    },
+    "zero": false,
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 11,
+ "MonitoringProgramName": "Vertical Extinction Coefficient",
+ "CategoryID": 7,
+ "CategoryName": "Water Quality",
+ "ThemeColor": "#0F3F6F",
+ "IsFeatured": false,
+ "PartnerCount": 2,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "UC Davis Tahoe Environmental Research Center"
+ ]
+}

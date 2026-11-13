@@ -1,0 +1,132 @@
+{
+ "MonitoringProgramDescription": "The monitoring objective is to provide a quantitative and consistent method for evaluating status and trend, especially at sites comprised of large numbers of plants where it is difficult to accurately count individuals. Monitoring in permanent plots allows for more repeatable and efficient surveys. Demographic data, climate patterns, and associated plant community and site data will help interpret status and trend changes.",
+ "MonitoringApproach": "U.S. Forest Service monitoring of Tahoe draba began in 2004 when plants were located and counted at 22 subpopulation sites (Engelhardt and Gross 2013). An additional 3 sites were added in a limited survey in 2005. All sites were re-surveyed in 2009 and 9 new sites were added. In 2013 six sites were revisited and one new site was discovered, and in 2014 14 sites were revisited. All known subpopulations are censused by LTBMU staff every 5 years at a minimum. A comprehensive long-term monitoring program for Tahoe draba was initiated in 2009 when plots were installed at seven subpopulation sites within three LTBMU populations (Engelhardt and Gross 2011a). Monitoring plots were established at three subpopulations within two populations (Relay Peak and Mt. Rose Ski Area) on the Humboldt-Toiyabe National Forest in 2011. Monitoring occurred two years after plot establishment to collect baseline data, and will occur every 3 to 5 years until the species is no longer considered sensitive.",
+ "Partners": [
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Subpopulations over time",
+    "sub": "Known Tahoe draba subpopulations in each survey year, with the threshold minimum, 2023 Threshold Evaluation.",
+    "json": "data/threshold-evaluation/tahoe-draba-subpopulations.json",
+    "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/Vegetation/Chart/Final/Vegetation_TahoeDraba.html",
+    "sourceLabel": "2023 Threshold Evaluation",
+    "x": "Year",
+    "y": "Subpopulations",
+    "yName": "Subpopulations",
+    "yLabel": "Subpopulations",
+    "type": "bar",
+    "standard": {
+     "field": "Threshold"
+    },
+    "span": "span-12"
+   },
+   {
+    "title": "Subpopulation sites by population",
+    "sub": "Mapped Tahoe draba subpopulation sites in each population, with the threshold minimum.",
+    "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+    "layer": 1,
+    "where": "USDA_Code = 'DRASA2'",
+    "x": "EOName",
+    "xType": "category",
+    "xLabel": "Population",
+    "y": "OBJECTID",
+    "stat": "count",
+    "yName": "Subpopulation sites",
+    "yLabel": "Subpopulation sites",
+    "type": "bar"
+   },
+   {
+    "title": "Plants by population",
+    "sub": "Plants counted or estimated at the last survey of each site (USFS, through 2018).",
+    "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+    "layer": 1,
+    "where": "USDA_Code = 'DRASA2'",
+    "x": "EOName",
+    "xType": "category",
+    "xLabel": "Population",
+    "y": "PlantCount",
+    "stat": "sum",
+    "yName": "Plants",
+    "yLabel": "Plants",
+    "type": "bar"
+   }
+  ],
+  "mapLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+   "layer": 1,
+   "where": "USDA_Code = 'DRASA2'",
+   "title": "Tahoe draba subpopulations",
+   "unit": "subpopulation",
+   "unitPlural": "Subpopulations",
+   "name": "SITE_ID_FS",
+   "countAsSites": false,
+   "colorBy": "EOName",
+   "colorByLabel": "Population",
+   "colors": {
+    "Freel Peak": "var(--mon-stevens4-1)",
+    "Heavenly": "var(--mon-stevens4-2)",
+    "Hell Hole": "var(--mon-stevens4-3)",
+    "Relay Peak": "var(--mon-stevens4-4)"
+   },
+   "meta": [
+    {
+     "field": "EOName"
+    },
+    {
+     "field": "PlantCount",
+     "suffix": " plants"
+    }
+   ],
+   "fields": [
+    {
+     "field": "EOName",
+     "label": "Population"
+    },
+    {
+     "field": "PlantCount",
+     "label": "Plants"
+    },
+    {
+     "field": "CountType",
+     "label": "Count type"
+    },
+    {
+     "field": "SurveyLast",
+     "label": "Last survey"
+    },
+    {
+     "field": "Acres",
+     "label": "Acres"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Tahoe Draba (Draba asterophora var. asterophora)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/90"
+  }
+ ],
+ "MonitoringProgramID": 54,
+ "MonitoringProgramName": "Tahoe Draba",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+ ]
+}

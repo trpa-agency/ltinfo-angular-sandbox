@@ -1,0 +1,168 @@
+{
+ "MonitoringProgramDescription": "Over four decades, homes occupied by full-time residents have held at slightly under half of all housing in the Basin, except in 2000, when they rose to 55 percent. Seasonal, recreational, or occasional use accounted for almost half of all housing in 2020.\n\nThe Basin had 49,592 housing units at the 2020 census, of which 21,883 were seasonal homes, up from 12,757 in 1990.",
+ "MonitoringApproach": "Figures come from the U.S. Census Bureau's decennial census and American Community Survey (ACS) 5-year estimates, queried through the Census Bureau's API and summarized for the Tahoe Region by TRPA. Decennial counts are a full count every 10 years; ACS estimates are yearly averages of five years of samples, so they move more smoothly and carry a margin of error.\n\nIn 2020 the census boundaries changed. The Lake Tahoe Region is made up of 31 census tracts and 78 block groups along the California and Nevada border. The Carson City tract straddles the TRPA boundary with most of its people outside it, so it is left out.\n\nThe tables and boundaries are on the TRPA Demographics map service, and the code behind the figures is in TRPA's Demographics repository on GitHub.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Housing units by occupancy",
+    "sub": "Share of housing units occupied by owners or renters, or vacant, at each census.",
+    "json": "data/demographics/housing-occupancy.json",
+    "sourceHref": "https://trpa-agency.github.io/Demographics/Open_Data_Figures/Demographics_Tahoe_HousingUnits.html",
+    "sourceLabel": "Tahoe Open Data demographics",
+    "x": "Year",
+    "xType": "category",
+    "xLabel": "Census",
+    "y": "Percent",
+    "seriesBy": "Occupancy",
+    "seriesLabel": "Occupancy",
+    "seriesOrder": [
+     "Owner Occupied",
+     "Renter Occupied",
+     "Vacant: seasonal or occasional use",
+     "Vacant: other"
+    ],
+    "seriesNames": {
+     "Owner Occupied": "Owner occupied",
+     "Renter Occupied": "Renter occupied",
+     "Vacant: seasonal or occasional use": "Seasonal or occasional use",
+     "Vacant: other": "Vacant, other"
+    },
+    "yLabel": "Percent of housing units",
+    "type": "stacked",
+    "span": "span-12"
+   },
+   {
+    "title": "Housing units and seasonal homes at each census",
+    "sub": "All housing units and those held for seasonal, recreational, or occasional use.",
+    "service": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+    "layer": 18,
+    "where": "Geography = 'Basin' AND Category IN ('Total Housing Units','Vacant Housing Units: Seasonal, recreational, or occasional use') AND Source LIKE 'dec/%' AND Code <> 'H0060003'",
+    "x": "Year",
+    "y": "Value",
+    "seriesBy": "Category",
+    "seriesLabel": "Housing",
+    "seriesNames": {
+     "Total Housing Units": "All housing units",
+     "Vacant Housing Units: Seasonal, recreational, or occasional use": "Seasonal homes"
+    },
+    "yLabel": "Housing units",
+    "type": "bar"
+   },
+   {
+    "title": "Change in seasonal homes by community, 2010 to 2020",
+    "sub": "Change in each community's seasonal, recreational, or occasional-use homes between the 2010 and 2020 censuses.",
+    "service": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+    "layer": 31,
+    "where": "1=1",
+    "x": "NEIGHBORHOOD",
+    "y": "Seasonal_Unit_Percent_Change",
+    "xType": "category",
+    "xLabel": "Community",
+    "yName": "Change",
+    "yLabel": "Change (percent)",
+    "type": "bar",
+    "orientation": "h",
+    "sort": "desc"
+   }
+  ],
+  "mapLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+   "layer": 31,
+   "title": "Change in seasonal homes, 2010 to 2020",
+   "unit": "community",
+   "unitPlural": "Communities",
+   "name": "NEIGHBORHOOD",
+   "countAsSites": false,
+   "colorBy": "Seasonal_Unit_Percent_Change",
+   "colorByLabel": "Seasonal homes change",
+   "breaks": [
+    {
+     "max": -14,
+     "label": "Down 14 to 24 percent",
+     "color": "var(--mon-chlorophyll-2)"
+    },
+    {
+     "max": 0,
+     "label": "Down less than 14 percent",
+     "color": "var(--mon-chlorophyll-3)"
+    },
+    {
+     "max": 2,
+     "label": "Up less than 2 percent",
+     "color": "var(--mon-chlorophyll-4)"
+    },
+    {
+     "max": 7,
+     "label": "Up 2 to 7 percent",
+     "color": "var(--mon-chlorophyll-5)"
+    },
+    {
+     "max": 16,
+     "label": "Up 7 to 16 percent",
+     "color": "var(--mon-chlorophyll-6)"
+    }
+   ],
+   "meta": [
+    {
+     "field": "Seasonal_Unit_Percent_Change",
+     "suffix": " percent"
+    }
+   ],
+   "fields": [
+    {
+     "field": "Neighborhood_Population_2010",
+     "label": "Population, 2010"
+    },
+    {
+     "field": "Neighborhood_Population_2020",
+     "label": "Population, 2020"
+    },
+    {
+     "field": "Population_Percent_Change",
+     "label": "Population change (percent)"
+    },
+    {
+     "field": "Neighborhood_HousingUnits_2020",
+     "label": "Housing units, 2020"
+    },
+    {
+     "field": "Neighborhood_Seasonal_2020",
+     "label": "Seasonal homes, 2020"
+    },
+    {
+     "field": "Seasonal_Unit_Percent_Change",
+     "label": "Seasonal homes change (percent)"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Demographics and Workforce",
+   "Url": "https://climate.laketahoeinfo.org/demographics-and-workforce"
+  }
+ ],
+ "MonitoringProgramID": 9904,
+ "MonitoringProgramName": "Housing",
+ "CategoryID": 16,
+ "CategoryName": "Housing and Economy",
+ "ThemeColor": "#646820",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

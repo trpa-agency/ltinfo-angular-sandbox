@@ -1,0 +1,137 @@
+{
+ "MonitoringProgramDescription": "The Lake Tahoe Region had 55,836 residents at the 2020 census. Population peaked at 62,843 in 2000; over the 30 years from 1990 to 2020 it grew 6 percent, while the five surrounding counties grew 92 percent, Nevada 138 percent, and California 33 percent.\n\nIn 2020, 72 percent of the Region's residents lived in the California portion of the Basin and 28 percent in Nevada, and 64 percent lived in south shore communities. California communities declined 2 percent from 2010 to 2020 and are 12 percent below the 2000 peak, while Nevada communities grew 7 percent.\n\nIncline Village and Crystal Bay grew fastest from 2010 to 2020, up 8 percent. Homewood fell 9 percent and Tahoma 7 percent. The City of South Lake Tahoe declined 2 percent, and Meyers grew 3 percent. The Placer County communities on the north and west shores declined 4 percent from 2010 and are 17 percent below the 2000 peak; only Lake Forest and Dollar Hill grew, up 3 percent.",
+ "MonitoringApproach": "Figures come from the U.S. Census Bureau's decennial census and American Community Survey (ACS) 5-year estimates, queried through the Census Bureau's API and summarized for the Tahoe Region by TRPA. Decennial counts are a full count every 10 years; ACS estimates are yearly averages of five years of samples, so they move more smoothly and carry a margin of error.\n\nIn 2020 the census boundaries changed. The Lake Tahoe Region is made up of 31 census tracts and 78 block groups along the California and Nevada border. The Carson City tract straddles the TRPA boundary with most of its people outside it, so it is left out.\n\nThe tables and boundaries are on the TRPA Demographics map service, and the code behind the figures is in TRPA's Demographics repository on GitHub.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Population at each census",
+    "sub": "Residents of the Lake Tahoe Region counted in each decennial census.",
+    "service": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+    "layer": 18,
+    "where": "Geography = 'Basin' AND Category = 'Total Population' AND Source LIKE '%Decennial%'",
+    "x": "Year",
+    "y": "Value",
+    "yName": "Residents",
+    "yLabel": "Residents",
+    "type": "bar"
+   },
+   {
+    "title": "Population estimates between censuses",
+    "sub": "American Community Survey 5-year estimates of the Region's population.",
+    "service": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+    "layer": 18,
+    "where": "Geography = 'Basin' AND Category = 'Total Population' AND (Source = 'acs/acs5' OR Source LIKE '%ACS%')",
+    "x": "Year",
+    "y": "Value",
+    "yName": "Residents",
+    "yLabel": "Residents",
+    "zero": false
+   },
+   {
+    "title": "Population change by community, 2010 to 2020",
+    "sub": "Change in each community's population between the 2010 and 2020 censuses.",
+    "service": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+    "layer": 31,
+    "where": "1=1",
+    "x": "NEIGHBORHOOD",
+    "y": "Population_Percent_Change",
+    "xType": "category",
+    "xLabel": "Community",
+    "yName": "Change",
+    "yLabel": "Change (percent)",
+    "type": "bar",
+    "orientation": "h",
+    "sort": "desc",
+    "span": "span-12"
+   }
+  ],
+  "mapLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+   "layer": 31,
+   "title": "Population change, 2010 to 2020",
+   "unit": "community",
+   "unitPlural": "Communities",
+   "name": "NEIGHBORHOOD",
+   "countAsSites": false,
+   "colorBy": "Population_Percent_Change",
+   "colorByLabel": "Population change",
+   "breaks": [
+    {
+     "max": -5,
+     "label": "Down 5 to 15 percent",
+     "color": "var(--mon-chlorophyll-2)"
+    },
+    {
+     "max": 0,
+     "label": "Down less than 5 percent",
+     "color": "var(--mon-chlorophyll-3)"
+    },
+    {
+     "max": 5,
+     "label": "Up less than 5 percent",
+     "color": "var(--mon-chlorophyll-5)"
+    },
+    {
+     "max": 15,
+     "label": "Up 5 to 15 percent",
+     "color": "var(--mon-chlorophyll-6)"
+    }
+   ],
+   "meta": [
+    {
+     "field": "Population_Percent_Change",
+     "suffix": " percent"
+    }
+   ],
+   "fields": [
+    {
+     "field": "Neighborhood_Population_2010",
+     "label": "Population, 2010"
+    },
+    {
+     "field": "Neighborhood_Population_2020",
+     "label": "Population, 2020"
+    },
+    {
+     "field": "Population_Percent_Change",
+     "label": "Population change (percent)"
+    },
+    {
+     "field": "Neighborhood_HousingUnits_2020",
+     "label": "Housing units, 2020"
+    },
+    {
+     "field": "Neighborhood_Seasonal_2020",
+     "label": "Seasonal homes, 2020"
+    },
+    {
+     "field": "Seasonal_Unit_Percent_Change",
+     "label": "Seasonal homes change (percent)"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 9901,
+ "MonitoringProgramName": "Population",
+ "CategoryID": 14,
+ "CategoryName": "Demographics",
+ "ThemeColor": "#7c7c7c",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

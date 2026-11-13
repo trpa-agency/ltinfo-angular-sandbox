@@ -1,0 +1,247 @@
+{
+ "MonitoringProgramDescription": "The SEZ Basinwide Monitoring and Assessment Plan provides the methods and protocals to assess the current status and long-term trends of SEZs on a Basin-wide scale. The Plan will also provide a means to evaluate the impacts of ongoing and future management actions, identify regional impairments, and detect long-term trends that can inform sound future SEZ policy.",
+ "MonitoringApproach": "SEZ function is evaluated as a function of up to 10 indicators. Details on each indicator and monitoring methods are available in the plan.\n\nResults from the program are compiled on the Lake Tahoe SEZ Viewer: https://gis.trpa.org/TahoeSEZViewer/",
+ "Partners": [],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2011,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/9fb9df69-e235-409a-b234-6b0e2c47e976",
+   "Caption": "Cold creek",
+   "PhotoCredit": "TRPA",
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "SEZ acres enhanced and restored",
+    "sub": "Stream environment zone (SEZ) acres enhanced or restored each year.",
+    "layer": 76,
+    "x": "Year",
+    "y": [
+     {
+      "field": "Enhanced",
+      "name": "Enhanced"
+     },
+     {
+      "field": "Restored",
+      "name": "Restored"
+     }
+    ],
+    "yLabel": "Acres",
+    "type": "stacked"
+   },
+   {
+    "title": "SEZ assessment units by rating",
+    "sub": "Number of SEZ assessment units in each overall condition rating, by threshold evaluation year.",
+    "layer": 106,
+    "x": "Final_Rating",
+    "xType": "category",
+    "xLabel": "Rating",
+    "y": "OBJECTID",
+    "stat": "count",
+    "yName": "Assessment units",
+    "yLabel": "Assessment units",
+    "type": "bar",
+    "seriesBy": "Threshold_Year",
+    "seriesLabel": "Evaluation year"
+   },
+   {
+    "title": "SEZ acres restored by project year",
+    "sub": "Stream environment zone (SEZ) acres restored by projects, by the year each project was completed.",
+    "layer": 77,
+    "x": "YearCompleted",
+    "y": "AcresRestored",
+    "stat": "sum",
+    "yName": "Acres restored",
+    "yLabel": "Acres",
+    "type": "bar"
+   }
+  ],
+  "sitesPerYear": {
+   "layer": 106,
+   "year": "Threshold_Year",
+   "site": "Assessment_Unit_Name",
+   "unit": "assessment unit"
+  },
+  "mapLayer": {
+   "layer": 106,
+   "title": "SEZ assessment units",
+   "unit": "assessment unit",
+   "unitPlural": "Assessment units",
+   "name": "Assessment_Unit_Name",
+   "colorBy": "Final_Rating",
+   "colorByLabel": "Overall rating",
+   "colors": {
+    "A": "#188c16",
+    "B": "#89bf40",
+    "C": "#e69527",
+    "D": "#be4c4c",
+    "Not Assessed": "#989898"
+   },
+   "labels": {
+    "A": "Rating A",
+    "B": "Rating B",
+    "C": "Rating C",
+    "D": "Rating D"
+   },
+   "pick": "Threshold_Year",
+   "pickLabel": "Evaluation year",
+   "meta": [
+    {
+     "field": "SEZ_Type"
+    },
+    {
+     "field": "Acres",
+     "suffix": " acres"
+    }
+   ],
+   "fields": [
+    {
+     "field": "Final_Rating",
+     "label": "Overall rating"
+    },
+    {
+     "field": "Final_Percent",
+     "label": "Score (%)"
+    },
+    {
+     "field": "SEZ_Type",
+     "label": "SEZ type"
+    },
+    {
+     "field": "Acres",
+     "label": "Acres"
+    },
+    {
+     "field": "Ownership_Primary",
+     "label": "Primary owner"
+    }
+   ]
+  },
+  "siteProfile": {
+   "record": {
+    "join": {
+     "from": "SEZ_ID",
+     "to": "SEZ_ID"
+    },
+    "year": "Threshold_Year",
+    "value": "Final_Percent",
+    "label": "Condition score",
+    "unit": "percent",
+    "changeUnit": "points",
+    "decimals": 1,
+    "noun": [
+     "evaluation",
+     "evaluations"
+    ],
+    "rating": {
+     "field": "Final_Rating",
+     "skip": [
+      "Not Assessed"
+     ]
+    },
+    "latestLabel": "Condition score"
+   },
+   "owner": {
+    "field": "Ownership_Primary"
+   },
+   "facts": [
+    {
+     "label": "Type",
+     "field": "SEZ_Type"
+    },
+    {
+     "label": "Acres",
+     "field": "Acres",
+     "decimals": 1
+    }
+   ],
+   "section": {
+    "type": "indicators",
+    "title": "Indicators",
+    "rows": [
+     {
+      "label": "Aquatic organism passage",
+      "rating": "AquaticOrganismPassage_Rating",
+      "score": "AquaticOrganismPassage_Score"
+     },
+     {
+      "label": "Bank stability",
+      "rating": "Bank_Stability_Rating",
+      "score": "Bank_Stability_Score"
+     },
+     {
+      "label": "Biotic integrity",
+      "rating": "Biotic_Integrity_Rating",
+      "score": "Biotic_Integrity_Score"
+     },
+     {
+      "label": "Conifer encroachment",
+      "rating": "Conifer_Encroachment_Rating",
+      "score": "Conifer_Encroachment_Score"
+     },
+     {
+      "label": "Ditches",
+      "rating": "Ditches_Rating",
+      "score": "Ditches_Score"
+     },
+     {
+      "label": "Habitat fragmentation",
+      "rating": "Habitat_Fragmentation_Rating",
+      "score": "Habitat_Fragmentation_Score"
+     },
+     {
+      "label": "Headcuts",
+      "rating": "Headcuts_Rating",
+      "score": "Headcuts_Score"
+     },
+     {
+      "label": "Incision",
+      "rating": "Incision_Rating",
+      "score": "Incision_Score"
+     },
+     {
+      "label": "Invasive plants",
+      "rating": "Invasive_Rating",
+      "score": "Invasives_Scores"
+     },
+     {
+      "label": "Vegetation vigor",
+      "rating": "VegetationVigor_Rating",
+      "score": "VegetationVigor_Score"
+     }
+    ]
+   },
+   "photos": {
+    "join": {
+     "from": "SEZ_ID",
+     "to": "SEZ_ID"
+    },
+    "where": "CountAttachments > 0",
+    "year": "Threshold_Year",
+    "title": "Photos",
+    "credit": "TRPA SEZ assessment field photos"
+   }
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Watershed Resilience",
+   "Url": "https://climate.laketahoeinfo.org/watershed-resilience"
+  }
+ ],
+ "MonitoringProgramID": 49,
+ "MonitoringProgramName": "SEZ Basin-wide Monitoring and Assessment Plan",
+ "CategoryID": 5,
+ "CategoryName": "Soil Conservation",
+ "ThemeColor": "#9A5710",
+ "IsFeatured": false,
+ "PartnerCount": 0,
+ "Template": "map",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/9fb9df69-e235-409a-b234-6b0e2c47e976",
+ "SiteCount": 641,
+ "PartnerNames": []
+}

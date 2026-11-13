@@ -1,0 +1,91 @@
+{
+ "MonitoringProgramDescription": "The standard ensures that forest management activities comply with all Tahoe Regional Plan policies and ordinances adopted to achieve multiple threshold standards. Forest management activities have the potential for substantial impacts on the environment. However, the forests of the Tahoe Region need active management to maintain forest health and reduce the threat of wildfire. TRPA and other agencies have incorporated appropriate forest management policies into their respective planning documents to ensure their application during the implementation of forestry projects. The vast majority of forest management work in the Tahoe Region is completed using either hand crews or low-impact ground-based equipment; however, helicopters and cable yarding have been used. Low-impact ground-based equipment is typically rubber-tired machines that exert low ground pressure, and therefore cause less ground disturbance and soil compaction than traditional forest management equipment.\n\nForest management activities have the potential for substantial impacts on the environment. However, the forests of Lake Tahoe are in need of active management to maintain forest health and reduce the threat of wildfire. The importance of appropriate low-impact forest management cannot be overstated, and this policy statement was intended to ensure that forest management activities comply with all TRPA Regional Plan policies and ordinances adopted to achieve multiple TRPA threshold standards.\n\nThreshold standard: Increase plant and structural diversity of forest communities through appropriate management practices as measured by diversity indices of species richness, relative abundance, and pattern.",
+ "MonitoringApproach": "Detailed in the analysis section.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2049,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/21a18d64-559c-465e-aca5-981dc16905f1",
+   "Caption": "A picture of a treated stand after the completion of the Montreal project around neighborhoods in South Lake Tahoe. (Photo courtesy of Amy Jirka, The Great Basin Institute)",
+   "PhotoCredit": null,
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Forest fuel treatment acres by zone",
+    "sub": "Acres of forest fuel reduction treatment completed each year, by forest management zone, 2023 Threshold Evaluation.",
+    "json": "data/threshold-evaluation/forest-fuel-treatment.json",
+    "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/Vegetation/Chart/Final/ForestFuelTreatment.html",
+    "sourceLabel": "2023 Threshold Evaluation",
+    "x": "Year",
+    "y": "Acres",
+    "seriesBy": "Zone",
+    "seriesLabel": "Zone",
+    "seriesOrder": [
+     "Defense Zone",
+     "Threat Zone",
+     "General Forest",
+     "Urban Core"
+    ],
+    "seriesColors": {
+     "Defense Zone": "#e69800",
+     "Threat Zone": "#f5ca7a",
+     "General Forest": "#abcd66",
+     "Urban Core": "var(--color-content-disabled)"
+    },
+    "yLabel": "Acres",
+    "type": "stacked",
+    "span": "span-12"
+   },
+   {
+    "title": "Forest fuel treatment acres",
+    "sub": "Acres of initial and maintenance forest fuel reduction treatment completed each year in the Tahoe Basin, through 2020.",
+    "layer": 90,
+    "where": "Year IS NOT NULL",
+    "x": "Year",
+    "y": [
+     {
+      "field": "Initial",
+      "name": "Initial"
+     },
+     {
+      "field": "Maintenance",
+      "name": "Maintenance"
+     }
+    ],
+    "yLabel": "Acres",
+    "type": "stacked",
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Appropriate Management Practices",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/84"
+  }
+ ],
+ "MonitoringProgramID": 9684,
+ "MonitoringProgramName": "Appropriate Forest Management Practices",
+ "CategoryID": 11,
+ "CategoryName": "Forest Structure",
+ "ThemeColor": "#415414",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "context",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/21a18d64-559c-465e-aca5-981dc16905f1",
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

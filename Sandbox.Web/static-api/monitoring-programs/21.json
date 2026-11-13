@@ -1,0 +1,89 @@
+{
+ "MonitoringProgramDescription": "Relative Abundance - Of the total amount of undisturbed vegetation in the Tahoe Basin: Maintain 15-25 percent of the Red Fir Forest in seral stages other than mature.\n\nRelative Abundance - Of the total amount of undisturbed vegetation in the Tahoe Basin: Maintain 15-25 percent of the Yellow Pine Forest in seral stages other than mature.",
+ "MonitoringApproach": "For this evaluation, stands dominated by trees less than 10.9-inches diameter at breast height (dbh) were enumerated from the following California Wildlife Habitat Relationship (CWHR) Types (CWHR, 2011) attributed in the U.S. Forest Service - Remote Sensing Lab Pacific Southwest Region TMU_Strata_07 map layer (published 2009). Every five years, the Tahoe vegetation map is updated with new satellite data (if available) and/or modeled and calibrated using field-based forest inventory and analysis data to assess the extent of different vegetation types and associated forest structure characteristics for the Region (USDA, 2009; Warbington et al., 2011).",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  },
+  {
+   "OrganizationID": 23,
+   "OrganizationName": "U.S. Geological Survey",
+   "OrganizationShortName": "USGS"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Yellow pine and red fir forest by successional stage",
+    "sub": "Acres of yellow pine and red fir forest in each successional stage, from the 2010 EcObject LiDAR vegetation map. Every stage but mature counts toward this indicator.",
+    "layer": 98,
+    "where": "TRPA_VegType IN ('Yellow Pine Forest','Red Fir Forest') AND Top_Succes <> ''",
+    "x": "Top_Succes",
+    "xType": "category",
+    "xLabel": "Successional stage",
+    "y": "Acres",
+    "stat": "sum",
+    "seriesBy": "TRPA_VegType",
+    "seriesLabel": "Forest type",
+    "yLabel": "Acres",
+    "type": "bar",
+    "span": "span-12"
+   },
+   {
+    "title": "Jeffrey pine and red fir dominated stands outside the mature stage",
+    "sub": "Acres where Jeffrey pine or red fir is the dominant tree, by successional stage other than mature (2010).",
+    "layer": 98,
+    "where": "REGIONAL_DOMINANCE_TYPE_1 IN ('JP','RF') AND Top_Succes NOT IN ('Mature','')",
+    "x": "Top_Succes",
+    "xType": "category",
+    "xLabel": "Successional stage",
+    "y": "Acres",
+    "stat": "sum",
+    "seriesBy": "REGIONAL_DOMINANCE_TYPE_1",
+    "seriesLabel": "Dominant tree",
+    "seriesNames": {
+     "JP": "Jeffrey pine",
+     "RF": "Red fir"
+    },
+    "yLabel": "Acres",
+    "type": "stacked"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Relative Abundance of Red Fir Forest In Seral Stages Other Than Mature",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/75"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Relative Abundance of Yellow Pine Forest In Seral Stages Other Than Mature",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/76"
+  }
+ ],
+ "MonitoringProgramID": 21,
+ "MonitoringProgramName": "Yellow Pine and Red Fir Abundance",
+ "CategoryID": 11,
+ "CategoryName": "Forest Structure",
+ "ThemeColor": "#415414",
+ "IsFeatured": false,
+ "PartnerCount": 3,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+  "U.S. Geological Survey"
+ ]
+}

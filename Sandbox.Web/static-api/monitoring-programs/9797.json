@@ -1,0 +1,165 @@
+{
+ "MonitoringProgramDescription": "Fire has long shaped Sierra Nevada forests. Frequent, low-intensity fire every decade or two at Tahoe's lower elevations kept fuels in check and forests open and diverse. A century of fire suppression has let fuels build up and forests become overstocked, raising the risk of large, high-severity fires that burn hotter, are harder to control, and can damage soils, wildlife habitat, communities, and infrastructure.\n\nLikely fire severity is the outcome a fire would most likely have in each part of the forest under hot, dry, windy weather: low, moderate, or high severity. Low-severity fire clears brush and small trees and leaves most large trees alive. High-severity fire kills most trees, and large high-severity patches leave few surviving trees to reseed the forest.\n\nTwo threshold standards read it. The WUI Defense Zone standard calls for at least 90 percent of the Defense Zone, the land right around homes and roads, to have predicted flame lengths of four feet or less, the limit at which firefighters can safely attack a fire directly. The Landscape standard limits modeled high-severity patches of 200 acres or more to less than 5 percent of the forested landscape.\n\nIn the 2021 Caldor Fire, many treated areas burned at low severity, but nearly 5,000 acres burned at high severity in large patches, closely matching what the modeling predicted.",
+ "MonitoringApproach": "Fire severity is modeled across the Basin under 90th percentile fire weather with the Pyrologix Wildfire Exposure Simulation Tool, delivered through the Sierra Nevada Regional Resource Kit. Each 30-meter cell gets its most likely severity, low, moderate, or high, summarized here by forest management zone.\n\nLow severity stands in for flame lengths of four feet or less. Vibrant Planet's Quantitative Wildfire Risk Assessment will replace this run with flame length at the 90th, 95th, and 97th percentile of fire weather, on fuels updated through 2025.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 33,
+   "OrganizationName": "Tahoe Fire and Fuels Team",
+   "OrganizationShortName": "TFFT"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Most likely fire severity by management zone",
+    "sub": "Acres of each forest management zone by most likely fire severity under 90th percentile fire weather.",
+    "service": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
+    "layer": 3,
+    "where": "ManagementZone <> ''",
+    "x": "ManagementZone",
+    "xType": "category",
+    "xLabel": "Management zone",
+    "xOrder": [
+     "WUI Defense Zone",
+     "WUI Threat Zone",
+     "General Forest",
+     "Desolation Wilderness",
+     "Granite Chief Wilderness",
+     "Mt. Rose Wilderness"
+    ],
+    "y": "Acres",
+    "stat": "sum",
+    "seriesBy": "MostLikelyFireSeverity",
+    "seriesLabel": "Severity",
+    "seriesNames": {
+     "Low Severity": "Low",
+     "Moderate Severity": "Moderate",
+     "High Severity": "High"
+    },
+    "seriesOrder": [
+     "Low Severity",
+     "Moderate Severity",
+     "High Severity"
+    ],
+    "seriesColors": {
+     "Low Severity": "#6699cd",
+     "Moderate Severity": "#cdcd66",
+     "High Severity": "#895a44"
+    },
+    "yLabel": "Acres",
+    "type": "stacked",
+    "span": "span-12"
+   },
+   {
+    "title": "WUI Defense Zone by most likely fire severity",
+    "sub": "Acres of the mapped WUI Defense Zone, urban footprint included, by most likely fire severity. Low severity stands in for flame lengths of four feet or less.",
+    "service": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
+    "layer": 3,
+    "where": "ManagementZone = 'WUI Defense Zone'",
+    "x": "MostLikelyFireSeverity",
+    "xType": "category",
+    "xLabel": "Most likely fire severity",
+    "xOrder": [
+     "Low Severity",
+     "Moderate Severity",
+     "High Severity"
+    ],
+    "xNames": {
+     "Low Severity": "Low",
+     "Moderate Severity": "Moderate",
+     "High Severity": "High"
+    },
+    "y": "Acres",
+    "stat": "sum",
+    "yName": "Acres",
+    "yLabel": "Acres",
+    "type": "bar"
+   },
+   {
+    "title": "Most likely high severity fire by management zone",
+    "sub": "Acres where high severity is the most likely outcome, all patch sizes. The Landscape standard counts only patches of 200 acres or more.",
+    "service": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
+    "layer": 3,
+    "where": "MostLikelyFireSeverity = 'High Severity' AND ManagementZone <> ''",
+    "x": "ManagementZone",
+    "xType": "category",
+    "xLabel": "Management zone",
+    "y": "Acres",
+    "stat": "sum",
+    "yName": "High severity acres",
+    "yLabel": "Acres",
+    "type": "bar",
+    "orientation": "h",
+    "sort": "desc"
+   }
+  ],
+  "mapLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/Datadownloader_PlanningandJurisdictions/MapServer",
+   "layer": 26,
+   "title": "Forest management zones",
+   "unit": "zone",
+   "unitPlural": "Zones",
+   "name": "Name",
+   "countAsSites": false,
+   "colorBy": "Name",
+   "colorByLabel": "Zone",
+   "meta": [
+    {
+     "field": "Acres",
+     "suffix": " acres"
+    }
+   ],
+   "fields": [
+    {
+     "field": "Name",
+     "label": "Zone"
+    },
+    {
+     "field": "Acres",
+     "label": "Acres"
+    }
+   ],
+   "colors": {
+    "WUI Defense Zone": "#e69800",
+    "WUI Threat Zone": "#f5ca7a",
+    "General Forest": "#abcd66",
+    "Desolation Wilderness": "#728944",
+    "Mt. Rose Wilderness": "#728944",
+    "Granite Chief Wilderness": "#728944"
+   }
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Landscape Fire Dynamics",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/192"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Wildland Urban Interface Defense Zone Fire Dynamics",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/193"
+  }
+ ],
+ "MonitoringProgramID": 9797,
+ "MonitoringProgramName": "Likely Fire Severity",
+ "CategoryID": 12,
+ "CategoryName": "Fire Dynamics",
+ "ThemeColor": "#9C3E27",
+ "IsFeatured": false,
+ "PartnerCount": 2,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "Tahoe Fire and Fuels Team"
+ ]
+}

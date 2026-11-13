@@ -1,0 +1,102 @@
+{
+ "MonitoringProgramDescription": "TRPA regularly monitors noise along highway corridors in the Lake Tahoe Basin to ensure noise limits are not being exceeded. Because noise from highways is the largest source of background noise in the Basin, noise limits near highways ensures the serenity of the Tahoe Basin is maintained. High noise levels can reduce the public’s enjoyment of the natural environment, impact quality of life for residents, and disturb native wildlife.\n\nRecommended CNEL levels for transportation corridors were developed as part of the 2012 Regional Plan Update. CNEL thresholds will be attained upon implementation of the following policy:\n\nTransmission of Noise from the Transportation Corridors Shall be Reduced. The noise associated with the transportation corridors can be decreased by reducing the number of trips and by installing mitigation measures. Trip reduction will be accomplished by the transit improvements identified in the Transportation Element (of the Regional Plan). Ordinances will establish specific site design criteria for projects to help reduce the transmission of noise from the transportation corridors. The design criteria will also be incorporated into the water quality and transportation improvement programs. The mitigation measures may include setbacks, earth berms, and barriers.\n\nThe data from this monitoring program informs the need for specific design criteria and mitigations measures as written in section 68.8.3 in the TRPA Code of Ordinances.",
+ "MonitoringApproach": "TRPA uses a Community Noise Equivalent Level (CNEL) meaure to assess whether noise levels are being exceeded in highway corridors. The CNEL averages decible (dB) levels over a 24 hour period, with excess noise late at night and early in the morning being weighted greater due to humans and wildlife being more sensitive to noise at these times.The highest 24-hour CNEL measured is used to assess noise levels. TRPA regularly monitors noise along highway corridors at 30 locations around the Tahoe Basin, with monitors located 300 feet from the edge of the highway. Noise monitors are deployed for 1-2 weeks during the peak highway useage period, which is generally July 4th through Labor Day. Each noise monitoring location is re-visited once every four years. Noise monitors are calibrated to industry standards to ensure accuracy.\n\nThe following CNEL noise limits are in place for highways in the Tahoe Basin:\n\nHighway 207 (Kingsbury Grade) = 55 dB (blue)\n\nHighway 431 (Mt Rose Highway) = 55 dB (yellow)\n\nHighway 89 = 55 dB (orange)\n\nHighway 28 = 55 dB (red)\n\nHighway 50 = 65 dB (brown)\n\nTo download all of the highway noise data on this page please see Tahoe Open Data.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2024,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/7b24a320-fbf7-4f31-b357-f9a042545f42",
+   "Caption": "Noise from highways is the largest source of background noise in the Tahoe Basin. Credit: Beatrice Murch",
+   "PhotoCredit": null,
+   "IsKeyPhoto": true
+  },
+  {
+   "MonitoringProgramImageID": 2025,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/9870dd79-175f-4c71-8bea-8bb5c8756d06",
+   "Caption": "A TRPA monitor measuring background noise from highways.",
+   "PhotoCredit": null,
+   "IsKeyPhoto": false
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Highway noise by year",
+    "sub": "Average community noise equivalent level (CNEL) at highway monitoring sites, in decibels.",
+    "layer": 11,
+    "x": "YEAR_OF_COUNT",
+    "y": "CNEL_AVG_VALUE",
+    "stat": "avg",
+    "yLabel": "Average CNEL (dB)",
+    "seriesBy": "HIGHWAY",
+    "seriesLabel": "Highway",
+    "seriesPrefix": "Highway ",
+    "type": "bar",
+    "span": "span-12"
+   }
+  ],
+  "sitesLayer": {
+   "layer": 11,
+   "name": "SITE_NAME",
+   "year": "YEAR_OF_COUNT"
+  },
+  "sitesPerYear": {
+   "layer": 11,
+   "year": "YEAR_OF_COUNT",
+   "site": "SITE_NAME"
+  },
+  "siteProfile": {
+   "record": {
+    "year": "YEAR_OF_COUNT",
+    "value": "CNEL_AVG_VALUE",
+    "label": "Average CNEL",
+    "unit": "dBA",
+    "decimals": 1,
+    "noun": [
+     "year monitored",
+     "years monitored"
+    ],
+    "standard": {
+     "field": "CNEL_LIMIT",
+     "label": "limit"
+    },
+    "zero": false
+   },
+   "facts": [
+    {
+     "label": "Latest maximum",
+     "field": "CNEL_MAX_VALUE",
+     "suffix": " dBA",
+     "decimals": 1
+    },
+    {
+     "label": "From road edge",
+     "field": "DISTANCE_FROM_EDGE",
+     "suffix": " ft"
+    }
+   ],
+   "link": "LTINFO_HYPERLINK"
+  }
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 65,
+ "MonitoringProgramName": "Noise - Highways",
+ "CategoryID": 9,
+ "CategoryName": "Noise",
+ "ThemeColor": "#675EA1",
+ "IsFeatured": true,
+ "PartnerCount": 1,
+ "Template": "map",
+ "ImageCount": 2,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/7b24a320-fbf7-4f31-b357-f9a042545f42",
+ "SiteCount": 34,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

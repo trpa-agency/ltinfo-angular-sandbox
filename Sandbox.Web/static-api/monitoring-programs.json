@@ -1,0 +1,1887 @@
+[
+ {
+  "MonitoringProgramID": 26,
+  "MonitoringProgramName": "Carbon Monoxide (CO)",
+  "CategoryID": 1,
+  "CategoryName": "Air Quality",
+  "ThemeColor": "#9CC3EA",
+  "IsFeatured": false,
+  "PartnerCount": 2,
+  "Template": "charts",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/39be20a0-1bab-4f73-b4a4-7d0ab71cb779",
+  "SiteCount": 6,
+  "PartnerNames": [
+   "Desert Research Institute",
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 73,
+  "MonitoringProgramName": "Nitrogen Dioxide (NO2)",
+  "CategoryID": 1,
+  "CategoryName": "Air Quality",
+  "ThemeColor": "#9CC3EA",
+  "IsFeatured": false,
+  "PartnerCount": 6,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "California Air Resources Board",
+   "Washoe County Air Quality Management Division",
+   "U.S. Environmental Protection Agency",
+   "Desert Research Institute",
+   "Placer County Air Pollution Control District",
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 42,
+  "MonitoringProgramName": "Oxides of Nitrogen (NOX)",
+  "CategoryID": 1,
+  "CategoryName": "Air Quality",
+  "ThemeColor": "#9CC3EA",
+  "IsFeatured": false,
+  "PartnerCount": 6,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 6,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "Placer County Air Pollution Control District",
+   "Desert Research Institute",
+   "U.S. Environmental Protection Agency",
+   "Washoe County Air Quality Management Division",
+   "California Air Resources Board"
+  ]
+ },
+ {
+  "MonitoringProgramID": 41,
+  "MonitoringProgramName": "Ozone (O3)",
+  "CategoryID": 1,
+  "CategoryName": "Air Quality",
+  "ThemeColor": "#9CC3EA",
+  "IsFeatured": false,
+  "PartnerCount": 6,
+  "Template": "charts",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/8994bece-3c0f-4394-a1a8-4b25bfd56899",
+  "SiteCount": 6,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "Desert Research Institute",
+   "U.S. Environmental Protection Agency",
+   "California Air Resources Board",
+   "Washoe County Air Quality Management Division",
+   "Placer County Air Pollution Control District"
+  ]
+ },
+ {
+  "MonitoringProgramID": 45,
+  "MonitoringProgramName": "Particulate Matter 10",
+  "CategoryID": 1,
+  "CategoryName": "Air Quality",
+  "ThemeColor": "#9CC3EA",
+  "IsFeatured": false,
+  "PartnerCount": 4,
+  "Template": "charts",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/b2461e04-8dc6-41b6-a1a8-027e9023dd1e",
+  "SiteCount": 6,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "Desert Research Institute",
+   "U.S. Environmental Protection Agency",
+   "California Air Resources Board"
+  ]
+ },
+ {
+  "MonitoringProgramID": 46,
+  "MonitoringProgramName": "Particulate Matter 2.5",
+  "CategoryID": 1,
+  "CategoryName": "Air Quality",
+  "ThemeColor": "#9CC3EA",
+  "IsFeatured": false,
+  "PartnerCount": 3,
+  "Template": "charts",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/52896ff6-9961-4db0-b00f-192ef6f57d30",
+  "SiteCount": 6,
+  "PartnerNames": [
+   "Placer County Air Pollution Control District",
+   "Desert Research Institute",
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 43,
+  "MonitoringProgramName": "Regional Visibility",
+  "CategoryID": 1,
+  "CategoryName": "Air Quality",
+  "ThemeColor": "#9CC3EA",
+  "IsFeatured": false,
+  "PartnerCount": 5,
+  "Template": "charts",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/f90a6bf9-bb04-4e9f-baaf-6f1db4b08353",
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "California Department of Parks and Recreation",
+   "Desert Research Institute",
+   "University of California, Davis",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+  ]
+ },
+ {
+  "MonitoringProgramID": 44,
+  "MonitoringProgramName": "Sub-Regional Visibility",
+  "CategoryID": 1,
+  "CategoryName": "Air Quality",
+  "ThemeColor": "#9CC3EA",
+  "IsFeatured": false,
+  "PartnerCount": 3,
+  "Template": "charts",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/63333d32-7421-4bfa-aca3-4d8dd7ff428d",
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "Lake Tahoe Community College",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+  ]
+ },
+ {
+  "MonitoringProgramID": 40,
+  "MonitoringProgramName": "Winter Traffic Volume, Presidents' Weekend",
+  "CategoryID": 1,
+  "CategoryName": "Air Quality",
+  "ThemeColor": "#9CC3EA",
+  "IsFeatured": false,
+  "PartnerCount": 2,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "California Department of Transportation"
+  ]
+ },
+ {
+  "MonitoringProgramID": 1,
+  "MonitoringProgramName": "Recreation Threshold Monitoring",
+  "CategoryID": 3,
+  "CategoryName": "Recreation",
+  "ThemeColor": "#F78814",
+  "IsFeatured": false,
+  "PartnerCount": 5,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "City of South Lake Tahoe",
+   "Lake Tahoe Visitors Authority",
+   "North Tahoe Community Alliance",
+   "Tahoe City Public Utility District",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+  ]
+ },
+ {
+  "MonitoringProgramID": 59,
+  "MonitoringProgramName": "Scenic Monitoring",
+  "CategoryID": 4,
+  "CategoryName": "Scenic Resources",
+  "ThemeColor": "#B0A843",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 86,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 48,
+  "MonitoringProgramName": "Land Coverage",
+  "CategoryID": 5,
+  "CategoryName": "Soil Conservation",
+  "ThemeColor": "#9A5710",
+  "IsFeatured": false,
+  "PartnerCount": 7,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Washoe County, NV",
+   "City of South Lake Tahoe",
+   "Placer County, CA",
+   "El Dorado County, CA",
+   "Nevada Tahoe Resource Team – Nevada Division of State Lands",
+   "California Tahoe Conservancy",
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 49,
+  "MonitoringProgramName": "SEZ Basin-wide Monitoring and Assessment Plan",
+  "CategoryID": 5,
+  "CategoryName": "Soil Conservation",
+  "ThemeColor": "#9A5710",
+  "IsFeatured": false,
+  "PartnerCount": 0,
+  "Template": "map",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/9fb9df69-e235-409a-b234-6b0e2c47e976",
+  "SiteCount": 641,
+  "PartnerNames": []
+ },
+ {
+  "MonitoringProgramID": 9779,
+  "MonitoringProgramName": "Fine Sediment Load Reduction",
+  "CategoryID": 7,
+  "CategoryName": "Water Quality",
+  "ThemeColor": "#0F3F6F",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 82,
+  "MonitoringProgramName": "Harmful Algae Bloom (HAB) Monitoring",
+  "CategoryID": 7,
+  "CategoryName": "Water Quality",
+  "ThemeColor": "#0F3F6F",
+  "IsFeatured": true,
+  "PartnerCount": 2,
+  "Template": "context",
+  "ImageCount": 3,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/9cae270c-303a-46e6-aee3-b3eca57dadac",
+  "SiteCount": 0,
+  "PartnerNames": [
+   "California Lahontan Regional Water Quality Control Board",
+   "Nevada Division of Environmental Protection"
+  ]
+ },
+ {
+  "MonitoringProgramID": 15,
+  "MonitoringProgramName": "LTIMP",
+  "CategoryID": 7,
+  "CategoryName": "Water Quality",
+  "ThemeColor": "#0F3F6F",
+  "IsFeatured": false,
+  "PartnerCount": 7,
+  "Template": "map",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/5a7a04a2-2799-4634-a3dc-de9b7deb96d6",
+  "SiteCount": 43,
+  "PartnerNames": [
+   "California Lahontan Regional Water Quality Control Board",
+   "California Tahoe Conservancy",
+   "Nevada Tahoe Resource Team – Nevada Division of State Lands",
+   "Tahoe Regional Planning Agency",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "U.S. Geological Survey",
+   "UC Davis Tahoe Environmental Research Center"
+  ]
+ },
+ {
+  "MonitoringProgramID": 76,
+  "MonitoringProgramName": "Nearshore Human Health, E. coli Monitoring",
+  "CategoryID": 7,
+  "CategoryName": "Water Quality",
+  "ThemeColor": "#0F3F6F",
+  "IsFeatured": true,
+  "PartnerCount": 4,
+  "Template": "context",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/1a57d4b9-7e55-47bb-9a79-b59a67c57276",
+  "SiteCount": 0,
+  "PartnerNames": [
+   "California Lahontan Regional Water Quality Control Board",
+   "Nevada Division of Environmental Protection",
+   "Tahoe Regional Planning Agency",
+   "U.S. Environmental Protection Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 12,
+  "MonitoringProgramName": "Nearshore Turbidity Monitoring",
+  "CategoryID": 7,
+  "CategoryName": "Water Quality",
+  "ThemeColor": "#0F3F6F",
+  "IsFeatured": false,
+  "PartnerCount": 3,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Desert Research Institute",
+   "Nevada Tahoe Resource Team – Nevada Division of State Lands",
+   "UC Davis Tahoe Environmental Research Center"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9778,
+  "MonitoringProgramName": "Nitrogen Load Reduction",
+  "CategoryID": 7,
+  "CategoryName": "Water Quality",
+  "ThemeColor": "#0F3F6F",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 66,
+  "MonitoringProgramName": "Pelagic Water Quality (Clarity)",
+  "CategoryID": 7,
+  "CategoryName": "Water Quality",
+  "ThemeColor": "#0F3F6F",
+  "IsFeatured": true,
+  "PartnerCount": 2,
+  "Template": "charts",
+  "ImageCount": 4,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/c7c72883-9c6d-427f-89aa-f28bd32065a0",
+  "SiteCount": 3,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "UC Davis Tahoe Environmental Research Center"
+  ]
+ },
+ {
+  "MonitoringProgramID": 13,
+  "MonitoringProgramName": "Periphyton",
+  "CategoryID": 7,
+  "CategoryName": "Water Quality",
+  "ThemeColor": "#0F3F6F",
+  "IsFeatured": true,
+  "PartnerCount": 2,
+  "Template": "charts",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/3e8beed2-8cba-4f6c-b894-a0f3cc1442ce",
+  "SiteCount": 54,
+  "PartnerNames": [
+   "California Lahontan Regional Water Quality Control Board",
+   "UC Davis Tahoe Environmental Research Center"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9777,
+  "MonitoringProgramName": "Phosphorus Load Reduction",
+  "CategoryID": 7,
+  "CategoryName": "Water Quality",
+  "ThemeColor": "#0F3F6F",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 10,
+  "MonitoringProgramName": "Phytoplankton Primary Productivity",
+  "CategoryID": 7,
+  "CategoryName": "Water Quality",
+  "ThemeColor": "#0F3F6F",
+  "IsFeatured": false,
+  "PartnerCount": 3,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "California Lahontan Regional Water Quality Control Board",
+   "Tahoe Regional Planning Agency",
+   "UC Davis Tahoe Environmental Research Center"
+  ]
+ },
+ {
+  "MonitoringProgramID": 16,
+  "MonitoringProgramName": "Regional Stormwater Monitoring",
+  "CategoryID": 7,
+  "CategoryName": "Water Quality",
+  "ThemeColor": "#0F3F6F",
+  "IsFeatured": true,
+  "PartnerCount": 11,
+  "Template": "context",
+  "ImageCount": 2,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/9263b12e-455c-49f9-8da6-2e7ca0724aff",
+  "SiteCount": 7,
+  "PartnerNames": [
+   "Tahoe Resource Conservation District",
+   "Nevada Tahoe Conservation District",
+   "City of South Lake Tahoe",
+   "Douglas County, NV",
+   "El Dorado County, CA",
+   "Nevada Department of Transportation",
+   "Placer County, CA",
+   "Washoe County, NV",
+   "California Lahontan Regional Water Quality Control Board",
+   "Nevada Division of Environmental Protection",
+   "California Department of Transportation"
+  ]
+ },
+ {
+  "MonitoringProgramID": 11,
+  "MonitoringProgramName": "Vertical Extinction Coefficient",
+  "CategoryID": 7,
+  "CategoryName": "Water Quality",
+  "ThemeColor": "#0F3F6F",
+  "IsFeatured": false,
+  "PartnerCount": 2,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "UC Davis Tahoe Environmental Research Center"
+  ]
+ },
+ {
+  "MonitoringProgramID": 60,
+  "MonitoringProgramName": "Aircraft Noise",
+  "CategoryID": 9,
+  "CategoryName": "Noise",
+  "ThemeColor": "#675EA1",
+  "IsFeatured": false,
+  "PartnerCount": 2,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "City of South Lake Tahoe"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9,
+  "MonitoringProgramName": "Cumulative Noise Events",
+  "CategoryID": 9,
+  "CategoryName": "Noise",
+  "ThemeColor": "#675EA1",
+  "IsFeatured": false,
+  "PartnerCount": 5,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "California Department of Parks and Recreation",
+   "California Tahoe Conservancy",
+   "Private",
+   "Tahoe Regional Planning Agency",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+  ]
+ },
+ {
+  "MonitoringProgramID": 65,
+  "MonitoringProgramName": "Noise - Highways",
+  "CategoryID": 9,
+  "CategoryName": "Noise",
+  "ThemeColor": "#675EA1",
+  "IsFeatured": true,
+  "PartnerCount": 1,
+  "Template": "map",
+  "ImageCount": 2,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/7b24a320-fbf7-4f31-b357-f9a042545f42",
+  "SiteCount": 34,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 61,
+  "MonitoringProgramName": "Noise - Plan Areas",
+  "CategoryID": 9,
+  "CategoryName": "Noise",
+  "ThemeColor": "#675EA1",
+  "IsFeatured": true,
+  "PartnerCount": 1,
+  "Template": "map",
+  "ImageCount": 3,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/305e57ef-9556-44fd-92f1-4872b4c3f248",
+  "SiteCount": 139,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 62,
+  "MonitoringProgramName": "Noise - Shorezone",
+  "CategoryID": 9,
+  "CategoryName": "Noise",
+  "ThemeColor": "#675EA1",
+  "IsFeatured": true,
+  "PartnerCount": 1,
+  "Template": "map",
+  "ImageCount": 2,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/6de890ca-b1e2-4065-9184-51fa4aa2ad54",
+  "SiteCount": 10,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 8,
+  "MonitoringProgramName": "Watercraft Noise",
+  "CategoryID": 9,
+  "CategoryName": "Noise",
+  "ThemeColor": "#675EA1",
+  "IsFeatured": false,
+  "PartnerCount": 4,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "California Department of Parks and Recreation",
+   "California Tahoe Conservancy",
+   "Nevada Tahoe Resource Team – Nevada Division of State Lands",
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 33,
+  "MonitoringProgramName": "Bicycle and Pedestrian",
+  "CategoryID": 10,
+  "CategoryName": "Transportation and Sustainable Communities",
+  "ThemeColor": "#DB5B00",
+  "IsFeatured": true,
+  "PartnerCount": 8,
+  "Template": "map",
+  "ImageCount": 5,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/f50fe8cf-b9e5-401f-81a3-3075ad528d96",
+  "SiteCount": 56,
+  "PartnerNames": [
+   "Tahoe City Public Utility District",
+   "City of South Lake Tahoe",
+   "Douglas County, NV",
+   "California Department of Transportation",
+   "Nevada Department of Transportation",
+   "Placer County, CA",
+   "El Dorado County, CA",
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 77,
+  "MonitoringProgramName": "Congestion-Travel Time",
+  "CategoryID": 10,
+  "CategoryName": "Transportation and Sustainable Communities",
+  "ThemeColor": "#DB5B00",
+  "IsFeatured": true,
+  "PartnerCount": 0,
+  "Template": "charts",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/7ce5894d-67b7-4802-9d66-e48460bdbe58",
+  "SiteCount": 13,
+  "PartnerNames": []
+ },
+ {
+  "MonitoringProgramID": 34,
+  "MonitoringProgramName": "Safety",
+  "CategoryID": 10,
+  "CategoryName": "Transportation and Sustainable Communities",
+  "ThemeColor": "#DB5B00",
+  "IsFeatured": true,
+  "PartnerCount": 8,
+  "Template": "charts",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/401bad1b-ef7e-4119-96ed-f3bfa8bdb5d4",
+  "SiteCount": 0,
+  "PartnerNames": [
+   "California Department of Transportation",
+   "Nevada Department of Transportation",
+   "City of South Lake Tahoe",
+   "Douglas County, NV",
+   "Placer County, CA",
+   "Washoe County, NV",
+   "Carson City County, NV",
+   "El Dorado County, CA"
+  ]
+ },
+ {
+  "MonitoringProgramID": 64,
+  "MonitoringProgramName": "Traffic Volumes",
+  "CategoryID": 10,
+  "CategoryName": "Transportation and Sustainable Communities",
+  "ThemeColor": "#DB5B00",
+  "IsFeatured": true,
+  "PartnerCount": 2,
+  "Template": "map",
+  "ImageCount": 5,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/7c80f8e6-8957-4ded-8f49-60714497420a",
+  "SiteCount": 80,
+  "PartnerNames": [
+   "Nevada Department of Transportation",
+   "California Department of Transportation"
+  ]
+ },
+ {
+  "MonitoringProgramID": 36,
+  "MonitoringProgramName": "Transit",
+  "CategoryID": 10,
+  "CategoryName": "Transportation and Sustainable Communities",
+  "ThemeColor": "#DB5B00",
+  "IsFeatured": true,
+  "PartnerCount": 3,
+  "Template": "charts",
+  "ImageCount": 4,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/30252531-cb6d-4a55-ac17-b639c70f5759",
+  "SiteCount": 21,
+  "PartnerNames": [
+   "Tahoe Transportation District",
+   "Tahoe Truckee Area Regional Transit",
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 69,
+  "MonitoringProgramName": "Travel Behavior",
+  "CategoryID": 10,
+  "CategoryName": "Transportation and Sustainable Communities",
+  "ThemeColor": "#DB5B00",
+  "IsFeatured": true,
+  "PartnerCount": 0,
+  "Template": "charts",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/1aad1e18-e8f2-4f76-a5b6-f59d529da17d",
+  "SiteCount": 0,
+  "PartnerNames": []
+ },
+ {
+  "MonitoringProgramID": 47,
+  "MonitoringProgramName": "Vehicle Miles Traveled",
+  "CategoryID": 10,
+  "CategoryName": "Transportation and Sustainable Communities",
+  "ThemeColor": "#DB5B00",
+  "IsFeatured": false,
+  "PartnerCount": 3,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "California Department of Transportation",
+   "Nevada Department of Transportation",
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9684,
+  "MonitoringProgramName": "Appropriate Forest Management Practices",
+  "CategoryID": 11,
+  "CategoryName": "Forest Structure",
+  "ThemeColor": "#415414",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "context",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/21a18d64-559c-465e-aca5-981dc16905f1",
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 81,
+  "MonitoringProgramName": "EcObject Forest Monitoring",
+  "CategoryID": 11,
+  "CategoryName": "Forest Structure",
+  "ThemeColor": "#415414",
+  "IsFeatured": false,
+  "PartnerCount": 0,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": []
+ },
+ {
+  "MonitoringProgramID": 9794,
+  "MonitoringProgramName": "Large Trees",
+  "CategoryID": 11,
+  "CategoryName": "Forest Structure",
+  "ThemeColor": "#415414",
+  "IsFeatured": false,
+  "PartnerCount": 2,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "Tahoe Fire and Fuels Team"
+  ]
+ },
+ {
+  "MonitoringProgramID": 58,
+  "MonitoringProgramName": "Late Seral and Old Growth Forest",
+  "CategoryID": 11,
+  "CategoryName": "Forest Structure",
+  "ThemeColor": "#415414",
+  "IsFeatured": false,
+  "PartnerCount": 3,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "U.S. Geological Survey",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9680,
+  "MonitoringProgramName": "Limit Size of New Forest Openings",
+  "CategoryID": 11,
+  "CategoryName": "Forest Structure",
+  "ThemeColor": "#415414",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "map",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/aed018b7-c4da-4ed7-8cdd-f968ecf6340e",
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9790,
+  "MonitoringProgramName": "Seral Stage and Canopy Cover",
+  "CategoryID": 11,
+  "CategoryName": "Forest Structure",
+  "ThemeColor": "#415414",
+  "IsFeatured": false,
+  "PartnerCount": 2,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "Tahoe Fire and Fuels Team"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9681,
+  "MonitoringProgramName": "Stand Composition and Age",
+  "CategoryID": 11,
+  "CategoryName": "Forest Structure",
+  "ThemeColor": "#415414",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "context",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9789,
+  "MonitoringProgramName": "Stand Density",
+  "CategoryID": 11,
+  "CategoryName": "Forest Structure",
+  "ThemeColor": "#415414",
+  "IsFeatured": false,
+  "PartnerCount": 2,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "Tahoe Fire and Fuels Team"
+  ]
+ },
+ {
+  "MonitoringProgramID": 83,
+  "MonitoringProgramName": "Subalpine Conifer",
+  "CategoryID": 11,
+  "CategoryName": "Forest Structure",
+  "ThemeColor": "#415414",
+  "IsFeatured": false,
+  "PartnerCount": 0,
+  "Template": "context",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": []
+ },
+ {
+  "MonitoringProgramID": 9795,
+  "MonitoringProgramName": "Tree Mortality",
+  "CategoryID": 11,
+  "CategoryName": "Forest Structure",
+  "ThemeColor": "#415414",
+  "IsFeatured": false,
+  "PartnerCount": 2,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "USDA Forest Service",
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 21,
+  "MonitoringProgramName": "Yellow Pine and Red Fir Abundance",
+  "CategoryID": 11,
+  "CategoryName": "Forest Structure",
+  "ThemeColor": "#415414",
+  "IsFeatured": false,
+  "PartnerCount": 3,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "U.S. Geological Survey"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9796,
+  "MonitoringProgramName": "Annual Burn Probability",
+  "CategoryID": 12,
+  "CategoryName": "Fire Dynamics",
+  "ThemeColor": "#9C3E27",
+  "IsFeatured": false,
+  "PartnerCount": 3,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "Tahoe Fire and Fuels Team",
+   "Vibrant Planet"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9798,
+  "MonitoringProgramName": "Area Burned",
+  "CategoryID": 12,
+  "CategoryName": "Fire Dynamics",
+  "ThemeColor": "#9C3E27",
+  "IsFeatured": false,
+  "PartnerCount": 3,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "CAL FIRE",
+   "Tahoe Fire and Fuels Team",
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9797,
+  "MonitoringProgramName": "Likely Fire Severity",
+  "CategoryID": 12,
+  "CategoryName": "Fire Dynamics",
+  "ThemeColor": "#9C3E27",
+  "IsFeatured": false,
+  "PartnerCount": 2,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "Tahoe Fire and Fuels Team"
+  ]
+ },
+ {
+  "MonitoringProgramID": 56,
+  "MonitoringProgramName": "Cup Lake Draba",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+  ]
+ },
+ {
+  "MonitoringProgramID": 19,
+  "MonitoringProgramName": "Deciduous Riparian Vegetation",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 3,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "U.S. Geological Survey"
+  ]
+ },
+ {
+  "MonitoringProgramID": 22,
+  "MonitoringProgramName": "Deep Water Plants",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 2,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "University of Nevada, Reno"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9765,
+  "MonitoringProgramName": "Deer Disturbance-Free Zone",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "map",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/d65eeb91-dfd8-4ebe-b6b3-88d07be9d2ae",
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 27,
+  "MonitoringProgramName": "Fish Habitat Mapping",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 4,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "California Department of Fish & Wildlife",
+   "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+   "University of California, Davis",
+   "University of Nevada, Reno"
+  ]
+ },
+ {
+  "MonitoringProgramID": 53,
+  "MonitoringProgramName": "Freel Peak Cushion Plant Community",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 2,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "U.S. Forest Service - Pacific Southwest Research Station",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+  ]
+ },
+ {
+  "MonitoringProgramID": 57,
+  "MonitoringProgramName": "Galena Creek Rockcress",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+  ]
+ },
+ {
+  "MonitoringProgramID": 5,
+  "MonitoringProgramName": "Golden Eagle",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 3,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "California Department of Parks and Recreation",
+   "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+  ]
+ },
+ {
+  "MonitoringProgramID": 52,
+  "MonitoringProgramName": "Grass Lake Sphagnum Fen",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 2,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "California Native Plant Society"
+  ]
+ },
+ {
+  "MonitoringProgramID": 51,
+  "MonitoringProgramName": "Hell Hole Sphagnum Fen",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 2,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "California Native Plant Society",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9621,
+  "MonitoringProgramName": "Instream Flow",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "context",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/7a489461-0be1-43fd-92c6-fd764f628a5f",
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 74,
+  "MonitoringProgramName": "Lahontan Cutthroat Trout Recovery",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 2,
+  "Template": "context",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/826f0ff6-9067-4986-bbcd-88acb5224a79",
+  "SiteCount": 0,
+  "PartnerNames": [
+   "U.S. Fish and Wildlife Service",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+  ]
+ },
+ {
+  "MonitoringProgramID": 55,
+  "MonitoringProgramName": "Long-Petaled Lewisia",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+  ]
+ },
+ {
+  "MonitoringProgramID": 18,
+  "MonitoringProgramName": "Meadow and Wetland Vegetation",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 3,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "U.S. Geological Survey"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9683,
+  "MonitoringProgramName": "Native Vegetation and Land Capability",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "charts",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/87bc2431-f4af-4153-b64f-69c43fe06968",
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 4,
+  "MonitoringProgramName": "Nesting Bald Eagle",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 4,
+  "Template": "charts",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/a12cd824-a57b-45b8-a81b-cca05b501c99",
+  "SiteCount": 0,
+  "PartnerNames": [
+   "California Department of Parks and Recreation",
+   "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+   "Tahoe Regional Planning Agency",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+  ]
+ },
+ {
+  "MonitoringProgramID": 29,
+  "MonitoringProgramName": "Northern Goshawk",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 4,
+  "Template": "charts",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/757a423b-bb56-4350-9df6-c27daf80ca3d",
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+   "California Department of Parks and Recreation",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 50,
+  "MonitoringProgramName": "Osgood Swamp",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 2,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "California Native Plant Society",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+  ]
+ },
+ {
+  "MonitoringProgramID": 2,
+  "MonitoringProgramName": "Osprey",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 4,
+  "Template": "charts",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/71b8127a-2632-4ab7-9d8b-f6c4736b0e83",
+  "SiteCount": 0,
+  "PartnerNames": [
+   "California Department of Parks and Recreation",
+   "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+   "Tahoe Regional Planning Agency",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+  ]
+ },
+ {
+  "MonitoringProgramID": 6,
+  "MonitoringProgramName": "Peregrine Falcon",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 5,
+  "Template": "charts",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/2b6dba08-1809-4352-be97-8643ea0efe10",
+  "SiteCount": 0,
+  "PartnerNames": [
+   "California Tahoe Conservancy",
+   "Tahoe Institute for Natural Science",
+   "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+   "Tahoe Regional Planning Agency",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+  ]
+ },
+ {
+  "MonitoringProgramID": 25,
+  "MonitoringProgramName": "Pope Marsh",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 2,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "California Native Plant Society",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9756,
+  "MonitoringProgramName": "Riparian Habitat",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "context",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 20,
+  "MonitoringProgramName": "Shrub Abundance",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 3,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "U.S. Geological Survey"
+  ]
+ },
+ {
+  "MonitoringProgramID": 63,
+  "MonitoringProgramName": "Stream Bioassessment and Physical Habitat",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": true,
+  "PartnerCount": 4,
+  "Template": "map",
+  "ImageCount": 4,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/5766ebd7-bdde-44ba-84a4-07c540ae366a",
+  "SiteCount": 225,
+  "PartnerNames": [
+   "California Lahontan Regional Water Quality Control Board",
+   "Nevada Division of Environmental Protection",
+   "Tahoe Regional Planning Agency",
+   "California Department of Fish & Wildlife"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9682,
+  "MonitoringProgramName": "Stream Environment Zone Vegetation",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "map",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/2eb27002-629a-4f2b-a465-52c406361fda",
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 32,
+  "MonitoringProgramName": "Stream Habitat Condition",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 6,
+  "Template": "map",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/885f01af-494a-4553-8dc2-283970e212a1",
+  "SiteCount": 0,
+  "PartnerNames": [
+   "California Lahontan Regional Water Quality Control Board",
+   "Nevada Division of Environmental Protection",
+   "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+   "California Department of Fish & Wildlife",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9622,
+  "MonitoringProgramName": "Stream Intakes Diverted to Lake Sources",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 54,
+  "MonitoringProgramName": "Tahoe Draba",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+  ]
+ },
+ {
+  "MonitoringProgramID": 39,
+  "MonitoringProgramName": "Tahoe Yellow Cress Monitoring",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": true,
+  "PartnerCount": 17,
+  "Template": "map",
+  "ImageCount": 4,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/f1f0df92-cbaa-4672-875c-18a114ecc2f4",
+  "SiteCount": 65,
+  "PartnerNames": [
+   "League to Save Lake Tahoe",
+   "Nevada Tahoe Resource Team – Nevada Division of Forestry",
+   "Nevada Tahoe Resource Team – Nevada Division of State Parks",
+   "Nevada Tahoe Resource Team – Nevada Division of State Lands",
+   "California State Lands Commission",
+   "California Department of Fish & Wildlife",
+   "California Tahoe Conservancy",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "California Department of Parks and Recreation",
+   "Tahoe Regional Planning Agency",
+   "U.S. Fish and Wildlife Service",
+   "Nevada Natural Heritage Program",
+   "Tahoe Lakefront Owners Association",
+   "U.S. Bureau of Reclamation",
+   "Nevada Tahoe Conservation District",
+   "Tahoe Resource Conservation District",
+   "Bureau of Land Management - Southern Nevada Public Land Management Act"
+  ]
+ },
+ {
+  "MonitoringProgramID": 24,
+  "MonitoringProgramName": "Taylor Creek Marsh",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+  ]
+ },
+ {
+  "MonitoringProgramID": 23,
+  "MonitoringProgramName": "Upper Truckee Marsh",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 3,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "California Tahoe Conservancy",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "U.S. Geological Survey"
+  ]
+ },
+ {
+  "MonitoringProgramID": 17,
+  "MonitoringProgramName": "Vegetation Type",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 3,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "U.S. Forest Service - Pacific Southwest Research Station"
+  ]
+ },
+ {
+  "MonitoringProgramID": 7,
+  "MonitoringProgramName": "Waterfowl",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 3,
+  "Template": "charts",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/2443e05d-588a-4882-bd70-0491e551d315",
+  "SiteCount": 0,
+  "PartnerNames": [
+   "California Tahoe Conservancy",
+   "Tahoe Regional Planning Agency",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+  ]
+ },
+ {
+  "MonitoringProgramID": 3,
+  "MonitoringProgramName": "Wintering Bald Eagle",
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "ThemeColor": "#4A6118",
+  "IsFeatured": false,
+  "PartnerCount": 5,
+  "Template": "charts",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/4fc15216-360b-4088-8857-f332b5e37171",
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Institute for Natural Science",
+   "Tahoe Regional Planning Agency",
+   "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "California Department of Fish & Wildlife"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9902,
+  "MonitoringProgramName": "Age",
+  "CategoryID": 14,
+  "CategoryName": "Demographics",
+  "ThemeColor": "#7c7c7c",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9901,
+  "MonitoringProgramName": "Population",
+  "CategoryID": 14,
+  "CategoryName": "Demographics",
+  "ThemeColor": "#7c7c7c",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9903,
+  "MonitoringProgramName": "Race and Ethnicity",
+  "CategoryID": 14,
+  "CategoryName": "Demographics",
+  "ThemeColor": "#7c7c7c",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9912,
+  "MonitoringProgramName": "Air Quality and Wildfire Smoke",
+  "CategoryID": 15,
+  "CategoryName": "Climate and Lake Conditions",
+  "ThemeColor": "#2c5f72",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9911,
+  "MonitoringProgramName": "Greenhouse Gas Emissions",
+  "CategoryID": 15,
+  "CategoryName": "Climate and Lake Conditions",
+  "ThemeColor": "#2c5f72",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9913,
+  "MonitoringProgramName": "Lake Level",
+  "CategoryID": 15,
+  "CategoryName": "Climate and Lake Conditions",
+  "ThemeColor": "#2c5f72",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9914,
+  "MonitoringProgramName": "Lake Surface Temperature",
+  "CategoryID": 15,
+  "CategoryName": "Climate and Lake Conditions",
+  "ThemeColor": "#2c5f72",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9915,
+  "MonitoringProgramName": "Precipitation and Snow",
+  "CategoryID": 15,
+  "CategoryName": "Climate and Lake Conditions",
+  "ThemeColor": "#2c5f72",
+  "IsFeatured": false,
+  "PartnerCount": 2,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "UC Berkeley Central Sierra Snow Laboratory"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9916,
+  "MonitoringProgramName": "Renewable Energy",
+  "CategoryID": 15,
+  "CategoryName": "Climate and Lake Conditions",
+  "ThemeColor": "#2c5f72",
+  "IsFeatured": false,
+  "PartnerCount": 3,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "Liberty Utilities",
+   "NV Energy"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9921,
+  "MonitoringProgramName": "Deed-Restricted Housing",
+  "CategoryID": 16,
+  "CategoryName": "Housing and Economy",
+  "ThemeColor": "#646820",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9922,
+  "MonitoringProgramName": "Home Prices and Rents",
+  "CategoryID": 16,
+  "CategoryName": "Housing and Economy",
+  "ThemeColor": "#646820",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9904,
+  "MonitoringProgramName": "Housing",
+  "CategoryID": 16,
+  "CategoryName": "Housing and Economy",
+  "ThemeColor": "#646820",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9905,
+  "MonitoringProgramName": "Income",
+  "CategoryID": 16,
+  "CategoryName": "Housing and Economy",
+  "ThemeColor": "#646820",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9925,
+  "MonitoringProgramName": "Jobs and Wages",
+  "CategoryID": 16,
+  "CategoryName": "Housing and Economy",
+  "ThemeColor": "#646820",
+  "IsFeatured": false,
+  "PartnerCount": 2,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "U.S. Census Bureau"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9924,
+  "MonitoringProgramName": "Transient Occupancy Tax",
+  "CategoryID": 16,
+  "CategoryName": "Housing and Economy",
+  "ThemeColor": "#646820",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 14,
+  "MonitoringProgramName": "Aquatic Invasive Plants",
+  "CategoryID": 17,
+  "CategoryName": "Aquatic Invasive Species",
+  "ThemeColor": "#0d5b73",
+  "IsFeatured": false,
+  "PartnerCount": 16,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 36,
+  "PartnerNames": [
+   "California Department of Fish & Wildlife",
+   "California Department of Parks and Recreation",
+   "California Lahontan Regional Water Quality Control Board",
+   "California State Lands Commission",
+   "California Tahoe Conservancy",
+   "Lake Tahoe Aquatic Invasive Species Coordination Committee",
+   "League to Save Lake Tahoe",
+   "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+   "Nevada Tahoe Resource Team – Nevada Division of State Lands",
+   "Tahoe Regional Planning Agency",
+   "Tahoe Resource Conservation District",
+   "Tahoe Science Constortium",
+   "U.S. Department of Agriculture - Agricultural Research Service",
+   "U.S. Fish and Wildlife Service",
+   "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "University of Nevada, Reno"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9787,
+  "MonitoringProgramName": "Aquatic Invasive Plants in the Tahoe Keys",
+  "CategoryID": 17,
+  "CategoryName": "Aquatic Invasive Species",
+  "ThemeColor": "#0d5b73",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "charts",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/6612c131-dafe-4169-bb46-38d77c15db92",
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 78,
+  "MonitoringProgramName": "Aquatic Plant Survey Zones",
+  "CategoryID": 17,
+  "CategoryName": "Aquatic Invasive Species",
+  "ThemeColor": "#0d5b73",
+  "IsFeatured": false,
+  "PartnerCount": 0,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 200,
+  "PartnerNames": []
+ },
+ {
+  "MonitoringProgramID": 9786,
+  "MonitoringProgramName": "No Active Aquatic Invasive Plant Infestations",
+  "CategoryID": 17,
+  "CategoryName": "Aquatic Invasive Species",
+  "ThemeColor": "#0d5b73",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "charts",
+  "ImageCount": 1,
+  "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/1eafde91-53c5-46b9-850b-84aadb0e5298",
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9034,
+  "MonitoringProgramName": "Submerged Aquatic Vegetation",
+  "CategoryID": 17,
+  "CategoryName": "Aquatic Invasive Species",
+  "ThemeColor": "#0d5b73",
+  "IsFeatured": false,
+  "PartnerCount": 0,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": []
+ },
+ {
+  "MonitoringProgramID": 9093,
+  "MonitoringProgramName": "Watercraft Inspections",
+  "CategoryID": 17,
+  "CategoryName": "Aquatic Invasive Species",
+  "ThemeColor": "#0d5b73",
+  "IsFeatured": false,
+  "PartnerCount": 0,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 7,
+  "PartnerNames": []
+ }
+]

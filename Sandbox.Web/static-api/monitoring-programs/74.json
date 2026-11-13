@@ -1,0 +1,42 @@
+{
+ "MonitoringProgramDescription": "Two populations of Lahontan Cutthroat Trout are actively monitored in the Tahoe Basin. The fluvial population in the Upper Truckee River in the Meiss Meadows area is actively managed and monitored by the USDA Forest Service. The lacustrine population in Fallen Leaf Lake is actively managed and monitored by the US Fish and Wildlife Service.",
+ "MonitoringApproach": "Two populations of Lahontan Cutthroat Trout are actively monitored in the Tahoe Basin. The fluvial population in the Upper Truckee River in the Meiss Meadows area is actively managed and monitored by the USDA Forest Service. The lacustrine population in Fallen Leaf Lake is actively managed and monitored by the US Fish and Wildlife Service.",
+ "Partners": [
+  {
+   "OrganizationID": 42,
+   "OrganizationName": "U.S. Fish and Wildlife Service",
+   "OrganizationShortName": "USFWS"
+  },
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2061,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/826f0ff6-9067-4986-bbcd-88acb5224a79",
+   "Caption": "Lahontan Cutthroat Trout",
+   "PhotoCredit": null,
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": null,
+ "RelatedLinks": [],
+ "MonitoringProgramID": 74,
+ "MonitoringProgramName": "Lahontan Cutthroat Trout Recovery",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 2,
+ "Template": "context",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/826f0ff6-9067-4986-bbcd-88acb5224a79",
+ "SiteCount": 0,
+ "PartnerNames": [
+  "U.S. Fish and Wildlife Service",
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+ ]
+}

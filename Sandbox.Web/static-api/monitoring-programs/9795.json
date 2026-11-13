@@ -1,0 +1,168 @@
+{
+ "MonitoringProgramDescription": "Tree mortality is the forest dying faster than it grows back. Drought weakens trees, and bark beetles and other insects kill the weakened ones, often across whole hillsides. Dense stands, where trees compete for water, are hit hardest.\n\nThe 2023 survey found fir engraver beetles killing California red fir across the Basin's upper slopes, with Jeffrey pine beetle and mountain pine beetle in smaller patches. Dead trees add to the fuel that can carry severe fire, which ties tree mortality to both stand density and fire dynamics.",
+ "MonitoringApproach": "The USDA Forest Service aerial detection survey is flown over California's forests each summer. Surveyors sketch each area of recent damage from the air and record the host tree, the agent that killed it, the share of trees affected, and an estimate of trees killed.\n\nThis page reads the 2023 survey: the damage areas within or touching the TRPA boundary. Areas that cross the boundary are counted whole, so the totals run higher than the Basin alone. Each year's survey added to the service builds the trend.",
+ "Partners": [
+  {
+   "OrganizationID": 34,
+   "OrganizationName": "USDA Forest Service",
+   "OrganizationShortName": null
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Acres with tree mortality by host tree",
+    "sub": "Acres of the 2023 damage areas by the tree species killed.",
+    "service": "https://maps.trpa.org/server/rest/services/Vegetation/FeatureServer",
+    "layer": 2,
+    "where": "WITHIN_TRPA_BNDY = 1",
+    "x": "HOST",
+    "xType": "category",
+    "xLabel": "Host tree",
+    "xNames": {
+     "California red fir - 20": "California red fir",
+     "Jeffrey pine - 116": "Jeffrey pine",
+     "whitebark pine - 101": "Whitebark pine",
+     "lodgepole pine - 108": "Lodgepole pine",
+     "white fir - 15": "White fir"
+    },
+    "y": "ACRES",
+    "stat": "sum",
+    "yName": "Acres",
+    "yLabel": "Acres",
+    "type": "bar",
+    "orientation": "h",
+    "sort": "desc"
+   },
+   {
+    "title": "Trees killed by agent",
+    "sub": "Estimated dead trees in the 2023 damage areas by the insect that killed them.",
+    "service": "https://maps.trpa.org/server/rest/services/Vegetation/FeatureServer",
+    "layer": 2,
+    "where": "WITHIN_TRPA_BNDY = 1",
+    "x": "DCA",
+    "xType": "category",
+    "xLabel": "Agent",
+    "xNames": {
+     "Fir Engraver - 11050": "Fir engraver",
+     "Jeffrey Pine Beetle - 11004": "Jeffrey pine beetle",
+     "Mountain Pine Beetle - 11006": "Mountain pine beetle"
+    },
+    "y": "NUMBER_OF_TREES",
+    "stat": "sum",
+    "yName": "Trees killed",
+    "yLabel": "Trees",
+    "type": "bar",
+    "orientation": "h",
+    "sort": "desc"
+   },
+   {
+    "title": "Acres by share of trees affected",
+    "sub": "Acres of the 2023 damage areas by the share of trees killed in each.",
+    "service": "https://maps.trpa.org/server/rest/services/Vegetation/FeatureServer",
+    "layer": 2,
+    "where": "WITHIN_TRPA_BNDY = 1 AND PCT_AFFECTED IS NOT NULL",
+    "x": "PCT_AFFECTED",
+    "xType": "category",
+    "xLabel": "Trees affected",
+    "xOrder": [
+     "Very Light (1-3%)",
+     "Light (4-10%)",
+     "Moderate (11-29%)",
+     "Severe (30-50%)",
+     "Very Severe (>50%)"
+    ],
+    "xNames": {
+     "Very Light (1-3%)": "Very light, 1 to 3 percent",
+     "Light (4-10%)": "Light, 4 to 10 percent",
+     "Moderate (11-29%)": "Moderate, 11 to 29 percent",
+     "Severe (30-50%)": "Severe, 30 to 50 percent",
+     "Very Severe (>50%)": "Very severe, more than 50 percent"
+    },
+    "y": "ACRES",
+    "stat": "sum",
+    "yName": "Acres",
+    "yLabel": "Acres",
+    "type": "bar",
+    "span": "span-12"
+   }
+  ],
+  "mapLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/Vegetation/FeatureServer",
+   "layer": 2,
+   "where": "WITHIN_TRPA_BNDY = 1",
+   "title": "Tree mortality, 2023 aerial survey",
+   "unit": "damage area",
+   "unitPlural": "Damage areas",
+   "name": "HOST",
+   "countAsSites": false,
+   "list": false,
+   "colorBy": "PCT_AFFECTED",
+   "colorByLabel": "Trees affected",
+   "labels": {
+    "Very Light (1-3%)": "Very light, 1 to 3 percent",
+    "Light (4-10%)": "Light, 4 to 10 percent",
+    "Moderate (11-29%)": "Moderate, 11 to 29 percent",
+    "Severe (30-50%)": "Severe, 30 to 50 percent",
+    "Very Severe (>50%)": "Very severe, more than 50 percent"
+   },
+   "colors": {
+    "Very Light (1-3%)": "var(--mon-turbid-1)",
+    "Light (4-10%)": "var(--mon-turbid-2)",
+    "Moderate (11-29%)": "var(--mon-turbid-4)",
+    "Severe (30-50%)": "var(--mon-turbid-5)",
+    "Very Severe (>50%)": "var(--mon-turbid-7)"
+   },
+   "meta": [
+    {
+     "field": "ACRES",
+     "suffix": " acres"
+    }
+   ],
+   "fields": [
+    {
+     "field": "HOST",
+     "label": "Host tree"
+    },
+    {
+     "field": "DCA",
+     "label": "Agent"
+    },
+    {
+     "field": "PCT_AFFECTED",
+     "label": "Trees affected"
+    },
+    {
+     "field": "NUMBER_OF_TREES",
+     "label": "Trees killed"
+    },
+    {
+     "field": "ACRES",
+     "label": "Acres"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 9795,
+ "MonitoringProgramName": "Tree Mortality",
+ "CategoryID": 11,
+ "CategoryName": "Forest Structure",
+ "ThemeColor": "#415414",
+ "IsFeatured": false,
+ "PartnerCount": 2,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "USDA Forest Service",
+  "Tahoe Regional Planning Agency"
+ ]
+}

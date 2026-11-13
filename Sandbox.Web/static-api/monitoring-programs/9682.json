@@ -1,0 +1,140 @@
+{
+ "MonitoringProgramDescription": "The non-degradation of stream environment zones (SEZs) management standard calls for the preservation of SEZ areas. SEZs serve critical roles in the Tahoe Region including natural water filtration, storage, and conveyance of surface runoff. SEZ encroachment reduces the potential to filter sediment and nutrients, and also reduces the capacity to treat surface runoff. Historic logging, grazing, and direct manipulation of stream channels have impacted the functions of wetlands, streams and surrounding riparian areas. The TRPA Code of Ordinances implements a land capability system that virtually eliminates new disturbance or development in riparian or wetland areas and provides incentives to relocate existing development from SEZs to higher capability land. Projects implemented through the Environmental Improvement Program have expanded the extent of riparian and wetland areas and improved their conditions.\n\nStream environment zones (SEZ) play a variety of critical roles in the Region including natural water filtration, storage, and conveyance of surface runoff (Roby et al., 2015). Development encroaching on these areas reduces their potential to filter sediment and nutrients, and also reduces the amount of surface runoff they can effectively treat. Naturally functioning SEZs also provide open space, flood flow capacity, riparian vegetation, and fish and wildlife habitat, and buffer urban uses in developed areas. SEZ protection and restoration contributes to achievement of other environmental threshold standards, including water quality, wildlife, fisheries, vegetation preservation, recreation, and scenic resources. Even seemingly unrelated threshold standards such as air quality and noise are affected by SEZs. For instance, aspen stands in SEZs next to roadways have been shown to help physically block air particulates from spreading to adjacent areas and moderate roadway noise.\n\nThreshold standard: A non-degradation standard shall apply to native deciduous trees, wetlands, and meadows to preserve plant communities and significant wildlife habitat, while providing for opportunities to increase the acreage of such riparian associations to be consistent with the SEZ threshold.",
+ "MonitoringApproach": "Whether or not the TRPA Goals and Policies continue to support the non-degradation of SEZs.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2054,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/2eb27002-629a-4f2b-a465-52c406361fda",
+   "Caption": null,
+   "PhotoCredit": null,
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Riparian, meadow, and wetland acres by condition",
+    "sub": "Undisturbed and disturbed acres of each community (2010).",
+    "layer": 91,
+    "where": "TRPA_VegType IN ('Deciduous Riparian','Meadow','Wetland')",
+    "x": "TRPA_VegType",
+    "xType": "category",
+    "xLabel": "Community",
+    "y": "SUM_Acres",
+    "stat": "sum",
+    "seriesBy": "Development",
+    "seriesLabel": "Condition",
+    "yLabel": "Acres",
+    "type": "stacked"
+   },
+   {
+    "title": "SEZ acres restored by project year",
+    "sub": "Acres of stream environment zone restored by completed projects, by year.",
+    "layer": 77,
+    "x": "YearCompleted",
+    "y": "AcresRestored",
+    "stat": "sum",
+    "yName": "Acres restored",
+    "yLabel": "Acres",
+    "type": "bar"
+   }
+  ],
+  "mapLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/SEZ_Viewer_Base_Data/MapServer",
+   "layer": 7,
+   "title": "Riparian areas",
+   "unit": "riparian area",
+   "unitPlural": "Riparian areas",
+   "name": "Class_name",
+   "countAsSites": false,
+   "meta": [
+    {
+     "field": "Acres",
+     "suffix": " acres"
+    }
+   ],
+   "fields": [
+    {
+     "field": "Acres",
+     "label": "Acres"
+    }
+   ]
+  },
+  "overlays": [
+   {
+    "service": "https://maps.trpa.org/server/rest/services/DataDownloader_SoilsandHydro/MapServer",
+    "layer": 42,
+    "title": "Aspen stands (USFS)",
+    "name": "Acres",
+    "geometry": "fill",
+    "color": "var(--mon-stevens4-4)",
+    "fields": [
+     {
+      "field": "Acres",
+      "label": "Acres"
+     }
+    ]
+   },
+   {
+    "service": "https://maps.trpa.org/server/rest/services/DataDownloader_SoilsandHydro/MapServer",
+    "layer": 40,
+    "title": "Meadows (UC Davis and USFS)",
+    "name": "ID",
+    "geometry": "fill",
+    "color": "var(--mon-stevens4-2)",
+    "fields": [
+     {
+      "field": "AREA_ACRE",
+      "label": "Acres"
+     }
+    ]
+   },
+   {
+    "service": "https://maps.trpa.org/server/rest/services/DataDownloader_SoilsandHydro/MapServer",
+    "layer": 41,
+    "title": "Fens (USFS)",
+    "name": "LOCATION_N",
+    "geometry": "fill",
+    "color": "var(--mon-stevens4-1)",
+    "fields": [
+     {
+      "field": "PERC_FEN",
+      "label": "Percent fen"
+     },
+     {
+      "field": "DESCRIPTIO",
+      "label": "Description"
+     }
+    ]
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Non-Degradation of Stream Environment Zones",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/82"
+  }
+ ],
+ "MonitoringProgramID": 9682,
+ "MonitoringProgramName": "Stream Environment Zone Vegetation",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "map",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/2eb27002-629a-4f2b-a465-52c406361fda",
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

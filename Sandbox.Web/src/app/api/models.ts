@@ -38,6 +38,8 @@ export interface HealthStatus {
   Status: string;
   Database: string;
   ProgramCount: number;
+  /** Set only in the GitHub Pages snapshot: the date the export script read the API. */
+  SnapshotDate?: string;
 }
 
 /** The four totals on the home page, plus the photo count. */

@@ -1,0 +1,37 @@
+{
+ "MonitoringProgramDescription": "This standard was retired on April 24, 2019. See the Governing Board staff report at https://www.trpa.gov/wp-content/uploads/documents/archive/CC-7-Thresholds-2019_4_24_GB_TPMI.pdf for more information. The content on this page is archived and available for evaluations prior to April 2019, but will not be updated or maintained for future evaluations.\n\nDivert Stream Intakes to Lake Sources is include in the Threshold Dashboard. Threshold Indicators are evaluated against Threshold Standards every 4 years. Thresholds are environmental goals and standards for the Lake Tahoe Basin that indirectly define the capacity of the Region to accommodate additional land development.\n\nThere are 63 tributaries that drain into Lake Tahoe, and one tributary that drains from the basin. The amount of water flowing through a stream is primarily dependent on the size of its watershed and the amount of precipitation within a given year. Streams provide critical habitat to a diversity of native and non-native fish populations and other riverine dependent organisms. Historic logging, grazing and land uses interrupted the hydrologic integrity of many of the streams and tributaries draining into Lake Tahoe, and the results of these legacy activities are evident today. Alteration of stream flow regimes, such as water diversions, can result in adverse impacts to stream habitat diversity, function, and productivity of aquatic ecosystems and organisms. A component of the TRPA Regional Plan is to maintain a healthy functioning fishery through the conservation and restoration of natural flow regimes.\n\nThreshold standard: It shall be a policy of the TRPA Governing Board to seek transfers of existing points of water diversion from streams to Lake Tahoe.",
+ "MonitoringApproach": "Evidence of TRPA support for Management Standard.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "sitesLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/Shoreline_Resources/MapServer",
+   "layer": 4,
+   "name": "SITE_NAME",
+   "code": "SID",
+   "status": "STATUS",
+   "unit": "intake"
+  }
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 9622,
+ "MonitoringProgramName": "Stream Intakes Diverted to Lake Sources",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

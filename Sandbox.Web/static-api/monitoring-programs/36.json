@@ -1,0 +1,144 @@
+{
+ "MonitoringProgramDescription": "TRPA conducts on-going monitoring to inform transportation policy and programs with the goal of providing a successful multi-modal transportation system that appeals to users, supports mobility needs, and decreases dependency on the private automobile. TRPA has been monitoring transportation performance since the early 1970s including traffic counts, travel mode choice, and demographic and air quality trends so that planners can evaluate the Lake Tahoe Region’s transportation system and use best available science to inform policy-making. The 2016 FAST Act requires states and MPOs to develop targets for specific performance measures related to safety, transit, and roadway/bridge conditions. To comply with FAST Act regulations, TRPA has prioritized identifying performance measures and setting targets for transit to help transit agencies improve the efficiency and effectiveness of the level of service they provide in Tahoe.",
+ "MonitoringApproach": "TTD, TRPA, and TART work together in corridor and transit planning. Consistent transit rider surveys and operations data collection help determine the need for additional services and operating hours. Based on reporting requirements, TRPA's Productivity Improvement Program (PIP), and goals outlined in the Regional Transportation Plan, Long Range Transit Master Plan, and each transit agency's Short Range Transit Plans, the Tahoe transit monitoring program is built to track the following: Deadhead Miles and Hours, Ridership, Transit Mode Share, Productivity, On Time Performance, Operating Cost, Farebox Recovery, Rolling Stock, Equipment, Facilities, and Infrastructure. To find out more about these performance measures, take a look at the Tahoe Transit Monitoring Program: Monitoring Protocol.",
+ "Partners": [
+  {
+   "OrganizationID": 31,
+   "OrganizationName": "Tahoe Transportation District",
+   "OrganizationShortName": "TTD"
+  },
+  {
+   "OrganizationID": 32,
+   "OrganizationName": "Tahoe Truckee Area Regional Transit",
+   "OrganizationShortName": "TART"
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2043,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/30252531-cb6d-4a55-ac17-b639c70f5759",
+   "Caption": "Facilitating intermodal travel with bike racks on buses\n\nCredit: Corey Rich",
+   "PhotoCredit": null,
+   "IsKeyPhoto": true
+  },
+  {
+   "MonitoringProgramImageID": 2044,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/959a244b-0814-4c85-925c-146558b8eee0",
+   "Caption": "Transit Way at Stateline Transit Center\n\nCredit: Aurora Photos/Rachid Dahnoun",
+   "PhotoCredit": null,
+   "IsKeyPhoto": false
+  },
+  {
+   "MonitoringProgramImageID": 2045,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/4e5ff83a-dcd0-414c-8995-507a6b5c9d4a",
+   "Caption": "TART Bus at the Tahoe City Transit Center\n\nCredit: Aurora Photos/Rachid Dahnoun",
+   "PhotoCredit": null,
+   "IsKeyPhoto": false
+  },
+  {
+   "MonitoringProgramImageID": 2046,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/7de31fc0-5f5b-40f7-87f6-8b0479ee700c",
+   "Caption": "TART Fleet\n\nCredit: Aurora Photos/Rachid Dahnoun",
+   "PhotoCredit": null,
+   "IsKeyPhoto": false
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Transit routes by provider",
+    "sub": "Routes in the consolidated Tahoe transit route layer, by operator.",
+    "layer": 2,
+    "x": "PROVIDER",
+    "xType": "category",
+    "xLabel": "Provider",
+    "y": "OBJECTID",
+    "stat": "count",
+    "yName": "Routes",
+    "yLabel": "Routes",
+    "seriesBy": "SEASON",
+    "seriesLabel": "Season",
+    "type": "stacked",
+    "span": "span-12"
+   }
+  ],
+  "mapLayer": {
+   "layer": 2,
+   "title": "Transit routes",
+   "unit": "route",
+   "unitPlural": "Routes",
+   "name": "ROUTE_NAME",
+   "geometry": "line",
+   "colorBy": "PROVIDER",
+   "colorByLabel": "Provider",
+   "colors": {
+    "TART": "#3e72b0",
+    "TTD": "#e49937",
+    "SSTMA": "#89bf40"
+   },
+   "meta": [
+    {
+     "field": "PROVIDER"
+    },
+    {
+     "field": "SEASON"
+    }
+   ],
+   "fields": [
+    {
+     "field": "ROUTE_NUMBER",
+     "label": "Route"
+    },
+    {
+     "field": "PROVIDER",
+     "label": "Provider"
+    },
+    {
+     "field": "SEASON",
+     "label": "Season"
+    },
+    {
+     "field": "Frequency",
+     "label": "Frequency"
+    },
+    {
+     "field": "WEBSITE",
+     "label": "Website"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Transportation",
+   "Url": "https://climate.laketahoeinfo.org/transportation"
+  },
+  {
+   "Dashboard": "Transportation Tracker",
+   "Label": "Data Trends",
+   "Url": "https://transportation.laketahoeinfo.org/transportation/data-trends"
+  }
+ ],
+ "MonitoringProgramID": 36,
+ "MonitoringProgramName": "Transit",
+ "CategoryID": 10,
+ "CategoryName": "Transportation and Sustainable Communities",
+ "ThemeColor": "#DB5B00",
+ "IsFeatured": true,
+ "PartnerCount": 3,
+ "Template": "charts",
+ "ImageCount": 4,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/30252531-cb6d-4a55-ac17-b639c70f5759",
+ "SiteCount": 21,
+ "PartnerNames": [
+  "Tahoe Transportation District",
+  "Tahoe Truckee Area Regional Transit",
+  "Tahoe Regional Planning Agency"
+ ]
+}

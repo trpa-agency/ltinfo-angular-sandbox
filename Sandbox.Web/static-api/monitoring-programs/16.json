@@ -1,0 +1,144 @@
+{
+ "MonitoringProgramDescription": "The Tahoe Resource Conservation District (Tahoe RCD) is leading the effort to measure pollutants in urban runoff at Lake Tahoe to help evaluate the combined effectiveness of pollutant control measures and consistently track and report monitoring findings. This effort, known as the Regional Storm Water Monitoring Program (RSWMP) is a collaborative program supported by regulatory agencies, local government representatives, and scientists in the Lake Tahoe region.\n\nThe RSWMP Data Management System (DMS) was created for Tahoe RCD by the Desert Research Institute (DRI) and Geosyntec. The DMS retrieves and analyzes stormwater monitoring data to evaluate effectiveness of regional stormwater management strategies. That monitoring data is automatically retrieved from the DMS and displayed in LT Info. This page can be used to explore and understand the RSWMP monitoring program and select monitoring data.\n\nFunding for RSWMP implementation, DMS development, and display on LT Info was provided by the California State Water Resources Control Board.",
+ "MonitoringApproach": "Monitoring is guided by the RSWMP Framework and Implementation Guidance document. During water year 2014 five catchments were monitored for continuous flow and turbidity and sampled for water quality at eleven monitoring stations: the outfalls of the five selected catchments, and the inflows to and outflows from selected BMPs located in three of those catchments. Three additional catchment outfalls were monitored in water year 2015. The catchments were chosen because of their direct hydrologic connectivity to Lake Tahoe, diversity of urban land uses, range of sizes, and a reasonably equitable distribution among the participating jurisdictions. BMP effectiveness sites were selected because of their potential efficacy in treating storm water runoff characteristic of the Lake Tahoe Basin, and the broad interest in, and lack of conclusive data regarding the efficiency of the selected BMPs in reducing runoff volumes and pollutant loads.",
+ "Partners": [
+  {
+   "OrganizationID": 25,
+   "OrganizationName": "Tahoe Resource Conservation District",
+   "OrganizationShortName": "Tahoe RCD"
+  },
+  {
+   "OrganizationID": 26,
+   "OrganizationName": "Nevada Tahoe Conservation District",
+   "OrganizationShortName": "NTCD"
+  },
+  {
+   "OrganizationID": 12,
+   "OrganizationName": "City of South Lake Tahoe",
+   "OrganizationShortName": "CSLT"
+  },
+  {
+   "OrganizationID": 27,
+   "OrganizationName": "Douglas County, NV",
+   "OrganizationShortName": "DGCO"
+  },
+  {
+   "OrganizationID": 18,
+   "OrganizationName": "El Dorado County, CA",
+   "OrganizationShortName": "ELDO"
+  },
+  {
+   "OrganizationID": 28,
+   "OrganizationName": "Nevada Department of Transportation",
+   "OrganizationShortName": "NDOT"
+  },
+  {
+   "OrganizationID": 17,
+   "OrganizationName": "Placer County, CA",
+   "OrganizationShortName": "PLCO"
+  },
+  {
+   "OrganizationID": 16,
+   "OrganizationName": "Washoe County, NV",
+   "OrganizationShortName": "WACO"
+  },
+  {
+   "OrganizationID": 21,
+   "OrganizationName": "California Lahontan Regional Water Quality Control Board",
+   "OrganizationShortName": "Lahontan"
+  },
+  {
+   "OrganizationID": 22,
+   "OrganizationName": "Nevada Division of Environmental Protection",
+   "OrganizationShortName": "NDEP"
+  },
+  {
+   "OrganizationID": 11,
+   "OrganizationName": "California Department of Transportation",
+   "OrganizationShortName": "Caltrans"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2022,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/9263b12e-455c-49f9-8da6-2e7ca0724aff",
+   "Caption": "Channel reconstruction and armoring occurred at the Lakeshore site in August 2017, with a small basin installed behind the flume. Photo shows high flows during a large rainstorm November 16, 2017.",
+   "PhotoCredit": null,
+   "IsKeyPhoto": true
+  },
+  {
+   "MonitoringProgramImageID": 2023,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/702606e4-f62b-454b-becb-e02730c6866d",
+   "Caption": "Example of data from the RSWMP DMS, as visualized in LT Info",
+   "PhotoCredit": null,
+   "IsKeyPhoto": false
+  }
+ ],
+ "DashboardConfig": null,
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Nitrogen Concentration (Surface Runoff)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/141"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Phosphorus Concentration (Surface Runoff)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/142"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Reduce Fine Sediment Particle Load",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/176"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Reduce Loading of Dissolved Phosphorus",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/180"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Reduce Total Annual Phosphorus Load",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/177"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Suspended Sediment Concentration (Surface Runoff)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/144"
+  },
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Watershed Resilience",
+   "Url": "https://climate.laketahoeinfo.org/watershed-resilience"
+  },
+  {
+   "Dashboard": "Lake Clarity Tracker",
+   "Label": "Results Overview",
+   "Url": "https://clarity.laketahoeinfo.org/results/overview"
+  }
+ ],
+ "MonitoringProgramID": 16,
+ "MonitoringProgramName": "Regional Stormwater Monitoring",
+ "CategoryID": 7,
+ "CategoryName": "Water Quality",
+ "ThemeColor": "#0F3F6F",
+ "IsFeatured": true,
+ "PartnerCount": 11,
+ "Template": "context",
+ "ImageCount": 2,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/9263b12e-455c-49f9-8da6-2e7ca0724aff",
+ "SiteCount": 7,
+ "PartnerNames": [
+  "Tahoe Resource Conservation District",
+  "Nevada Tahoe Conservation District",
+  "City of South Lake Tahoe",
+  "Douglas County, NV",
+  "El Dorado County, CA",
+  "Nevada Department of Transportation",
+  "Placer County, CA",
+  "Washoe County, NV",
+  "California Lahontan Regional Water Quality Control Board",
+  "Nevada Division of Environmental Protection",
+  "California Department of Transportation"
+ ]
+}

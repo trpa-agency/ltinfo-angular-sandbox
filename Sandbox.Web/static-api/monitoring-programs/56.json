@@ -1,0 +1,129 @@
+{
+ "MonitoringProgramDescription": "Currently, a total of 10 subpopulations of Draba asterophora var. macrocarpa are\n\nmonitored by various partners following standardized protocols developed by U.S. Forest Service botanists. The monitoring protocol can be found in Engelhardt and Gross, 2013. A brief description of monitoring efforts is below:\n\nU.S. Forest Service monitoring of Cup Lake draba began in 2004 when plants were located and counted at five subpopulation sites (Engelhardt and Gross 2013). All sites were re-surveyed in 2009 and one new site was added. In 2011 two new sites were discovered. In 2013 one new site was discovered and an existing site (Drasm 1f) was split into two sites (Drasm 1f and 1k) to bring the total number of monitored subpopulations to 10. A census of all known subpopulations is completed at a minimum of every five years by LTBMU staff. A long-term demographic monitoring program for Cup Lake draba was initiated in 2010 when plots were installed at two subpopulation sites within the LTBMU population (Engelhardt and Gross 2013). Monitoring plots were tentatively scheduled to be added at the Cup Lake population on the El Dorado National Forest, but so far this has not occurred. Monitoring occurred two years after plot establishment to collect baseline data, and will occur every three to five years until the species is no longer considered sensitive.\n\nThe monitoring objective is to provide a quantitative and consistent method for evaluating status and trend, especially at sites comprised of large numbers of plants where it is difficult to accurately count individuals. Monitoring in permanent plots allows for more repeatable and efficient surveys. Demographic data, climate patterns, and associated plant community and site data will help interpret status and trend\n\nchanges.",
+ "MonitoringApproach": "Currently, a total of 10 subpopulations of Draba asterophora var. macrocarpa are monitored by various partners following standardized protocols developed by U.S. Forest Service botanists. See Program Description for more detail on monitoring approach.",
+ "Partners": [
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Subpopulations over time",
+    "sub": "Known Cup Lake draba subpopulations in each survey year, with the threshold minimum, 2023 Threshold Evaluation.",
+    "json": "data/threshold-evaluation/cup-lake-draba-subpopulations.json",
+    "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/Vegetation/Chart/Final/Vegetation_CupDraba.html",
+    "sourceLabel": "2023 Threshold Evaluation",
+    "x": "Year",
+    "y": "Subpopulations",
+    "yName": "Subpopulations",
+    "yLabel": "Subpopulations",
+    "type": "bar",
+    "standard": {
+     "field": "Threshold"
+    },
+    "span": "span-12"
+   },
+   {
+    "title": "Subpopulation sites by population",
+    "sub": "Mapped Cup Lake draba subpopulation sites in each population, with the threshold minimum.",
+    "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+    "layer": 1,
+    "where": "USDA_Code = 'DRASM'",
+    "x": "EOName",
+    "xType": "category",
+    "xLabel": "Population",
+    "y": "OBJECTID",
+    "stat": "count",
+    "yName": "Subpopulation sites",
+    "yLabel": "Subpopulation sites",
+    "type": "bar"
+   },
+   {
+    "title": "Plants by population",
+    "sub": "Plants counted or estimated at the last survey of each site (USFS, through 2018).",
+    "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+    "layer": 1,
+    "where": "USDA_Code = 'DRASM'",
+    "x": "EOName",
+    "xType": "category",
+    "xLabel": "Population",
+    "y": "PlantCount",
+    "stat": "sum",
+    "yName": "Plants",
+    "yLabel": "Plants",
+    "type": "bar"
+   }
+  ],
+  "mapLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+   "layer": 1,
+   "where": "USDA_Code = 'DRASM'",
+   "title": "Cup Lake draba subpopulations",
+   "unit": "subpopulation",
+   "unitPlural": "Subpopulations",
+   "name": "SITE_ID_FS",
+   "countAsSites": false,
+   "colorBy": "EOName",
+   "colorByLabel": "Population",
+   "colors": {
+    "Saucer Lake": "var(--mon-stevens4-1)"
+   },
+   "meta": [
+    {
+     "field": "EOName"
+    },
+    {
+     "field": "PlantCount",
+     "suffix": " plants"
+    }
+   ],
+   "fields": [
+    {
+     "field": "EOName",
+     "label": "Population"
+    },
+    {
+     "field": "PlantCount",
+     "label": "Plants"
+    },
+    {
+     "field": "CountType",
+     "label": "Count type"
+    },
+    {
+     "field": "SurveyLast",
+     "label": "Last survey"
+    },
+    {
+     "field": "Acres",
+     "label": "Acres"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Cup Lake Draba (Draba asterophora var. macrocarpa)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/91"
+  }
+ ],
+ "MonitoringProgramID": 56,
+ "MonitoringProgramName": "Cup Lake Draba",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+ ]
+}

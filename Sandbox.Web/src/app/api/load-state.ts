@@ -23,6 +23,12 @@ export function describeError(error: unknown): { title: string; description: str
       description: 'Go back to the list and pick a program.',
     };
   }
+  if (status === 405) {
+    return {
+      title: 'This copy is read-only',
+      description: 'Changes save only in the Docker sandbox, which has the API and database.',
+    };
+  }
   if (status >= 400 && status < 500) {
     return {
       title: `The API refused the request (HTTP ${status})`,

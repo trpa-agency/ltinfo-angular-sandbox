@@ -1,0 +1,172 @@
+{
+ "MonitoringProgramDescription": "TRPA monitors background noise levels in all Plan Areas in the Tahoe Basin to ensure noise levels are not disturbing people and wildlife, and to maintain the unique characteristics of the Basin. Each Plan Area has its own allowable noise level in TRPA's thresholds, with maximum average 24-hour allowable noise levels ranging from 45 decibles (dB) in wilderness areas to 65 dB in industrial areas. High noise levels can reduce the public’s enjoyment of the natural environment, impact quality of life for residents, and disturb native wildlife.\n\nData found in this monitoring dashboard informs evaluation of TRPA thresholds for allowable community noise levels and evaluation of initial environmental checklists as part of the TRPA project review process written in section 68.8.1 in the TRPA Code of Ordinances.",
+ "MonitoringApproach": "TRPA uses a Community Noise Equivalent Level (CNEL) meaure to assess whether noise levels are being exceeded in Plan Areas. The CNEL averages decible levels over a 24 hour period, with excess noise late at night and early in the morning being weighted greater due to humans and wildlife being more sensitive to noise at these times. Noise monitors are generally put out in Plan Areas for 1-2 weeks during peak noise periods (generally summer). The average 24-hour CNEL measured is used to assess noise levels. Construction noise or other unusual noise events are excluded from the data. Noise monitors are calibrated and tested to noise industry standards to ensure proper measurements. TRPA monitors each of the 9 Plan Area types per year.\n\nIn general, the following CNEL noise levels are allowed in different land use categroies:\n\nWilderness and roadless areas = 45 dB\n\nLow density residential areas = 50 dB\n\nRural outdoor recreation areas = 50 dB\n\nHigh density residential areas = 55 dB\n\nUrban outdoor recreation areas = 55 dB\n\nCommercial areas = 60 dB\n\nHotel / motel areas = 60 dB\n\nIndustrial areas = 65 dB\n\nCritical Wildlife Habitat = 45dB",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2026,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/305e57ef-9556-44fd-92f1-4872b4c3f248",
+   "Caption": "TRPA instruments measuring background noise levels in a Plan Area.",
+   "PhotoCredit": null,
+   "IsKeyPhoto": true
+  },
+  {
+   "MonitoringProgramImageID": 2027,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/9e557834-ee1a-4638-8069-aa03b05ed9b3",
+   "Caption": "TRPA noise monitoring equipment.",
+   "PhotoCredit": null,
+   "IsKeyPhoto": false
+  },
+  {
+   "MonitoringProgramImageID": 2028,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/a68ad1c0-2d25-47e2-b5fc-b94d714d17ac",
+   "Caption": "A map showing CNEL noise limits in Plan Areas around the Tahoe Basin.",
+   "PhotoCredit": null,
+   "IsKeyPhoto": false
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Noise by land use",
+    "sub": "Average CNEL of all sites in the land use type, by monitoring period, in decibels. Choose a land use.",
+    "layer": 74,
+    "x": "Year",
+    "xType": "category",
+    "xLabel": "Period",
+    "y": "Value",
+    "yName": "Average CNEL",
+    "yLabel": "Average CNEL (dB)",
+    "pick": "Category",
+    "pickLabel": "Land use",
+    "type": "bar",
+    "standard": {
+     "field": "Threshold_Value"
+    },
+    "span": "span-12"
+   }
+  ],
+  "sitesLayer": {
+   "layer": 6,
+   "name": "SITE_NAME",
+   "year": "YEAR_OF_COUNT"
+  },
+  "sitesPerYear": {
+   "layer": 6,
+   "year": "YEAR_OF_COUNT",
+   "site": "SITE_NAME"
+  },
+  "siteProfile": {
+   "record": {
+    "year": "YEAR_OF_COUNT",
+    "value": "COUNT_VALUE",
+    "label": "Maximum day CNEL",
+    "unit": "dBA",
+    "decimals": 1,
+    "noun": [
+     "year monitored",
+     "years monitored"
+    ],
+    "standard": {
+     "byField": "CNEL_LAND_USE",
+     "values": {
+      "CRITICAL WILDLIFE HABITAT": 45,
+      "WILDERNESS/ROADLESS": 45,
+      "LOW DENSITY RESIDENTIAL": 50,
+      "RURAL OUTDOOR RECREATION": 50,
+      "HIGH DENSITY RESIDENTIAL": 55,
+      "URBAN OUTDOOR RECREATION": 55,
+      "COMMERCIAL": 60,
+      "HOTEL/MOTEL": 60,
+      "INDUSTRIAL": 65
+     },
+     "label": "land use standard"
+    },
+    "zero": false
+   },
+   "badge": {
+    "field": "CNEL_LAND_USE",
+    "labels": {
+     "CRITICAL WILDLIFE HABITAT": "Critical wildlife habitat",
+     "WILDERNESS/ROADLESS": "Wilderness and roadless",
+     "LOW DENSITY RESIDENTIAL": "Low density residential",
+     "RURAL OUTDOOR RECREATION": "Rural outdoor recreation",
+     "HIGH DENSITY RESIDENTIAL": "High density residential",
+     "URBAN OUTDOOR RECREATION": "Urban outdoor recreation",
+     "COMMERCIAL": "Commercial",
+     "HOTEL/MOTEL": "Hotel and motel",
+     "INDUSTRIAL": "Industrial"
+    }
+   },
+   "facts": [
+    {
+     "label": "Plan area",
+     "field": "PAS_1987"
+    }
+   ],
+   "link": "LTINFO"
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Commercial Areas",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/35"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "High Density Residential Areas",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/32"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Hotel/Motel Areas",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/34"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Industrial Areas",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/36"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Low Density Residential Areas",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/30"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Rural Outdoor Recreation Areas",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/31"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Urban Outdoor Recreation Areas",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/33"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Wilderness And Roadless Areas",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/28"
+  }
+ ],
+ "MonitoringProgramID": 61,
+ "MonitoringProgramName": "Noise - Plan Areas",
+ "CategoryID": 9,
+ "CategoryName": "Noise",
+ "ThemeColor": "#675EA1",
+ "IsFeatured": true,
+ "PartnerCount": 1,
+ "Template": "map",
+ "ImageCount": 3,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/305e57ef-9556-44fd-92f1-4872b4c3f248",
+ "SiteCount": 139,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

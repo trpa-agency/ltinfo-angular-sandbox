@@ -1,0 +1,137 @@
+{
+ "MonitoringProgramDescription": "The California emission inventory contains information on the following air pollution sources:\n\nStationary sources - approximately 13,000 individual facilities defined as point sources. Point sources are fixed pollution sources such as electric power plants and refineries.\n\nArea-wide sources - approximately 80 source categories. An area-wide source category is made up of sources of pollution mainly linked to human activity. Examples of these sources include consumer products and architectural coatings used in a region\n\nMobile sources - all on-road vehicles such as automobiles and trucks; off-road vehicles such as trains, ships, aircraft; and farm equipment\n\nThe principal agencies contributing data to the stationary and area-wide source inventory are the CARB and the California air pollution control and air quality management districts. The CARB, the California Department of Transportation (Caltrans), and regional transportation agencies are the principal agencies involved in developing the mobile source inventory. Information represented in the California\n\nemission inventory is a snap-shot of a variety of dynamic and variable processes. As such, the emission inventory can only represent an estimate of what is actually occurring. In summer 2011, a new NOx monitoring station was installed at the TRPA offices in Stateline, Nevada. Data from 2013 and 2014 for this site are now available.",
+ "MonitoringApproach": "CARB compiles data to create the criteria pollutant emission inventory, which\n\nincludes information on the emissions of reactive organic gases (ROG), oxides of nitrogen (NOx), oxides of sulfur (SOx), carbon monoxide (CO), and particulate matter (PM10). Data are gathered continuously and stored in the California Emission Inventory Development and Reporting System (CEIDARS). A summary of the criteria pollutant inventory is published annually.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 6,
+   "OrganizationName": "Placer County Air Pollution Control District",
+   "OrganizationShortName": "PCAPCD"
+  },
+  {
+   "OrganizationID": 2,
+   "OrganizationName": "Desert Research Institute",
+   "OrganizationShortName": "DRI"
+  },
+  {
+   "OrganizationID": 3,
+   "OrganizationName": "U.S. Environmental Protection Agency",
+   "OrganizationShortName": "USEPA"
+  },
+  {
+   "OrganizationID": 5,
+   "OrganizationName": "Washoe County Air Quality Management Division",
+   "OrganizationShortName": "WCAQ"
+  },
+  {
+   "OrganizationID": 4,
+   "OrganizationName": "California Air Resources Board",
+   "OrganizationShortName": "CARB"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Nitrogen dioxide by station",
+    "sub": "Yearly nitrogen dioxide (NO2) statistic at each monitoring station, in parts per billion. NO2 is the oxide of nitrogen the stations measure. Choose a statistic.",
+    "layer": 46,
+    "where": "Pollutant = 'NO2'",
+    "x": "Year",
+    "y": "Value",
+    "yLabel": "NO2 (ppb)",
+    "seriesBy": "Site",
+    "seriesLabel": "Station",
+    "pick": "Indicator",
+    "pickLabel": "Statistic",
+    "pickDefault": "NO2 - ANNUAL AVG.",
+    "standard": {
+     "field": "Threshold_Value"
+    },
+    "span": "span-12"
+   },
+   {
+    "title": "Daily nitrogen dioxide by station",
+    "sub": "Daily nitrogen dioxide (NO2) values at each station from the daily monitoring record, in the units named in each statistic. Choose a statistic.",
+    "layer": 17,
+    "where": "variable LIKE 'NO2%' OR variable LIKE 'N02%'",
+    "x": "date",
+    "xType": "date",
+    "xLabel": "Date",
+    "y": "value",
+    "yName": "NO2",
+    "yLabel": "NO2",
+    "seriesBy": "id",
+    "seriesLabel": "Station",
+    "seriesNames": {
+     "STL": "Stateline",
+     "TC": "Tahoe City",
+     "IV": "Incline Village",
+     "SLT": "South Lake Tahoe",
+     "BSP": "DL Bliss State Park",
+     "LTC": "Lake Tahoe Community College"
+    },
+    "pick": "variable",
+    "pickLabel": "Statistic",
+    "span": "span-12"
+   },
+   {
+    "title": "Nitrogen oxide emissions",
+    "sub": "Basin-wide oxides of nitrogen (NOx) emissions estimate each year, with the threshold. The service does not state units.",
+    "layer": 72,
+    "x": "Year",
+    "y": "Value",
+    "yName": "NOx emissions",
+    "yLabel": "NOx emissions",
+    "standard": {
+     "field": "Threshold"
+    },
+    "span": "span-12"
+   }
+  ],
+  "sitesLayer": {
+   "layer": 16,
+   "name": "name",
+   "code": "id",
+   "active": "Active_2023",
+   "unit": "station"
+  },
+  "sitesPerYear": {
+   "layer": 46,
+   "year": "Year",
+   "site": "Site",
+   "where": "Pollutant = 'NO2'",
+   "unit": "station"
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Oxides Of Nitrogen Emissions",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/9"
+  }
+ ],
+ "MonitoringProgramID": 42,
+ "MonitoringProgramName": "Oxides of Nitrogen (NOX)",
+ "CategoryID": 1,
+ "CategoryName": "Air Quality",
+ "ThemeColor": "#9CC3EA",
+ "IsFeatured": false,
+ "PartnerCount": 6,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 6,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "Placer County Air Pollution Control District",
+  "Desert Research Institute",
+  "U.S. Environmental Protection Agency",
+  "Washoe County Air Quality Management Division",
+  "California Air Resources Board"
+ ]
+}

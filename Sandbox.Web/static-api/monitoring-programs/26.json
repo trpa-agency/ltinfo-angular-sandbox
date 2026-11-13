@@ -1,0 +1,108 @@
+{
+ "MonitoringProgramDescription": null,
+ "MonitoringApproach": "Between 1983 and 1998, CO was monitored at the Horizon Hotel in Stateline, Nevada. In 1999, the monitoring site was relocated to Harvey’s Resort parking garage in Stateline, Nevada. The site is located to monitor the highest CO concentrations in the Lake Tahoe Basin because historically this area received the highest traffic volume, and is intended to be representative of both the California and Nevada sides of the South Shore Resort District. NDEP successfully petitioned the EPA to remove this monitoring site on June 30, 2012 because of the continued compliance with established CO concentration standards. CARB provided TRPA with a CO monitor which was installed on the roof of the TRPA building in Stateline, NV in 2013.",
+ "Partners": [
+  {
+   "OrganizationID": 2,
+   "OrganizationName": "Desert Research Institute",
+   "OrganizationShortName": "DRI"
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2006,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/39be20a0-1bab-4f73-b4a4-7d0ab71cb779",
+   "Caption": "TRPA air quality monitoring station.",
+   "PhotoCredit": "TRPA",
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Carbon monoxide by station",
+    "sub": "Yearly carbon monoxide (CO) statistic at each monitoring station, in parts per million. Choose a statistic.",
+    "layer": 46,
+    "where": "Pollutant = 'CO'",
+    "x": "Year",
+    "y": "Value",
+    "yLabel": "CO (ppm)",
+    "seriesBy": "Site",
+    "seriesLabel": "Station",
+    "pick": "Indicator",
+    "pickLabel": "Statistic",
+    "pickDefault": "CO - HIGH 8 HR",
+    "standard": {
+     "field": "Threshold_Value"
+    },
+    "span": "span-12"
+   },
+   {
+    "title": "Daily carbon monoxide by station",
+    "sub": "Daily carbon monoxide (CO) values at each station from the daily monitoring record, in the units named in each statistic. Choose a statistic.",
+    "layer": 17,
+    "where": "variable LIKE 'CO%'",
+    "x": "date",
+    "xType": "date",
+    "xLabel": "Date",
+    "y": "value",
+    "yName": "CO",
+    "yLabel": "CO",
+    "seriesBy": "id",
+    "seriesLabel": "Station",
+    "seriesNames": {
+     "STL": "Stateline",
+     "TC": "Tahoe City",
+     "IV": "Incline Village",
+     "SLT": "South Lake Tahoe",
+     "BSP": "DL Bliss State Park",
+     "LTC": "Lake Tahoe Community College"
+    },
+    "pick": "variable",
+    "pickLabel": "Statistic",
+    "span": "span-12"
+   }
+  ],
+  "sitesLayer": {
+   "layer": 16,
+   "name": "name",
+   "code": "id",
+   "active": "Active_2023",
+   "unit": "station"
+  },
+  "sitesPerYear": {
+   "layer": 46,
+   "year": "Year",
+   "site": "Site",
+   "where": "Pollutant = 'CO'",
+   "unit": "station"
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Highest 8-Hour Average Concentration of Carbon Monoxide",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/1"
+  }
+ ],
+ "MonitoringProgramID": 26,
+ "MonitoringProgramName": "Carbon Monoxide (CO)",
+ "CategoryID": 1,
+ "CategoryName": "Air Quality",
+ "ThemeColor": "#9CC3EA",
+ "IsFeatured": false,
+ "PartnerCount": 2,
+ "Template": "charts",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/39be20a0-1bab-4f73-b4a4-7d0ab71cb779",
+ "SiteCount": 6,
+ "PartnerNames": [
+  "Desert Research Institute",
+  "Tahoe Regional Planning Agency"
+ ]
+}

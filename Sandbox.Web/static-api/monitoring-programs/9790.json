@@ -1,0 +1,72 @@
+{
+ "MonitoringProgramDescription": "Seral stage is the developmental phase of a forest, from young regeneration to mature stands of large trees. Canopy cover is the share of the forest floor shaded by tree crowns, from open to closed. Together they shape how a forest grows and changes, and the wildlife and ecosystems it can support.\n\nMore than a century ago, natural fire kept a mosaic of early, mid, and late seral stands across the Tahoe Basin, with a balance of open and closed canopies. Clear-cutting in the Comstock era, followed by more than 100 years of fire suppression and past management, left many stands dense, uniform, and heavy with fuel. Dense, middle-aged forest is overrepresented today.\n\nThe Seral Stage and Canopy Cover threshold standard calls for at least 75 percent of forested acres to fall within desired ranges for seral stage and canopy cover. The ranges are set for each of three forest types, Jeffrey pine, Sierra mixed conifer, and red fir, and reflect conditions that support resilience, habitat diversity, and fire-adapted forest structure.\n\nMeeting the ranges takes both active management, such as thinning and beneficial fire to open up canopies, and protection that lets existing stands mature into late seral forest.",
+ "MonitoringApproach": "Seral stage and canopy cover are mapped across the conifer forest from the Sierra Nevada Regional Resource Kit, 30-meter remote sensing products, in the 2023 assessment as published to the TRPA Vegetation service. Seral stage follows quadratic mean diameter: early under 5 inches, mid 5 to 25 inches, and late over 25 inches. Closed canopy is 40 percent cover or more in Jeffrey pine, and 50 percent or more in Sierra mixed conifer and red fir.\n\nEach forest type's acres are compared with its desired share in five classes: early seral, mid seral open, mid seral closed, late seral open, and late seral closed.\n\nJeffrey pine: early 5 to 15 percent, mid open 25 to 30 percent, mid closed 5 to 10 percent, late open 40 to 50 percent, and late closed 5 to 10 percent.\n\nSierra mixed conifer: early 10 to 20 percent, mid open 15 to 20 percent, mid closed 5 to 15 percent, late open 25 to 35 percent, and late closed 15 to 25 percent.\n\nRed fir: early 10 to 20 percent, mid open 15 to 25 percent, mid closed 15 to 25 percent, late open 30 to 40 percent, and late closed 20 to 30 percent.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 33,
+   "OrganizationName": "Tahoe Fire and Fuels Team",
+   "OrganizationShortName": "TFFT"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Conifer forest acres by seral stage and canopy cover",
+    "sub": "Acres of conifer forest in each seral stage and canopy class, 2023 assessment.",
+    "service": "https://maps.trpa.org/server/rest/services/Vegetation/FeatureServer",
+    "layer": 3,
+    "x": "Composition",
+    "xType": "category",
+    "xLabel": "Seral stage and canopy",
+    "xOrder": [
+     "Early Seral",
+     "Mid Seral Open Canopy",
+     "Mid Seral Closed Canopy",
+     "Late Seral Open Canopy",
+     "Late Seral Closed Canopy"
+    ],
+    "xNames": {
+     "Early Seral": "Early",
+     "Mid Seral Open Canopy": "Mid, open canopy",
+     "Mid Seral Closed Canopy": "Mid, closed canopy",
+     "Late Seral Open Canopy": "Late, open canopy",
+     "Late Seral Closed Canopy": "Late, closed canopy"
+    },
+    "y": "Acres",
+    "stat": "sum",
+    "yName": "Acres",
+    "yLabel": "Acres",
+    "type": "bar",
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Seral Stage & Canopy Cover",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/190"
+  }
+ ],
+ "MonitoringProgramID": 9790,
+ "MonitoringProgramName": "Seral Stage and Canopy Cover",
+ "CategoryID": 11,
+ "CategoryName": "Forest Structure",
+ "ThemeColor": "#415414",
+ "IsFeatured": false,
+ "PartnerCount": 2,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "Tahoe Fire and Fuels Team"
+ ]
+}

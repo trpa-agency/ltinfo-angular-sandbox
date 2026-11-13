@@ -1,0 +1,91 @@
+{
+ "MonitoringProgramDescription": "The Aquatic Plant Monitoring Program (APMP) is intended to gather, analyze, and report information relative to aquatic plant populations in Lake Tahoe, with an emphasis on collecting data that can be used to guide control efforts for aquatic invasive plant",
+ "MonitoringApproach": "Two levels of aquatic plant survey effort (spatial design) are applied to the APMP and each is performed on a different temporal scale. Once every five years a nearshore-wide aquatic plant survey is conducted via interpretation and mapping of remotely sensed data in combination with in situ diver sampling. Annually, only an in situ diver survey (or a reasonable surrogate) is performed following targeted and a stratified systematic sampling of transect lines with incorporated quadrats. The nearshore-wide aquatic plant survey (i.e., the combination of remote sensing imagery analysis with diver surveys) attempts to provide for a “baseline” status quantification of all aquatic plant beds around Lake Tahoe’s nearshore zone. The transect surveys allows for training and validation of remotely sensed data, and annual surveillance to establish trend information and the detection of new infestations of aquatic invasive plants. The sampling frame (i.e., survey area) and habitat stratification scheme used for line-transect surveys conducted in intervening years will be the same as that used for the nearshore-wide survey. Four habitat strata are used to divide the aquatic plant population into meaningful sampling units, including open-water nearshore, marshes, major tributaries, and marinas and embayments.",
+ "Partners": [],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Survey zone acres by stratum",
+    "sub": "Acres of aquatic vegetation survey zones in each stratum.",
+    "layer": 42,
+    "x": "Strata",
+    "xType": "category",
+    "xLabel": "Stratum",
+    "y": "Acres",
+    "stat": "sum",
+    "yName": "Acres",
+    "yLabel": "Acres",
+    "type": "bar"
+   },
+   {
+    "title": "Survey zones by stratum",
+    "sub": "Number of aquatic vegetation survey zones in each stratum.",
+    "layer": 42,
+    "x": "Strata",
+    "xType": "category",
+    "xLabel": "Stratum",
+    "y": "OBJECTID",
+    "stat": "count",
+    "yName": "Survey zones",
+    "yLabel": "Survey zones",
+    "type": "bar"
+   }
+  ],
+  "mapLayer": {
+   "layer": 42,
+   "title": "Aquatic vegetation survey zones",
+   "unit": "survey zone",
+   "unitPlural": "Survey zones",
+   "name": "Location_1",
+   "colorBy": "Strata",
+   "colorByLabel": "Stratum",
+   "colors": {
+    "Marina/Embayment": "#3e72b0",
+    "Nearshore Open Water": "#5a9cb0",
+    "Marsh": "#89bf40",
+    "Mrash": "#89bf40",
+    "Stream": "#e49937"
+   },
+   "labels": {
+    "Mrash": "Marsh (recorded as Mrash)"
+   },
+   "meta": [
+    {
+     "field": "Strata"
+    },
+    {
+     "field": "Acres",
+     "suffix": " acres"
+    }
+   ],
+   "fields": [
+    {
+     "field": "Strata",
+     "label": "Stratum"
+    },
+    {
+     "field": "Acres",
+     "label": "Acres"
+    },
+    {
+     "field": "Orient",
+     "label": "Orientation"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 78,
+ "MonitoringProgramName": "Aquatic Plant Survey Zones",
+ "CategoryID": 17,
+ "CategoryName": "Aquatic Invasive Species",
+ "ThemeColor": "#0d5b73",
+ "IsFeatured": false,
+ "PartnerCount": 0,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 200,
+ "PartnerNames": []
+}

@@ -1,0 +1,131 @@
+{
+ "MonitoringProgramDescription": "The indicator discourages the creation of large forest openings, such as clear cuts, while allowing for forest openings of up to eight acres to meet management goals such as regeneration of shade intolerant species (e.g., Jeffrey and sugar pine). Regulatory protections in the Code of Ordinances prescribe forestry operations to limit the size of new forest openings.\n\nVegetation is integral to many scenic and recreational amenities in the Lake Tahoe Region. Vegetation also provides many functional roles related to water cleansing, soil stabilization, wildlife habitat, nutrient catchment and release, air purification, and noise control. The focus of vegetation preservation in the Region is to restore, protect and maintain these functions and contribute to other socioeconomic attributes. Specifically, this management standard discourages the creation of large forest openings, such as clear cuts, while providing tools to allow for forest openings of up to eight acres in size to meet specific management goals such as regeneration of shade intolerant species (e.g., Jeffery and sugar pine). It also encourages the perpetuation of a diversity of tree age classes, which is important for ensuring the sustainability of the Region’s forests.\n\nThreshold standard: Pattern - Provide for the proper juxtaposition of vegetation communities and age classes by; 1. Limiting acreage size of new forest openings to no more than eight acres",
+ "MonitoringApproach": "Has TRPA adopted appropriate policies, ordinances and/or programs to support the proper juxtaposition of vegetation communities and age classes?",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2048,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/aed018b7-c4da-4ed7-8cdd-f968ecf6340e",
+   "Caption": "Caldor Fire on the evening of September 9, 2021. USDA Forest Service photo by Kaleena Lynde.",
+   "PhotoCredit": null,
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Caldor Fire vegetation burn severity",
+    "sub": "Acres of the 2021 Caldor Fire in each vegetation burn severity class, the whole fire and not only the Tahoe Basin.",
+    "service": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
+    "layer": 5,
+    "where": "gridcode IN (1,2,3,4)",
+    "x": "gridcode",
+    "xType": "category",
+    "xLabel": "Burn severity",
+    "xNames": {
+     "1": "Unburned or very low",
+     "2": "Low",
+     "3": "Moderate",
+     "4": "High"
+    },
+    "y": "Shape.STArea() / 4046.8564224",
+    "stat": "sum",
+    "seriesBy": "gridcode",
+    "seriesLabel": "Burn severity",
+    "seriesNames": {
+     "1": "Unburned or very low",
+     "2": "Low",
+     "3": "Moderate",
+     "4": "High"
+    },
+    "seriesOrder": [
+     "1",
+     "2",
+     "3",
+     "4"
+    ],
+    "seriesColors": {
+     "1": "#9ebbd7",
+     "2": "#6699cd",
+     "3": "#cdcd66",
+     "4": "#895a44"
+    },
+    "yLabel": "Acres",
+    "type": "stacked",
+    "span": "span-12"
+   }
+  ],
+  "mapLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
+   "layer": 5,
+   "where": "gridcode = 4",
+   "title": "Caldor Fire high severity burn (2021)",
+   "unit": "burn patch",
+   "unitPlural": "Burn patches",
+   "name": "gridcode",
+   "list": false,
+   "countAsSites": false,
+   "colorBy": "gridcode",
+   "colorByLabel": "Vegetation burn severity",
+   "colors": {
+    "4": "#895a44"
+   },
+   "labels": {
+    "4": "High"
+   },
+   "fields": []
+  },
+  "overlays": [
+   {
+    "service": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
+    "layer": 6,
+    "title": "Fire history (LTBMU, 1967 to 2016)",
+    "name": "FIRE_NAME",
+    "geometry": "fill",
+    "color": "#b53535",
+    "where": "UNIT_ID = 'TMU'",
+    "fields": [
+     {
+      "field": "FIRE_NAME",
+      "label": "Fire"
+     },
+     {
+      "field": "YEAR_",
+      "label": "Year"
+     },
+     {
+      "field": "GIS_ACRES",
+      "label": "Acres"
+     }
+    ]
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Pattern: Limit Size Of New Forest Openings",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/80"
+  }
+ ],
+ "MonitoringProgramID": 9680,
+ "MonitoringProgramName": "Limit Size of New Forest Openings",
+ "CategoryID": 11,
+ "CategoryName": "Forest Structure",
+ "ThemeColor": "#415414",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "map",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/aed018b7-c4da-4ed7-8cdd-f968ecf6340e",
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

@@ -1,0 +1,94 @@
+{
+ "MonitoringProgramDescription": "Safety is a regional transportation plan goal and policy because it is critical that everyone feel comfortable traveling at Lake Tahoe, whether they are walking, taking the bus, riding a bike or driving a car. Safety is not only an important goal for Tahoe, the Federal Highway Administration (FHWA) recently established five safety performance measures. FHWA Safety (PM 1) Final Rule, effective April 14, 2016, supported the data-driven performance focus of the Highway Safety Improvement Program and established performance measures for which states and Metropolitan Planning Organizations must develop targets.",
+ "MonitoringApproach": "Safety performance measures help to assess fatalities and serious injury on all public roads regardless of ownership or functional classification. These measures are required to be incorporated into the regional transportation plan and state’s Highway Safety Improvement Programs. To support meeting these targets, a Lake Tahoe Region Safety Plan is underdevelopment which outlines crash trends, risk factors, gaps in data, and recommends strategies and designs to improve safety for all roadway users. Crash data is provided by the state of California and Nevada and consolidated by TRPA.\n\nTo download crash data please visit Tahoe Open Data.",
+ "Partners": [
+  {
+   "OrganizationID": 11,
+   "OrganizationName": "California Department of Transportation",
+   "OrganizationShortName": "Caltrans"
+  },
+  {
+   "OrganizationID": 28,
+   "OrganizationName": "Nevada Department of Transportation",
+   "OrganizationShortName": "NDOT"
+  },
+  {
+   "OrganizationID": 12,
+   "OrganizationName": "City of South Lake Tahoe",
+   "OrganizationShortName": "CSLT"
+  },
+  {
+   "OrganizationID": 27,
+   "OrganizationName": "Douglas County, NV",
+   "OrganizationShortName": "DGCO"
+  },
+  {
+   "OrganizationID": 17,
+   "OrganizationName": "Placer County, CA",
+   "OrganizationShortName": "PLCO"
+  },
+  {
+   "OrganizationID": 16,
+   "OrganizationName": "Washoe County, NV",
+   "OrganizationShortName": "WACO"
+  },
+  {
+   "OrganizationID": 30,
+   "OrganizationName": "Carson City County, NV",
+   "OrganizationShortName": "Carson"
+  },
+  {
+   "OrganizationID": 18,
+   "OrganizationName": "El Dorado County, CA",
+   "OrganizationShortName": "ELDO"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2037,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/401bad1b-ef7e-4119-96ed-f3bfa8bdb5d4",
+   "Caption": "Kings Beach Commercial Revitalization Project",
+   "PhotoCredit": "Placer County",
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Crashes by severity",
+    "sub": "Reported crashes each year, by most severe outcome.",
+    "layer": 108,
+    "x": "Year",
+    "y": "OBJECTID",
+    "stat": "count",
+    "yLabel": "Crashes",
+    "seriesBy": "Crash_Severity",
+    "seriesLabel": "Severity",
+    "type": "stacked",
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 34,
+ "MonitoringProgramName": "Safety",
+ "CategoryID": 10,
+ "CategoryName": "Transportation and Sustainable Communities",
+ "ThemeColor": "#DB5B00",
+ "IsFeatured": true,
+ "PartnerCount": 8,
+ "Template": "charts",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/401bad1b-ef7e-4119-96ed-f3bfa8bdb5d4",
+ "SiteCount": 0,
+ "PartnerNames": [
+  "California Department of Transportation",
+  "Nevada Department of Transportation",
+  "City of South Lake Tahoe",
+  "Douglas County, NV",
+  "Placer County, CA",
+  "Washoe County, NV",
+  "Carson City County, NV",
+  "El Dorado County, CA"
+ ]
+}

@@ -1,0 +1,188 @@
+{
+ "MonitoringProgramDescription": "TRPA began monitoring perennial streams in 2009 to determine if TRPA thresholds for stream habitat are being met, and to detect changes in the overall condition of the Tahoe Basin's streams. Bioassessment, which uses benthic macroinvertebrates (BMI) and physical stream habitat to assess overall stream health, is used to monitor the Basin's streams. To obtain a stream health \"score\", the California Stream Condition Index (CSCI) is used. The CSCI is a model that compares the BMI found in sampled streams against the BMI expected to be found in pristine streams in the Sierra Nevada.\n\nCSCI stream score greater than 0.92 = excellent health\n\nCSCI stream score of 0.79 to 0.92 = good health\n\nCSCI stream score of less than 0.79 = degraded health",
+ "MonitoringApproach": "TRPA's stream monitoring program uses the Surface Water Ambient Monitoring Program bioassessment protocol, which measures Benthic Macroinvertebrate (BMI) composition and physical stream habitat to assess overall stream health. BMI composition and habitat is compared against pristine streams using the California Stream Condition Index to determine the biotic integrity of streams. Probabilistic and targeted sampling is used to assess the overall health of Tahoe streams, changes in stream health over time, and to assess large scale restoration and BMP implementation projects. 20 probabilistic, one-time \"status\" sites are sampled per year, as well as 73 \"trend\" sites re-visited every four years. Only trend sites are displayed on this page. Status site information can be found at EcoAtlas.org\n\nTo download all of the stream data on this page please see Tahoe Open Data.",
+ "Partners": [
+  {
+   "OrganizationID": 21,
+   "OrganizationName": "California Lahontan Regional Water Quality Control Board",
+   "OrganizationShortName": "Lahontan"
+  },
+  {
+   "OrganizationID": 22,
+   "OrganizationName": "Nevada Division of Environmental Protection",
+   "OrganizationShortName": "NDEP"
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 41,
+   "OrganizationName": "California Department of Fish & Wildlife",
+   "OrganizationShortName": "CDFW"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2056,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/5766ebd7-bdde-44ba-84a4-07c540ae366a",
+   "Caption": "TRPA staff measure substrate type in the Upper Truckee River.",
+   "PhotoCredit": null,
+   "IsKeyPhoto": true
+  },
+  {
+   "MonitoringProgramImageID": 2057,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/f2bdfc30-0c69-4bdd-90b9-8421deb90da4",
+   "Caption": "TRPA staff take stream canopy cover measurements.",
+   "PhotoCredit": null,
+   "IsKeyPhoto": false
+  },
+  {
+   "MonitoringProgramImageID": 2058,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/9ccec397-5fe8-47cf-91c9-65e43c3d58b4",
+   "Caption": "TRPA staff collect macroinvertebrates in the Upper Truckee River.",
+   "PhotoCredit": null,
+   "IsKeyPhoto": false
+  },
+  {
+   "MonitoringProgramImageID": 2059,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/08de6f79-6c94-49ac-ae1b-db73857db7fc",
+   "Caption": "Stoneflies are macroinvertebrates that generally indicate healthy stream biology. Photo: Kerry Wixted",
+   "PhotoCredit": null,
+   "IsKeyPhoto": false
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Average condition score at trend sites",
+    "sub": "Average California Stream Condition Index (CSCI) score at trend sites, by sampling period.",
+    "layer": 84,
+    "x": "Year",
+    "xType": "category",
+    "xLabel": "Period",
+    "y": "Value",
+    "yLabel": "CSCI score",
+    "type": "bar",
+    "seriesBy": "Trend_Panel",
+    "seriesLabel": "Sites",
+    "seriesNames": {
+     "Both": "All trend sites",
+     "A": "Panel A",
+     "B": "Panel B"
+    }
+   },
+   {
+    "title": "Streams by condition class",
+    "sub": "Share of sampled streams in each CSCI condition class, by sampling period.",
+    "layer": 83,
+    "x": "Year",
+    "xType": "category",
+    "xLabel": "Period",
+    "y": "Value",
+    "yLabel": "Share of streams",
+    "format": ".0%",
+    "type": "stacked",
+    "seriesBy": "Condition_Class",
+    "seriesLabel": "Condition class"
+   },
+   {
+    "title": "Average stream condition score",
+    "sub": "Average California Stream Condition Index (CSCI) score of sites sampled each year. Choose a site type.",
+    "layer": 8,
+    "x": "YEAR_OF_COUNT",
+    "y": "COUNT_VALUE",
+    "stat": "avg",
+    "yName": "Average CSCI score",
+    "yLabel": "CSCI score",
+    "pick": "STATION_TYPE",
+    "pickLabel": "Site type",
+    "type": "bar"
+   },
+   {
+    "title": "Sites sampled each year",
+    "sub": "Bioassessment sites sampled each year, by site type.",
+    "layer": 8,
+    "x": "YEAR_OF_COUNT",
+    "y": "OBJECTID",
+    "stat": "count",
+    "yLabel": "Sites sampled",
+    "seriesBy": "STATION_TYPE",
+    "seriesLabel": "Site type",
+    "type": "stacked"
+   },
+   {
+    "title": "Condition score by site",
+    "sub": "CSCI score each year the site was sampled, for trend and reference sites. Choose a site.",
+    "layer": 8,
+    "where": "STATION_TYPE IN ('Trend', 'Trend Panel A', 'Trend Panel B', 'Reference')",
+    "x": "YEAR_OF_COUNT",
+    "y": "COUNT_VALUE",
+    "yName": "CSCI score",
+    "yLabel": "CSCI score",
+    "pick": "SITE_NAME",
+    "pickLabel": "Site",
+    "span": "span-12"
+   }
+  ],
+  "sitesLayer": {
+   "layer": 8,
+   "name": "SITE_NAME",
+   "year": "YEAR_OF_COUNT",
+   "status": "STATION_TYPE"
+  },
+  "sitesPerYear": {
+   "layer": 8,
+   "year": "YEAR_OF_COUNT",
+   "site": "SITE_NAME"
+  },
+  "siteProfile": {
+   "record": {
+    "year": "YEAR_OF_COUNT",
+    "value": "COUNT_VALUE",
+    "label": "CSCI score",
+    "decimals": 2,
+    "noun": [
+     "sample",
+     "samples"
+    ]
+   },
+   "facts": [
+    {
+     "label": "Duration",
+     "field": "DURATION"
+    },
+    {
+     "label": "Station code",
+     "field": "STATION_CODE"
+    }
+   ],
+   "link": "LTINFO"
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Stream Habitat Condition",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/173"
+  }
+ ],
+ "MonitoringProgramID": 63,
+ "MonitoringProgramName": "Stream Bioassessment and Physical Habitat",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": true,
+ "PartnerCount": 4,
+ "Template": "map",
+ "ImageCount": 4,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/5766ebd7-bdde-44ba-84a4-07c540ae366a",
+ "SiteCount": 225,
+ "PartnerNames": [
+  "California Lahontan Regional Water Quality Control Board",
+  "Nevada Division of Environmental Protection",
+  "Tahoe Regional Planning Agency",
+  "California Department of Fish & Wildlife"
+ ]
+}

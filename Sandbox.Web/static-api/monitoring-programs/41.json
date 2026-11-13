@@ -1,0 +1,126 @@
+{
+ "MonitoringProgramDescription": null,
+ "MonitoringApproach": "Ozone is monitored at a number of locations around the Lake Tahoe Basin\n\nthrough the years by a variety of partners. Data is collected, analysed, and reported by the respective agency.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 2,
+   "OrganizationName": "Desert Research Institute",
+   "OrganizationShortName": "DRI"
+  },
+  {
+   "OrganizationID": 3,
+   "OrganizationName": "U.S. Environmental Protection Agency",
+   "OrganizationShortName": "USEPA"
+  },
+  {
+   "OrganizationID": 4,
+   "OrganizationName": "California Air Resources Board",
+   "OrganizationShortName": "CARB"
+  },
+  {
+   "OrganizationID": 5,
+   "OrganizationName": "Washoe County Air Quality Management Division",
+   "OrganizationShortName": "WCAQ"
+  },
+  {
+   "OrganizationID": 6,
+   "OrganizationName": "Placer County Air Pollution Control District",
+   "OrganizationShortName": "PCAPCD"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2005,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/8994bece-3c0f-4394-a1a8-4b25bfd56899",
+   "Caption": "TRPA air quality monitoring station.",
+   "PhotoCredit": "TRPA",
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Ozone by station",
+    "sub": "Yearly ozone (O3) statistic at each monitoring station, in parts per million. Some older records are in parts per billion. Choose a statistic.",
+    "layer": 46,
+    "where": "Pollutant = 'O3'",
+    "x": "Year",
+    "y": "Value",
+    "yLabel": "O3 (ppm)",
+    "seriesBy": "Site",
+    "seriesLabel": "Station",
+    "pick": "Indicator",
+    "pickLabel": "Statistic",
+    "pickDefault": "O3 - HIGH 8 HR",
+    "standard": {
+     "field": "Threshold_Value"
+    },
+    "span": "span-12"
+   },
+   {
+    "title": "Daily ozone by station",
+    "sub": "Daily ozone (O3) values at each station from the daily monitoring record, in the units named in each statistic. Choose a statistic.",
+    "layer": 17,
+    "where": "variable LIKE 'O3%'",
+    "x": "date",
+    "xType": "date",
+    "xLabel": "Date",
+    "y": "value",
+    "yName": "O3",
+    "yLabel": "O3",
+    "seriesBy": "id",
+    "seriesLabel": "Station",
+    "seriesNames": {
+     "STL": "Stateline",
+     "TC": "Tahoe City",
+     "IV": "Incline Village",
+     "SLT": "South Lake Tahoe",
+     "BSP": "DL Bliss State Park",
+     "LTC": "Lake Tahoe Community College"
+    },
+    "pick": "variable",
+    "pickLabel": "Statistic",
+    "span": "span-12"
+   }
+  ],
+  "sitesLayer": {
+   "layer": 16,
+   "name": "name",
+   "code": "id",
+   "active": "Active_2023",
+   "unit": "station"
+  },
+  "sitesPerYear": {
+   "layer": 46,
+   "year": "Year",
+   "site": "Site",
+   "where": "Pollutant = 'O3'",
+   "unit": "station"
+  }
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 41,
+ "MonitoringProgramName": "Ozone (O3)",
+ "CategoryID": 1,
+ "CategoryName": "Air Quality",
+ "ThemeColor": "#9CC3EA",
+ "IsFeatured": false,
+ "PartnerCount": 6,
+ "Template": "charts",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/8994bece-3c0f-4394-a1a8-4b25bfd56899",
+ "SiteCount": 6,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "Desert Research Institute",
+  "U.S. Environmental Protection Agency",
+  "California Air Resources Board",
+  "Washoe County Air Quality Management Division",
+  "Placer County Air Pollution Control District"
+ ]
+}

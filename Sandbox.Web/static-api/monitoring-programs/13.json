@@ -1,0 +1,81 @@
+{
+ "MonitoringProgramDescription": null,
+ "MonitoringApproach": "UC Davis has monitored periphyton in Lake Tahoe since 2000. Monitoring also occurred between 1982 and 1985 and 1989 to 1993. The primary periphyton monitoring work are regular sampling work referred to “routine” sampling at nine sites annually (the number of locations has varied historically from six to ten). At each location algal biomass (as chlorophyll a) is sampled five times annually from natural rock surfaces at a depth of 0.5 meters below the water level at the time of sampling. A second type of sampling, referred to a “synoptic” monitoring occurs once a year at 40 additional sites. The timing of synoptic monitoring varies annually and is intended to capture biomass at its peak in the spring. The synoptic monitoring includes collection of chlorophyll a at a sub-set of the sites, as well as a rapid assessment method that quantifies a periphyton biomass index (PBI).",
+ "Partners": [
+  {
+   "OrganizationID": 21,
+   "OrganizationName": "California Lahontan Regional Water Quality Control Board",
+   "OrganizationShortName": "Lahontan"
+  },
+  {
+   "OrganizationID": 24,
+   "OrganizationName": "UC Davis Tahoe Environmental Research Center",
+   "OrganizationShortName": "TERC"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2021,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/3e8beed2-8cba-4f6c-b894-a0f3cc1442ce",
+   "Caption": "UC Davis researcher Scott Hackly measures periphyton growth",
+   "PhotoCredit": "Brant Allen / UC Davis TERC",
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Periphyton at routine sites",
+    "sub": "Attached algae biomass as chlorophyll a, in milligrams per square meter. Choose a site.",
+    "layer": 21,
+    "x": "Date",
+    "xType": "date",
+    "xLabel": "Sample date",
+    "y": "value",
+    "yName": "Chlorophyll a",
+    "yLabel": "Chlorophyll a (mg/m²)",
+    "pick": "id",
+    "pickLabel": "Site",
+    "pickDefault": "Rubicon Point",
+    "span": "span-12"
+   }
+  ],
+  "sitesLayer": {
+   "layer": 102,
+   "name": "SITE_NAME",
+   "status": "SiteClass"
+  },
+  "sitesPerYear": {
+   "layer": 21,
+   "year": "Date",
+   "site": "id"
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Littoral Periphyton Biomass",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/175"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Nearshore Attached Algae",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/109"
+  }
+ ],
+ "MonitoringProgramID": 13,
+ "MonitoringProgramName": "Periphyton",
+ "CategoryID": 7,
+ "CategoryName": "Water Quality",
+ "ThemeColor": "#0F3F6F",
+ "IsFeatured": true,
+ "PartnerCount": 2,
+ "Template": "charts",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/3e8beed2-8cba-4f6c-b894-a0f3cc1442ce",
+ "SiteCount": 54,
+ "PartnerNames": [
+  "California Lahontan Regional Water Quality Control Board",
+  "UC Davis Tahoe Environmental Research Center"
+ ]
+}

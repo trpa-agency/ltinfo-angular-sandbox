@@ -1,0 +1,156 @@
+[
+ {
+  "CategoryID": 1,
+  "CategoryName": "Air Quality",
+  "Folder": "air-quality",
+  "ThemeColor": "#9CC3EA",
+  "ProgramCount": 9,
+  "Blurb": "Particulate matter, ozone, carbon monoxide, and visibility.",
+  "CategoryDescription": "Achieve strictest of federal, state, or regional standards for carbon monoxide, ozone, and particulates; increase visibility; and reduce automobile traffic.",
+  "IconUrl": "https://thresholds.laketahoeinfo.org/assets/img/threshold-icons/AirQuality-white-icon.png",
+  "SiteCount": 30
+ },
+ {
+  "CategoryID": 3,
+  "CategoryName": "Recreation",
+  "Folder": "recreation",
+  "ThemeColor": "#F78814",
+  "ProgramCount": 1,
+  "Blurb": "Recreation capacity, access, and visitor experience.",
+  "CategoryDescription": "Preserve and enhance a high-quality recreational experience. Preserve undeveloped shorezone and other natural areas and maintain a fair share of recreational capacity for the general public.",
+  "IconUrl": "https://thresholds.laketahoeinfo.org/assets/img/threshold-icons/Recreation-white-icon.png",
+  "SiteCount": 0
+ },
+ {
+  "CategoryID": 4,
+  "CategoryName": "Scenic Resources",
+  "Folder": "scenic-resources",
+  "ThemeColor": "#B0A843",
+  "ProgramCount": 1,
+  "Blurb": "Scenic quality along roadways, the shoreline, and public viewpoints.",
+  "CategoryDescription": "Maintain or improve roadway and shoreline scenic travel route ratings, maintain or improve views of individual scenic resources, and maintain or improve quality of views from public outdoor recreation areas.",
+  "IconUrl": "https://thresholds.laketahoeinfo.org/assets/img/threshold-icons/ScenicResources-white-icon.png",
+  "SiteCount": 86
+ },
+ {
+  "CategoryID": 5,
+  "CategoryName": "Soil Conservation",
+  "Folder": "soil-conservation",
+  "ThemeColor": "#9A5710",
+  "ProgramCount": 2,
+  "Blurb": "Stream environment zones and land coverage.",
+  "CategoryDescription": "Preserve natural SEZ, restore 25% of disturbed urban SEZ areas, and prevent soil compaction and land coverage that restricts infiltration through coverage limitations.",
+  "IconUrl": "https://thresholds.laketahoeinfo.org/assets/img/threshold-icons/SoilConservation-white-icon.png",
+  "SiteCount": 641
+ },
+ {
+  "CategoryID": 7,
+  "CategoryName": "Water Quality",
+  "Folder": "water-quality",
+  "ThemeColor": "#0F3F6F",
+  "ProgramCount": 12,
+  "Blurb": "Lake clarity, nearshore conditions, streams, and stormwater runoff.",
+  "CategoryDescription": "Return the Lake to 1960s water clarity and algal levels by reducing nutrient and sediment in surface runoff and groundwater.",
+  "IconUrl": "https://thresholds.laketahoeinfo.org/assets/img/threshold-icons/WaterQuality-white-icon.png",
+  "SiteCount": 107
+ },
+ {
+  "CategoryID": 9,
+  "CategoryName": "Noise",
+  "Folder": "noise",
+  "ThemeColor": "#675EA1",
+  "ProgramCount": 6,
+  "Blurb": "Sound levels along highways, in plan areas, and on the shorezone.",
+  "CategoryDescription": "Minimize noise disturbance from single events and minimize background noise disturbance in accordance with land use patterns.",
+  "IconUrl": "https://thresholds.laketahoeinfo.org/assets/img/threshold-icons/Noise-white-icon.png",
+  "SiteCount": 183
+ },
+ {
+  "CategoryID": 10,
+  "CategoryName": "Transportation and Sustainable Communities",
+  "Folder": "transportation-and-sustainable-communities",
+  "ThemeColor": "#DB5B00",
+  "ProgramCount": 7,
+  "Blurb": "Traffic, transit, bicycle and pedestrian counts, safety, and travel behavior.",
+  "CategoryDescription": "Reduce dependence on the automobile, support GHG emission reduction, and increase mobility.",
+  "IconUrl": "https://thresholds.laketahoeinfo.org/assets/img/threshold-icons/TransportationAndSustainableCommunities-white-icon.png",
+  "SiteCount": 170
+ },
+ {
+  "CategoryID": 11,
+  "CategoryName": "Forest Structure",
+  "Folder": "forest-structure",
+  "ThemeColor": "#415414",
+  "ProgramCount": 11,
+  "Blurb": "Seral stage, canopy cover, and stand density of the conifer forest.",
+  "CategoryDescription": "Restore a balanced mosaic of forest ages, from young trees to old growth, and of open and closed canopies, and keep stands at densities that leave forests less vulnerable to drought, insects, disease, and severe wildfire.",
+  "IconUrl": "category-icons/ForestStructure-white-icon.svg",
+  "SiteCount": 0
+ },
+ {
+  "CategoryID": 12,
+  "CategoryName": "Fire Dynamics",
+  "Folder": "fire-dynamics",
+  "ThemeColor": "#9C3E27",
+  "ProgramCount": 3,
+  "Blurb": "Burn probability, likely fire severity, and area burned.",
+  "CategoryDescription": "Keep fire behavior defensible around neighborhoods and evacuation routes, and limit the size and extent of large, high-severity fire patches across the forested landscape.",
+  "IconUrl": "category-icons/FireDynamics-white-icon.svg",
+  "SiteCount": 0
+ },
+ {
+  "CategoryID": 13,
+  "CategoryName": "Biodiversity",
+  "Folder": "biodiversity",
+  "ThemeColor": "#4A6118",
+  "ProgramCount": 34,
+  "Blurb": "Sensitive and uncommon plants, native vegetation, fish, and special interest wildlife.",
+  "CategoryDescription": "Maintain vegetation community richness and diversity, preserve uncommon plant communities and sustainable populations of sensitive plants, maintain and improve stream and lake fish habitat, and provide and protect suitable habitat for special interest species.",
+  "IconUrl": "category-icons/Biodiversity-white-icon.svg",
+  "SiteCount": 290
+ },
+ {
+  "CategoryID": 14,
+  "CategoryName": "Demographics",
+  "Folder": "demographics",
+  "ThemeColor": "#7c7c7c",
+  "ProgramCount": 3,
+  "Blurb": "Population, age, race and ethnicity, housing, and income of the Tahoe Region.",
+  "CategoryDescription": "Describe who lives in the Tahoe Region and how that is changing, from census counts and estimates, to inform housing, transportation, and community planning.",
+  "IconUrl": "category-icons/Demographics-white-icon.svg",
+  "SiteCount": 0
+ },
+ {
+  "CategoryID": 15,
+  "CategoryName": "Climate and Lake Conditions",
+  "Folder": "climate-and-lake-conditions",
+  "ThemeColor": "#2c5f72",
+  "ProgramCount": 6,
+  "Blurb": "Greenhouse gas emissions, smoke, lake level and temperature, precipitation, and renewable energy.",
+  "CategoryDescription": "Track how a changing climate is reaching the Tahoe Region, from smoke days and a warmer lake to less snow, and the Region's progress cutting the emissions that drive it.",
+  "IconUrl": "category-icons/Climate-white-icon.svg",
+  "SiteCount": 0
+ },
+ {
+  "CategoryID": 16,
+  "CategoryName": "Housing and Economy",
+  "Folder": "housing-and-economy",
+  "ThemeColor": "#646820",
+  "ProgramCount": 6,
+  "Blurb": "Housing, deed-restricted homes, prices and rents, jobs, income, and the visitor economy.",
+  "CategoryDescription": "Track whether people who work in the Region can afford to live here, and how resilient the Region's economy is.",
+  "IconUrl": "category-icons/Housing-white-icon.svg",
+  "SiteCount": 0
+ },
+ {
+  "CategoryID": 17,
+  "CategoryName": "Aquatic Invasive Species",
+  "Folder": "aquatic-invasive-species",
+  "ThemeColor": "#0d5b73",
+  "ProgramCount": 6,
+  "Blurb": "Watercraft inspections, invasive plant control, and aquatic plant surveys.",
+  "CategoryDescription": "Keep new aquatic invasive species out of the Region's waters, and control and remove the ones already here.",
+  "IconUrl": "category-icons/AquaticInvasiveSpecies-white-icon.svg",
+  "SiteCount": 243
+ }
+]

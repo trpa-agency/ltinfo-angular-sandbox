@@ -1,0 +1,64 @@
+{
+ "MonitoringProgramDescription": "Home prices in the Tahoe Region have risen far faster than local wages, and many homes sell as second homes or vacation rentals. The gap pushes people who work here to live outside the Basin and commute in.",
+ "MonitoringApproach": "Home sale prices are the average of each month's mean residential sale price in the Basin. Rents are the asking rent per unit in multifamily buildings, by quarter, from a commercial rental market survey.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Average home sale price",
+    "sub": "Mean of the monthly average residential sale price, by year, dollars.",
+    "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+    "layer": 147,
+    "x": "year",
+    "xLabel": "Year",
+    "y": "Purchase_Amt",
+    "stat": "avg",
+    "yName": "Average sale price",
+    "yLabel": "Dollars",
+    "type": "bar"
+   },
+   {
+    "title": "Asking rent per unit",
+    "sub": "Average monthly asking rent per multifamily unit, by quarter, dollars.",
+    "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+    "layer": 146,
+    "x": "Period",
+    "xType": "category",
+    "xLabel": "Quarter",
+    "y": "Asking_Rent_Per_Unit",
+    "yName": "Asking rent",
+    "yLabel": "Dollars a month",
+    "type": "line",
+    "zero": false
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Demographics and Workforce",
+   "Url": "https://climate.laketahoeinfo.org/demographics-and-workforce"
+  }
+ ],
+ "MonitoringProgramID": 9922,
+ "MonitoringProgramName": "Home Prices and Rents",
+ "CategoryID": 16,
+ "CategoryName": "Housing and Economy",
+ "ThemeColor": "#646820",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

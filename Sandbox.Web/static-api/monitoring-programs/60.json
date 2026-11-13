@@ -1,0 +1,61 @@
+{
+ "MonitoringProgramDescription": "The following maximum noise levels are allowed: Aircraft measured 6,500 m-start of takeoff roll 2,000 m-runway threshold approach: Aircraft measured 6,500 m-start of takeoff roll 2,000 m-runway threshold approach:\n\nThe following maximum noise levels are allowed: Aircraft measured 6,500 m-start of takeoff roll 2,000 m-runway threshold approach: N1: The following maximum noise levels are allowed: Aircraft measured 6,500 m-start of takeoff roll 2,000 m-runway threshold approach.",
+ "MonitoringApproach": "Lake Tahoe Airport monitored noise at six sites in the vicinity of the airport (see\n\nmap above) following an approved monitoring protocol. All exceedances logged by these monitors are documented and categorized in quarterly and annual noise reports sent to TRPA. While monitoring of\n\nexceedances has continued, the ability to differentiate between aircraft and non-aircraft exceedances was not possible, therefore data quality is low and only total exceedances (including aircraft, natural sources (e.g. wind, lightning, wildlife) and other anthropogenic sources) are reported and trend is not assessed.\n\nPast monitoring data shows that an average of 17 percent of exceedances were caused by aircraft, however the percent of exceedances per year caused by aircraft varies greatly year to year, making any judgement on how many of the total exceedances are caused by aircraft in any given year inestimable.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 12,
+   "OrganizationName": "City of South Lake Tahoe",
+   "OrganizationShortName": "CSLT"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Airport single noise event exceedances",
+    "sub": "Single noise events above the standard at Lake Tahoe Airport each year. Approximate: read from the published chart image.",
+    "json": "data/threshold-evaluation/aircraft-noise-exceedances.json",
+    "sourceHref": "https://thresholds.laketahoeinfo.org/ThresholdIndicator/Detail/100",
+    "sourceLabel": "Threshold Dashboard chart (image)",
+    "x": "Year",
+    "y": "Exceedances",
+    "yName": "Exceedances",
+    "yLabel": "Exceedances",
+    "type": "bar",
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Aircraft Noise Departure/Arrival (8 AM To 8 PM)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/38"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Aircraft Noise Departure/Arrival (8 PM To 8 AM)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/39"
+  }
+ ],
+ "MonitoringProgramID": 60,
+ "MonitoringProgramName": "Aircraft Noise",
+ "CategoryID": 9,
+ "CategoryName": "Noise",
+ "ThemeColor": "#675EA1",
+ "IsFeatured": false,
+ "PartnerCount": 2,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "City of South Lake Tahoe"
+ ]
+}

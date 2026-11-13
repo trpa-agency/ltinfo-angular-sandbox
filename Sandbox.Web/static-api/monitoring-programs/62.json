@@ -1,0 +1,91 @@
+{
+ "MonitoringProgramDescription": "TRPA regularly monitors noise from motorized watercraft in the shorezone of Lake Tahoe to ensure noise levels are not being exceeded. Shorezone noise limits are in place to maintain the serenity of Lake Tahoe and to protect sensitive wildlife.",
+ "MonitoringApproach": "TRPA regulalry monitors noise in the shorezone from motorized watercraft at up to ten locations around Lake Tahoe. Noise monitors are deployed for at least two weeks during peak boating season which occurs July 4th to Labor Day. Noise monitors automatically record all single noise events that exceed 75 decibles (dB), the noise limit for shorezone areas. Afterward, all noise events exceeding 75 dB are listened to by a noise technician to distinguish noise exceedancs from watercraft and non-watercraft. Noise monitors are regularly calibrated to industry standards to ensure accuracy.\n\nTo download all of the shoreline noise data on this page please see Tahoe Open Data.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2029,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/6de890ca-b1e2-4065-9184-51fa4aa2ad54",
+   "Caption": "Excessive noise from motorized watercraft is monitored through the TRPA shorezone noise monitoring program.",
+   "PhotoCredit": null,
+   "IsKeyPhoto": true
+  },
+  {
+   "MonitoringProgramImageID": 2030,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/e0e5eee9-06f2-42b6-a7f1-ada3066a9b8f",
+   "Caption": "A shorezone noise monitor deployed at Emerald Bay.",
+   "PhotoCredit": null,
+   "IsKeyPhoto": false
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Shorezone noise exceedances",
+    "sub": "Average noise standard exceedances per day, across all shorezone sites.",
+    "layer": 78,
+    "x": "Year",
+    "y": "Value",
+    "yName": "Exceedances per day",
+    "yLabel": "Exceedances per day",
+    "type": "bar",
+    "standard": {
+     "field": "Threshold_Value"
+    },
+    "span": "span-12"
+   }
+  ],
+  "sitesLayer": {
+   "layer": 7,
+   "name": "SITE_NAME",
+   "year": "YEAR_OF_COUNT"
+  },
+  "sitesPerYear": {
+   "layer": 7,
+   "year": "YEAR_OF_COUNT",
+   "site": "SITE_NAME"
+  },
+  "siteProfile": {
+   "record": {
+    "year": "YEAR_OF_COUNT",
+    "value": "COUNT_VALUE",
+    "label": "Watercraft exceedances per day",
+    "short": "Exceedances per day",
+    "unit": "",
+    "decimals": 2,
+    "noun": [
+     "season monitored",
+     "seasons monitored"
+    ]
+   },
+   "link": "LTINFO"
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Watercraft Shoreline Test",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/41"
+  }
+ ],
+ "MonitoringProgramID": 62,
+ "MonitoringProgramName": "Noise - Shorezone",
+ "CategoryID": 9,
+ "CategoryName": "Noise",
+ "ThemeColor": "#675EA1",
+ "IsFeatured": true,
+ "PartnerCount": 1,
+ "Template": "map",
+ "ImageCount": 2,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/6de890ca-b1e2-4065-9184-51fa4aa2ad54",
+ "SiteCount": 10,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

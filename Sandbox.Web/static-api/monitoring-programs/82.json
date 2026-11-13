@@ -1,0 +1,56 @@
+{
+ "MonitoringProgramDescription": "What are Harmful Algal Blooms (HABs)?\n\nCyanobacteria are small microbes or bacteria that live in nearly every habitat on land and in the water. They have existed for billions of years as essential components of freshwater ecosystems and form the foundation of most aquatic food chains. When these organisms produce dangerous toxins, they are commonly referred to as harmful algal blooms or HABs.\n\nWhen environmental conditions favor the growth of HABs and algae, such as warm temperatures and low or stagnant water flows, and excessive nutrient inputs, they can multiply rapidly creating nuisance blooms. Some HABs can produce toxins that can harm pets, wildlife, or people. Not all HABs produce toxins, but those that do can cause a multitude of health issues and even death. There are two types of HABs known as planktonic (HABs suspended in the water column) or benthic (HAB that grow attached to the bottom).\n\nIn the Lake Tahoe Basin, harmful algal blooms are most common during the warm weather months between late May through October, but they can occur all year.\n\nThe first known harmful algal bloom (HAB) occurred in the Lake Tahoe Keys in August 2017. The level of measured cyanotoxins was below any health concern, but the area was posted to warn the public of the potential danger and to protect pets. The Lahontan Water Board monitors the California side of the Lake Tahoe Basin for HAB issues and responds to reports of possible HABs by sampling the lake and posting results as appropriate. For HABs on the Nevada side of the Basin, the Nevada Department of Environmental Protection (NDEP) is the lead agency.\n\nRead about the Water Board's HAB response on the California side of the Lake Tahoe Basin.\n\nRead about NDEP's HAB response on the Nevada side of the Lake Tahoe Basin.\n\nFor information about the most recent HAB advisories in California (including the California side of Lake Tahoe), visit this web map.",
+ "MonitoringApproach": "On the California side of the lake, water samples are collected and tested for the presence of HABs and their associated toxins at various locations. Water Board staff respond to new bloom reports, and also administer a pre-holiday assessment monitoring program at several California beaches. HAB monitoring associated with pre-holiday assessments is intended to collect information to inform the public in California about the safety of recreational beaches during high use holiday weekends including Memorial Day, Fourth of July, and Labor Day.",
+ "Partners": [
+  {
+   "OrganizationID": 21,
+   "OrganizationName": "California Lahontan Regional Water Quality Control Board",
+   "OrganizationShortName": "Lahontan"
+  },
+  {
+   "OrganizationID": 22,
+   "OrganizationName": "Nevada Division of Environmental Protection",
+   "OrganizationShortName": "NDEP"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2012,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/9cae270c-303a-46e6-aee3-b3eca57dadac",
+   "Caption": "Suspected HAB in the Tahoe Keys, July 2024.",
+   "PhotoCredit": "Water Boards/Sabrina Rice",
+   "IsKeyPhoto": true
+  },
+  {
+   "MonitoringProgramImageID": 2013,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/2e0b9b61-1b9a-4f7e-b9fd-0a623a9f8e78",
+   "Caption": "Confirmed HAB, Tahoe Keys 2022.",
+   "PhotoCredit": "Water Boards/Sabrina Rice",
+   "IsKeyPhoto": false
+  },
+  {
+   "MonitoringProgramImageID": 2014,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/1edea596-373f-4cde-aab2-2a3828ec99ee",
+   "Caption": "Suspected HAB at Timber Cove, South Lake Tahoe. August 2025.",
+   "PhotoCredit": "Water Boards/Sabrina Rice",
+   "IsKeyPhoto": false
+  }
+ ],
+ "DashboardConfig": null,
+ "RelatedLinks": [],
+ "MonitoringProgramID": 82,
+ "MonitoringProgramName": "Harmful Algae Bloom (HAB) Monitoring",
+ "CategoryID": 7,
+ "CategoryName": "Water Quality",
+ "ThemeColor": "#0F3F6F",
+ "IsFeatured": true,
+ "PartnerCount": 2,
+ "Template": "context",
+ "ImageCount": 3,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/9cae270c-303a-46e6-aee3-b3eca57dadac",
+ "SiteCount": 0,
+ "PartnerNames": [
+  "California Lahontan Regional Water Quality Control Board",
+  "Nevada Division of Environmental Protection"
+ ]
+}

@@ -1,0 +1,114 @@
+{
+ "MonitoringProgramDescription": "Maintain a minimum of 7 Arabis rigidissima v. demote population sites.",
+ "MonitoringApproach": "This species is included in the sensitive species monitoring program at the U.S.\n\nForest Service - LTBMU. Plant population sites are visited every five years or more frequently when the occurrence is new or data suggests that the population is decreasing. Recent monitoring has focused on verification of species identity.",
+ "Partners": [
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Subpopulation sites by population",
+    "sub": "Mapped Galena Creek rockcress subpopulation sites in each population, with the threshold minimum.",
+    "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+    "layer": 1,
+    "where": "USDA_Code = 'ARRID'",
+    "x": "EOName",
+    "xType": "category",
+    "xLabel": "Population",
+    "y": "OBJECTID",
+    "stat": "count",
+    "yName": "Subpopulation sites",
+    "yLabel": "Subpopulation sites",
+    "type": "bar"
+   },
+   {
+    "title": "Plants by population",
+    "sub": "Plants counted or estimated at the last survey of each site (USFS, through 2018).",
+    "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+    "layer": 1,
+    "where": "USDA_Code = 'ARRID'",
+    "x": "EOName",
+    "xType": "category",
+    "xLabel": "Population",
+    "y": "PlantCount",
+    "stat": "sum",
+    "yName": "Plants",
+    "yLabel": "Plants",
+    "type": "bar"
+   }
+  ],
+  "mapLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+   "layer": 1,
+   "where": "USDA_Code = 'ARRID'",
+   "title": "Galena Creek rockcress subpopulations",
+   "unit": "subpopulation",
+   "unitPlural": "Subpopulations",
+   "name": "SITE_ID_FS",
+   "countAsSites": false,
+   "colorBy": "EOName",
+   "colorByLabel": "Population",
+   "colors": {
+    "Incline": "var(--mon-stevens4-1)",
+    "Martis": "var(--mon-stevens4-2)"
+   },
+   "meta": [
+    {
+     "field": "EOName"
+    },
+    {
+     "field": "PlantCount",
+     "suffix": " plants"
+    }
+   ],
+   "fields": [
+    {
+     "field": "EOName",
+     "label": "Population"
+    },
+    {
+     "field": "PlantCount",
+     "label": "Plants"
+    },
+    {
+     "field": "CountType",
+     "label": "Count type"
+    },
+    {
+     "field": "SurveyLast",
+     "label": "Last survey"
+    },
+    {
+     "field": "Acres",
+     "label": "Acres"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Galena Rock Cress (Arabis Rigidissima V. Demote)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/89"
+  }
+ ],
+ "MonitoringProgramID": 57,
+ "MonitoringProgramName": "Galena Creek Rockcress",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+ ]
+}

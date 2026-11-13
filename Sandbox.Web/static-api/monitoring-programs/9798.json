@@ -1,0 +1,147 @@
+{
+ "MonitoringProgramDescription": "Area burned is the acres of wildfire inside the Basin each year. It is the observed record that the modeled measures, burn probability and likely fire severity, are checked against.\n\nFor most of the last century the Basin saw few large fires, a result of fire suppression rather than of a forest that does not burn. The 2007 Angora Fire burned about 3,100 acres and 254 homes near South Lake Tahoe. The 2021 Caldor Fire burned about 9,900 acres inside the Basin, the largest fire in the record here, before firefighters stopped it in treated forest near Meyers.",
+ "MonitoringApproach": "Fire perimeters come from CAL FIRE's statewide fire history, which maps fires on the California side of the Basin; Nevada fires and many small fires are not in it. Each perimeter is clipped to the TRPA boundary and measured in California Albers, so a fire that started outside the Basin counts only the acres that burned inside it.\n\nThe Tahoe Fire and Fuels Team fire history, 1988 to 2025, covers both states and will replace this record once it is published.",
+ "Partners": [
+  {
+   "OrganizationID": 36,
+   "OrganizationName": "CAL FIRE",
+   "OrganizationShortName": null
+  },
+  {
+   "OrganizationID": 33,
+   "OrganizationName": "Tahoe Fire and Fuels Team",
+   "OrganizationShortName": "TFFT"
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Acres burned in the Basin by year",
+    "sub": "Acres inside the TRPA boundary within mapped fire perimeters, California side.",
+    "json": "data/fire-history/area-burned-by-year.json",
+    "sourceHref": "https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/California_Historic_Fire_Perimeters/FeatureServer/0",
+    "sourceLabel": "CAL FIRE California Historic Fire Perimeters, clipped to the TRPA boundary",
+    "x": "Year",
+    "xLabel": "Year",
+    "y": "Acres",
+    "yName": "Acres burned",
+    "yLabel": "Acres",
+    "type": "bar",
+    "span": "span-12"
+   },
+   {
+    "title": "Largest fires in the Basin",
+    "sub": "Acres each fire burned inside the TRPA boundary, the 12 largest in the record.",
+    "json": "data/fire-history/largest-fires.json",
+    "sourceHref": "https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/California_Historic_Fire_Perimeters/FeatureServer/0",
+    "sourceLabel": "CAL FIRE California Historic Fire Perimeters, clipped to the TRPA boundary",
+    "x": "Fire",
+    "xType": "category",
+    "xLabel": "Fire",
+    "y": "Acres",
+    "yName": "Acres in the Basin",
+    "yLabel": "Acres",
+    "type": "bar",
+    "orientation": "h",
+    "sort": "desc",
+    "span": "span-12"
+   }
+  ],
+  "mapLayer": {
+   "url": "data/fire-history/fire-perimeters.geojson",
+   "sourceHref": "https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/California_Historic_Fire_Perimeters/FeatureServer/0",
+   "sourceLabel": "CAL FIRE California Historic Fire Perimeters, clipped to the TRPA boundary",
+   "layer": 0,
+   "title": "Fire perimeters in the Basin",
+   "unit": "fire",
+   "unitPlural": "Fires",
+   "name": "Fire",
+   "countAsSites": false,
+   "colorBy": "Year",
+   "colorByLabel": "Year",
+   "breaks": [
+    {
+     "max": 1949,
+     "label": "Before 1950",
+     "color": "var(--mon-turbid-2)"
+    },
+    {
+     "max": 1989,
+     "label": "1950 to 1989",
+     "color": "var(--mon-turbid-3)"
+    },
+    {
+     "max": 2009,
+     "label": "1990 to 2009",
+     "color": "var(--mon-turbid-4)"
+    },
+    {
+     "max": 2019,
+     "label": "2010 to 2019",
+     "color": "var(--mon-turbid-5)"
+    },
+    {
+     "max": 9999,
+     "label": "2020 and later",
+     "color": "var(--mon-turbid-7)"
+    }
+   ],
+   "meta": [
+    {
+     "field": "Year"
+    },
+    {
+     "field": "Acres",
+     "suffix": " acres"
+    }
+   ],
+   "fields": [
+    {
+     "field": "Fire",
+     "label": "Fire"
+    },
+    {
+     "field": "Year",
+     "label": "Year"
+    },
+    {
+     "field": "Acres",
+     "label": "Acres in the Basin"
+    },
+    {
+     "field": "Cause",
+     "label": "Cause"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Forest Resilience and Wildfire Risk",
+   "Url": "https://climate.laketahoeinfo.org/forest-resilience-and-wildfire-risk"
+  }
+ ],
+ "MonitoringProgramID": 9798,
+ "MonitoringProgramName": "Area Burned",
+ "CategoryID": 12,
+ "CategoryName": "Fire Dynamics",
+ "ThemeColor": "#9C3E27",
+ "IsFeatured": false,
+ "PartnerCount": 3,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "CAL FIRE",
+  "Tahoe Fire and Fuels Team",
+  "Tahoe Regional Planning Agency"
+ ]
+}

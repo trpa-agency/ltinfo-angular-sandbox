@@ -1,0 +1,75 @@
+{
+ "MonitoringProgramDescription": "Steady, well-paid jobs let people who work in the Region afford to live here. Tahoe's economy leans on seasonal tourism and recreation, which keeps many jobs part-year and many wages low.",
+ "MonitoringApproach": "The U.S. Census Bureau's Longitudinal Employer-Household Dynamics program counts jobs by work location each year from unemployment insurance records, in three monthly earnings bands. The 2022 count is about double 2021, which looks like a processing error, so the chart ends at 2021.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 55,
+   "OrganizationName": "U.S. Census Bureau",
+   "OrganizationShortName": null
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Jobs in the Basin by monthly earnings",
+    "sub": "Jobs located in the Basin each year, by monthly earnings band, 2002 to 2021.",
+    "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+    "layer": 142,
+    "where": "Year <= 2021",
+    "x": "Year",
+    "xLabel": "Year",
+    "y": [
+     {
+      "field": "CE01",
+      "name": "$1,250 or less"
+     },
+     {
+      "field": "CE02",
+      "name": "$1,251 to $3,333"
+     },
+     {
+      "field": "CE03",
+      "name": "More than $3,333"
+     }
+    ],
+    "stat": "sum",
+    "yLabel": "Jobs",
+    "type": "stacked",
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Economic Resilience",
+   "Url": "https://climate.laketahoeinfo.org/economic-resilience"
+  },
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Demographics and Workforce",
+   "Url": "https://climate.laketahoeinfo.org/demographics-and-workforce"
+  }
+ ],
+ "MonitoringProgramID": 9925,
+ "MonitoringProgramName": "Jobs and Wages",
+ "CategoryID": 16,
+ "CategoryName": "Housing and Economy",
+ "ThemeColor": "#646820",
+ "IsFeatured": false,
+ "PartnerCount": 2,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "U.S. Census Bureau"
+ ]
+}

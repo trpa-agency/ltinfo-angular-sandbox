@@ -49,6 +49,12 @@
     } @else if (check.status === 'error') {
       <esa-badge variant="danger" value="Not connected" size="sm" />
       <span>{{ check.title }}, so the database could not be checked.</span>
+    } @else if (check.data.SnapshotDate) {
+      <esa-badge value="Snapshot" size="sm" />
+      <span>
+        A read-only copy of database <strong>{{ check.data.Database }}</strong>, taken
+        {{ check.data.SnapshotDate }}, {{ check.data.ProgramCount }} programs. Changes are not saved.
+      </span>
     } @else {
       <esa-badge variant="success" value="Connected" size="sm" />
       <span>

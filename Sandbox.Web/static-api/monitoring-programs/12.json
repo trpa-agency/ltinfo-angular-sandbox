@@ -1,0 +1,85 @@
+{
+ "MonitoringProgramDescription": null,
+ "MonitoringApproach": "A pilot monitoring program of nearshore turbidity began with the first circuit completed in November 2014, followed by similar nearshore circuits completed in April, June, August and November 2015. Measurements were made at a depth of seven meters. Routine boat operating speeds are typically around 10 kilometers per hour in the nearshore areas (Heyvaert et al., 2016). Beginning 1991, nearshore turbidity was measured offshore at the 25-meter depth contour for several locations, including 1) mouth of Upper Truckee River and Trout Creek; 2) El Dorado Beach; 3) mouth of Edgewood Creek; 4) Nevada Beach; 5) mouth of Incline Creek; 6) Burnt Cedar Beach; 7) mouth of Ward Creek; 8) Tahoe State Recreation Area; and 9) the mouth of Blackwood Creek. More recently, nearshore clarity has been measured at approximately the seven-meter contour following a continuous circuit around the lakeshore.",
+ "Partners": [
+  {
+   "OrganizationID": 2,
+   "OrganizationName": "Desert Research Institute",
+   "OrganizationShortName": "DRI"
+  },
+  {
+   "OrganizationID": 19,
+   "OrganizationName": "Nevada Tahoe Resource Team – Nevada Division of State Lands",
+   "OrganizationShortName": "NDSL"
+  },
+  {
+   "OrganizationID": 24,
+   "OrganizationName": "UC Davis Tahoe Environmental Research Center",
+   "OrganizationShortName": "TERC"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Nearshore turbidity by location",
+    "sub": "Turbidity in nephelometric turbidity units (NTU) at each nearshore location, by year.",
+    "layer": 111,
+    "x": "Year",
+    "y": "value",
+    "unpivot": {
+     "prefix": "NTU"
+    },
+    "yName": "Turbidity",
+    "yLabel": "Turbidity (NTU)",
+    "seriesBy": "Location",
+    "seriesLabel": "Location",
+    "span": "span-12"
+   },
+   {
+    "title": "Turbidity at one location",
+    "sub": "Turbidity in NTU each year at one nearshore location. Choose a location.",
+    "layer": 111,
+    "x": "Year",
+    "y": "value",
+    "unpivot": {
+     "prefix": "NTU"
+    },
+    "yName": "Turbidity",
+    "yLabel": "Turbidity (NTU)",
+    "type": "bar",
+    "pick": "Location",
+    "pickLabel": "Location",
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Nearshore Turbidity (No Stream Influence)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/136"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Nearshore Turbidity (Stream Influence)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/135"
+  }
+ ],
+ "MonitoringProgramID": 12,
+ "MonitoringProgramName": "Nearshore Turbidity Monitoring",
+ "CategoryID": 7,
+ "CategoryName": "Water Quality",
+ "ThemeColor": "#0F3F6F",
+ "IsFeatured": false,
+ "PartnerCount": 3,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Desert Research Institute",
+  "Nevada Tahoe Resource Team – Nevada Division of State Lands",
+  "UC Davis Tahoe Environmental Research Center"
+ ]
+}

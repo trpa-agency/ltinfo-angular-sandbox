@@ -1,0 +1,263 @@
+{
+ "MonitoringProgramDescription": null,
+ "MonitoringApproach": "Every four years, a team of professionals examines and evaluates the quality of\n\nscenic units and resources along major roadways, the shoreline, and at certain public recreation sites and bike trails in the Lake Tahoe Region. The team also reviews ratings from prior evaluations and updates rating based on its findings.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Corridor units in attainment",
+    "sub": "Scenic corridor units in and out of attainment, by evaluation year.",
+    "layer": 23,
+    "x": "YEAR",
+    "y": "OBJECTID",
+    "stat": "count",
+    "seriesBy": "STATUS",
+    "seriesLabel": "Status",
+    "yLabel": "Corridor units",
+    "type": "stacked"
+   },
+   {
+    "title": "Average corridor rating",
+    "sub": "Average scenic threshold rating of roadway and shoreline corridor units, by evaluation year.",
+    "layer": 23,
+    "x": "YEAR",
+    "y": "THRESHOLD_RATING",
+    "stat": "avg",
+    "seriesBy": "CATEGORY",
+    "seriesLabel": "Corridor type",
+    "yLabel": "Threshold rating"
+   },
+   {
+    "title": "Viewpoint ratings in attainment",
+    "sub": "Scenic viewpoint ratings in attainment or not, by evaluation year.",
+    "layer": 25,
+    "x": "YEAR",
+    "y": "OBJECTID",
+    "stat": "count",
+    "seriesBy": "THRESHOLD_STATUS",
+    "seriesLabel": "Status",
+    "seriesNames": {
+     "A": "In attainment",
+     "N": "Not in attainment",
+     "N/A": "Not rated"
+    },
+    "yLabel": "Viewpoint ratings",
+    "type": "stacked"
+   },
+   {
+    "title": "Average viewpoint rating",
+    "sub": "Average scenic threshold rating of roadway and shoreline viewpoints, by evaluation year.",
+    "layer": 25,
+    "x": "YEAR",
+    "y": "THRESHOLD_RATING",
+    "stat": "avg",
+    "seriesBy": "CATEGORY",
+    "seriesLabel": "Viewpoint type",
+    "yLabel": "Threshold rating"
+   },
+   {
+    "title": "Corridor rating by corridor",
+    "sub": "Scenic threshold rating each evaluation year, for roadway and shoreline units. Choose a corridor.",
+    "layer": 23,
+    "x": "YEAR",
+    "y": "THRESHOLD_RATING",
+    "seriesBy": "CATEGORY",
+    "seriesLabel": "Corridor type",
+    "pick": "CORRIDOR_NAME",
+    "pickLabel": "Corridor",
+    "yLabel": "Threshold rating",
+    "span": "span-12"
+   }
+  ],
+  "sitesPerYear": {
+   "layer": 23,
+   "year": "YEAR",
+   "site": "ID",
+   "unit": "corridor unit"
+  },
+  "mapLayer": {
+   "layer": 22,
+   "title": "Scenic corridors",
+   "unit": "corridor unit",
+   "unitPlural": "Corridor units",
+   "name": "CORRIDOR_NAME",
+   "colorBy": "CURRENT_STATUS",
+   "colorByLabel": "Threshold status",
+   "colors": {
+    "Attainment": "#188c16",
+    "Non-Attainment": "#be4c4c"
+   },
+   "meta": [
+    {
+     "field": "CATEGORY"
+    },
+    {
+     "field": "TYPE"
+    }
+   ],
+   "fields": [
+    {
+     "field": "CURRENT_STATUS",
+     "label": "Status"
+    },
+    {
+     "field": "CATEGORY",
+     "label": "Category"
+    },
+    {
+     "field": "TYPE",
+     "label": "Type"
+    },
+    {
+     "field": "UNIT",
+     "label": "Unit"
+    },
+    {
+     "field": "JURISDICTION",
+     "label": "Jurisdiction"
+    }
+   ]
+  },
+  "overlays": [
+   {
+    "layer": 24,
+    "title": "Scenic viewpoints",
+    "name": "CORRIDOR_NAME",
+    "geometry": "point",
+    "color": "#3e72b0",
+    "fields": [
+     {
+      "field": "ID",
+      "label": "Viewpoint"
+     },
+     {
+      "field": "CATEGORY",
+      "label": "Category"
+     },
+     {
+      "field": "CURRENT_STATUS",
+      "label": "Status"
+     },
+     {
+      "field": "JURISDICTION",
+      "label": "Jurisdiction"
+     }
+    ]
+   }
+  ],
+  "siteProfile": {
+   "record": {
+    "layer": 23,
+    "join": {
+     "from": "ID",
+     "to": "ID"
+    },
+    "year": "YEAR",
+    "value": "THRESHOLD_RATING",
+    "label": "Scenic rating",
+    "decimals": 1,
+    "noun": [
+     "rating",
+     "ratings"
+    ],
+    "status": {
+     "field": "STATUS",
+     "value": "Attainment",
+     "label": "In attainment"
+    },
+    "zero": false,
+    "compare": false
+   },
+   "owner": {
+    "field": "JURISDICTION"
+   },
+   "facts": [
+    {
+     "label": "Category",
+     "field": "CATEGORY"
+    },
+    {
+     "label": "Type",
+     "field": "TYPE"
+    },
+    {
+     "label": "Unit",
+     "field": "UNIT"
+    }
+   ],
+   "photos": {
+    "layer": 24,
+    "join": [
+     {
+      "from": "UNIT",
+      "to": "UNIT"
+     },
+     {
+      "from": "CATEGORY",
+      "to": "CATEGORY"
+     }
+    ],
+    "label": {
+     "field": "ID",
+     "prefix": "Viewpoint "
+    },
+    "layout": "panorama",
+    "title": "Viewpoints",
+    "credit": "TRPA scenic monitoring viewpoint photos"
+   }
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Built Environment (Community Design)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/55"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Scenic Quality of Other Areas (Recreation Sites and Bike Trails)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/56"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Scenic Quality Ratings for Roadway Travel Units (Scenic Resources)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/57"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Scenic Quality Ratings for Shoreline Travel Units (Scenic Resources)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/59"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Travel Route Ratings for Roadway Travel Units",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/58"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Travel Route Ratings for Shoreline Travel Units",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/60"
+  }
+ ],
+ "MonitoringProgramID": 59,
+ "MonitoringProgramName": "Scenic Monitoring",
+ "CategoryID": 4,
+ "CategoryName": "Scenic Resources",
+ "ThemeColor": "#B0A843",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 86,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

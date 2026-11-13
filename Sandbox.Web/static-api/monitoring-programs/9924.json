@@ -1,0 +1,54 @@
+{
+ "MonitoringProgramDescription": "Transient occupancy tax is charged on hotel, motel, and short-term rental stays. Its revenue tracks the visitor economy the Region depends on, and how it shifts with snow years, fire seasons, and the economy.",
+ "MonitoringApproach": "Each local jurisdiction reports the tax collected in each fiscal year, July through June. El Dorado County's collections are not in the fiscal-year record, so the totals cover the other four jurisdictions.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Transient occupancy tax collected",
+    "sub": "Dollars collected each fiscal year, by jurisdiction.",
+    "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+    "layer": 137,
+    "where": "Duration = 'FY'",
+    "x": "Fiscal_Year",
+    "xType": "category",
+    "xLabel": "Fiscal year",
+    "y": "TOT_Collected",
+    "stat": "sum",
+    "seriesBy": "Jurisdiction",
+    "seriesLabel": "Jurisdiction",
+    "yLabel": "Dollars",
+    "type": "stacked",
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Economic Resilience",
+   "Url": "https://climate.laketahoeinfo.org/economic-resilience"
+  }
+ ],
+ "MonitoringProgramID": 9924,
+ "MonitoringProgramName": "Transient Occupancy Tax",
+ "CategoryID": 16,
+ "CategoryName": "Housing and Economy",
+ "ThemeColor": "#646820",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

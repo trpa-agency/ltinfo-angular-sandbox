@@ -13,6 +13,7 @@ import {
   viewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import { LocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 // Types only. The library arrives through import() in loadLeaflet(), so the home page
@@ -122,6 +123,7 @@ export class HomeMap {
 
   private readonly api = inject(SandboxApiService);
   private readonly router = inject(Router);
+  private readonly locationStrategy = inject(LocationStrategy);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
   private readonly canvas = viewChild.required<ElementRef<HTMLDivElement>>('canvas');
   private readonly byProgram = computed(
@@ -270,7 +272,8 @@ export class HomeMap {
     if (program) {
       const href = `/programs/${program.MonitoringProgramID}`;
       const link = element('a', undefined, program.MonitoringProgramName);
-      link.href = href;
+      // With the <base href> in front, so a new-tab click also works under a repository path.
+      link.href = this.locationStrategy.prepareExternalUrl(href);
       // A route change, not a page load.
       link.addEventListener('click', (event) => {
         if (event.ctrlKey || event.metaKey || event.shiftKey || event.button !== 0) return;

@@ -6,7 +6,9 @@
     "start": "ng serve --proxy-config proxy.conf.dev.json",
     "start:docker": "ng serve --host 0.0.0.0 --port 4200 --poll 1000 --proxy-config proxy.conf.docker.json",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development"
+    "watch": "ng build --watch --configuration development",
+    "export:static": "node scripts/export-static-api.mjs",
+    "build:pages": "node scripts/build-pages.mjs"
   },
   "private": true,
   "packageManager": "npm@10.9.9",

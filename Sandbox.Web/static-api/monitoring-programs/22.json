@@ -1,0 +1,75 @@
+{
+ "MonitoringProgramDescription": "Provide for the non-degradation of the natural qualities of any plant community that is uncommon to the Basin or of exceptional scientific, ecological, or scenic value. This threshold shall apply to the deep-water plants of Lake Tahoe.",
+ "MonitoringApproach": "The data used in this assessment was collected in 2008, 2009 and 2013 in an attempt to find endemic invertebrates and the deep water plants they depend on. Divers investigated the spatial extent and depth profiles of the only two known beds at Camp Richardson and the South Shore Mound during the 2013 survey. Routine monitoring is not currently underway for this indicator.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 47,
+   "OrganizationName": "University of Nevada, Reno",
+   "OrganizationShortName": "UNR"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Deepwater plants by depth",
+    "sub": "Percent of lakebed samples with macrophytes, by depth, 1962 to 1963 against 2008 to 2009. Approximate: read from the published chart image.",
+    "json": "data/threshold-evaluation/deep-water-plants.json",
+    "sourceHref": "https://thresholds.laketahoeinfo.org/ThresholdIndicator/Detail/94",
+    "sourceLabel": "Threshold Dashboard chart (image)",
+    "x": "Depth (m)",
+    "xType": "category",
+    "xLabel": "Depth (m)",
+    "xOrder": [
+     "11-20",
+     "21-30",
+     "31-40",
+     "41-50",
+     "51-60",
+     "61-70",
+     "71-80",
+     "81-90",
+     "91-100",
+     "101-110",
+     "121-130",
+     "131-140",
+     "151-160",
+     "251-300"
+    ],
+    "y": "Percent",
+    "seriesBy": "Period",
+    "seriesLabel": "Survey",
+    "yLabel": "Samples with plants (percent)",
+    "type": "bar",
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Deepwater Plants of Lake Tahoe",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/94"
+  }
+ ],
+ "MonitoringProgramID": 22,
+ "MonitoringProgramName": "Deep Water Plants",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 2,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "University of Nevada, Reno"
+ ]
+}

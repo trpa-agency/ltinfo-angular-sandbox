@@ -1,0 +1,108 @@
+{
+ "MonitoringProgramDescription": null,
+ "MonitoringApproach": "Particulate matter is monitored by Placer County in Tahoe City, and at LTCC and DL Bliss as part of the national IMPROVE national monitoring network.",
+ "Partners": [
+  {
+   "OrganizationID": 6,
+   "OrganizationName": "Placer County Air Pollution Control District",
+   "OrganizationShortName": "PCAPCD"
+  },
+  {
+   "OrganizationID": 2,
+   "OrganizationName": "Desert Research Institute",
+   "OrganizationShortName": "DRI"
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2007,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/52896ff6-9961-4db0-b00f-192ef6f57d30",
+   "Caption": "TRPA air quality monitoring station.",
+   "PhotoCredit": "TRPA",
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Fine particulate matter by station",
+    "sub": "Yearly fine particulate matter (PM2.5) statistic at each monitoring station, in micrograms per cubic meter. Choose a statistic.",
+    "layer": 46,
+    "where": "Pollutant = 'PM2.5'",
+    "x": "Year",
+    "y": "Value",
+    "yLabel": "PM2.5 (µg/m³)",
+    "seriesBy": "Site",
+    "seriesLabel": "Station",
+    "pick": "Indicator",
+    "pickLabel": "Statistic",
+    "pickDefault": "PM2.5 - ANNUAL AVG.",
+    "standard": {
+     "field": "Threshold_Value"
+    },
+    "span": "span-12"
+   },
+   {
+    "title": "Daily fine particulate matter by station",
+    "sub": "Daily fine particulate matter (PM2.5) values at each station from the daily monitoring record, in the units named in each statistic. Choose a statistic.",
+    "layer": 17,
+    "where": "variable LIKE 'PM 2.5%' OR variable LIKE 'PM2.5%'",
+    "x": "date",
+    "xType": "date",
+    "xLabel": "Date",
+    "y": "value",
+    "yName": "PM2.5",
+    "yLabel": "PM2.5",
+    "seriesBy": "id",
+    "seriesLabel": "Station",
+    "seriesNames": {
+     "STL": "Stateline",
+     "TC": "Tahoe City",
+     "IV": "Incline Village",
+     "SLT": "South Lake Tahoe",
+     "BSP": "DL Bliss State Park",
+     "LTC": "Lake Tahoe Community College"
+    },
+    "pick": "variable",
+    "pickLabel": "Statistic",
+    "span": "span-12"
+   }
+  ],
+  "sitesLayer": {
+   "layer": 16,
+   "name": "name",
+   "code": "id",
+   "active": "Active_2023",
+   "unit": "station"
+  },
+  "sitesPerYear": {
+   "layer": 46,
+   "year": "Year",
+   "site": "Site",
+   "where": "Pollutant = 'PM2.5'",
+   "unit": "station"
+  }
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 46,
+ "MonitoringProgramName": "Particulate Matter 2.5",
+ "CategoryID": 1,
+ "CategoryName": "Air Quality",
+ "ThemeColor": "#9CC3EA",
+ "IsFeatured": false,
+ "PartnerCount": 3,
+ "Template": "charts",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/52896ff6-9961-4db0-b00f-192ef6f57d30",
+ "SiteCount": 6,
+ "PartnerNames": [
+  "Placer County Air Pollution Control District",
+  "Desert Research Institute",
+  "Tahoe Regional Planning Agency"
+ ]
+}

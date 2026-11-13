@@ -1,0 +1,125 @@
+{
+ "MonitoringProgramDescription": "Background noise levels shall not exceed the following levels: 45 dBA CNEL (Average Noise Level) in the Critical Wildlife Habitat Areas Land Use Category.\n\nThe maximum 24-hour CNEL A-weighted decibel (dBA) is used to assess status. The annual mean CNEL is used to assess trend. The A-weighted decibel measurement is used in evaluating the effects of environmental and industrial noise effects on human health.",
+ "MonitoringApproach": "Historical monitoring consisted of gathering a single 24-hour sample in various land use areas. Threshold standard attainment status was based on a single sample representing each land use type. In contrast to single-sample historic monitoring, a more comprehensive CNEL monitoring protocol was implemented in 2011. The 2011 monitoring approach was based on recommendations provided by a noise expert (Brown-Buntin Associates 2004). The approach since 2011 monitors the same sites every year for at least seven days during the period of May 15 to October 1. This captures noise levels during the construction season and the busiest tourist seasons. Unusual noise such as lightning strikes and animal sounds are discarded from the data. The mean 24-hour dBA from each day is averaged for the final CNEL at each monitoring location. Decibel levels at night are weighted heavier to account for human’s greater sensitivity to night-time noise.",
+ "Partners": [
+  {
+   "OrganizationID": 7,
+   "OrganizationName": "California Department of Parks and Recreation",
+   "OrganizationShortName": "CDPR"
+  },
+  {
+   "OrganizationID": 20,
+   "OrganizationName": "California Tahoe Conservancy",
+   "OrganizationShortName": "CTC"
+  },
+  {
+   "OrganizationID": 29,
+   "OrganizationName": "Private",
+   "OrganizationShortName": "Private"
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Noise in critical wildlife habitat",
+    "sub": "Average CNEL of all critical wildlife habitat sites, by monitoring period, in decibels.",
+    "layer": 74,
+    "where": "Category = 'Critical Wildlife Habitat'",
+    "x": "Year",
+    "xType": "category",
+    "xLabel": "Period",
+    "y": "Value",
+    "yName": "Average CNEL",
+    "yLabel": "Average CNEL (dB)",
+    "type": "bar",
+    "standard": {
+     "field": "Threshold_Value"
+    },
+    "span": "span-6"
+   },
+   {
+    "title": "Critical wildlife habitat noise by site",
+    "sub": "Maximum-day CNEL at each critical wildlife habitat site, in decibels.",
+    "layer": 6,
+    "where": "CNEL_LAND_USE = 'CRITICAL WILDLIFE HABITAT'",
+    "x": "YEAR_OF_COUNT",
+    "y": "COUNT_VALUE",
+    "yLabel": "CNEL (dB)",
+    "seriesBy": "SITE_NAME",
+    "seriesLabel": "Site",
+    "type": "bar",
+    "standard": {
+     "value": 45
+    },
+    "span": "span-6"
+   },
+   {
+    "title": "Noise in transportation corridors",
+    "sub": "Average CNEL at each highway monitoring site, in decibels, against the corridor limit. Choose a highway.",
+    "layer": 11,
+    "x": "YEAR_OF_COUNT",
+    "y": "CNEL_AVG_VALUE",
+    "yLabel": "Average CNEL (dB)",
+    "seriesBy": "SITE_NAME",
+    "seriesLabel": "Site",
+    "pick": "HIGHWAY",
+    "pickLabel": "Highway",
+    "pickDefault": "50",
+    "standard": {
+     "field": "CNEL_LIMIT",
+     "label": "Corridor limit"
+    },
+    "type": "bar",
+    "span": "span-12"
+   }
+  ],
+  "sitesLayer": {
+   "layer": 6,
+   "name": "SITE_NAME",
+   "year": "YEAR_OF_COUNT",
+   "where": "CNEL_LAND_USE = 'CRITICAL WILDLIFE HABITAT'"
+  },
+  "sitesPerYear": {
+   "layer": 6,
+   "year": "YEAR_OF_COUNT",
+   "site": "SITE_NAME",
+   "where": "CNEL_LAND_USE = 'CRITICAL WILDLIFE HABITAT'"
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Critical Wildlife Habitat Areas",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/29"
+  }
+ ],
+ "MonitoringProgramID": 9,
+ "MonitoringProgramName": "Cumulative Noise Events",
+ "CategoryID": 9,
+ "CategoryName": "Noise",
+ "ThemeColor": "#675EA1",
+ "IsFeatured": false,
+ "PartnerCount": 5,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "California Department of Parks and Recreation",
+  "California Tahoe Conservancy",
+  "Private",
+  "Tahoe Regional Planning Agency",
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+ ]
+}

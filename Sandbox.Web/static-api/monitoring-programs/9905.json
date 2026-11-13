@@ -1,0 +1,71 @@
+{
+ "MonitoringProgramDescription": "Household incomes in the Basin have generally risen over the past decade, with a notable rise from 2019 to 2021, the latest years with census estimates. In the Washoe County part of the Basin, median income adjusted for inflation rose 29 percent from 2019 to 2021, while elsewhere in the Basin it held roughly steady.",
+ "MonitoringApproach": "Figures come from the U.S. Census Bureau's decennial census and American Community Survey (ACS) 5-year estimates, queried through the Census Bureau's API and summarized for the Tahoe Region by TRPA. Decennial counts are a full count every 10 years; ACS estimates are yearly averages of five years of samples, so they move more smoothly and carry a margin of error.\n\nIn 2020 the census boundaries changed. The Lake Tahoe Region is made up of 31 census tracts and 78 block groups along the California and Nevada border. The Carson City tract straddles the TRPA boundary with most of its people outside it, so it is left out.\n\nThe tables and boundaries are on the TRPA Demographics map service, and the code behind the figures is in TRPA's Demographics repository on GitHub.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Median household income",
+    "sub": "Median household income in the Basin in 2021 dollars, from the 1990 and 2000 censuses and ACS 5-year estimates after.",
+    "service": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+    "layer": 18,
+    "where": "Geography = 'Basin' AND Category = 'Household Income (2021 Inflation Adjusted Dollars)'",
+    "x": "Year",
+    "y": "Value",
+    "yName": "Median income",
+    "yLabel": "Dollars (2021)",
+    "type": "bar",
+    "span": "span-12"
+   },
+   {
+    "title": "Median household income by county",
+    "sub": "Median household income in each county's part of the Basin, 2021 dollars.",
+    "json": "data/demographics/median-income-by-county.json",
+    "sourceHref": "https://trpa-agency.github.io/Demographics/Open_Data_Figures/Demographics_Tahoe_County_Median_Income_Line.html",
+    "sourceLabel": "Tahoe Open Data demographics",
+    "x": "Year",
+    "y": "Income",
+    "seriesBy": "Area",
+    "seriesLabel": "Area",
+    "seriesOrder": [
+     "Basin (Median)",
+     "Douglas",
+     "El Dorado",
+     "Placer",
+     "Washoe"
+    ],
+    "yLabel": "Dollars (2021)",
+    "zero": false,
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Demographics and Workforce",
+   "Url": "https://climate.laketahoeinfo.org/demographics-and-workforce"
+  }
+ ],
+ "MonitoringProgramID": 9905,
+ "MonitoringProgramName": "Income",
+ "CategoryID": 16,
+ "CategoryName": "Housing and Economy",
+ "ThemeColor": "#646820",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

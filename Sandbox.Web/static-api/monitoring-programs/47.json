@@ -1,0 +1,64 @@
+{
+ "MonitoringProgramDescription": "Reduce vehicle miles of travel in the Basin by 10 percent of the 1981 base year values",
+ "MonitoringApproach": "The identification of traffic volumes is a primary component towards tracking\n\nmobility with the Tahoe Region. Published traffic volumes are counted annually within the Lake Tahoe Region by both the California Department of Transportation (Caltrans) the Nevada Department of Transportation (NDOT) and local governmental jurisdictions. In addition to modeling compliance with\n\nthe 1981 VMT Threshold, TRPA staff utilized the 1981 base year VMT estimate, and the corresponding traffic count stations that produce annual traffic counts to analyze increases or decreases in VMT.",
+ "Partners": [
+  {
+   "OrganizationID": 11,
+   "OrganizationName": "California Department of Transportation",
+   "OrganizationShortName": "Caltrans"
+  },
+  {
+   "OrganizationID": 28,
+   "OrganizationName": "Nevada Department of Transportation",
+   "OrganizationShortName": "NDOT"
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Vehicle miles traveled",
+    "sub": "Estimated vehicle miles traveled per day in the Tahoe Region. The threshold is 10 percent below the 1981 base year.",
+    "layer": 92,
+    "x": "Year",
+    "y": "VMT",
+    "yName": "VMT",
+    "yLabel": "Vehicle miles per day",
+    "standard": {
+     "value": 1309316,
+     "label": "Threshold"
+    },
+    "zero": false,
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Transportation",
+   "Url": "https://climate.laketahoeinfo.org/transportation"
+  }
+ ],
+ "MonitoringProgramID": 47,
+ "MonitoringProgramName": "Vehicle Miles Traveled",
+ "CategoryID": 10,
+ "CategoryName": "Transportation and Sustainable Communities",
+ "ThemeColor": "#DB5B00",
+ "IsFeatured": false,
+ "PartnerCount": 3,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "California Department of Transportation",
+  "Nevada Department of Transportation",
+  "Tahoe Regional Planning Agency"
+ ]
+}

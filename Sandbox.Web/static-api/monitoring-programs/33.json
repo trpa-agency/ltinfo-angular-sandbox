@@ -1,0 +1,182 @@
+{
+ "MonitoringProgramDescription": "TRPA and local partners monitor bicycle and pedestrian activity throughout the Region to understand high use areas, mode-split, and support grant applications and reporting. Count information also informs policies and programs targeted to improve and support active transportation.",
+ "MonitoringApproach": "In 2015, as part of the update to the Active Transportation Plan, TRPA developed the Lake Tahoe Region Bicycle and Pedestrian Monitoring Protocol using best industry practices and national experts Kittleson and Associates. TRPA began implementation in summer of 2015, which built on and integrated previous monitoring efforts. In partnership with local agencies, TRPA has established a system for the collection of year-round active transportation data which includes permanent counting stations, biennial count locations, and spot count locations depending on need. During the first two years of implementation, TRPA produced a bicycle and pedestrian monitoring report which analyzes historical trends, provides detailed information by location, and compares use at similar sites. This report also supplemented the regional transportation monitoring report. Moving forward, all analysis and up-to-date data will be available on the transportation monitoring dashboard, in lieu of a hardcopy report.\n\nTo download all Bicycle and Pedestrian data please visit Tahoe Open Data.\n\nMap Legend:\n\nPermanent Monitors-Green\n\nTrend Monitors (every other year data)- Brown\n\nPneumatic Tubes (only 1 week of data at a time)- Blue\n\nRetired Monitors or Short- term monitoring- Gray",
+ "Partners": [
+  {
+   "OrganizationID": 15,
+   "OrganizationName": "Tahoe City Public Utility District",
+   "OrganizationShortName": "TCPUD"
+  },
+  {
+   "OrganizationID": 12,
+   "OrganizationName": "City of South Lake Tahoe",
+   "OrganizationShortName": "CSLT"
+  },
+  {
+   "OrganizationID": 27,
+   "OrganizationName": "Douglas County, NV",
+   "OrganizationShortName": "DGCO"
+  },
+  {
+   "OrganizationID": 11,
+   "OrganizationName": "California Department of Transportation",
+   "OrganizationShortName": "Caltrans"
+  },
+  {
+   "OrganizationID": 28,
+   "OrganizationName": "Nevada Department of Transportation",
+   "OrganizationShortName": "NDOT"
+  },
+  {
+   "OrganizationID": 17,
+   "OrganizationName": "Placer County, CA",
+   "OrganizationShortName": "PLCO"
+  },
+  {
+   "OrganizationID": 18,
+   "OrganizationName": "El Dorado County, CA",
+   "OrganizationShortName": "ELDO"
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2031,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/f50fe8cf-b9e5-401f-81a3-3075ad528d96",
+   "Caption": "A bike and pedestrian counter along the shared-use path near Camp Richardson",
+   "PhotoCredit": null,
+   "IsKeyPhoto": true
+  },
+  {
+   "MonitoringProgramImageID": 2032,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/45198179-58b3-4750-acbe-1bfb88c8ec3e",
+   "Caption": "TRPA staff installs a Pneumatic Tube Bike Counter in a bike lane",
+   "PhotoCredit": null,
+   "IsKeyPhoto": false
+  },
+  {
+   "MonitoringProgramImageID": 2033,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/9188bc73-bb46-4d1e-b22b-c20beba3e342",
+   "Caption": "A bike and pedestrian counter along the Sawmill Blvd path",
+   "PhotoCredit": null,
+   "IsKeyPhoto": false
+  },
+  {
+   "MonitoringProgramImageID": 2034,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/1f43b66a-f6fa-403c-89fe-62d128df4871",
+   "Caption": "An infrared counter at the shared-use path along Hwy 50 in South Lake Tahoe",
+   "PhotoCredit": null,
+   "IsKeyPhoto": false
+  },
+  {
+   "MonitoringProgramImageID": 2035,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/9b44ffb4-1a03-44eb-b87d-a2abb0bd8fa8",
+   "Caption": "Average daily counts from summer 2017 across all counting sites.",
+   "PhotoCredit": null,
+   "IsKeyPhoto": false
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Busiest counters",
+    "sub": "Total bicycle and pedestrian counts recorded at the 15 busiest counters.",
+    "layer": 1,
+    "x": "counter_name",
+    "xLabel": "Counter",
+    "y": "count_of_bike_ped",
+    "stat": "sum",
+    "yName": "Total count",
+    "yLabel": "Total count",
+    "type": "bar",
+    "orientation": "h",
+    "sort": "desc",
+    "limit": 15
+   },
+   {
+    "title": "Counts by month",
+    "sub": "Total bicycle and pedestrian counts across all counters, by month of the year.",
+    "layer": 1,
+    "x": "month_of_year",
+    "xType": "month",
+    "xLabel": "Month",
+    "y": "count_of_bike_ped",
+    "stat": "sum",
+    "yName": "Total count",
+    "yLabel": "Total count",
+    "type": "bar"
+   }
+  ],
+  "sitesLayer": {
+   "layer": 5,
+   "name": "counter_name",
+   "code": "counter_id",
+   "unit": "counter"
+  },
+  "sitesPerYear": {
+   "layer": 1,
+   "year": "count_date",
+   "site": "counter_name",
+   "extract": true,
+   "unit": "counter"
+  },
+  "siteProfile": {
+   "record": {
+    "layer": 1,
+    "join": {
+     "from": "code",
+     "to": "counter_id"
+    },
+    "year": "count_date",
+    "extractYear": true,
+    "value": "count_of_bike_ped",
+    "stat": "sum",
+    "label": "Bicycle and pedestrian count, yearly total",
+    "short": "Yearly total",
+    "unit": "",
+    "noun": [
+     "day counted",
+     "days counted"
+    ],
+    "latestLabel": "Yearly total"
+   }
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Transportation",
+   "Url": "https://climate.laketahoeinfo.org/transportation"
+  },
+  {
+   "Dashboard": "Transportation Tracker",
+   "Label": "Data Trends",
+   "Url": "https://transportation.laketahoeinfo.org/transportation/data-trends"
+  }
+ ],
+ "MonitoringProgramID": 33,
+ "MonitoringProgramName": "Bicycle and Pedestrian",
+ "CategoryID": 10,
+ "CategoryName": "Transportation and Sustainable Communities",
+ "ThemeColor": "#DB5B00",
+ "IsFeatured": true,
+ "PartnerCount": 8,
+ "Template": "map",
+ "ImageCount": 5,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/f50fe8cf-b9e5-401f-81a3-3075ad528d96",
+ "SiteCount": 56,
+ "PartnerNames": [
+  "Tahoe City Public Utility District",
+  "City of South Lake Tahoe",
+  "Douglas County, NV",
+  "California Department of Transportation",
+  "Nevada Department of Transportation",
+  "Placer County, CA",
+  "El Dorado County, CA",
+  "Tahoe Regional Planning Agency"
+ ]
+}

@@ -1,0 +1,112 @@
+{
+ "MonitoringProgramDescription": null,
+ "MonitoringApproach": "Known nest sites are visited regularly during the incubation and fledging periods to determine reproductive success. Monthly boat surveys during non-winter months are conducted to identify any new nest sites surrounding Lake Tahoe, and ad-hoc surveys are conducted in other areas in support of environmental assessments for proposed projects.",
+ "Partners": [
+  {
+   "OrganizationID": 7,
+   "OrganizationName": "California Department of Parks and Recreation",
+   "OrganizationShortName": "CDPR"
+  },
+  {
+   "OrganizationID": 50,
+   "OrganizationName": "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+   "OrganizationShortName": "NDOW"
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2064,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/a12cd824-a57b-45b8-a81b-cca05b501c99",
+   "Caption": "Adult Bald Eagle",
+   "PhotoCredit": null,
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Active bald eagle nests",
+    "sub": "Active nests counted each year, with the threshold.",
+    "layer": 96,
+    "where": "Wildlife_Species = 'Bald Eagle - nesting'",
+    "x": "Year",
+    "y": "Total",
+    "yName": "Active nests",
+    "yLabel": "Active nests",
+    "type": "bar",
+    "standard": {
+     "field": "Threshold_Value"
+    }
+   },
+   {
+    "title": "Wintering bald eagles",
+    "sub": "Individuals counted each year.",
+    "layer": 96,
+    "where": "Wildlife_Species = 'Bald Eagle - winter'",
+    "x": "Year",
+    "y": "Total",
+    "yName": "Individuals",
+    "yLabel": "Individuals",
+    "type": "bar"
+   }
+  ],
+  "mapLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/Wildlife_Activity/MapServer",
+   "layer": 0,
+   "title": "Bald eagle nest buffers",
+   "unit": "nest",
+   "unitPlural": "Nests",
+   "name": "Nest_Name",
+   "countAsSites": false,
+   "meta": [
+    {
+     "field": "Years_Active"
+    }
+   ],
+   "fields": [
+    {
+     "field": "Years_Active",
+     "label": "Years active"
+    },
+    {
+     "field": "Years_Reproductive",
+     "label": "Years reproductive"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Nesting Bald Eagle Population Sites",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/160"
+  }
+ ],
+ "MonitoringProgramID": 4,
+ "MonitoringProgramName": "Nesting Bald Eagle",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 4,
+ "Template": "charts",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/a12cd824-a57b-45b8-a81b-cca05b501c99",
+ "SiteCount": 0,
+ "PartnerNames": [
+  "California Department of Parks and Recreation",
+  "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+  "Tahoe Regional Planning Agency",
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+ ]
+}

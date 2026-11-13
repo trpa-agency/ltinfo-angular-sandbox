@@ -1,0 +1,57 @@
+{
+ "MonitoringProgramDescription": null,
+ "MonitoringApproach": "Caltrans measures this indicator continuously using automated counters placed\n\nin the roadway at the intersection of Park Avenue and U.S. Highway 50 in South Lake Tahoe, including on the Saturday of Presidents’ Day weekend from 4 p.m. and midnight, coinciding with the historical\n\nperiod of the most frequent exceedance of California’s carbon monoxide (CO) standards. Data are summarized by Caltrans and subsequently accessed by TRPA for reporting purposes.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 11,
+   "OrganizationName": "California Department of Transportation",
+   "OrganizationShortName": "Caltrans"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Presidents' Weekend traffic volume",
+    "sub": "Average daily traffic over Presidents' Weekend at the Park Avenue count site in South Lake Tahoe. The threshold is a ceiling of 24,000 vehicles.",
+    "layer": 97,
+    "x": "Year",
+    "y": "Value",
+    "yName": "Vehicles",
+    "yLabel": "Vehicles per day",
+    "type": "bar",
+    "standard": {
+     "field": "Threshold",
+     "label": "Threshold"
+    },
+    "span": "span-12"
+   }
+  ],
+  "sitesLayer": {
+   "layer": 105,
+   "name": "id",
+   "unit": "count site"
+  }
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 40,
+ "MonitoringProgramName": "Winter Traffic Volume, Presidents' Weekend",
+ "CategoryID": 1,
+ "CategoryName": "Air Quality",
+ "ThemeColor": "#9CC3EA",
+ "IsFeatured": false,
+ "PartnerCount": 2,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "California Department of Transportation"
+ ]
+}

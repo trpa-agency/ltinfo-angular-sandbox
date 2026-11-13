@@ -1,0 +1,161 @@
+{
+ "MonitoringProgramDescription": null,
+ "MonitoringApproach": "The status and trend determinations were based on a qualitative assessment of factors influencing the condition of the site, including historical alterations, ongoing hydrologic impacts, sources of recreation-related disturbance, and surrounding land use and management. Two long term meadow monitoring plots were installed in the Upper Truckee Marsh in 2014, following the protocol in the U.S. Forest Service Region 5 Range Monitoring Program (Weixelman 2011). The protocol is designed to classify a meadow according to wetland index and plant functional types, which provides a quantitative ecological condition scorecard for that meadow type (Weixelman and Gross In Review). Distance to meadow edge, distance to stream channel, degree of channel incision, and evidence of Sierra lodgepole pine (Pinus contorta var. murrayana) encroachment data is collected at each transect.",
+ "Partners": [
+  {
+   "OrganizationID": 20,
+   "OrganizationName": "California Tahoe Conservancy",
+   "OrganizationShortName": "CTC"
+  },
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  },
+  {
+   "OrganizationID": 23,
+   "OrganizationName": "U.S. Geological Survey",
+   "OrganizationShortName": "USGS"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Overall condition score",
+    "sub": "SEZ assessment score by threshold evaluation year, meadow units.",
+    "layer": 106,
+    "where": "Assessment_Unit_Name IN ('UTR marsh - Trout Creek side', 'UTR Marsh - UTR side') AND SEZ_Type LIKE '%Meadow%'",
+    "x": "Threshold_Year",
+    "xType": "category",
+    "xLabel": "Evaluation year",
+    "y": "Final_Percent",
+    "stat": "avg",
+    "seriesBy": "Assessment_Unit_Name",
+    "seriesLabel": "Assessment unit",
+    "yLabel": "Score (percent)",
+    "type": "bar"
+   },
+   {
+    "title": "Vegetation indicator scores",
+    "sub": "Points out of 12 (A 12, B 9, C 6, D 3), meadow units.",
+    "layer": 106,
+    "where": "Assessment_Unit_Name IN ('UTR marsh - Trout Creek side', 'UTR Marsh - UTR side') AND SEZ_Type LIKE '%Meadow%'",
+    "x": "Threshold_Year",
+    "xType": "category",
+    "xLabel": "Evaluation year",
+    "y": [
+     {
+      "field": "VegetationVigor_Score",
+      "name": "Vegetation vigor"
+     },
+     {
+      "field": "Invasives_Scores",
+      "name": "Invasive species"
+     },
+     {
+      "field": "Conifer_Encroachment_Score",
+      "name": "Conifer encroachment"
+     }
+    ],
+    "yLabel": "Points",
+    "type": "bar",
+    "pick": "Assessment_Unit_Name",
+    "pickLabel": "Assessment unit"
+   }
+  ],
+  "mapLayer": {
+   "layer": 106,
+   "where": "Assessment_Unit_Name IN ('UTR marsh - Trout Creek side', 'UTR Marsh - UTR side')",
+   "title": "SEZ assessment unit",
+   "unit": "assessment unit",
+   "unitPlural": "Assessment units",
+   "name": "Assessment_Unit_Name",
+   "colorBy": "Final_Rating",
+   "colorByLabel": "Overall rating",
+   "colors": {
+    "A": "var(--mon-chlorophyll-6)",
+    "B": "var(--mon-chlorophyll-5)",
+    "C": "var(--mon-chlorophyll-3)",
+    "D": "var(--mon-chlorophyll-2)",
+    "Not Assessed": "var(--color-content-disabled)"
+   },
+   "labels": {
+    "A": "Rating A",
+    "B": "Rating B",
+    "C": "Rating C",
+    "D": "Rating D"
+   },
+   "pick": "Threshold_Year",
+   "pickLabel": "Evaluation year",
+   "meta": [
+    {
+     "field": "SEZ_Type"
+    },
+    {
+     "field": "Acres",
+     "suffix": " acres"
+    }
+   ],
+   "fields": [
+    {
+     "field": "Final_Rating",
+     "label": "Overall rating"
+    },
+    {
+     "field": "Final_Percent",
+     "label": "Score (percent)"
+    },
+    {
+     "field": "VegetationVigor_Rating",
+     "label": "Vegetation vigor"
+    },
+    {
+     "field": "Invasive_Rating",
+     "label": "Invasive species"
+    },
+    {
+     "field": "Conifer_Encroachment_Rating",
+     "label": "Conifer encroachment"
+    },
+    {
+     "field": "Acres",
+     "label": "Acres"
+    }
+   ]
+  },
+  "overlays": [
+   {
+    "layer": 42,
+    "title": "Aquatic vegetation survey zones",
+    "name": "Location_1",
+    "geometry": "fill",
+    "color": "var(--mon-stevens4-1)",
+    "where": "Location_1 LIKE 'Upper Truckee Marsh%'",
+    "fields": [
+     {
+      "field": "Strata",
+      "label": "Stratum"
+     }
+    ]
+   }
+  ]
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 23,
+ "MonitoringProgramName": "Upper Truckee Marsh",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 3,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "California Tahoe Conservancy",
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+  "U.S. Geological Survey"
+ ]
+}

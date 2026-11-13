@@ -1,0 +1,137 @@
+{
+ "MonitoringProgramDescription": "The Basin's residents have grown older over three decades and are now slightly older than those of nearby counties and urban areas. The baby boom generation shows in the age profile: the largest age group was 30 to 40 in 1990, 40 to 50 in 2000, and 60 to 70 by 2020.\n\nMillennials form a second peak, at ages 25 to 40, that the surrounding five counties do not show, perhaps because of the Region's appeal to people seeking an active outdoor life. One resident in five was 65 or older in 2020, up from fewer than one in 10 in 1990.",
+ "MonitoringApproach": "Figures come from the U.S. Census Bureau's decennial census and American Community Survey (ACS) 5-year estimates, queried through the Census Bureau's API and summarized for the Tahoe Region by TRPA. Decennial counts are a full count every 10 years; ACS estimates are yearly averages of five years of samples, so they move more smoothly and carry a margin of error.\n\nIn 2020 the census boundaries changed. The Lake Tahoe Region is made up of 31 census tracts and 78 block groups along the California and Nevada border. The Carson City tract straddles the TRPA boundary with most of its people outside it, so it is left out.\n\nThe tables and boundaries are on the TRPA Demographics map service, and the code behind the figures is in TRPA's Demographics repository on GitHub.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Age profile, Tahoe Basin",
+    "sub": "Share of men (left) and of women (right) in each five-year age group. Choose a census year.",
+    "json": "data/demographics/age-profile.json",
+    "sourceHref": "https://trpa-agency.github.io/Demographics/Open_Data_Figures/Demographics_Tahoe_AgeProfile.html",
+    "sourceLabel": "Tahoe Open Data demographics",
+    "x": "Age",
+    "xType": "category",
+    "xLabel": "Age",
+    "xOrder": [
+     "Over 85",
+     "80 to 84",
+     "75 to 79",
+     "70 to 74",
+     "65 to 69",
+     "60 to 64",
+     "55 to 59",
+     "50 to 54",
+     "45 to 49",
+     "40 to 44",
+     "35 to 39",
+     "30 to 34",
+     "25 to 29",
+     "20 to 24",
+     "15 to 19",
+     "10 to 14",
+     "5 to 9",
+     "Under 5"
+    ],
+    "y": "Percent",
+    "seriesBy": "Sex",
+    "seriesLabel": "Sex",
+    "seriesOrder": [
+     "Men",
+     "Women"
+    ],
+    "mirror": "Men",
+    "pick": "Year",
+    "pickLabel": "Census",
+    "pickDefault": "2020",
+    "yLabel": "Percent of men or of women",
+    "type": "stacked",
+    "orientation": "h",
+    "span": "span-6"
+   },
+   {
+    "title": "Age profile, five surrounding counties",
+    "sub": "The same profile for the five counties around the Basin, for comparison.",
+    "json": "data/demographics/age-profile-counties.json",
+    "sourceHref": "https://trpa-agency.github.io/Demographics/Open_Data_Figures/Demographics_County_AgeProfile.html",
+    "sourceLabel": "Tahoe Open Data demographics",
+    "x": "Age",
+    "xType": "category",
+    "xLabel": "Age",
+    "xOrder": [
+     "Over 85",
+     "80 to 84",
+     "75 to 79",
+     "70 to 74",
+     "65 to 69",
+     "60 to 64",
+     "55 to 59",
+     "50 to 54",
+     "45 to 49",
+     "40 to 44",
+     "35 to 39",
+     "30 to 34",
+     "25 to 29",
+     "20 to 24",
+     "15 to 19",
+     "10 to 14",
+     "5 to 9",
+     "Under 5"
+    ],
+    "y": "Percent",
+    "seriesBy": "Sex",
+    "seriesLabel": "Sex",
+    "seriesOrder": [
+     "Men",
+     "Women"
+    ],
+    "mirror": "Men",
+    "pick": "Year",
+    "pickLabel": "Census",
+    "pickDefault": "2020",
+    "yLabel": "Percent of men or of women",
+    "type": "stacked",
+    "orientation": "h",
+    "span": "span-6"
+   },
+   {
+    "title": "Residents 65 and older",
+    "sub": "Share of the population 65 and older, the Basin against the five surrounding counties.",
+    "json": "data/demographics/population-over-65.json",
+    "sourceHref": "https://trpa-agency.github.io/Demographics/Open_Data_Figures/Demographics_Tahoe_Senior_Population.html",
+    "sourceLabel": "Tahoe Open Data demographics",
+    "x": "Year",
+    "xType": "category",
+    "xLabel": "Census",
+    "y": "Percent",
+    "seriesBy": "Area",
+    "seriesLabel": "Area",
+    "yLabel": "Percent of residents",
+    "type": "bar",
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 9902,
+ "MonitoringProgramName": "Age",
+ "CategoryID": 14,
+ "CategoryName": "Demographics",
+ "ThemeColor": "#7c7c7c",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

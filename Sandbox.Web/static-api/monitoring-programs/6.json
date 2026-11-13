@@ -1,0 +1,104 @@
+{
+ "MonitoringProgramDescription": null,
+ "MonitoringApproach": "Biologists observe historic or potential nest sites for a minimum of four hours per month, April through August following standard U.S. Forest Service protocol. All potential nesting habitat is surveyed and incidental sighting are used to help focus monitoring efforts.",
+ "Partners": [
+  {
+   "OrganizationID": 20,
+   "OrganizationName": "California Tahoe Conservancy",
+   "OrganizationShortName": "CTC"
+  },
+  {
+   "OrganizationID": 51,
+   "OrganizationName": "Tahoe Institute for Natural Science",
+   "OrganizationShortName": "TINS"
+  },
+  {
+   "OrganizationID": 50,
+   "OrganizationName": "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+   "OrganizationShortName": "NDOW"
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2066,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/2b6dba08-1809-4352-be97-8643ea0efe10",
+   "Caption": "Adult Peregrine Falcon.",
+   "PhotoCredit": null,
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Active peregrine falcon nests",
+    "sub": "Active nests counted each year, with the threshold.",
+    "layer": 96,
+    "where": "Wildlife_Species = 'Peregrine Falcon'",
+    "x": "Year",
+    "y": "Total",
+    "yName": "Active nests",
+    "yLabel": "Active nests",
+    "type": "bar",
+    "span": "span-12",
+    "standard": {
+     "field": "Threshold_Value"
+    }
+   }
+  ],
+  "mapLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/Wildlife_Activity/MapServer",
+   "layer": 2,
+   "title": "Peregrine falcon nest buffers",
+   "unit": "nest",
+   "unitPlural": "Nests",
+   "name": "SITE_NAME",
+   "countAsSites": false,
+   "meta": [
+    {
+     "field": "Years_Used"
+    }
+   ],
+   "fields": [
+    {
+     "field": "Years_Used",
+     "label": "Years used"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Peregrine Falcon Population Sites",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/162"
+  }
+ ],
+ "MonitoringProgramID": 6,
+ "MonitoringProgramName": "Peregrine Falcon",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 5,
+ "Template": "charts",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/2b6dba08-1809-4352-be97-8643ea0efe10",
+ "SiteCount": 0,
+ "PartnerNames": [
+  "California Tahoe Conservancy",
+  "Tahoe Institute for Natural Science",
+  "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+  "Tahoe Regional Planning Agency",
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+ ]
+}

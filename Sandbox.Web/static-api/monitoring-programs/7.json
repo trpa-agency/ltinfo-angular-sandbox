@@ -1,0 +1,98 @@
+{
+ "MonitoringProgramDescription": null,
+ "MonitoringApproach": "The methodologies and indicators used by TRPA to evaluate the attainment status of the waterfowl standard has varied over time. The 2001 Threshold Evaluation Report used observed bird species richness and diversity along with the human activity rating system to gage threshold standard attainment status (TRPA 2001). The 2006 Threshold Evaluation Report used observation of bird species richness and diversity as well as an assessment of detrimental or non-native species, but did not use the human disturbance rating system that was used in 2001. The 2011 Threshold Evaluation Report used only a human disturbance rating system as a means to measure status (TRPA 2012a). Since 2015, the assessment method used is based on field observations and human activity levels at mapped waterfowl population sites, similar to the 2011 Threshold Evaluation Report methods. No formal waterfowl surveys were conducted. Each site was visited by a qualified observor to conduct the human disturbance rating evaluation.",
+ "Partners": [
+  {
+   "OrganizationID": 20,
+   "OrganizationName": "California Tahoe Conservancy",
+   "OrganizationShortName": "CTC"
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2068,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/2443e05d-588a-4882-bd70-0491e551d315",
+   "Caption": "The Upper Truckee Marsh waterfowl population site.",
+   "PhotoCredit": "TRPA",
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Average human activity rating",
+    "sub": "Average human activity rating score across waterfowl sites, by survey year.",
+    "layer": 96,
+    "where": "Wildlife_Species = 'Waterfowl'",
+    "x": "Year",
+    "y": "Total",
+    "yName": "Average rating",
+    "yLabel": "Human activity rating",
+    "type": "bar"
+   },
+   {
+    "title": "Human activity rating by site",
+    "sub": "Human activity rating at each waterfowl site, by survey year. Choose a site.",
+    "layer": 94,
+    "x": "Year",
+    "y": "value",
+    "unpivot": {
+     "prefix": "F"
+    },
+    "yName": "Rating",
+    "yLabel": "Human activity rating",
+    "type": "bar",
+    "pick": "Name",
+    "pickLabel": "Site"
+   }
+  ],
+  "mapLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/Wildlife_Habitat/MapServer",
+   "layer": 2,
+   "title": "Waterfowl habitat",
+   "unit": "site",
+   "unitPlural": "Sites",
+   "name": "NAME",
+   "countAsSites": false,
+   "fields": [
+    {
+     "field": "NAME",
+     "label": "Site"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Waterfowl Population Sites",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/166"
+  }
+ ],
+ "MonitoringProgramID": 7,
+ "MonitoringProgramName": "Waterfowl",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 3,
+ "Template": "charts",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/2443e05d-588a-4882-bd70-0491e551d315",
+ "SiteCount": 0,
+ "PartnerNames": [
+  "California Tahoe Conservancy",
+  "Tahoe Regional Planning Agency",
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+ ]
+}

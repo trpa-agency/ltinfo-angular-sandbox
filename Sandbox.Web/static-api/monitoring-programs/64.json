@@ -1,0 +1,167 @@
+{
+ "MonitoringProgramDescription": "In partnership with the state DOTs, TRPA collects, monitors, and analyzes roadway traffic volume data from several dozen count stations throughout the Tahoe region.",
+ "MonitoringApproach": "Traffic volume monitoring is part of a regional strategy to create a well executed transportation management system that incorporates monitoring data, real-time information, and dynamic operations that respond to seasonal and periodic congestion. Over the last few years, intelligent transportation systems have seen significant advancements and deployments in the areas of data collection, data sharing, mobile solutions, and traffic monitoring capabilities. Both the California Department of Transportation (Caltrans) and the Nevada Department of Transportation (NDOT) manage several dozen permanent traffic count stations, which collect data on the number of vehicles traveling throughout the region. TRPA aggregates and analyzes this data for a variety of purposes, including project planning, development of our Regional Transportation Plan, and travel demand modeling.\n\nTo download all of the traffic volume data on this page please see Tahoe Open Data.",
+ "Partners": [
+  {
+   "OrganizationID": 28,
+   "OrganizationName": "Nevada Department of Transportation",
+   "OrganizationShortName": "NDOT"
+  },
+  {
+   "OrganizationID": 11,
+   "OrganizationName": "California Department of Transportation",
+   "OrganizationShortName": "Caltrans"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2038,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/7c80f8e6-8957-4ded-8f49-60714497420a",
+   "Caption": "credit: Aurora Photos / Rachid Dahnoun",
+   "PhotoCredit": null,
+   "IsKeyPhoto": true
+  },
+  {
+   "MonitoringProgramImageID": 2039,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/b9141d74-b098-4a9e-9bae-260efaca6148",
+   "Caption": "credit: Aurora Photos / Rachid Dahnoun",
+   "PhotoCredit": null,
+   "IsKeyPhoto": false
+  },
+  {
+   "MonitoringProgramImageID": 2040,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/8326e31a-45ec-46a3-884d-9c3f6bc73eb5",
+   "Caption": "credit: Aurora Photos / Rachid Dahnoun",
+   "PhotoCredit": null,
+   "IsKeyPhoto": false
+  },
+  {
+   "MonitoringProgramImageID": 2041,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/f0b1c4f4-7e91-4736-a6f2-b8a022850395",
+   "Caption": "credit: Aurora Photos / Rachid Dahnoun",
+   "PhotoCredit": null,
+   "IsKeyPhoto": false
+  },
+  {
+   "MonitoringProgramImageID": 2042,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/168ffdfa-e150-4d57-a145-96363d5182bb",
+   "Caption": "credit: Aurora Photos / Rachid Dahnoun",
+   "PhotoCredit": null,
+   "IsKeyPhoto": false
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Winter traffic volume",
+    "sub": "Winter traffic volume at the Park Avenue count site in South Lake Tahoe.",
+    "layer": 97,
+    "x": "Year",
+    "y": "Value",
+    "yName": "Vehicles",
+    "yLabel": "Vehicles",
+    "type": "bar",
+    "standard": {
+     "field": "Threshold",
+     "label": "Threshold"
+    },
+    "span": "span-12"
+   }
+  ],
+  "sitesLayer": {
+   "layer": 10,
+   "name": "site_name",
+   "code": "Station_Number",
+   "year": "year_of_count"
+  },
+  "sitesPerYear": {
+   "layer": 10,
+   "year": "year_of_count",
+   "site": "site_name"
+  },
+  "overlays": [
+   {
+    "layer": 105,
+    "title": "Winter traffic count site",
+    "name": "id",
+    "geometry": "point",
+    "color": "#be4c4c",
+    "fields": [
+     {
+      "field": "Operator",
+      "label": "Operator"
+     }
+    ]
+   }
+  ],
+  "siteProfile": {
+   "record": {
+    "year": "year_of_count",
+    "value": "count_value",
+    "label": "Annual average daily traffic",
+    "unit": "vehicles a day",
+    "noun": [
+     "annual count",
+     "annual counts"
+    ]
+   },
+   "owner": {
+    "field": "source",
+    "labels": {
+     "NDOT traffic volume counters": "NDOT"
+    }
+   },
+   "facts": [
+    {
+     "label": "Route",
+     "field": [
+      "ROUTE",
+      "Street_Name"
+     ]
+    },
+    {
+     "label": "County",
+     "field": [
+      "County_1",
+      "COUNTY"
+     ],
+     "labels": {
+      "ED": "El Dorado",
+      "PLA": "Placer"
+     }
+    },
+    {
+     "label": "Station number",
+     "from": "code"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Average Daily Winter Traffic Volume, Presidents' Weekend",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/3"
+  },
+  {
+   "Dashboard": "Transportation Tracker",
+   "Label": "Data Trends",
+   "Url": "https://transportation.laketahoeinfo.org/transportation/data-trends"
+  }
+ ],
+ "MonitoringProgramID": 64,
+ "MonitoringProgramName": "Traffic Volumes",
+ "CategoryID": 10,
+ "CategoryName": "Transportation and Sustainable Communities",
+ "ThemeColor": "#DB5B00",
+ "IsFeatured": true,
+ "PartnerCount": 2,
+ "Template": "map",
+ "ImageCount": 5,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/7c80f8e6-8957-4ded-8f49-60714497420a",
+ "SiteCount": 80,
+ "PartnerNames": [
+  "Nevada Department of Transportation",
+  "California Department of Transportation"
+ ]
+}

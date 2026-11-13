@@ -1,0 +1,230 @@
+{
+ "MonitoringProgramDescription": "Tahoe Yellow Cress (TYC, Rorippa subumbellata) is a small native plant that grows on the shoreline of Lake Tahoe and no where else in the world. It lives only on the sandy beaches and dunes at the ever-changing margin of the lake. Impacts from recreation and development first led to conservation concerns in the 1970’s and TYC has been listed as endangered in both states since 1982. In 1999, a multi-agency and private interest group task force was formed to develop and implement a conservation strategy to promote the recovery and conservation of TYC. The conservation strategy provides an adaptive management framework and options for avoiding, minimizing, and mitigating impacts to TYC and its habitat on public and private lands. The TYC Stewardship Program recognizes the critical role of private landowners in ensuring the long-term survival of TYC.\n\nA similar species can be found growing alongside TYC on the shores of Lake Tahoe. TYC has plump round fruits, fleshy leaves, and a compact growth form, while western cress (Rorippa curvisiliqua) is often taller, the fruits are elongated and narrow, and the leaves are less fleshy and turn purple with age. In contrast to the rarity of TYC, western cress is very widespread throughout the western U.S.",
+ "MonitoringApproach": "Knowledge of TYC distribution has been developed through shorezone surveys since 1979. Before 2000, surveys followed a general protocol and were completed at various times during the summer. Since 2001, surveys are conducted the first week of September following a standardized protocol. During the first survey in 1979, 32 TYC sites were surveyed; this has since grown to 55 sites. A survey “site” is defined as a stretch of public beach, adjacent private parcels, or adjacent parcels under a combination of private and public ownership. Surveys include stem count estimates as a measure of TYC abundance because clonal growth makes it impossible to distinguish individuals. The amount of available shorezone habitat for TYC fluctuates widely with changes in lake level, with high lake levels leaving little habitat. On average, over 70 percent of surveyed sites are occupied when the lake is below 6,225 ft. in September, but less than 40 percent are occupied when the lake level is above 6,228 ft.\n\nTo download all of the Tahoe yellow cress data on this page please see Tahoe Open Data.",
+ "Partners": [
+  {
+   "OrganizationID": 37,
+   "OrganizationName": "League to Save Lake Tahoe",
+   "OrganizationShortName": "League"
+  },
+  {
+   "OrganizationID": 38,
+   "OrganizationName": "Nevada Tahoe Resource Team – Nevada Division of Forestry",
+   "OrganizationShortName": "NDF"
+  },
+  {
+   "OrganizationID": 39,
+   "OrganizationName": "Nevada Tahoe Resource Team – Nevada Division of State Parks",
+   "OrganizationShortName": "NV State Parks"
+  },
+  {
+   "OrganizationID": 19,
+   "OrganizationName": "Nevada Tahoe Resource Team – Nevada Division of State Lands",
+   "OrganizationShortName": "NDSL"
+  },
+  {
+   "OrganizationID": 40,
+   "OrganizationName": "California State Lands Commission",
+   "OrganizationShortName": "California SLC"
+  },
+  {
+   "OrganizationID": 41,
+   "OrganizationName": "California Department of Fish & Wildlife",
+   "OrganizationShortName": "CDFW"
+  },
+  {
+   "OrganizationID": 20,
+   "OrganizationName": "California Tahoe Conservancy",
+   "OrganizationShortName": "CTC"
+  },
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  },
+  {
+   "OrganizationID": 7,
+   "OrganizationName": "California Department of Parks and Recreation",
+   "OrganizationShortName": "CDPR"
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 42,
+   "OrganizationName": "U.S. Fish and Wildlife Service",
+   "OrganizationShortName": "USFWS"
+  },
+  {
+   "OrganizationID": 43,
+   "OrganizationName": "Nevada Natural Heritage Program",
+   "OrganizationShortName": "NNHP"
+  },
+  {
+   "OrganizationID": 44,
+   "OrganizationName": "Tahoe Lakefront Owners Association",
+   "OrganizationShortName": "TLOA"
+  },
+  {
+   "OrganizationID": 45,
+   "OrganizationName": "U.S. Bureau of Reclamation",
+   "OrganizationShortName": "USBOR"
+  },
+  {
+   "OrganizationID": 26,
+   "OrganizationName": "Nevada Tahoe Conservation District",
+   "OrganizationShortName": "NTCD"
+  },
+  {
+   "OrganizationID": 25,
+   "OrganizationName": "Tahoe Resource Conservation District",
+   "OrganizationShortName": "Tahoe RCD"
+  },
+  {
+   "OrganizationID": 46,
+   "OrganizationName": "Bureau of Land Management - Southern Nevada Public Land Management Act",
+   "OrganizationShortName": "BLM- SNPLMA "
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2050,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/f1f0df92-cbaa-4672-875c-18a114ecc2f4",
+   "Caption": "Tahoe Yellow Cress (Rorippa subumbellata) on a Tahoe beach",
+   "PhotoCredit": null,
+   "IsKeyPhoto": true
+  },
+  {
+   "MonitoringProgramImageID": 2051,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/caaaff70-fa48-4a08-a9ae-3301e95d4234",
+   "Caption": "Tahoe Yellow Cress (Rorippa subumbellata). TYC has plump round fruits, fleshy leaves, and a compact growth form",
+   "PhotoCredit": null,
+   "IsKeyPhoto": false
+  },
+  {
+   "MonitoringProgramImageID": 2052,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/6418ab4d-edcb-45bd-8913-fd10345b6421",
+   "Caption": "A hard to distinguish, commonly found relative to TYC is the western cress (Rorippa curvisiliqua). It is often taller, the fruits are elongated and narrow, and the leaves are less fleshy and turn purple with age.",
+   "PhotoCredit": null,
+   "IsKeyPhoto": false
+  },
+  {
+   "MonitoringProgramImageID": 2053,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/6e60d322-856d-468b-af17-5ddc84f6693d",
+   "Caption": "Monitoring Tahoe yellow cress.",
+   "PhotoCredit": "Mike Vollmer",
+   "IsKeyPhoto": false
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Occupied Tahoe yellow cress sites",
+    "sub": "Survey sites where Tahoe yellow cress was found each year.",
+    "layer": 86,
+    "x": "Year",
+    "y": "Occupied_Sites",
+    "yName": "Occupied sites",
+    "yLabel": "Occupied sites",
+    "type": "bar",
+    "standard": {
+     "field": "Threshold",
+     "label": "Threshold"
+    }
+   },
+   {
+    "title": "Lake level during surveys",
+    "sub": "Lake Tahoe surface elevation in the survey year, in feet. Low water exposes more beach habitat.",
+    "layer": 86,
+    "x": "Year",
+    "y": "Lake_Level",
+    "yName": "Lake level",
+    "yLabel": "Elevation (ft)",
+    "zero": false
+   }
+  ],
+  "sitesLayer": {
+   "layer": 9,
+   "name": "SITE_NAME",
+   "year": "YEAR_OF_COUNT",
+   "where": "STATUS = 'Surveyed'"
+  },
+  "sitesPerYear": {
+   "layer": 9,
+   "year": "YEAR_OF_COUNT",
+   "site": "SITE_NAME",
+   "where": "STATUS = 'Surveyed'"
+  },
+  "overlays": [
+   {
+    "layer": 117,
+    "title": "Lake level in 2024",
+    "name": "Year",
+    "geometry": "fill",
+    "color": "#3e72b0",
+    "where": "Year = 2024",
+    "fields": [
+     {
+      "field": "Level_",
+      "label": "Lake level (ft)"
+     }
+    ]
+   }
+  ],
+  "siteProfile": {
+   "record": {
+    "year": "YEAR_OF_COUNT",
+    "value": "COUNT_VALUE",
+    "label": "Plant count",
+    "unit": "plants",
+    "noun": [
+     "survey",
+     "surveys"
+    ]
+   },
+   "owner": {
+    "field": "OWNER"
+   },
+   "link": "LTINFO_HYPERLINK"
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Tahoe Yellow Cress (Rorippa Subumbellata) Updated 2024",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/185"
+  }
+ ],
+ "MonitoringProgramID": 39,
+ "MonitoringProgramName": "Tahoe Yellow Cress Monitoring",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": true,
+ "PartnerCount": 17,
+ "Template": "map",
+ "ImageCount": 4,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/f1f0df92-cbaa-4672-875c-18a114ecc2f4",
+ "SiteCount": 65,
+ "PartnerNames": [
+  "League to Save Lake Tahoe",
+  "Nevada Tahoe Resource Team – Nevada Division of Forestry",
+  "Nevada Tahoe Resource Team – Nevada Division of State Parks",
+  "Nevada Tahoe Resource Team – Nevada Division of State Lands",
+  "California State Lands Commission",
+  "California Department of Fish & Wildlife",
+  "California Tahoe Conservancy",
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+  "California Department of Parks and Recreation",
+  "Tahoe Regional Planning Agency",
+  "U.S. Fish and Wildlife Service",
+  "Nevada Natural Heritage Program",
+  "Tahoe Lakefront Owners Association",
+  "U.S. Bureau of Reclamation",
+  "Nevada Tahoe Conservation District",
+  "Tahoe Resource Conservation District",
+  "Bureau of Land Management - Southern Nevada Public Land Management Act"
+ ]
+}

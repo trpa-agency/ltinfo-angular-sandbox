@@ -1,0 +1,66 @@
+{
+ "MonitoringProgramDescription": "A monitoring program to track the non-degradation of subalpine conifer species, including the endangered whitebark pine.",
+ "MonitoringApproach": "Ground-based plot data that inform remote sensing techniques to track change over time in species composition, health, and distribution in the subalpine zone.",
+ "Partners": [],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Subalpine conifer acres by dominant tree",
+    "sub": "Acres of subalpine conifer forest by dominant tree, from the 2010 EcObject LiDAR vegetation map.",
+    "layer": 98,
+    "where": "WHRTYPE = 'SCN'",
+    "x": "REGIONAL_DOMINANCE_TYPE_1",
+    "xType": "category",
+    "xLabel": "Dominant tree",
+    "xNames": {
+     "SA": "Subalpine conifer mix",
+     "WB": "Whitebark pine",
+     "WW": "Western white pine",
+     "MH": "Mountain hemlock"
+    },
+    "y": "Acres",
+    "stat": "sum",
+    "yName": "Acres",
+    "yLabel": "Acres",
+    "type": "bar",
+    "orientation": "h",
+    "sort": "desc"
+   },
+   {
+    "title": "Subalpine conifer acres by tree size",
+    "sub": "Acres by California Wildlife Habitat Relationships tree size class (2010).",
+    "layer": 98,
+    "where": "WHRTYPE = 'SCN'",
+    "x": "WHRSIZE",
+    "xType": "category",
+    "xLabel": "Tree size",
+    "xNames": {
+     "2": "Sapling (1 to 6 in.)",
+     "3": "Pole (6 to 11 in.)",
+     "4": "Small tree (11 to 24 in.)",
+     "5": "Medium to large (over 24 in.)",
+     "6": "Multilayered"
+    },
+    "y": "Acres",
+    "stat": "sum",
+    "yName": "Acres",
+    "yLabel": "Acres",
+    "type": "bar"
+   }
+  ]
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 83,
+ "MonitoringProgramName": "Subalpine Conifer",
+ "CategoryID": 11,
+ "CategoryName": "Forest Structure",
+ "ThemeColor": "#415414",
+ "IsFeatured": false,
+ "PartnerCount": 0,
+ "Template": "context",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": []
+}

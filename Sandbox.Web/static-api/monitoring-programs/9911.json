@@ -1,0 +1,58 @@
+{
+ "MonitoringProgramDescription": "Greenhouse gases such as carbon dioxide and methane trap heat in the atmosphere and drive climate change. In the Tahoe Region most emissions come from heating and powering buildings and from driving.\n\nThe Region set a goal of cutting emissions 15 percent below 2005 levels by 2020, which it met, and of reaching net zero by 2045.",
+ "MonitoringApproach": "TRPA inventories the Region's greenhouse gas emissions every few years from energy use, fuel sales, vehicle miles traveled, solid waste, and wastewater, following the U.S. Community Protocol. Emissions are reported in metric tons of carbon dioxide equivalent.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Greenhouse gas emissions by sector",
+    "sub": "Metric tons of carbon dioxide equivalent in each inventory year.",
+    "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+    "layer": 127,
+    "x": "Year",
+    "xType": "category",
+    "xLabel": "Inventory year",
+    "y": "MT_CO2",
+    "stat": "sum",
+    "seriesBy": "Category",
+    "seriesLabel": "Sector",
+    "yLabel": "Metric tons CO2e",
+    "type": "stacked",
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Greenhouse Gas Emissions",
+   "Url": "https://climate.laketahoeinfo.org/greenhouse-gas-emissions"
+  },
+  {
+   "Dashboard": "Transportation Tracker",
+   "Label": "Data Trends",
+   "Url": "https://transportation.laketahoeinfo.org/transportation/data-trends"
+  }
+ ],
+ "MonitoringProgramID": 9911,
+ "MonitoringProgramName": "Greenhouse Gas Emissions",
+ "CategoryID": 15,
+ "CategoryName": "Climate and Lake Conditions",
+ "ThemeColor": "#2c5f72",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

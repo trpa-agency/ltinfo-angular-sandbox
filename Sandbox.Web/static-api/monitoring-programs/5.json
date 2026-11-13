@@ -1,0 +1,63 @@
+{
+ "MonitoringProgramDescription": "Provide a minimum of 4 Golden Eagle population sites.\n\nProvide disturbance zones and influence zones for Golden Eagle.",
+ "MonitoringApproach": "Since 2010 there have been no formal surveys as a result of cutbacks to the U.S. Forest Service wildlife monitoring program.",
+ "Partners": [
+  {
+   "OrganizationID": 7,
+   "OrganizationName": "California Department of Parks and Recreation",
+   "OrganizationShortName": "CDPR"
+  },
+  {
+   "OrganizationID": 50,
+   "OrganizationName": "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+   "OrganizationShortName": "NDOW"
+  },
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "mapLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/Wildlife_Activity/MapServer",
+   "layer": 1,
+   "title": "Golden eagle nest buffers",
+   "unit": "nest buffer",
+   "unitPlural": "Nest buffers",
+   "name": "Species",
+   "list": false,
+   "countAsSites": false,
+   "fields": [
+    {
+     "field": "Buffer_Distance",
+     "label": "Buffer (m)"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Golden Eagle Population Sites",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/161"
+  }
+ ],
+ "MonitoringProgramID": 5,
+ "MonitoringProgramName": "Golden Eagle",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 3,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "California Department of Parks and Recreation",
+  "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+ ]
+}

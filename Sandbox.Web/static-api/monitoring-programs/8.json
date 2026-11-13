@@ -1,0 +1,88 @@
+{
+ "MonitoringProgramDescription": "The following maximum noise levels are allowed: Watercraft: Stationary Test - 90 dBA Lmax for boats manufactured after January 1, 1993; Microphone 3.3 feet from exhaust outlet - 5 feet above water.\n\nThe following maximum noise levels are allowed: Watercraft: Stationary Test - 88 dBA Lmax for boats manufactured before January 1, 1993; Microphone 3.3 feet from exhaust outlet - 5 feet above water.\n\nThe following maximum noise levels are allowed: Watercraft: Pass-By Test - 82 Lmax -measured 50ft from engine at 3,000rpm.",
+ "MonitoringApproach": "Watercraft noise levels were measured annually from 2009 to 2013 at 10 shorezone locations for five to six sampling periods (ranging from four to 12 days) from May through September. Sampling periods are comprised of both weekends and weekdays, allowing for analysis of the differences in noise levels or exceedances between days in the week. The monitoring periods include low, medium, and high watercraft use times throughout the day (7 AM to 7 PM). All noise events are individually analyzed and categorized by a trained noise technician.",
+ "Partners": [
+  {
+   "OrganizationID": 7,
+   "OrganizationName": "California Department of Parks and Recreation",
+   "OrganizationShortName": "CDPR"
+  },
+  {
+   "OrganizationID": 20,
+   "OrganizationName": "California Tahoe Conservancy",
+   "OrganizationShortName": "CTC"
+  },
+  {
+   "OrganizationID": 19,
+   "OrganizationName": "Nevada Tahoe Resource Team – Nevada Division of State Lands",
+   "OrganizationShortName": "NDSL"
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Watercraft noise exceedances by site",
+    "sub": "Average daily exceedances of the shoreline watercraft noise standard in peak season (July to Labor Day). Choose a site.",
+    "layer": 7,
+    "x": "YEAR_OF_COUNT",
+    "y": "COUNT_VALUE",
+    "yName": "Exceedances per day",
+    "yLabel": "Exceedances per day",
+    "pick": "SITE_NAME",
+    "pickLabel": "Site",
+    "type": "bar",
+    "span": "span-12"
+   }
+  ],
+  "sitesLayer": {
+   "layer": 7,
+   "name": "SITE_NAME",
+   "year": "YEAR_OF_COUNT"
+  },
+  "sitesPerYear": {
+   "layer": 7,
+   "year": "YEAR_OF_COUNT",
+   "site": "SITE_NAME"
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Post 1992 Watercraft-Stationary Test",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/43"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Pre-1993 Watercraft-Stationary Test",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/42"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Watercraft Pass-By Test",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/40"
+  }
+ ],
+ "MonitoringProgramID": 8,
+ "MonitoringProgramName": "Watercraft Noise",
+ "CategoryID": 9,
+ "CategoryName": "Noise",
+ "ThemeColor": "#675EA1",
+ "IsFeatured": false,
+ "PartnerCount": 4,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "California Department of Parks and Recreation",
+  "California Tahoe Conservancy",
+  "Nevada Tahoe Resource Team – Nevada Division of State Lands",
+  "Tahoe Regional Planning Agency"
+ ]
+}

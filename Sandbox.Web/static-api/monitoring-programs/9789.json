@@ -1,0 +1,66 @@
+{
+ "MonitoringProgramDescription": "Stand density measures how many trees grow in an area (trees per acre) and the total cross-section of their trunks (basal area, in square feet per acre).\n\nAfter a century of fire suppression, Tahoe's forests are far denser than they were historically. Crowded trees compete for water, nutrients, and sunlight, and stressed trees are more vulnerable to drought, insects, and disease. Recent droughts have raised mortality: the USDA Forest Service aerial detection survey recorded more than 1.7 million dead trees across 66,000 acres of the Tahoe Basin in 2023.\n\nThe Stand Density threshold standard calls for at least 50 percent of forested area to fall within recommended ranges of trees per acre and basal area for its forest type and seral stage. Thinning overcrowded stands reduces competition among trees and improves their resilience to drought and wildfire.",
+ "MonitoringApproach": "Trees per acre and basal area are mapped across the conifer forest from the Sierra Nevada Regional Resource Kit, 30-meter remote sensing products, in the 2023 assessment as published to the TRPA Vegetation service, and tested together against the recommended maximum for each forest type and seral stage. An acre at or below both values is within range.\n\nJeffrey pine: early seral 200 trees and 30 square feet of basal area per acre, mid seral 70 trees and 80 square feet, and late seral 55 trees and 100 square feet.\n\nSierra mixed conifer: early seral 300 trees and 40 square feet, mid seral 90 trees and 130 square feet, and late seral 75 trees and 180 square feet.\n\nRed fir: early seral 300 trees and 50 square feet, mid seral 100 trees and 175 square feet, and late seral 80 trees and 250 square feet.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 33,
+   "OrganizationName": "Tahoe Fire and Fuels Team",
+   "OrganizationShortName": "TFFT"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Conifer forest acres within the recommended density",
+    "sub": "Acres at or below the recommended trees per acre and basal area for their forest type and seral stage, and acres over it, 2023 assessment.",
+    "service": "https://maps.trpa.org/server/rest/services/Vegetation/FeatureServer",
+    "layer": 4,
+    "x": "Status",
+    "xType": "category",
+    "xLabel": "Stand density",
+    "xOrder": [
+     "Under Target",
+     "Over Target"
+    ],
+    "xNames": {
+     "Under Target": "Within recommended density",
+     "Over Target": "Over recommended density"
+    },
+    "y": "Acres",
+    "stat": "sum",
+    "yName": "Acres",
+    "yLabel": "Acres",
+    "type": "bar",
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Stand Density",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/189"
+  }
+ ],
+ "MonitoringProgramID": 9789,
+ "MonitoringProgramName": "Stand Density",
+ "CategoryID": 11,
+ "CategoryName": "Forest Structure",
+ "ThemeColor": "#415414",
+ "IsFeatured": false,
+ "PartnerCount": 2,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "Tahoe Fire and Fuels Team"
+ ]
+}

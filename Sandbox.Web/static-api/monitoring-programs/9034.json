@@ -1,0 +1,35 @@
+{
+ "MonitoringProgramDescription": "Mapped patches of targeted submerged aquatic vegetation in Lake Tahoe.",
+ "MonitoringApproach": null,
+ "Partners": [],
+ "Images": [],
+ "DashboardConfig": {
+  "mapLayer": {
+   "layer": 34,
+   "title": "Targeted submerged aquatic vegetation",
+   "unit": "vegetation patch",
+   "unitPlural": "Vegetation patches",
+   "list": false,
+   "countAsSites": false,
+   "fields": [
+    {
+     "field": "Type",
+     "label": "Type"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 9034,
+ "MonitoringProgramName": "Submerged Aquatic Vegetation",
+ "CategoryID": 17,
+ "CategoryName": "Aquatic Invasive Species",
+ "ThemeColor": "#0d5b73",
+ "IsFeatured": false,
+ "PartnerCount": 0,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": []
+}

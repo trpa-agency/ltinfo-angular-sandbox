@@ -1,0 +1,269 @@
+{
+ "MonitoringProgramDescription": "Impervious cover shall comply with the \"Land Capability Classification of the Lake Tahoe Basin, California-Nevada, A Guide for Planning\", Bailey, 1974. Allowable percent of impervious cover in Land Capability subclass 1a - 1 percent.\n\nImpervious cover shall comply with the \"Land Capability Classification of the Lake Tahoe Basin, California-Nevada, A Guide for Planning\", Bailey, 1974. Allowable percent of impervious cover in Land Capability subclass 1b - 1 percent.\n\nImpervious cover shall comply with the \"Land Capability Classification of the Lake Tahoe Basin, California-Nevada, A Guide for Planning\", Bailey, 1974. Allowable percent of impervious cover in Land Capability subclass 1c - 1 percent.\n\nImpervious cover shall comply with the \"Land Capability Classification of the Lake Tahoe Basin, California-Nevada, A Guide for Planning\", Bailey, 1974. Allowable percent of impervious cover in Land Capability subclass 2 - 1 percent.\n\nImpervious cover shall comply with the \"Land Capability Classification of the Lake Tahoe Basin, California-Nevada, A Guide for Planning\", Bailey, 1974. Allowable percent of impervious cover in Land Capability subclass 3 - 5 percent.\n\nImpervious cover shall comply with the \"Land Capability Classification of the Lake Tahoe Basin, California-Nevada, A Guide for Planning\", Bailey, 1974. Allowable percent of impervious cover in Land Capability subclass 4 - 20 percent.\n\nImpervious cover shall comply with the \"Land Capability Classification of the Lake Tahoe Basin, California-Nevada, A Guide for Planning\", Bailey, 1974. Allowable percent of impervious cover in Land Capability subclass 5 - 25 percent.\n\nImpervious cover shall comply with the \"Land Capability Classification of the Lake Tahoe Basin, California-Nevada, A Guide for Planning\", Bailey, 1974. Allowable percent of impervious cover in Land Capability subclass 6 - 30 percent.\n\nImpervious cover shall comply with the \"Land Capability Classification of the Lake Tahoe Basin, California-Nevada, A Guide for Planning\", Bailey, 1974. Allowable percent of impervious cover in Land Capability subclass 7 - 30 percent.",
+ "MonitoringApproach": "The base impervious coverage layer for the Region was sourced from a LiDAR\n\nsurvey completed in August 2010. LiDAR is a remote sensing technology that uses laser and light refraction to image objects and terrain. The 2010 LiDAR analysis mapped the extent of hard and soft\n\nimpervious cover in the Region. The cost of acquiring LiDAR data for the Region makes quadrennial LiDAR surveys infeasible. To assess change in impervious cover without the benefit of new LiDAR imagery, information collected from project permitting by TRPA and partners was used to determine added/new coverage. Land capability as defined in the 2007 soil survey was used as the primary unit to measure coverage in a land capability class, both because it was used in the 2011 Threshold Evaluation Report (TRPA, 2012b) and because it is more detailed than the 1974 Bailey report (Loftis, 2007). Information about coverage removed was provided by the CTC, NDSL and the Parcel Tracker.",
+ "Partners": [
+  {
+   "OrganizationID": 16,
+   "OrganizationName": "Washoe County, NV",
+   "OrganizationShortName": "WACO"
+  },
+  {
+   "OrganizationID": 12,
+   "OrganizationName": "City of South Lake Tahoe",
+   "OrganizationShortName": "CSLT"
+  },
+  {
+   "OrganizationID": 17,
+   "OrganizationName": "Placer County, CA",
+   "OrganizationShortName": "PLCO"
+  },
+  {
+   "OrganizationID": 18,
+   "OrganizationName": "El Dorado County, CA",
+   "OrganizationShortName": "ELDO"
+  },
+  {
+   "OrganizationID": 19,
+   "OrganizationName": "Nevada Tahoe Resource Team – Nevada Division of State Lands",
+   "OrganizationShortName": "NDSL"
+  },
+  {
+   "OrganizationID": 20,
+   "OrganizationName": "California Tahoe Conservancy",
+   "OrganizationShortName": "CTC"
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Coverage against the allowance, 2023",
+    "sub": "Acres of impervious coverage in each land capability district and the coverage the district allows, 2023 Threshold Evaluation.",
+    "json": "data/threshold-evaluation/land-coverage-by-district.json",
+    "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/SoilConservation/Chart/Final/SoilConservation_1A.html",
+    "sourceLabel": "2023 Threshold Evaluation",
+    "x": "District",
+    "xType": "category",
+    "xLabel": "Land capability district",
+    "y": [
+     {
+      "field": "Coverage 2023",
+      "name": "Coverage, 2023"
+     },
+     {
+      "field": "Allowed",
+      "name": "Allowed"
+     }
+    ],
+    "seriesColors": {
+     "Coverage 2023": "var(--mon-turbid-5)",
+     "Allowed": "var(--mon-turbid-2)"
+    },
+    "yLabel": "Acres",
+    "type": "bar",
+    "span": "span-12"
+   },
+   {
+    "title": "Impervious surface, 2019",
+    "sub": "Acres of mapped impervious surface by type, hard and soft surfaces.",
+    "service": "https://maps.trpa.org/server/rest/services/Impervious_Surface_2019/MapServer",
+    "layer": 0,
+    "x": "Feature",
+    "xType": "category",
+    "xLabel": "Surface type",
+    "y": "Shape.STArea() / 4046.8564224",
+    "stat": "sum",
+    "seriesBy": "Surface",
+    "seriesLabel": "Surface",
+    "yLabel": "Acres",
+    "type": "stacked",
+    "span": "span-6"
+   },
+   {
+    "title": "Impervious surface, 2010",
+    "sub": "Acres of mapped impervious surface by type, hard and soft surfaces, from the 2010 LiDAR mapping.",
+    "service": "https://maps.trpa.org/server/rest/services/Impervious_Surface_2010/MapServer",
+    "layer": 0,
+    "x": "Feature",
+    "xType": "category",
+    "xLabel": "Surface type",
+    "y": "Shape.STArea() / 4046.8564224",
+    "stat": "sum",
+    "seriesBy": "Surface",
+    "seriesLabel": "Surface",
+    "yLabel": "Acres",
+    "type": "stacked",
+    "span": "span-6"
+   },
+   {
+    "title": "Coverage change, 2010 to 2019",
+    "sub": "Acres of impervious coverage added, removed, or changed in type between the two mappings. Mapping corrections are left out.",
+    "service": "https://maps.trpa.org/server/rest/services/Impervious_Surface_Change_2010_to_2019/MapServer",
+    "layer": 0,
+    "where": "General_Status IN ('New Coverage','Removed Coverage','Changed Coverage Type')",
+    "x": "General_Status",
+    "xType": "category",
+    "xLabel": "Change",
+    "y": "SquareFeet / 43560",
+    "stat": "sum",
+    "yName": "Acres",
+    "yLabel": "Acres",
+    "type": "bar",
+    "span": "span-12"
+   },
+   {
+    "title": "Land capability district acres",
+    "sub": "Acres in each Bailey (1974) land capability district, from 1A (most sensitive) to 7.",
+    "service": "https://maps.trpa.org/server/rest/services/Soils_and_Land_Capability/MapServer",
+    "layer": 4,
+    "where": "CAPABILITY IN ('1A','1B','1C','2','3','4','5','6','7')",
+    "x": "CAPABILITY",
+    "xType": "category",
+    "xLabel": "Land capability district",
+    "y": "Acres",
+    "stat": "sum",
+    "yName": "Acres",
+    "yLabel": "Acres",
+    "type": "bar",
+    "span": "span-6"
+   },
+   {
+    "title": "Coverage allowed by district",
+    "sub": "Acres of impervious coverage the Bailey coefficients allow in each district: 1 percent in districts 1 and 2, up to 30 percent in districts 6 and 7.",
+    "service": "https://maps.trpa.org/server/rest/services/Soils_and_Land_Capability/MapServer",
+    "layer": 4,
+    "where": "CAPABILITY IN ('1A','1B','1C','2','3','4','5','6','7')",
+    "x": "CAPABILITY",
+    "xType": "category",
+    "xLabel": "Land capability district",
+    "y": "Acres * PERCENT_COVERAGE_ALLOWED",
+    "stat": "sum",
+    "yName": "Allowed acres",
+    "yLabel": "Acres",
+    "type": "bar",
+    "span": "span-6"
+   }
+  ],
+  "mapLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/Soils_and_Land_Capability/MapServer",
+   "layer": 4,
+   "where": "CAPABILITY IN ('1A','1B','1C','2','3','4','5','6','7')",
+   "title": "Land capability (Bailey 1974)",
+   "unit": "land capability area",
+   "unitPlural": "Land capability areas",
+   "name": "CAPABILITY",
+   "list": false,
+   "countAsSites": false,
+   "colorBy": "CAPABILITY",
+   "colorByLabel": "Land capability district",
+   "colors": {
+    "2": "#4c7300",
+    "3": "#0084a8",
+    "4": "#ffd37f",
+    "5": "#ffaa00",
+    "6": "#cd8966",
+    "7": "#734c00",
+    "1A": "#d1ff73",
+    "1B": "#ffff00",
+    "1C": "#4ce600"
+   },
+   "labels": {
+    "2": "District 2",
+    "3": "District 3",
+    "4": "District 4",
+    "5": "District 5",
+    "6": "District 6",
+    "7": "District 7",
+    "1A": "District 1A",
+    "1B": "District 1B",
+    "1C": "District 1C"
+   },
+   "fields": [
+    {
+     "field": "CAPABILITY",
+     "label": "Land capability district"
+    },
+    {
+     "field": "PERCENT_COVERAGE_ALLOWED",
+     "label": "Coverage allowed (share)"
+    },
+    {
+     "field": "Acres",
+     "label": "Acres"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Percent of Land Coverage Within Land Capability Class 1a (allow up to 1% impervious coverage)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/61"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Percent of Land Coverage Within Land Capability Class 1b (allow up to 1% impervious coverage)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/62"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Percent of Land Coverage Within Land Capability Class 1c (allow up to 1% impervious coverage)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/63"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Percent of Land Coverage Within Land Capability Class 2 (allow up to 1% impervious coverage)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/64"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Percent of Land Coverage Within Land Capability Class 3 (allow up to 5% impervious coverage)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/65"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Percent of Land Coverage Within Land Capability Class 4 (allow up to 20% impervious coverage)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/66"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Percent of Land Coverage Within Land Capability Class 5 (allow up to 25% impervious coverage)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/67"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Percent of Land Coverage Within Land Capability Class 6 (allow up to 30% impervious coverage)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/68"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Percent of Land Coverage Within Land Capability Class 7 (allow up to 30% impervious coverage)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/69"
+  }
+ ],
+ "MonitoringProgramID": 48,
+ "MonitoringProgramName": "Land Coverage",
+ "CategoryID": 5,
+ "CategoryName": "Soil Conservation",
+ "ThemeColor": "#9A5710",
+ "IsFeatured": false,
+ "PartnerCount": 7,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Washoe County, NV",
+  "City of South Lake Tahoe",
+  "Placer County, CA",
+  "El Dorado County, CA",
+  "Nevada Tahoe Resource Team – Nevada Division of State Lands",
+  "California Tahoe Conservancy",
+  "Tahoe Regional Planning Agency"
+ ]
+}

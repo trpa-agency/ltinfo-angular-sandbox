@@ -1,0 +1,120 @@
+{
+ "MonitoringProgramDescription": "The Basin's population has grown more diverse since the 2000 census. The share of residents who identify as Hispanic or Latino rose from 18 percent in 2000 to 22 percent in 2020, and Black, Indigenous, and other people of color made up about 31 percent of residents in 2020, up from 24 percent in 2000.",
+ "MonitoringApproach": "Figures come from the U.S. Census Bureau's decennial census and American Community Survey (ACS) 5-year estimates, queried through the Census Bureau's API and summarized for the Tahoe Region by TRPA. Decennial counts are a full count every 10 years; ACS estimates are yearly averages of five years of samples, so they move more smoothly and carry a margin of error.\n\nIn 2020 the census boundaries changed. The Lake Tahoe Region is made up of 31 census tracts and 78 block groups along the California and Nevada border. The Carson City tract straddles the TRPA boundary with most of its people outside it, so it is left out.\n\nThe tables and boundaries are on the TRPA Demographics map service, and the code behind the figures is in TRPA's Demographics repository on GitHub.\n\nThe race map places one dot for every 25 people at random within each census tract, from the American Community Survey 5-year estimates for 2019 to 2023 (Esri's ACS Population by Race and Hispanic Origin layer, the one the Tahoe Open Data map uses). Dots show how many people live in each tract, not where in the tract they live, and tracts on the Basin's edge reach past the TRPA boundary.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Race and Hispanic origin",
+    "sub": "Share of residents by race and Hispanic origin at each census since 2000.",
+    "json": "data/demographics/race-and-ethnicity.json",
+    "sourceHref": "https://trpa-agency.github.io/Demographics/Open_Data_Figures/Demographics_Tahoe_RaceDistribution.html",
+    "sourceLabel": "Tahoe Open Data demographics",
+    "x": "Year",
+    "xType": "category",
+    "xLabel": "Census",
+    "y": "Percent",
+    "seriesBy": "Group",
+    "seriesLabel": "Race and Hispanic origin",
+    "seriesOrder": [
+     "White (non-Hispanic)",
+     "Hispanic or Latino",
+     "Asian",
+     "Two or more races",
+     "Black or African American",
+     "American Indian/Alaskan Native",
+     "Pacific Islander/Hawaiian Native",
+     "Other race"
+    ],
+    "yLabel": "Percent of residents",
+    "type": "stacked",
+    "span": "span-12"
+   }
+  ],
+  "mapLayer": {
+   "service": "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/ACS_Population_by_Race_and_Hispanic_Origin_Boundaries/FeatureServer",
+   "layer": 2,
+   "where": "GEOID IN ('06017030201','06017030202','06017030301','06017030302','06017030402','06017030403','06017030404','06017030502','06017030504','06017030506','06017030507','06017031601','06017031602','06017032001','06017032002','06061020104','06061020105','06061020106','06061020107','06061022100','06061022200','06061022300','32005001600','32005001700','32005001800','32031003305','32031003306','32031003307','32031003308','32031003310','32031003311')",
+   "title": "Race and Hispanic origin, one dot for 25 people",
+   "unit": "census tract",
+   "unitPlural": "Census tracts",
+   "name": "NAME",
+   "list": false,
+   "countAsSites": false,
+   "colorByLabel": "Race and Hispanic origin",
+   "dotDensity": {
+    "dotValue": 25,
+    "fields": [
+     {
+      "field": "B03002_003E",
+      "label": "White (non-Hispanic)",
+      "color": "var(--mon-stevens9-3)"
+     },
+     {
+      "field": "B03002_012E",
+      "label": "Hispanic or Latino",
+      "color": "var(--mon-stevens9-5)"
+     },
+     {
+      "field": "B03002_006E",
+      "label": "Asian",
+      "color": "var(--mon-stevens9-7)"
+     },
+     {
+      "field": "B03002_009E",
+      "label": "Two or more races",
+      "color": "var(--mon-stevens9-9)"
+     },
+     {
+      "field": "B03002_004E",
+      "label": "Black or African American",
+      "color": "var(--mon-stevens9-1)"
+     },
+     {
+      "field": "B03002_005E",
+      "label": "American Indian or Alaska Native",
+      "color": "var(--mon-stevens9-2)"
+     },
+     {
+      "field": "B03002_007E",
+      "label": "Pacific Islander or Native Hawaiian",
+      "color": "var(--mon-stevens9-6)"
+     },
+     {
+      "field": "B03002_008E",
+      "label": "Other race",
+      "color": "var(--mon-stevens9-8)"
+     }
+    ]
+   }
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Equitable Protection",
+   "Url": "https://climate.laketahoeinfo.org/equitable-protection"
+  }
+ ],
+ "MonitoringProgramID": 9903,
+ "MonitoringProgramName": "Race and Ethnicity",
+ "CategoryID": 14,
+ "CategoryName": "Demographics",
+ "ThemeColor": "#7c7c7c",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

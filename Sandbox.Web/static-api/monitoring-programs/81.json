@@ -1,0 +1,54 @@
+{
+ "MonitoringProgramDescription": "The LTBMU EcObject product represents a novel forest-wide existing vegetation dataset produced by Region 5 Remote Sensing Lab that incorporates Light Detection and Ranging (LiDAR) into several facets of the mapping process. It is created from a multi-resolution segmentation of LiDAR-derived tree approximate objects and a 1-m canopy height model, which were then aggregated by stand and tree-level ecologic relationships. The resulting segments were then populated with a collection of traditional and contemporary metrics at scales that benefit both project-level planning and large-landscape analysis. Different combinations of multi-dimensional datasets were used to estimate metrics and thus accuracies vary depending upon both the data used and workflows that were generated. This guide is intended to describe the different map attributes, how they were generated and computed, as well as any known limitations of\n\nthe metric estimates",
+ "MonitoringApproach": null,
+ "Partners": [],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Acres by vegetation type",
+    "sub": "Acres of each TRPA vegetation type in the 2010 EcObject LiDAR vegetation map of the Tahoe Basin.",
+    "layer": 98,
+    "where": "TRPA_VegType <> ''",
+    "x": "TRPA_VegType",
+    "xType": "category",
+    "xLabel": "Vegetation type",
+    "y": "Acres",
+    "stat": "sum",
+    "yName": "Acres",
+    "yLabel": "Acres",
+    "type": "bar",
+    "orientation": "h",
+    "sort": "desc"
+   },
+   {
+    "title": "Forest acres by horizontal pattern",
+    "sub": "Acres of forest in each tree spatial pattern class, from individual trees to dense clumps (2010).",
+    "layer": 98,
+    "where": "TRPA_VegType IN ('Yellow Pine Forest','Red Fir Forest','Subalpine Forest')",
+    "x": "SpatialVar",
+    "xType": "category",
+    "xLabel": "Spatial pattern",
+    "y": "Acres",
+    "stat": "sum",
+    "seriesBy": "TRPA_VegType",
+    "seriesLabel": "Forest type",
+    "yLabel": "Acres",
+    "type": "stacked"
+   }
+  ]
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 81,
+ "MonitoringProgramName": "EcObject Forest Monitoring",
+ "CategoryID": 11,
+ "CategoryName": "Forest Structure",
+ "ThemeColor": "#415414",
+ "IsFeatured": false,
+ "PartnerCount": 0,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": []
+}

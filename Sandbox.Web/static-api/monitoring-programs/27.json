@@ -1,0 +1,98 @@
+{
+ "MonitoringProgramDescription": "A non-degradation standard shall apply to fish habitat in Lake Tahoe. Achieve the equivalent of 5,948 total acres of excellent habitat as indicated by the Prime Fish Habitat GIS Layer as may be amended based on best available science.",
+ "MonitoringApproach": "The monitoring approach used for evaluating the attainment status of this standard involves the mapping and classification of fish habitats in the nearshore (the lake zone that exists approximately between elevations of 6,229 to 6,199). In 1971, a cooperative survey was done by various state and federal fish and wildlife agencies to identify fish and aquatic habitats of special significance. This work produced a Prime Fish Habitat Map that TRPA adopted in 1984. This map, as amended in 1997, is still the map TRPA uses today. Byron et al. (1989) as part of their fish habitat study resurveyed and mapped fish habitat around Lake Tahoe. According to TRPA (1996), the Byron et al. work represented a more accurate picture of the types of fish habitat based on lakebed substrate. The 2006 and 2011 Threshold Evaluations Reports utilized an updated fish habitat map based on satellite imagery collected in 2002 (Metz and Herold 2004; Herold, Metz, and Romsos 2007a).",
+ "Partners": [
+  {
+   "OrganizationID": 41,
+   "OrganizationName": "California Department of Fish & Wildlife",
+   "OrganizationShortName": "CDFW"
+  },
+  {
+   "OrganizationID": 50,
+   "OrganizationName": "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+   "OrganizationShortName": "NDOW"
+  },
+  {
+   "OrganizationID": 8,
+   "OrganizationName": "University of California, Davis",
+   "OrganizationShortName": "UC Davis"
+  },
+  {
+   "OrganizationID": 47,
+   "OrganizationName": "University of Nevada, Reno",
+   "OrganizationShortName": "UNR"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Lake Tahoe fish habitat by type",
+    "sub": "Acres of nearshore fish habitat by type, from 2015 mapping. Feed and cover plus spawning habitat count as excellent habitat; the standard is 5,948 acres.",
+    "layer": 104,
+    "x": "Habitat2015",
+    "xType": "category",
+    "xLabel": "Habitat type",
+    "xNames": {
+     "1": "Marginal",
+     "2": "Feed and cover",
+     "3": "Spawning"
+    },
+    "y": "Acres",
+    "stat": "sum",
+    "yName": "Acres",
+    "yLabel": "Acres",
+    "type": "bar"
+   },
+   {
+    "title": "Lakebed substrate",
+    "sub": "Acres of each lakebed substrate type in the nearshore, from 2015 mapping.",
+    "layer": 104,
+    "x": "Substrate2015",
+    "xType": "category",
+    "xLabel": "Substrate",
+    "xNames": {
+     "1": "Sand",
+     "2": "Cobble",
+     "3": "Boulder",
+     "4": "Sand, cobble, and boulder",
+     "5": "Gravel to large boulder",
+     "6": "Cobble, boulder, and bedrock",
+     "7": "Periphyton",
+     "11": "Gravel",
+     "13": "Gravel to small boulder"
+    },
+    "y": "Acres",
+    "stat": "sum",
+    "yLabel": "Acres",
+    "type": "bar",
+    "orientation": "h",
+    "sort": "desc"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Acres of \"Prime\" Fish Habitat",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/24"
+  }
+ ],
+ "MonitoringProgramID": 27,
+ "MonitoringProgramName": "Fish Habitat Mapping",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 4,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "California Department of Fish & Wildlife",
+  "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+  "University of California, Davis",
+  "University of Nevada, Reno"
+ ]
+}

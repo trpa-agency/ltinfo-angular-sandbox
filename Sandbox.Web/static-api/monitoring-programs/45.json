@@ -1,0 +1,114 @@
+{
+ "MonitoringProgramDescription": null,
+ "MonitoringApproach": "Particulate matter is monitored in the Tahoe Basin by the California Air Resources Board at South Lake Tahoe, and is monitored as part of the national IMPROVE network sites at LTCC and DL Bliss State Park.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 2,
+   "OrganizationName": "Desert Research Institute",
+   "OrganizationShortName": "DRI"
+  },
+  {
+   "OrganizationID": 3,
+   "OrganizationName": "U.S. Environmental Protection Agency",
+   "OrganizationShortName": "USEPA"
+  },
+  {
+   "OrganizationID": 4,
+   "OrganizationName": "California Air Resources Board",
+   "OrganizationShortName": "CARB"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2008,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/b2461e04-8dc6-41b6-a1a8-027e9023dd1e",
+   "Caption": "TRPA air quality monitoring station.",
+   "PhotoCredit": "TRPA",
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Particulate matter by station",
+    "sub": "Yearly particulate matter (PM10) statistic at each monitoring station, in micrograms per cubic meter. Choose a statistic.",
+    "layer": 46,
+    "where": "Pollutant = 'PM10'",
+    "x": "Year",
+    "y": "Value",
+    "yLabel": "PM10 (µg/m³)",
+    "seriesBy": "Site",
+    "seriesLabel": "Station",
+    "pick": "Indicator",
+    "pickLabel": "Statistic",
+    "pickDefault": "PM10 - ANNUAL AVG.",
+    "standard": {
+     "field": "Threshold_Value"
+    },
+    "span": "span-12"
+   },
+   {
+    "title": "Daily particulate matter by station",
+    "sub": "Daily particulate matter (PM10) values at each station from the daily monitoring record, in the units named in each statistic. Choose a statistic.",
+    "layer": 17,
+    "where": "variable LIKE 'PM 10%' OR variable LIKE 'PM10%'",
+    "x": "date",
+    "xType": "date",
+    "xLabel": "Date",
+    "y": "value",
+    "yName": "PM10",
+    "yLabel": "PM10",
+    "seriesBy": "id",
+    "seriesLabel": "Station",
+    "seriesNames": {
+     "STL": "Stateline",
+     "TC": "Tahoe City",
+     "IV": "Incline Village",
+     "SLT": "South Lake Tahoe",
+     "BSP": "DL Bliss State Park",
+     "LTC": "Lake Tahoe Community College"
+    },
+    "pick": "variable",
+    "pickLabel": "Statistic",
+    "span": "span-12"
+   }
+  ],
+  "sitesLayer": {
+   "layer": 16,
+   "name": "name",
+   "code": "id",
+   "active": "Active_2023",
+   "unit": "station"
+  },
+  "sitesPerYear": {
+   "layer": 46,
+   "year": "Year",
+   "site": "Site",
+   "where": "Pollutant = 'PM10'",
+   "unit": "station"
+  }
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 45,
+ "MonitoringProgramName": "Particulate Matter 10",
+ "CategoryID": 1,
+ "CategoryName": "Air Quality",
+ "ThemeColor": "#9CC3EA",
+ "IsFeatured": false,
+ "PartnerCount": 4,
+ "Template": "charts",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/b2461e04-8dc6-41b6-a1a8-027e9023dd1e",
+ "SiteCount": 6,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "Desert Research Institute",
+  "U.S. Environmental Protection Agency",
+  "California Air Resources Board"
+ ]
+}

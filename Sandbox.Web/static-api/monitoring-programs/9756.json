@@ -1,0 +1,50 @@
+{
+ "MonitoringProgramDescription": "This indicator has been retired and is no longer reported. This standard was retired on May 23, 2018, as part of the Threshold Update Initiative: Reorganization and Non-Policy Technical Corrections. See the Governing Board staff report at https://www.trpa.gov/wp-content/uploads/documents/archive/May-23-2018-Governing-Board-Packet-Final.pdf for more information. The content on this page is archived and available for evaluations prior to May 2018, but will not be updated or maintained for future evaluations.\n\nThis standard is encompassed by the Non-Degradation standard, https://thresholds.laketahoeinfo.org/ThresholdIndicator/Detail/82, that applies to native deciduous trees, wetlands, and meadows to preserve plan communities and significant wildlife habitat.\n\nRiparian Habitat is include in the Threshold Dashboard. Threshold Indicators are evaluated against Threshold Standards every 4 years. Thresholds are environmental goals and standards for the Lake Tahoe Basin that indirectly define the capacity of the Region to accommodate additional land development.\n\nRiparian and wetland areas contain a mosaic of vegetation communities, moisture gradients, and microclimates that make them some of the most diverse and productive terrestrial areas for wildlife (Kondolf et al. 1996). Riparian and wetland areas occupy a small percentage of lands within the basin, but they support more wildlife species than any other vegetation types (Kattleman and Embury, 1996). For example, in an area with similar environmental conditions in the nearby Inyo National Forest, riparian and wetland areas occupied less than one percent of the land area but were important to 75 percent of the local wildlife species (Kondolf et al. 1987). The same areas are desirable for human-related uses, which have resulted in the degradation of 75 percent of all marshes and 50 percent of all meadows within the basin (Kattleman, R and Embury, M 1996)(Manley et al. 2000). Since riparian and wetland areas are relatively rare and important compared to other vegetation types, even small modifications to these areas can have a greater impact on wildlife species than modifications in other areas (Lindstrom, Rucks, and Wigand 2000; Elliot-Fisk et al. 1996).\n\nThreshold standard: A nondegradation standard shall apply to significant wildlife habitat consisting of deciduous trees, wetlands, and meadows while providing for opportunities to increase the acreage of such riparian associations.",
+ "MonitoringApproach": "Whether TRPA Goals and Policies continue to support the protection of “wildlife habitat consisting of deciduous trees, wetlands, and meadows.”",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "mapLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/SEZ_Viewer_Base_Data/MapServer",
+   "layer": 7,
+   "title": "Riparian areas",
+   "unit": "riparian area",
+   "unitPlural": "Riparian areas",
+   "name": "Class_name",
+   "countAsSites": false,
+   "meta": [
+    {
+     "field": "Acres",
+     "suffix": " acres"
+    }
+   ],
+   "fields": [
+    {
+     "field": "Acres",
+     "label": "Acres"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 9756,
+ "MonitoringProgramName": "Riparian Habitat",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "context",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

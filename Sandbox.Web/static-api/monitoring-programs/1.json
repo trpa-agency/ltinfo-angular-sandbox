@@ -1,0 +1,109 @@
+{
+ "MonitoringProgramDescription": "It shall be the policy of the TRPA Governing Body in development of the Regional Plan to establish and ensure a fair share of the total Basin capacity for outdoor recreation is available to the general public.\n\nIt shall be the policy of the TRPA Governing Body in development of the Regional Plan to preserve and enhance the high quality recreational experience including preservation of high-quality undeveloped shorezone and other natural areas. In developing the Regional Plan, the staff and Governing Body shall consider provisions for additional access, where lawful and feasible, to the shorezone and high quality undeveloped areas for low density recreational uses.",
+ "MonitoringApproach": "The quality of recreation experiences has been assessed through recreation user surveys conducted by recreation providers and organizations in the Region since the 2011 Threshold Evaluation Report was prepared. These surveys measure the overall satisfaction with recreation experiences. The surveys also measure satisfaction with specific components of the recreation experience, such as the condition of recreation facilities. These recreation surveys represent the best available information and they primarily apply to developed recreation resources on the south and north shores. As such, the recreation user surveys are helpful indicators focused on multiple user groups, rather than a comprehensive measure of user satisfaction with all recreation amenities in the basin. The surveys evaluated here were conducted by the City of South Lake Tahoe, El Dorado County, Tahoe City Public Utility District, Lake Tahoe Visitors Authority, and North Lake Tahoe Resort Association.",
+ "Partners": [
+  {
+   "OrganizationID": 12,
+   "OrganizationName": "City of South Lake Tahoe",
+   "OrganizationShortName": "CSLT"
+  },
+  {
+   "OrganizationID": 13,
+   "OrganizationName": "Lake Tahoe Visitors Authority",
+   "OrganizationShortName": "LTVA"
+  },
+  {
+   "OrganizationID": 14,
+   "OrganizationName": "North Tahoe Community Alliance",
+   "OrganizationShortName": "NTCA"
+  },
+  {
+   "OrganizationID": 15,
+   "OrganizationName": "Tahoe City Public Utility District",
+   "OrganizationShortName": "TCPUD"
+  },
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "PAOT allocations by category",
+    "sub": "Persons at one time (PAOT) in the Regional Plan: assigned as of the 2015 evaluation, assigned 2015 to 2019, and remaining.",
+    "layer": 57,
+    "x": "PAOT_Categories",
+    "xType": "category",
+    "xLabel": "PAOT category",
+    "y": [
+     {
+      "field": "Assigned_2015_Evaluation",
+      "name": "Assigned as of 2015 evaluation"
+     },
+     {
+      "field": "Assigned_2015_2019",
+      "name": "Assigned 2015 to 2019"
+     },
+     {
+      "field": "PAOTs_Remaining",
+      "name": "Remaining"
+     }
+    ],
+    "yLabel": "PAOTs",
+    "type": "stacked",
+    "span": "span-6"
+   },
+   {
+    "title": "PAOTs assigned each year",
+    "sub": "PAOTs assigned to projects each year, all categories.",
+    "layer": 59,
+    "x": "Year",
+    "y": "Value",
+    "yName": "PAOTs assigned",
+    "yLabel": "PAOTs",
+    "type": "bar",
+    "span": "span-6"
+   }
+  ],
+  "sitesLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/Recreation/MapServer",
+   "layer": 1,
+   "name": "RECREATION_NAME",
+   "status": "OWNERSHIP",
+   "unit": "recreation site"
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Fair Share Distribution Of Recreation Capacity",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/53"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Quality of Recreation Experience & Access to Recreational Opportunities",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/54"
+  }
+ ],
+ "MonitoringProgramID": 1,
+ "MonitoringProgramName": "Recreation Threshold Monitoring",
+ "CategoryID": 3,
+ "CategoryName": "Recreation",
+ "ThemeColor": "#F78814",
+ "IsFeatured": false,
+ "PartnerCount": 5,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "City of South Lake Tahoe",
+  "Lake Tahoe Visitors Authority",
+  "North Tahoe Community Alliance",
+  "Tahoe City Public Utility District",
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+ ]
+}

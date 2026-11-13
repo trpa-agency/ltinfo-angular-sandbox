@@ -1,0 +1,83 @@
+{
+ "MonitoringProgramDescription": "The stand composition and age management standard encourages the perpetuation of a diversity of tree age classes, which is important for ensuring the sustainability of the Tahoe Region’s forests. Prior to European settlement, low intensity fires burned every five to 18 years in lower elevation pine and mixed conifer forests in the Tahoe Region. As a result, these lower elevation forests in the Region typically had large, widely spaced conifers with a poorly developed shrub understory, in a mosaic pattern of different age classes from some higher-intensity, stand-replacing fires. The TRPA Code of Ordinances prohibits the manipulation of vegetation that would permanently impact forest integrity. Fuels reduction projects generally include understory ladder fuel removal and forest thinning, but do not homogenize the vegetative landscape when interspersed among dense, even-aged untreated forest acres. This approach results in the desired mosaic pattern across a large area.\n\nVegetation is integral to many scenic and recreational amenities in the Lake Tahoe Region. Vegetation also provides many functional roles related to water cleansing, soil stabilization, wildlife habitat, nutrient catchment and release, air purification, and noise control. The focus of vegetation preservation in the Region is to restore, protect and maintain these functions and contribute to other socioeconomic attributes. Specifically, this management standard discourages the creation of large forest openings, such as clear cuts, while providing tools to allow for forest openings of up to eight acres in size to meet specific management goals such as regeneration of shade intolerant species (e.g., Jeffery and sugar pine). It also encourages the perpetuation of a diversity of tree age classes, which is important for ensuring the sustainability of the Region’s forests.\n\nThreshold standard: Pattern –Provide for the proper juxtaposition of vegetation communities and age classes by; 2. Adjacent openings shall not be of the same relative age class or successional stage to avoid uniformity in stand composition and age.",
+ "MonitoringApproach": "Has TRPA adopted appropriate policies, ordinances and/or programs to support the proper juxtaposition of vegetation communities and age classes?",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Seral stage by canopy class",
+    "sub": "Percent of undisturbed vegetation in each seral stage, open and closed canopy, 2023 Threshold Evaluation.",
+    "json": "data/threshold-evaluation/stand-composition.json",
+    "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/Vegetation/Chart/Final/Vegetation_Composition.html",
+    "sourceLabel": "2023 Threshold Evaluation",
+    "x": "Seral stage",
+    "xType": "category",
+    "xLabel": "Seral stage",
+    "xOrder": [
+     "Early Seral",
+     "Mid Seral",
+     "Late Seral",
+     "Not Classified",
+     "Not classified"
+    ],
+    "xNames": {
+     "Early Seral": "Early",
+     "Mid Seral": "Mid",
+     "Late Seral": "Late",
+     "Not classified": "Not classified"
+    },
+    "y": "Percent",
+    "seriesBy": "Canopy",
+    "seriesLabel": "Canopy",
+    "seriesOrder": [
+     "Open",
+     "Closed"
+    ],
+    "seriesNames": {
+     "Not stated": "Not classified"
+    },
+    "seriesColors": {
+     "Open": "var(--mon-greens-2)",
+     "Closed": "var(--mon-greens-5)",
+     "Not stated": "var(--color-content-disabled)"
+    },
+    "yLabel": "Percent of undisturbed vegetation",
+    "type": "stacked",
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Pattern: Stand Composition And Age",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/81"
+  },
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Forest Resilience and Wildfire Risk",
+   "Url": "https://climate.laketahoeinfo.org/forest-resilience-and-wildfire-risk"
+  }
+ ],
+ "MonitoringProgramID": 9681,
+ "MonitoringProgramName": "Stand Composition and Age",
+ "CategoryID": 11,
+ "CategoryName": "Forest Structure",
+ "ThemeColor": "#415414",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "context",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

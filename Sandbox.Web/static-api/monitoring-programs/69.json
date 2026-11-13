@@ -1,0 +1,47 @@
+{
+ "MonitoringProgramDescription": "Since 2006 TRPA has conducted basin-wide travel surveys every two years in order to better understand basic travel characteristics of both residents and visitors. The data collected - which includes data points such as mode share, origin-destinations, and trip purpose - is used for a variety of purposes at TRPA including regional performance metrics, project planning, and travel demand modelling.",
+ "MonitoringApproach": "The dashboard below summarises TRPA's 2018 Summer Travel Survey, which was conducted in late-August of 2018.",
+ "Partners": [],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2047,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/1aad1e18-e8f2-4f76-a5b6-f59d529da17d",
+   "Caption": "surveyor conducting the travel survey",
+   "PhotoCredit": "TRPA",
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Vehicle miles traveled",
+    "sub": "Estimated vehicle miles traveled (VMT) in the Tahoe Region.",
+    "layer": 92,
+    "x": "Year",
+    "y": "VMT",
+    "yName": "VMT",
+    "yLabel": "Vehicle miles traveled",
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Transportation",
+   "Url": "https://climate.laketahoeinfo.org/transportation"
+  }
+ ],
+ "MonitoringProgramID": 69,
+ "MonitoringProgramName": "Travel Behavior",
+ "CategoryID": 10,
+ "CategoryName": "Transportation and Sustainable Communities",
+ "ThemeColor": "#DB5B00",
+ "IsFeatured": true,
+ "PartnerCount": 0,
+ "Template": "charts",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/1aad1e18-e8f2-4f76-a5b6-f59d529da17d",
+ "SiteCount": 0,
+ "PartnerNames": []
+}

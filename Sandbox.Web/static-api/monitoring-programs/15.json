@@ -1,0 +1,242 @@
+{
+ "MonitoringProgramDescription": null,
+ "MonitoringApproach": "The Lake Tahoe Interagency Monitoring Program (LTIMP) stream monitoring program was first developed in 1979 to assess sediment and nutrient input from tributaries to Lake Tahoe, and to support research that aims to understand the drivers affecting the transparency of Lake Tahoe. The tributary monitoring focuses on both event-based conditions (large runoff events associated with rainfall and snowmelt) and baseline conditions (low inflow during summer when precipitation is negligible). Up to 10 streams have been monitored since the early 1990s; five in California (Upper Truckee River, and Trout, General, Blackwood and Ward Creeks) and five in Nevada (Third, Incline, Glenbrook, Logan House, and Edgewood Creeks). Six of these streams have been monitored since water years 1980 or 1981. In water year 2012 the number of streams routinely monitored was reduced to seven (see map above), and all streams have primary monitoring stations at or near the point of discharge to Lake Tahoe.",
+ "Partners": [
+  {
+   "OrganizationID": 21,
+   "OrganizationName": "California Lahontan Regional Water Quality Control Board",
+   "OrganizationShortName": "Lahontan"
+  },
+  {
+   "OrganizationID": 20,
+   "OrganizationName": "California Tahoe Conservancy",
+   "OrganizationShortName": "CTC"
+  },
+  {
+   "OrganizationID": 19,
+   "OrganizationName": "Nevada Tahoe Resource Team – Nevada Division of State Lands",
+   "OrganizationShortName": "NDSL"
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  },
+  {
+   "OrganizationID": 23,
+   "OrganizationName": "U.S. Geological Survey",
+   "OrganizationShortName": "USGS"
+  },
+  {
+   "OrganizationID": 24,
+   "OrganizationName": "UC Davis Tahoe Environmental Research Center",
+   "OrganizationShortName": "TERC"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2015,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/5a7a04a2-2799-4634-a3dc-de9b7deb96d6",
+   "Caption": "Water quality samples",
+   "PhotoCredit": "David Smith - USGS",
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Suspended sediment",
+    "sub": "Annual average suspended sediment concentration across Lake Tahoe Interagency Monitoring Program (LTIMP) streams.",
+    "layer": 85,
+    "x": "Year",
+    "y": "AnnualAverage",
+    "yName": "Suspended sediment",
+    "yLabel": "Concentration"
+   },
+   {
+    "title": "Total phosphorus",
+    "sub": "Annual average total phosphorus concentration across LTIMP streams.",
+    "layer": 88,
+    "x": "Year",
+    "y": "AverageTotalPhosphorousConcentr",
+    "yName": "Total phosphorus",
+    "yLabel": "Concentration"
+   },
+   {
+    "title": "Total nitrogen",
+    "sub": "Annual average total nitrogen concentration across LTIMP streams.",
+    "layer": 87,
+    "x": "Year",
+    "y": "AverageTotalNitrogenConcentrati",
+    "yName": "Total nitrogen",
+    "yLabel": "Concentration",
+    "span": "span-12"
+   },
+   {
+    "title": "Total phosphorus samples",
+    "sub": "Total phosphorus concentration in each sample, with the state standard for the site. Choose a site.",
+    "layer": 100,
+    "x": "SampleDate_Time",
+    "xType": "date",
+    "xLabel": "Sample date",
+    "y": "TotalPhosphorus",
+    "yName": "Total phosphorus",
+    "yLabel": "Concentration",
+    "pick": "SiteName",
+    "pickLabel": "Site",
+    "standard": {
+     "field": "State_Standard",
+     "label": "State standard"
+    },
+    "span": "span-12"
+   },
+   {
+    "title": "Total nitrogen samples",
+    "sub": "Total nitrogen concentration in each sample, with the state standard where the site has one. Choose a site.",
+    "layer": 101,
+    "x": "SampleDatetime",
+    "xType": "date",
+    "xLabel": "Sample date",
+    "y": "Total_Nitrogen",
+    "yName": "Total nitrogen",
+    "yLabel": "Concentration",
+    "pick": "SiteName",
+    "pickLabel": "Site",
+    "standard": {
+     "field": "State_Standard",
+     "label": "State standard"
+    },
+    "span": "span-12"
+   }
+  ],
+  "sitesLayer": {
+   "layer": 33,
+   "name": "station_nm",
+   "code": "site_no",
+   "unit": "station"
+  },
+  "sitesPerYear": {
+   "layer": 99,
+   "year": "SampleDatetime",
+   "site": "SiteName",
+   "extract": true,
+   "unit": "station"
+  },
+  "siteProfile": {
+   "record": {
+    "layer": 100,
+    "join": {
+     "from": "code",
+     "to": "SiteName",
+     "match": "prefix"
+    },
+    "year": "SampleDate_Time",
+    "extractYear": true,
+    "value": "TotalPhosphorus",
+    "stat": "avg",
+    "label": "Total phosphorus, annual average",
+    "short": "Total phosphorus",
+    "unit": "mg/L",
+    "decimals": 3,
+    "noun": [
+     "sample",
+     "samples"
+    ],
+    "standard": {
+     "field": "State_Standard",
+     "label": "state standard"
+    },
+    "latestLabel": "Yearly average"
+   },
+   "related": [
+    {
+     "layer": 101,
+     "join": {
+      "from": "code",
+      "to": "SiteName",
+      "match": "prefix"
+     },
+     "year": "SampleDatetime",
+     "extractYear": true,
+     "value": "Total_Nitrogen",
+     "stat": "avg",
+     "label": "Total nitrogen, annual average",
+     "short": "Total nitrogen",
+     "unit": "mg/L",
+     "decimals": 2,
+     "noun": [
+      "sample",
+      "samples"
+     ],
+     "standard": {
+      "field": "State_Standard",
+      "label": "state standard"
+     },
+     "latestLabel": "Yearly average"
+    }
+   ],
+   "facts": [
+    {
+     "label": "Station number",
+     "from": "code"
+    }
+   ],
+   "section": {
+    "type": "latest",
+    "title": "Latest samples"
+   }
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Nitrogen Concentration (Tributaries)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/149"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Phosphorus Concentration (Tributaries)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/150"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Reduce Fine Sediment Particle Load",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/176"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Reduce Total Annual Phosphorus Load",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/177"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Suspended Sediment Concentration (Tributaries)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/152"
+  }
+ ],
+ "MonitoringProgramID": 15,
+ "MonitoringProgramName": "LTIMP",
+ "CategoryID": 7,
+ "CategoryName": "Water Quality",
+ "ThemeColor": "#0F3F6F",
+ "IsFeatured": false,
+ "PartnerCount": 7,
+ "Template": "map",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/5a7a04a2-2799-4634-a3dc-de9b7deb96d6",
+ "SiteCount": 43,
+ "PartnerNames": [
+  "California Lahontan Regional Water Quality Control Board",
+  "California Tahoe Conservancy",
+  "Nevada Tahoe Resource Team – Nevada Division of State Lands",
+  "Tahoe Regional Planning Agency",
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+  "U.S. Geological Survey",
+  "UC Davis Tahoe Environmental Research Center"
+ ]
+}

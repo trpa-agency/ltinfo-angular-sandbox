@@ -1,0 +1,99 @@
+{
+ "MonitoringProgramDescription": "Large trees, more than 36 inches in diameter at breast height, are the backbone of an old forest. They store the most carbon, survive low-intensity fire behind thick bark, and give nesting and denning sites to wildlife such as the California spotted owl, northern goshawk, and Pacific marten.\n\nComstock-era logging cut most of the Basin's large trees in the late 1800s. The trees that escaped it, and the forest that has grown since, set how much old forest structure the Basin has today. Counting large trees over time shows whether that structure is recovering or being lost to drought, insects, and severe fire.",
+ "MonitoringApproach": "Individual trees were mapped across the Basin from airborne LiDAR flown in 2010, with each tree's diameter estimated from its LiDAR measurements. The layer holds the 84,373 trees estimated at more than 36 inches.\n\nThe map counts the trees in hexagons of 100 acres each. The count will be repeated with the next Basin-wide LiDAR flight, so the change in large trees can be measured.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 33,
+   "OrganizationName": "Tahoe Fire and Fuels Team",
+   "OrganizationShortName": "TFFT"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Large trees by diameter",
+    "sub": "Trees more than 36 inches in diameter at breast height, by estimated diameter, 2010 LiDAR.",
+    "json": "data/large-trees/trees-by-diameter.json",
+    "sourceHref": "https://maps.trpa.org/server/rest/services/Large_Trees_Reference/FeatureServer/0",
+    "sourceLabel": "TRPA Large_Trees_Reference map service, layer 0",
+    "x": "Diameter",
+    "xType": "category",
+    "xLabel": "Diameter at breast height",
+    "y": "Trees",
+    "yName": "Trees",
+    "yLabel": "Trees",
+    "type": "bar",
+    "span": "span-12"
+   }
+  ],
+  "mapLayer": {
+   "url": "data/large-trees/large-tree-hexagons.geojson",
+   "sourceHref": "https://maps.trpa.org/server/rest/services/Large_Trees_Reference/FeatureServer/0",
+   "sourceLabel": "TRPA Large_Trees_Reference map service, layer 0, counted in 100-acre hexagons",
+   "layer": 0,
+   "title": "Large trees per 100 acres",
+   "unit": "hexagon",
+   "unitPlural": "Hexagons",
+   "name": "Cell",
+   "countAsSites": false,
+   "list": false,
+   "colorBy": "Trees",
+   "colorByLabel": "Large trees per 100 acres",
+   "breaks": [
+    {
+     "max": 10,
+     "label": "1 to 10",
+     "color": "var(--mon-turbid-2)"
+    },
+    {
+     "max": 50,
+     "label": "11 to 50",
+     "color": "var(--mon-turbid-3)"
+    },
+    {
+     "max": 100,
+     "label": "51 to 100",
+     "color": "var(--mon-turbid-4)"
+    },
+    {
+     "max": 250,
+     "label": "101 to 250",
+     "color": "var(--mon-turbid-5)"
+    },
+    {
+     "max": 100000,
+     "label": "More than 250",
+     "color": "var(--mon-turbid-7)"
+    }
+   ],
+   "fields": [
+    {
+     "field": "Trees",
+     "label": "Large trees"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 9794,
+ "MonitoringProgramName": "Large Trees",
+ "CategoryID": 11,
+ "CategoryName": "Forest Structure",
+ "ThemeColor": "#415414",
+ "IsFeatured": false,
+ "PartnerCount": 2,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "Tahoe Fire and Fuels Team"
+ ]
+}

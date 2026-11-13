@@ -1,0 +1,56 @@
+{
+ "MonitoringProgramDescription": "In an undisturbed watershed, the majority of stormwater is captured by vegetation and absorbed and filtered through the soil. Development, such as roads, driveways, and rooftops alter the watershed by creating impervious surfaces that prevent stormwater from infiltrating. Instead, stormwater runs over impervious surfaces, collecting pollutants such as suspended sediment as it travels, enters the nearest storm drain or stream, and ultimately ends up in Lake Tahoe. Pollutants, including suspended sediment, contribute to the decline in lake clarity. The Lake Tahoe TMDL is the Region’s science-based strategy to reduce pollutant loading to Lake Tahoe and restore the historic clarity of the Lake.\n\nRunoff from roads and other urban land uses is the single largest source of fine sediment particles (FSP) impacting Lake Tahoe’s clarity, accounting for more than 70 percent of the FSP load to the lake. TMDL research also found that urban stormwater also provides the greatest opportunity to control FSP pollution. Consequently, restoring Lake Tahoe’s clarity hinges on achieving FSP load reductions in urban stormwater.\n\nThreshold standard: Decrease total annual suspended sediment load to achieve littoral turbidity standards (WQ3 and WQ4).",
+ "MonitoringApproach": "Decrease total annual suspended sediment load to achieve littoral turbidity standards (WQ3 and WQ4).",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Fine sediment load reduction achieved",
+    "sub": "Pounds of fine sediment kept out of Lake Tahoe each year by projects that TMDL implementors credit through the Lake Clarity Crediting Program, 2023 Threshold Evaluation.",
+    "json": "data/threshold-evaluation/fine-sediment-load-reduction.json",
+    "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/WaterQuality/Chart/Final/Fine_Sediment_Load_Reduction.html",
+    "sourceLabel": "2023 Threshold Evaluation",
+    "x": "Year",
+    "xLabel": "Year",
+    "y": "Pounds per year",
+    "yName": "Load reduction",
+    "yLabel": "Pounds per year",
+    "type": "bar",
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Decrease Total Annual Suspended Sediment Load",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/179"
+  },
+  {
+   "Dashboard": "Lake Clarity Tracker",
+   "Label": "Results Overview",
+   "Url": "https://clarity.laketahoeinfo.org/results/overview"
+  }
+ ],
+ "MonitoringProgramID": 9779,
+ "MonitoringProgramName": "Fine Sediment Load Reduction",
+ "CategoryID": 7,
+ "CategoryName": "Water Quality",
+ "ThemeColor": "#0F3F6F",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

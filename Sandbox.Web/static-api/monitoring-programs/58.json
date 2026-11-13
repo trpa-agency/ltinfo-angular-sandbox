@@ -1,0 +1,133 @@
+{
+ "MonitoringProgramDescription": "48 percent of the Montane zone (lower than 7,000 feet elevation) must be in a late seral or old growth condition; the Montane zone will contribute 20 percent (30,600 acres) of forested lands towards VP12.\n\n61 percent of the Subalpine zone (greater than 8,500 feet elevation) must be in a late seral or old growth condition. The Subalpine zone will contribute 5 percent (7,600 acres) of forested lands towards VP12.\n\nAttain and maintain a minimum percentage of 55 percent by area of forested lands within the Tahoe Region in a late seral or old growth condition, and distributed across elevation zones. Standards VP 13, VP14, and VP15 must be attained to achieve this threshold.\n\n60 percent of the Upper Montane zone (between 7,000 and 8,500 feet elevation) must be in a late seral or old growth condition. The Upper Montane zone will contribute 30 percent (45,900 acres) of forested lands towards VP12.",
+ "MonitoringApproach": "Every five years, the Tahoe vegetation map is updated with new satellite data (if\n\navailable) and/or modeled and calibrated using field-based Forest Inventory and Analysis (FIA) data to assess the extent of different vegetation types and associated forest structure characteristics for the Region (USDA, 2009; Warbington et al., 2011). For this analysis, California Wildlife Habitat Relationship\n\n(CWHR) vegetation types associated with large diameter trees were queried and enumerated from the most recently available vegetation map (U.S. Forest Service - Remote Sensing Lab Pacific Southwest Region: TMU_Strata_07 [published 2009]).",
+ "Partners": [
+  {
+   "OrganizationID": 23,
+   "OrganizationName": "U.S. Geological Survey",
+   "OrganizationShortName": "USGS"
+  },
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Seral stage by elevation zone",
+    "sub": "Percent of undisturbed vegetation in each seral stage, across all forest and in each elevation zone, 2023 Threshold Evaluation.",
+    "json": "data/threshold-evaluation/seral-stage-by-zone.json",
+    "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/Vegetation/Chart/Final/Vegetation_SeralStage.html",
+    "sourceLabel": "2023 Threshold Evaluation",
+    "x": "Zone",
+    "xType": "category",
+    "xLabel": "Zone",
+    "xOrder": [
+     "All forest",
+     "Montane",
+     "Upper montane",
+     "Subalpine"
+    ],
+    "y": "Percent",
+    "seriesBy": "Seral stage",
+    "seriesLabel": "Seral stage",
+    "seriesOrder": [
+     "Early Seral",
+     "Mid Seral",
+     "Late Seral",
+     "Not Classified",
+     "Not classified"
+    ],
+    "seriesColors": {
+     "Early Seral": "var(--mon-greens-1)",
+     "Mid Seral": "var(--mon-greens-3)",
+     "Late Seral": "var(--mon-greens-6)",
+     "Not Classified": "var(--color-content-disabled)"
+    },
+    "yLabel": "Percent of undisturbed vegetation",
+    "type": "stacked",
+    "span": "span-12"
+   }
+  ],
+  "mapLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/Vegetation_Late_Seral/MapServer",
+   "layer": 0,
+   "title": "Late seral forest (2010)",
+   "unit": "stand",
+   "unitPlural": "Stands",
+   "name": "TRPA_VegType",
+   "list": false,
+   "countAsSites": false,
+   "colorBy": "SeralStage",
+   "colorByLabel": "Seral stage",
+   "colors": {
+    "Late Seral Open": "var(--mon-greens-4)",
+    "Late Seral Closed": "var(--mon-greens-6)"
+   },
+   "fields": [
+    {
+     "field": "TRPA_VegType",
+     "label": "Vegetation type"
+    },
+    {
+     "field": "SeralStage",
+     "label": "Seral stage"
+    },
+    {
+     "field": "QMD",
+     "label": "Quadratic mean diameter (in.)"
+    },
+    {
+     "field": "Acres",
+     "label": "Acres"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Montane Zone",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/88"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Sub-Alpine Zone",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/86"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Total Old Growth",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/85"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Upper Montane Zone",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/87"
+  }
+ ],
+ "MonitoringProgramID": 58,
+ "MonitoringProgramName": "Late Seral and Old Growth Forest",
+ "CategoryID": 11,
+ "CategoryName": "Forest Structure",
+ "ThemeColor": "#415414",
+ "IsFeatured": false,
+ "PartnerCount": 3,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "U.S. Geological Survey",
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+  "Tahoe Regional Planning Agency"
+ ]
+}

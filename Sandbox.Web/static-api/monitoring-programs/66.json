@@ -1,0 +1,145 @@
+{
+ "MonitoringProgramDescription": "Lake clarity measurements have been taken continuously by UC Davis Tahoe Environmental Research Center (TERC) since 1968, when a white disk, called the Secchi disk, could be seen down to 102 feet. It is one of the longest, unbroken clarity records in the world. Secchi depth is the most widely used method of clarity measurement, and the values are consistent with laser-based measurements also taken by TERC researchers. Water transparency in Lake Tahoe is controlled by fine particles blocking light penetration either by scattering or by absorption. The decline in transparency is the result of accumplation of fine sediment particles and growth of small phytoplankton (algae). Fine sediments and nutirents are transporated to the lake by stormwater runoff, stream erosion, and through atmospheric deposition.",
+ "MonitoringApproach": "Measurements are taken in Lake Tahoe using a 25 centimeter, all white Secchi disk. The disk is lowered into the water column from a boat to a depth at which it is no longer visible by the observer, and then raised slowly until visible again. The midpoint of these two depths is called the Secchi depth. Between 18 and 37 individual Secchi depth measurements have been collected each year at an established index station.\n\nTo download all of the water clarity data on this page please see Tahoe Open Data.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 24,
+   "OrganizationName": "UC Davis Tahoe Environmental Research Center",
+   "OrganizationShortName": "TERC"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2017,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/c7c72883-9c6d-427f-89aa-f28bd32065a0",
+   "Caption": "UC Davis's research vessel where Secchi measurements are taken.",
+   "PhotoCredit": "UC Davis",
+   "IsKeyPhoto": true
+  },
+  {
+   "MonitoringProgramImageID": 2018,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/906c3852-60b4-4382-8c1b-9f13a7f878fd",
+   "Caption": "A Secchi disk measuring lake clarity is lowered into Lake Tahoe.",
+   "PhotoCredit": "UC Davis",
+   "IsKeyPhoto": false
+  },
+  {
+   "MonitoringProgramImageID": 2019,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/2e85ad9e-3420-4eb1-8572-3e6be16b7864",
+   "Caption": "Secchi disk - 25 centimeter all white disk used to measure clarity in Lake Tahoe.",
+   "PhotoCredit": "UC Davis",
+   "IsKeyPhoto": false
+  },
+  {
+   "MonitoringProgramImageID": 2020,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/946ee7a8-244e-4b80-a00e-eefa8cfec347",
+   "Caption": "Annual average lake clarity measurements from 1968 through 2018.",
+   "PhotoCredit": "UC Davis",
+   "IsKeyPhoto": false
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Lake clarity",
+    "sub": "Average Secchi depth in meters, a measure of how deep a white disk stays visible.",
+    "layer": 14,
+    "x": "year",
+    "y": [
+     {
+      "field": "annual_average",
+      "name": "Annual"
+     },
+     {
+      "field": "winter_average",
+      "name": "Winter"
+     },
+     {
+      "field": "summer_average",
+      "name": "Summer"
+     }
+    ],
+    "yLabel": "Secchi depth (m)",
+    "span": "span-12"
+   },
+   {
+    "title": "Primary productivity",
+    "sub": "Annual algal growth in the lake.",
+    "layer": 75,
+    "x": "Year",
+    "y": "Primary_Productivity",
+    "yName": "Primary productivity",
+    "yLabel": "Primary productivity"
+   },
+   {
+    "title": "Mid-lake dissolved nitrogen",
+    "sub": "Annual value at the mid-lake station.",
+    "layer": 71,
+    "x": "Year",
+    "y": "Value",
+    "yName": "Dissolved nitrogen",
+    "yLabel": "Dissolved nitrogen"
+   },
+   {
+    "title": "Secchi depth readings",
+    "sub": "Every Secchi depth reading, in meters, by sample date.",
+    "layer": 13,
+    "x": "date",
+    "xType": "date",
+    "xLabel": "Sample date",
+    "y": "secchi_average_measurement",
+    "yName": "Secchi depth",
+    "yLabel": "Secchi depth (m)",
+    "zero": false,
+    "span": "span-12"
+   }
+  ],
+  "sitesLayer": {
+   "layer": 12,
+   "name": "site_name",
+   "year": "year_of_count"
+  },
+  "sitesPerYear": {
+   "layer": 12,
+   "year": "year_of_count",
+   "site": "site_name"
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Average Secchi Disk Transparency",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/111"
+  },
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Lake Conditions",
+   "Url": "https://climate.laketahoeinfo.org/lake-conditions"
+  },
+  {
+   "Dashboard": "Lake Clarity Tracker",
+   "Label": "Water Clarity",
+   "Url": "https://clarity.laketahoeinfo.org/results/water-clarity"
+  }
+ ],
+ "MonitoringProgramID": 66,
+ "MonitoringProgramName": "Pelagic Water Quality (Clarity)",
+ "CategoryID": 7,
+ "CategoryName": "Water Quality",
+ "ThemeColor": "#0F3F6F",
+ "IsFeatured": true,
+ "PartnerCount": 2,
+ "Template": "charts",
+ "ImageCount": 4,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/c7c72883-9c6d-427f-89aa-f28bd32065a0",
+ "SiteCount": 3,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "UC Davis Tahoe Environmental Research Center"
+ ]
+}

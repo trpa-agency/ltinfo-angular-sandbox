@@ -94,6 +94,17 @@ git switch main && git merge my-change
 
 In ESA's repo the last step becomes `git push` and a pull request.
 
+## A read-only copy on GitHub Pages
+
+GitHub Pages serves files only, so the Pages copy has no API and no database. The app reads a JSON snapshot instead, and the two save buttons (Featured and Save layout) say the copy is read-only. Charts and maps that read TRPA map services still query them live.
+
+1. With the stack running, take the snapshot: `node Sandbox.Web/scripts/export-static-api.mjs`. It writes one file per API route to `Sandbox.Web/static-api/`. Commit that folder; the Pages build cannot reach the database.
+2. Build: `docker build --target pages-out --build-arg BASE_HREF=/<repo>/ --output dist/pages .` from `Sandbox.Web`. The base path is the repository name, because a project site lives at `https://<owner>.github.io/<repo>/`.
+3. Check it: `node Sandbox.Web/scripts/serve-pages.mjs`, then open http://127.0.0.1:4340/ltinfo-angular-sandbox/. It serves files the way Pages does, with no rewrites.
+4. Publish: push to a GitHub repository with Settings > Pages > Source set to GitHub Actions. `.github/workflows/pages.yml` builds and deploys on every push to `main`.
+
+How it fits together: `angular.json` has a `pages` configuration that swaps `src/environments/environment.ts` for `environment.pages.ts` (which sets `staticApi`) and serves `static-api/` as `api/`. `SandboxApiService` then asks for `api/<route>.json` relative to the base path instead of `/api/<route>`. Pages has no SPA fallback, so `scripts/build-pages.mjs` writes a copy of `index.html` at every program and category address, plus `404.html` for anything else.
+
 ## How Ecology gets into Angular
 
 Ecology cannot be installed from npm into an Angular build yet, so the sandbox shows the three ways it is used:

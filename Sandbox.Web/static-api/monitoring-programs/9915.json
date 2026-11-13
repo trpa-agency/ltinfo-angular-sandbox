@@ -1,0 +1,92 @@
+{
+ "MonitoringProgramDescription": "Most of the Tahoe Region's water arrives as winter snow, which melts slowly into streams and the lake through spring and summer. As the climate warms, more of it falls as rain, runs off sooner, and leaves less snowpack for the dry season.",
+ "MonitoringApproach": "The Central Sierra Snow Laboratory near Donner Pass, just outside the Basin, has a daily record of precipitation and snowfall from 1970. Totals here are by calendar year. The share falling as snow comes from the same record.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 52,
+   "OrganizationName": "UC Berkeley Central Sierra Snow Laboratory",
+   "OrganizationShortName": null
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Share of precipitation as snow and rain",
+    "sub": "Percent of each year's precipitation that fell as snow and as rain, 1987 to 2019.",
+    "json": "data/climate/snow-and-rain.json",
+    "sourceHref": "https://trpa-agency.github.io/ClimateResilienceDashboard/html/1.3.d_Precip.html",
+    "sourceLabel": "Climate Resilience Dashboard",
+    "x": "Year",
+    "xLabel": "Year",
+    "y": "Percent",
+    "seriesBy": "Form",
+    "seriesLabel": "Falls as",
+    "seriesOrder": [
+     "Snow",
+     "Rain"
+    ],
+    "seriesColors": {
+     "Snow": "var(--mon-turbid-2)",
+     "Rain": "var(--mon-turbid-6)"
+    },
+    "yLabel": "Percent",
+    "type": "stacked",
+    "span": "span-12"
+   },
+   {
+    "title": "Total precipitation",
+    "sub": "Millimeters of precipitation, rain and the water in snow, by calendar year, 1970 to 2019.",
+    "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+    "layer": 145,
+    "x": "Year",
+    "xLabel": "Year",
+    "y": "Full_Day_Total_Precip_mm",
+    "stat": "sum",
+    "yName": "Precipitation",
+    "yLabel": "Millimeters",
+    "type": "bar"
+   },
+   {
+    "title": "New snowfall",
+    "sub": "Centimeters of new snow, by calendar year, 1970 to 2019.",
+    "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+    "layer": 145,
+    "x": "Year",
+    "xLabel": "Year",
+    "y": "New_Snow_cm",
+    "stat": "sum",
+    "yName": "New snow",
+    "yLabel": "Centimeters",
+    "type": "bar"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Precipitation and Extreme Storms",
+   "Url": "https://climate.laketahoeinfo.org/precipitation-and-extreme-storms"
+  }
+ ],
+ "MonitoringProgramID": 9915,
+ "MonitoringProgramName": "Precipitation and Snow",
+ "CategoryID": 15,
+ "CategoryName": "Climate and Lake Conditions",
+ "ThemeColor": "#2c5f72",
+ "IsFeatured": false,
+ "PartnerCount": 2,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "UC Berkeley Central Sierra Snow Laboratory"
+ ]
+}

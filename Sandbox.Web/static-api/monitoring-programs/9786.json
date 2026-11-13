@@ -1,0 +1,70 @@
+{
+ "MonitoringProgramDescription": "Aquatic invasive species (AIS) are non-native organisms that threaten the abundance and diversity of native organisms in Lake Tahoe. Controlling and eradicating AIS in the Lake Tahoe Region is a top priority of the Lake Tahoe Environmental Improvement Program (EIP). The standard establishes the goal that all aquatic invasive plant infestations in Lake Tahoe be in the surveillance management category.\n\nMaintaining the biological integrity of Lake Tahoe’s nearshore environment is a longtime goal of resource managers in the region and has been set forth in a variety of planning documents. Submerged aquatic vegetation is an important biological component within Lake Tahoe’s nearshore context. Knowing the status of submerged aquatic plant populations at Lake Tahoe has become increasingly important to nearshore managers due to the introduction and spread of invasive species such as Eurasian watermilfoil (Myriophyllum spicatum) and curly-leaf pondweed (Potamogeton crispus). Aquatic invasive plants when left unchecked can impact water quality, fish and wildlife habitat conditions, recreational fishing, human and animal health, vessel navigation, and the recreation values of water bodies.\n\nThe threshold standard establishes a goal for aquatic invasive plant infestations in Lake Tahoe and associated areas. The standard establishes the goal that all aquatic invasive plant infestations in Lake Tahoe (not including the Tahoe Keys, which has a separate standard) be in the surveillance category. The goal aligns with the management categories that are utilized by the Lake Tahoe Aquatic Invasive Species Coordinating Committee and conveys the reality of long-term management of aquatic invasive species. Due to aquatic invasive plants’ proclivity towards spreading and establishing new infestations through fragmentation throughout connected waterbodies, all completely treated AIP sites are at risk of re-establishment if there is source of AIP fragments within Lake Tahoe. The goal acknowledges that because of this risk, complete eradication is unlikely, and control will likely require continued surveillance and vigilance. The threshold standard formally adopts the phase one vision laid out in the Lake Tahoe Region AIS Action Agenda.\n\nThreshold standard: No active aquatic invasive plant infestations in Lake Tahoe, adjacent wetlands, and tributaries, not including the Tahoe Keys.",
+ "MonitoringApproach": "The standard establishes the goal that all aquatic invasive plant infestations in the Lake be in the surveillance category.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2070,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/1eafde91-53c5-46b9-850b-84aadb0e5298",
+   "Caption": null,
+   "PhotoCredit": null,
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Aquatic invasive plant sites by status",
+    "sub": "Percent of known infestation sites in each management status, 2023 Threshold Evaluation.",
+    "json": "data/threshold-evaluation/ais-site-status.json",
+    "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/WaterQuality/Chart/Final/AIS_Infestation.html",
+    "sourceLabel": "2023 Threshold Evaluation",
+    "x": "Year",
+    "xLabel": "Year",
+    "y": "Percent",
+    "seriesBy": "Status",
+    "seriesLabel": "Status",
+    "seriesOrder": [
+     "Planning",
+     "Control",
+     "Surveillance"
+    ],
+    "yLabel": "Percent of sites",
+    "type": "stacked",
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "No Active Aquatic Invasive Plant Infestations",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/186"
+  },
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Aquatic Invasive Species",
+   "Url": "https://climate.laketahoeinfo.org/aquatic-invasive-species"
+  }
+ ],
+ "MonitoringProgramID": 9786,
+ "MonitoringProgramName": "No Active Aquatic Invasive Plant Infestations",
+ "CategoryID": 17,
+ "CategoryName": "Aquatic Invasive Species",
+ "ThemeColor": "#0d5b73",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "charts",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/1eafde91-53c5-46b9-850b-84aadb0e5298",
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

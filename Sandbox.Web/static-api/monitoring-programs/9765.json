@@ -1,0 +1,91 @@
+{
+ "MonitoringProgramDescription": "Mule deer (Odocoileus hemionus) are of exceptional value to the ecosystem and to the public for wildlife viewing and hunting. Portions of deer from the Verdi sub-unit of the Loyalton-Truckee herd, approaching from the north and west, and the Carson River herd, approaching from the east, can be found in the Tahoe Region during the summer and typically migrate to lower elevation areas with less snow for the winter. Disturbance-free zones protect important areas that are used by certain species by restricting habitat manipulations or other activities that would degrade the condition of the habitat within the zone. These zones can be affected by construction and recreational or commercial uses including biking and off-road vehicle use. While TRPA does not permit projects that would reduce the availability of fawning habitat, populations are mostly affected by the loss of wintering habitat outside the region (Ungulate migrations of the western United States, Volume 1 (ver. 1.1, December 2023)).\n\nDisturbance-free zones protect important sites that are used by special interest species by restricting habitat manipulations or other activities that would degrade the condition of habitat within the site. The zones are areas where activities that would disturb the species are minimized.\n\nThe disturbance-free zones include a 0.5-mile radius buffer around bald eagle nests and a 0.25-mile radius buffer around osprey, golden eagle, and peregrine falcon nests. Goshawk disturbance-free zones include both a 0.25-mile circular buffer and the most suitable 500 acres of habitat surrounding the nest site. Specific areas are mapped for wintering bald eagles, deer, and waterfowl. Influence zones include a 3.5-mile radius buffer for goshawk, a 0.6-mile radius for osprey, a 9.0-mile radius buffer for golden eagle, and a 7.6-mile radius buffer for peregrine falcon. Specific influence areas are mapped for wintering bald eagle, deer, and waterfowl, and a variable influence zone is set for bald eagle nests.\n\nNorthern goshawks and bald eagles are also considered sensitive species by the USDA Forest Service, and they receive additional consideration in all management decisions affecting Forest Service lands.\n\nThreshold standard: Provide disturbance zones in meadows and influence zones in mapped areas for Deer.",
+ "MonitoringApproach": "The TRPA Goals and Policies supports the maintenance of disturbance-free zones.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2069,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/d65eeb91-dfd8-4ebe-b6b3-88d07be9d2ae",
+   "Caption": null,
+   "PhotoCredit": null,
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Fawning habitat by vegetation type",
+    "sub": "Acres of mapped deer fawning habitat (1996), the disturbance-free zone, by vegetation type.",
+    "layer": 45,
+    "x": "WHRTYPE",
+    "xType": "category",
+    "xLabel": "Vegetation type",
+    "xNames": {
+     "KMC": "Klamath mixed conifer",
+     "JPN": "Jeffrey pine",
+     "WFR": "White fir",
+     "LPN": "Lodgepole pine",
+     "RFR": "Red fir",
+     "SCN": "Subalpine conifer"
+    },
+    "y": "ACRES",
+    "stat": "sum",
+    "yName": "Acres",
+    "yLabel": "Acres",
+    "type": "bar",
+    "orientation": "h",
+    "sort": "desc"
+   }
+  ],
+  "mapLayer": {
+   "layer": 45,
+   "title": "Deer fawning habitat",
+   "unit": "habitat area",
+   "unitPlural": "Habitat areas",
+   "name": "WHRTYPE",
+   "list": false,
+   "countAsSites": false,
+   "fields": [
+    {
+     "field": "WHRTYPE",
+     "label": "Habitat type"
+    },
+    {
+     "field": "ACRES",
+     "label": "Acres"
+    },
+    {
+     "field": "SUITBILTY",
+     "label": "Suitability"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Deer Disturbance-Free Zone",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/165"
+  }
+ ],
+ "MonitoringProgramID": 9765,
+ "MonitoringProgramName": "Deer Disturbance-Free Zone",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "map",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/d65eeb91-dfd8-4ebe-b6b3-88d07be9d2ae",
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

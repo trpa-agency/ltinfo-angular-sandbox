@@ -1,0 +1,139 @@
+{
+ "MonitoringProgramDescription": "As indicated by the Stream Habitat Quality GIS data, amended May 1997, based upon the re-rated stream scores set forth in Appendix C-1 of the 1996 Evaluation Report, Maintain 105 miles of good stream habitat.",
+ "MonitoringApproach": "Streams are monitored using widely accepted bioassessment protocols established by the EPA and further refined by the California Department of Fish and Wildlife (CDFW) (Kaufmann et al. 1999; Ode 2007; Barbour et al. 1999). Specifically, stream monitoring is conducted using Standard Operating Procedures for Collecting Benthic Macroinvertebrate Samples and Associated Physical and Chemical Data for Ambient Bioassessments in California (Ode 2007). The TRPA stream monitoring program was developed in partnership with the EPA, CDFW, Nevada Department of Environmental Protection (NDEP), Lahontan Water Quality Control Board (Lahontan), and the U.S. Forest Service (USFS) (Fore 2007). Benthic macroinvertebrates (BMIs), as well as physical and chemical stream characteristics, are sampled at 48 streams annually.",
+ "Partners": [
+  {
+   "OrganizationID": 21,
+   "OrganizationName": "California Lahontan Regional Water Quality Control Board",
+   "OrganizationShortName": "Lahontan"
+  },
+  {
+   "OrganizationID": 22,
+   "OrganizationName": "Nevada Division of Environmental Protection",
+   "OrganizationShortName": "NDEP"
+  },
+  {
+   "OrganizationID": 50,
+   "OrganizationName": "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+   "OrganizationShortName": "NDOW"
+  },
+  {
+   "OrganizationID": 41,
+   "OrganizationName": "California Department of Fish & Wildlife",
+   "OrganizationShortName": "CDFW"
+  },
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [
+  {
+   "MonitoringProgramImageID": 2060,
+   "Url": "https://internalapi.laketahoeinfo.org/file-resources/885f01af-494a-4553-8dc2-283970e212a1",
+   "Caption": "A stream in the Tahoe Basin",
+   "PhotoCredit": "TRPA",
+   "IsKeyPhoto": true
+  }
+ ],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Stream miles by rating",
+    "sub": "Miles of stream in each habitat condition rating, by rating year.",
+    "layer": 32,
+    "x": "Final_Rating",
+    "xType": "category",
+    "xLabel": "Rating",
+    "y": "Stream_Miles",
+    "stat": "sum",
+    "yLabel": "Stream miles",
+    "type": "bar",
+    "seriesBy": "Rating_Year",
+    "seriesLabel": "Rating year"
+   },
+   {
+    "title": "Streams by condition class",
+    "sub": "Share of sampled streams in each CSCI condition class, by sampling period.",
+    "layer": 83,
+    "x": "Year",
+    "xType": "category",
+    "xLabel": "Period",
+    "y": "Value",
+    "yLabel": "Share of streams",
+    "format": ".0%",
+    "type": "stacked",
+    "seriesBy": "Condition_Class",
+    "seriesLabel": "Condition class"
+   }
+  ],
+  "mapLayer": {
+   "layer": 32,
+   "title": "Stream habitat condition",
+   "unit": "stream reach",
+   "unitPlural": "Stream reaches",
+   "name": "Assessment",
+   "colorBy": "Final_Rating",
+   "colorByLabel": "Rating",
+   "colors": {
+    "A": "var(--mon-chlorophyll-6)",
+    "B": "var(--mon-chlorophyll-5)",
+    "C": "var(--mon-chlorophyll-3)",
+    "D": "var(--mon-chlorophyll-2)",
+    "Not Assessed": "var(--color-content-disabled)"
+   },
+   "pick": "Rating_Year",
+   "pickLabel": "Rating year",
+   "meta": [
+    {
+     "field": "Stream_Miles",
+     "suffix": " miles"
+    }
+   ],
+   "fields": [
+    {
+     "field": "Final_Rating",
+     "label": "Rating"
+    },
+    {
+     "field": "Stream_Condition",
+     "label": "Condition"
+    },
+    {
+     "field": "Stream_Miles",
+     "label": "Miles"
+    },
+    {
+     "field": "Ownership",
+     "label": "Owner"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 32,
+ "MonitoringProgramName": "Stream Habitat Condition",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 6,
+ "Template": "map",
+ "ImageCount": 1,
+ "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/885f01af-494a-4553-8dc2-283970e212a1",
+ "SiteCount": 0,
+ "PartnerNames": [
+  "California Lahontan Regional Water Quality Control Board",
+  "Nevada Division of Environmental Protection",
+  "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
+  "California Department of Fish & Wildlife",
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+  "Tahoe Regional Planning Agency"
+ ]
+}

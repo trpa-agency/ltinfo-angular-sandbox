@@ -1,0 +1,68 @@
+{
+ "MonitoringProgramDescription": "Relative Abundance - Of the total amount of undisturbed vegetation in the Tahoe Basin: Maintain at least four percent meadow and wetland vegetation.",
+ "MonitoringApproach": "Vegetation types associated with meadows and wetlands (California Wildlife Habitat Relationship type “WTM” [wet meadow] and “PGS” [Perennial Grassland]) are queried and enumerated from the most recently available vegetation map (U.S. Forest Service - Remote Sensing Lab Pacific Southwest Region: TMU_Strata_07 [published 2009]). The Tahoe vegetation map is periodically updated with new satellite data (if available) and/or modelled and calibrated using field-based forest inventory and analysis data to assess the extent of different vegetation types and associated forest structure characteristics for the Region (USDA, 2009; Warbington et al., 2011).",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  },
+  {
+   "OrganizationID": 23,
+   "OrganizationName": "U.S. Geological Survey",
+   "OrganizationShortName": "USGS"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Meadow and wetland acres",
+    "sub": "Undisturbed and disturbed acres (2010), with the minimum of 4 percent of undisturbed vegetation (6,858 acres).",
+    "layer": 91,
+    "where": "TRPA_VegType IN ('Meadow','Wetland')",
+    "x": "Development",
+    "xType": "category",
+    "xLabel": "Condition",
+    "y": "SUM_Acres",
+    "stat": "sum",
+    "seriesBy": "TRPA_VegType",
+    "seriesLabel": "Type",
+    "yLabel": "Acres",
+    "type": "stacked",
+    "standard": {
+     "value": 6857.5,
+     "label": "Threshold minimum"
+    }
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Relative Abundance of Meadows And Wetland Vegetation Types",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/77"
+  }
+ ],
+ "MonitoringProgramID": 18,
+ "MonitoringProgramName": "Meadow and Wetland Vegetation",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 3,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+  "U.S. Geological Survey"
+ ]
+}

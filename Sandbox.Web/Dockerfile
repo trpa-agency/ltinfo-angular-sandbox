@@ -28,6 +28,16 @@ FROM deps AS build
 COPY . .
 RUN npx ng build
 
+# ---- pages: the GitHub Pages copy, read-only, from the static-api/ snapshot --
+#   docker build --target pages-out --build-arg BASE_HREF=/<repo>/ --output dist/pages .
+FROM deps AS pages
+COPY . .
+ARG BASE_HREF=/ltinfo-angular-sandbox/
+RUN node scripts/build-pages.mjs "$BASE_HREF"
+
+FROM scratch AS pages-out
+COPY --from=pages /app/dist/sandbox-web/browser /
+
 # ---- production: nginx serves the bundle and proxies /api -------------------
 # This is the last stage, so a plain "docker build ." produces it.
 FROM nginx:1.28-alpine AS production

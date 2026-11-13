@@ -1,0 +1,105 @@
+{
+ "MonitoringProgramDescription": "Maintain the existing species richness of the Region by providing for the perpetuation of the following plant associations:\n\n• Yellow pine forest: Jeffrey pine, white fir, incense cedar, sugar pine\n\n• Red fir forest: red fir, Jeffrey pine, lodgepole pine, western white pine, mountain hemlock, western juniper\n\n• Subalpine forest: whitebark pine, mountain hemlock, mountain mahogany\n\n• Shrub association: greenleaf and pinemat manzanita, tobacco brush, Sierra chinquapin, huckleberry oak, mountain whitethorn\n\n• Sagebrush scrub vegetation: Region sagebrush, bitterbrush, Douglas chaenactis\n\n• Deciduous riparian: quaking aspen, mountain alder, black cottonwood, willow\n\n• Meadow associations (wet and dry meadow): mountain squirrel tail, alpine gentian, whorled penstemon, asters, fescues, mountain brome, corn lilies, mountain bentgrass, hairgrass, marsh marigold, elephant heads, tinker's penney, mountain timothy, sedges, rushes, buttercups\n\n• Wetland associations (marsh vegetation): pond lilies, buckbean, mare's tail, pondweed, common bladderwort, bottle sedge, common spikerush\n\n• Cushion plant association (alpine scrub): alpine phlox, dwarf ragwort, draba",
+ "MonitoringApproach": "The map of dominate vegetation types in the Region was last updated in 2009. Since then only the Angora fire burn area has been updated. In 2009, satellite imagery, aerial photographs and field reconnaissance (USFS Forest Inventory and Analysis data) were used to delineate and classify vegetation types in the Lake Tahoe Region. This information is digitized into a geographic information system and subsequently analysed to summarize vegetation community richness. Information from the Tahoe Fire and Fuels Team (a multi-agency partnership) on forest fuels treatments and disturbance events are incorporated for year to year change in vegetative composition.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  },
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  },
+  {
+   "OrganizationID": 48,
+   "OrganizationName": "U.S. Forest Service - Pacific Southwest Research Station",
+   "OrganizationShortName": "USFS - PSW"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Undisturbed acres by vegetation community",
+    "sub": "Acres of each vegetation community outside developed land, from the 2010 vegetation map.",
+    "layer": 91,
+    "where": "Development = 'Undeveloped' AND TRPA_VegType <> ''",
+    "x": "TRPA_VegType",
+    "xType": "category",
+    "xLabel": "Vegetation community",
+    "y": "SUM_Acres",
+    "stat": "sum",
+    "yName": "Acres",
+    "yLabel": "Acres",
+    "type": "bar",
+    "orientation": "h",
+    "sort": "desc",
+    "span": "span-12"
+   },
+   {
+    "title": "Habitat types within each community",
+    "sub": "Undisturbed acres of each California Wildlife Habitat Relationships type within each community (2010).",
+    "layer": 91,
+    "where": "Development = 'Undeveloped' AND TRPA_VegType <> ''",
+    "x": "TRPA_VegType",
+    "xType": "category",
+    "xLabel": "Vegetation community",
+    "y": "SUM_Acres",
+    "stat": "sum",
+    "seriesBy": "WHRTYPE",
+    "seriesLabel": "Habitat type",
+    "seriesNames": {
+     "ADS": "Alpine dwarf shrub",
+     "MCP": "Montane chaparral",
+     "ASP": "Aspen",
+     "MHC": "Montane hardwood-conifer",
+     "MRI": "Montane riparian",
+     "PGS": "Perennial grassland",
+     "WTM": "Wet meadow",
+     "EPN": "Eastside pine",
+     "JPN": "Jeffrey pine",
+     "LPN": "Lodgepole pine",
+     "SMC": "Sierran mixed conifer",
+     "WFR": "White fir",
+     "RFR": "Red fir",
+     "JUN": "Juniper",
+     "SCN": "Subalpine conifer",
+     "BAR": "Barren",
+     "BBR": "Bitterbrush",
+     "LSG": "Low sage",
+     "SGB": "Sagebrush",
+     "LAC": "Lacustrine"
+    },
+    "yLabel": "Acres",
+    "type": "stacked",
+    "orientation": "h",
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Vegetation Community Richness",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/74"
+  }
+ ],
+ "MonitoringProgramID": 17,
+ "MonitoringProgramName": "Vegetation Type",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 3,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency",
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+  "U.S. Forest Service - Pacific Southwest Research Station"
+ ]
+}

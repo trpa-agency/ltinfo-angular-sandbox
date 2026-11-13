@@ -1,0 +1,133 @@
+{
+ "MonitoringProgramDescription": "The monitoring objective is to provide a quantitative and consistent method for evaluating status and trend, especially at sites comprised of large numbers of plants where it is difficult to accurately count individuals. Demographic data, climate patterns, and associated plant community and site data will help interpret status and trend changes.",
+ "MonitoringApproach": "Quantitative monitoring of long-petaled lewisia in the Region began in 2004\n\nwhen plants were located and counted at 3 population sites (Dick’s Lake, Triangle Lake and Azure Lake) in 6 subpopulation sites. A new subpopulation was discovered near Azure Lake in 2006, and near Triangle Lake in 2009, and new populations were discovered near Jack’s Peak in 2011, and Ralston Peak in 2012, bringing the total number of known populations to 5, with 12\n\nsubpopulations. All known subpopulations are censused by LTBMU staff every 5 years at a minimum (typically more frequently), and long-term demographic monitoring occurs every 3 -5 years in permanent plots established at 2\n\npopulations. An extensive survey was completed for long-petaled lewisia in 1991 and 2 long-term monitoring plots were installed at Region Peak in the Tahoe National Forest and within the LTBMU at Keith’s Dome above Triangle Lake.",
+ "Partners": [
+  {
+   "OrganizationID": 9,
+   "OrganizationName": "U.S. Forest Service - Lake Tahoe Basin Management Unit",
+   "OrganizationShortName": "USFS - LTBMU"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Subpopulations over time",
+    "sub": "Known long-petaled lewisia subpopulations in each survey year, with the threshold minimum, 2023 Threshold Evaluation.",
+    "json": "data/threshold-evaluation/long-petaled-lewisia-subpopulations.json",
+    "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/Vegetation/Chart/Final/Vegetation_Lewisia.html",
+    "sourceLabel": "2023 Threshold Evaluation",
+    "x": "Year",
+    "y": "Subpopulations",
+    "yName": "Subpopulations",
+    "yLabel": "Subpopulations",
+    "type": "bar",
+    "standard": {
+     "field": "Threshold"
+    },
+    "span": "span-12"
+   },
+   {
+    "title": "Subpopulation sites by population",
+    "sub": "Mapped long-petaled lewisia subpopulation sites in each population, with the threshold minimum.",
+    "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+    "layer": 1,
+    "where": "USDA_Code = 'LELO2'",
+    "x": "EOName",
+    "xType": "category",
+    "xLabel": "Population",
+    "y": "OBJECTID",
+    "stat": "count",
+    "yName": "Subpopulation sites",
+    "yLabel": "Subpopulation sites",
+    "type": "bar"
+   },
+   {
+    "title": "Plants by population",
+    "sub": "Plants counted or estimated at the last survey of each site (USFS, through 2018).",
+    "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+    "layer": 1,
+    "where": "USDA_Code = 'LELO2'",
+    "x": "EOName",
+    "xType": "category",
+    "xLabel": "Population",
+    "y": "PlantCount",
+    "stat": "sum",
+    "yName": "Plants",
+    "yLabel": "Plants",
+    "type": "bar"
+   }
+  ],
+  "mapLayer": {
+   "service": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+   "layer": 1,
+   "where": "USDA_Code = 'LELO2'",
+   "title": "Long-petaled lewisia subpopulations",
+   "unit": "subpopulation",
+   "unitPlural": "Subpopulations",
+   "name": "SITE_ID_FS",
+   "countAsSites": false,
+   "colorBy": "EOName",
+   "colorByLabel": "Population",
+   "colors": {
+    "Azure Lake": "var(--mon-stevens9-1)",
+    "Dicks Peak": "var(--mon-stevens9-2)",
+    "Jacks Peak": "var(--mon-stevens9-3)",
+    "Ralston Peak": "var(--mon-stevens9-4)",
+    "Triangle Lake": "var(--mon-stevens9-5)"
+   },
+   "meta": [
+    {
+     "field": "EOName"
+    },
+    {
+     "field": "PlantCount",
+     "suffix": " plants"
+    }
+   ],
+   "fields": [
+    {
+     "field": "EOName",
+     "label": "Population"
+    },
+    {
+     "field": "PlantCount",
+     "label": "Plants"
+    },
+    {
+     "field": "CountType",
+     "label": "Count type"
+    },
+    {
+     "field": "SurveyLast",
+     "label": "Last survey"
+    },
+    {
+     "field": "Acres",
+     "label": "Acres"
+    }
+   ]
+  }
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Long-Petaled Lewisia (Lewisia pygmaea longipetala)",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/92"
+  }
+ ],
+ "MonitoringProgramID": 55,
+ "MonitoringProgramName": "Long-Petaled Lewisia",
+ "CategoryID": 13,
+ "CategoryName": "Biodiversity",
+ "ThemeColor": "#4A6118",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "map",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "U.S. Forest Service - Lake Tahoe Basin Management Unit"
+ ]
+}

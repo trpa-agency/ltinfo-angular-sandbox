@@ -1,0 +1,56 @@
+{
+ "MonitoringProgramDescription": "Nitrogen is a nutrient important to the growth and reproduction of plants, and it is considered a pollutant of concern in the Lake Tahoe Region. Nitrogen and phosphorus together support the growth of algae in Lake Tahoe. Free-floating algae occur throughout Lake Tahoe and contribute to the decline in water transparency and attached algae coat rocks in the nearshore, adversely affecting nearshore aesthetics. Landscape disturbances including, but not limited to, impervious road and parking lot surfaces, residential and commercial development, wildfire, and the degradation of stream environment zones, can contribute to sediment and nutrient inputs to the lake or its tributaries. Weather variations and their effects on stream hydrology (particularly the extremes of droughts and floods), and long-term climate change are considered among the most important environmental drivers of tributary runoff. Nitrogen load reductions are monitored by partners through the Lake Tahoe Total Maximum Daily Load Program (TMDL).\n\nNitrogen is a nutrient important to the growth and reproduction of plants, and it is considered a pollutant of concern in the Lake Tahoe Basin. The TMDL establishes targets for nitrogen reduction to restore the clarity of the lake.\n\nThreshold standard: Reduce total annual nitrogen load to achieve long-term pelagic water quality standards (WQ1 and WQ2) and littoral quality standards (WQ5 and WQ6).",
+ "MonitoringApproach": null,
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Nitrogen load reduction achieved",
+    "sub": "Pounds of nitrogen kept out of Lake Tahoe each year by projects that TMDL implementors credit through the Lake Clarity Crediting Program, 2023 Threshold Evaluation.",
+    "json": "data/threshold-evaluation/nitrogen-load-reduction.json",
+    "sourceHref": "https://trpa-agency.github.io/ThresholdEvaluation/2023/WaterQuality/Chart/Final/Nitrogen_Load_Reduction.html",
+    "sourceLabel": "2023 Threshold Evaluation",
+    "x": "Year",
+    "xLabel": "Year",
+    "y": "Pounds per year",
+    "yName": "Load reduction",
+    "yLabel": "Pounds per year",
+    "type": "bar",
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Reduce Total Annual Nitrogen Load",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/178"
+  },
+  {
+   "Dashboard": "Lake Clarity Tracker",
+   "Label": "Results Overview",
+   "Url": "https://clarity.laketahoeinfo.org/results/overview"
+  }
+ ],
+ "MonitoringProgramID": 9778,
+ "MonitoringProgramName": "Nitrogen Load Reduction",
+ "CategoryID": 7,
+ "CategoryName": "Water Quality",
+ "ThemeColor": "#0F3F6F",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

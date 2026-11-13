@@ -1,0 +1,56 @@
+{
+ "MonitoringProgramDescription": "Wildfire smoke now brings the Tahoe Region its worst air of the year. Fine particles in smoke reach deep into the lungs, and smoke days are expected to grow as fire seasons lengthen.",
+ "MonitoringApproach": "A network of low-cost PurpleAir sensors around the Basin measures fine particulate matter (PM2.5) continuously. Readings from sensors that pass quality checks are averaged each day and converted to the U.S. Environmental Protection Agency's Air Quality Index. Values above 100 are unhealthy for sensitive groups.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Daily air quality index",
+    "sub": "Daily mean Air Quality Index from PurpleAir sensors in the Basin, 2017 to 2024.",
+    "json": "data/climate/air-quality-index.json",
+    "sourceHref": "https://trpa-agency.github.io/ClimateResilienceDashboard/html/1.2.a_Purple_Air_v2.html",
+    "sourceLabel": "Climate Resilience Dashboard",
+    "x": "Date",
+    "xType": "date",
+    "xLabel": "Date",
+    "y": "Air quality index",
+    "yName": "Air quality index",
+    "yLabel": "Air quality index",
+    "type": "line",
+    "span": "span-12",
+    "standard": {
+     "value": 100,
+     "label": "Unhealthy for sensitive groups"
+    }
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Air Quality and Extreme Heat",
+   "Url": "https://climate.laketahoeinfo.org/air-quality-and-extreme-heat"
+  }
+ ],
+ "MonitoringProgramID": 9912,
+ "MonitoringProgramName": "Air Quality and Wildfire Smoke",
+ "CategoryID": 15,
+ "CategoryName": "Climate and Lake Conditions",
+ "ThemeColor": "#2c5f72",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}
