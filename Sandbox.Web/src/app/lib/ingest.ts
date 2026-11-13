@@ -123,12 +123,42 @@ export const INGEST_PATHS: readonly IngestPath[] = [
 
 export const pathById = (id: PathId): IngestPath => INGEST_PATHS.find((p) => p.id === id)!;
 
+/** A TRPA-hosted service, or some of its layers, that holds a partner agency's data. */
+export interface PartnerPipeline {
+  /** The service name as the Data Model page lists it, such as Transportation_SMART. */
+  service: string;
+  /** The layer and table IDs the partner's data is in, or 'all' for the whole service. */
+  layers: number[] | 'all';
+  /** The agency that owns the data. */
+  partner: string;
+  /** Where the data is pulled from. */
+  pulledFrom: string;
+  /** The TRPA script that loads it, and its address in a TRPA repository. */
+  script: string;
+  scriptHref: string;
+}
+
 /**
- * TRPA-hosted layers that hold partner agency data, by service name and layer ID ('all' for a
- * whole service). A URL cannot tell TRPA data from partner data, so this list is how a layer
- * gets the Partner Data, TRPA Pipeline path. Empty until TRPA fills it in.
+ * The partner data TRPA pulls, stores, and publishes. A URL cannot tell TRPA data from partner
+ * data, so this list is how a layer gets the Partner Data, TRPA Pipeline path; a maps.trpa.org
+ * layer that is not listed shows as a TRPA web service.
  */
-export const PARTNER_PIPELINE_LAYERS: Record<string, number[] | 'all'> = {};
+export const PARTNER_PIPELINES: PartnerPipeline[] = [
+  {
+    service: 'Transportation_SMART',
+    layers: 'all',
+    partner: 'Tahoe Transportation District',
+    pulledFrom: 'Derq INSIGHT traffic camera service',
+    script: 'SMART_Phase1',
+    scriptHref: 'https://github.com/trpa-agency/Transportation/tree/main/SMART_Phase1',
+  },
+];
+
+/** The pipeline a service layer comes through, if it is listed. */
+export function pipelineOf(serviceName: string, layer: number | null): PartnerPipeline | undefined {
+  const name = serviceName.replace(/ \((MapServer|FeatureServer)\)$/, '');
+  return PARTNER_PIPELINES.find((p) => p.service === name && (p.layers === 'all' || (layer !== null && p.layers.includes(layer))));
+}
 
 const TRPA_HOST = /^https:\/\/maps\.trpa\.org\//;
 
@@ -136,8 +166,7 @@ const TRPA_HOST = /^https:\/\/maps\.trpa\.org\//;
 export function classify(source: DataSource, layer: number | null): PathId {
   if (source.kind === 'file') return 'file';
   if (!TRPA_HOST.test(source.key)) return 'partner-service';
-  const listed = PARTNER_PIPELINE_LAYERS[source.name.replace(/ \((MapServer|FeatureServer)\)$/, '')];
-  if (listed === 'all' || (layer !== null && listed?.includes(layer))) return 'partner-pipeline';
+  if (pipelineOf(source.name, layer)) return 'partner-pipeline';
   return 'trpa-service';
 }
 

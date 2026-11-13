@@ -627,6 +627,23 @@
   ]
  },
  {
+  "MonitoringProgramID": 9931,
+  "MonitoringProgramName": "SMART Traffic Cameras",
+  "CategoryID": 10,
+  "CategoryName": "Transportation and Sustainable Communities",
+  "ThemeColor": "#DB5B00",
+  "IsFeatured": false,
+  "PartnerCount": 2,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 15,
+  "PartnerNames": [
+   "Tahoe Transportation District",
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
   "MonitoringProgramID": 64,
   "MonitoringProgramName": "Traffic Volumes",
   "CategoryID": 10,
@@ -1680,6 +1697,22 @@
    "Tahoe Regional Planning Agency",
    "Liberty Utilities",
    "NV Energy"
+  ]
+ },
+ {
+  "MonitoringProgramID": 9926,
+  "MonitoringProgramName": "Affordable and Workforce Housing",
+  "CategoryID": 16,
+  "CategoryName": "Housing and Economy",
+  "ThemeColor": "#646820",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
   ]
  },
  {

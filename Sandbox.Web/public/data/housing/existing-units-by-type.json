@@ -1,0 +1,59 @@
+{
+ "title": "Existing affordable and workforce housing units by type",
+ "source": "https://trpa-agency.github.io/Planning/LongRange/html/multifamily-housing.html",
+ "generated": "2026-09-23",
+ "rows": [
+  {
+   "Type": "Multifamily dwellings",
+   "Units": 4688
+  },
+  {
+   "Type": "Apartments",
+   "Units": 1099
+  },
+  {
+   "Type": "Mobile homes",
+   "Units": 883
+  },
+  {
+   "Type": "Deed-restricted, affordable",
+   "Units": 849
+  },
+  {
+   "Type": "Single room occupancy",
+   "Units": 596
+  },
+  {
+   "Type": "Deed-restricted, moderate",
+   "Units": 166
+  },
+  {
+   "Type": "Senior housing",
+   "Units": 95
+  },
+  {
+   "Type": "College dormitories",
+   "Units": 72
+  },
+  {
+   "Type": "Condominiums",
+   "Units": 46
+  },
+  {
+   "Type": "Accessory dwelling units",
+   "Units": 35
+  },
+  {
+   "Type": "Hotel manager units",
+   "Units": 23
+  },
+  {
+   "Type": "Townhomes",
+   "Units": 22
+  },
+  {
+   "Type": "Deed-restricted, achievable",
+   "Units": 8
+  }
+ ]
+}

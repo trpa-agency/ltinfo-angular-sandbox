@@ -27,6 +27,15 @@
               <dt>In use</dt>
               <dd>{{ sourceNoun(p.path, p.sources) }}, {{ useCountText(p.uses) }}</dd>
             }
+            @if (p.path.id === 'partner-pipeline') {
+              @for (line of pipelines; track line.service) {
+                <dt class="path__service">{{ line.service }}</dt>
+                <dd class="path__pipeline">
+                  {{ line.partner }}, from the {{ line.pulledFrom }}. Loaded by
+                  <a [href]="line.scriptHref" target="_blank" rel="noopener">{{ line.script }}</a>.
+                </dd>
+              }
+            }
           </dl>
           @if (p.auto.length) {
             <h4 class="path__group typography-label-sm-strong">Checked by the App</h4>

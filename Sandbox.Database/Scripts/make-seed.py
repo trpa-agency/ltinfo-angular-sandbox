@@ -12,7 +12,8 @@ Sources, all public:
     its DashboardConfig as siteProfile (keys are program ids; keys starting with _ are notes)
   - extra-categories.json beside this file: categories removed and added on top of
     programs.json, the programs placed under the new ones, and pages built from threshold
-    indicators that have no monitoring program (from the Threshold Dashboard record)
+    indicators that have no monitoring program (from the Threshold Dashboard record). A page
+    written there with a sitesLayer gets its mapped sites from that layer
 
     python Sandbox.Database/Scripts/make-seed.py [path to programs.json]
 
@@ -183,7 +184,8 @@ def merged_categories(data):
         if e.get("indicator"):
             return indicator_page(e)
         if e.get("ltinfo") is False:
-            return dict(e, description=paragraphs(e.get("description")), approach=paragraphs(e.get("approach")))
+            # ownSites: the snapshot never saw this page, so its mapped sites come from its sites layer.
+            return dict(e, description=paragraphs(e.get("description")), approach=paragraphs(e.get("approach")), ownSites=True)
         if e["id"] in everything:
             return dict(everything[e["id"]], **{k: v for k, v in e.items() if k != "id"})
         return {"template": "context", "featured": False, "describeFromIndicators": True, **e}
@@ -251,6 +253,25 @@ def representative_points(area):
     return points
 
 
+def site_points(cfg):
+    """One point per feature of a sites layer on a map service, for a page written in
+    extra-categories.json whose sites the dashboard repo's snapshot never captured."""
+    params = {"where": cfg.get("where") or "1=1", "outFields": cfg["name"], "returnGeometry": "true", "outSR": 4326, "f": "geojson"}
+    url = f"{cfg.get('service') or MAP_SERVICE}/{cfg['layer']}/query?{urllib.parse.urlencode(params)}"
+    req = urllib.request.Request(url, headers={"user-agent": "ltinfo-angular-sandbox-seed"})
+    with urllib.request.urlopen(req, timeout=120) as r:
+        data = json.load(r)
+    points = []
+    for f in data.get("features", []):
+        g = f.get("geometry") or {}
+        if g.get("type") != "Point":
+            continue
+        x, y = g["coordinates"][:2]
+        name = (f.get("properties") or {}).get(cfg["name"])
+        points.append((round(y, 6), round(x, 6), str(name).strip() if name not in (None, "") else None))
+    return sorted(points, key=lambda pt: pt[2] or "")
+
+
 def q(s):
     return "NULL" if s is None else "N'" + str(s).replace("'", "''") + "'"
 
@@ -287,6 +308,8 @@ def main():
     categories, short_names = merged_categories(data)
     related_ids = json.load(io.open(EXTRA_CATEGORIES, encoding="utf-8")).get("related", {}) if os.path.exists(EXTRA_CATEGORIES) else {}
     orgs, links, programs, images, crosslinks = {}, [], [], [], []
+    # Sites layers of the pages written in extra-categories.json, by program id.
+    own_sites = {}
 
     def link_partner(pid, name, short, sort):
         if name not in orgs:
@@ -339,6 +362,8 @@ def main():
             if not name:
                 raise SystemExit(f"program {p['id']} has no name")
             config = {k: p[k] for k in CONFIG_KEYS if p.get(k)}
+            if p.get("ownSites") and p.get("sitesLayer"):
+                own_sites[p["id"]] = p["sitesLayer"]
             if p["id"] in profiles:
                 config["siteProfile"] = profiles[p["id"]]
             indicator_ids = list(p.get("relatedIndicators", [])) + related_ids.get(str(p["id"]), [])
@@ -377,6 +402,12 @@ def main():
         for lat, lng, name in sp.get("sites") or []:
             lines.append(f"INSERT INTO dbo.MonitoringSite (MonitoringProgramID, SiteName, SiteKind, Latitude, Longitude) VALUES ({pid}, {q(name)}, 'site', {lat}, {lng});")
             kinds["site"] += 1
+        if pid in own_sites:
+            pts = site_points(own_sites[pid])
+            print(f"  {pid:>5} sites from {own_sites[pid].get('service', MAP_SERVICE).split('/services/')[-1]} layer {own_sites[pid]['layer']}: {len(pts)} points")
+            for lat, lng, name in pts:
+                lines.append(f"INSERT INTO dbo.MonitoringSite (MonitoringProgramID, SiteName, SiteKind, Latitude, Longitude) VALUES ({pid}, {q(name)}, 'site', {lat}, {lng});")
+                kinds["site"] += 1
         area = sp.get("areas")
         if area and area.get("count"):
             kind = "line" if area.get("geometry") == "line" else "area"

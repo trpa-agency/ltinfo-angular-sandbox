@@ -85,6 +85,17 @@
   }
 }
 
+// A pipeline's service name is long, so the name and its line each take the card's full width.
+.path__service,
+.path__pipeline {
+  grid-column: 1 / -1;
+  overflow-wrap: anywhere;
+}
+
+.path__service {
+  margin-top: var(--spacing-100);
+}
+
 .path__group {
   margin-top: var(--spacing-100);
 }

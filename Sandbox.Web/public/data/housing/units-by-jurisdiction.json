@@ -1,0 +1,87 @@
+{
+ "title": "Affordable and workforce housing units by jurisdiction and status",
+ "source": "https://trpa-agency.github.io/Planning/LongRange/html/multifamily-housing.html",
+ "generated": "2026-09-23",
+ "rows": [
+  {
+   "Jurisdiction": "City of South Lake Tahoe",
+   "Status": "Built before 2012",
+   "Units": 5465
+  },
+  {
+   "Jurisdiction": "City of South Lake Tahoe",
+   "Status": "Built 2012 or later",
+   "Units": 338
+  },
+  {
+   "Jurisdiction": "City of South Lake Tahoe",
+   "Status": "Permitted, not built",
+   "Units": 267
+  },
+  {
+   "Jurisdiction": "City of South Lake Tahoe",
+   "Status": "Bonus units reserved",
+   "Units": 83
+  },
+  {
+   "Jurisdiction": "Placer County",
+   "Status": "Built before 2012",
+   "Units": 1356
+  },
+  {
+   "Jurisdiction": "Placer County",
+   "Status": "Built 2012 or later",
+   "Units": 58
+  },
+  {
+   "Jurisdiction": "Placer County",
+   "Status": "Permitted, not built",
+   "Units": 267
+  },
+  {
+   "Jurisdiction": "Washoe County",
+   "Status": "Built before 2012",
+   "Units": 587
+  },
+  {
+   "Jurisdiction": "Washoe County",
+   "Status": "Built 2012 or later",
+   "Units": 9
+  },
+  {
+   "Jurisdiction": "Washoe County",
+   "Status": "Permitted, not built",
+   "Units": 32
+  },
+  {
+   "Jurisdiction": "Douglas County",
+   "Status": "Built before 2012",
+   "Units": 561
+  },
+  {
+   "Jurisdiction": "Douglas County",
+   "Status": "Permitted, not built",
+   "Units": 1
+  },
+  {
+   "Jurisdiction": "El Dorado County",
+   "Status": "Built before 2012",
+   "Units": 201
+  },
+  {
+   "Jurisdiction": "El Dorado County",
+   "Status": "Built 2012 or later",
+   "Units": 4
+  },
+  {
+   "Jurisdiction": "El Dorado County",
+   "Status": "Permitted, not built",
+   "Units": 4
+  },
+  {
+   "Jurisdiction": "Carson City",
+   "Status": "Built before 2012",
+   "Units": 3
+  }
+ ]
+}

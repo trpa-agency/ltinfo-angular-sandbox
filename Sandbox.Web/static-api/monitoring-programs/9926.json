@@ -1,0 +1,103 @@
+{
+ "MonitoringProgramDescription": "TRPA's inventory of affordable and workforce housing counts 8,582 existing homes in the Tahoe Region as of Sept. 23, 2026: apartments and other multifamily buildings, mobile homes, single room occupancy units, deed-restricted homes, and accessory dwelling units. Two thirds are in the City of South Lake Tahoe.\n\nAnother 654 units are in the pipeline: 571 permitted but not yet built, and 83 bonus units reserved for projects that have not applied. About 400 units have been built since the 2012 Regional Plan, more than half of them deed-restricted, with the largest additions in 2024 and 2025.",
+ "MonitoringApproach": "TRPA Long Range Planning keeps the inventory as a list of parcels. Each record has the jurisdiction, number of units, year built, housing type, and status: built before 2012, built 2012 or later, permitted but not built, or bonus units reserved.\n\nThe housing type on a record names either the building form or the deed restriction, and some records name two. The charts count a record as an accessory dwelling unit first, then as deed-restricted, then by its building form.\n\nThe inventory is a spreadsheet and is not yet published as a map service, so these charts read a copy taken from TRPA's Housing Progress page. Its deed-restricted counts come from a different list than the Deed-Restricted Housing page, and the two do not match.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Units by jurisdiction and status",
+    "sub": "Affordable and workforce housing units in each jurisdiction: built, permitted, and reserved.",
+    "json": "data/housing/units-by-jurisdiction.json",
+    "sourceHref": "https://trpa-agency.github.io/Planning/LongRange/html/multifamily-housing.html",
+    "sourceLabel": "TRPA Housing Progress page",
+    "x": "Jurisdiction",
+    "xType": "category",
+    "xLabel": "Jurisdiction",
+    "xOrder": [
+     "City of South Lake Tahoe",
+     "Placer County",
+     "Washoe County",
+     "Douglas County",
+     "El Dorado County",
+     "Carson City"
+    ],
+    "y": "Units",
+    "yLabel": "Units",
+    "seriesBy": "Status",
+    "seriesLabel": "Status",
+    "seriesOrder": [
+     "Built before 2012",
+     "Built 2012 or later",
+     "Permitted, not built",
+     "Bonus units reserved"
+    ],
+    "type": "stacked",
+    "orientation": "h",
+    "span": "span-12"
+   },
+   {
+    "title": "Units built each year since 2012",
+    "sub": "Existing units by year built, since the 2012 Regional Plan. 2026 is a partial year.",
+    "json": "data/housing/units-built-by-year.json",
+    "sourceHref": "https://trpa-agency.github.io/Planning/LongRange/html/multifamily-housing.html",
+    "sourceLabel": "TRPA Housing Progress page",
+    "x": "Year",
+    "xLabel": "Year built",
+    "y": "Units",
+    "yLabel": "Units",
+    "seriesBy": "Group",
+    "seriesLabel": "Housing",
+    "seriesOrder": [
+     "Deed-restricted",
+     "Accessory dwelling units",
+     "Other affordable and workforce"
+    ],
+    "type": "stacked"
+   },
+   {
+    "title": "Existing units by housing type",
+    "sub": "Existing units by the type on each record. Accessory dwelling units are counted first, then deed-restricted homes.",
+    "json": "data/housing/existing-units-by-type.json",
+    "sourceHref": "https://trpa-agency.github.io/Planning/LongRange/html/multifamily-housing.html",
+    "sourceLabel": "TRPA Housing Progress page",
+    "x": "Type",
+    "xType": "category",
+    "xLabel": "Housing type",
+    "y": "Units",
+    "yName": "Units",
+    "yLabel": "Units",
+    "type": "bar",
+    "orientation": "h",
+    "sort": "desc"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Access to Housing",
+   "Url": "https://climate.laketahoeinfo.org/access-to-housing"
+  }
+ ],
+ "MonitoringProgramID": 9926,
+ "MonitoringProgramName": "Affordable and Workforce Housing",
+ "CategoryID": 16,
+ "CategoryName": "Housing and Economy",
+ "ThemeColor": "#646820",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

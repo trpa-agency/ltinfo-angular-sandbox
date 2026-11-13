@@ -8,7 +8,7 @@ A practice copy of how ESA's apps are put together, small enough to read in one 
 |---|---|
 | `Sandbox.Web` | Angular 21 app styled with Ecology, plus its browser tests in `e2e/` |
 | `Sandbox.API` | .NET 10 API, the same JSON shape as the real LT Info API |
-| `Sandbox.Database` | table scripts and seed data (107 real programs and indicators, 58 partners) |
+| `Sandbox.Database` | table scripts and seed data (109 real programs and indicators, 58 partners) |
 | `Sandbox.Tests` | the container that runs the tests |
 | `Build` | PowerShell scripts: database, one-time SQL Server setup, deploy |
 | `docker-compose` | the files that start the containers |
@@ -27,7 +27,7 @@ The database is the **SQL Server installed on this machine** (database `LTInfoSa
 powershell -File Build\Deploy.ps1
 ```
 
-It builds the database, builds the release images, starts the site, waits until it is healthy, and runs the 110 automated tests against it. About six minutes. The site is then at http://localhost:8080 and stays up, restarting with Docker.
+It builds the database, builds the release images, starts the site, waits until it is healthy, and runs the 116 automated tests against it. About six minutes. The site is then at http://localhost:8080 and stays up, restarting with Docker.
 
 The deploy puts the seed rows back first so the tests start from known data. Add `-KeepData` to leave your rows alone and skip the tests.
 
@@ -52,6 +52,8 @@ Visitors see no staff controls. Add `?staff=1` to any address for staff mode (re
 Data colors come from `Sandbox.Web/src/styles/_palettes.scss`: Phosphor palettes (Turbid sequential, Chlorophyll and Frostfire diverging, Stevens 4 and Stevens 9 qualitative, Gold-Purple bivariate, and Greens for seral stage) as `--mon-*` tokens, with Ecology's dataviz roles re-pointed to them. Configs name the tokens, for example `var(--mon-greens-3)`. Charts with four series or fewer use Stevens 4. Land capability, fire severity, Caldor burn severity, and the WUI zones copy the map service's own symbology. To regenerate the seed from that repo and LT Info, run `python Sandbox.Database/Scripts/make-seed.py`, then `Build\DatabaseBuild.ps1 -Reseed`.
 
 The categories differ from the dashboard repo's on purpose: `Sandbox.Database/Scripts/extra-categories.json` removes Vegetation Preservation, Fisheries, and Wildlife, and adds Forest Structure, Fire Dynamics, Biodiversity, Demographics, Climate and Lake Conditions, Housing and Economy, and Aquatic Invasive Species. Demographics follows the Tahoe Open Data demographics page and reads the TRPA Demographics map service. `drop` leaves programs out by id: Socio-Economic (68) is left out, since Demographics covers it. Their pages are the old categories' programs, the LT Info programs that cover the same threshold indicators, pages built from Threshold Dashboard records for indicators with no program (ids 9600 plus the threshold indicator id), and the four forest health standards written from the Forest Health Threshold Standards Update story maps. Forest Structure leads with four indicators (seral stage and canopy cover, stand density, large trees, and tree mortality) and Fire Dynamics has three (annual burn probability, likely fire severity, and area burned). Annual burn probability shows its empty state until Vibrant Planet's assessment is published. Climate and Lake Conditions and Housing and Economy read the TRPA LTinfo_Climate_Resilience_Dashboard map service, plus the Climate Resilience Dashboard charts no table publishes (lake level, lake temperature, the air quality index, and snow and rain shares), extracted by `tools/extract-static-charts.py`. Housing and Income moved there from Demographics. Aquatic Invasive Species takes its four programs from Water Quality and adds two threshold standards.
+
+Two pages show the two ways data that is not TRPA's own, or not yet published, gets in. SMART Traffic Cameras (Transportation) reads the Transportation_SMART feature service: Tahoe Transportation District cameras, read by Derq's software and loaded to maps.trpa.org by the SMART_Phase1 script in TRPA's Transportation repository. Its 15 cameras are seeded as mapped sites from the service's camera layer, which `make-seed.py` does for any page written in `extra-categories.json` that has a `sitesLayer`. Affordable and Workforce Housing (Housing and Economy) charts TRPA Long Range Planning's parcel inventory, a spreadsheet no service publishes: `python -I tools/extract-housing-inventory.py` reads the copy behind the Housing Progress page and writes three files to `Sandbox.Web/public/data/housing/`, printing the checks it ran on the source. Rerun it when the inventory changes.
 
 Every program page lists its pages on the other LT Info dashboards (Threshold Dashboard, Climate Resilience Dashboard, Lake Clarity Tracker, and Transportation Tracker) in an On Other Dashboards card. `make-seed.py` builds them from the LT Info indicators each program reports, using each indicator's dashboard flags, and stores them in the program's `RelatedLinks` column. `relatedIndicators` on an entry in `extra-categories.json`, or `related` (program id to LT Info indicator ids), adds indicators LT Info does not link the program to. The other direction, the links those dashboards should carry back to monitoring pages, is written to `Sandbox.Database/Scripts/cross-links.csv` for ESA.
 
@@ -102,7 +104,7 @@ In ESA's repo the last step becomes `git push` and a pull request.
 2. **Ingestion Paths and Acceptance Criteria.** The five ways data reaches the dashboard: a TRPA web service, partner data through a TRPA pipeline, a partner's own web service, data entered in LT Info, and an extracted file. Each lists what the app checks and what a person confirms. The wording lives in `lib/ingest.ts` (`INGEST_PATHS`) and is a draft to edit.
 3. **Chart and Map Sources.** Every chart, map, site list, overlay, and site profile traced to its service layer or file, from `GET /dashboard-configs`. Nothing is typed by hand, so it follows the settings. Run Checks tests the source on screen: the layer exists and has a description, each field exists, the filter returns records, and a file cites its original source.
 
-A URL cannot tell TRPA data from partner data hosted at TRPA. List partner layers in `PARTNER_PIPELINE_LAYERS` in `lib/ingest.ts` to move them to the pipeline path; it starts empty, so every maps.trpa.org layer shows as a TRPA web service.
+A URL cannot tell TRPA data from partner data hosted at TRPA. List partner services in `PARTNER_PIPELINES` in `lib/ingest.ts`, each with the partner, where the data is pulled from, and the TRPA script that loads it, to move their layers to the pipeline path. The SMART traffic camera service is the first; every other maps.trpa.org layer shows as a TRPA web service.
 
 ## A read-only copy on GitHub Pages
 

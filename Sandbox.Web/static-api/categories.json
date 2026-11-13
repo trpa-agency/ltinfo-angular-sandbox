@@ -70,11 +70,11 @@
   "CategoryName": "Transportation and Sustainable Communities",
   "Folder": "transportation-and-sustainable-communities",
   "ThemeColor": "#DB5B00",
-  "ProgramCount": 7,
+  "ProgramCount": 8,
   "Blurb": "Traffic, transit, bicycle and pedestrian counts, safety, and travel behavior.",
   "CategoryDescription": "Reduce dependence on the automobile, support GHG emission reduction, and increase mobility.",
   "IconUrl": "https://thresholds.laketahoeinfo.org/assets/img/threshold-icons/TransportationAndSustainableCommunities-white-icon.png",
-  "SiteCount": 170
+  "SiteCount": 185
  },
  {
   "CategoryID": 11,
@@ -136,7 +136,7 @@
   "CategoryName": "Housing and Economy",
   "Folder": "housing-and-economy",
   "ThemeColor": "#646820",
-  "ProgramCount": 6,
+  "ProgramCount": 7,
   "Blurb": "Housing, deed-restricted homes, prices and rents, jobs, income, and the visitor economy.",
   "CategoryDescription": "Track whether people who work in the Region can afford to live here, and how resilient the Region's economy is.",
   "IconUrl": "category-icons/Housing-white-icon.svg",

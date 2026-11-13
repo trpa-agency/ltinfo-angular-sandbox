@@ -2,7 +2,7 @@
 // totals, the threshold category cards beside the site map, All Programs, and
 // About Monitoring, plus the sticky nav row that scrolls to those sections.
 //
-// The map draws 1,750 points on one canvas, so the tests read what it shows from
+// The map draws 1,765 points on one canvas, so the tests read what it shows from
 // its host element: data-state (loading, ready, error), data-points (sites drawn),
 // and data-highlighted (sites in the data color; the rest are gray). The canvas
 // itself is sampled to check that the two colors are the data color and gray. The
@@ -147,7 +147,7 @@ test.describe('Home page', () => {
     await expect(stats.locator('dd')).toHaveText([
       String(seed.summary.programs),
       String(seed.summary.categories),
-      '1,750',
+      seed.summary.mappedSites.toLocaleString('en-US'),
       String(seed.summary.partners),
     ]);
   });
@@ -293,7 +293,7 @@ test.describe('Home page', () => {
     await expectHighlighted(page, seed.sites.total);
   });
 
-  test('the site map draws all 1,750 sites in the data color, and the rest gray when one is picked', async ({
+  test('the site map draws all 1,765 sites in the data color, and the rest gray when one is picked', async ({
     page,
   }) => {
     await page.goto('/');
@@ -312,7 +312,7 @@ test.describe('Home page', () => {
     const all = await mapPixels(page);
     expect(all.gray, `pixels with every site on: ${JSON.stringify(all)}`).toBeLessThan(all.data / 100);
 
-    // A category picked: its 30 sites keep the data color, the other 1,720 turn gray.
+    // A category picked: its 30 sites keep the data color, the other 1,735 turn gray.
     await cardHead(page, seed.airQuality.folder).hover();
     await expectHighlighted(page, seed.airQuality.sites);
     await expect
@@ -446,7 +446,7 @@ test.describe('Home page', () => {
     await expect(map).toHaveAttribute('data-state', 'ready', { timeout: 60_000 });
     const card = page.locator('app-featured-programs .featured__card').first();
     await card.hover();
-    await expect.poll(async () => Number(await map.getAttribute('data-highlighted'))).toBeLessThan(1750);
+    await expect.poll(async () => Number(await map.getAttribute('data-highlighted'))).toBeLessThan(seed.sites.total);
   });
 });
 

@@ -34,7 +34,18 @@ import {
   layerHref,
   lineageRows,
 } from '../../lib/data-lineage';
-import { CheckResult, INGEST_PATHS, IngestPath, LayerReport, PathId, checkSource, classify, pathById, tally } from '../../lib/ingest';
+import {
+  CheckResult,
+  INGEST_PATHS,
+  IngestPath,
+  LayerReport,
+  PARTNER_PIPELINES,
+  PathId,
+  checkSource,
+  classify,
+  pathById,
+  tally,
+} from '../../lib/ingest';
 import { SchemaDiagram } from './schema-diagram';
 
 type EcologyChange = CustomEvent<{ value: string }>;
@@ -95,6 +106,9 @@ export class DataModel {
   protected readonly reports = signal<Record<string, LayerReport>>({});
   /** The key of the source being checked, or null. */
   protected readonly checking = signal<string | null>(null);
+
+  /** The partner data TRPA pulls and publishes, listed on the pipeline path's card. */
+  protected readonly pipelines = PARTNER_PIPELINES;
 
   protected readonly useLabels = USE_LABELS;
   protected readonly useKeys = USE_KEYS;

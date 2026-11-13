@@ -15,28 +15,28 @@
  ],
  "Images": [
   {
-   "MonitoringProgramImageID": 2151,
+   "MonitoringProgramImageID": 2285,
    "Url": "https://internalapi.laketahoeinfo.org/file-resources/c7c72883-9c6d-427f-89aa-f28bd32065a0",
    "Caption": "UC Davis's research vessel where Secchi measurements are taken.",
    "PhotoCredit": "UC Davis",
    "IsKeyPhoto": true
   },
   {
-   "MonitoringProgramImageID": 2152,
+   "MonitoringProgramImageID": 2286,
    "Url": "https://internalapi.laketahoeinfo.org/file-resources/906c3852-60b4-4382-8c1b-9f13a7f878fd",
    "Caption": "A Secchi disk measuring lake clarity is lowered into Lake Tahoe.",
    "PhotoCredit": "UC Davis",
    "IsKeyPhoto": false
   },
   {
-   "MonitoringProgramImageID": 2153,
+   "MonitoringProgramImageID": 2287,
    "Url": "https://internalapi.laketahoeinfo.org/file-resources/2e85ad9e-3420-4eb1-8572-3e6be16b7864",
    "Caption": "Secchi disk - 25 centimeter all white disk used to measure clarity in Lake Tahoe.",
    "PhotoCredit": "UC Davis",
    "IsKeyPhoto": false
   },
   {
-   "MonitoringProgramImageID": 2154,
+   "MonitoringProgramImageID": 2288,
    "Url": "https://internalapi.laketahoeinfo.org/file-resources/946ee7a8-244e-4b80-a00e-eefa8cfec347",
    "Caption": "Annual average lake clarity measurements from 1968 through 2018.",
    "PhotoCredit": "UC Davis",

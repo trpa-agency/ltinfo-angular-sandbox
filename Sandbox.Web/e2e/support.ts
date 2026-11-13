@@ -25,15 +25,15 @@ export const TEMPLATE_LABELS: Record<Template, string> = {
 /** What Sandbox.Database seeds. Change a number here when the seed changes. */
 export const seed = {
   database: 'LTInfoSandbox',
-  programs: 107,
+  programs: 109,
   categories: 14,
   featured: 16,
   /** The 16 programs seed.sql marks IsFeatured = 1, so a stray one is named in the failure. */
   featuredIds: [13, 16, 33, 34, 36, 39, 61, 62, 63, 64, 65, 66, 69, 76, 77, 82],
-  partnerLinks: 288,
+  partnerLinks: 291,
   /** How many programs use each page layout. */
-  templates: { map: 40, charts: 58, context: 9 },
-  /** Program photos: 67 files across 40 programs; the other 67 programs have none. */
+  templates: { map: 41, charts: 59, context: 9 },
+  /** Program photos: 67 files across 40 programs; the other 69 programs have none. */
   photos: 67,
   programsWithPhotos: 40,
   /** The charts layout, and the program the detail and write tests use. One photo. */
@@ -86,12 +86,35 @@ export const seed = {
   },
   /** A climate page with a link back to its Climate Resilience Dashboard outcome. */
   lakeLevel: { id: 9913, name: 'Lake Level', climatePage: 'Lake Conditions' },
+  /** A charts page fed by three files extracted from a TRPA spreadsheet no service publishes. */
+  affordableHousing: {
+    id: 9926,
+    name: 'Affordable and Workforce Housing',
+    category: 'Housing and Economy',
+    charts: ['Units by jurisdiction and status', 'Units built each year since 2012', 'Existing units by housing type'],
+  },
+  /** A map page fed by partner data a TRPA script loads to its own feature service. */
+  smartCameras: {
+    id: 9931,
+    name: 'SMART Traffic Cameras',
+    category: 'Transportation and Sustainable Communities',
+    service: 'https://maps.trpa.org/server/rest/services/Transportation_SMART/FeatureServer',
+    cameras: 15,
+    charts: [
+      'Vehicles counted each day',
+      'Vehicles by time of day',
+      'Vehicles by class',
+      'Vehicle speeds',
+      'People walking and biking each day',
+      'Safety events by type',
+    ],
+  },
   airQualityPrograms: 9,
   unknownId: 999999,
   /** GET /summary, and the four totals in the home page hero. */
-  summary: { programs: 107, categories: 14, mappedSites: 1750, partners: 58, photos: 67 },
+  summary: { programs: 109, categories: 14, mappedSites: 1765, partners: 58, photos: 67 },
   /** GET /monitoring-sites: one point per site, and one per mapped area or line. */
-  sites: { total: 1750, site: 789, area: 927, line: 34 },
+  sites: { total: 1765, site: 804, area: 927, line: 34 },
   /** Three categories the home page tests open. Folder is the /category/:folder address. */
   airQuality: { name: 'Air Quality', folder: 'air-quality', programs: 9, sites: 30 },
   waterQuality: { name: 'Water Quality', folder: 'water-quality', programs: 12, sites: 107 },
