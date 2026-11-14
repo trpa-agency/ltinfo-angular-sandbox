@@ -9,6 +9,7 @@
  */
 
 import type { Measure } from './measures';
+import { measureSourceFields } from './measures';
 import { SERVICE } from './sites';
 import type { DashboardConfig } from '../api/models';
 
@@ -111,10 +112,8 @@ const nonEmpty = (values: (string | undefined | null | false)[]): string[] => {
   return out;
 };
 
-function measureFields(m: Measure): string[] {
-  const ys = typeof m.y === 'string' ? [m.y] : (m.y ?? []).map((y) => y.field);
-  return nonEmpty([m.x, ...ys, m.seriesBy, m.pick, m.standard?.field]);
-}
+/** The fields the source must have: a part read from a date (dateParts) is not one of them. */
+const measureFields = (m: Measure): string[] => measureSourceFields(m);
 
 interface Located {
   source: string;

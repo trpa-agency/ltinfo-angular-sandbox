@@ -1,0 +1,155 @@
+{
+ "MonitoringProgramDescription": "Monthly ridership on the Tahoe Region's public transit, from July 2017 through October 2023. The Tahoe Transportation District (TTD) runs fixed routes and paratransit on the South Shore, and Tahoe Truckee Area Regional Transit (TART) runs them on the North and West shores. Two free on-demand services joined them: TART Connect in June 2021 and Lake Link, on the South Shore, in July 2022.\n\nRidership peaks in winter and again in July and August. It fell from 938,000 rides in 2018 to 516,000 in 2020, and was back to 934,000 in 2022. The on-demand services carried a third of all rides in 2022 and close to half in the first 10 months of 2023.",
+ "MonitoringApproach": "Each operator reports its ridership by month. TRPA compiles the reports into one table, with a row for each month and a column for each service, and publishes it on maps.trpa.org with the tables behind the Climate Resilience Dashboard. These charts read that table.\n\nRead the record with care. Its last complete month is October 2023: November and December 2023 hold zeros for services that were running, so the charts leave those two months out. The count for TART Connect in June 2023 repeats May's. TTD's winter ridership is far lower from late 2018 on, and the table does not say why. A blank before June 2021 for TART Connect, or before July 2022 for Lake Link, means the service had not started.\n\nThe table does not state how a ride is counted, and it has no description, steward, or update date in the service directory.",
+ "Partners": [
+  {
+   "OrganizationID": 31,
+   "OrganizationName": "Tahoe Transportation District",
+   "OrganizationShortName": "TTD"
+  },
+  {
+   "OrganizationID": 32,
+   "OrganizationName": "Tahoe Truckee Area Regional Transit",
+   "OrganizationShortName": "TART"
+  },
+  {
+   "OrganizationID": 33,
+   "OrganizationName": "South Shore Transportation Management Association",
+   "OrganizationShortName": "SSTMA"
+  },
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Rides each month, by service",
+    "sub": "Monthly ridership on each service, July 2017 through October 2023.",
+    "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+    "layer": 131,
+    "where": "TTD_Fixed_Route > 0",
+    "x": "MONTH",
+    "xType": "date",
+    "dateStep": "month",
+    "xLabel": "Month",
+    "y": [
+     {
+      "field": "TTD_Fixed_Route",
+      "name": "TTD fixed routes"
+     },
+     {
+      "field": "TART_Fixed_Route",
+      "name": "TART fixed routes"
+     },
+     {
+      "field": "TART_Connect",
+      "name": "TART Connect"
+     },
+     {
+      "field": "Lake_Link",
+      "name": "Lake Link"
+     },
+     {
+      "field": "TTD_Paratransit",
+      "name": "TTD paratransit"
+     },
+     {
+      "field": "TART_Paratransit",
+      "name": "TART paratransit"
+     }
+    ],
+    "yLabel": "Rides a month",
+    "type": "stacked",
+    "span": "span-12"
+   },
+   {
+    "title": "Rides each year, by service",
+    "sub": "Full years only: the record starts in July 2017, and its last complete month is October 2023.",
+    "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+    "layer": 131,
+    "where": "MONTH NOT LIKE '%-17' AND MONTH NOT LIKE '%-23'",
+    "dateParts": "MONTH",
+    "x": "MONTH_year",
+    "xLabel": "Year",
+    "y": [
+     {
+      "field": "TTD_Fixed_Route",
+      "name": "TTD fixed routes"
+     },
+     {
+      "field": "TART_Fixed_Route",
+      "name": "TART fixed routes"
+     },
+     {
+      "field": "TART_Connect",
+      "name": "TART Connect"
+     },
+     {
+      "field": "Lake_Link",
+      "name": "Lake Link"
+     },
+     {
+      "field": "TTD_Paratransit",
+      "name": "TTD paratransit"
+     },
+     {
+      "field": "TART_Paratransit",
+      "name": "TART paratransit"
+     }
+    ],
+    "combine": "sum",
+    "yLabel": "Rides a year",
+    "type": "stacked"
+   },
+   {
+    "title": "Rides by month of the year",
+    "sub": "All services together, one line a year. 2017 starts in July, and 2023 ends in October.",
+    "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+    "layer": 131,
+    "where": "TTD_Fixed_Route > 0",
+    "dateParts": "MONTH",
+    "x": "MONTH_month",
+    "xType": "month",
+    "xLabel": "Month",
+    "y": "Total",
+    "yLabel": "Rides a month",
+    "seriesBy": "MONTH_year",
+    "seriesLabel": "Year",
+    "type": "line"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Transportation",
+   "Url": "https://climate.laketahoeinfo.org/transportation"
+  },
+  {
+   "Dashboard": "Transportation Tracker",
+   "Label": "Data Trends",
+   "Url": "https://transportation.laketahoeinfo.org/transportation/data-trends"
+  }
+ ],
+ "MonitoringProgramID": 9934,
+ "MonitoringProgramName": "Transit Ridership",
+ "CategoryID": 10,
+ "CategoryName": "Transportation and Sustainable Communities",
+ "ThemeColor": "#DB5B00",
+ "IsFeatured": false,
+ "PartnerCount": 4,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Transportation District",
+  "Tahoe Truckee Area Regional Transit",
+  "South Shore Transportation Management Association",
+  "Tahoe Regional Planning Agency"
+ ]
+}

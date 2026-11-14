@@ -1,6 +1,6 @@
 {
   "_about": "Category changes make-seed.py applies on top of the dashboard repo's programs.json. remove drops categories by folder; drop leaves programs out by id, wherever they come from (68 Socio-Economic, Nov. 12, 2026); add appends programs to kept categories, by folder; their programs are placed again under the new categories by id. A program entry is one of: {id} for a program from programs.json or LT Info (name overrides the LT Info name); {id, indicator} for a threshold indicator with no monitoring program, built from its Threshold Dashboard record, id 9600 plus its threshold indicator id; or {id, ltinfo: false, ...} written here, with description and approach as lists of paragraphs. Category ids from 11. relatedIndicators on an entry, and related (program id to LT Info indicator ids) for programs from programs.json, name the LT Info indicators whose pages on the other dashboards the program links to, besides the ones LT Info links it to. organizations gives short names for partners LT Info does not have. icon is a path in Sandbox.Web/public for categories the Threshold Dashboard has no icon for.",
-  "_sources": "Forest Structure and Fire Dynamics: the Forest Health Threshold Standards Update story map collection (https://storymaps.arcgis.com/collections/d89adce0aa9047efb018e49a6f8eff87) for the standards and their background, and the monitoring approach sections of the ForestHealth repo's monitoring/forest-structure.html and monitoring/fire-dynamics.html. Biodiversity's goal joins the adopted Threshold Dashboard descriptions of the three categories it replaces (Vegetation Preservation, Fisheries, and Wildlife). Indicator pages: the Threshold Dashboard records at internalapi.laketahoeinfo.org/threshold-indicators/{id}. Added programs: the LT Info monitoring programs not in programs.json that have a monitoring approach, partners, and usually threshold indicators, reviewed Nov. 11, 2026. Left out: 67 Air Quality (umbrella of the five pollutant programs), 37 Infrastructure (empty), 75 bike ped test, 80 Effective Population (one line), 28 East Shore Parking Counts (no partners or indicators), and 31 Nearshore Resource Allocation Program (coordination umbrella). Demographics: the Tahoe Open Data demographics page (https://www.tahoeopendata.org/pages/demographics) for the text, its figures for the age, race, occupancy, and county income charts, and the Demographics map service (Demographic Summaries table and community change layer) for the rest. Affordable and Workforce Housing: TRPA Long Range Planning's parcel inventory, read from the copy behind the Housing Progress page (https://trpa-agency.github.io/Planning/LongRange/html/multifamily-housing.html) by tools/extract-housing-inventory.py. SMART Traffic Cameras: the Transportation_SMART feature service and the README, config.yaml, and metadata/field_descriptions.yaml of the SMART_Phase1 folder in TRPA's Transportation repository on GitHub (https://github.com/trpa-agency/Transportation/tree/main/SMART_Phase1) for how the data is collected and loaded, and for the event names. Calcium and eDNA Sampling: the Calcium_Sites, Calcium_Survey, and eDNA_Samples map services; the site names on its calcium chart were read from Calcium_Sites on Nov. 13, 2026. Visitation and Lodging: the Occupancy Rates table of the Transportation_Planning map service and the Visitation Numbers table of the Demographics map service; the Campground Visitation table is left out, because most of its 2022 values repeat a 2018 estimate.",
+  "_sources": "Forest Structure and Fire Dynamics: the Forest Health Threshold Standards Update story map collection (https://storymaps.arcgis.com/collections/d89adce0aa9047efb018e49a6f8eff87) for the standards and their background, and the monitoring approach sections of the ForestHealth repo's monitoring/forest-structure.html and monitoring/fire-dynamics.html. Biodiversity's goal joins the adopted Threshold Dashboard descriptions of the three categories it replaces (Vegetation Preservation, Fisheries, and Wildlife). Indicator pages: the Threshold Dashboard records at internalapi.laketahoeinfo.org/threshold-indicators/{id}. Added programs: the LT Info monitoring programs not in programs.json that have a monitoring approach, partners, and usually threshold indicators, reviewed Nov. 11, 2026. Left out: 67 Air Quality (umbrella of the five pollutant programs), 37 Infrastructure (empty), 75 bike ped test, 80 Effective Population (one line), 28 East Shore Parking Counts (no partners or indicators), and 31 Nearshore Resource Allocation Program (coordination umbrella). Demographics: the Tahoe Open Data demographics page (https://www.tahoeopendata.org/pages/demographics) for the text, its figures for the age, race, occupancy, and county income charts, and the Demographics map service (Demographic Summaries table and community change layer) for the rest. Affordable and Workforce Housing: TRPA Long Range Planning's parcel inventory, read from the copy behind the Housing Progress page (https://trpa-agency.github.io/Planning/LongRange/html/multifamily-housing.html) by tools/extract-housing-inventory.py. SMART Traffic Cameras: the Transportation_SMART feature service and the README, config.yaml, and metadata/field_descriptions.yaml of the SMART_Phase1 folder in TRPA's Transportation repository on GitHub (https://github.com/trpa-agency/Transportation/tree/main/SMART_Phase1) for how the data is collected and loaded, and for the event names. Calcium and eDNA Sampling: the Calcium_Sites, Calcium_Survey, and eDNA_Samples map services; the site names on its calcium chart were read from Calcium_Sites on Nov. 13, 2026. Visitation and Lodging: the Occupancy Rates table of the Transportation_Planning map service and the Visitation Numbers table of the Demographics map service; the Campground Visitation table is left out, because most of its 2022 values repeat a 2018 estimate. Transit Ridership: table 131 (Transit Monthly Ridership by Route) of the LTinfo_Climate_Resilience_Dashboard map service; the service directory has no description of it, so who runs each service and when TART Connect and Lake Link started are from the operators' public information and the first month each column holds a value. Travel Mode Share: table 136 (Mode Share) of the same service, also undescribed; what the survey, Replica, and LOCUS rows count is read from the table's own values and is not confirmed with TRPA transportation staff.",
   "remove": [
     "fisheries",
     "vegetation-preservation",
@@ -11,7 +11,8 @@
   ],
   "organizations": {
     "Tahoe Fire and Fuels Team": "TFFT",
-    "Reno-Sparks Convention and Visitors Authority": "RSCVA"
+    "Reno-Sparks Convention and Visitors Authority": "RSCVA",
+    "South Shore Transportation Management Association": "SSTMA"
   },
   "add": {
     "recreation": [
@@ -881,6 +882,307 @@
             "type": "bar",
             "orientation": "h",
             "sort": "desc"
+          }
+        ]
+      },
+      {
+        "id": 9934,
+        "name": "Transit Ridership",
+        "template": "charts",
+        "partners": [
+          "Tahoe Transportation District",
+          "Tahoe Truckee Area Regional Transit",
+          "South Shore Transportation Management Association",
+          "Tahoe Regional Planning Agency"
+        ],
+        "ltinfo": false,
+        "relatedIndicators": [
+          46,
+          279
+        ],
+        "description": [
+          "Monthly ridership on the Tahoe Region's public transit, from July 2017 through October 2023. The Tahoe Transportation District (TTD) runs fixed routes and paratransit on the South Shore, and Tahoe Truckee Area Regional Transit (TART) runs them on the North and West shores. Two free on-demand services joined them: TART Connect in June 2021 and Lake Link, on the South Shore, in July 2022.",
+          "Ridership peaks in winter and again in July and August. It fell from 938,000 rides in 2018 to 516,000 in 2020, and was back to 934,000 in 2022. The on-demand services carried a third of all rides in 2022 and close to half in the first 10 months of 2023."
+        ],
+        "approach": [
+          "Each operator reports its ridership by month. TRPA compiles the reports into one table, with a row for each month and a column for each service, and publishes it on maps.trpa.org with the tables behind the Climate Resilience Dashboard. These charts read that table.",
+          "Read the record with care. Its last complete month is October 2023: November and December 2023 hold zeros for services that were running, so the charts leave those two months out. The count for TART Connect in June 2023 repeats May's. TTD's winter ridership is far lower from late 2018 on, and the table does not say why. A blank before June 2021 for TART Connect, or before July 2022 for Lake Link, means the service had not started.",
+          "The table does not state how a ride is counted, and it has no description, steward, or update date in the service directory."
+        ],
+        "measures": [
+          {
+            "title": "Rides each month, by service",
+            "sub": "Monthly ridership on each service, July 2017 through October 2023.",
+            "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+            "layer": 131,
+            "where": "TTD_Fixed_Route > 0",
+            "x": "MONTH",
+            "xType": "date",
+            "dateStep": "month",
+            "xLabel": "Month",
+            "y": [
+              {
+                "field": "TTD_Fixed_Route",
+                "name": "TTD fixed routes"
+              },
+              {
+                "field": "TART_Fixed_Route",
+                "name": "TART fixed routes"
+              },
+              {
+                "field": "TART_Connect",
+                "name": "TART Connect"
+              },
+              {
+                "field": "Lake_Link",
+                "name": "Lake Link"
+              },
+              {
+                "field": "TTD_Paratransit",
+                "name": "TTD paratransit"
+              },
+              {
+                "field": "TART_Paratransit",
+                "name": "TART paratransit"
+              }
+            ],
+            "yLabel": "Rides a month",
+            "type": "stacked",
+            "span": "span-12"
+          },
+          {
+            "title": "Rides each year, by service",
+            "sub": "Full years only: the record starts in July 2017, and its last complete month is October 2023.",
+            "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+            "layer": 131,
+            "where": "MONTH NOT LIKE '%-17' AND MONTH NOT LIKE '%-23'",
+            "dateParts": "MONTH",
+            "x": "MONTH_year",
+            "xLabel": "Year",
+            "y": [
+              {
+                "field": "TTD_Fixed_Route",
+                "name": "TTD fixed routes"
+              },
+              {
+                "field": "TART_Fixed_Route",
+                "name": "TART fixed routes"
+              },
+              {
+                "field": "TART_Connect",
+                "name": "TART Connect"
+              },
+              {
+                "field": "Lake_Link",
+                "name": "Lake Link"
+              },
+              {
+                "field": "TTD_Paratransit",
+                "name": "TTD paratransit"
+              },
+              {
+                "field": "TART_Paratransit",
+                "name": "TART paratransit"
+              }
+            ],
+            "combine": "sum",
+            "yLabel": "Rides a year",
+            "type": "stacked"
+          },
+          {
+            "title": "Rides by month of the year",
+            "sub": "All services together, one line a year. 2017 starts in July, and 2023 ends in October.",
+            "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+            "layer": 131,
+            "where": "TTD_Fixed_Route > 0",
+            "dateParts": "MONTH",
+            "x": "MONTH_month",
+            "xType": "month",
+            "xLabel": "Month",
+            "y": "Total",
+            "yLabel": "Rides a month",
+            "seriesBy": "MONTH_year",
+            "seriesLabel": "Year",
+            "type": "line"
+          }
+        ]
+      },
+      {
+        "id": 9935,
+        "name": "Travel Mode Share",
+        "template": "charts",
+        "partners": [
+          "Tahoe Regional Planning Agency"
+        ],
+        "ltinfo": false,
+        "relatedIndicators": [
+          45,
+          282
+        ],
+        "description": [
+          "How people get around the Tahoe Region: the share of trips made by car, on foot, by bicycle, and on public transit. Three sources measure it in different ways, and they do not agree.",
+          "TRPA's travel surveys, taken every two years from 2006 to 2020, put the car's share between 75 and 86 percent. Two newer sources built from mobile phone location data put it higher: 84 to 89 percent in Replica, and 92 to 94 percent in LOCUS. Public transit is 1 to 5 percent of trips in the surveys and 1 percent or less in both newer sources."
+        ],
+        "approach": [
+          "TRPA's travel survey asks people how they traveled, in summer in one cycle and in winter the next. The table holds the number of responses for each way of traveling, about 1,000 to 2,200 responses a survey. Summer and winter surveys are charted apart, because the seasons differ: bicycles are 4 to 7 percent of summer responses and 1 to 2 percent of winter ones.",
+          "Replica and LOCUS are commercial products that estimate trips, and how each was made, from mobile phone location data. The table holds Replica estimates for a Thursday and a Saturday in spring or fall, 2019 to 2023, and LOCUS estimates for a weekday, a Saturday, and a Sunday in the first and third quarters of 2019 and 2023.",
+          "Read the three as separate records, not one trend. The table does not say which trips Replica and LOCUS include or what its numbers count. LOCUS has no category for other ways of traveling, and its public transit counts are the same in both quarters of each year. The survey counts for 2008 to 2016 come out to whole percents, as if worked back from a published share."
+        ],
+        "measures": [
+          {
+            "title": "Mode share in TRPA travel surveys",
+            "sub": "Share of survey responses by way of traveling. Choose summer or winter surveys.",
+            "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+            "layer": 136,
+            "where": "Source = 'Survey'",
+            "x": "Year",
+            "xType": "category",
+            "xLabel": "Survey year",
+            "seriesBy": "Mode",
+            "seriesLabel": "Travel",
+            "seriesOrder": [
+              "Car_Truck_Van",
+              "Walk",
+              "Bicycle",
+              "Public Transit",
+              "Others"
+            ],
+            "seriesNames": {
+              "Car_Truck_Van": "Car, truck, or van",
+              "Walk": "Walking",
+              "Bicycle": "Bicycle",
+              "Public Transit": "Public transit",
+              "Others": "Other"
+            },
+            "seriesColors": {
+              "Car_Truck_Van": "var(--color-background-dataviz-categorical-1)",
+              "Walk": "var(--color-background-dataviz-categorical-2)",
+              "Bicycle": "var(--color-background-dataviz-categorical-3)",
+              "Public Transit": "var(--color-background-dataviz-categorical-4)",
+              "Others": "var(--color-background-dataviz-categorical-5)"
+            },
+            "y": "Number",
+            "share": true,
+            "type": "stacked",
+            "yName": "Responses",
+            "yLabel": "Share of responses",
+            "format": ".0%",
+            "pick": "Season",
+            "pickLabel": "Season",
+            "pickDefault": "Summer",
+            "span": "span-12"
+          },
+          {
+            "title": "Mode share in Replica",
+            "sub": "Share of estimated trips on one day in each season modeled. Choose the day.",
+            "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+            "layer": 136,
+            "where": "Source = 'Replica'",
+            "x": "Year",
+            "xWith": "Season",
+            "xType": "category",
+            "xLabel": "Season",
+            "xOrder": [
+              "2019 Fall",
+              "2021 Spring",
+              "2021 Fall",
+              "2022 Fall",
+              "2023 Spring"
+            ],
+            "xNames": {
+              "2019 Fall": "Fall 2019",
+              "2021 Spring": "Spring 2021",
+              "2021 Fall": "Fall 2021",
+              "2022 Fall": "Fall 2022",
+              "2023 Spring": "Spring 2023"
+            },
+            "seriesBy": "Mode",
+            "seriesLabel": "Travel",
+            "seriesOrder": [
+              "Car_Truck_Van",
+              "Walk",
+              "Bicycle",
+              "Public Transit",
+              "Others"
+            ],
+            "seriesNames": {
+              "Car_Truck_Van": "Car, truck, or van",
+              "Walk": "Walking",
+              "Bicycle": "Bicycle",
+              "Public Transit": "Public transit",
+              "Others": "Other"
+            },
+            "seriesColors": {
+              "Car_Truck_Van": "var(--color-background-dataviz-categorical-1)",
+              "Walk": "var(--color-background-dataviz-categorical-2)",
+              "Bicycle": "var(--color-background-dataviz-categorical-3)",
+              "Public Transit": "var(--color-background-dataviz-categorical-4)",
+              "Others": "var(--color-background-dataviz-categorical-5)"
+            },
+            "y": "Number",
+            "share": true,
+            "type": "stacked",
+            "yName": "Trips",
+            "yLabel": "Share of trips",
+            "format": ".1%",
+            "pick": "Day",
+            "pickLabel": "Day",
+            "pickDefault": "Thursday"
+          },
+          {
+            "title": "Mode share in LOCUS",
+            "sub": "Share of estimated trips on one kind of day in each quarter measured. Choose the day.",
+            "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+            "layer": 136,
+            "where": "Source = 'LOCUS'",
+            "x": "Year",
+            "xWith": "Season",
+            "xType": "category",
+            "xLabel": "Quarter",
+            "xOrder": [
+              "2019 Q1",
+              "2019 Q3",
+              "2023 Q1",
+              "2023 Q3"
+            ],
+            "xNames": {
+              "2019 Q1": "Jan. to March 2019",
+              "2019 Q3": "July to Sept. 2019",
+              "2023 Q1": "Jan. to March 2023",
+              "2023 Q3": "July to Sept. 2023"
+            },
+            "seriesBy": "Mode",
+            "seriesLabel": "Travel",
+            "seriesOrder": [
+              "Car_Truck_Van",
+              "Walk",
+              "Bicycle",
+              "Public Transit",
+              "Others"
+            ],
+            "seriesNames": {
+              "Car_Truck_Van": "Car, truck, or van",
+              "Walk": "Walking",
+              "Bicycle": "Bicycle",
+              "Public Transit": "Public transit",
+              "Others": "Other"
+            },
+            "seriesColors": {
+              "Car_Truck_Van": "var(--color-background-dataviz-categorical-1)",
+              "Walk": "var(--color-background-dataviz-categorical-2)",
+              "Bicycle": "var(--color-background-dataviz-categorical-3)",
+              "Public Transit": "var(--color-background-dataviz-categorical-4)",
+              "Others": "var(--color-background-dataviz-categorical-5)"
+            },
+            "y": "Number",
+            "share": true,
+            "type": "stacked",
+            "yName": "Trips",
+            "yLabel": "Share of trips",
+            "format": ".1%",
+            "pick": "Day",
+            "pickLabel": "Day",
+            "pickDefault": "Weekday"
           }
         ]
       }

@@ -8,7 +8,7 @@ A practice copy of how ESA's apps are put together, small enough to read in one 
 |---|---|
 | `Sandbox.Web` | Angular 21 app styled with Ecology, plus its browser tests in `e2e/` |
 | `Sandbox.API` | .NET 10 API, the same JSON shape as the real LT Info API |
-| `Sandbox.Database` | table scripts and seed data (111 real programs and indicators, 60 partners) |
+| `Sandbox.Database` | table scripts and seed data (113 real programs and indicators, 61 partners) |
 | `Sandbox.Tests` | the container that runs the tests |
 | `Build` | PowerShell scripts: database, one-time SQL Server setup, deploy |
 | `docker-compose` | the files that start the containers |
@@ -27,7 +27,7 @@ The database is the **SQL Server installed on this machine** (database `LTInfoSa
 powershell -File Build\Deploy.ps1
 ```
 
-It builds the database, builds the release images, starts the site, waits until it is healthy, and runs the 133 automated tests against it. About six minutes. The site is then at http://localhost:8080 and stays up, restarting with Docker.
+It builds the database, builds the release images, starts the site, waits until it is healthy, and runs the 151 automated tests against it. About six minutes. The site is then at http://localhost:8080 and stays up, restarting with Docker.
 
 The deploy puts the seed rows back first so the tests start from known data. Add `-KeepData` to leave your rows alone and skip the tests.
 
@@ -56,6 +56,8 @@ The categories differ from the dashboard repo's on purpose: `Sandbox.Database/Sc
 Two pages show the two ways data that is not TRPA's own, or not yet published, gets in. SMART Traffic Cameras (Transportation) reads the Transportation_SMART feature service: Tahoe Transportation District cameras, read by Derq's software and loaded to maps.trpa.org by the SMART_Phase1 script in TRPA's Transportation repository. Its 15 cameras are seeded as mapped sites from the service's camera layer, which `make-seed.py` does for any page written in `extra-categories.json` that has a `sitesLayer`. Affordable and Workforce Housing (Housing and Economy) charts TRPA Long Range Planning's parcel inventory, a spreadsheet no service publishes: `python -I tools/extract-housing-inventory.py` reads the copy behind the Housing Progress page and writes three files to `Sandbox.Web/public/data/housing/`, printing the checks it ran on the source. Rerun it when the inventory changes.
 
 Two more pages read raw monitoring records that sat on maps.trpa.org with no page. Calcium and eDNA Sampling (Aquatic Invasive Species) maps the 77 calcium sites from the Calcium_Sites service, draws the 2024 eDNA samples over them, and charts the Calcium_Survey and eDNA_Samples services. Visitation and Lodging (Housing and Economy, beside Transient Occupancy Tax) charts the lodging reports TRPA compiles in the Occupancy Rates table of the Transportation_Planning service and the Sand Harbor visitor counts in the Demographics service.
+
+Two Transportation pages read tables published with the Climate Resilience Dashboard's that the server cannot shape for a chart. Transit Ridership reads table 131 of the LTinfo_Climate_Resilience_Dashboard service: a row a month, a column a service, and the month as text ("Jul-17"). Travel Mode Share reads table 136: counts from three sources (TRPA travel surveys, Replica, and LOCUS), charted apart and as shares. Five measure settings do the shaping in the browser, in `shapeRows` in `lib/measures.ts`: a date axis reads a month and a year in words as the first of that month, and `dateStep: "month"` labels it "July 2017"; `dateParts` names a date field and adds `<field>_year` and `<field>_month` to each row, to chart by year or by month of the year; `combine: "sum"` adds up the rows that share x, series, and pick, where `stat` cannot because the server cannot group by a derived year; `share: true` charts each count as its share of the total at its x and pick, and keeps the count in the table under `yName`; and `xWith` joins a second field to x, so Year and Season make "2021 Fall". `format: ".1%"` keeps a decimal for shares under one percent. They are tested in `e2e/measure-shape.spec.ts`, which runs in Node.
 
 A chart on a date axis marks an obvious hole in its record with a gray block that says No Data, and a line stops at the hole instead of running across it. A hole counts when it is at least four times the usual step between values and at least four percent of the axis: two months missing from a daily record, not a five-day outage. A bar chart has no empty axis to shade, so it gets one placeholder band for the gap. `gaps: true` on a measure turns this on for a year axis, where it is off because years are often sparse by design (a census, a survey every five years), and `gaps: false` turns it off. The rule and what is drawn are in `chartGaps` and `vegaLiteSpec` in `lib/vega-spec.ts`, tested in `e2e/chart-gaps.spec.ts`, which runs in Node with no browser; the test image copies `src/app/lib` for it.
 

@@ -3,12 +3,12 @@
  "MonitoringApproach": "Fire perimeters come from CAL FIRE's statewide fire history, which maps fires on the California side of the Basin; Nevada fires and many small fires are not in it. Each perimeter is clipped to the TRPA boundary and measured in California Albers, so a fire that started outside the Basin counts only the acres that burned inside it.\n\nThe Tahoe Fire and Fuels Team fire history, 1988 to 2025, covers both states and will replace this record once it is published.",
  "Partners": [
   {
-   "OrganizationID": 36,
+   "OrganizationID": 37,
    "OrganizationName": "CAL FIRE",
    "OrganizationShortName": null
   },
   {
-   "OrganizationID": 33,
+   "OrganizationID": 34,
    "OrganizationName": "Tahoe Fire and Fuels Team",
    "OrganizationShortName": "TFFT"
   },

@@ -679,6 +679,25 @@
   ]
  },
  {
+  "MonitoringProgramID": 9934,
+  "MonitoringProgramName": "Transit Ridership",
+  "CategoryID": 10,
+  "CategoryName": "Transportation and Sustainable Communities",
+  "ThemeColor": "#DB5B00",
+  "IsFeatured": false,
+  "PartnerCount": 4,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Transportation District",
+   "Tahoe Truckee Area Regional Transit",
+   "South Shore Transportation Management Association",
+   "Tahoe Regional Planning Agency"
+  ]
+ },
+ {
   "MonitoringProgramID": 69,
   "MonitoringProgramName": "Travel Behavior",
   "CategoryID": 10,
@@ -691,6 +710,22 @@
   "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/1aad1e18-e8f2-4f76-a5b6-f59d529da17d",
   "SiteCount": 0,
   "PartnerNames": []
+ },
+ {
+  "MonitoringProgramID": 9935,
+  "MonitoringProgramName": "Travel Mode Share",
+  "CategoryID": 10,
+  "CategoryName": "Transportation and Sustainable Communities",
+  "ThemeColor": "#DB5B00",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
  },
  {
   "MonitoringProgramID": 47,

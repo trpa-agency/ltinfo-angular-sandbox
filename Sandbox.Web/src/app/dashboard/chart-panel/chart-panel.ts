@@ -211,7 +211,7 @@ export class ChartPanel {
     const columns = this.columns();
     const format = this.current().format;
     return this.rows().map((r) =>
-      columns.map((c) => (c.num ? formatValue(r[c.field], format) : r[c.field] == null ? '' : String(r[c.field]))),
+      columns.map((c) => (c.num ? formatValue(r[c.field], c.format ?? format) : r[c.field] == null ? '' : String(r[c.field]))),
     );
   });
   private readonly chart = computed(() => measureChartSpec(this.current(), this.rows()));

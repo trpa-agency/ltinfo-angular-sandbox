@@ -7239,5 +7239,269 @@
     }
    ]
   }
+ },
+ {
+  "MonitoringProgramID": 9934,
+  "DashboardConfig": {
+   "measures": [
+    {
+     "title": "Rides each month, by service",
+     "sub": "Monthly ridership on each service, July 2017 through October 2023.",
+     "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+     "layer": 131,
+     "where": "TTD_Fixed_Route > 0",
+     "x": "MONTH",
+     "xType": "date",
+     "dateStep": "month",
+     "xLabel": "Month",
+     "y": [
+      {
+       "field": "TTD_Fixed_Route",
+       "name": "TTD fixed routes"
+      },
+      {
+       "field": "TART_Fixed_Route",
+       "name": "TART fixed routes"
+      },
+      {
+       "field": "TART_Connect",
+       "name": "TART Connect"
+      },
+      {
+       "field": "Lake_Link",
+       "name": "Lake Link"
+      },
+      {
+       "field": "TTD_Paratransit",
+       "name": "TTD paratransit"
+      },
+      {
+       "field": "TART_Paratransit",
+       "name": "TART paratransit"
+      }
+     ],
+     "yLabel": "Rides a month",
+     "type": "stacked",
+     "span": "span-12"
+    },
+    {
+     "title": "Rides each year, by service",
+     "sub": "Full years only: the record starts in July 2017, and its last complete month is October 2023.",
+     "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+     "layer": 131,
+     "where": "MONTH NOT LIKE '%-17' AND MONTH NOT LIKE '%-23'",
+     "dateParts": "MONTH",
+     "x": "MONTH_year",
+     "xLabel": "Year",
+     "y": [
+      {
+       "field": "TTD_Fixed_Route",
+       "name": "TTD fixed routes"
+      },
+      {
+       "field": "TART_Fixed_Route",
+       "name": "TART fixed routes"
+      },
+      {
+       "field": "TART_Connect",
+       "name": "TART Connect"
+      },
+      {
+       "field": "Lake_Link",
+       "name": "Lake Link"
+      },
+      {
+       "field": "TTD_Paratransit",
+       "name": "TTD paratransit"
+      },
+      {
+       "field": "TART_Paratransit",
+       "name": "TART paratransit"
+      }
+     ],
+     "combine": "sum",
+     "yLabel": "Rides a year",
+     "type": "stacked"
+    },
+    {
+     "title": "Rides by month of the year",
+     "sub": "All services together, one line a year. 2017 starts in July, and 2023 ends in October.",
+     "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+     "layer": 131,
+     "where": "TTD_Fixed_Route > 0",
+     "dateParts": "MONTH",
+     "x": "MONTH_month",
+     "xType": "month",
+     "xLabel": "Month",
+     "y": "Total",
+     "yLabel": "Rides a month",
+     "seriesBy": "MONTH_year",
+     "seriesLabel": "Year",
+     "type": "line"
+    }
+   ]
+  }
+ },
+ {
+  "MonitoringProgramID": 9935,
+  "DashboardConfig": {
+   "measures": [
+    {
+     "title": "Mode share in TRPA travel surveys",
+     "sub": "Share of survey responses by way of traveling. Choose summer or winter surveys.",
+     "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+     "layer": 136,
+     "where": "Source = 'Survey'",
+     "x": "Year",
+     "xType": "category",
+     "xLabel": "Survey year",
+     "seriesBy": "Mode",
+     "seriesLabel": "Travel",
+     "seriesOrder": [
+      "Car_Truck_Van",
+      "Walk",
+      "Bicycle",
+      "Public Transit",
+      "Others"
+     ],
+     "seriesNames": {
+      "Car_Truck_Van": "Car, truck, or van",
+      "Walk": "Walking",
+      "Bicycle": "Bicycle",
+      "Public Transit": "Public transit",
+      "Others": "Other"
+     },
+     "seriesColors": {
+      "Car_Truck_Van": "var(--color-background-dataviz-categorical-1)",
+      "Walk": "var(--color-background-dataviz-categorical-2)",
+      "Bicycle": "var(--color-background-dataviz-categorical-3)",
+      "Public Transit": "var(--color-background-dataviz-categorical-4)",
+      "Others": "var(--color-background-dataviz-categorical-5)"
+     },
+     "y": "Number",
+     "share": true,
+     "type": "stacked",
+     "yName": "Responses",
+     "yLabel": "Share of responses",
+     "format": ".0%",
+     "pick": "Season",
+     "pickLabel": "Season",
+     "pickDefault": "Summer",
+     "span": "span-12"
+    },
+    {
+     "title": "Mode share in Replica",
+     "sub": "Share of estimated trips on one day in each season modeled. Choose the day.",
+     "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+     "layer": 136,
+     "where": "Source = 'Replica'",
+     "x": "Year",
+     "xWith": "Season",
+     "xType": "category",
+     "xLabel": "Season",
+     "xOrder": [
+      "2019 Fall",
+      "2021 Spring",
+      "2021 Fall",
+      "2022 Fall",
+      "2023 Spring"
+     ],
+     "xNames": {
+      "2019 Fall": "Fall 2019",
+      "2021 Spring": "Spring 2021",
+      "2021 Fall": "Fall 2021",
+      "2022 Fall": "Fall 2022",
+      "2023 Spring": "Spring 2023"
+     },
+     "seriesBy": "Mode",
+     "seriesLabel": "Travel",
+     "seriesOrder": [
+      "Car_Truck_Van",
+      "Walk",
+      "Bicycle",
+      "Public Transit",
+      "Others"
+     ],
+     "seriesNames": {
+      "Car_Truck_Van": "Car, truck, or van",
+      "Walk": "Walking",
+      "Bicycle": "Bicycle",
+      "Public Transit": "Public transit",
+      "Others": "Other"
+     },
+     "seriesColors": {
+      "Car_Truck_Van": "var(--color-background-dataviz-categorical-1)",
+      "Walk": "var(--color-background-dataviz-categorical-2)",
+      "Bicycle": "var(--color-background-dataviz-categorical-3)",
+      "Public Transit": "var(--color-background-dataviz-categorical-4)",
+      "Others": "var(--color-background-dataviz-categorical-5)"
+     },
+     "y": "Number",
+     "share": true,
+     "type": "stacked",
+     "yName": "Trips",
+     "yLabel": "Share of trips",
+     "format": ".1%",
+     "pick": "Day",
+     "pickLabel": "Day",
+     "pickDefault": "Thursday"
+    },
+    {
+     "title": "Mode share in LOCUS",
+     "sub": "Share of estimated trips on one kind of day in each quarter measured. Choose the day.",
+     "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+     "layer": 136,
+     "where": "Source = 'LOCUS'",
+     "x": "Year",
+     "xWith": "Season",
+     "xType": "category",
+     "xLabel": "Quarter",
+     "xOrder": [
+      "2019 Q1",
+      "2019 Q3",
+      "2023 Q1",
+      "2023 Q3"
+     ],
+     "xNames": {
+      "2019 Q1": "Jan. to March 2019",
+      "2019 Q3": "July to Sept. 2019",
+      "2023 Q1": "Jan. to March 2023",
+      "2023 Q3": "July to Sept. 2023"
+     },
+     "seriesBy": "Mode",
+     "seriesLabel": "Travel",
+     "seriesOrder": [
+      "Car_Truck_Van",
+      "Walk",
+      "Bicycle",
+      "Public Transit",
+      "Others"
+     ],
+     "seriesNames": {
+      "Car_Truck_Van": "Car, truck, or van",
+      "Walk": "Walking",
+      "Bicycle": "Bicycle",
+      "Public Transit": "Public transit",
+      "Others": "Other"
+     },
+     "seriesColors": {
+      "Car_Truck_Van": "var(--color-background-dataviz-categorical-1)",
+      "Walk": "var(--color-background-dataviz-categorical-2)",
+      "Bicycle": "var(--color-background-dataviz-categorical-3)",
+      "Public Transit": "var(--color-background-dataviz-categorical-4)",
+      "Others": "var(--color-background-dataviz-categorical-5)"
+     },
+     "y": "Number",
+     "share": true,
+     "type": "stacked",
+     "yName": "Trips",
+     "yLabel": "Share of trips",
+     "format": ".1%",
+     "pick": "Day",
+     "pickLabel": "Day",
+     "pickDefault": "Weekday"
+    }
+   ]
+  }
  }
 ]

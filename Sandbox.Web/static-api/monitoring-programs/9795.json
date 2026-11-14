@@ -3,7 +3,7 @@
  "MonitoringApproach": "The USDA Forest Service aerial detection survey is flown over California's forests each summer. Surveyors sketch each area of recent damage from the air and record the host tree, the agent that killed it, the share of trees affected, and an estimate of trees killed.\n\nThis page reads the 2023 survey: the damage areas within or touching the TRPA boundary. Areas that cross the boundary are counted whole, so the totals run higher than the Basin alone. Each year's survey added to the service builds the trend.",
  "Partners": [
   {
-   "OrganizationID": 34,
+   "OrganizationID": 35,
    "OrganizationName": "USDA Forest Service",
    "OrganizationShortName": null
   },

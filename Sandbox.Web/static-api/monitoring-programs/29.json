@@ -3,7 +3,7 @@
  "MonitoringApproach": "Portions of known and potential northern goshawk habitat are surveyed following well-accepted protocols including a combination of dawn acoustic surveys, stand search surveys, and broadcast surveys. Recent survey work has been conducted in response to proposed projects and has been primarily focused at assessment of project level impacts, not assessment of population status and trends in the Tahoe Basin. The last full population survey was completed in 2010.",
  "Partners": [
   {
-   "OrganizationID": 50,
+   "OrganizationID": 51,
    "OrganizationName": "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
    "OrganizationShortName": "NDOW"
   },
@@ -25,7 +25,7 @@
  ],
  "Images": [
   {
-   "MonitoringProgramImageID": 2670,
+   "MonitoringProgramImageID": 2804,
    "Url": "https://internalapi.laketahoeinfo.org/file-resources/757a423b-bb56-4350-9df6-c27daf80ca3d",
    "Caption": "Northern goshawk",
    "PhotoCredit": "Paul Williams",

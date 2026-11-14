@@ -1,0 +1,197 @@
+{
+ "MonitoringProgramDescription": "How people get around the Tahoe Region: the share of trips made by car, on foot, by bicycle, and on public transit. Three sources measure it in different ways, and they do not agree.\n\nTRPA's travel surveys, taken every two years from 2006 to 2020, put the car's share between 75 and 86 percent. Two newer sources built from mobile phone location data put it higher: 84 to 89 percent in Replica, and 92 to 94 percent in LOCUS. Public transit is 1 to 5 percent of trips in the surveys and 1 percent or less in both newer sources.",
+ "MonitoringApproach": "TRPA's travel survey asks people how they traveled, in summer in one cycle and in winter the next. The table holds the number of responses for each way of traveling, about 1,000 to 2,200 responses a survey. Summer and winter surveys are charted apart, because the seasons differ: bicycles are 4 to 7 percent of summer responses and 1 to 2 percent of winter ones.\n\nReplica and LOCUS are commercial products that estimate trips, and how each was made, from mobile phone location data. The table holds Replica estimates for a Thursday and a Saturday in spring or fall, 2019 to 2023, and LOCUS estimates for a weekday, a Saturday, and a Sunday in the first and third quarters of 2019 and 2023.\n\nRead the three as separate records, not one trend. The table does not say which trips Replica and LOCUS include or what its numbers count. LOCUS has no category for other ways of traveling, and its public transit counts are the same in both quarters of each year. The survey counts for 2008 to 2016 come out to whole percents, as if worked back from a published share.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Mode share in TRPA travel surveys",
+    "sub": "Share of survey responses by way of traveling. Choose summer or winter surveys.",
+    "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+    "layer": 136,
+    "where": "Source = 'Survey'",
+    "x": "Year",
+    "xType": "category",
+    "xLabel": "Survey year",
+    "seriesBy": "Mode",
+    "seriesLabel": "Travel",
+    "seriesOrder": [
+     "Car_Truck_Van",
+     "Walk",
+     "Bicycle",
+     "Public Transit",
+     "Others"
+    ],
+    "seriesNames": {
+     "Car_Truck_Van": "Car, truck, or van",
+     "Walk": "Walking",
+     "Bicycle": "Bicycle",
+     "Public Transit": "Public transit",
+     "Others": "Other"
+    },
+    "seriesColors": {
+     "Car_Truck_Van": "var(--color-background-dataviz-categorical-1)",
+     "Walk": "var(--color-background-dataviz-categorical-2)",
+     "Bicycle": "var(--color-background-dataviz-categorical-3)",
+     "Public Transit": "var(--color-background-dataviz-categorical-4)",
+     "Others": "var(--color-background-dataviz-categorical-5)"
+    },
+    "y": "Number",
+    "share": true,
+    "type": "stacked",
+    "yName": "Responses",
+    "yLabel": "Share of responses",
+    "format": ".0%",
+    "pick": "Season",
+    "pickLabel": "Season",
+    "pickDefault": "Summer",
+    "span": "span-12"
+   },
+   {
+    "title": "Mode share in Replica",
+    "sub": "Share of estimated trips on one day in each season modeled. Choose the day.",
+    "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+    "layer": 136,
+    "where": "Source = 'Replica'",
+    "x": "Year",
+    "xWith": "Season",
+    "xType": "category",
+    "xLabel": "Season",
+    "xOrder": [
+     "2019 Fall",
+     "2021 Spring",
+     "2021 Fall",
+     "2022 Fall",
+     "2023 Spring"
+    ],
+    "xNames": {
+     "2019 Fall": "Fall 2019",
+     "2021 Spring": "Spring 2021",
+     "2021 Fall": "Fall 2021",
+     "2022 Fall": "Fall 2022",
+     "2023 Spring": "Spring 2023"
+    },
+    "seriesBy": "Mode",
+    "seriesLabel": "Travel",
+    "seriesOrder": [
+     "Car_Truck_Van",
+     "Walk",
+     "Bicycle",
+     "Public Transit",
+     "Others"
+    ],
+    "seriesNames": {
+     "Car_Truck_Van": "Car, truck, or van",
+     "Walk": "Walking",
+     "Bicycle": "Bicycle",
+     "Public Transit": "Public transit",
+     "Others": "Other"
+    },
+    "seriesColors": {
+     "Car_Truck_Van": "var(--color-background-dataviz-categorical-1)",
+     "Walk": "var(--color-background-dataviz-categorical-2)",
+     "Bicycle": "var(--color-background-dataviz-categorical-3)",
+     "Public Transit": "var(--color-background-dataviz-categorical-4)",
+     "Others": "var(--color-background-dataviz-categorical-5)"
+    },
+    "y": "Number",
+    "share": true,
+    "type": "stacked",
+    "yName": "Trips",
+    "yLabel": "Share of trips",
+    "format": ".1%",
+    "pick": "Day",
+    "pickLabel": "Day",
+    "pickDefault": "Thursday"
+   },
+   {
+    "title": "Mode share in LOCUS",
+    "sub": "Share of estimated trips on one kind of day in each quarter measured. Choose the day.",
+    "service": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+    "layer": 136,
+    "where": "Source = 'LOCUS'",
+    "x": "Year",
+    "xWith": "Season",
+    "xType": "category",
+    "xLabel": "Quarter",
+    "xOrder": [
+     "2019 Q1",
+     "2019 Q3",
+     "2023 Q1",
+     "2023 Q3"
+    ],
+    "xNames": {
+     "2019 Q1": "Jan. to March 2019",
+     "2019 Q3": "July to Sept. 2019",
+     "2023 Q1": "Jan. to March 2023",
+     "2023 Q3": "July to Sept. 2023"
+    },
+    "seriesBy": "Mode",
+    "seriesLabel": "Travel",
+    "seriesOrder": [
+     "Car_Truck_Van",
+     "Walk",
+     "Bicycle",
+     "Public Transit",
+     "Others"
+    ],
+    "seriesNames": {
+     "Car_Truck_Van": "Car, truck, or van",
+     "Walk": "Walking",
+     "Bicycle": "Bicycle",
+     "Public Transit": "Public transit",
+     "Others": "Other"
+    },
+    "seriesColors": {
+     "Car_Truck_Van": "var(--color-background-dataviz-categorical-1)",
+     "Walk": "var(--color-background-dataviz-categorical-2)",
+     "Bicycle": "var(--color-background-dataviz-categorical-3)",
+     "Public Transit": "var(--color-background-dataviz-categorical-4)",
+     "Others": "var(--color-background-dataviz-categorical-5)"
+    },
+    "y": "Number",
+    "share": true,
+    "type": "stacked",
+    "yName": "Trips",
+    "yLabel": "Share of trips",
+    "format": ".1%",
+    "pick": "Day",
+    "pickLabel": "Day",
+    "pickDefault": "Weekday"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Climate Resilience Dashboard",
+   "Label": "Transportation",
+   "Url": "https://climate.laketahoeinfo.org/transportation"
+  },
+  {
+   "Dashboard": "Transportation Tracker",
+   "Label": "Data Trends",
+   "Url": "https://transportation.laketahoeinfo.org/transportation/data-trends"
+  }
+ ],
+ "MonitoringProgramID": 9935,
+ "MonitoringProgramName": "Travel Mode Share",
+ "CategoryID": 10,
+ "CategoryName": "Transportation and Sustainable Communities",
+ "ThemeColor": "#DB5B00",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

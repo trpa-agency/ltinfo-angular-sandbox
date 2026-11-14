@@ -362,7 +362,7 @@ export function vegaLiteSpec(spec: ChartSpec, theme: VegaTheme, options: VegaSpe
     : { value: styles[0]?.color ?? DEFAULT_VEGA_THEME.seriesColors[0] };
 
   // Value axis.
-  const percent = spec.format === '.0%';
+  const percent = spec.format === '.0%' || spec.format === '.1%';
   const valueScale: Json = { zero: isBar ? true : spec.zero !== false, nice: true };
   // Shares that add up to 100 percent keep the axis at 100, not the next nice step.
   if (percent && stacked && stackMax > 0 && stackMax <= 1.0005) {

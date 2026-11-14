@@ -3,12 +3,12 @@
  "MonitoringApproach": "The monitoring approach used for evaluating the attainment status of this standard involves the mapping and classification of fish habitats in the nearshore (the lake zone that exists approximately between elevations of 6,229 to 6,199). In 1971, a cooperative survey was done by various state and federal fish and wildlife agencies to identify fish and aquatic habitats of special significance. This work produced a Prime Fish Habitat Map that TRPA adopted in 1984. This map, as amended in 1997, is still the map TRPA uses today. Byron et al. (1989) as part of their fish habitat study resurveyed and mapped fish habitat around Lake Tahoe. According to TRPA (1996), the Byron et al. work represented a more accurate picture of the types of fish habitat based on lakebed substrate. The 2006 and 2011 Threshold Evaluations Reports utilized an updated fish habitat map based on satellite imagery collected in 2002 (Metz and Herold 2004; Herold, Metz, and Romsos 2007a).",
  "Partners": [
   {
-   "OrganizationID": 41,
+   "OrganizationID": 42,
    "OrganizationName": "California Department of Fish & Wildlife",
    "OrganizationShortName": "CDFW"
   },
   {
-   "OrganizationID": 50,
+   "OrganizationID": 51,
    "OrganizationName": "Nevada Tahoe Resource Team – Nevada Department of Wildlife",
    "OrganizationShortName": "NDOW"
   },
@@ -18,7 +18,7 @@
    "OrganizationShortName": "UC Davis"
   },
   {
-   "OrganizationID": 47,
+   "OrganizationID": 48,
    "OrganizationName": "University of Nevada, Reno",
    "OrganizationShortName": "UNR"
   }

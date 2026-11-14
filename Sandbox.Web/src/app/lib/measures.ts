@@ -12,7 +12,7 @@ import type { Attributes, ServiceOptions } from './map-service';
 import { normalizeDate, queryFeatures, queryStatistics, unpivot } from './map-service';
 import { parseCsv } from './csv';
 import type { AxisKind, ChartSpec, ChartType } from './chart/types';
-import { MONTHS, formatValue } from './chart/format';
+import { MONTHS, formatMonthYear, formatValue, isoParts } from './chart/format';
 import { plural, yearOf } from './sites';
 
 export { MONTHS };
@@ -63,7 +63,7 @@ export interface Measure {
   y: string | MeasureY[];
   yName?: string;
   yLabel?: string;
-  /** ".0%" for shares. */
+  /** ".0%" for shares, ".1%" for shares small enough to need a decimal. */
   format?: string;
   /** Computed on the server, grouped by x, seriesBy, and pick. */
   stat?: 'sum' | 'count' | 'avg';
@@ -103,7 +103,34 @@ export interface Measure {
   span?: MeasureSpan;
   xNames?: Record<string, string>;
   unpivot?: { prefix: string };
+  /**
+   * A second field joined to x with a space, where one field does not name the category: Year
+   * and Season make "2021 Fall".
+   */
+  xWith?: string;
+  /** "month" when a date axis holds one value a month: labeled "July 2017", not "July 1, 2017". */
+  dateStep?: 'month';
+  /**
+   * A date field to read the year and the month from. Each row gains <field>_year and
+   * <field>_month, so a table with one date column can be charted by year, or by month of the
+   * year with a series for each year.
+   */
+  dateParts?: string;
+  /**
+   * "sum" adds up, in the browser, the rows that share x, series, and pick. For a grouping the
+   * server cannot do, such as by the year read out of a text month; stat is the server's.
+   */
+  combine?: 'sum';
+  /**
+   * Charts each value as its share of the total across the series at the same x (and pick),
+   * for a table that holds counts where the reader wants shares. Needs seriesBy and one y. The
+   * count stays in the table, headed by yName.
+   */
+  share?: boolean;
 }
+
+/** The field a measure's shares are put in. */
+export const SHARE_FIELD = 'share';
 
 export interface MeasureSeries {
   name: string;
@@ -118,6 +145,8 @@ export interface MeasureColumn {
   headerName: string;
   /** Right-aligned, formatted with fmtValue. */
   num?: boolean;
+  /** The column's own number format; the measure's when omitted. */
+  format?: string;
 }
 
 export const ERROR_STATE = {
@@ -134,12 +163,91 @@ const toNumber = (v: unknown): number | null => {
   return Number.isFinite(n) ? n : null;
 };
 
-/** The y fields a measure charts: the server statistic, the listed fields, or the one y field. */
-export function measureYs(m: Measure): MeasureY[] {
+/** The y fields a measure reads: the server statistic, the listed fields, or the one y field. */
+function sourceYs(m: Measure): MeasureY[] {
   // Several y fields with a stat: each is computed into a column of its own name.
   if (Array.isArray(m.y)) return m.y;
   if (m.stat) return [{ field: 'value', name: m.yName || m.yLabel }];
   return [{ field: m.y, name: m.yName || m.yLabel }];
+}
+
+/** The y fields a measure charts: the ones it reads, or the share worked out from the one it reads. */
+export function measureYs(m: Measure): MeasureY[] {
+  return m.share ? [{ field: SHARE_FIELD, name: m.yLabel || 'Share' }] : sourceYs(m);
+}
+
+/** The fields dateParts adds to each row: not in the source, so never asked of the server. */
+const partFields = (m: Measure): string[] => (m.dateParts ? [`${m.dateParts}_year`, `${m.dateParts}_month`] : []);
+
+/** The source fields a measure reads, in the order the settings name them. */
+export function measureSourceFields(m: Measure): string[] {
+  const derived = partFields(m);
+  const ys = typeof m.y === 'string' ? [m.y] : (m.y ?? []).map((y) => y.field);
+  const named = [m.x, m.xWith, m.dateParts, ...ys, m.seriesBy, m.pick, m.standard?.field];
+  return [...new Set(named.filter((f): f is string => !!f && !derived.includes(f)))];
+}
+
+const groupKey = (m: Measure, r: Attributes): string =>
+  JSON.stringify([r[m.x], m.seriesBy ? r[m.seriesBy] : null, m.pick ? r[m.pick] : null]);
+
+/** One row for each x, series, and pick, with every y field added up; a y with no number stays empty. */
+function sumRows(m: Measure, rows: Attributes[]): Attributes[] {
+  const fields = sourceYs(m).map((y) => y.field);
+  const groups = new Map<string, Attributes>();
+  for (const r of rows) {
+    const key = groupKey(m, r);
+    const into = groups.get(key);
+    if (!into) {
+      const first: Attributes = { ...r };
+      for (const f of fields) first[f] = toNumber(r[f]);
+      groups.set(key, first);
+      continue;
+    }
+    for (const f of fields) {
+      const n = toNumber(r[f]);
+      if (n != null) into[f] = ((into[f] as number | null) ?? 0) + n;
+    }
+  }
+  return [...groups.values()];
+}
+
+/** Each row's value as a share of the total across the series at its x (and pick). */
+function withShares(m: Measure, rows: Attributes[]): Attributes[] {
+  const field = sourceYs(m)[0].field;
+  const at = (r: Attributes): string => JSON.stringify([r[m.x], m.pick ? r[m.pick] : null]);
+  const totals = new Map<string, number>();
+  for (const r of rows) totals.set(at(r), (totals.get(at(r)) ?? 0) + (toNumber(r[field]) ?? 0));
+  return rows.map((r) => {
+    const n = toNumber(r[field]);
+    const total = totals.get(at(r)) ?? 0;
+    return { ...r, [SHARE_FIELD]: n != null && total > 0 ? n / total : null };
+  });
+}
+
+/**
+ * Rows as the chart needs them, from rows as the source holds them: dates normalized, the
+ * year and month read out of a date, a second field joined to x, rows added up, and counts
+ * turned into shares. Each step runs only when the measure asks for it.
+ */
+export function shapeRows(m: Measure, rows: Attributes[]): Attributes[] {
+  let out = rows.map((r) => {
+    const row: Attributes = { ...r };
+    if (m.xType === 'date') row[m.x] = normalizeDate(row[m.x]);
+    if (m.dateParts) {
+      const parts = isoParts(String(normalizeDate(row[m.dateParts]) ?? ''));
+      row[`${m.dateParts}_year`] = parts ? parts.y : null;
+      row[`${m.dateParts}_month`] = parts ? parts.m : null;
+    }
+    if (m.xWith) row[m.x] = [row[m.x], row[m.xWith]].filter((v) => v != null && v !== '').join(' ');
+    if (m.seriesBy) {
+      const s = row[m.seriesBy];
+      row[m.seriesBy] = s == null || s === '' ? 'Not stated' : String(s);
+    }
+    return row;
+  });
+  if (m.combine === 'sum') out = sumRows(m, out);
+  if (m.share) out = withShares(m, out);
+  return out;
 }
 
 /** Rows for a measure from the map service, long and normalized. */
@@ -172,19 +280,11 @@ export async function queryMeasure(m: Measure, opts: ServiceOptions = {}): Promi
     rows = await queryFeatures(layer, { where: m.where }, opts);
     rows = unpivot(rows, m.unpivot.prefix, m.x, typeof m.y === 'string' ? m.y : m.y[0].field);
   } else {
-    const fields = [...groups, ...measureYs(m).map((y) => y.field)];
-    if (m.standard && m.standard.field) fields.push(m.standard.field);
-    rows = await queryFeatures(layer, { where: m.where, outFields: [...new Set(fields)], orderByFields: m.x }, opts);
+    const fields = measureSourceFields(m);
+    // The server sorts by x when x is one of its fields; a part read from a date is sorted here.
+    rows = await queryFeatures(layer, { where: m.where, outFields: fields, orderByFields: fields.includes(m.x) ? m.x : undefined }, opts);
   }
-  return rows.map((r) => {
-    const row: Attributes = { ...r };
-    if (m.xType === 'date') row[m.x] = normalizeDate(row[m.x]);
-    if (m.seriesBy) {
-      const s = row[m.seriesBy];
-      row[m.seriesBy] = s == null || s === '' ? 'Not stated' : String(s);
-    }
-    return row;
-  });
+  return shapeRows(m, rows);
 }
 
 /** Rows with an x value, sorted (by value when sort is set, else by x), and capped at limit. */
@@ -228,6 +328,8 @@ export function measureColumns(m: Measure): MeasureColumn[] {
   if (m.seriesBy) cols.push({ field: m.seriesBy, headerName: m.seriesLabel || m.seriesBy });
   if (m.pick) cols.push({ field: m.pick, headerName: m.pickLabel || m.pick });
   for (const y of measureYs(m)) cols.push({ field: y.field, headerName: y.name || m.yLabel || 'Value', num: true });
+  // A share is of a count; the count it came from stays in the table as a plain number.
+  if (m.share) cols.push({ field: sourceYs(m)[0].field, headerName: m.yName || 'Count', num: true, format: '' });
   if (m.standard && m.standard.field) cols.push({ field: m.standard.field, headerName: m.standard.label || 'Threshold' });
   return cols;
 }
@@ -268,6 +370,10 @@ export function xDisplay(m: Measure, v: unknown): string {
   }
   const key = String(v);
   if (m.xNames && m.xNames[key]) return m.xNames[key];
+  if (m.xType === 'date' && m.dateStep === 'month') {
+    const parts = isoParts(key);
+    if (parts && parts.m >= 1 && parts.m <= 12) return formatMonthYear(parts.y, parts.m);
+  }
   return key;
 }
 

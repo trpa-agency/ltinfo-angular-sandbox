@@ -39,7 +39,7 @@ export interface ChartSpec {
   xKind: AxisKind;
   xLabel?: string;
   yLabel?: string;
-  /** ".0%" renders shares as percents; anything else is a plain number. */
+  /** ".0%" renders shares as percents (".1%" to one decimal); anything else is a plain number. */
   format?: string;
   /** Include zero on the value axis. Default true. */
   zero?: boolean;

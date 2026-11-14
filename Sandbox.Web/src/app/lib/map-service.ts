@@ -179,10 +179,14 @@ export function unpivot(rows: Attributes[], prefix: string, xField: string, yFie
 
 const pad2 = (n: number): string => String(n).padStart(2, '0');
 
+const MONTH_STARTS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+
 /**
- * ISO calendar date (YYYY-MM-DD) from epoch milliseconds, M/D/YYYY text, or
- * ISO text. Uses UTC so a midnight timestamp never rolls back a day. Values
- * that are none of those pass through unchanged.
+ * ISO calendar date (YYYY-MM-DD) from epoch milliseconds, M/D/YYYY text, ISO
+ * text, or a month and a year in words ("Jul-17", "July 2017": the first of
+ * that month, with a two-digit year read as 20xx). Uses UTC so a midnight
+ * timestamp never rolls back a day. Values that are none of those pass through
+ * unchanged.
  */
 export function normalizeDate(v: unknown): unknown {
   if (typeof v === 'number' && Number.isFinite(v)) {
@@ -194,6 +198,12 @@ export function normalizeDate(v: unknown): unknown {
     if (mdy) return `${mdy[3]}-${pad2(Number(mdy[1]))}-${pad2(Number(mdy[2]))}`;
     const iso = /^(\d{4})-(\d{2})-(\d{2})/.exec(v);
     if (iso) return `${iso[1]}-${iso[2]}-${iso[3]}`;
+    const monthYear = /^([A-Za-z]{3,9})\.?[-\s](\d{2}|\d{4})$/.exec(v.trim());
+    const month = monthYear ? MONTH_STARTS.indexOf(monthYear[1].slice(0, 3).toLowerCase()) : -1;
+    if (monthYear && month >= 0) {
+      const year = monthYear[2].length === 2 ? 2000 + Number(monthYear[2]) : Number(monthYear[2]);
+      return `${year}-${pad2(month + 1)}-01`;
+    }
   }
   return v;
 }

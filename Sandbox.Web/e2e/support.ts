@@ -25,15 +25,15 @@ export const TEMPLATE_LABELS: Record<Template, string> = {
 /** What Sandbox.Database seeds. Change a number here when the seed changes. */
 export const seed = {
   database: 'LTInfoSandbox',
-  programs: 111,
+  programs: 113,
   categories: 14,
   featured: 16,
   /** The 16 programs seed.sql marks IsFeatured = 1, so a stray one is named in the failure. */
   featuredIds: [13, 16, 33, 34, 36, 39, 61, 62, 63, 64, 65, 66, 69, 76, 77, 82],
-  partnerLinks: 303,
+  partnerLinks: 308,
   /** How many programs use each page layout. */
-  templates: { map: 42, charts: 60, context: 9 },
-  /** Program photos: 67 files across 40 programs; the other 71 programs have none. */
+  templates: { map: 42, charts: 62, context: 9 },
+  /** Program photos: 67 files across 40 programs; the other 73 programs have none. */
   photos: 67,
   programsWithPhotos: 40,
   /** The charts layout, and the program the detail and write tests use. One photo. */
@@ -132,10 +132,29 @@ export const seed = {
       'Sand Harbor visitors by month',
     ],
   },
+  /** A charts page on a table with a row a month and a column a service, the month as text. */
+  transitRidership: {
+    id: 9934,
+    name: 'Transit Ridership',
+    category: 'Transportation and Sustainable Communities',
+    partners: 4,
+    charts: ['Rides each month, by service', 'Rides each year, by service', 'Rides by month of the year'],
+    /** The six service columns, in the order the charts stack them. */
+    services: ['TTD fixed routes', 'TART fixed routes', 'TART Connect', 'Lake Link', 'TTD paratransit', 'TART paratransit'],
+  },
+  /** A charts page on one table of counts from three sources, each charted as shares. */
+  modeShare: {
+    id: 9935,
+    name: 'Travel Mode Share',
+    category: 'Transportation and Sustainable Communities',
+    partners: 1,
+    charts: ['Mode share in TRPA travel surveys', 'Mode share in Replica', 'Mode share in LOCUS'],
+    sources: ['Survey', 'Replica', 'LOCUS'],
+  },
   airQualityPrograms: 9,
   unknownId: 999999,
   /** GET /summary, and the four totals in the home page hero. */
-  summary: { programs: 111, categories: 14, mappedSites: 1842, partners: 60, photos: 67 },
+  summary: { programs: 113, categories: 14, mappedSites: 1842, partners: 61, photos: 67 },
   /** GET /monitoring-sites: one point per site, and one per mapped area or line. */
   sites: { total: 1842, site: 881, area: 927, line: 34 },
   /** Three categories the home page tests open. Folder is the /category/:folder address. */

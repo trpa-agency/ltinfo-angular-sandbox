@@ -7,8 +7,9 @@
 export const MONTHS = ['Jan.', 'Feb.', 'March', 'April', 'May', 'June', 'July', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'];
 
 /**
- * A value for tables, ticks, and labels. ".0%" shows shares as whole percents;
- * anything else is a plain number with at most 3 decimals. Blank for nulls and
+ * A value for tables, ticks, and labels. ".0%" shows shares as whole percents and
+ * ".1%" to one decimal, for shares under one percent; anything else is a plain
+ * number with at most 3 decimals. Blank for nulls and
  * anything that is not a finite number.
  */
 export function formatValue(v: unknown, format?: string): string {
@@ -16,6 +17,7 @@ export function formatValue(v: unknown, format?: string): string {
   const n = typeof v === 'number' ? v : Number(v);
   if (!Number.isFinite(n)) return '';
   if (format === '.0%') return `${Math.round(n * 100)}%`;
+  if (format === '.1%') return `${(n * 100).toFixed(1)}%`;
   return n.toLocaleString('en-US', { maximumFractionDigits: 3 });
 }
 
