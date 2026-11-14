@@ -21,10 +21,6 @@ export const EMPTY_TEXT = {
     description:
       'This section will show measurement charts from the TRPA map service, each with a table view and a CSV download.',
   },
-  sites: {
-    title: 'No sites loaded yet',
-    description: 'This section will show a map of the monitoring sites with the same sites listed beside it.',
-  },
   sitesPerYear: {
     title: 'No site records loaded yet',
     description: 'This section will show how many sites were monitored in each year of the record.',

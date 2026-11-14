@@ -83,7 +83,7 @@ test.describe('Site profile', () => {
     await expect(profile(page).locator('.profile__name')).toHaveText('Baldwin Beach');
     // Opened from the list, the card takes focus.
     await expect(profile(page).locator('.profile__name')).toBeFocused();
-    await expect(profile(page).getByRole('img', { name: /^Plant count at Baldwin Beach, \d{4} to \d{4}$/ })).toBeVisible();
+    await expect(profile(page).getByRole('img', { name: /^Stem count at Baldwin Beach, \d{4} to \d{4}$/ })).toBeVisible();
     await expect(profile(page).locator('app-profile-chart')).toHaveAttribute('data-drawn', 'true', { timeout: PANEL_TIMEOUT_MS });
     await expect(profile(page).locator('.profile__facts').first()).toContainText(/Record\s*\d{4} to \d{4}, \d+ surveys/);
     // Back to List returns to the list with the row focused.

@@ -1,6 +1,8 @@
 import { Signal, computed, signal } from '@angular/core';
 
 import type { ChartPanelData } from '../chart-panel/chart-panel';
+import { Headline, measureHeadline } from '../../lib/headline';
+import type { Measure } from '../../lib/measures';
 import {
   PanelState,
   SitesSummary,
@@ -11,9 +13,9 @@ import {
 } from '../../lib/sites';
 
 /**
- * Folds what the data panels report into the four summary tiles (Total sites,
- * Active sites, Record began, Latest data). A template makes one tracker, hands
- * every panel's (loaded) and (settled) output to it, and reads tiles().
+ * Folds what the data panels report into the summary tiles (the headline from the
+ * first measure, Total sites, Active sites, and Record). A template makes one tracker,
+ * hands every panel's (loaded) and (settled) output to it, and reads tiles().
  *
  * The same logic as the client script at the bottom of Program.astro in the
  * LT Info Monitoring Dashboard repo, with the panel events arriving as Angular
@@ -24,15 +26,21 @@ export class TileTracker {
   private readonly sitesState = signal<PanelState>('loading');
   private readonly chartStates = signal<Readonly<Record<string, PanelState>>>({});
   private readonly years = signal<readonly number[]>([]);
+  private readonly headline = signal<Headline | null>(null);
 
-  /** The four tiles, recomputed whenever a panel reports. */
+  /** The tiles, recomputed whenever a panel reports. */
   readonly tiles: Signal<Tile[]>;
 
   /**
    * @param hasSiteSource the program has a sitesLayer or a mapLayer
    * @param chartKeys one key per chart panel on the page, the sites-per-year chart included
+   * @param lead the program's first measure, which the headline tile reads; null when it has none
    */
-  constructor(hasSiteSource: Signal<boolean>, chartKeys: Signal<readonly string[]>) {
+  constructor(
+    hasSiteSource: Signal<boolean>,
+    chartKeys: Signal<readonly string[]>,
+    private readonly lead: Signal<Measure | null> = signal(null),
+  ) {
     this.tiles = computed(() => {
       const keys = chartKeys();
       const states = this.chartStates();
@@ -42,12 +50,15 @@ export class TileTracker {
         sites: this.sites(),
         chartsPending: keys.filter((key) => (states[key] ?? 'loading') === 'loading').length,
         years: [...this.years()],
+        // A headline from an earlier program is dropped when the first measure changes.
+        headline: this.lead() ? this.headline() : null,
       });
     });
   }
 
   /** A chart's rows arrived. Month axes carry no year; dates, years, and spans like 2016-2019 do. */
   chartLoaded(data: ChartPanelData): void {
+    if (data.measure === this.lead()) this.headline.set(measureHeadline(data.measure, data.rows));
     if (data.measure.xType === 'month') return;
     this.addYears(recordYears(data.rows.map((row) => row[data.measure.x])));
   }

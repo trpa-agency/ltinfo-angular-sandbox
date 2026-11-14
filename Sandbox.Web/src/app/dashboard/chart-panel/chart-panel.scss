@@ -155,7 +155,9 @@
   margin: var(--spacing-400) 0 0;
   color: var(--color-content-default-secondary);
 
+  // The source line sits on the card's sunken footer, where the link green falls short.
   a {
+    color: var(--mon-link-on-sunken);
     text-decoration: underline;
   }
 }

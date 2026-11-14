@@ -28,6 +28,8 @@ test.describe('A visitor', () => {
 
   test('sees no layout column or filter in the All Programs list', async ({ page }) => {
     await page.goto('/#all-programs');
+    // Unfiltered, the list shows its first rows and a button for the rest.
+    await page.getByRole('button', { name: /^Show all \d+ programs$/ }).click();
     await expect(page.locator('table.programs-table tbody tr')).toHaveCount(seed.programs);
     await expect(page.locator('table.programs-table thead th')).toHaveText(['Program', 'Category', 'Partners', 'Featured']);
     await expect(page.getByLabel('Layout')).toHaveCount(0);

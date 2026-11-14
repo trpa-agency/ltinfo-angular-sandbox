@@ -159,8 +159,9 @@
   color: var(--color-content-default-secondary);
 }
 
+// On the card's sunken footer, where the link green falls short of 4.5:1.
 .sites-panel__source a {
-  color: var(--color-content-link);
+  color: var(--mon-link-on-sunken);
   text-decoration: underline;
   overflow-wrap: anywhere;
 }

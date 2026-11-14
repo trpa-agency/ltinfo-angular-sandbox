@@ -62,6 +62,7 @@
                 <app-category-card
                   [group]="card.group"
                   [programs]="card.programs"
+                  [query]="search()"
                   [open]="card.open"
                   [hot]="hotFolder() === card.group.category.Folder"
                   (toggle)="toggle(card.group.category.Folder)"

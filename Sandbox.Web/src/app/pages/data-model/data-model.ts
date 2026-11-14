@@ -46,6 +46,7 @@ import {
   pathById,
   tally,
 } from '../../lib/ingest';
+import { Breadcrumb, Crumb } from '../../shared/breadcrumb';
 import { SchemaDiagram } from './schema-diagram';
 
 type EcologyChange = CustomEvent<{ value: string }>;
@@ -89,12 +90,19 @@ const TABLE_COLUMNS = [
   selector: 'app-data-model',
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [RouterLink, SchemaDiagram, EsaBadge, EsaButton, EsaCard, EsaEmptyState, EsaStat],
+  imports: [Breadcrumb, RouterLink, SchemaDiagram, EsaBadge, EsaButton, EsaCard, EsaEmptyState, EsaStat],
   templateUrl: './data-model.html',
   styleUrl: './data-model.scss',
 })
 export class DataModel {
   private readonly api = inject(SandboxApiService);
+
+  /** The page is reached from About Monitoring on the home page. */
+  protected readonly trail: readonly Crumb[] = [
+    { label: 'Monitoring Programs', link: ['/'] },
+    { label: 'About Monitoring', link: ['/'], fragment: 'about' },
+    { label: 'Data Model' },
+  ];
 
   protected readonly state = signal<LoadState<Loaded>>({ status: 'loading' });
   protected readonly search = signal('');

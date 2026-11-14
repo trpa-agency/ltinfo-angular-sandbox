@@ -300,10 +300,10 @@
     </dialog>
 
     <footer class="profile__foot">
-      <esa-button size="sm" variant="ghost" [disabled]="state() === 'loading'" (click)="download()">
+      <esa-button size="sm" variant="secondary" appearance="outline" [disabled]="state() === 'loading'" (click)="download()">
         Download this site's records
       </esa-button>
-      <esa-button size="sm" variant="ghost" (click)="zoom.emit(s.key)">Zoom to site</esa-button>
+      <esa-button size="sm" variant="secondary" appearance="outline" (click)="zoom.emit(s.key)">Zoom to site</esa-button>
       @if (view().link; as href) {
         <a class="profile__link typography-body-sm" [href]="href" target="_blank" rel="noopener">Lake Tahoe Info page</a>
       }

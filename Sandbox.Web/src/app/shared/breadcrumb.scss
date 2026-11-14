@@ -1,0 +1,36 @@
+// A breadcrumb: links in a row that wraps, divided by a slash. Tokens only.
+
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.crumbs__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--spacing-100) var(--spacing-200);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.crumbs__item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--spacing-200);
+  min-width: 0;
+  color: var(--color-content-default-secondary);
+  overflow-wrap: anywhere;
+}
+
+// The divider belongs to the step it leads, so a wrapped row never starts with one orphaned
+// at the end of the row above.
+.crumbs__item + .crumbs__item::before {
+  content: '/';
+  color: var(--color-content-default-secondary);
+}
+
+.crumbs__item [aria-current='page'] {
+  color: var(--color-content-default);
+}

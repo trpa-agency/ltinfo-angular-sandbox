@@ -8,24 +8,26 @@
     @let page = state();
 
     @if (page.status === 'loading') {
-      <p class="back typography-label-md"><a routerLink="/" fragment="all-programs">All Programs</a></p>
+      <app-breadcrumb [trail]="rootTrail" />
       <esa-card>
         <div role="status">
           <esa-empty-state [title]="'Loading program'"></esa-empty-state>
         </div>
       </esa-card>
     } @else if (page.status === 'error') {
-      <p class="back typography-label-md"><a routerLink="/" fragment="all-programs">All Programs</a></p>
+      <app-breadcrumb [trail]="rootTrail" />
       <esa-card>
         <div role="alert">
-          <esa-empty-state [title]="page.title" [description]="page.description"></esa-empty-state>
+          <esa-empty-state [title]="page.title" [description]="page.description">
+            <esa-button appearance="outline" (click)="toAllPrograms()">All Programs</esa-button>
+          </esa-empty-state>
         </div>
       </esa-card>
     } @else {
       @let program = page.data;
       @let layout = shown() ?? program.Template;
 
-      <!-- The back link and, in staff mode, the layout control share one line. Picking a layout
+      <!-- The breadcrumb and, in staff mode, the layout control share one line. Picking a layout
            previews it through ?template=; Save layout sends PATCH. -->
       @if (staff.on()) {
         <app-layout-control
@@ -36,10 +38,10 @@
           (pick)="preview($event, program.Template)"
           (save)="saveLayout(program)"
         >
-          <p class="back typography-label-md"><a routerLink="/" fragment="all-programs">All Programs</a></p>
+          <app-breadcrumb [trail]="trail()" />
         </app-layout-control>
       } @else {
-        <p class="back typography-label-md"><a routerLink="/" fragment="all-programs">All Programs</a></p>
+        <app-breadcrumb [trail]="trail()" />
       }
 
       <!-- One of three templates. -->

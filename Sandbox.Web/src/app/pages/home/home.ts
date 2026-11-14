@@ -164,7 +164,6 @@ export class Home {
     const value = (count: number | undefined): string | null => (summary ? formatCount(count ?? 0) : null);
     return [
       { label: 'monitoring programs', value: value(summary?.ProgramCount) },
-      { label: 'categories', value: value(summary?.CategoryCount) },
       { label: 'mapped monitoring sites', value: value(summary?.MappedSiteCount) },
       { label: 'partner organizations', value: value(summary?.PartnerCount) },
     ];
@@ -338,7 +337,9 @@ export class Home {
 
   /**
    * The section in view: the last one, in page order, that reaches the band from under the
-   * sticky nav to 40 percent down the window. At the very end of the page, About.
+   * sticky nav to 40 percent down the window. At the very end of the page, About. Above the
+   * first section, where only the hero is in the band, the first section: without that the
+   * item marked at the end of the page stayed marked after a return to the top.
    */
   private startSpy(): void {
     const ids = HOME_SECTIONS.map((section) => section.id);
@@ -346,8 +347,8 @@ export class Home {
     const inBand = new Set<HomeSectionId>();
     let atEnd = false;
     const update = (): void => {
-      const current = atEnd ? 'about' : [...ids].reverse().find((id) => inBand.has(id));
-      if (current) this.sections.active.set(current);
+      const current = atEnd ? 'about' : ([...ids].reverse().find((id) => inBand.has(id)) ?? ids[0]);
+      this.sections.active.set(current);
     };
     const band = new IntersectionObserver(
       (entries) => {
@@ -374,7 +375,8 @@ export class Home {
   }
 
   /**
-   * While the cards sit two across, the two collapsed cards of a row are one height, so a
+   * The cards are one column now, so this is at rest; it stays for a layout that puts them
+   * two across again. While the cards sit two across, the two collapsed cards of a row are one height, so a
    * long name that wraps (Transportation and Sustainable Communities) does not leave its
    * neighbor short. Rows stay as tall as their own content. Measured again when the grid
    * changes width or the fonts land.

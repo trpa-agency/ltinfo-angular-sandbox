@@ -22,6 +22,7 @@
 import type { APIRequestContext, Locator, Page } from '@playwright/test';
 
 import {
+  LIST_CAP,
   API_URL,
   FONT_PATTERN,
   PANEL_TIMEOUT_MS,
@@ -84,15 +85,23 @@ const previewNotice = (page: Page): Locator => page.locator('.layout__notice');
 const savedValue = (page: Page): Locator => page.locator('.featured__value');
 const featuredButton = (page: Page): Locator => page.locator('.featured').getByRole('button');
 
-/** The "All Programs" link at the top of a program page. */
+/** The first step of the breadcrumb at the top of a program page: the way back to the home page. */
 const backLink = (page: Page): Locator =>
-  page.locator('.back').getByRole('link', { name: 'All Programs', exact: true });
+  page.locator('app-breadcrumb').getByRole('link', { name: 'Monitoring Programs', exact: true });
+/** One summary tile of the header, by its key: headline, total, active, or record. */
+const tile = (page: Page, key: string): Locator => header(page).locator(`.tile[data-tile="${key}"]`);
+/** The button under the unfiltered list that shows every row. */
+const showAll = (page: Page): Locator =>
+  page.locator('.list-frame__foot').getByRole('button', { name: /^Show all \d+ programs$/ });
 
 const CONNECTED_LINE = `Angular, the API, and SQL Server are connected. Database ${seed.database}, ${seed.programs} programs.`;
 
 /** Opens the All Programs section of the home page and waits for the table and the footer health line. */
 async function openList(page: Page): Promise<void> {
   await page.goto('/#all-programs');
+  // Unfiltered, the list shows its first rows. The tests below work on the whole list.
+  await expect(rows(page)).toHaveCount(LIST_CAP);
+  await showAll(page).click();
   await expect(rows(page)).toHaveCount(seed.programs);
   await expect(footer(page)).toContainText(CONNECTED_LINE);
 }
@@ -189,13 +198,29 @@ test.describe('All Programs list', () => {
     const order = await frame.evaluate((root) =>
       [...root.children].map((child) => child.className.split(' ')[0]),
     );
-    expect(order).toEqual(['list-frame__filters', 'table-scroll', 'list-frame__count']);
+    expect(order).toEqual(['list-frame__filters', 'table-scroll', 'list-frame__foot']);
     // The totals live in the header band above; the list repeats none of them.
     await expect(page.locator('app-program-list .esa-stat')).toHaveCount(0);
     await expect(heroTotal(page, 'monitoring programs')).toHaveText(String(seed.programs));
   });
 
-  test('lists all 90 programs', async ({ page }) => {
+  test('shows the first rows until Show all, and Show fewer folds it again', async ({ page }) => {
+    // openList has already asked for every row.
+    const fewer = page.locator('.list-frame__foot').getByRole('button', { name: 'Show fewer' });
+    await fewer.click();
+    await expect(rows(page)).toHaveCount(LIST_CAP);
+    await expect(resultCount(page)).toHaveText(`Showing ${LIST_CAP} of ${seed.programs}`);
+    // A filter shows every match, and the button goes: a filtered list is short.
+    await searchBox(page).fill('o');
+    await expect(showAll(page)).toHaveCount(0);
+    expect(await rows(page).count()).toBeGreaterThan(LIST_CAP);
+    await searchBox(page).fill('');
+    await expect(rows(page)).toHaveCount(LIST_CAP);
+    await showAll(page).click();
+    await expect(rows(page)).toHaveCount(seed.programs);
+  });
+
+  test('lists every program', async ({ page }) => {
     await expect(rows(page)).toHaveCount(seed.programs);
     await expect(resultCount(page)).toHaveText(`Showing ${seed.programs} of ${seed.programs}`);
     await expect(page.locator('table.programs-table thead th')).toHaveText([
@@ -444,12 +469,10 @@ test.describe('Program page, shared parts', () => {
     });
     expect(edges.top).toBe(edges.bottom);
     await expect(page.locator('.category-tint, [style*="--category-color"]')).toHaveCount(0);
-    await expect(tiles(page).locator('.esa-stat__label')).toHaveText([
-      'Total sites',
-      'Active sites',
-      'Record began',
-      'Latest data',
-    ]);
+    // The tiles, by key: the sites, the active sites, and the record as one span.
+    await expect(tile(page, 'total').locator('.esa-stat__label')).toHaveText('Total sites');
+    await expect(tile(page, 'active').locator('.esa-stat__label')).toHaveText('Active sites');
+    await expect(tile(page, 'record').locator('.esa-stat__label')).toHaveText('Record');
 
     // The story: Ozone has no description, so the card holds the monitoring approach.
     await expect(page.locator('.prose')).toContainText('Ozone is monitored');
@@ -461,7 +484,12 @@ test.describe('Program page, shared parts', () => {
     // The Featured card keeps the write path.
     await expect(savedValue(page)).toHaveText('Saved value: Not featured');
     await expect(featuredButton(page)).toHaveText('Mark as featured');
-    await expect(backLink(page)).toHaveAttribute('href', '/#all-programs');
+    // The breadcrumb: the home page, the category, then this page.
+    await expect(backLink(page)).toHaveAttribute('href', '/');
+    const crumbs = page.locator('app-breadcrumb .crumbs__item');
+    await expect(crumbs).toHaveText(['Monitoring Programs', seed.ozone.category, seed.ozone.name]);
+    await expect(crumbs.nth(1).getByRole('link')).toHaveAttribute('href', '/category/air-quality');
+    await expect(crumbs.nth(2).locator('[aria-current="page"]')).toHaveText(seed.ozone.name);
   });
 
   test('the summary tiles fill in from the panels', async ({ page }) => {
@@ -469,13 +497,36 @@ test.describe('Program page, shared parts', () => {
     await openProgram(page, seed.ozone.id, seed.ozone.name);
     await expectPanelsSettled(page, seed.ozone.chartPanels, seed.ozone.sitesPanels);
 
-    // Once every panel has settled, no tile is still waiting: each shows a number or "n/a".
-    await expect(tiles(page).locator('.esa-stat__value')).toHaveText([
-      /^(\d[\d,]*|n\/a)$/,
-      /^(\d[\d,]*|n\/a)$/,
-      /^(\d{4}|n\/a)$/,
-      /^(\d{4}|n\/a)$/,
-    ]);
+    // Once every panel has settled, no tile is still waiting: each shows its figure.
+    await expect(tiles(page).locator('.esa-stat__value').filter({ hasText: '…' })).toHaveCount(0);
+    await expect(tile(page, 'total').locator('.esa-stat__value')).toHaveText(/^\d[\d,]*$/);
+    await expect(tile(page, 'active').locator('.esa-stat__value')).toHaveText(/^\d[\d,]*$/);
+    // The record is one tile: the first and last year, or one year when they are the same.
+    await expect(tile(page, 'record').locator('.esa-stat__value')).toHaveText(/^\d{4}( to \d{4})?$/);
+  });
+
+  test('the header of program 39 leads with its first measure: the latest value, the standard, and a trend line', async ({
+    page,
+  }) => {
+    test.setTimeout(PANEL_TIMEOUT_MS * 2);
+    const { id, name, chartPanels: charts, sitesPanels: maps } = seed.yellowCress;
+    await openProgram(page, id, name);
+    await expectPanelsSettled(page, charts, maps);
+    test.skip((await chartPanels(page).first().getAttribute('data-state')) !== 'ready', 'the map service did not answer');
+
+    const headline = tile(page, 'headline');
+    // The headline is the first tile, ahead of the site count.
+    await expect(header(page).locator('.tile').first()).toHaveAttribute('data-tile', 'headline');
+    await expect(headline.locator('.esa-stat__value')).toHaveText(/^\d+$/);
+    await expect(headline.locator('.esa-stat__label')).toHaveText('Occupied sites');
+    await expect(headline.locator('.esa-stat__sub')).toHaveText(/^\d{4}\. Threshold: 26$/);
+    // The trend line is decorative: the chart below carries the values.
+    const trend = headline.locator('svg.trend');
+    await expect(trend).toHaveAttribute('aria-hidden', 'true');
+    await expect(trend.locator('polyline')).toHaveCount(1);
+    await expect(trend.locator('line.trend__standard')).toHaveCount(1);
+    // Every site is mapped, so the count does not repeat itself as "65 mapped".
+    await expect(tile(page, 'total').locator('.esa-stat__sub')).toHaveCount(0);
   });
 
   test('the featured button saves through the API and is restored afterward', async ({
@@ -558,7 +609,7 @@ test.describe('Program page, shared parts', () => {
       await expect(
         page.getByRole('heading', { name: `No monitoring program has ID ${seed.unknownId}` }),
       ).toBeVisible();
-      await expect(page.getByText('Go back to the list and pick a program.')).toBeVisible();
+      await expect(page.getByText('Pick a program from the menu or the full list.')).toBeVisible();
       await expect(page.locator('.featured')).toHaveCount(0);
       await expect(program(page)).toHaveCount(0);
       await expect(saveLayout(page)).toHaveCount(0);
@@ -568,9 +619,11 @@ test.describe('Program page, shared parts', () => {
       expect(consoleErrors).toHaveLength(1);
       expect(consoleErrors[0]).toMatch(expected404);
 
-      await backLink(page).click();
+      // The way back is a button in the message, and the breadcrumb still leads home.
+      await expect(backLink(page)).toHaveAttribute('href', '/');
+      await page.getByRole('button', { name: 'All Programs', exact: true }).click();
       await expect(page).toHaveURL(/\/#all-programs$/);
-      await expect(rows(page)).toHaveCount(seed.programs);
+      await expect(rows(page)).toHaveCount(LIST_CAP);
     });
   });
 });
@@ -697,24 +750,28 @@ test.describe('The three templates', () => {
     await expectPanelsSettled(page, seed.standComposition.chartPanels, 0);
   });
 
-  test('a map or charts layout with nothing configured shows the house empty states', async ({
+  test('a map or charts layout with nothing configured has no Sites section, and says the charts are absent', async ({
     page,
   }) => {
-    // Instream Flow has no chart or map settings. Previewed in the charts
-    // layout, each data section says what is absent and what it will show.
+    // Instream Flow has no chart or map settings. Previewed in the charts and the map
+    // layouts, the Measurements section says what is absent and what it will show, and
+    // there is no Sites section: a program with no sites does not show one empty.
     const { id, name } = seed.instreamFlow;
-    await openProgram(page, id, name, '?template=charts');
+    for (const template of ['charts', 'map']) {
+      await openProgram(page, id, name, `?template=${template}`);
 
-    await expect(program(page)).toHaveAttribute('data-template', 'charts');
-    for (const [title, description] of [
-      ['No measurements loaded yet', 'This section will show measurement charts'],
-      ['No sites loaded yet', 'This section will show a map of the monitoring sites'],
-      ['No site records loaded yet', 'This section will show how many sites were monitored'],
-    ]) {
-      await expect(page.getByRole('heading', { name: title })).toBeVisible();
-      await expect(page.getByText(description)).toBeVisible();
+      await expect(program(page)).toHaveAttribute('data-template', template);
+      await expect(page.getByRole('heading', { name: 'No measurements loaded yet' })).toBeVisible();
+      await expect(page.getByText('This section will show measurement charts')).toBeVisible();
+      expect(
+        await sections(page).evaluateAll((list) => list.map((el) => el.getAttribute('data-section'))),
+      ).toEqual(['measurements', 'about']);
+      await expect(page.getByRole('heading', { name: 'Sites', exact: true })).toHaveCount(0);
+      await expect(page.getByText('No sites loaded yet')).toHaveCount(0);
+      await expect(page.getByText('No site records loaded yet')).toHaveCount(0);
+      await expect(page.getByRole('heading', { name: 'Sites monitored each year' })).toHaveCount(0);
+      await expectPanelsSettled(page, 0, 0);
     }
-    await expectPanelsSettled(page, 0, 0);
   });
 });
 
@@ -849,7 +906,8 @@ test.describe('Photos', () => {
       await expect(header(page).locator('img')).toHaveCount(0);
       await expect(heroButton(page)).toHaveCount(0);
       // The rest of the header is unharmed.
-      await expect(tiles(page)).toHaveCount(4);
+      await expect(tile(page, 'total')).toHaveCount(1);
+      await expect(tile(page, 'record')).toHaveCount(1);
     });
   });
 });
@@ -987,7 +1045,7 @@ test.describe('API down', () => {
     await page.unroute(isApiCall);
     await page.getByRole('button', { name: 'Try again' }).click();
 
-    await expect(rows(page)).toHaveCount(seed.programs);
+    await expect(rows(page)).toHaveCount(LIST_CAP);
     await expect(heroTotal(page, 'monitoring programs')).toHaveText(String(seed.programs));
     await expect(page.locator('app-category-card')).toHaveCount(seed.categories);
   });
@@ -1045,10 +1103,12 @@ test.describe('At 375 px wide', () => {
         expect(bounds.x).toBeGreaterThanOrEqual(0);
         expect(bounds.x + bounds.width).toBeLessThanOrEqual(375);
       }
-      // The tiles shown (those with something to report) reflow to two across.
-      const tileBoxes = await Promise.all((await tiles(page).all()).map((tile) => tile.boundingBox()));
-      if (tileBoxes.length >= 2) expect(tileBoxes[0]!.y).toBe(tileBoxes[1]!.y);
-      if (tileBoxes.length >= 3) expect(tileBoxes[2]!.y).toBeGreaterThan(tileBoxes[0]!.y);
+      // The tiles wrap inside the header: each one fits the screen, whatever row it lands on.
+      for (const box of await header(page).locator('.tile').all()) {
+        const bounds = (await box.boundingBox())!;
+        expect(bounds.x).toBeGreaterThanOrEqual(0);
+        expect(bounds.x + bounds.width).toBeLessThanOrEqual(375);
+      }
     });
   }
 

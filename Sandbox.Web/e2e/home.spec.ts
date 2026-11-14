@@ -12,7 +12,7 @@
 // and one data color for every site.
 import type { APIRequestContext, Locator, Page } from '@playwright/test';
 
-import { API_URL, DATA_COLOR_TOKEN, FONT_PATTERN, HOME_SECTIONS, PANEL_TIMEOUT_MS, expect, seed, test } from './support';
+import { API_URL, DATA_COLOR_TOKEN, FONT_PATTERN, HOME_SECTIONS, LIST_CAP, PANEL_TIMEOUT_MS, expect, seed, test } from './support';
 
 interface Category {
   CategoryName: string;
@@ -133,20 +133,18 @@ async function sidewaysOverflow(page: Page): Promise<number> {
 }
 
 test.describe('Home page', () => {
-  test('the hero shows the four totals from the API', async ({ page }) => {
+  test('the hero shows the three totals from the API', async ({ page }) => {
     await page.goto('/');
 
     await expect(page.getByRole('heading', { level: 1, name: 'Monitoring Programs' })).toBeVisible();
     const stats = page.locator('.hero-stat');
     await expect(stats.locator('dt')).toHaveText([
       'monitoring programs',
-      'categories',
       'mapped monitoring sites',
       'partner organizations',
     ]);
     await expect(stats.locator('dd')).toHaveText([
       String(seed.summary.programs),
-      String(seed.summary.categories),
       seed.summary.mappedSites.toLocaleString('en-US'),
       String(seed.summary.partners),
     ]);
@@ -182,22 +180,21 @@ test.describe('Home page', () => {
       );
     expect(new Set(looks).size, looks.join(' | ')).toBe(1);
 
-    // Two across, and the two collapsed cards of each row are one height, even where a long
-    // name wraps. With an odd count the last card sits alone.
-    const heights = await page.locator('.cat__head').evaluateAll((heads) => heads.map((head) => (head as HTMLElement).offsetHeight));
-    for (let row = 0; row + 1 < heights.length; row += 2) {
-      expect(heights[row + 1], `head heights ${heights.join(', ')}`).toBe(heights[row]);
-      const left = (await cards(page).nth(row).boundingBox())!;
-      const right = (await cards(page).nth(row + 1).boundingBox())!;
-      expect(right.y).toBe(left.y);
-      expect(right.x).toBeGreaterThan(left.x);
+    // One column: every card shares a left edge and sits under the one before, so an open
+    // card has the full width and leaves no blank column beside it.
+    const boxes = await Promise.all((await cards(page).all()).map((item) => item.boundingBox()));
+    for (let i = 1; i < boxes.length; i += 1) {
+      expect(boxes[i]!.x).toBe(boxes[0]!.x);
+      expect(boxes[i]!.y).toBeGreaterThan(boxes[i - 1]!.y);
     }
 
-    // A category with one program and no mapped sites lists it when opened.
+    // A category with one program and no sites on the home map lists it when opened, and
+    // says nothing about sites: the program's own page may map areas or a service layer.
     await cardHead(page, seed.recreation.folder).click();
     await expect(programLinks(recreation)).toHaveCount(1);
     await expect(programLinks(recreation)).toContainText(seed.recreation.program);
-    await expect(recreation.locator('.prog__sites')).toHaveText('No mapped sites');
+    await expect(recreation.locator('.prog__sites')).toHaveCount(0);
+    await expect(page.getByText('No mapped sites')).toHaveCount(0);
   });
 
   test('opening a card lists its programs, and a program link opens its page', async ({
@@ -219,13 +216,13 @@ test.describe('Home page', () => {
     await expect(cardHead(page, seed.waterQuality.folder)).toHaveAttribute('aria-expanded', 'true');
     await expect(page).toHaveURL(new RegExp(`/category/${seed.waterQuality.folder}$`));
     await expect(programLinks(wq).locator('.prog__name')).toHaveText(waterQuality);
-    // Each program says how many sites it maps, or quietly that it maps none.
+    // Each program says how many sites it has on the home map, and nothing when it has none.
     await expect(programLinks(wq).filter({ hasText: seed.periphyton.name }).locator('.prog__sites')).toHaveText(
       `${seed.periphyton.sites} sites`,
     );
     await expect(
       programLinks(wq).filter({ hasText: 'Harmful Algae Bloom (HAB) Monitoring' }).locator('.prog__sites'),
-    ).toHaveText('No mapped sites');
+    ).toHaveCount(0);
     // Only one card is open.
     await expect(page.locator('.cat__head[aria-expanded="true"]')).toHaveCount(1);
 
@@ -273,6 +270,9 @@ test.describe('Home page', () => {
     await page.getByRole('button', { name: 'Clear search' }).click();
     await expect(cards(page)).toHaveCount(seed.categories);
     await expect(searchBox(page)).toHaveValue('');
+    // The cards return under the pointer, where the button was, and a card under the pointer
+    // colors its category. A click on blank space shows every site again.
+    await page.locator('.hero__intro').click();
     await expectHighlighted(page, seed.sites.total);
   });
 
@@ -345,7 +345,9 @@ test.describe('Home page', () => {
     await blank(page).hover();
     await expectHighlighted(page, seed.airQuality.sites);
 
-    // Focus does what hover does.
+    // Focus does what hover does. The pointer is moved off the page first: focusing the last
+    // card scrolls the list, and a card that scrolls under a resting pointer is hovered.
+    await page.mouse.move(0, 0);
     await cardHead(page, seed.waterQuality.folder).focus();
     await expectHighlighted(page, seed.waterQuality.sites);
 
@@ -362,6 +364,8 @@ test.describe('Home page', () => {
     await expect(mapTitle(page)).toHaveText(seed.periphyton.name);
     await blank(page).hover();
     await expectHighlighted(page, seed.waterQuality.sites);
+    // Off the page again, so the scroll that focus causes puts no other program under the pointer.
+    await page.mouse.move(0, 0);
     await periphyton.focus();
     await expectHighlighted(page, seed.periphyton.sites);
 
@@ -450,12 +454,25 @@ test.describe('Home page', () => {
   });
 });
 
+test.describe('A search explains its matches', () => {
+  test('a program matched by a partner name says which partner', async ({ page }) => {
+    await openHome(page);
+    await searchBox(page).fill('desert research');
+    const hints = page.locator('.prog__partner:visible');
+    await expect(hints.first()).toHaveText('Partner: Desert Research Institute');
+    // A match on the program's own name needs no explaining.
+    await searchBox(page).fill('ozone');
+    await expect(programLinks(page).first()).toBeVisible();
+    await expect(page.locator('.prog__partner:visible')).toHaveCount(0);
+  });
+});
+
 test.describe('Nav row and sections', () => {
   test('each nav item scrolls to its section, moves focus to its heading, and becomes current', async ({
     page,
   }) => {
     await openHome(page);
-    await expectActiveNav(page, 'Monitoring Programs');
+    await expectActiveNav(page, 'Categories');
 
     for (const section of [...HOME_SECTIONS].reverse()) {
       await navLink(page, section.nav).click();
@@ -470,7 +487,7 @@ test.describe('Nav row and sections', () => {
 
     // The same item again, after scrolling away, still scrolls back.
     await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
-    await navLink(page, 'Monitoring Programs').click();
+    await navLink(page, 'Categories').click();
     await expect.poll(() => headingInView(page, sectionHeading(page, 'Categories'))).toBe(true);
   });
 
@@ -488,9 +505,9 @@ test.describe('Nav row and sections', () => {
     await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
     await expectActiveNav(page, 'About Monitoring');
     await scrollToSection('categories');
-    await expectActiveNav(page, 'Monitoring Programs');
+    await expectActiveNav(page, 'Categories');
     await page.evaluate(() => window.scrollTo(0, 0));
-    await expectActiveNav(page, 'Monitoring Programs');
+    await expectActiveNav(page, 'Categories');
   });
 
   test('on a program page no nav item is current, and a nav item opens the home page at its section', async ({
@@ -510,7 +527,7 @@ test.describe('Nav row and sections', () => {
   test('/programs and /about redirect to their sections of the home page', async ({ page }) => {
     await page.goto('/programs');
     await expect(page).toHaveURL(/\/#all-programs$/);
-    await expect(listRows(page)).toHaveCount(seed.programs);
+    await expect(listRows(page)).toHaveCount(LIST_CAP);
     await expect(sectionHeading(page, 'All Programs')).toBeFocused();
     await expect.poll(() => headingInView(page, sectionHeading(page, 'All Programs'))).toBe(true);
     await expectActiveNav(page, 'All Programs');
@@ -522,10 +539,24 @@ test.describe('Nav row and sections', () => {
     await expectActiveNav(page, 'About Monitoring');
   });
 
-  test('an unknown address still redirects home', async ({ page }) => {
+  test('an unknown address says the page was not found, with the way home', async ({ page }) => {
     await page.goto('/no/such/page');
+    await expect(page).toHaveURL(/\/no\/such\/page$/);
+    await expect(page.getByRole('heading', { name: 'Page not found' })).toBeVisible();
+    await expect(page).toHaveTitle('Page not found | LT Info sandbox');
+    await page.getByRole('button', { name: 'Monitoring Programs', exact: true }).click();
     await expect(page).toHaveURL(/\/$/);
     await expect(cards(page)).toHaveCount(seed.categories);
+  });
+
+  test('after the end of the page and back to the top, Categories is current again', async ({ page }) => {
+    await openHome(page);
+    await expectActiveNav(page, 'Categories');
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    await expectActiveNav(page, 'About Monitoring');
+    // The top of the page shows only the hero in the spy's band; the first section is current.
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await expectActiveNav(page, 'Categories');
   });
 });
 

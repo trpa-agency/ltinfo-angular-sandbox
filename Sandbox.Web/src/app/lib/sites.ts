@@ -1173,13 +1173,26 @@ export function areasSummary(cfg: SitesPanelConfig, features: Feature[], picked:
 export type PanelState = 'loading' | 'ready' | 'empty' | 'error';
 
 export interface Tile {
-  key: 'total' | 'active' | 'first' | 'last';
+  key: 'headline' | 'total' | 'active' | 'record';
   label: string;
   value: string;
   sub: string;
+  /** The headline tile only: the record behind the value, for its trend line. */
+  points?: number[];
+  /** The headline tile only: the standard on the scale of the points, or null. */
+  threshold?: number | null;
 }
 
-/** Everything the four tiles are computed from, kept by the page script as data arrives. */
+/** The figure the header leads with, worked out from the first measure (lib/headline.ts). */
+export interface TileHeadline {
+  value: string;
+  label: string;
+  sub: string;
+  points: number[];
+  threshold: number | null;
+}
+
+/** Everything the tiles are computed from, kept by the page script as data arrives. */
 export interface TileState {
   /** The program has a sitesLayer, mapLayer, or geojson source. */
   hasSiteSource: boolean;
@@ -1191,6 +1204,8 @@ export interface TileState {
   chartsPending: number;
   /** Every year seen so far: chart x values, site spans, and the sites-per-year count. */
   years: number[];
+  /** The first measure's latest value, once its rows are in; null when it has none. */
+  headline?: TileHeadline | null;
 }
 
 export const TILE_LOADING = '…';
@@ -1209,9 +1224,11 @@ export function initialTileState(hasSiteSource: boolean, chartCount: number): Ti
 }
 
 /**
- * The four summary tiles. Each shows "n/a" with a sub line that says why when the page has no
- * source for it, the loading mark while a source is in flight, and the number once it lands.
- * Ported from the kpi() calls and noteYears() in the reference template.
+ * The summary tiles, in reading order: the headline (the first measure's latest value, when
+ * it has one), the sites, the active sites, and the record span. A tile with no source shows
+ * "n/a" with a sub line that says why, and the loading mark while its source is in flight;
+ * the strip leaves "n/a" tiles out. The site count says how many are mapped only when that
+ * differs from the total, and the record is one tile, "1978 to 2025", not two.
  */
 export function summaryTiles(state: TileState): Tile[] {
   const { sites } = state;
@@ -1236,7 +1253,12 @@ export function summaryTiles(state: TileState): Tile[] {
     total = { key: 'total', label: 'Total sites', value: n(sites.total), sub: `${sites.unitPlural}${pickedText}` };
     active = { key: 'active', label: 'Active sites', value: TILE_NA, sub: `Not tracked for ${sites.unitPlural.toLowerCase()}` };
   } else {
-    total = { key: 'total', label: 'Total sites', value: n(sites.total), sub: `${n(sites.mapped)} mapped` };
+    total = {
+      key: 'total',
+      label: 'Total sites',
+      value: n(sites.total),
+      sub: sites.mapped === sites.total ? '' : `${n(sites.mapped)} mapped`,
+    };
     active =
       sites.active == null
         ? { key: 'active', label: 'Active sites', value: TILE_NA, sub: 'No active flag in the source' }
@@ -1245,17 +1267,21 @@ export function summaryTiles(state: TileState): Tile[] {
 
   const years = recordYears(state.years);
   const waiting = state.chartsPending > 0 || (state.hasSiteSource && state.sitesState === 'loading');
-  let first: Tile;
-  let last: Tile;
+  let record: Tile;
   if (years.length) {
-    first = { key: 'first', label: 'Record began', value: String(years[0]), sub: '' };
-    last = { key: 'last', label: 'Latest data', value: String(years[years.length - 1]), sub: '' };
+    const first = years[0];
+    const last = years[years.length - 1];
+    record = { key: 'record', label: 'Record', value: first === last ? String(first) : `${first} to ${last}`, sub: '' };
   } else if (waiting && (state.hasDatedCharts || state.hasSiteSource)) {
-    first = { key: 'first', label: 'Record began', value: TILE_LOADING, sub: 'Loading' };
-    last = { key: 'last', label: 'Latest data', value: TILE_LOADING, sub: 'Loading' };
+    record = { key: 'record', label: 'Record', value: TILE_LOADING, sub: 'Loading' };
   } else {
-    first = { key: 'first', label: 'Record began', value: TILE_NA, sub: 'No dated records' };
-    last = { key: 'last', label: 'Latest data', value: TILE_NA, sub: 'No dated records' };
+    record = { key: 'record', label: 'Record', value: TILE_NA, sub: 'No dated records' };
   }
-  return [total, active, first, last];
+
+  const tiles: Tile[] = [total, active, record];
+  if (state.headline) {
+    const { value, label, sub, points, threshold } = state.headline;
+    tiles.unshift({ key: 'headline', label, value, sub, points, threshold });
+  }
+  return tiles;
 }

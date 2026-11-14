@@ -969,7 +969,14 @@ export function profileChartSpec(
   record: Pick<ProfileRecordConfig, 'unit' | 'decimals' | 'standard' | 'zero'>,
   unitPlural: string = 'sites',
 ): ChartSpec {
-  const series = [{ name: SITE_SERIES, points: yearly.map((y) => ({ x: y.year, y: y.value })) }];
+  // A year the other sites were surveyed and this one was not is a hole in this site's
+  // record: a null point there stops the line, where it used to run straight across (1992 to
+  // 1997 at Baldwin Beach) as if the site had been surveyed. A year nobody surveyed is not a
+  // hole, so the line carries over it.
+  const own = new Set(yearly.map((y) => y.year));
+  const missed = medians.filter((m) => !own.has(m.year)).map((m) => ({ x: m.year, y: null as number | null }));
+  const sitePoints = [...yearly.map((y) => ({ x: y.year, y: y.value as number | null })), ...missed].sort((a, b) => a.x - b.x);
+  const series: ChartSpec['series'] = [{ name: SITE_SERIES, points: sitePoints }];
   if (medians.length >= 2) series.push({ name: `Median of all ${unitPlural}`, points: medians.map((y) => ({ x: y.year, y: y.value })) });
   const label = capitalize(record.standard?.label || 'standard');
   return {

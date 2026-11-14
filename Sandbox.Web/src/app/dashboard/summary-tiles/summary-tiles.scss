@@ -1,6 +1,7 @@
-// A strip of four esa-stat tiles. The strip measures itself (a container
-// query), so it drops to two across wherever its own box is narrow: in a phone
-// viewport, or in the narrow text column of a header that has a photo beside it.
+// A strip of esa-stat tiles that wraps. Each tile takes the width its figure needs, so a
+// long value ("1978 to 2025") is not squeezed into a quarter of the strip and a strip of
+// three leaves no orphan. The strip measures itself (a container query): where its own box
+// is narrow, in a phone viewport or beside a photo, the headline takes a row of its own.
 
 :host {
   display: block;
@@ -15,21 +16,62 @@
 }
 
 .tiles {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--spacing-400) var(--spacing-300);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-400) var(--spacing-500);
 }
 
-// A hairline divides the tiles, so the four read as one row of figures without a card
+// A hairline divides the tiles, so they read as one row of figures without a card
 // around each. Neutral, and the same weight as every other rule on the page.
 .tile {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-300);
+  flex: 0 1 auto;
   min-width: 0;
+  max-width: 100%;
   padding-inline-start: var(--spacing-300);
   border-inline-start: var(--border-width-default) solid var(--color-border-default);
 }
 
+// The record span is one figure: it wraps to the next row whole, never in the middle.
+.tile[data-tile='record'] {
+  white-space: nowrap;
+}
+
+// The trend line: the record behind the headline, in the first data color, with the
+// standard as a dashed rule. Sized in spacing steps; the viewBox scales to it.
+.trend {
+  flex: none;
+  align-self: flex-end;
+  inline-size: calc(var(--spacing-800) + var(--spacing-600));
+  block-size: var(--spacing-600);
+  margin-block-end: var(--spacing-100);
+  overflow: visible;
+}
+
+.trend__line {
+  fill: none;
+  stroke: var(--color-background-dataviz-categorical-1);
+  stroke-width: var(--border-width-focus);
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.trend__end {
+  fill: var(--color-background-dataviz-categorical-1);
+}
+
+.trend__standard {
+  stroke: var(--color-content-default-secondary);
+  stroke-width: var(--border-width-default);
+  stroke-dasharray: 3 2;
+  vector-effect: non-scaling-stroke;
+}
+
 @container (max-width: 30rem) {
-  .tiles {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .tile[data-tile='headline'] {
+    flex-basis: 100%;
   }
 }

@@ -166,9 +166,12 @@ export const seed = {
   periphyton: { id: 13, name: 'Periphyton', sites: 54 },
 } as const;
 
+/** Rows the unfiltered All Programs list shows before "Show all" (PROGRAM_LIST_CAP in program-list.ts). */
+export const LIST_CAP = 12;
+
 /** The home page sections, in page order, with the nav item that scrolls to each. */
 export const HOME_SECTIONS = [
-  { id: 'categories', nav: 'Monitoring Programs', heading: 'Categories' },
+  { id: 'categories', nav: 'Categories', heading: 'Categories' },
   { id: 'all-programs', nav: 'All Programs', heading: 'All Programs' },
   { id: 'about', nav: 'About Monitoring', heading: 'About Monitoring' },
 ] as const;

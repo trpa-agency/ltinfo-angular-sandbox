@@ -5,6 +5,9 @@
 :host {
   display: block;
   min-width: 0;
+  // The card measures itself: in a wide card the counts sit on the name's line and the
+  // program list runs in two columns.
+  container-type: inline-size;
 }
 
 .cat {
@@ -141,6 +144,10 @@
   list-style: none;
 }
 
+.cat__programs li {
+  break-inside: avoid;
+}
+
 // Dense rows: the name, and the site count right-aligned in the same line.
 .prog {
   display: flex;
@@ -165,8 +172,18 @@
   outline-offset: calc(-1 * var(--border-width-focus));
 }
 
+.prog__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
 .prog__name {
   min-width: 0;
+}
+
+.prog__partner {
+  color: var(--color-content-default-secondary);
 }
 
 .prog__sites {
@@ -174,10 +191,6 @@
   color: var(--color-content-default-secondary);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
-}
-
-.prog__sites.is-none {
-  color: var(--color-content-default-tertiary);
 }
 
 .cat__actions {
@@ -191,6 +204,26 @@
   padding: var(--spacing-250) var(--spacing-400) var(--spacing-300);
   border-top: var(--border-width-default) solid var(--color-border-default-subtle);
   color: var(--color-content-default-secondary);
+}
+
+// A wide card (the cards are one column, so most are): the counts move up beside the name,
+// and a long program list runs in two columns, read down the first and then the second.
+@container (min-width: 34rem) {
+  .cat__text {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--spacing-400);
+  }
+
+  .cat__meta {
+    flex: none;
+  }
+
+  .cat__programs {
+    columns: 2;
+    column-gap: var(--spacing-400);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

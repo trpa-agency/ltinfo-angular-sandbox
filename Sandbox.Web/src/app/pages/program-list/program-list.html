@@ -25,12 +25,12 @@
             @if (staff.on()) {
               <th scope="col">Layout</th>
             }
-            <th scope="col" class="is-number">Partners</th>
-            <th scope="col">Featured</th>
+            <th scope="col" class="is-number is-extra">Partners</th>
+            <th scope="col" class="is-extra">Featured</th>
           </tr>
         </thead>
         <tbody class="typography-body-sm">
-          @for (program of filtered(); track program.MonitoringProgramID) {
+          @for (program of visible(); track program.MonitoringProgramID) {
             <tr>
               <th scope="row">
                 <span class="program-cell">
@@ -59,8 +59,8 @@
                 <esa-badge [value]="layoutLabels[program.Template]" size="sm" />
               </td>
               }
-              <td class="is-number">{{ program.PartnerCount }}</td>
-              <td>
+              <td class="is-number is-extra">{{ program.PartnerCount }}</td>
+              <td class="is-extra">
                 @if (program.IsFeatured) {
                   <esa-badge value="Featured" size="sm" />
                 } @else {
@@ -84,7 +84,20 @@
     </div>
   }
 
-  <p class="list-frame__count typography-meta" role="status">
-    Showing {{ filtered().length }} of {{ programs().length }}
-  </p>
+  <div class="list-frame__foot">
+    <p class="list-frame__count typography-meta" role="status">
+      Showing {{ visible().length }} of {{ programs().length }}
+    </p>
+    @if (!filtering() && filtered().length > cap) {
+      <esa-button
+        class="list-frame__more"
+        size="sm"
+        variant="secondary"
+        appearance="outline"
+        (click)="expanded.set(!expanded())"
+      >
+        {{ expanded() ? 'Show fewer' : 'Show all ' + filtered().length + ' programs' }}
+      </esa-button>
+    }
+  </div>
 </div>

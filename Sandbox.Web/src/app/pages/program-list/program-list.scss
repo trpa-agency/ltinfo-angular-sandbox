@@ -24,10 +24,19 @@
   padding: var(--spacing-600) var(--spacing-400);
 }
 
-.list-frame__count {
-  margin: 0;
+// The foot of the frame: the record count, and the button that shows the rest of the list.
+.list-frame__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-200) var(--spacing-400);
   padding: var(--spacing-200) var(--spacing-400);
   border-top: var(--border-width-default) solid var(--color-border-default);
+}
+
+.list-frame__count {
+  margin: 0;
   color: var(--color-content-default-secondary);
   font-variant-numeric: tabular-nums;
 }
@@ -118,4 +127,21 @@
 .programs-table .is-number {
   text-align: end;
   font-variant-numeric: tabular-nums;
+}
+
+// A phone shows the two columns that answer "which program, in which category" and fits
+// them to the screen; Partners and Featured return from 40rem, where the table has room.
+@media (max-width: 40rem) {
+  .programs-table {
+    min-width: 0;
+  }
+
+  .programs-table .is-extra {
+    display: none;
+  }
+
+  .programs-table th,
+  .programs-table td {
+    padding-inline: var(--spacing-300);
+  }
 }

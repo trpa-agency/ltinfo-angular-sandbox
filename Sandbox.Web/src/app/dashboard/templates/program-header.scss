@@ -3,8 +3,8 @@
 // the only layout numbers.
 //
 // The base rules are the phone layout: one column, the photo on top of the text. From
-// 48rem up the photo sits beside the text; in the compact band an empty well holds the
-// slot when there is no photo.
+// 48rem up the photo sits beside the text. With no photo the text has the full width; in
+// the compact band a well holds the slot only when a photo failed to load.
 
 :host {
   display: block;
@@ -99,8 +99,8 @@
     display: block;
   }
 
-  // Compact: the photo fills the end of the band, top to bottom.
-  :host([data-variant='compact']) .head__body {
+  // Compact: the photo fills the end of the band, top to bottom. No photo, no column.
+  :host([data-variant='compact']:not([data-photo='none'])) .head__body {
     grid-template-columns: minmax(0, 1fr) minmax(0, 20rem);
   }
   :host([data-variant='compact']) .head__photo {

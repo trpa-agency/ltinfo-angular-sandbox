@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 
 import type { MonitoringProgramSummary } from '../../api/models';
 import { EsaButton } from '../../ecology/esa-button';
-import { CategoryGroup, formatCount } from './home-model';
+import { CategoryGroup, formatCount, matchedPartner } from './home-model';
 
 /**
  * One threshold category card: the icon, the name, the program and mapped site counts, and
@@ -26,6 +26,8 @@ export class CategoryCard {
   readonly group = input.required<CategoryGroup>();
   /** The programs to list: all of them, or the ones that match the search. */
   readonly programs = input.required<readonly MonitoringProgramSummary[]>();
+  /** The search text, so a program matched by a partner name can say which partner. */
+  readonly query = input('');
   readonly open = input(false);
   /** True when this category's sites are the ones in color on the map. */
   readonly hot = input(false);
@@ -39,4 +41,6 @@ export class CategoryCard {
 
   protected readonly dropId = computed(() => `programs-${this.group().category.Folder}`);
   protected readonly formatCount = formatCount;
+  protected readonly partner = (program: MonitoringProgramSummary): string | null =>
+    matchedPartner(program, this.query());
 }

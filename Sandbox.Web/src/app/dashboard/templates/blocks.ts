@@ -4,13 +4,14 @@
 //
 //   app-band                a titled section of the page
 //   app-measurements-block  one chart panel per measure, paired by panelSpans
-//   app-sites-block         the map and site list
-//   app-per-year-block      the "sites monitored each year" chart
+//   app-sites-block         the map and site list, for a program that has sites or areas
+//   app-per-year-block      the "sites monitored each year" chart, when it is configured
 //   app-program-story       description and monitoring approach
 //   app-program-partners    the partner organizations, and the program's pages on the other dashboards
 //
 // A block with nothing to show renders the house empty state: what is absent,
-// then what the section will show.
+// then what the section will show. The two site blocks are the exception: a program with no
+// sites has no Sites section, so the templates leave them out instead of showing them empty.
 import { ChangeDetectionStrategy, Component, booleanAttribute, computed, input } from '@angular/core';
 
 import type { Partner, RelatedLink } from '../../api/models';
@@ -97,7 +98,7 @@ export class MeasurementsBlock {
 @Component({
   selector: 'app-sites-block',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SitesPanel, EsaCard, EsaEmptyState],
+  imports: [SitesPanel],
   template: `
     @if (data().sites; as sites) {
       <app-sites-panel
@@ -106,16 +107,6 @@ export class MeasurementsBlock {
         (loaded)="tracker().sitesLoaded($event)"
         (settled)="tracker().sitesSettled($event)"
       />
-    } @else {
-      <esa-card [title]="'Sites'">
-        <div class="empty" [class.empty--tall]="tall()">
-          <esa-empty-state
-            size="sm"
-            [title]="empty.title"
-            [description]="empty.description"
-          />
-        </div>
-      </esa-card>
     }
   `,
   styleUrl: './blocks.scss',
@@ -125,15 +116,14 @@ export class SitesBlock {
   readonly tracker = input.required<TileTracker>();
   /** A taller map, for the map template. */
   readonly tall = input(false, { transform: booleanAttribute });
-
-  protected readonly empty = EMPTY_TEXT.sites;
 }
 
 @Component({
   selector: 'app-per-year-block',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ChartPanel, EsaCard, EsaEmptyState],
+  imports: [ChartPanel],
   template: `
+    <!-- Nothing is drawn without a per-year source: a page with no sites has none to count. -->
     @if (data().perYear; as perYear) {
       <app-chart-panel
         [measure]="perYear.measure"
@@ -143,17 +133,6 @@ export class SitesBlock {
         (loaded)="tracker().chartLoaded($event)"
         (settled)="tracker().chartSettled(key, $event)"
       />
-    } @else if (!data().sites) {
-      <!-- Only on a page with no sites or map at all; a page that maps areas has nothing to count here. -->
-      <esa-card [title]="'Sites monitored each year'">
-        <div class="empty">
-          <esa-empty-state
-            size="sm"
-            [title]="empty.title"
-            [description]="empty.description"
-          />
-        </div>
-      </esa-card>
     }
   `,
   styleUrl: './blocks.scss',

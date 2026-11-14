@@ -9,6 +9,9 @@ import { EsaEmptyState } from '../../ecology/esa-empty-state';
 import { StaffMode } from '../../staff-mode';
 import { FeaturedFilter, LayoutFilter, ProgramFilters } from './program-filters';
 
+/** Rows the unfiltered All Programs list shows before "Show all". */
+export const PROGRAM_LIST_CAP = 12;
+
 // The All Programs list: the four filters, the table, and the record count, in one
 // frame. It is a section of the home page, which loads the data once, passes it in, and
 // owns the loading and error states; the hero above carries the totals. The home page
@@ -31,6 +34,11 @@ export class ProgramList {
   protected readonly categoryId = signal('');
   protected readonly layout = signal<LayoutFilter>('');
   protected readonly featured = signal<FeaturedFilter>('all');
+
+  /** The unfiltered list shows this many rows until the reader asks for the rest. */
+  protected readonly cap = PROGRAM_LIST_CAP;
+  /** True once the reader has asked for every row. */
+  protected readonly expanded = signal(false);
 
   /** Programs whose key photo file did not load; their rows show the empty frame instead. */
   protected readonly failedPhotos = signal<ReadonlySet<number>>(new Set());
@@ -62,6 +70,21 @@ export class ProgramList {
         (!layout || program.Template === layout) &&
         (!featuredOnly || program.IsFeatured),
     );
+  });
+
+  /** True when any filter narrows the list. A filtered list is short and is shown whole. */
+  protected readonly filtering = computed(
+    () => !!this.search().trim() || !!this.categoryId() || !!this.layout() || this.featured() === 'featured',
+  );
+
+  /**
+   * The rows on the page. The whole list is 111 rows, about 6,000 px, and sat between the
+   * reader and About Monitoring; unfiltered it now shows the first rows and a button for the
+   * rest. A filter, or the button, shows every match.
+   */
+  protected readonly visible = computed(() => {
+    const rows = this.filtered();
+    return this.filtering() || this.expanded() || rows.length <= this.cap ? rows : rows.slice(0, this.cap);
   });
 
   /** Every program of one category: the other three filters are cleared so none is hidden. */

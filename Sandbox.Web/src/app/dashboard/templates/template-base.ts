@@ -31,10 +31,11 @@ export abstract class TemplateBase {
     programData(this.name(), this.color(), this.config()),
   );
 
-  /** Folds the panel outputs into the four summary tiles. */
+  /** Folds the panel outputs into the summary tiles; the first measure gives the headline. */
   protected readonly tracker = new TileTracker(
     computed(() => this.data().sites !== null),
     computed(() => this.data().chartKeys),
+    computed(() => this.data().measures[0] ?? null),
   );
 
   /** Every photo but the key photo: what the gallery shows. */

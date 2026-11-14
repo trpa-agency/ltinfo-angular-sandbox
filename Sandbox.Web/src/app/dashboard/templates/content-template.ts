@@ -11,10 +11,8 @@ import {
   SitesBlock,
 } from './blocks';
 import { ProgramHeader } from './program-header';
+import { leadParagraph } from './program-text';
 import { TemplateBase } from './template-base';
-
-/** The longest first paragraph, in characters, that is shown as the lead in the header. */
-const LEAD_MAX_LENGTH = 320;
 
 // The content layout, for programs with little or no data on the page. The
 // stored word for it is "context".
@@ -48,12 +46,10 @@ const LEAD_MAX_LENGTH = 320;
 export class ContentTemplate extends TemplateBase {
   /**
    * The first paragraph of the description, shown under the name in the header.
-   * Only a short first paragraph makes a lead; a long one stays in the story.
+   * Only a short statement makes a lead; a long paragraph, a heading, or a question
+   * stays in the story.
    */
-  protected readonly lead = computed(() => {
-    const first = this.description()[0];
-    return first && first.length <= LEAD_MAX_LENGTH ? first : null;
-  });
+  protected readonly lead = computed(() => leadParagraph(this.description()));
 
   /** The description after the lead, for the story card. */
   protected readonly restOfDescription = computed(() =>

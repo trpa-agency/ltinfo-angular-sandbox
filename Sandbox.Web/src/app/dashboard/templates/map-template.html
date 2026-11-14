@@ -1,11 +1,14 @@
 <app-program-header [program]="program()" [tiles]="tracker.tiles()" variant="compact" />
 
-<!-- The lead: the map, tall, straight under the header. -->
-<app-band lead data-section="sites" title="Sites">
-  <app-sites-block [data]="data()" [tracker]="tracker" tall />
-</app-band>
+<!-- The lead: the map, tall, straight under the header. A program with no sites or areas to
+     map has no Sites section at all, and the charts lead in its place. -->
+@if (data().sites) {
+  <app-band lead data-section="sites" title="Sites">
+    <app-sites-block [data]="data()" [tracker]="tracker" tall />
+  </app-band>
+}
 
-<app-band data-section="measurements" title="Measurements">
+<app-band [lead]="!data().sites" data-section="measurements" title="Measurements">
   <app-measurements-block
     [data]="data()"
     [programName]="program().MonitoringProgramName"

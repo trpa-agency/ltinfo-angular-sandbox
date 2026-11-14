@@ -1859,8 +1859,8 @@
     "record": {
      "year": "YEAR_OF_COUNT",
      "value": "COUNT_VALUE",
-     "label": "Plant count",
-     "unit": "plants",
+     "label": "Stem count",
+     "unit": "stems",
      "noun": [
       "survey",
       "surveys"

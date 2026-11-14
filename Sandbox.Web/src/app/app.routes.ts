@@ -47,5 +47,10 @@ export const routes: Routes = [
     title: 'Map panel test page | LT Info sandbox',
     loadComponent: () => import('./dashboard/sites-panel/sites-panel-demo').then((m) => m.SitesPanelDemo),
   },
-  { path: '**', redirectTo: '' },
+  // An address that is no page says so, with the way back; it no longer lands on the home page silently.
+  {
+    path: '**',
+    title: 'Page not found | LT Info sandbox',
+    loadComponent: () => import('./pages/not-found/not-found').then((m) => m.NotFound),
+  },
 ];

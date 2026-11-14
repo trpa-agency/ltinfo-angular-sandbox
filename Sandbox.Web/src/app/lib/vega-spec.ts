@@ -216,6 +216,18 @@ function keyLabel(spec: ChartSpec, kind: AxisKind, key: string): string {
  * One sentence for assistive technology: the series, the span of the category
  * axis, and the threshold. The table view carries the values.
  */
+/**
+ * What the category axis is called when the chart gives it no label: Date on a time axis,
+ * Year when every key is a year, and Category otherwise. The name is read out in the chart's
+ * description and shown as the first line of the hover readout.
+ */
+export function axisName(spec: ChartSpec): string {
+  if (spec.xLabel) return spec.xLabel;
+  if (spec.xKind === 'time') return 'Date';
+  const keys = spec.series.flatMap((s) => s.points.map((p) => String(p.x)));
+  return keys.length > 0 && keys.every((k) => /^(?:1[89]|20)\d{2}$/.test(k)) ? 'Year' : 'Category';
+}
+
 export function chartDescription(spec: ChartSpec): string {
   const { horizontal, kind } = shapeOf(spec);
   const keys = categoryKeys(spec, kind);
@@ -227,7 +239,7 @@ export function chartDescription(spec: ChartSpec): string {
   const last = labels[labels.length - 1] ?? '';
   const range = horizontal
     ? `${labels.length} bars ranked from ${first} to ${last}`
-    : `${spec.xLabel || 'Position'} from ${first} to ${last}`;
+    : `${axisName(spec)} from ${first} to ${last}`;
   const threshold = spec.threshold && !horizontal ? ` ${spec.threshold.label} drawn as a dashed line.` : '';
   // The natural axis names the dates in full, whatever the chart shape draws them as.
   const gaps = chartGaps(spec)
@@ -250,7 +262,7 @@ export function vegaLiteSpec(spec: ChartSpec, theme: VegaTheme, options: VegaSpe
   const compact = width < 480;
   const plotHeight = options.height ?? (compact ? 240 : 300);
   const fontSize = theme.fontSize;
-  const xTitle = spec.xLabel || (horizontal ? 'Category' : 'Position');
+  const xTitle = spec.xLabel || (horizontal ? 'Category' : axisName(spec));
   const names = uniqueNames(
     spec.series.map((s) => s.name),
     [xTitle],
@@ -524,22 +536,25 @@ export function vegaLiteSpec(spec: ChartSpec, theme: VegaTheme, options: VegaSpe
       mark: { type: 'rule', color: theme.thresholdColor, strokeWidth: 1.5, strokeDash: [6, 4] },
       encoding: { y },
     });
+    const label = {
+      type: 'text',
+      text: t.label,
+      x: { expr: 'width' },
+      align: 'right',
+      // Above the line, or below it when nothing is drawn higher than the threshold.
+      baseline: atTop ? 'top' : 'bottom',
+      dy: atTop ? 5 : -5,
+      fontSize,
+      fontWeight: 500,
+    };
+    // Drawn twice: first as a halo in the surface color, then the text. Where a bar or a
+    // line reaches the label, the halo keeps it legible instead of letting the two collide.
     layers.push({
       data: { values: [{}] },
-      mark: {
-        type: 'text',
-        text: t.label,
-        x: { expr: 'width' },
-        align: 'right',
-        // Above the line, or below it when nothing is drawn higher than the threshold.
-        baseline: atTop ? 'top' : 'bottom',
-        dy: atTop ? 5 : -5,
-        color: theme.textColor,
-        fontSize,
-        fontWeight: 500,
-      },
+      mark: { ...label, color: theme.surfaceColor, stroke: theme.surfaceColor, strokeWidth: 4, strokeJoin: 'round' },
       encoding: { y },
     });
+    layers.push({ data: { values: [{}] }, mark: { ...label, color: theme.textColor }, encoding: { y } });
   }
 
   // Hover: one target per position, with the x value and every series value.

@@ -9,14 +9,17 @@
   />
 </app-band>
 
-<app-band data-section="sites" title="Sites">
-  <app-sites-block [data]="data()" [tracker]="tracker" />
-  <app-per-year-block
-    [data]="data()"
-    [programName]="program().MonitoringProgramName"
-    [tracker]="tracker"
-  />
-</app-band>
+<!-- Only for a program with sites or areas to map: one with none has no Sites section. -->
+@if (data().sites) {
+  <app-band data-section="sites" title="Sites">
+    <app-sites-block [data]="data()" [tracker]="tracker" />
+    <app-per-year-block
+      [data]="data()"
+      [programName]="program().MonitoringProgramName"
+      [tracker]="tracker"
+    />
+  </app-band>
+}
 
 <app-band data-section="about" title="About This Program">
   <div class="split">

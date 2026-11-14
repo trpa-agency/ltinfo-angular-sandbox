@@ -48,14 +48,20 @@
                 (focus)="hover.emit(program)"
                 (mouseleave)="leave.emit()"
               >
-                <span class="prog__name typography-label-sm">{{ program.MonitoringProgramName }}</span>
-                <span class="prog__sites typography-body-xs" [class.is-none]="!program.SiteCount">
-                  @if (program.SiteCount > 0) {
-                    {{ formatCount(program.SiteCount) }} {{ program.SiteCount === 1 ? 'site' : 'sites' }}
-                  } @else {
-                    No mapped sites
+                <span class="prog__text">
+                  <span class="prog__name typography-label-sm">{{ program.MonitoringProgramName }}</span>
+                  <!-- A search that matched on a partner says which one, so the match explains itself. -->
+                  @if (partner(program); as name) {
+                    <span class="prog__partner typography-body-xs">Partner: {{ name }}</span>
                   }
                 </span>
+                <!-- Only a count that is on the home map is shown. A program with none says nothing
+                     here: its own page may map areas or a service layer. -->
+                @if (program.SiteCount > 0) {
+                  <span class="prog__sites typography-body-xs">
+                    {{ formatCount(program.SiteCount) }} {{ program.SiteCount === 1 ? 'site' : 'sites' }}
+                  </span>
+                }
               </a>
             </li>
           }

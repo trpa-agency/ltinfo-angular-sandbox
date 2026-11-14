@@ -9,7 +9,7 @@ import { PhotoViewer } from '../photos/photo-viewer';
 import { SummaryTiles } from '../summary-tiles/summary-tiles';
 
 // The header every template starts with: the program name, the category and Featured
-// badges, the four summary tiles, and the key photo. Neutral: a white card with a hairline
+// badges, the summary tiles, and the key photo. Neutral: a white card with a hairline
 // border, quiet badges, and no category color.
 //
 //   variant="compact"  the map and charts layouts. A short band with the photo
@@ -18,9 +18,10 @@ import { SummaryTiles } from '../summary-tiles/summary-tiles';
 //                      quiet, and the template can project a lead paragraph
 //                      under the name with slot="lead".
 //
-// A program with no photo, or whose photo fails to load: in the compact band a neutral well
-// holds the photo slot (app-photo-banner), so the band keeps its shape; the feature header
-// simply gives the text the full width, since a large empty frame would lead the page.
+// A program with no photo gives the text the full width in both variants: most programs
+// have none, and an empty frame would lead the page. A photo that fails to load is the one
+// case with something to say, so the compact band keeps a neutral well (app-photo-banner)
+// in the slot with one line saying so.
 @Component({
   selector: 'app-program-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -57,11 +58,8 @@ import { SummaryTiles } from '../summary-tiles/summary-tiles';
             [image]="keyPhoto()!"
             [size]="variant() === 'feature' ? 'feature' : 'cover'"
           />
-        } @else if (variant() === 'compact') {
-          <app-photo-banner
-            class="head__photo head__photo--empty"
-            [reason]="photoState() === 'failed' ? 'failed' : 'none'"
-          />
+        } @else if (photoState() === 'failed' && variant() === 'compact') {
+          <app-photo-banner class="head__photo head__photo--empty" reason="failed" />
         }
       </div>
     </header>

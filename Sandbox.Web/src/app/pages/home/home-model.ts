@@ -99,6 +99,24 @@ export function matchPrograms(
   );
 }
 
+/**
+ * What the map panel says for a program or category with no points on this map. The map
+ * draws the site records Lake Tahoe Info keeps; a program without any may still map areas,
+ * stations, or a service layer on its own page, so the line speaks for this map only and no
+ * longer says the program has no mapped sites.
+ */
+export const NO_SITES_HERE = 'No sites on this map.';
+
+/**
+ * The partner a search matched a program by, when its own name did not match: the first
+ * partner name containing the text. Null when the name matched, or nothing was searched.
+ */
+export function matchedPartner(program: MonitoringProgramSummary, text: string): string | null {
+  const query = text.trim().toLowerCase();
+  if (!query || program.MonitoringProgramName.toLowerCase().includes(query)) return null;
+  return program.PartnerNames.find((name) => name.toLowerCase().includes(query)) ?? null;
+}
+
 function siteSum(programs: readonly MonitoringProgramSummary[]): number {
   return programs.reduce((sum, program) => sum + program.SiteCount, 0);
 }
@@ -124,7 +142,7 @@ export function mapFocus(state: FocusState, groups: readonly CategoryGroup[]): M
       title: program.MonitoringProgramName,
       sub: program.SiteCount
         ? `${formatCount(program.SiteCount)} mapped ${plural(program.SiteCount, 'site')}`
-        : 'This program has no mapped sites.',
+        : NO_SITES_HERE,
       color: programGroup.color,
     };
   }
@@ -141,7 +159,7 @@ export function mapFocus(state: FocusState, groups: readonly CategoryGroup[]): M
         ? 'No monitoring programs in this category yet.'
         : sites
           ? `${formatCount(sites)} mapped ${plural(sites, 'site')} from ${withSites} of ${count} ${plural(count, 'program')}`
-          : `No mapped sites. ${count === 1 ? 'This program is' : `These ${count} programs are`} not tied to fixed sites.`,
+          : NO_SITES_HERE,
       color: group.color,
     };
   }

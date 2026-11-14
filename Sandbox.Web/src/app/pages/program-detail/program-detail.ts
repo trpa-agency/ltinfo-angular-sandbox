@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
 
 import { LoadState, describeError, failed, ready } from '../../api/load-state';
@@ -17,6 +17,7 @@ import { parseTemplate } from '../../dashboard/templates/template-info';
 import { EsaButton } from '../../ecology/esa-button';
 import { EsaCard } from '../../ecology/esa-card';
 import { EsaEmptyState } from '../../ecology/esa-empty-state';
+import { Breadcrumb, Crumb } from '../../shared/breadcrumb';
 import { StaffMode } from '../../staff-mode';
 import { LayoutControl } from './layout-control';
 import { ProgramNav } from './program-nav';
@@ -29,7 +30,7 @@ import { ProgramNav } from './program-nav';
   selector: 'app-program-detail',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    RouterLink,
+    Breadcrumb,
     ChartsTemplate,
     ContentTemplate,
     EsaButton,
@@ -74,6 +75,36 @@ export class ProgramDetail {
     const state = this.state();
     return state.status === 'ready' ? (this.requested() ?? state.data.Template) : null;
   });
+
+  /** The way up while the program is loading or could not be found. */
+  protected readonly rootTrail: readonly Crumb[] = [{ label: 'Monitoring Programs', link: ['/'] }];
+
+  /** Category folders by id, for the breadcrumb's category link. */
+  private readonly folders = toSignal(
+    this.api.getCategories().pipe(
+      map((categories) => new Map(categories.map((category) => [category.CategoryID, category.Folder]))),
+      catchError(() => of(new Map<number, string>())),
+    ),
+    { initialValue: new Map<number, string>() },
+  );
+
+  /** Monitoring Programs, the category (a link once its folder is known), then the program. */
+  protected readonly trail = computed<readonly Crumb[]>(() => {
+    const state = this.state();
+    if (state.status !== 'ready') return this.rootTrail;
+    const program = state.data;
+    const folder = this.folders().get(program.CategoryID);
+    return [
+      ...this.rootTrail,
+      { label: program.CategoryName, ...(folder ? { link: ['/category', folder] } : {}) },
+      { label: program.MonitoringProgramName },
+    ];
+  });
+
+  /** From the not-found state: the full list on the home page. */
+  protected toAllPrograms(): void {
+    void this.router.navigate(['/'], { fragment: 'all-programs' });
+  }
 
   constructor() {
     // Reload whenever the :id in the address changes.
@@ -165,7 +196,7 @@ export class ProgramDetail {
       return {
         status: 'error',
         title: `No monitoring program has ID ${id}`,
-        description: 'Go back to the list and pick a program.',
+        description: 'Pick a program from the menu or the full list.',
       };
     }
     return failed(error);

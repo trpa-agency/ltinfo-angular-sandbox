@@ -1,11 +1,14 @@
 import { Injectable, signal } from '@angular/core';
 import { Subject } from 'rxjs';
 
-/** The three sections of the home page, in page order. The id is also the URL fragment. */
+/**
+ * The three sections of the home page, in page order. The id is also the URL fragment, and
+ * each label is the section's own heading, so no two nav items read as the same place.
+ */
 export type HomeSectionId = 'categories' | 'all-programs' | 'about';
 
 export const HOME_SECTIONS: readonly { id: HomeSectionId; label: string }[] = [
-  { id: 'categories', label: 'Monitoring Programs' },
+  { id: 'categories', label: 'Categories' },
   { id: 'all-programs', label: 'All Programs' },
   { id: 'about', label: 'About Monitoring' },
 ];
