@@ -1,0 +1,463 @@
+// The Redesign Plan page. Neutral containers; color only where it means something: a
+// workstream's dot (the same data color as its timeline markers) and the status badges.
+// Every value is a token.
+
+:host {
+  display: block;
+}
+
+.plan {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-700);
+}
+
+.plan__header,
+.plan__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-300);
+  min-width: 0;
+}
+
+.plan__title,
+.plan__h2,
+.plan__h3,
+.plan__text,
+.plan__vision,
+.plan__sources {
+  margin: 0;
+  color: var(--color-content-default);
+}
+
+.plan__h3 {
+  margin-top: var(--spacing-400);
+}
+
+.plan__text,
+.plan__vision {
+  max-width: 80ch;
+}
+
+.plan__sources {
+  padding-top: var(--spacing-400);
+  border-top: var(--border-width-default) solid var(--color-border-default-subtle);
+  color: var(--color-content-default-secondary);
+}
+
+// ---- header facts and the three tiles ----
+
+.plan__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-200) var(--spacing-600);
+  margin: 0;
+
+  dt {
+    color: var(--color-content-default-secondary);
+  }
+
+  dd {
+    margin: 0;
+    color: var(--color-content-default);
+  }
+}
+
+.plan__meta-pair {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-050);
+  min-width: 0;
+}
+
+.plan__tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--spacing-400) var(--spacing-500);
+  --stat-value-size: var(--typography-heading-lg-font-size);
+}
+
+// ---- a workstream's dot, shared by the lanes and the milestones table ----
+
+.dot {
+  display: inline-block;
+  flex: none;
+  width: var(--spacing-250);
+  height: var(--spacing-250);
+  margin-right: var(--spacing-100);
+  border-radius: var(--radius-full);
+  background: var(--plan-mark, var(--color-content-default));
+}
+
+// ---- proposed revisions: a numbered list, one neutral box each ----
+
+.revisions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: var(--spacing-400);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.revision {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-150);
+  padding: var(--spacing-400);
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-card);
+  background: var(--color-background-default);
+  min-width: 0;
+}
+
+.revision__title,
+.revision__text {
+  margin: 0;
+  color: var(--color-content-default);
+}
+
+// ---- card grids ----
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--spacing-400);
+  align-items: start;
+}
+
+.cards--four {
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+.cards--three {
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+}
+
+.cards--two {
+  grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+}
+
+.card-text,
+.card-label {
+  margin: 0;
+  color: var(--color-content-default);
+}
+
+.card-label {
+  margin-top: var(--spacing-300);
+  padding-top: var(--spacing-300);
+  border-top: var(--border-width-default) solid var(--color-border-default-subtle);
+}
+
+.bullets {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-100);
+  margin: var(--spacing-200) 0 0;
+  padding-left: var(--spacing-400);
+  color: var(--color-content-default);
+}
+
+.bullets--plain {
+  padding-left: 0;
+  list-style: none;
+}
+
+.log {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-300);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-content-default);
+}
+
+.log__entry {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-050);
+}
+
+.log__date {
+  color: var(--color-content-default-secondary);
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: var(--spacing-100) var(--spacing-300);
+  margin: 0 0 var(--spacing-300);
+  padding-bottom: var(--spacing-300);
+  border-bottom: var(--border-width-default) solid var(--color-border-default-subtle);
+
+  dt {
+    color: var(--color-content-default-secondary);
+  }
+
+  dd {
+    margin: 0;
+    color: var(--color-content-default);
+  }
+}
+
+// ---- workflow: one lane per workstream, steps left to right ----
+
+.lanes {
+  display: flex;
+  flex-direction: column;
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-card);
+  background: var(--color-background-default);
+}
+
+.lane {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-300);
+  padding: var(--spacing-400);
+  min-width: 0;
+
+  & + & {
+    border-top: var(--border-width-default) solid var(--color-border-default-subtle);
+  }
+}
+
+.lane__name,
+.lane__feeds,
+.lane__note {
+  margin: 0;
+  color: var(--color-content-default);
+}
+
+.lane__name {
+  display: flex;
+  align-items: center;
+}
+
+.lane__note {
+  color: var(--color-content-default-secondary);
+}
+
+.steps {
+  --plan-step-gap: var(--spacing-600);
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-300) var(--plan-step-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  position: relative;
+  display: flex;
+  flex: 1 1 9rem;
+  flex-direction: column;
+  gap: var(--spacing-050);
+  max-width: 15rem;
+  padding: var(--spacing-200) var(--spacing-300);
+  border: var(--border-width-default) solid var(--color-border-default-strong);
+  border-radius: var(--radius-control);
+  background: var(--color-background-elevation-raised);
+  color: var(--color-content-default);
+
+  // The arrow from the step before: a line across the gap with a chevron at its end. It
+  // belongs to the step it leads to, so a wrapped row starts with its arrow, not without one.
+  & + &::before,
+  & + &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+  }
+
+  & + &::before {
+    right: calc(100% + var(--spacing-100));
+    width: calc(var(--plan-step-gap) - var(--spacing-200));
+    border-top: var(--border-width-emphasis) solid var(--color-border-default-strong);
+    transform: translateY(-50%);
+  }
+
+  & + &::after {
+    right: calc(100% + var(--spacing-100));
+    width: var(--spacing-200);
+    height: var(--spacing-200);
+    border-top: var(--border-width-emphasis) solid var(--color-border-default-strong);
+    border-right: var(--border-width-emphasis) solid var(--color-border-default-strong);
+    transform: translateY(-50%) rotate(45deg);
+  }
+}
+
+.step__note {
+  color: var(--color-content-default-secondary);
+}
+
+// ---- timeline phases ----
+
+.phases {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: var(--spacing-200) var(--spacing-500);
+  margin: 0;
+  color: var(--color-content-default);
+
+  dd {
+    margin: 0;
+    max-width: 80ch;
+  }
+}
+
+// ---- reading tables: milestones, meetings, action items ----
+
+.ptable {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-card);
+  background: var(--color-background-default);
+
+  &:focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: calc(-1 * var(--focus-ring-width));
+  }
+}
+
+.ptable__table {
+  width: 100%;
+  min-width: 52rem;
+  border-collapse: collapse;
+  color: var(--color-content-default);
+
+  th,
+  td {
+    padding: var(--spacing-200) var(--spacing-300);
+    text-align: left;
+    vertical-align: top;
+    border-bottom: var(--border-width-default) solid var(--color-border-default-subtle);
+  }
+
+  thead th {
+    background: var(--color-background-elevation-sunken);
+    white-space: nowrap;
+  }
+
+  tbody th {
+    font-weight: var(--typography-font-weight-semibold);
+  }
+
+  tbody:last-child tr:last-child > * {
+    border-bottom: 0;
+  }
+}
+
+// The milestones table has short rows and reads fine narrower than the other two.
+.ptable__table--milestones {
+  min-width: 40rem;
+}
+
+.ptable__table--actions td:first-child {
+  min-width: 22rem;
+}
+
+.ptable__group th {
+  background: var(--color-background-elevation-raised);
+}
+
+.ptable__nowrap {
+  white-space: nowrap;
+}
+
+.ptable__sub {
+  display: block;
+  color: var(--color-content-default-secondary);
+}
+
+// ---- data stewards ----
+
+.stewards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: var(--spacing-300);
+  margin: 0;
+}
+
+.steward {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-050);
+  padding: var(--spacing-200) var(--spacing-300);
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-control);
+  background: var(--color-background-default);
+  min-width: 0;
+
+  dt {
+    color: var(--color-content-default);
+  }
+
+  dd {
+    margin: 0;
+    color: var(--color-content-default);
+  }
+
+  &[data-assigned='false'] dd {
+    color: var(--color-content-default-secondary);
+  }
+}
+
+// ---- narrow screens ----
+
+@media (max-width: 48rem) {
+  .plan__tiles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cards--two,
+  .cards--three {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .phases {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--spacing-050);
+
+    dd {
+      margin-bottom: var(--spacing-300);
+    }
+  }
+}
+
+// On a phone the steps stack, and each arrow points down from the step above.
+@media (max-width: 30rem) {
+  .steps {
+    flex-direction: column;
+    gap: var(--plan-step-gap);
+  }
+
+  .step {
+    flex: none;
+    max-width: none;
+
+    & + &::before {
+      top: auto;
+      right: auto;
+      bottom: calc(100% + var(--spacing-100));
+      left: var(--spacing-500);
+      width: 0;
+      height: calc(var(--plan-step-gap) - var(--spacing-200));
+      border-top: 0;
+      border-left: var(--border-width-emphasis) solid var(--color-border-default-strong);
+      transform: translateX(-50%);
+    }
+
+    & + &::after {
+      top: auto;
+      right: auto;
+      bottom: calc(100% + var(--spacing-100));
+      left: var(--spacing-500);
+      transform: translateX(-50%) rotate(135deg);
+    }
+  }
+}

@@ -112,6 +112,21 @@ In ESA's repo the last step becomes `git push` and a pull request.
 
 A URL cannot tell TRPA data from partner data hosted at TRPA. List partner services in `PARTNER_PIPELINES` in `lib/ingest.ts`, each with the partner, where the data is pulled from, and the TRPA script that loads it, to move their layers to the pipeline path. The SMART traffic camera service is the first; every other maps.trpa.org layer shows as a TRPA web service.
 
+## Redesign Plan page
+
+`/project-plan` (linked from About Monitoring) is the working plan for the Monitoring Dashboard redesign under ESA Work Order 004: the proposed revisions, status by workstream, vision, roles, the four workstreams and how they feed each other, the timeline and milestones, the meeting cadence, the action items, and the data stewards.
+
+The page holds no wording of its own. Everything is in `lib/project-plan.ts`, so updating the plan is editing that file:
+
+- **A status update:** add an entry at the top of a workstream's `log`, and change its `health` and `next` if they moved.
+- **An action item:** change its `status` (`done`, `scheduled`, or `todo`) in `ACTION_GROUPS`. The Action Items Done tile counts them.
+- **A milestone date:** change `date` in `MILESTONES`. The timeline marker, the workstream cards, the workflow steps, and the milestones table all follow, and the timeline moves a label to another lane if it would collide with a neighbor.
+- **A steward:** add a name to the category's list in `STEWARDS`. An empty list reads "Steward to assign".
+
+Specific dates are ISO (`2027-01-14`) and the page writes them in TRPA style (Jan. 14, 2027) through `lib/plan-dates.ts`, which also places the timeline markers. A target that is not one date ("December", "This week") is typed as it should read. Keep to the TRPA writing rules when editing: no dashes between dates (write "April 1 to 20"), Oxford commas, and percent spelled out. `e2e/project-plan.spec.ts` checks the dates, the milestone order, and those wording rules in Node, then the page in the browser.
+
+The plan names staff and carries working notes, and the Pages copy of this site is public. Read `lib/project-plan.ts` with that in mind before pushing a change to `main`.
+
 ## A read-only copy on GitHub Pages
 
 GitHub Pages serves files only, so the Pages copy has no API and no database. The app reads a JSON snapshot instead, and the two save buttons (Featured and Save layout) say the copy is read-only. Charts and maps that read TRPA map services still query them live.

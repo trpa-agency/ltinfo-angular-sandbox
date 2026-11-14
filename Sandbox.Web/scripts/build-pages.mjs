@@ -36,6 +36,7 @@ const routes = [
   'programs',
   'about',
   'data-model',
+  'project-plan',
   ...(await snapshot('monitoring-programs')).map((p) => `programs/${p.MonitoringProgramID}`),
   ...(await snapshot('categories')).map((c) => `category/${c.Folder}`),
 ];

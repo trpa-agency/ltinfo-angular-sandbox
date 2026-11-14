@@ -1,0 +1,100 @@
+// The plan timeline. A neutral month band; color only on the markers, one data color per
+// workstream. Every value is a token.
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-300);
+  min-width: 0;
+}
+
+// Below about 860 px the timeline scrolls sideways inside its own box instead of shrinking
+// the type past reading size, as the table diagram on the Data Model page does.
+.tl {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-card);
+  background: var(--color-background-default);
+  padding: var(--spacing-300);
+
+  &:focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+  }
+}
+
+.tl__svg {
+  display: block;
+  width: 100%;
+  min-width: 52rem;
+  height: auto;
+}
+
+.tl__band {
+  fill: var(--color-background-elevation-sunken);
+  stroke: var(--color-border-default);
+  stroke-width: 1;
+}
+
+.tl__tick {
+  stroke: var(--color-border-default-strong);
+  stroke-width: 1;
+}
+
+.tl__month {
+  fill: var(--color-content-default-secondary);
+}
+
+.tl__stem {
+  stroke: var(--color-border-default-strong);
+  stroke-width: 1;
+}
+
+// A marker with no workstream (the end of the work order) is drawn in the text color.
+.tl__dot {
+  fill: var(--plan-mark, var(--color-content-default));
+  stroke: var(--color-background-default);
+  stroke-width: 2;
+}
+
+// The halo keeps a label readable where the stem of a label in a farther lane passes behind it.
+.tl__name,
+.tl__date {
+  paint-order: stroke;
+  stroke: var(--color-background-default);
+  stroke-width: 4;
+  stroke-linejoin: round;
+}
+
+.tl__name {
+  fill: var(--color-content-default);
+}
+
+.tl__date {
+  fill: var(--color-content-default-secondary);
+}
+
+.tl-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-150) var(--spacing-500);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-content-default);
+}
+
+.tl-key__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-150);
+}
+
+.tl-key__dot {
+  flex: none;
+  width: var(--spacing-250);
+  height: var(--spacing-250);
+  border-radius: var(--radius-full);
+  background: var(--plan-mark, var(--color-content-default));
+}

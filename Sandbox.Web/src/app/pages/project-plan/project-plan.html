@@ -1,0 +1,316 @@
+<!-- mon-lego-checked: esa-stat for the three headline facts, esa-card for the status, vision,
+     role, and workstream cards, esa-badge for workstream health and action status. No lego
+     draws a workflow, a timeline, or a plain reading table, so the workflow lanes, the
+     timeline (app-plan-timeline), and the four tables are custom, on tokens. -->
+<div class="plan">
+  <header class="plan__header">
+    <app-breadcrumb [trail]="trail" />
+    <h1 class="plan__title typography-heading-lg">{{ plan.title }}</h1>
+    <dl class="plan__meta typography-label-md">
+      <div class="plan__meta-pair">
+        <dt>Updated</dt>
+        <dd>{{ date(plan.updated, true) }}</dd>
+      </div>
+      <div class="plan__meta-pair">
+        <dt>Revisions Proposed</dt>
+        <dd>{{ date(plan.revised, true) }}</dd>
+      </div>
+      <div class="plan__meta-pair">
+        <dt>Contract</dt>
+        <dd>{{ plan.workOrder }}, {{ plan.contract }}, signed {{ date(plan.signed, true) }}</dd>
+      </div>
+    </dl>
+  </header>
+
+  <div class="plan__tiles" role="group" aria-label="Budget, launch, and action items">
+    <esa-stat [value]="plan.budget" label="ESA budget cap" [sub]="plan.budgetCovers" />
+    <esa-stat
+      [value]="date(plan.launch, true)"
+      label="Official launch"
+      [sub]="'Work order ends ' + date(plan.workOrderEnd, true)"
+    />
+    <esa-stat
+      [value]="tally.done + ' of ' + actionTotal"
+      label="Action items done"
+      [sub]="tally.scheduled + ' scheduled'"
+    />
+  </div>
+
+  <section class="plan__section" aria-labelledby="plan-revisions">
+    <h2 id="plan-revisions" class="plan__h2 typography-title-strong">Proposed Revisions</h2>
+    <p class="plan__text typography-body-md">
+      Changes to the {{ date(plan.updated) }} plan for the team, Jeanne, and Dan to review. They are
+      reflected throughout the plan below.
+    </p>
+    <ol class="revisions">
+      @for (r of revisions; track r.title; let i = $index) {
+        <li class="revision">
+          <h3 class="revision__title typography-title-sm-strong">{{ i + 1 }}. {{ r.title }}</h3>
+          <p class="revision__text typography-body-sm">{{ r.text }}</p>
+        </li>
+      }
+    </ol>
+  </section>
+
+  <section class="plan__section" aria-labelledby="plan-status">
+    <h2 id="plan-status" class="plan__h2 typography-title-strong">Status</h2>
+    <div class="cards cards--four">
+      @for (w of workstreams; track w.id) {
+        <esa-card [title]="w.name" [attr.data-workstream]="w.id">
+          <esa-badge
+            slot="actions"
+            [value]="healthLabel[w.health]"
+            [variant]="healthVariant[w.health]"
+            size="sm"
+          />
+          <ul class="log typography-body-sm">
+            @for (entry of w.log; track entry.date) {
+              <li class="log__entry">
+                <time class="log__date typography-label-sm-strong" [attr.datetime]="entry.date">{{
+                  date(entry.date)
+                }}</time>
+                <span>{{ entry.text }}</span>
+              </li>
+            }
+          </ul>
+          <h4 class="card-label typography-label-sm-strong">Next</h4>
+          <p class="card-text typography-body-sm">{{ w.next }}</p>
+        </esa-card>
+      }
+    </div>
+  </section>
+
+  <section class="plan__section" aria-labelledby="plan-vision">
+    <h2 id="plan-vision" class="plan__h2 typography-title-strong">Vision</h2>
+    <p class="plan__vision typography-body-lg">{{ plan.vision }}</p>
+    <div class="cards">
+      @for (g of goals; track g.title) {
+        <esa-card [title]="g.title">
+          <p class="card-text typography-body-sm">{{ g.text }}</p>
+          <ul class="bullets typography-body-sm">
+            @for (point of g.points; track point) {
+              <li>{{ point }}</li>
+            }
+          </ul>
+        </esa-card>
+      }
+    </div>
+  </section>
+
+  <section class="plan__section" aria-labelledby="plan-roles">
+    <h2 id="plan-roles" class="plan__h2 typography-title-strong">Roles and Decision Rights</h2>
+    <p class="plan__text typography-body-md">{{ plan.decisions }}</p>
+    <div class="cards cards--three">
+      @for (group of people; track group.title) {
+        <esa-card [title]="group.title">
+          @if (group.lead) {
+            <p class="card-text typography-body-sm">{{ group.lead }}</p>
+          }
+          <ul class="bullets typography-body-sm">
+            @for (p of group.points; track p.text) {
+              <li>
+                @if (p.who) {
+                  <strong>{{ p.who }}:</strong>
+                }
+                {{ p.text }}
+              </li>
+            }
+          </ul>
+        </esa-card>
+      }
+    </div>
+  </section>
+
+  <section class="plan__section" aria-labelledby="plan-workstreams">
+    <h2 id="plan-workstreams" class="plan__h2 typography-title-strong">Workstreams</h2>
+    <div class="cards cards--two">
+      @for (w of workstreams; track w.id; let i = $index) {
+        <esa-card [title]="i + 1 + '. ' + w.name" [attr.data-workstream]="w.id">
+          <dl class="facts typography-body-sm">
+            @for (f of w.facts; track f.label) {
+              <dt>{{ f.label }}</dt>
+              <dd>{{ f.value }}</dd>
+            }
+          </dl>
+          <ul class="bullets typography-body-sm">
+            @for (item of w.work; track item) {
+              <li>{{ item }}</li>
+            }
+          </ul>
+          <h4 class="card-label typography-label-sm-strong">Milestones</h4>
+          <ul class="bullets bullets--plain typography-body-sm">
+            @for (line of milestoneLines(w.id); track line) {
+              <li>{{ line }}</li>
+            }
+          </ul>
+        </esa-card>
+      }
+    </div>
+  </section>
+
+  <section class="plan__section" aria-labelledby="plan-workflow">
+    <h2 id="plan-workflow" class="plan__h2 typography-title-strong">Workflow</h2>
+    <p class="plan__text typography-body-md">
+      Three workstreams produce inputs; the dashboard build, by Mason and Amy, turns them into
+      pages, tests them with the people who own the data, and moves them through ESA's code
+      process.
+    </p>
+    <div class="lanes">
+      @for (w of workstreams; track w.id) {
+        <section class="lane" [attr.data-workstream]="w.id" [attr.aria-label]="w.name + ' workflow'">
+          <h3 class="lane__name typography-title-sm-strong">
+            <span class="dot" aria-hidden="true" [style.--plan-mark]="w.color"></span>
+            {{ w.name }}
+          </h3>
+          <ol class="steps">
+            @for (step of w.flow; track step.text) {
+              <li class="step">
+                <span class="step__text typography-label-md-strong">{{ step.text }}</span>
+                @let note = stepNote(step);
+                @if (note) {
+                  <span class="step__note typography-label-sm">{{ note }}</span>
+                }
+              </li>
+            }
+          </ol>
+          @if (w.feeds) {
+            <p class="lane__feeds typography-body-sm">
+              <strong>Feeds {{ workstreamName(w.feeds.to) }}:</strong> {{ w.feeds.what }}.
+            </p>
+          }
+          @for (line of w.flowNotes ?? []; track line) {
+            <p class="lane__note typography-body-sm">{{ line }}</p>
+          }
+        </section>
+      }
+    </div>
+  </section>
+
+  <section class="plan__section" aria-labelledby="plan-timeline">
+    <h2 id="plan-timeline" class="plan__h2 typography-title-strong">Timeline</h2>
+    <app-plan-timeline />
+    <dl class="phases typography-body-sm">
+      @for (phase of phases; track phase.span) {
+        <dt class="typography-label-md-strong">{{ phase.span }}</dt>
+        <dd>{{ phase.text }}</dd>
+      }
+    </dl>
+
+    <h3 id="plan-milestones" class="plan__h3 typography-title-sm-strong">Milestones</h3>
+    <div class="ptable" tabindex="0" role="region" aria-labelledby="plan-milestones">
+      <table class="ptable__table ptable__table--milestones typography-body-sm">
+        <thead>
+          <tr>
+            <th scope="col">Milestone</th>
+            <th scope="col">What Is Done</th>
+            <th scope="col">Workstream</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (m of milestones; track m.date) {
+            <tr>
+              <th scope="row" class="ptable__nowrap">
+                <span class="dot" aria-hidden="true" [style.--plan-mark]="color(m.owner)"></span>
+                {{ milestoneLabel(m) }}
+              </th>
+              <td>{{ m.done }}</td>
+              <td>{{ m.workstreams }}</td>
+              <td class="ptable__nowrap">{{ date(m.date, true) }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="plan__section" aria-labelledby="plan-meetings">
+    <h2 id="plan-meetings" class="plan__h2 typography-title-strong">Meeting Cadence</h2>
+    <div class="ptable" tabindex="0" role="region" aria-labelledby="plan-meetings">
+      <table class="ptable__table typography-body-sm">
+        <thead>
+          <tr>
+            <th scope="col">Meeting</th>
+            <th scope="col">Who</th>
+            <th scope="col">How Often</th>
+            <th scope="col">Purpose</th>
+          </tr>
+        </thead>
+        @for (group of meetingGroups; track group.label) {
+          <tbody>
+            <tr class="ptable__group">
+              <th colspan="4" scope="rowgroup">{{ group.label }}</th>
+            </tr>
+            @for (m of group.meetings; track m.name) {
+              <tr>
+                <th scope="row">{{ m.name }}</th>
+                <td>{{ m.who }}</td>
+                <td>
+                  {{ m.cadence }}
+                  @if (m.cadenceNote) {
+                    <span class="ptable__sub">{{ m.cadenceNote }}</span>
+                  }
+                </td>
+                <td>{{ m.purpose }}</td>
+              </tr>
+            }
+          </tbody>
+        }
+      </table>
+    </div>
+  </section>
+
+  <section class="plan__section" aria-labelledby="plan-actions">
+    <h2 id="plan-actions" class="plan__h2 typography-title-strong">Action Items</h2>
+    <div class="ptable" tabindex="0" role="region" aria-labelledby="plan-actions">
+      <table class="ptable__table ptable__table--actions typography-body-sm">
+        <thead>
+          <tr>
+            <th scope="col">Action</th>
+            <th scope="col">Owner</th>
+            <th scope="col">Target</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        @for (group of actionGroups; track group.label) {
+          <tbody>
+            <tr class="ptable__group">
+              <th colspan="4" scope="rowgroup">{{ group.label }}</th>
+            </tr>
+            @for (item of group.items; track item.action) {
+              <tr [attr.data-status]="item.status">
+                <td>{{ item.action }}</td>
+                <td>{{ item.owner }}</td>
+                <td>{{ item.target }}</td>
+                <td class="ptable__nowrap">
+                  <esa-badge
+                    [value]="statusLabel[item.status]"
+                    [variant]="statusVariant[item.status]"
+                    size="sm"
+                  />
+                </td>
+              </tr>
+            }
+          </tbody>
+        }
+      </table>
+    </div>
+  </section>
+
+  <section class="plan__section" aria-labelledby="plan-stewards">
+    <h2 id="plan-stewards" class="plan__h2 typography-title-strong">Data Stewardship</h2>
+    <p class="plan__text typography-body-md">
+      Each monitoring category and EIP working group should have a data steward.
+    </p>
+    <dl class="stewards typography-body-sm">
+      @for (s of stewards; track s.category) {
+        <div class="steward" [attr.data-assigned]="s.stewards.length > 0">
+          <dt class="typography-label-md-strong">{{ s.category }}</dt>
+          <dd>{{ s.stewards.length ? s.stewards.join(', ') : 'Steward to assign' }}</dd>
+        </div>
+      }
+    </dl>
+  </section>
+
+  <p class="plan__sources typography-meta">{{ plan.sources }}</p>
+</div>

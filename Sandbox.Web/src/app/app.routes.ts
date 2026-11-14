@@ -36,6 +36,12 @@ export const routes: Routes = [
     data: { wide: true },
     loadComponent: () => import('./pages/data-model/data-model').then((m) => m.DataModel),
   },
+  {
+    path: 'project-plan',
+    title: 'Redesign Plan | Monitoring Dashboard | LT Info sandbox',
+    data: { wide: true },
+    loadComponent: () => import('./pages/project-plan/project-plan').then((m) => m.ProjectPlan),
+  },
   // Test pages for the two data panels, loaded only when visited.
   {
     path: 'dev/charts',
