@@ -42,7 +42,7 @@ const DETAIL_KEYS = [
 const IMAGE_KEYS = ['Caption', 'IsKeyPhoto', 'MonitoringProgramImageID', 'PhotoCredit', 'Url'];
 
 /** The only keys a DashboardConfig may carry. Each is optional. */
-const CONFIG_KEYS = ['mapLayer', 'measures', 'overlays', 'siteProfile', 'sitesLayer', 'sitesPerYear'];
+const CONFIG_KEYS = ['filters', 'mapLayer', 'measures', 'overlays', 'siteProfile', 'sitesLayer', 'sitesPerYear'];
 
 const CATEGORY_KEYS = [
   'Blurb',

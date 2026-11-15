@@ -183,8 +183,8 @@ const MONTH_STARTS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 's
 
 /**
  * ISO calendar date (YYYY-MM-DD) from epoch milliseconds, M/D/YYYY text, ISO
- * text, or a month and a year in words ("Jul-17", "July 2017": the first of
- * that month, with a two-digit year read as 20xx). Uses UTC so a midnight
+ * text, or a month and a year in words ("Jul-17", "July 2017", "2019 Jan":
+ * the first of that month, with a two-digit year read as 20xx). Uses UTC so a midnight
  * timestamp never rolls back a day. Values that are none of those pass through
  * unchanged.
  */
@@ -204,6 +204,10 @@ export function normalizeDate(v: unknown): unknown {
       const year = monthYear[2].length === 2 ? 2000 + Number(monthYear[2]) : Number(monthYear[2]);
       return `${year}-${pad2(month + 1)}-01`;
     }
+    // The year first, as a Year field joined to a Month field reads.
+    const yearMonth = /^(\d{4})[-\s]([A-Za-z]{3,9})\.?$/.exec(v.trim());
+    const monthAfter = yearMonth ? MONTH_STARTS.indexOf(yearMonth[2].slice(0, 3).toLowerCase()) : -1;
+    if (yearMonth && monthAfter >= 0) return `${yearMonth[1]}-${pad2(monthAfter + 1)}-01`;
   }
   return v;
 }

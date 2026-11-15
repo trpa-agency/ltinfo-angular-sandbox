@@ -25,7 +25,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_PROGRAMS = os.path.join(HERE, "..", "..", "..", "ltinfo-monitoring-dashboard", "programs.json")
 API = "https://internalapi.laketahoeinfo.org"
 MAP_SERVICE = "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer"
-CONFIG_KEYS = ("measures", "sitesLayer", "sitesPerYear", "mapLayer", "overlays")
+CONFIG_KEYS = ("measures", "sitesLayer", "sitesPerYear", "mapLayer", "overlays", "filters")
 SITE_PROFILES = os.path.join(HERE, "site-profiles.json")
 EXTRA_CATEGORIES = os.path.join(HERE, "extra-categories.json")
 

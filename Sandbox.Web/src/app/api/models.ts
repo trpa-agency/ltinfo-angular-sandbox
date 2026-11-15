@@ -2,6 +2,7 @@
 // real LT Info API serializes that way. In ESA's repository these types come
 // from an OpenAPI-generated client; here they are written by hand.
 
+import type { PageFilter } from '../lib/page-filters';
 import type { Measure, SitesPerYearConfig } from '../lib/measures';
 import type { SiteProfileConfig } from '../lib/site-profile';
 import type { MapLayerConfig, OverlayConfig, SitesLayerConfig } from '../lib/sites';
@@ -32,6 +33,8 @@ export interface DashboardConfig {
   overlays?: OverlayConfig[];
   /** What the profile of a picked site or area reads; documented in lib/site-profile.ts. */
   siteProfile?: SiteProfileConfig;
+  /** Filters shown once above the map and charts; documented in lib/page-filters.ts. */
+  filters?: PageFilter[];
 }
 
 export interface HealthStatus {

@@ -1,0 +1,38 @@
+{
+ "title": "Planned forest plots by forest type",
+ "source": "https://github.com/trpa-agency/ForestHealth/blob/main/plot-network-design/docs/SAMPLE-DESIGN-2026-10-19.md",
+ "generated": "2026-10-19",
+ "note": "A design, not a count of installed plots. The full design adds plots to the minimum.",
+ "rows": [
+  {
+   "ForestType": "Sierran mixed conifer",
+   "Level": "Minimum design",
+   "Plots": 40
+  },
+  {
+   "ForestType": "Sierran mixed conifer",
+   "Level": "Added in the full design",
+   "Plots": 30
+  },
+  {
+   "ForestType": "Jeffrey pine",
+   "Level": "Minimum design",
+   "Plots": 40
+  },
+  {
+   "ForestType": "Jeffrey pine",
+   "Level": "Added in the full design",
+   "Plots": 0
+  },
+  {
+   "ForestType": "Red fir",
+   "Level": "Minimum design",
+   "Plots": 40
+  },
+  {
+   "ForestType": "Red fir",
+   "Level": "Added in the full design",
+   "Plots": 0
+  }
+ ]
+}

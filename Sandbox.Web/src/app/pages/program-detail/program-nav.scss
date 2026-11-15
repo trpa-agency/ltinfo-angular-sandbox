@@ -1,118 +1,124 @@
-// The rail menu beside a program page: one disclosure per category with its programs as
-// indented links. Neutral surfaces; the current program is a tint and weight, not a color bar.
+// The topic switcher beside the breadcrumb: a button that opens the list of programs in the
+// current program's category. Every value is a token.
 
 :host {
   display: block;
-  min-width: 0;
+  position: relative;
 }
 
-.pnav {
-  font: inherit;
+.pnav__fold {
+  position: relative;
 }
 
-// Wide screens: the outer fold is always open and its summary is hidden; the groups are the menu.
-.pnav__fold-summary {
-  display: none;
+// The button. A summary is focusable and toggles on Enter and Space on its own.
+.pnav__summary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-200);
+  min-height: var(--spacing-700);
+  padding: 0 var(--spacing-300);
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  background: var(--color-background-elevation-raised);
+  color: var(--color-content-default);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  // The chevron: two borders of a small square, turned.
+  &::after {
+    content: '';
+    width: var(--spacing-150);
+    height: var(--spacing-150);
+    margin-top: calc(var(--spacing-100) * -1);
+    border-right: var(--border-width-default) solid currentColor;
+    border-bottom: var(--border-width-default) solid currentColor;
+    transform: rotate(45deg);
+  }
+
+  &:hover {
+    border-color: var(--color-content-default-secondary);
+  }
+
+  &:focus-visible {
+    outline: var(--border-width-focus) solid var(--color-border-default-focus);
+    outline-offset: var(--border-width-focus);
+  }
 }
 
-.pnav__groups,
+.pnav__fold[open] > .pnav__summary::after {
+  margin-top: var(--spacing-100);
+  transform: rotate(225deg);
+}
+
+// The list opens under the button, over the page, at the button's end of the row.
+.pnav__panel {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + var(--spacing-100));
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-200);
+  width: max-content;
+  min-width: 100%;
+  max-width: min(24rem, calc(100vw - var(--spacing-600)));
+  max-height: min(28rem, 70dvh);
+  padding: var(--spacing-300);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-background-elevation-raised);
+}
+
+.pnav__topic {
+  margin: 0;
+  padding: 0 var(--spacing-200);
+  color: var(--color-content-default);
+}
+
 .pnav__programs {
+  display: flex;
+  flex-direction: column;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.pnav__groups {
-  display: flex;
-  flex-direction: column;
-}
-
-.pnav__group {
-  border-bottom: var(--border-width-default) solid var(--color-border-default-subtle);
-}
-
-.pnav__group-summary {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--spacing-200);
-  padding: var(--spacing-200) var(--spacing-150);
-  border-radius: var(--radius-sm);
-  color: var(--color-content-default);
-  cursor: pointer;
-  list-style: none;
-}
-
-.pnav__group-summary::-webkit-details-marker {
-  display: none;
-}
-
-// A chevron that turns when the group opens.
-.pnav__group-summary::before {
-  content: '';
-  flex: none;
-  align-self: center;
-  width: 6px;
-  height: 6px;
-  margin-inline-end: var(--spacing-100);
-  border-right: 1.5px solid var(--color-content-default-secondary);
-  border-bottom: 1.5px solid var(--color-content-default-secondary);
-  transform: rotate(-45deg);
-  transition: transform 0.15s ease;
-}
-
-.pnav__group[open] > .pnav__group-summary::before {
-  transform: rotate(45deg);
-}
-
-.pnav__group-summary:hover {
-  background: var(--color-background-default);
-}
-
-.pnav__group-summary:focus-visible,
-.pnav__fold-summary:focus-visible {
-  outline: var(--border-width-focus) solid var(--color-border-default-focus);
-  outline-offset: calc(-1 * var(--border-width-focus));
-}
-
-.pnav__group-name {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-.pnav__group-count {
-  flex: none;
-  color: var(--color-content-default-secondary);
-  font-variant-numeric: tabular-nums;
-}
-
-.pnav__programs {
-  padding: 0 0 var(--spacing-200) var(--spacing-400);
-}
-
-.pnav__link {
+.pnav__link,
+.pnav__all {
   display: block;
-  padding: var(--spacing-100) var(--spacing-200);
+  padding: var(--spacing-200);
   border-radius: var(--radius-sm);
-  color: var(--color-content-default-secondary);
-  text-decoration: none;
-}
-
-.pnav__link:hover {
-  background: var(--color-background-default);
   color: var(--color-content-default);
   text-decoration: none;
-}
 
-.pnav__link:focus-visible {
-  outline: var(--border-width-focus) solid var(--color-border-default-focus);
-  outline-offset: calc(-1 * var(--border-width-focus));
+  &:hover {
+    background: var(--color-background-elevation-sunken);
+  }
+
+  &:focus-visible {
+    outline: var(--border-width-focus) solid var(--color-border-default-focus);
+    outline-offset: calc(var(--border-width-focus) * -1);
+  }
 }
 
 .pnav__link[aria-current='page'] {
   background: var(--color-background-elevation-sunken);
-  color: var(--color-content-default);
-  font-weight: var(--typography-font-weight-semibold);
+  font-weight: 600;
+}
+
+// The way out to every topic, set off from the list above it.
+.pnav__all {
+  margin-top: var(--spacing-100);
+  padding-top: var(--spacing-300);
+  border-top: var(--border-width-default) solid var(--color-border-default-subtle);
+  border-radius: 0;
 }
 
 .pnav__note {
@@ -120,46 +126,16 @@
   color: var(--color-content-default-secondary);
 }
 
-// Narrow screens: the menu is one disclosure above the page, closed until asked for.
-:host(.is-narrow) .pnav__fold {
-  border: var(--border-width-default) solid var(--color-border-default);
-  border-radius: var(--radius-md);
-  background: var(--color-background-elevation-raised);
-}
+// On a phone the button takes the row and the list opens at its start.
+@media (max-width: 40rem) {
+  .pnav__summary {
+    display: flex;
+    justify-content: space-between;
+  }
 
-:host(.is-narrow) .pnav__fold-summary {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-200);
-  padding: var(--spacing-300) var(--spacing-400);
-  cursor: pointer;
-  list-style: none;
-}
-
-:host(.is-narrow) .pnav__fold-summary::-webkit-details-marker {
-  display: none;
-}
-
-:host(.is-narrow) .pnav__fold-summary::after {
-  content: '';
-  width: 7px;
-  height: 7px;
-  margin-inline-start: auto;
-  border-right: 1.5px solid var(--color-content-default-secondary);
-  border-bottom: 1.5px solid var(--color-content-default-secondary);
-  transform: rotate(45deg);
-}
-
-:host(.is-narrow) .pnav__fold[open] > .pnav__fold-summary::after {
-  transform: rotate(-135deg);
-}
-
-:host(.is-narrow) .pnav__groups {
-  padding: 0 var(--spacing-300) var(--spacing-300);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pnav__group-summary::before {
-    transition: none;
+  .pnav__panel {
+    left: 0;
+    right: auto;
+    width: auto;
   }
 }

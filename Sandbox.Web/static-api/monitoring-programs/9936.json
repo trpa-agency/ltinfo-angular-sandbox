@@ -1,0 +1,119 @@
+{
+ "MonitoringProgramDescription": "The number of people in the Tahoe Region on an average day of each month, from January 2019 through August 2025. It counts everyone who is here, whether they live, work, or are visiting, so it measures the load on roads, trails, and services better than the resident population does.\n\nJuly is the busiest month, with 183,000 to 212,000 people on an average day: about twice the quiet months of April, May, October, and November. The two lowest months in the record are April 2020, during the first pandemic stay-at-home orders, and September 2021, when the Caldor Fire emptied the South Shore. The July average has fallen each year since 2023 and was lower in 2025 than in any earlier July in the record.",
+ "MonitoringApproach": "TRPA takes the figures from Placer.ai, a commercial service that estimates how many people are in a place from the locations of mobile phones. Daily estimates for each type of person are added together and averaged over the month. Only the monthly average is published, to keep individual days out of view and meet Placer.ai's terms of service.\n\nRead the numbers as estimates from a sample of phones, scaled up by the vendor's own method, not as a count. The table does not state the boundary the people are counted in or the types of people it adds together. The yearly average here is the plain average of the 12 monthly values.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "People in the Region on an average day",
+    "sub": "The average number of people present on a day of each month, January 2019 through August 2025.",
+    "service": "https://maps.trpa.org/server/rest/services/DataDownloader_Transportation/MapServer",
+    "layer": 27,
+    "y": "Daily_Persons",
+    "yName": "People",
+    "yLabel": "People on an average day",
+    "where": "Daily_Persons IS NOT NULL",
+    "x": "Year",
+    "xWith": "Month",
+    "xType": "date",
+    "dateStep": "month",
+    "xLabel": "Month",
+    "type": "line",
+    "span": "span-12"
+   },
+   {
+    "title": "Average day by month of the year",
+    "sub": "The same monthly averages, one line a year, to compare seasons. 2025 ends in August.",
+    "service": "https://maps.trpa.org/server/rest/services/DataDownloader_Transportation/MapServer",
+    "layer": 27,
+    "y": "Daily_Persons",
+    "yName": "People",
+    "yLabel": "People on an average day",
+    "where": "Daily_Persons IS NOT NULL",
+    "x": "Month",
+    "xType": "category",
+    "xLabel": "Month",
+    "xOrder": [
+     "Jan",
+     "Feb",
+     "Mar",
+     "Apr",
+     "May",
+     "Jun",
+     "Jul",
+     "Aug",
+     "Sep",
+     "Oct",
+     "Nov",
+     "Dec"
+    ],
+    "xNames": {
+     "Jan": "Jan.",
+     "Feb": "Feb.",
+     "Mar": "March",
+     "Apr": "April",
+     "May": "May",
+     "Jun": "June",
+     "Jul": "July",
+     "Aug": "Aug.",
+     "Sep": "Sept.",
+     "Oct": "Oct.",
+     "Nov": "Nov.",
+     "Dec": "Dec."
+    },
+    "seriesBy": "Year",
+    "seriesLabel": "Year",
+    "type": "line"
+   },
+   {
+    "title": "Average day in July, the busiest month",
+    "sub": "People present on an average July day in each year.",
+    "service": "https://maps.trpa.org/server/rest/services/DataDownloader_Transportation/MapServer",
+    "layer": 27,
+    "y": "Daily_Persons",
+    "yName": "People",
+    "yLabel": "People on an average day",
+    "where": "Month = 'Jul'",
+    "x": "Year",
+    "xLabel": "Year",
+    "type": "bar"
+   },
+   {
+    "title": "Average day in each year",
+    "sub": "The average of the 12 monthly values. Full years only: 2025 ends in August.",
+    "service": "https://maps.trpa.org/server/rest/services/DataDownloader_Transportation/MapServer",
+    "layer": 27,
+    "where": "Year < 2025",
+    "x": "Year",
+    "xLabel": "Year",
+    "y": "Daily_Persons",
+    "stat": "avg",
+    "yName": "People",
+    "yLabel": "People on an average day",
+    "type": "bar"
+   }
+  ]
+ },
+ "RelatedLinks": [],
+ "MonitoringProgramID": 9936,
+ "MonitoringProgramName": "Effective Population",
+ "CategoryID": 10,
+ "CategoryName": "Transportation and Sustainable Communities",
+ "ThemeColor": "#DB5B00",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

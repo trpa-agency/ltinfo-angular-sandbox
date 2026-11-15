@@ -10,21 +10,21 @@
  ],
  "Images": [
   {
-   "MonitoringProgramImageID": 2763,
+   "MonitoringProgramImageID": 2964,
    "Url": "https://internalapi.laketahoeinfo.org/file-resources/305e57ef-9556-44fd-92f1-4872b4c3f248",
    "Caption": "TRPA instruments measuring background noise levels in a Plan Area.",
    "PhotoCredit": null,
    "IsKeyPhoto": true
   },
   {
-   "MonitoringProgramImageID": 2764,
+   "MonitoringProgramImageID": 2965,
    "Url": "https://internalapi.laketahoeinfo.org/file-resources/9e557834-ee1a-4638-8069-aa03b05ed9b3",
    "Caption": "TRPA noise monitoring equipment.",
    "PhotoCredit": null,
    "IsKeyPhoto": false
   },
   {
-   "MonitoringProgramImageID": 2765,
+   "MonitoringProgramImageID": 2966,
    "Url": "https://internalapi.laketahoeinfo.org/file-resources/a68ad1c0-2d25-47e2-b5fc-b94d714d17ac",
    "Caption": "A map showing CNEL noise limits in Plan Areas around the Tahoe Basin.",
    "PhotoCredit": null,

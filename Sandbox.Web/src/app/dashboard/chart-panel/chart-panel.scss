@@ -17,7 +17,7 @@
   color: var(--color-content-default-secondary);
 }
 
-// Pick on the left, view toggle and CSV on the right; they wrap on a phone.
+// The pick, above the chart it changes.
 .panel__tools {
   display: flex;
   flex-wrap: wrap;
@@ -32,12 +32,22 @@
   max-width: 22rem;
 }
 
+// The foot of the card: Chart or Table and CSV, then the source at the far end. They wrap
+// on a phone and in a narrow card.
+.panel__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--spacing-300) var(--spacing-400);
+  margin-top: var(--spacing-400);
+}
+
 .panel__actions {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
   gap: var(--spacing-200);
-  margin-left: auto;
 }
 
 // The pick's list is 260px tall and opens over this area. The height holds in both
@@ -46,6 +56,11 @@
 .panel__view {
   position: relative;
   min-width: 0;
+}
+
+// Only a card with a pick holds this height: a card without one is as tall as its chart, so
+// a chart of three bars does not sit in a half-empty card.
+.panel__view--pick {
   min-height: 17rem;
 }
 
@@ -152,7 +167,7 @@
 }
 
 .panel__source {
-  margin: var(--spacing-400) 0 0;
+  margin: 0;
   color: var(--color-content-default-secondary);
 
   // The source line sits on the card's sunken footer, where the link green falls short.

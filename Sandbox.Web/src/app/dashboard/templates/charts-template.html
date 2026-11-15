@@ -1,4 +1,17 @@
-<app-program-header [program]="program()" [tiles]="tracker.tiles()" variant="compact" />
+<app-program-header [program]="program()" [tiles]="tracker.tiles()" variant="compact">
+  <!-- The page says what the program is before it shows a chart, and where its status is. -->
+  @if (lead(); as text) {
+    <p slot="lead" class="lead typography-body-lg">{{ text }}</p>
+  }
+  @if (links().length > 0) {
+    <app-header-links slot="lead" [links]="links()" />
+  }
+</app-program-header>
+
+<!-- One choice for the whole page: the map and every chart on the filter's layer follow it. -->
+@if (data().filters.length > 0) {
+  <app-filter-bar [filters]="data().filters" [chosen]="chosen()" (choose)="choose($event)" />
+}
 
 <!-- The lead: the measurement charts, straight under the header. -->
 <app-band lead data-section="measurements" title="Measurements">
@@ -23,8 +36,8 @@
 
 <app-band data-section="about" title="About This Program">
   <div class="split">
-    <app-program-story class="split__main" [description]="description()" [approach]="approach()" />
-    <app-program-partners class="split__side" [partners]="program().Partners" [links]="program().RelatedLinks ?? []" />
+    <app-program-story class="split__main" [description]="restOfDescription()" [approach]="approach()" />
+    <app-program-partners class="split__side" [partners]="program().Partners" />
   </div>
 </app-band>
 

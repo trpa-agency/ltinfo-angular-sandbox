@@ -4,6 +4,8 @@ import { EsaCard } from '../../ecology/esa-card';
 import { PhotoGallery } from '../photos/photo-gallery';
 import {
   Band,
+  FilterBar,
+  HeaderLinks,
   MeasurementsBlock,
   PerYearBlock,
   ProgramPartners,
@@ -26,6 +28,8 @@ import { TemplateBase } from './template-base';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     Band,
+    FilterBar,
+    HeaderLinks,
     EsaCard,
     MeasurementsBlock,
     PerYearBlock,

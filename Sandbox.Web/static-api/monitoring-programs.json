@@ -590,6 +590,30 @@
   ]
  },
  {
+  "MonitoringProgramID": 9937,
+  "MonitoringProgramName": "Bicycle and Pedestrian Network",
+  "CategoryID": 10,
+  "CategoryName": "Transportation and Sustainable Communities",
+  "ThemeColor": "#DB5B00",
+  "IsFeatured": false,
+  "PartnerCount": 9,
+  "Template": "map",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency",
+   "City of South Lake Tahoe",
+   "Placer County, CA",
+   "El Dorado County, CA",
+   "Washoe County, NV",
+   "Douglas County, NV",
+   "Tahoe City Public Utility District",
+   "California Department of Transportation",
+   "Nevada Department of Transportation"
+  ]
+ },
+ {
   "MonitoringProgramID": 77,
   "MonitoringProgramName": "Congestion-Travel Time",
   "CategoryID": 10,
@@ -602,6 +626,22 @@
   "KeyPhotoUrl": "https://internalapi.laketahoeinfo.org/file-resources/7ce5894d-67b7-4802-9d66-e48460bdbe58",
   "SiteCount": 13,
   "PartnerNames": []
+ },
+ {
+  "MonitoringProgramID": 9936,
+  "MonitoringProgramName": "Effective Population",
+  "CategoryID": 10,
+  "CategoryName": "Transportation and Sustainable Communities",
+  "ThemeColor": "#DB5B00",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
  },
  {
   "MonitoringProgramID": 34,
@@ -774,6 +814,22 @@
   "KeyPhotoUrl": null,
   "SiteCount": 0,
   "PartnerNames": []
+ },
+ {
+  "MonitoringProgramID": 9938,
+  "MonitoringProgramName": "Forest Plot Network",
+  "CategoryID": 11,
+  "CategoryName": "Forest Structure",
+  "ThemeColor": "#415414",
+  "IsFeatured": false,
+  "PartnerCount": 1,
+  "Template": "charts",
+  "ImageCount": 0,
+  "KeyPhotoUrl": null,
+  "SiteCount": 0,
+  "PartnerNames": [
+   "Tahoe Regional Planning Agency"
+  ]
  },
  {
   "MonitoringProgramID": 9794,

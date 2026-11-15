@@ -2,6 +2,9 @@
   @if (lead(); as text) {
     <p slot="lead" class="lead typography-body-lg">{{ text }}</p>
   }
+  @if (links().length > 0) {
+    <app-header-links slot="lead" [links]="links()" />
+  }
 </app-program-header>
 
 <!-- The lead: the story at a reading width, with the photos beside it. -->
@@ -14,7 +17,7 @@
       <!-- The partners sit under the story when the gallery has the side column,
            and take the main column when the header lead was the whole story. -->
       @if (galleryPhotos().length > 0 || !showStory()) {
-        <app-program-partners [partners]="program().Partners" [links]="program().RelatedLinks ?? []" />
+        <app-program-partners [partners]="program().Partners" />
       }
     </div>
     @if (galleryPhotos().length > 0) {
@@ -25,7 +28,7 @@
       </div>
     } @else if (showStory()) {
       <div class="split__side">
-        <app-program-partners [partners]="program().Partners" [links]="program().RelatedLinks ?? []" />
+        <app-program-partners [partners]="program().Partners" />
       </div>
     }
   </div>

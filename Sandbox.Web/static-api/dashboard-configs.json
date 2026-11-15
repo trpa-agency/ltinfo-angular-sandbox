@@ -7503,5 +7503,600 @@
     }
    ]
   }
+ },
+ {
+  "MonitoringProgramID": 9936,
+  "DashboardConfig": {
+   "measures": [
+    {
+     "title": "People in the Region on an average day",
+     "sub": "The average number of people present on a day of each month, January 2019 through August 2025.",
+     "service": "https://maps.trpa.org/server/rest/services/DataDownloader_Transportation/MapServer",
+     "layer": 27,
+     "y": "Daily_Persons",
+     "yName": "People",
+     "yLabel": "People on an average day",
+     "where": "Daily_Persons IS NOT NULL",
+     "x": "Year",
+     "xWith": "Month",
+     "xType": "date",
+     "dateStep": "month",
+     "xLabel": "Month",
+     "type": "line",
+     "span": "span-12"
+    },
+    {
+     "title": "Average day by month of the year",
+     "sub": "The same monthly averages, one line a year, to compare seasons. 2025 ends in August.",
+     "service": "https://maps.trpa.org/server/rest/services/DataDownloader_Transportation/MapServer",
+     "layer": 27,
+     "y": "Daily_Persons",
+     "yName": "People",
+     "yLabel": "People on an average day",
+     "where": "Daily_Persons IS NOT NULL",
+     "x": "Month",
+     "xType": "category",
+     "xLabel": "Month",
+     "xOrder": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+     ],
+     "xNames": {
+      "Jan": "Jan.",
+      "Feb": "Feb.",
+      "Mar": "March",
+      "Apr": "April",
+      "May": "May",
+      "Jun": "June",
+      "Jul": "July",
+      "Aug": "Aug.",
+      "Sep": "Sept.",
+      "Oct": "Oct.",
+      "Nov": "Nov.",
+      "Dec": "Dec."
+     },
+     "seriesBy": "Year",
+     "seriesLabel": "Year",
+     "type": "line"
+    },
+    {
+     "title": "Average day in July, the busiest month",
+     "sub": "People present on an average July day in each year.",
+     "service": "https://maps.trpa.org/server/rest/services/DataDownloader_Transportation/MapServer",
+     "layer": 27,
+     "y": "Daily_Persons",
+     "yName": "People",
+     "yLabel": "People on an average day",
+     "where": "Month = 'Jul'",
+     "x": "Year",
+     "xLabel": "Year",
+     "type": "bar"
+    },
+    {
+     "title": "Average day in each year",
+     "sub": "The average of the 12 monthly values. Full years only: 2025 ends in August.",
+     "service": "https://maps.trpa.org/server/rest/services/DataDownloader_Transportation/MapServer",
+     "layer": 27,
+     "where": "Year < 2025",
+     "x": "Year",
+     "xLabel": "Year",
+     "y": "Daily_Persons",
+     "stat": "avg",
+     "yName": "People",
+     "yLabel": "People on an average day",
+     "type": "bar"
+    }
+   ]
+  }
+ },
+ {
+  "MonitoringProgramID": 9937,
+  "DashboardConfig": {
+   "measures": [
+    {
+     "title": "Miles by type of facility",
+     "sub": "Existing shared-use paths, bike lanes, bike routes, and sidewalks.",
+     "service": "https://maps.trpa.org/server/rest/services/DataDownloader_Transportation/MapServer",
+     "layer": 3,
+     "x": "CLASS",
+     "xType": "category",
+     "xLabel": "Type",
+     "xOrder": [
+      "1",
+      "2",
+      "3",
+      "PED"
+     ],
+     "xNames": {
+      "1": "Shared-use path",
+      "2": "Bike lane",
+      "3": "Bike route",
+      "PED": "Sidewalk"
+     },
+     "y": "MILES",
+     "stat": "sum",
+     "yName": "Miles",
+     "yLabel": "Miles",
+     "type": "bar",
+     "orientation": "h",
+     "span": "span-4"
+    },
+    {
+     "title": "Miles by the agency that maintains them",
+     "sub": "Existing facilities of every type. Different spellings of an agency's name are read as one.",
+     "service": "https://maps.trpa.org/server/rest/services/DataDownloader_Transportation/MapServer",
+     "layer": 3,
+     "where": "MAINT_JURS IS NOT NULL",
+     "x": "MAINT_JURS",
+     "xType": "category",
+     "xLabel": "Maintained by",
+     "merge": {
+      "MAINT_JURS": {
+       "CITY OF SOUTH LAKE TAHOE": "City of South Lake Tahoe",
+       "PLACER COUNTY": "Placer County",
+       "EL DORADO COUNTY": "El Dorado County",
+       "EL Dorado County": "El Dorado County",
+       "WASHOE COUNTY": "Washoe County",
+       "DOUGLAS COUNTY": "Douglas County",
+       "TCPUD": "Tahoe City Public Utility District",
+       "NTPUD": "North Tahoe Public Utility District",
+       "USFS": "U.S. Forest Service",
+       "LTCC": "Lake Tahoe Community College",
+       "HYATT HOTEL": "Hyatt hotel"
+      }
+     },
+     "y": "MILES",
+     "combine": "sum",
+     "yName": "Miles",
+     "yLabel": "Miles",
+     "type": "bar",
+     "orientation": "h",
+     "sort": "desc",
+     "span": "span-8"
+    },
+    {
+     "title": "Miles built each year, by type",
+     "sub": "Segments with a year recorded: 87 of 151 miles. Most of the rest say only that they were built before 2006.",
+     "service": "https://maps.trpa.org/server/rest/services/DataDownloader_Transportation/MapServer",
+     "layer": 3,
+     "where": "YR_OF_CONS LIKE '20%' OR YR_OF_CONS LIKE ' 20%'",
+     "x": "YR_OF_CONS",
+     "xLabel": "Year built",
+     "merge": {
+      "YR_OF_CONS": {
+       " 2013": "2013",
+       " 2014": "2014",
+       "2012?": "2012",
+       "2007 (1A) 2008 (1B)": "2007"
+      }
+     },
+     "seriesBy": "CLASS",
+     "seriesLabel": "Type",
+     "seriesOrder": [
+      "1",
+      "2",
+      "3",
+      "PED"
+     ],
+     "seriesNames": {
+      "1": "Shared-use path",
+      "2": "Bike lane",
+      "3": "Bike route",
+      "PED": "Sidewalk"
+     },
+     "seriesColors": {
+      "1": "var(--mon-stevens4-1)",
+      "2": "var(--mon-stevens4-2)",
+      "3": "var(--mon-stevens4-3)",
+      "PED": "var(--mon-stevens4-4)"
+     },
+     "y": "MILES",
+     "combine": "sum",
+     "yLabel": "Miles",
+     "type": "stacked",
+     "span": "span-12"
+    },
+    {
+     "title": "Snow removal on paths and sidewalks",
+     "sub": "Miles of shared-use path and sidewalk by whether snow is cleared in winter.",
+     "service": "https://maps.trpa.org/server/rest/services/DataDownloader_Transportation/MapServer",
+     "layer": 3,
+     "where": "CLASS IN ('1', 'PED') AND WNTR_MAINT IS NOT NULL",
+     "x": "CLASS",
+     "xType": "category",
+     "xLabel": "Type",
+     "xOrder": [
+      "1",
+      "PED"
+     ],
+     "xNames": {
+      "1": "Shared-use path",
+      "2": "Bike lane",
+      "3": "Bike route",
+      "PED": "Sidewalk"
+     },
+     "merge": {
+      "WNTR_MAINT": {
+       "YES": "Cleared",
+       "Yes": "Cleared",
+       "NO": "Not cleared",
+       "No": "Not cleared",
+       "N/A": "Marked not applicable"
+      }
+     },
+     "seriesBy": "WNTR_MAINT",
+     "seriesLabel": "Winter",
+     "seriesOrder": [
+      "Cleared",
+      "Not cleared",
+      "Marked not applicable"
+     ],
+     "y": "MILES",
+     "combine": "sum",
+     "yLabel": "Miles",
+     "type": "stacked",
+     "orientation": "h"
+    },
+    {
+     "title": "Proposed miles by type of facility",
+     "sub": "The proposed network of the Active Transportation Plan, by whether funding is expected.",
+     "service": "https://maps.trpa.org/server/rest/services/DataDownloader_Transportation/MapServer",
+     "layer": 4,
+     "x": "CLASS",
+     "xType": "category",
+     "xLabel": "Type",
+     "xOrder": [
+      "1",
+      "2",
+      "3",
+      "5",
+      "0"
+     ],
+     "xNames": {
+      "0": "Sidewalk",
+      "1": "Shared-use path",
+      "2": "Bike lane",
+      "3": "Bike route",
+      "5": "Complete street"
+     },
+     "y": "MILES",
+     "stat": "sum",
+     "yLabel": "Miles",
+     "seriesBy": "FINANCIAL_STATUS",
+     "seriesLabel": "Plan",
+     "seriesOrder": [
+      "Constrained",
+      "Unconstrained"
+     ],
+     "seriesNames": {
+      "Constrained": "Funding expected",
+      "Unconstrained": "No funding identified"
+     },
+     "type": "stacked",
+     "orientation": "h"
+    }
+   ],
+   "mapLayer": {
+    "service": "https://maps.trpa.org/server/rest/services/DataDownloader_Transportation/MapServer",
+    "layer": 3,
+    "title": "Bicycle and pedestrian facilities",
+    "unit": "segment",
+    "unitPlural": "Segments",
+    "name": "NAME",
+    "geometry": "line",
+    "countAsSites": false,
+    "colorBy": "CLASS",
+    "colorByLabel": "Type",
+    "colors": {
+     "1": "var(--mon-stevens4-1)",
+     "2": "var(--mon-stevens4-2)",
+     "3": "var(--mon-stevens4-3)",
+     "PED": "var(--mon-stevens4-4)"
+    },
+    "labels": {
+     "1": "Shared-use path",
+     "2": "Bike lane",
+     "3": "Bike route",
+     "PED": "Sidewalk"
+    },
+    "meta": [
+     {
+      "field": "MILES",
+      "suffix": " miles"
+     },
+     {
+      "field": "MAINT_JURS"
+     }
+    ],
+    "fields": [
+     {
+      "field": "CLASS",
+      "label": "Type"
+     },
+     {
+      "field": "MILES",
+      "label": "Miles"
+     },
+     {
+      "field": "FROM_",
+      "label": "From"
+     },
+     {
+      "field": "TO_",
+      "label": "To"
+     },
+     {
+      "field": "MAINT_JURS",
+      "label": "Maintained by"
+     },
+     {
+      "field": "WNTR_MAINT",
+      "label": "Snow cleared in winter"
+     },
+     {
+      "field": "YR_OF_CONS",
+      "label": "Year built"
+     },
+     {
+      "field": "CLASS1_E_BIKE",
+      "label": "Class 1 e-bikes allowed"
+     }
+    ]
+   },
+   "overlays": [
+    {
+     "service": "https://maps.trpa.org/server/rest/services/DataDownloader_Transportation/MapServer",
+     "layer": 4,
+     "title": "Proposed facilities",
+     "name": "PROJECT_NAME",
+     "geometry": "line",
+     "color": "var(--color-content-default-secondary)",
+     "fields": [
+      {
+       "field": "PROJECT_NAME",
+       "label": "Project"
+      },
+      {
+       "field": "IMPLEMENTER",
+       "label": "Lead agency"
+      },
+      {
+       "field": "MILES",
+       "label": "Miles"
+      },
+      {
+       "field": "COMPLETE_YEAR",
+       "label": "Planned year"
+      },
+      {
+       "field": "FINANCIAL_STATUS",
+       "label": "Plan"
+      },
+      {
+       "field": "PHASE",
+       "label": "Phase"
+      }
+     ]
+    }
+   ],
+   "filters": [
+    {
+     "field": "CLASS",
+     "label": "Type",
+     "service": "https://maps.trpa.org/server/rest/services/DataDownloader_Transportation/MapServer",
+     "layer": 3,
+     "style": "buttons",
+     "allLabel": "All types",
+     "options": [
+      {
+       "label": "Shared-use path",
+       "values": [
+        "1"
+       ],
+       "color": "var(--mon-stevens4-1)"
+      },
+      {
+       "label": "Bike lane",
+       "values": [
+        "2"
+       ],
+       "color": "var(--mon-stevens4-2)"
+      },
+      {
+       "label": "Bike route",
+       "values": [
+        "3"
+       ],
+       "color": "var(--mon-stevens4-3)"
+      },
+      {
+       "label": "Sidewalk",
+       "values": [
+        "PED"
+       ],
+       "color": "var(--mon-stevens4-4)"
+      }
+     ]
+    },
+    {
+     "field": "MAINT_JURS",
+     "label": "Maintained by",
+     "service": "https://maps.trpa.org/server/rest/services/DataDownloader_Transportation/MapServer",
+     "layer": 3,
+     "allLabel": "All agencies",
+     "options": [
+      {
+       "label": "City of South Lake Tahoe",
+       "values": [
+        "CITY OF SOUTH LAKE TAHOE",
+        "City of South Lake Tahoe"
+       ]
+      },
+      {
+       "label": "Placer County",
+       "values": [
+        "PLACER COUNTY",
+        "Placer County"
+       ]
+      },
+      {
+       "label": "El Dorado County",
+       "values": [
+        "EL DORADO COUNTY",
+        "El Dorado County",
+        "EL Dorado County"
+       ]
+      },
+      {
+       "label": "Washoe County",
+       "values": [
+        "WASHOE COUNTY",
+        "Washoe County"
+       ]
+      },
+      {
+       "label": "Tahoe City Public Utility District",
+       "values": [
+        "TCPUD"
+       ]
+      },
+      {
+       "label": "Douglas County",
+       "values": [
+        "DOUGLAS COUNTY",
+        "Douglas County"
+       ]
+      },
+      {
+       "label": "U.S. Forest Service",
+       "values": [
+        "USFS"
+       ]
+      },
+      {
+       "label": "Caltrans",
+       "values": [
+        "Caltrans"
+       ]
+      },
+      {
+       "label": "North Tahoe Public Utility District",
+       "values": [
+        "NTPUD"
+       ]
+      },
+      {
+       "label": "Heavenly Village",
+       "values": [
+        "Heavenly Village"
+       ]
+      },
+      {
+       "label": "Lake Tahoe Community College",
+       "values": [
+        "LTCC"
+       ]
+      },
+      {
+       "label": "Hyatt hotel",
+       "values": [
+        "HYATT HOTEL"
+       ]
+      },
+      {
+       "label": "TRPA",
+       "values": [
+        "TRPA"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "MonitoringProgramID": 9938,
+  "DashboardConfig": {
+   "measures": [
+    {
+     "title": "Planned plots by forest type",
+     "sub": "Plots at the minimum design, and the plots the full design adds. None is installed yet.",
+     "json": "data/forest-plots/planned-plots.json",
+     "sourceHref": "https://github.com/trpa-agency/ForestHealth/blob/main/plot-network-design/docs/SAMPLE-DESIGN-2026-10-19.md",
+     "sourceLabel": "TRPA forest plot network design record, Oct. 19, 2026",
+     "x": "ForestType",
+     "xType": "category",
+     "xLabel": "Forest type",
+     "xOrder": [
+      "Sierran mixed conifer",
+      "Jeffrey pine",
+      "Red fir"
+     ],
+     "y": "Plots",
+     "yLabel": "Plots",
+     "seriesBy": "Level",
+     "seriesLabel": "Design",
+     "seriesOrder": [
+      "Minimum design",
+      "Added in the full design"
+     ],
+     "type": "stacked"
+    },
+    {
+     "title": "Forest the plots represent",
+     "sub": "Acres of each forest type the stand density and seral stage standards report on.",
+     "json": "data/forest-plots/frame-acres.json",
+     "sourceHref": "https://github.com/trpa-agency/ForestHealth/blob/main/plot-network-design/docs/SAMPLE-DESIGN-2026-10-19.md",
+     "sourceLabel": "TRPA forest plot network design record, Oct. 19, 2026",
+     "x": "ForestType",
+     "xType": "category",
+     "xLabel": "Forest type",
+     "xOrder": [
+      "Sierran mixed conifer",
+      "Jeffrey pine",
+      "Red fir"
+     ],
+     "y": "Acres",
+     "yName": "Acres",
+     "yLabel": "Acres",
+     "type": "bar"
+    },
+    {
+     "title": "Expected margin of error for a forest type",
+     "sub": "How far a result for one forest type could be off, 19 times in 20, with 40 plots and with 70. Smaller is better.",
+     "json": "data/forest-plots/margin-of-error.json",
+     "sourceHref": "https://github.com/trpa-agency/ForestHealth/blob/main/plot-network-design/docs/SAMPLE-DESIGN-2026-10-19.md",
+     "sourceLabel": "TRPA forest plot network design record, Oct. 19, 2026",
+     "x": "Plots",
+     "xType": "category",
+     "xLabel": "Plots in the forest type",
+     "xNames": {
+      "40": "40 plots",
+      "70": "70 plots"
+     },
+     "y": "Points",
+     "yLabel": "Percentage points, plus or minus",
+     "seriesBy": "Estimate",
+     "seriesLabel": "Estimate from",
+     "seriesOrder": [
+      "Plots alone",
+      "Plots with the lidar model, lower efficiency",
+      "Plots with the lidar model, higher efficiency"
+     ],
+     "type": "bar",
+     "span": "span-12"
+    }
+   ]
+  }
  }
 ]

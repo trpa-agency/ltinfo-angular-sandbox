@@ -46,3 +46,16 @@ app-band[data-lead] {
     grid-column: span 12;
   }
 }
+
+// The first paragraph of the description, one step up from body text and held
+// to a reading measure.
+.lead {
+  margin: 0;
+  max-width: 62ch;
+  // The body-lg size is fluid and drops under the body size on a phone; the lead never does.
+  font-size: max(var(--typography-body-lg-font-size), var(--typography-body-md-font-size));
+  // The body-lg role is set loose for short labels; a paragraph reads better at the body rhythm.
+  line-height: var(--typography-body-md-line-height);
+  color: var(--color-content-default);
+  overflow-wrap: break-word;
+}

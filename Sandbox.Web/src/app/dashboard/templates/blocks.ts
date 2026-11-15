@@ -7,14 +7,25 @@
 //   app-sites-block         the map and site list, for a program that has sites or areas
 //   app-per-year-block      the "sites monitored each year" chart, when it is configured
 //   app-program-story       description and monitoring approach
-//   app-program-partners    the partner organizations, and the program's pages on the other dashboards
+//   app-program-partners    the partner organizations
+//   app-header-links        the program's pages on the other dashboards, as one line in the header
+//   app-filter-bar          the page filters, shown once above the map and charts
 //
 // A block with nothing to show renders the house empty state: what is absent,
 // then what the section will show. The two site blocks are the exception: a program with no
 // sites has no Sites section, so the templates leave them out instead of showing them empty.
-import { ChangeDetectionStrategy, Component, booleanAttribute, computed, input } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  ChangeDetectionStrategy,
+  Component,
+  booleanAttribute,
+  computed,
+  input,
+  output,
+} from '@angular/core';
 
 import type { Partner, RelatedLink } from '../../api/models';
+import type { FilterState, PageFilter } from '../../lib/page-filters';
 import { EsaBadge } from '../../ecology/esa-badge';
 import { EsaCard } from '../../ecology/esa-card';
 import { EsaEmptyState } from '../../ecology/esa-empty-state';
@@ -224,33 +235,113 @@ export class ProgramStory {
         </div>
       }
     </esa-card>
-    <!-- mon-lego-checked: esa-card holds the list; Ecology has no link-list lego, so the grouped
-         list of plain links is custom. -->
-    @if (groups().length > 0) {
-      <esa-card [title]="'On Other Dashboards'" class="dashboards">
-        @for (group of groups(); track group.dashboard) {
-          <h3 class="dashboards__name typography-label">{{ group.dashboard }}</h3>
-          <ul class="dashboards__links">
-            @for (link of group.links; track link.Url) {
-              <li><a [href]="link.Url" target="_blank" rel="noopener">{{ link.Label }}</a></li>
-            }
-          </ul>
-        }
-      </esa-card>
-    }
     </div>
   `,
   styleUrl: './blocks.scss',
 })
 export class ProgramPartners {
   readonly partners = input.required<readonly Partner[]>();
-  /** Pages on the other LT Info dashboards for the program's indicators, grouped by dashboard. */
-  readonly links = input<readonly RelatedLink[]>([]);
-  protected readonly groups = computed(() => {
-    const byDashboard = new Map<string, RelatedLink[]>();
-    for (const link of this.links()) byDashboard.set(link.Dashboard, [...(byDashboard.get(link.Dashboard) ?? []), link]);
-    return [...byDashboard].map(([dashboard, links]) => ({ dashboard, links }));
-  });
 
   protected readonly empty = EMPTY_TEXT.partners;
+}
+
+// The program's pages on the other LT Info dashboards, as one line under the lead in the
+// header: the Threshold Dashboard has the status against the standard, which a monitoring
+// page does not repeat, so the way to it sits at the top and not in a card at the foot.
+//
+// mon-lego-checked: Ecology has no link-list lego in the vendored set (badge, button, card,
+// empty state, stat), so the line of plain links is custom, tokens only.
+@Component({
+  selector: 'app-header-links',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    @if (links().length > 0) {
+      <ul class="hlinks typography-body-sm" aria-label="On other dashboards">
+        @for (link of links(); track link.Url) {
+          <li>
+            <a [href]="link.Url" target="_blank" rel="noopener">{{ link.Dashboard }}: {{ link.Label }}</a>
+          </li>
+        }
+      </ul>
+    }
+  `,
+  styleUrl: './blocks.scss',
+})
+export class HeaderLinks {
+  readonly links = input.required<readonly RelatedLink[]>();
+}
+
+type EcologyChange = CustomEvent<{ value?: string | string[] }>;
+
+interface FilterView {
+  filter: PageFilter;
+  /** Every option, with the choice that filters nothing first. Its value is the empty string. */
+  options: { label: string; value: string }[];
+  value: string;
+}
+
+// The page filters: one control a filter, shown once above the map and the charts, so a
+// choice is made in one place and every panel on the filter's layer follows it. A filter of
+// a few options is a button toggle, so the reader sees them all; a long one is a select.
+//
+// Lego: esa-button-toggle and esa-select (Ecology web components), in a plain flex row.
+@Component({
+  selector: 'app-filter-bar',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  host: { '[attr.data-active]': 'active()' },
+  template: `
+    <div class="filters" role="group" aria-label="Filter the map and charts">
+      @for (view of views(); track view.filter.field) {
+        @if (view.filter.style === 'buttons') {
+          <esa-button-toggle
+            class="filters__control"
+            size="sm"
+            [attr.data-field]="view.filter.field"
+            [label]="view.filter.label"
+            [options]="view.options"
+            [value]="view.value"
+            (change)="onChange(view.filter, $event)"
+          ></esa-button-toggle>
+        } @else {
+          <esa-select
+            class="filters__control filters__control--select"
+            size="sm"
+            [attr.data-field]="view.filter.field"
+            [label]="view.filter.label"
+            [options]="view.options"
+            [value]="view.value"
+            (change)="onChange(view.filter, $event)"
+          ></esa-select>
+        }
+      }
+    </div>
+  `,
+  styleUrl: './blocks.scss',
+})
+export class FilterBar {
+  readonly filters = input.required<readonly PageFilter[]>();
+  readonly chosen = input.required<FilterState>();
+  /** A filter changed: its field, and the label of the option chosen ('' for all). */
+  readonly choose = output<{ field: string; label: string }>();
+
+  protected readonly views = computed<FilterView[]>(() =>
+    this.filters().map((filter) => ({
+      filter,
+      options: [
+        { label: filter.allLabel ?? 'All', value: '' },
+        ...filter.options.map((option) => ({ label: option.label, value: option.label })),
+      ],
+      value: this.chosen()[filter.field] ?? '',
+    })),
+  );
+
+  /** How many filters have an option chosen, for the tests. */
+  protected readonly active = computed(() => this.views().filter((view) => view.value !== '').length);
+
+  protected onChange(filter: PageFilter, event: Event): void {
+    const value = (event as EcologyChange).detail?.value;
+    if (typeof value !== 'string' || value === (this.chosen()[filter.field] ?? '')) return;
+    this.choose.emit({ field: filter.field, label: value });
+  }
 }

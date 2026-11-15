@@ -25,15 +25,15 @@ export const TEMPLATE_LABELS: Record<Template, string> = {
 /** What Sandbox.Database seeds. Change a number here when the seed changes. */
 export const seed = {
   database: 'LTInfoSandbox',
-  programs: 113,
+  programs: 116,
   categories: 14,
   featured: 16,
   /** The 16 programs seed.sql marks IsFeatured = 1, so a stray one is named in the failure. */
   featuredIds: [13, 16, 33, 34, 36, 39, 61, 62, 63, 64, 65, 66, 69, 76, 77, 82],
-  partnerLinks: 308,
+  partnerLinks: 319,
   /** How many programs use each page layout. */
-  templates: { map: 42, charts: 62, context: 9 },
-  /** Program photos: 67 files across 40 programs; the other 73 programs have none. */
+  templates: { map: 43, charts: 64, context: 9 },
+  /** Program photos: 67 files across 40 programs; the other 76 programs have none. */
   photos: 67,
   programsWithPhotos: 40,
   /** The charts layout, and the program the detail and write tests use. One photo. */
@@ -151,10 +151,41 @@ export const seed = {
     charts: ['Mode share in TRPA travel surveys', 'Mode share in Replica', 'Mode share in LOCUS'],
     sources: ['Survey', 'Replica', 'LOCUS'],
   },
+  /** A charts page on a table with a Year column and a Month column, read as one date axis. */
+  effectivePopulation: {
+    id: 9936,
+    name: 'Effective Population',
+    category: 'Transportation and Sustainable Communities',
+    partners: 1,
+    charts: ['People in the Region on an average day', 'Average day by month of the year', 'Average day in July, the busiest month', 'Average day in each year'],
+  },
+  /** A map page on a layer of line segments kept by hand: agency names spelled several ways. */
+  bikePedNetwork: {
+    id: 9937,
+    name: 'Bicycle and Pedestrian Network',
+    category: 'Transportation and Sustainable Communities',
+    partners: 9,
+    charts: [
+      'Miles by type of facility',
+      'Miles by the agency that maintains them',
+      'Miles built each year, by type',
+      'Snow removal on paths and sidewalks',
+      'Proposed miles by type of facility',
+    ],
+  },
+  /** A charts page on a design, not measurements: files made from the plot network design record. */
+  forestPlots: {
+    id: 9938,
+    name: 'Forest Plot Network',
+    category: 'Forest Structure',
+    partners: 1,
+    charts: ['Planned plots by forest type', 'Forest the plots represent', 'Expected margin of error for a forest type'],
+    files: ['planned-plots.json', 'frame-acres.json', 'margin-of-error.json'],
+  },
   airQualityPrograms: 9,
   unknownId: 999999,
   /** GET /summary, and the four totals in the home page hero. */
-  summary: { programs: 113, categories: 14, mappedSites: 1842, partners: 61, photos: 67 },
+  summary: { programs: 116, categories: 14, mappedSites: 1842, partners: 61, photos: 67 },
   /** GET /monitoring-sites: one point per site, and one per mapped area or line. */
   sites: { total: 1842, site: 881, area: 927, line: 34 },
   /** Three categories the home page tests open. Folder is the /category/:folder address. */

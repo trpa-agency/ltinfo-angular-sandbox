@@ -1,21 +1,37 @@
-<!-- The category menu sits outside the loading states, so it stays put while the reader
-     moves between programs. -->
+<!-- One column, the full width of the page. The top line is the breadcrumb and the topic
+     switcher; both sit outside the loading states, so they stay put between programs. -->
 <div class="pd">
-  <aside class="pd__rail">
-    <app-program-nav [currentId]="programId()" />
-  </aside>
   <div class="pd__main">
     @let page = state();
 
+    <!-- In staff mode the layout control shares the line. Picking a layout previews it
+         through ?template=; Save layout sends PATCH. -->
+    <div class="pd__top">
+      @if (page.status === 'ready' && staff.on()) {
+        <app-layout-control
+          class="pd__crumbs"
+          [saved]="page.data.Template"
+          [shown]="shown() ?? page.data.Template"
+          [saving]="savingLayout()"
+          [error]="layoutError()"
+          (pick)="preview($event, page.data.Template)"
+          (save)="saveLayout(page.data)"
+        >
+          <app-breadcrumb [trail]="trail()" />
+        </app-layout-control>
+      } @else {
+        <app-breadcrumb class="pd__crumbs" [trail]="trail()" />
+      }
+      <app-program-nav [currentId]="programId()" />
+    </div>
+
     @if (page.status === 'loading') {
-      <app-breadcrumb [trail]="rootTrail" />
       <esa-card>
         <div role="status">
           <esa-empty-state [title]="'Loading program'"></esa-empty-state>
         </div>
       </esa-card>
     } @else if (page.status === 'error') {
-      <app-breadcrumb [trail]="rootTrail" />
       <esa-card>
         <div role="alert">
           <esa-empty-state [title]="page.title" [description]="page.description">
@@ -26,23 +42,6 @@
     } @else {
       @let program = page.data;
       @let layout = shown() ?? program.Template;
-
-      <!-- The breadcrumb and, in staff mode, the layout control share one line. Picking a layout
-           previews it through ?template=; Save layout sends PATCH. -->
-      @if (staff.on()) {
-        <app-layout-control
-          [saved]="program.Template"
-          [shown]="layout"
-          [saving]="savingLayout()"
-          [error]="layoutError()"
-          (pick)="preview($event, program.Template)"
-          (save)="saveLayout(program)"
-        >
-          <app-breadcrumb [trail]="trail()" />
-        </app-layout-control>
-      } @else {
-        <app-breadcrumb [trail]="trail()" />
-      }
 
       <!-- One of three templates. -->
       <div class="program" [attr.data-template]="layout">

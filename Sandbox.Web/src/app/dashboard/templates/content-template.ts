@@ -4,6 +4,7 @@ import { EsaCard } from '../../ecology/esa-card';
 import { PhotoGallery } from '../photos/photo-gallery';
 import {
   Band,
+  HeaderLinks,
   MeasurementsBlock,
   PerYearBlock,
   ProgramPartners,
@@ -11,7 +12,6 @@ import {
   SitesBlock,
 } from './blocks';
 import { ProgramHeader } from './program-header';
-import { leadParagraph } from './program-text';
 import { TemplateBase } from './template-base';
 
 // The content layout, for programs with little or no data on the page. The
@@ -31,6 +31,7 @@ import { TemplateBase } from './template-base';
   imports: [
     Band,
     EsaCard,
+    HeaderLinks,
     MeasurementsBlock,
     PerYearBlock,
     PhotoGallery,
@@ -44,18 +45,6 @@ import { TemplateBase } from './template-base';
   styleUrl: './content-template.scss',
 })
 export class ContentTemplate extends TemplateBase {
-  /**
-   * The first paragraph of the description, shown under the name in the header.
-   * Only a short statement makes a lead; a long paragraph, a heading, or a question
-   * stays in the story.
-   */
-  protected readonly lead = computed(() => leadParagraph(this.description()));
-
-  /** The description after the lead, for the story card. */
-  protected readonly restOfDescription = computed(() =>
-    this.lead() === null ? this.description() : this.description().slice(1),
-  );
-
   /**
    * The story card is on the page when it has something to say, and also when
    * the program has no text at all, so the reader gets the empty state. It is

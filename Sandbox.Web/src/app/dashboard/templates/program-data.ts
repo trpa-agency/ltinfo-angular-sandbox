@@ -6,6 +6,8 @@ import {
   panelSpans,
   sitesPerYearMeasure,
 } from '../../lib/measures';
+import type { FilterState, PageFilter } from '../../lib/page-filters';
+import { applyFilters } from '../../lib/page-filters';
 import type { SitesPanelConfig } from '../../lib/sites';
 
 /** The key the tile tracker knows the sites-per-year chart by. */
@@ -52,14 +54,21 @@ export interface ProgramData {
   perYear: { measure: Measure; source: PanelSource } | null;
   /** One key per chart panel that will be on the page, for the tile tracker. */
   chartKeys: string[];
+  /** The filters shown once above the map and charts; empty when the program has none. */
+  filters: PageFilter[];
 }
 
 export function programData(
   name: string,
   color: string,
   config: DashboardConfig | null,
+  chosen: FilterState = {},
 ): ProgramData {
-  const measures = config?.measures ?? [];
+  const filters = config?.filters ?? [];
+  // A chosen filter reaches the map layer and each measure on the filter's layer. A panel it
+  // does not reach keeps the same object, so it does not load again.
+  const measures = (config?.measures ?? []).map((measure) => applyFilters(measure, filters, chosen));
+  const mapLayer = config?.mapLayer ? applyFilters(config.mapLayer, filters, chosen) : undefined;
   const perYearConfig = config?.sitesPerYear;
   const perYear = perYearConfig
     ? {
@@ -73,7 +82,7 @@ export function programData(
           program: name,
           color,
           sitesLayer: config.sitesLayer,
-          mapLayer: config.mapLayer,
+          mapLayer,
           overlays: config.overlays,
           siteProfile: config.siteProfile ?? null,
         }
@@ -85,5 +94,6 @@ export function programData(
     sites,
     perYear,
     chartKeys: [...measures.map((_, index) => measureKey(index)), ...(perYear ? [SITES_PER_YEAR_KEY] : [])],
+    filters,
   };
 }

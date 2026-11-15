@@ -1,0 +1,20 @@
+{
+ "title": "Conifer forest the plot network represents, by forest type",
+ "source": "https://github.com/trpa-agency/ForestHealth/blob/main/plot-network-design/docs/SAMPLE-DESIGN-2026-10-19.md",
+ "generated": "2026-10-19",
+ "note": "The forest the stand density and seral stage standards report on, outside the urban area and designated wilderness.",
+ "rows": [
+  {
+   "ForestType": "Sierran mixed conifer",
+   "Acres": 70909
+  },
+  {
+   "ForestType": "Jeffrey pine",
+   "Acres": 21450
+  },
+  {
+   "ForestType": "Red fir",
+   "Acres": 23037
+  }
+ ]
+}

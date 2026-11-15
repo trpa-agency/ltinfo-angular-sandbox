@@ -31,7 +31,8 @@ export interface MeasureStandard {
   label?: string;
 }
 
-export type MeasureSpan = 'span-12' | 'span-6';
+/** How much of the 12-column row a chart takes. A chart of a few bars reads better narrow (span-4) beside a wide one (span-8). */
+export type MeasureSpan = 'span-12' | 'span-8' | 'span-6' | 'span-4';
 
 /** One entry of a program's measures list in programs.json. Keys as documented in templates/README.md. */
 export interface Measure {
@@ -105,9 +106,16 @@ export interface Measure {
   unpivot?: { prefix: string };
   /**
    * A second field joined to x with a space, where one field does not name the category: Year
-   * and Season make "2021 Fall".
+   * and Season make "2021 Fall". On a date axis the joined text is read as the date, so Year
+   * and Month ("2019 Jan") make a month.
    */
   xWith?: string;
+  /**
+   * Values to read as one, by field: the spelling and case variants of the same thing that a
+   * hand-kept layer collects ("PLACER COUNTY" and "Placer County"). Each field maps a value as
+   * the source holds it to the value to use. Pair it with combine to add the variants up.
+   */
+  merge?: Record<string, Record<string, string>>;
   /** "month" when a date axis holds one value a month: labeled "July 2017", not "July 1, 2017". */
   dateStep?: 'month';
   /**
@@ -225,20 +233,25 @@ function withShares(m: Measure, rows: Attributes[]): Attributes[] {
 }
 
 /**
- * Rows as the chart needs them, from rows as the source holds them: dates normalized, the
- * year and month read out of a date, a second field joined to x, rows added up, and counts
- * turned into shares. Each step runs only when the measure asks for it.
+ * Rows as the chart needs them, from rows as the source holds them: variant spellings read
+ * as one value, a second field joined to x, dates normalized, the year and month read out of
+ * a date, rows added up, and counts turned into shares. Each step runs only when the measure
+ * asks for it.
  */
 export function shapeRows(m: Measure, rows: Attributes[]): Attributes[] {
   let out = rows.map((r) => {
     const row: Attributes = { ...r };
+    for (const [field, values] of Object.entries(m.merge ?? {})) {
+      const as = row[field] == null ? undefined : values[String(row[field])];
+      if (as !== undefined) row[field] = as;
+    }
+    if (m.xWith) row[m.x] = [row[m.x], row[m.xWith]].filter((v) => v != null && v !== '').join(' ');
     if (m.xType === 'date') row[m.x] = normalizeDate(row[m.x]);
     if (m.dateParts) {
       const parts = isoParts(String(normalizeDate(row[m.dateParts]) ?? ''));
       row[`${m.dateParts}_year`] = parts ? parts.y : null;
       row[`${m.dateParts}_month`] = parts ? parts.m : null;
     }
-    if (m.xWith) row[m.x] = [row[m.x], row[m.xWith]].filter((v) => v != null && v !== '').join(' ');
     if (m.seriesBy) {
       const s = row[m.seriesBy];
       row[m.seriesBy] = s == null || s === '' ? 'Not stated' : String(s);

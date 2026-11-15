@@ -1,70 +1,74 @@
-// The category menu beside a program page: every category with programs as a disclosure,
-// the current category open, the current program marked, and the menu staying put while the
-// reader moves between programs. On a narrow screen it folds into one disclosure above the page.
+// The topic switcher on a program page: a button beside the breadcrumb that says how many
+// programs share the category and opens the list of them. It replaced the rail that listed
+// every category beside every page, so the page itself has the full width.
 import type { Locator, Page } from '@playwright/test';
 
 import { expect, seed, test } from './support';
 
-const menu = (page: Page): Locator => page.locator('app-program-nav');
-const current = (page: Page): Locator => menu(page).locator('.pnav__link[aria-current="page"]');
-const openGroups = (page: Page): Locator => menu(page).locator('.pnav__group[open] .pnav__group-name');
+const switcher = (page: Page): Locator => page.locator('app-program-nav');
+const button = (page: Page): Locator => switcher(page).locator('summary');
+const panel = (page: Page): Locator => switcher(page).locator('.pnav__panel');
+const current = (page: Page): Locator => switcher(page).locator('.pnav__link[aria-current="page"]');
 
-test.describe('Program page category menu', () => {
-  test('opens on the current category with the current program marked', async ({ page }) => {
+test.describe('Program page topic switcher', () => {
+  test('says how many programs are in the topic, and stays closed until asked', async ({ page }) => {
     await page.goto('/programs/41');
-    await expect(menu(page).getByRole('navigation', { name: 'Monitoring programs by category' })).toBeVisible();
-    await expect(current(page)).toHaveText('Ozone (O3)');
-    await expect(openGroups(page)).toHaveText(['Air Quality']);
-    // The other Air Quality programs are one click away.
-    await expect(menu(page).locator('.pnav__group[open] .pnav__link')).toHaveCount(seed.airQualityPrograms);
-    // Every category has programs, so every category is a group.
-    await expect(menu(page).locator('.pnav__group')).toHaveCount(seed.categories);
+    await expect(switcher(page).getByRole('navigation', { name: 'Programs in this topic' })).toBeVisible();
+    await expect(button(page)).toHaveText(`${seed.airQualityPrograms} programs in this topic`);
+    await expect(panel(page)).toBeHidden();
   });
 
-  test('moving to a sibling keeps the menu and marks the new program', async ({ page }) => {
+  test('opens the programs of the current category, with the current one marked', async ({ page }) => {
     await page.goto('/programs/41');
+    await button(page).click();
+    await expect(panel(page)).toBeVisible();
+    await expect(panel(page).locator('.pnav__topic')).toHaveText('Air Quality');
+    await expect(panel(page).locator('.pnav__link')).toHaveCount(seed.airQualityPrograms);
     await expect(current(page)).toHaveText('Ozone (O3)');
-    await menu(page).getByRole('link', { name: 'Carbon Monoxide (CO)' }).click();
+    // The way out to every other topic is the home page, not a list of 14 categories here.
+    await expect(panel(page).getByRole('link', { name: 'All topics' })).toHaveAttribute('href', /\/#categories$/);
+  });
+
+  test('moving to a sibling closes the list and marks the new program', async ({ page }) => {
+    await page.goto('/programs/41');
+    await button(page).click();
+    await panel(page).getByRole('link', { name: 'Carbon Monoxide (CO)' }).click();
     await expect(page).toHaveURL(/\/programs\/26$/);
     await expect(page.locator('h1').first()).toHaveText('Carbon Monoxide (CO)');
+    await expect(panel(page)).toBeHidden();
+    await button(page).click();
     await expect(current(page)).toHaveText('Carbon Monoxide (CO)');
-    await expect(openGroups(page)).toHaveText(['Air Quality']);
   });
 
-  test('another category opens in place and leads to its programs', async ({ page }) => {
+  test('works from the keyboard: Enter opens it, and the links are in the tab order', async ({ page }) => {
     await page.goto('/programs/41');
-    const noise = menu(page).locator('.pnav__group', { hasText: 'Noise' });
-    await noise.locator('summary').click();
-    await expect(noise).toHaveAttribute('open', '');
-    await noise.getByRole('link', { name: 'Noise - Highways' }).click();
-    await expect(page).toHaveURL(/\/programs\/65$/);
-    await expect(current(page)).toHaveText('Noise - Highways');
+    await button(page).focus();
+    await page.keyboard.press('Enter');
+    await expect(panel(page)).toBeVisible();
+    await page.keyboard.press('Tab');
+    await expect(panel(page).locator('.pnav__link').first()).toBeFocused();
   });
 
-  test('the menu stays in view while the page scrolls', async ({ page }) => {
+  test('the page has no rail: the program takes the full width of the page', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto('/programs/39');
-    await expect(current(page)).toHaveText('Tahoe Yellow Cress Monitoring');
-    // Wait for the page to grow tall enough to scroll (the panels fill in after it loads).
-    await expect.poll(() => page.evaluate(() => document.documentElement.scrollHeight), { timeout: 30_000 }).toBeGreaterThan(3000);
-    const before = await menu(page).evaluate((el) => el.getBoundingClientRect().top);
-    await page.evaluate(() => window.scrollTo(0, 1500));
-    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(1000);
-    const after = await menu(page).evaluate((el) => el.getBoundingClientRect().top);
-    expect(after).toBeGreaterThanOrEqual(0);
-    expect(after).toBeLessThan(before);
+    await page.goto('/programs/41');
+    await expect(page.locator('h1').first()).toHaveText('Ozone (O3)');
+    await expect(page.locator('.pd__rail')).toHaveCount(0);
+    const main = await page.locator('.pd__main').evaluate((el) => el.getBoundingClientRect().width);
+    const program = await page.locator('.program').evaluate((el) => el.getBoundingClientRect().width);
+    expect(program).toBe(main);
   });
 
   test.describe('at 375 px wide', () => {
     test.use({ viewport: { width: 375, height: 812 } });
 
-    test('folds into one closed disclosure above the page', async ({ page }) => {
+    test('the button takes the row, and the open list fits the screen', async ({ page }) => {
       await page.goto('/programs/41');
-      const fold = menu(page).locator('.pnav__fold');
-      await expect(fold.locator('.pnav__fold-summary')).toHaveText(/Air Quality programs/);
-      await expect(fold).not.toHaveAttribute('open', '');
-      await fold.locator('.pnav__fold-summary').click();
+      await button(page).click();
       await expect(current(page)).toBeVisible();
+      const box = await panel(page).boundingBox();
+      expect(box!.x).toBeGreaterThanOrEqual(0);
+      expect(box!.x + box!.width).toBeLessThanOrEqual(375);
       await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth)).toBe(375);
     });
   });

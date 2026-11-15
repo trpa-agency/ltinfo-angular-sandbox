@@ -19,9 +19,10 @@ test.describe('A visitor', () => {
 
   test("sees the program's pages on the other LT Info dashboards", async ({ page }) => {
     await page.goto(`/programs/${seed.lakeLevel.id}`);
-    const card = page.locator('esa-card.dashboards');
-    await expect(card.getByRole('heading', { name: 'Climate Resilience Dashboard' })).toBeVisible();
-    const link = card.getByRole('link', { name: seed.lakeLevel.climatePage });
+    // One line of links in the header, under the name: the way to the status is at the top.
+    const links = page.locator('app-program-header app-header-links');
+    await expect(links.getByRole('list', { name: 'On other dashboards' })).toBeVisible();
+    const link = links.getByRole('link', { name: `Climate Resilience Dashboard: ${seed.lakeLevel.climatePage}` });
     await expect(link).toHaveAttribute('href', 'https://climate.laketahoeinfo.org/lake-conditions');
     await expect(link).toHaveAttribute('target', '_blank');
   });

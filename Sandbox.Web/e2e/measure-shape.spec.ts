@@ -17,6 +17,20 @@ test.describe('A month written as text', () => {
     expect(normalizeDate('Sept. 2021')).toBe('2021-09-01');
   });
 
+  test('reads the year first too, as a Year field joined to a Month field comes out', () => {
+    expect(normalizeDate('2019 Jan')).toBe('2019-01-01');
+    expect(normalizeDate('2025-Aug')).toBe('2025-08-01');
+    expect(normalizeDate('2019 Winter')).toBe('2019 Winter');
+    // A table with a Year column and a Month column: the two make the date axis.
+    const monthly: Measure = { title: 'People', x: 'Year', xWith: 'Month', xType: 'date', dateStep: 'month', y: 'People' };
+    const rows = shapeRows(monthly, [
+      { Year: 2019, Month: 'Jan', People: 10 },
+      { Year: 2019, Month: 'Feb', People: 12 },
+    ]);
+    expect(rows.map((r) => r['Year'])).toEqual(['2019-01-01', '2019-02-01']);
+    expect(measureSourceFields(monthly)).toEqual(['Year', 'Month', 'People']);
+  });
+
   test('leaves the dates it already read, and text that is not a month, as they were', () => {
     expect(normalizeDate('3/9/2021')).toBe('2021-03-09');
     expect(normalizeDate('2021-03-09T00:00:00')).toBe('2021-03-09');
@@ -153,5 +167,56 @@ test.describe('Counts charted as shares, on a category made of two fields', () =
     expect(formatValue(0.0031, '.1%')).toBe('0.3%');
     expect(formatValue(0.0031, '.0%')).toBe('0%');
     expect(formatValue(0.861, '.1%')).toBe('86.1%');
+  });
+});
+
+/** A layer kept by hand: one agency spelled three ways, and a year typed as text. */
+const SEGMENTS = [
+  { Agency: 'PLACER COUNTY', Built: '2013', Kind: 'Path', Miles: 2 },
+  { Agency: 'Placer County', Built: ' 2013', Kind: 'Path', Miles: 3 },
+  { Agency: 'Placer county', Built: '2012?', Kind: 'Lane', Miles: 1 },
+  { Agency: 'TCPUD', Built: '2012', Kind: 'Lane', Miles: 4 },
+];
+
+test.describe('Spelling variants read as one value', () => {
+  const byAgency: Measure = {
+    title: 'Miles by agency',
+    x: 'Agency',
+    xType: 'category',
+    y: 'Miles',
+    merge: { Agency: { 'PLACER COUNTY': 'Placer County', 'Placer county': 'Placer County', TCPUD: 'Tahoe City Public Utility District' } },
+    combine: 'sum',
+  };
+
+  test('the variants of a name become one category, and combine adds them up', () => {
+    const rows = shapeRows(byAgency, SEGMENTS);
+    expect(rows.map((r) => [r['Agency'], r['Miles']])).toEqual([
+      ['Placer County', 6],
+      ['Tahoe City Public Utility District', 4],
+    ]);
+  });
+
+  test('a value the map does not list is left as the source holds it', () => {
+    const rows = shapeRows({ ...byAgency, merge: { Agency: { TCPUD: 'Tahoe City Public Utility District' } }, combine: undefined }, SEGMENTS);
+    expect(rows.map((r) => r['Agency'])).toEqual(['PLACER COUNTY', 'Placer County', 'Placer county', 'Tahoe City Public Utility District']);
+  });
+
+  test('it applies to any field: a year typed with a space or a question mark, and the series', () => {
+    const byYear: Measure = {
+      title: 'Miles built each year',
+      x: 'Built',
+      y: 'Miles',
+      seriesBy: 'Kind',
+      merge: { Built: { ' 2013': '2013', '2012?': '2012' }, Kind: { Lane: 'Bike lane' } },
+      combine: 'sum',
+      type: 'stacked',
+    };
+    const rows = shapeRows(byYear, SEGMENTS);
+    expect(rows.map((r) => [r['Built'], r['Kind'], r['Miles']])).toEqual([
+      ['2013', 'Path', 5],
+      ['2012', 'Bike lane', 5],
+    ]);
+    // The source is still asked for the fields by their own names.
+    expect(measureSourceFields(byYear)).toEqual(['Built', 'Miles', 'Kind']);
   });
 });

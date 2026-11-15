@@ -1,0 +1,38 @@
+{
+ "title": "Expected margin of error for one forest type",
+ "source": "https://github.com/trpa-agency/ForestHealth/blob/main/plot-network-design/docs/SAMPLE-DESIGN-2026-10-19.md",
+ "generated": "2026-10-19",
+ "note": "95 percent confidence interval half width, in percentage points, for a share of 50 percent (the worst case).",
+ "rows": [
+  {
+   "Plots": 40,
+   "Estimate": "Plots alone",
+   "Points": 15.5
+  },
+  {
+   "Plots": 40,
+   "Estimate": "Plots with the lidar model, lower efficiency",
+   "Points": 12.7
+  },
+  {
+   "Plots": 40,
+   "Estimate": "Plots with the lidar model, higher efficiency",
+   "Points": 11.0
+  },
+  {
+   "Plots": 70,
+   "Estimate": "Plots alone",
+   "Points": 11.7
+  },
+  {
+   "Plots": 70,
+   "Estimate": "Plots with the lidar model, lower efficiency",
+   "Points": 9.6
+  },
+  {
+   "Plots": 70,
+   "Estimate": "Plots with the lidar model, higher efficiency",
+   "Points": 8.3
+  }
+ ]
+}

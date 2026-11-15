@@ -1,0 +1,110 @@
+{
+ "MonitoringProgramDescription": "TRPA is designing a network of permanent field plots to measure the Region's conifer forest on the ground: 120 plots at the minimum and 150 at the full design, in Sierran mixed conifer, Jeffrey pine, and red fir forest. No plot has been installed yet, and the plot locations are not final. The site list is set when the field contract is signed, planned for December 2026.\n\nThe stand density and seral stage standards are now reported from maps modeled from lidar and satellite imagery. The plots will measure the same forest by hand, so the 2027 Threshold Evaluation can correct those maps and state how sure it is of each result.",
+ "MonitoringApproach": "The plots represent 115,396 acres of conifer forest outside the urban area and designated wilderness. Sites are drawn on public land, at least 30 meters from private parcels, roads, trails, streams, and structures, by a spatially balanced random selection that spreads them across the Region. Each forest type gets 40 plots at the minimum. The full design adds 30 in Sierran mixed conifer, which covers the most ground.\n\nOld forest, and young forest that is unusually dense, is 1.5 times as likely to be drawn, and ground steeper than 50 percent half as likely. A ranked backup list three times the size of the design replaces any site that turns out to be unsafe or unreachable, so a crew never moves a plot to easier ground. Crews will measure the trees on each plot for density, size, and canopy cover.\n\nThis page reports a design, not measurements. The numbers are from the design record of Oct. 19, 2026 and can change until the site list is final. Private land is part of the forest the standards report on but will have no plots, so results there will rest on the lidar model alone. With 40 plots in a forest type, the plots alone give a margin of error near 16 percentage points; pairing them with the lidar model is planned to bring it to 11 to 13.",
+ "Partners": [
+  {
+   "OrganizationID": 1,
+   "OrganizationName": "Tahoe Regional Planning Agency",
+   "OrganizationShortName": "TRPA"
+  }
+ ],
+ "Images": [],
+ "DashboardConfig": {
+  "measures": [
+   {
+    "title": "Planned plots by forest type",
+    "sub": "Plots at the minimum design, and the plots the full design adds. None is installed yet.",
+    "json": "data/forest-plots/planned-plots.json",
+    "sourceHref": "https://github.com/trpa-agency/ForestHealth/blob/main/plot-network-design/docs/SAMPLE-DESIGN-2026-10-19.md",
+    "sourceLabel": "TRPA forest plot network design record, Oct. 19, 2026",
+    "x": "ForestType",
+    "xType": "category",
+    "xLabel": "Forest type",
+    "xOrder": [
+     "Sierran mixed conifer",
+     "Jeffrey pine",
+     "Red fir"
+    ],
+    "y": "Plots",
+    "yLabel": "Plots",
+    "seriesBy": "Level",
+    "seriesLabel": "Design",
+    "seriesOrder": [
+     "Minimum design",
+     "Added in the full design"
+    ],
+    "type": "stacked"
+   },
+   {
+    "title": "Forest the plots represent",
+    "sub": "Acres of each forest type the stand density and seral stage standards report on.",
+    "json": "data/forest-plots/frame-acres.json",
+    "sourceHref": "https://github.com/trpa-agency/ForestHealth/blob/main/plot-network-design/docs/SAMPLE-DESIGN-2026-10-19.md",
+    "sourceLabel": "TRPA forest plot network design record, Oct. 19, 2026",
+    "x": "ForestType",
+    "xType": "category",
+    "xLabel": "Forest type",
+    "xOrder": [
+     "Sierran mixed conifer",
+     "Jeffrey pine",
+     "Red fir"
+    ],
+    "y": "Acres",
+    "yName": "Acres",
+    "yLabel": "Acres",
+    "type": "bar"
+   },
+   {
+    "title": "Expected margin of error for a forest type",
+    "sub": "How far a result for one forest type could be off, 19 times in 20, with 40 plots and with 70. Smaller is better.",
+    "json": "data/forest-plots/margin-of-error.json",
+    "sourceHref": "https://github.com/trpa-agency/ForestHealth/blob/main/plot-network-design/docs/SAMPLE-DESIGN-2026-10-19.md",
+    "sourceLabel": "TRPA forest plot network design record, Oct. 19, 2026",
+    "x": "Plots",
+    "xType": "category",
+    "xLabel": "Plots in the forest type",
+    "xNames": {
+     "40": "40 plots",
+     "70": "70 plots"
+    },
+    "y": "Points",
+    "yLabel": "Percentage points, plus or minus",
+    "seriesBy": "Estimate",
+    "seriesLabel": "Estimate from",
+    "seriesOrder": [
+     "Plots alone",
+     "Plots with the lidar model, lower efficiency",
+     "Plots with the lidar model, higher efficiency"
+    ],
+    "type": "bar",
+    "span": "span-12"
+   }
+  ]
+ },
+ "RelatedLinks": [
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Stand Density",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/189"
+  },
+  {
+   "Dashboard": "Threshold Dashboard",
+   "Label": "Seral Stage & Canopy Cover",
+   "Url": "https://thresholds.laketahoeinfo.org/threshold/indicators/190"
+  }
+ ],
+ "MonitoringProgramID": 9938,
+ "MonitoringProgramName": "Forest Plot Network",
+ "CategoryID": 11,
+ "CategoryName": "Forest Structure",
+ "ThemeColor": "#415414",
+ "IsFeatured": false,
+ "PartnerCount": 1,
+ "Template": "charts",
+ "ImageCount": 0,
+ "KeyPhotoUrl": null,
+ "SiteCount": 0,
+ "PartnerNames": [
+  "Tahoe Regional Planning Agency"
+ ]
+}

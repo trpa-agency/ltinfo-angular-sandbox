@@ -1,6 +1,7 @@
 <!--
-  One measure: title and sub line, the tools (pick, Chart or Table, CSV), the chart or
-  the table, and the source line. The tools show only when there are rows to act on.
+  One measure: title and sub line, the pick when the measure has one, the chart or the
+  table, and one foot line: Chart or Table, CSV, and the source. The chart leads the card;
+  the tools a reader uses now and then sit under it, and show only when there are rows.
 
   The pick is an esa-select, whose list opens below it and is cut off by anything that
   clips (esa-card does). It sits at the top of the card body, and .panel__view keeps
@@ -12,8 +13,8 @@
   }
 
   @if (hasData()) {
-    <div class="panel__tools">
-      @if (choices().length > 1) {
+    @if (choices().length > 1) {
+      <div class="panel__tools">
         <esa-select
           class="panel__pick"
           size="sm"
@@ -22,22 +23,10 @@
           [value]="picked() ?? ''"
           (change)="onPick($event)"
         ></esa-select>
-      }
-      <div class="panel__actions">
-        <esa-button-toggle
-          size="sm"
-          label="View"
-          [options]="viewOptions"
-          [value]="view()"
-          (change)="onView($event)"
-        ></esa-button-toggle>
-        <esa-button size="sm" variant="secondary" appearance="outline" (click)="downloadCsv()">
-          Download CSV
-        </esa-button>
       </div>
-    </div>
+    }
 
-    <div class="panel__view">
+    <div class="panel__view" [class.panel__view--pick]="choices().length > 1">
       <!--
         The chart is one image to assistive technology, named by the measure and described
         by its series and span; the table view carries the values. vega-embed draws into the
@@ -106,12 +95,28 @@
     }
   }
 
-  <p class="panel__source typography-meta">
-    Source:
-    <a [href]="sourceUrl()" target="_blank" rel="noopener"
-      >{{ sourceLabel() }}</a
-    >.
-  </p>
+  <div class="panel__foot">
+    @if (hasData()) {
+      <div class="panel__actions">
+        <esa-button-toggle
+          size="sm"
+          label="View"
+          [options]="viewOptions"
+          [value]="view()"
+          (change)="onView($event)"
+        ></esa-button-toggle>
+        <esa-button size="sm" variant="secondary" appearance="outline" (click)="downloadCsv()">
+          Download CSV
+        </esa-button>
+      </div>
+    }
+    <p class="panel__source typography-meta">
+      Source:
+      <a [href]="sourceUrl()" target="_blank" rel="noopener"
+        >{{ sourceLabel() }}</a
+      >.
+    </p>
+  </div>
 </esa-card>
 
 <!-- The hover readout: the x value and every series value at that position. -->

@@ -5,22 +5,8 @@
   display: block;
 }
 
-// The category menu beside the page on wide screens; above it, folded, on narrow ones.
-.pd {
-  display: grid;
-  grid-template-columns: 15rem minmax(0, 1fr);
-  gap: var(--spacing-600);
-  align-items: start;
-}
-
-.pd__rail {
-  position: sticky;
-  top: calc(var(--app-nav-height, 0px) + var(--spacing-400));
-  max-height: calc(100dvh - var(--app-nav-height, 0px) - var(--spacing-600));
-  overflow-y: auto;
-  overscroll-behavior: contain;
-}
-
+// One column. The category rail that sat beside the page is gone: the breadcrumb says where
+// the page is, and the topic switcher on the same line moves between programs.
 .pd__main {
   display: flex;
   flex-direction: column;
@@ -28,17 +14,18 @@
   min-width: 0;
 }
 
-@media (max-width: 64rem) {
-  .pd {
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--spacing-400);
-  }
+// The breadcrumb takes what the switcher leaves; they wrap on a phone.
+.pd__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-200) var(--spacing-400);
+}
 
-  .pd__rail {
-    position: static;
-    max-height: none;
-    overflow: visible;
-  }
+.pd__crumbs {
+  flex: 1 1 20rem;
+  min-width: 0;
 }
 
 .program {
