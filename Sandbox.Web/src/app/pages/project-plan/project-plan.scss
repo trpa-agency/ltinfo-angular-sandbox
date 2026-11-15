@@ -24,6 +24,7 @@
 .plan__h2,
 .plan__h3,
 .plan__text,
+.plan__summary,
 .plan__vision,
 .plan__sources {
   margin: 0;
@@ -35,8 +36,16 @@
 }
 
 .plan__text,
+.plan__summary,
 .plan__vision {
   max-width: 80ch;
+}
+
+// The header links sit on one line and wrap on a phone.
+.plan__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-050) var(--spacing-400);
 }
 
 .plan__sources {
@@ -89,9 +98,9 @@
   background: var(--plan-mark, var(--color-content-default));
 }
 
-// ---- proposed revisions: a numbered list, one neutral box each ----
+// ---- key decisions: a numbered list, one neutral box each ----
 
-.revisions {
+.decisions {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
   gap: var(--spacing-400);
@@ -100,7 +109,7 @@
   list-style: none;
 }
 
-.revision {
+.decision {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-150);
@@ -111,8 +120,8 @@
   min-width: 0;
 }
 
-.revision__title,
-.revision__text {
+.decision__title,
+.decision__text {
   margin: 0;
   color: var(--color-content-default);
 }
@@ -162,6 +171,11 @@
 .bullets--plain {
   padding-left: 0;
   list-style: none;
+}
+
+// Inside a decision box the box's own gap spaces the list.
+.bullets--tight {
+  margin-top: 0;
 }
 
 .log {

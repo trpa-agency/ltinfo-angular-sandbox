@@ -118,14 +118,15 @@ A URL cannot tell TRPA data from partner data hosted at TRPA. List partner servi
 
 ## Redesign Plan page
 
-`/project-plan` (linked from About Monitoring) is the working plan for the Monitoring Dashboard redesign under ESA Work Order 004: the proposed revisions, status by workstream, vision, roles, the four workstreams and how they feed each other, the timeline and milestones, the meeting cadence, the action items, and the data stewards.
+`/project-plan` (linked from About Monitoring) is the working plan for the Monitoring Dashboard redesign under ESA Work Order 004: the key decisions, status by workstream, vision, roles, the four workstreams and how they feed each other, the timeline and milestones, the meeting cadence, the action items, and the data stewards.
 
 The page holds no wording of its own. Everything is in `lib/project-plan.ts`, so updating the plan is editing that file:
 
 - **A status update:** add an entry at the top of a workstream's `log`, and change its `health` and `next` if they moved.
-- **An action item:** change its `status` (`done`, `scheduled`, or `todo`) in `ACTION_GROUPS`. The Action Items Done tile counts them.
+- **An action item:** change its `status` (`done`, `scheduled`, `drafted`, or `todo`) in `ACTION_GROUPS`. The Action Items Done tile counts them.
 - **A milestone date:** change `date` in `MILESTONES`. The timeline marker, the workstream cards, the workflow steps, and the milestones table all follow, and the timeline moves a label to another lane if it would collide with a neighbor.
-- **A steward:** add a name to the category's list in `STEWARDS`. An empty list reads "Steward to assign".
+- **A steward:** add a name to the organization's `people` in the category's list in `STEWARDS`, or add an organization. An empty list reads "Steward to assign".
+- **A decision:** edit `DECISIONS`. A decision has a paragraph, a list of points, or both.
 
 Specific dates are ISO (`2027-01-14`) and the page writes them in TRPA style (Jan. 14, 2027) through `lib/plan-dates.ts`, which also places the timeline markers. A target that is not one date ("December", "This week") is typed as it should read. Keep to the TRPA writing rules when editing: no dashes between dates (write "April 1 to 20"), Oxford commas, and percent spelled out. `e2e/project-plan.spec.ts` checks the dates, the milestone order, and those wording rules in Node, then the page in the browser.
 

@@ -13,17 +13,20 @@ import {
 } from '../src/app/lib/plan-dates';
 import {
   ACTION_GROUPS,
+  DECISIONS,
+  LINKS,
   MEETING_GROUPS,
   MILESTONES,
+  PEOPLE,
   PHASES,
   PLAN,
-  REVISIONS,
   STEWARDS,
   TIMELINE_MARKERS,
   VISION_GOALS,
   WORKSTREAMS,
   actionTally,
   milestonesOf,
+  stewardLine,
 } from '../src/app/lib/project-plan';
 import { expect, test } from './support';
 
@@ -86,7 +89,8 @@ nodeTest.describe('Plan dates', () => {
 
 nodeTest.describe('Plan data', () => {
   nodeTest('every date parses and every marker is on the timeline axis', () => {
-    for (const iso of [PLAN.updated, PLAN.revised, PLAN.signed, PLAN.launch, PLAN.workOrderEnd]) {
+    const dated = [PLAN.updated, PLAN.signed, PLAN.preliminary, PLAN.secondary, PLAN.launch, PLAN.workOrderEnd];
+    for (const iso of dated) {
       nodeExpect(() => parseIsoDate(iso)).not.toThrow();
     }
     for (const w of WORKSTREAMS) for (const entry of w.log) nodeExpect(() => parseIsoDate(entry.date)).not.toThrow();
@@ -103,6 +107,8 @@ nodeTest.describe('Plan data', () => {
     const dates = MILESTONES.map((m) => m.date);
     nodeExpect(dates).toEqual([...dates].sort());
     nodeExpect(MILESTONES.find((m) => m.kind === 'final')?.date).toBe(PLAN.launch);
+    nodeExpect(MILESTONES.find((m) => m.number === 6)?.date).toBe(PLAN.preliminary);
+    nodeExpect(MILESTONES.find((m) => m.kind === 'checkpoint')?.date).toBe(PLAN.secondary);
     nodeExpect(WORKSTREAMS.map((w) => w.id)).toEqual(['program', 'build', 'data', 'design']);
     for (const w of WORKSTREAMS) nodeExpect(milestonesOf(w.id).length).toBeGreaterThan(0);
     // A step that names a milestone names one that exists.
@@ -118,13 +124,32 @@ nodeTest.describe('Plan data', () => {
   nodeTest('the action tally adds up', () => {
     const tally = actionTally();
     const total = ACTION_GROUPS.reduce((n, g) => n + g.items.length, 0);
-    nodeExpect(tally.done + tally.scheduled + tally.todo).toBe(total);
+    nodeExpect(tally.done + tally.scheduled + tally.drafted + tally.todo).toBe(total);
+  });
+
+  nodeTest('no action, meeting, or decision is listed twice', () => {
+    const actions = ACTION_GROUPS.flatMap((g) => g.items.map((item) => item.action));
+    nodeExpect(new Set(actions).size).toBe(actions.length);
+    const meetings = MEETING_GROUPS.flatMap((g) => g.meetings.map((m) => m.name));
+    nodeExpect(new Set(meetings).size).toBe(meetings.length);
+    nodeExpect(new Set(DECISIONS.map((d) => d.title)).size).toBe(DECISIONS.length);
+    for (const d of DECISIONS) nodeExpect(Boolean(d.text) || Boolean(d.points?.length)).toBe(true);
+  });
+
+  nodeTest('stewards read as an organization and its people', () => {
+    nodeExpect(stewardLine([{ org: 'TRPA', people: ['Emily', 'Andy'] }, { org: 'TRCD', people: ['Sarah M.'] }])).toBe(
+      'TRPA (Emily, Andy), TRCD (Sarah M.)',
+    );
+    nodeExpect(stewardLine([])).toBe('');
+    for (const s of STEWARDS) for (const group of s.stewards) nodeExpect(group.people.length).toBeGreaterThan(0);
   });
 
   nodeTest('the wording follows the writing rules', () => {
     const text = JSON.stringify({
       PLAN,
-      REVISIONS,
+      DECISIONS,
+      LINKS: LINKS.map((link) => [link.label, link.note]),
+      PEOPLE,
       VISION_GOALS,
       WORKSTREAMS,
       MILESTONES,
@@ -153,22 +178,25 @@ test.describe('Redesign Plan page', () => {
   test('opens with the dates, the contract, and the three headline facts', async ({ page }) => {
     await expect(page).toHaveTitle(/^Redesign Plan \| Monitoring Dashboard/);
     const meta = page.locator('.plan__meta');
-    await expect(meta).toContainText('Nov. 12, 2026');
-    await expect(meta).toContainText('Nov. 14, 2026');
+    await expect(meta).toContainText('Nov. 16, 2026');
     await expect(meta).toContainText('ESA Work Order 004, 27C00005, signed Oct. 22, 2026');
+    await expect(meta.getByRole('link')).toHaveText(LINKS.map((link) => link.label));
+    await expect(meta.getByRole('link').last()).toHaveAttribute('href', 'https://monitoring-new.laketahoeinfo.org');
+    await expect(page.locator('.plan__summary')).toHaveText(PLAN.summary);
     const tiles = page.locator('.plan__tiles esa-stat');
     await expect(tiles).toHaveCount(3);
     await expect(tiles.nth(0)).toContainText('$20,000');
     await expect(tiles.nth(1)).toContainText('May 12, 2027');
-    await expect(tiles.nth(1)).toContainText('Work order ends June 30, 2027');
+    await expect(tiles.nth(1)).toContainText('Preliminary April 1, secondary April 20, work order ends June 30');
     const tally = actionTally();
     const total = ACTION_GROUPS.reduce((n, g) => n + g.items.length, 0);
     await expect(tiles.nth(2)).toContainText(`${tally.done} of ${total}`);
+    await expect(tiles.nth(2)).toContainText(`${tally.scheduled} scheduled, ${tally.drafted} drafted`);
   });
 
   test('has the ten sections, in order', async ({ page }) => {
     await expect(page.locator('.plan__h2')).toHaveText([
-      'Proposed Revisions',
+      'Key Decisions',
       'Status',
       'Vision',
       'Roles and Decision Rights',
@@ -179,7 +207,10 @@ test.describe('Redesign Plan page', () => {
       'Action Items',
       'Data Stewardship',
     ]);
-    await expect(page.locator('.revision')).toHaveCount(REVISIONS.length);
+    const decisions = page.locator('.decision');
+    await expect(decisions).toHaveCount(DECISIONS.length);
+    await expect(decisions.first().locator('h3')).toHaveText('1. Who Decides');
+    await expect(decisions.first().locator('li')).toHaveCount(DECISIONS[0].points?.length ?? 0);
   });
 
   test('shows a status card and a workstream card for each of the four workstreams', async ({ page }) => {
@@ -240,17 +271,21 @@ test.describe('Redesign Plan page', () => {
     const tally = actionTally();
     await expect(actions.locator('tr[data-status="done"]')).toHaveCount(tally.done);
     await expect(actions.locator('tr[data-status="scheduled"]')).toHaveCount(tally.scheduled);
+    await expect(actions.locator('tr[data-status="drafted"]')).toHaveCount(tally.drafted);
+    await expect(actions.locator('tr[data-status="drafted"] esa-badge').first()).toHaveText('Drafted');
     await expect(actions.locator('tr[data-status="todo"]')).toHaveCount(tally.todo);
     await expect(actions.locator('tr[data-status="done"] esa-badge').first()).toHaveText('Done');
   });
 
-  test('names a steward for each category, or says one is still to assign', async ({ page }) => {
+  test('names the stewards for each category by organization, or says one is still to assign', async ({ page }) => {
     const stewards = page.locator('.steward');
     await expect(stewards).toHaveCount(STEWARDS.length);
+    await expect(stewards.locator('dd')).toHaveText(
+      STEWARDS.map((s) => (s.stewards.length ? stewardLine(s.stewards) : 'Steward to assign')),
+    );
     await expect(page.locator('.steward[data-assigned="false"]')).toHaveCount(
       STEWARDS.filter((s) => s.stewards.length === 0).length,
     );
-    await expect(page.locator('.steward[data-assigned="false"]').first()).toContainText('Steward to assign');
   });
 
   test('uses no dashes or percent signs in its text', async ({ page }) => {

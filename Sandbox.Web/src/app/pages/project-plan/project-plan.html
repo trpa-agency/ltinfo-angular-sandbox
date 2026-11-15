@@ -6,18 +6,28 @@
   <header class="plan__header">
     <app-breadcrumb [trail]="trail" />
     <h1 class="plan__title typography-heading-lg">{{ plan.title }}</h1>
+    <p class="plan__summary typography-body-lg">{{ plan.summary }}</p>
     <dl class="plan__meta typography-label-md">
       <div class="plan__meta-pair">
         <dt>Updated</dt>
         <dd>{{ date(plan.updated, true) }}</dd>
       </div>
       <div class="plan__meta-pair">
-        <dt>Revisions Proposed</dt>
-        <dd>{{ date(plan.revised, true) }}</dd>
-      </div>
-      <div class="plan__meta-pair">
         <dt>Contract</dt>
         <dd>{{ plan.workOrder }}, {{ plan.contract }}, signed {{ date(plan.signed, true) }}</dd>
+      </div>
+      <div class="plan__meta-pair">
+        <dt>Links</dt>
+        <dd class="plan__links">
+          @for (link of links; track link.href) {
+            <span>
+              <a [href]="link.href" target="_blank" rel="noopener">{{ link.label }}</a>
+              @if (link.note) {
+                ({{ link.note }})
+              }
+            </span>
+          }
+        </dd>
       </div>
     </dl>
   </header>
@@ -27,26 +37,42 @@
     <esa-stat
       [value]="date(plan.launch, true)"
       label="Official launch"
-      [sub]="'Work order ends ' + date(plan.workOrderEnd, true)"
+      [sub]="
+        'Preliminary ' +
+        date(plan.preliminary) +
+        ', secondary ' +
+        date(plan.secondary) +
+        ', work order ends ' +
+        date(plan.workOrderEnd)
+      "
     />
     <esa-stat
       [value]="tally.done + ' of ' + actionTotal"
       label="Action items done"
-      [sub]="tally.scheduled + ' scheduled'"
+      [sub]="tally.scheduled + ' scheduled, ' + tally.drafted + ' drafted'"
     />
   </div>
 
-  <section class="plan__section" aria-labelledby="plan-revisions">
-    <h2 id="plan-revisions" class="plan__h2 typography-title-strong">Proposed Revisions</h2>
-    <p class="plan__text typography-body-md">
-      Changes to the {{ date(plan.updated) }} plan for the team, Jeanne, and Dan to review. They are
-      reflected throughout the plan below.
-    </p>
-    <ol class="revisions">
-      @for (r of revisions; track r.title; let i = $index) {
-        <li class="revision">
-          <h3 class="revision__title typography-title-sm-strong">{{ i + 1 }}. {{ r.title }}</h3>
-          <p class="revision__text typography-body-sm">{{ r.text }}</p>
+  <section class="plan__section" aria-labelledby="plan-decisions">
+    <h2 id="plan-decisions" class="plan__h2 typography-title-strong">Key Decisions</h2>
+    <p class="plan__text typography-body-md">{{ plan.decisionsIntro }}</p>
+    <ol class="decisions">
+      @for (d of decisions; track d.title; let i = $index) {
+        <li class="decision">
+          <h3 class="decision__title typography-title-sm-strong">{{ i + 1 }}. {{ d.title }}</h3>
+          @if (d.text) {
+            <p class="decision__text typography-body-sm">{{ d.text }}</p>
+          }
+          @if (d.points) {
+            <ul class="bullets bullets--tight typography-body-sm">
+              @for (point of d.points; track point) {
+                <li>{{ point }}</li>
+              }
+            </ul>
+          }
+          @if (d.note) {
+            <p class="decision__text typography-body-sm">{{ d.note }}</p>
+          }
         </li>
       }
     </ol>
@@ -54,6 +80,7 @@
 
   <section class="plan__section" aria-labelledby="plan-status">
     <h2 id="plan-status" class="plan__h2 typography-title-strong">Status</h2>
+    <p class="plan__text typography-body-md">{{ plan.statusIntro }}</p>
     <div class="cards cards--four">
       @for (w of workstreams; track w.id) {
         <esa-card [title]="w.name" [attr.data-workstream]="w.id">
@@ -99,7 +126,7 @@
 
   <section class="plan__section" aria-labelledby="plan-roles">
     <h2 id="plan-roles" class="plan__h2 typography-title-strong">Roles and Decision Rights</h2>
-    <p class="plan__text typography-body-md">{{ plan.decisions }}</p>
+    <p class="plan__text typography-body-md">{{ plan.roles }}</p>
     <div class="cards cards--three">
       @for (group of people; track group.title) {
         <esa-card [title]="group.title">
@@ -150,11 +177,7 @@
 
   <section class="plan__section" aria-labelledby="plan-workflow">
     <h2 id="plan-workflow" class="plan__h2 typography-title-strong">Workflow</h2>
-    <p class="plan__text typography-body-md">
-      Three workstreams produce inputs; the dashboard build, by Mason and Amy, turns them into
-      pages, tests them with the people who own the data, and moves them through ESA's code
-      process.
-    </p>
+    <p class="plan__text typography-body-md">{{ plan.workflowIntro }}</p>
     <div class="lanes">
       @for (w of workstreams; track w.id) {
         <section class="lane" [attr.data-workstream]="w.id" [attr.aria-label]="w.name + ' workflow'">
@@ -188,6 +211,7 @@
 
   <section class="plan__section" aria-labelledby="plan-timeline">
     <h2 id="plan-timeline" class="plan__h2 typography-title-strong">Timeline</h2>
+    <p class="plan__text typography-body-md">{{ plan.timelineIntro }}</p>
     <app-plan-timeline />
     <dl class="phases typography-body-sm">
       @for (phase of phases; track phase.span) {
@@ -226,6 +250,7 @@
 
   <section class="plan__section" aria-labelledby="plan-meetings">
     <h2 id="plan-meetings" class="plan__h2 typography-title-strong">Meeting Cadence</h2>
+    <p class="plan__text typography-body-md">{{ plan.meetingsIntro }}</p>
     <div class="ptable" tabindex="0" role="region" aria-labelledby="plan-meetings">
       <table class="ptable__table typography-body-sm">
         <thead>
@@ -299,14 +324,12 @@
 
   <section class="plan__section" aria-labelledby="plan-stewards">
     <h2 id="plan-stewards" class="plan__h2 typography-title-strong">Data Stewardship</h2>
-    <p class="plan__text typography-body-md">
-      Each monitoring category and EIP working group should have a data steward.
-    </p>
+    <p class="plan__text typography-body-md">{{ plan.stewardsIntro }}</p>
     <dl class="stewards typography-body-sm">
       @for (s of stewards; track s.category) {
         <div class="steward" [attr.data-assigned]="s.stewards.length > 0">
           <dt class="typography-label-md-strong">{{ s.category }}</dt>
-          <dd>{{ s.stewards.length ? s.stewards.join(', ') : 'Steward to assign' }}</dd>
+          <dd>{{ s.stewards.length ? stewardLine(s.stewards) : 'Steward to assign' }}</dd>
         </div>
       }
     </dl>

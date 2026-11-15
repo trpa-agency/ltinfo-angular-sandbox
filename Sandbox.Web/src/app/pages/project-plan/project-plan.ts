@@ -7,22 +7,25 @@ import { trpaDate } from '../../lib/plan-dates';
 import {
   ACTION_GROUPS,
   ActionStatus,
+  DECISIONS,
   FlowStep,
   Health,
+  LINKS,
   MEETING_GROUPS,
   MILESTONES,
   Milestone,
   PEOPLE,
   PHASES,
   PLAN,
-  REVISIONS,
   STEWARDS,
+  StewardGroup,
   VISION_GOALS,
   WORKSTREAMS,
   WorkstreamId,
   actionTally,
   milestoneLabel,
   milestonesOf,
+  stewardLine,
   workstreamById,
 } from '../../lib/project-plan';
 import { Breadcrumb, Crumb } from '../../shared/breadcrumb';
@@ -43,17 +46,19 @@ const HEALTH_VARIANT: Record<Health, EsaBadgeVariant> = {
 const STATUS_LABEL: Record<ActionStatus, string> = {
   done: 'Done',
   scheduled: 'Scheduled',
+  drafted: 'Drafted',
   todo: 'To Do',
 };
 
 const STATUS_VARIANT: Record<ActionStatus, EsaBadgeVariant> = {
   done: 'success',
   scheduled: 'info',
+  drafted: 'info',
   todo: 'neutral',
 };
 
 /**
- * The Redesign Plan page: who owns what, the four workstreams and how they feed each other,
+ * The Redesign Plan page: the key decisions, who owns what, the four workstreams and how they feed each other,
  * the timeline and milestones, the meetings, the action items, and the data stewards. Every
  * word and date comes from lib/project-plan.ts; this file only says how to show them.
  */
@@ -73,7 +78,8 @@ export class ProjectPlan {
   ];
 
   protected readonly plan = PLAN;
-  protected readonly revisions = REVISIONS;
+  protected readonly links = LINKS;
+  protected readonly decisions = DECISIONS;
   protected readonly goals = VISION_GOALS;
   protected readonly people = PEOPLE;
   protected readonly workstreams = WORKSTREAMS;
@@ -112,6 +118,11 @@ export class ProjectPlan {
     }
     if (step.done) return 'Done';
     return step.when ?? '';
+  }
+
+  /** "TRPA (Emily, Andy), TRCD (Sarah M.)" for a category's stewards. */
+  protected stewardLine(groups: readonly StewardGroup[]): string {
+    return stewardLine(groups);
   }
 
   protected workstreamName(id: WorkstreamId): string {
