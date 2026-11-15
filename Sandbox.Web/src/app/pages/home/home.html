@@ -1,24 +1,30 @@
-<!-- The home page is one scrolling page: the hero and its totals, then three sections the
-     nav row scrolls to (categories with the site map, All Programs, About Monitoring). -->
+<!-- The home page is one scrolling page: the hero with the search and the totals, the headline
+     measures, then four sections the nav row scrolls to (Programs by Topic, Monitoring Sites,
+     All Programs, About Monitoring). -->
 
 @let page = state();
-<!-- The page header: what this is, then the four totals. Neutral, like the rest of the page. -->
+<!-- The page header: what this is, beside the search and the three totals. -->
 <section class="hero" aria-labelledby="home-title">
   <div class="hero__inner">
-    <h1 id="home-title" class="hero__title typography-display-sm">Monitoring Programs</h1>
-    <p class="hero__intro typography-body-lg">
-      What is monitored in the Lake Tahoe Region, where, how, and by whom, and how it tracks the
-      threshold standards.
-    </p>
-    <!-- Label first for screen readers ("monitoring programs, 36"); drawn with the number on top. -->
-    <dl class="hero__stats" aria-label="Totals">
-      @for (stat of totals(); track stat.label) {
-        <div class="hero-stat" [class.is-loading]="stat.value === null">
-          <dt class="hero-stat__label typography-body-sm">{{ stat.label }}</dt>
-          <dd class="hero-stat__value typography-heading-lg">{{ stat.value }}</dd>
-        </div>
-      }
-    </dl>
+    <div class="hero__text">
+      <h1 id="home-title" class="hero__title typography-display-sm">Monitoring Programs</h1>
+      <p class="hero__intro typography-body-lg">
+        What is monitored in the Lake Tahoe Region, where, how, and by whom, and how it tracks the
+        threshold standards.
+      </p>
+    </div>
+    <div class="hero__find">
+      <app-home-search [(value)]="search" />
+      <!-- Label first for screen readers ("monitoring programs, 116"); drawn as one line, number first. -->
+      <dl class="hero__stats typography-body-sm" aria-label="Totals">
+        @for (stat of totals(); track stat.label) {
+          <div class="hero-stat" [class.is-loading]="stat.value === null">
+            <dt class="hero-stat__label">{{ stat.label }}</dt>
+            <dd class="hero-stat__value typography-label-md-strong">{{ stat.value }}</dd>
+          </div>
+        }
+      </dl>
+    </div>
   </div>
 </section>
 
@@ -38,120 +44,131 @@
       </div>
     </esa-card>
   } @else {
-    <!-- ============ Threshold categories and the site map ============ -->
-    <section id="categories" class="home-section" aria-labelledby="categories-title">
-      <div class="home-layout">
-        <div class="home-cats">
-          <div class="section-head">
-            <div class="section-head__text">
-              <h2
-                id="categories-title"
-                class="section-head__title typography-heading-md"
-                tabindex="-1"
-                data-section-heading
-              >
-                Categories
-              </h2>
-            </div>
-            <app-home-search class="section-head__search" [(value)]="search" />
-          </div>
+    <!-- ============ Headline Measures ============ -->
+    <!-- A search is about finding a program, so its results sit right under the hero. -->
+    @if (!search()) {
+      <section class="home-section home-section--lead" aria-labelledby="headlines-title">
+        <div class="section-head">
+          <h2 id="headlines-title" class="section-head__title typography-heading-md">Headline Measures</h2>
+        </div>
+        <app-home-headlines [programs]="page.data.programs" />
+      </section>
+    }
 
-          <div class="cat-grid" #grid>
-            @for (card of cards(); track card.group.category.CategoryID) {
-              @if (!card.hidden) {
+    <!-- ============ Programs by Topic ============ -->
+    <section id="categories" class="home-section" aria-labelledby="categories-title">
+      <div class="section-head">
+        <h2 id="categories-title" class="section-head__title typography-heading-md" tabindex="-1" data-section-heading>
+          Programs by Topic
+        </h2>
+      </div>
+
+      <div class="topics" #grid>
+        @for (group of topics(); track group.topic.id) {
+          <section class="topic" [attr.data-topic]="group.topic.id" [attr.aria-labelledby]="'topic-' + group.topic.id">
+            <h3 [id]="'topic-' + group.topic.id" class="topic__name typography-title-sm-strong">
+              <span class="topic-dot" aria-hidden="true" [style.--topic-color]="group.topic.color"></span>
+              {{ group.topic.name }}
+            </h3>
+            <div class="cat-grid">
+              @for (card of group.items; track card.group.category.CategoryID) {
                 <app-category-card
+                  [class.is-open]="card.open"
                   [group]="card.group"
                   [programs]="card.programs"
                   [query]="search()"
                   [open]="card.open"
-                  [hot]="hotFolder() === card.group.category.Folder"
                   (toggle)="toggle(card.group.category.Folder)"
-                  (hover)="hover(card.group.category.Folder, $event)"
-                  (leave)="leaveProgram()"
                   (showList)="showInList(card.group)"
                 />
               }
-            }
-          </div>
-
-          @if (!search()) {
-            <app-featured-programs
-              [programs]="page.data.programs"
-              (hover)="hoverFeatured($event)"
-              (leave)="leaveFeatured()"
-              (showAll)="showFeaturedInList()"
-            />
-          }
-
-          @if (noMatches()) {
-            <esa-card>
-              <div role="status">
-                <esa-empty-state
-                  [title]="'No programs or partners match'"
-                  [description]="'Try part of a program or partner name.'"
-                  size="sm"
-                >
-                  <esa-button appearance="outline" size="sm" (click)="search.set('')">Clear search</esa-button>
-                </esa-empty-state>
-              </div>
-            </esa-card>
-          }
-        </div>
-
-        <!-- mon-lego-checked: the panel frame is custom because it is sticky and must not clip
-             the map's popups the way esa-card's overflow would; the map is app-home-map. -->
-        <aside class="map-panel" aria-labelledby="map-title">
-          @let mapFocus = focus();
-          <div class="map-panel__head">
-            <div>
-              <h3 id="map-title" class="map-panel__title typography-label-md-strong">{{ mapFocus.title }}</h3>
-              <p class="map-panel__sub typography-body-xs">{{ mapFocus.sub }}</p>
             </div>
-          </div>
+          </section>
+        }
+      </div>
 
+      @if (noMatches()) {
+        <esa-card>
+          <div role="status">
+            <esa-empty-state
+              [title]="'No programs or partners match'"
+              [description]="'Try part of a program or partner name.'"
+              size="sm"
+            >
+              <esa-button appearance="outline" size="sm" (click)="search.set('')">Clear search</esa-button>
+            </esa-empty-state>
+          </div>
+        </esa-card>
+      }
+    </section>
+
+    <!-- ============ Monitoring Sites ============ -->
+    <section id="sites" class="home-section" aria-labelledby="sites-title">
+      <div class="section-head">
+        <h2 id="sites-title" class="section-head__title typography-heading-md" tabindex="-1" data-section-heading>
+          Monitoring Sites
+        </h2>
+      </div>
+
+      <!-- mon-lego-checked: the panel frame is custom because esa-card's overflow would clip the
+           map's popups; the map is app-home-map. The vendored Ecology set has no checkbox, so
+           the topic legend is a fieldset of native checkboxes, on tokens. -->
+      <div class="map-panel">
+        @let mapFocus = focus();
+        <div class="map-panel__map">
           <!-- The map and Leaflet download after the cards are on screen. -->
           @defer (on idle) {
-            <app-home-map [programs]="page.data.programs" [focus]="mapFocus.programIds" />
+            <app-home-map [programs]="page.data.programs" [colors]="colors()" [focus]="mapFocus.programIds" />
           } @placeholder {
             <div class="map-panel__placeholder" role="status">
               <span class="typography-body-sm">Loading the map.</span>
             </div>
           }
+        </div>
 
-          <div class="map-legend" role="group" aria-label="Show a category on the map">
-            @for (group of mappedGroups(); track group.category.CategoryID) {
-              <button
-                type="button"
-                class="map-legend__item typography-body-sm"
-                [attr.aria-pressed]="selected() === group.category.Folder"
-                (mouseenter)="hover(group.category.Folder, null)"
-                (focus)="hover(group.category.Folder, null)"
-                (click)="selectFromLegend(group.category.Folder)"
-              >
-                {{ group.category.CategoryName }}
-              </button>
+        <div class="map-panel__side">
+          <div class="map-panel__head">
+            <h3 id="map-title" class="map-panel__title typography-label-md-strong">{{ mapFocus.title }}</h3>
+            <p class="map-panel__sub typography-body-sm">{{ mapFocus.sub }}</p>
+            @if (selected()) {
+              <esa-button class="map-panel__all" size="sm" appearance="outline" (click)="clearSelection()">
+                Show all sites
+              </esa-button>
             }
           </div>
+
+          <!-- Unchecking a topic grays its sites. While a category or a search holds the map,
+               the topics have nothing to change, so they are disabled. -->
+          <fieldset class="map-legend" [disabled]="legendLocked()">
+            <legend class="visually-hidden">Topics on the map</legend>
+            @for (entry of legend(); track entry.topic.id) {
+              <label class="map-legend__item typography-body-sm" [attr.data-topic]="entry.topic.id">
+                <input type="checkbox" [checked]="entry.on" (change)="toggleTopic(entry.topic.id)" />
+                <span class="topic-dot" aria-hidden="true" [style.--topic-color]="entry.topic.color"></span>
+                <span class="map-legend__name">{{ entry.topic.name }}</span>
+                <span class="map-legend__count">{{ entry.count }}</span>
+              </label>
+            }
+          </fieldset>
+
           <p class="map-panel__foot typography-body-xs">
             Sites from Lake Tahoe Info as of Oct. 29, 2026. Programs without fixed sites are not mapped.
           </p>
-        </aside>
+        </div>
       </div>
     </section>
 
     <!-- ============ All Programs ============ -->
     <section id="all-programs" class="home-section" aria-labelledby="all-programs-title">
       <div class="section-head">
-        <div class="section-head__text">
-          <h2
-            id="all-programs-title"
-            class="section-head__title typography-heading-md"
-            tabindex="-1"
-            data-section-heading
-          >
-            All Programs
-          </h2>
-        </div>
+        <h2
+          id="all-programs-title"
+          class="section-head__title typography-heading-md"
+          tabindex="-1"
+          data-section-heading
+        >
+          All Programs
+        </h2>
       </div>
       <app-program-list [categories]="page.data.categories" [programs]="page.data.programs" />
     </section>
@@ -159,11 +176,9 @@
     <!-- ============ About Monitoring ============ -->
     <section id="about" class="home-section" aria-labelledby="about-title">
       <div class="section-head">
-        <div class="section-head__text">
-          <h2 id="about-title" class="section-head__title typography-heading-md" tabindex="-1" data-section-heading>
-            About Monitoring
-          </h2>
-        </div>
+        <h2 id="about-title" class="section-head__title typography-heading-md" tabindex="-1" data-section-heading>
+          About Monitoring
+        </h2>
       </div>
       <app-about-monitoring [groups]="groups()" />
     </section>

@@ -1,11 +1,12 @@
 // The home page. Tokens only. The shell gives this route the full width (route data
 // fullBleed), so the header band can run edge to edge; everything under it sits in the same
-// 72rem column as the rest of the app. Four shapes down the page: the header band, the
-// cards beside the map, the dense All Programs grid, and the About reading section.
+// 72rem column as the rest of the app. Down the page: the header band with the search, the
+// headline tiles, the category cards under their topics, the site map beside its topic
+// legend, the dense All Programs grid, and the About reading section.
 
 :host {
   display: block;
-  // The sticky nav row's height, set by the shell; sections and the map panel clear it.
+  // The sticky nav row's height, set by the shell; sections clear it.
   --_sticky: var(--app-nav-height, 0px);
 }
 
@@ -26,8 +27,27 @@
   color: var(--color-content-default);
 }
 
+// The title and intro on one side, the search and the totals on the other; they stack
+// where the band is too narrow for both.
 .hero__inner {
-  padding-block: var(--spacing-600) var(--spacing-600);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--spacing-400) var(--spacing-700);
+  padding-block: var(--spacing-600);
+}
+
+.hero__text {
+  flex: 999 1 26rem;
+  min-width: 0;
+}
+
+.hero__find {
+  flex: 1 1 21rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-200);
+  min-width: 0;
 }
 
 .hero__title {
@@ -41,16 +61,19 @@
   color: var(--color-content-default-secondary);
 }
 
+// The three totals as one line under the search: "116 monitoring programs".
 .hero__stats {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-300) var(--spacing-700);
-  margin: var(--spacing-500) 0 0;
+  gap: var(--spacing-050) var(--spacing-400);
+  margin: 0;
 }
 
 .hero-stat {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: var(--spacing-100);
 }
 
 .hero-stat__value {
@@ -90,6 +113,12 @@
   border-top: var(--border-width-default) solid var(--color-border-default);
 }
 
+// The headline tiles and the topics read as one opening: no rule between them.
+.home-section--lead + .home-section {
+  padding-top: 0;
+  border-top: 0;
+}
+
 .section-head {
   display: flex;
   flex-wrap: wrap;
@@ -113,73 +142,98 @@
   outline-offset: var(--spacing-100);
 }
 
-.section-head__lead {
-  margin: var(--spacing-050) 0 0;
-  color: var(--color-content-default-secondary);
-}
-
-.section-head__search {
-  flex: 1 1 18rem;
-  max-width: 28rem;
-  min-width: min(14rem, 100%);
-}
-
 .home__end {
   height: 1px;
 }
 
-// ---------- Categories beside the map ----------
+// ---------- Programs by Topic ----------
 
-.home-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(22.5rem, 40%);
-  gap: var(--spacing-500);
-  align-items: start;
-}
-
-.home-cats {
+.topics {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-400);
+  gap: var(--spacing-500);
+}
+
+.topic {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-300);
   min-width: 0;
 }
 
-// One column, alphabetical: an accordion. Two across left a blank column beside an open
-// card (34 programs is about 1,500 px of it) and wrapped the longer names; in one column
-// an open card has the full width and lists its programs in two columns.
+.topic__name {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-200);
+  margin: 0;
+  color: var(--color-content-default);
+}
+
+// The topic's data color: the same dot marks the topic here and in the map legend, and its
+// sites on the map. The cards themselves stay neutral.
+.topic-dot {
+  flex: none;
+  width: var(--spacing-300);
+  height: var(--spacing-300);
+  border-radius: var(--radius-full);
+  background: var(--topic-color, var(--color-content-default-secondary));
+}
+
+// Cards of one topic sit side by side and wrap. An open card takes the whole row, so its
+// program list has the width for two columns and no blank cell is left beside it.
 .cat-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--spacing-200);
-  align-items: start;
+  grid-template-columns: repeat(auto-fill, minmax(min(17.5rem, 100%), 1fr));
+  gap: var(--spacing-300);
+  align-items: stretch;
 }
 
 .cat-grid app-category-card {
   scroll-margin-top: calc(var(--_sticky) + var(--spacing-400));
 }
 
-// ---------- The map panel ----------
+.cat-grid app-category-card.is-open {
+  grid-column: 1 / -1;
+}
+
+// ---------- Monitoring Sites: the map beside its legend ----------
 
 .map-panel {
-  position: sticky;
-  top: calc(var(--_sticky) + var(--spacing-400));
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 20rem);
   min-width: 0;
   background: var(--color-background-elevation-raised);
   border: var(--border-width-default) solid var(--card-border-color, var(--color-border-default));
   border-radius: var(--radius-md);
   overflow: hidden;
-  // The map fills what the window leaves after the nav row, the panel head, the legend, and
-  // the source line, within limits.
-  --home-map-height: clamp(22rem, calc(100dvh - var(--_sticky) - 15rem), 38rem);
+  --home-map-height: clamp(22rem, 60dvh, 32rem);
+}
+
+.map-panel__map {
+  min-width: 0;
+}
+
+.map-panel__placeholder {
+  display: grid;
+  place-items: center;
+  height: var(--home-map-height);
+  background: var(--color-background-elevation-sunken);
+  color: var(--color-content-default-secondary);
+}
+
+.map-panel__side {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border-inline-start: var(--border-width-default) solid var(--color-border-default-subtle);
 }
 
 .map-panel__head {
   display: flex;
-  align-items: center;
-  gap: var(--spacing-250);
-  padding: var(--spacing-300) var(--spacing-400);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-050);
+  padding: var(--spacing-400);
   border-bottom: var(--border-width-default) solid var(--color-border-default-subtle);
 }
 
@@ -196,65 +250,78 @@
   color: var(--color-content-default-secondary);
 }
 
-.map-panel__placeholder {
-  display: grid;
-  place-items: center;
-  height: var(--home-map-height);
-  background: var(--color-background-elevation-sunken);
-  color: var(--color-content-default-secondary);
+.map-panel__all {
+  margin-top: var(--spacing-200);
 }
 
+// The topic legend: a checkbox, the topic's dot, its name, and its site count, a row each.
 .map-legend {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-150);
-  padding: var(--spacing-300) var(--spacing-400);
-  border-top: var(--border-width-default) solid var(--color-border-default-subtle);
+  flex-direction: column;
+  min-width: 0;
+  margin: 0;
+  padding: var(--spacing-200) var(--spacing-400);
+  border: 0;
 }
 
-// Quiet chips: 4px corners, hairline border. Pressed is a brand outline, not a fill.
 .map-legend__item {
-  padding: var(--spacing-050) var(--spacing-200);
-  border: var(--border-width-default) solid var(--color-border-default);
-  border-radius: var(--radius-sm);
-  background: var(--color-background-elevation-raised);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-200);
+  min-height: var(--spacing-700);
   color: var(--color-content-default);
   cursor: pointer;
 }
 
-.map-legend__item:hover {
-  background: var(--color-background-default);
+.map-legend__item input {
+  flex: none;
+  width: var(--spacing-400);
+  height: var(--spacing-400);
+  margin: 0;
+  accent-color: var(--color-background-brand-default, var(--color-border-default-focus));
+  cursor: inherit;
 }
 
-.map-legend__item[aria-pressed='true'] {
-  border-color: var(--color-border-default-focus);
-  box-shadow: inset 0 0 0 var(--border-width-default) var(--color-border-default-focus);
-}
-
-.map-legend__item:focus-visible {
+.map-legend__item input:focus-visible {
   outline: var(--border-width-focus) solid var(--color-border-default-focus);
   outline-offset: var(--spacing-050);
 }
 
+.map-legend__name {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.map-legend__count {
+  flex: none;
+  color: var(--color-content-default-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.map-legend:disabled .map-legend__item {
+  color: var(--color-content-default-secondary);
+  cursor: default;
+}
+
 .map-panel__foot {
-  margin: 0;
-  padding: var(--spacing-200) var(--spacing-400);
+  margin: auto 0 0;
+  padding: var(--spacing-300) var(--spacing-400);
   border-top: var(--border-width-default) solid var(--color-border-default-subtle);
   color: var(--color-content-default-secondary);
 }
 
 // ---------- Narrower windows ----------
 
-// The map drops under the cards, at a fixed height, and is no longer sticky.
-@media (max-width: 67.5rem) {
-  .home-layout {
+// The legend drops under the map, which takes a fixed height.
+@media (max-width: 56rem) {
+  .map-panel {
     grid-template-columns: minmax(0, 1fr);
+    --home-map-height: 22rem;
   }
 
-  .map-panel {
-    position: relative;
-    top: 0;
-    --home-map-height: 22rem;
+  .map-panel__side {
+    border-inline-start: 0;
+    border-top: var(--border-width-default) solid var(--color-border-default-subtle);
   }
 }
 
@@ -262,15 +329,5 @@
   .hero__inner,
   .home__body {
     padding-inline: var(--spacing-400);
-  }
-
-  .hero__stats {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--spacing-400);
-  }
-
-  .section-head__search {
-    flex-basis: 100%;
   }
 }

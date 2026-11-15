@@ -116,6 +116,16 @@ In ESA's repo the last step becomes `git push` and a pull request.
 
 A URL cannot tell TRPA data from partner data hosted at TRPA. List partner services in `PARTNER_PIPELINES` in `lib/ingest.ts`, each with the partner, where the data is pulled from, and the TRPA script that loads it, to move their layers to the pipeline path. The SMART traffic camera service is the first; every other maps.trpa.org layer shows as a TRPA web service.
 
+## Home page
+
+The home page is one scrolling page: the search and the three totals, Headline Measures, Programs by Topic, Monitoring Sites, All Programs, and About Monitoring. The nav row scrolls to the last four.
+
+- **Topics:** `lib/home-page.ts` lists the five topics, the category folders in each (in the order their cards show), and the data color of each topic's sites on the map. A category no topic lists shows under Other Topics, so a new category is never hidden. The topics are a proposal for this page; the categories themselves are unchanged.
+- **Headline Measures:** `HOME_HEADLINE_PROGRAMS` in the same file lists the programs, by ID. Each tile is the latest value of the program's first chart, read live, the same figure the program's own header leads with. A program whose first chart has no single latest value, or whose data does not load, is left out, so pick programs whose record is current.
+- **The map:** every site takes its topic's color. An open category holds the map, then a search, then the topic checkboxes beside it.
+
+`e2e/home.spec.ts` checks the topic grouping in Node, then the page in the browser.
+
 ## Redesign Plan page
 
 `/project-plan` (linked from About Monitoring) is the working plan for the Monitoring Dashboard redesign under ESA Work Order 004: the key decisions, status by workstream, vision, roles, the four workstreams and how they feed each other, the timeline and milestones, the meeting cadence, the action items, and the data stewards.

@@ -23,7 +23,6 @@ import type * as Leaflet from 'leaflet';
 import type { MonitoringProgramSummary, MonitoringSite } from '../../api/models';
 import { SandboxApiService } from '../../api/sandbox-api.service';
 import { createBasemaps } from '../../dashboard/basemaps';
-import { categoryColor } from './home-model';
 
 type LeafletModule = typeof Leaflet;
 export type HomeMapState = 'loading' | 'ready' | 'error';
@@ -40,6 +39,8 @@ const ON_STYLE = { radius: 3.5, weight: 0.75, opacity: 1, fillOpacity: 0.9 };
 const OFF_STYLE = { radius: 2.5, weight: 0.5, opacity: 0.4, fillOpacity: 0.3 };
 /** Token expressions resolved at runtime, since Leaflet draws on a canvas that cannot read CSS. */
 const GRAY_TOKEN = 'var(--color-gray-8)';
+/** The color of a site whose category the page gave no color for. */
+const DATA_TOKEN = 'var(--color-background-dataviz-categorical-1)';
 const OUTLINE_TOKEN = 'var(--color-background-elevation-raised)';
 
 const KIND_NOTE: Record<MonitoringSite['SiteKind'], string> = {
@@ -76,11 +77,12 @@ function element<K extends keyof HTMLElementTagNameMap>(tag: K, className?: stri
 }
 
 /**
- * Every monitoring site on one Leaflet map, in the one data color. The page sets
- * [focus] to the programs whose sites stay in color; every other site turns gray. Only
- * colors change: the view stays where the reader left it.
+ * Every monitoring site on one Leaflet map, each in the data color the page gives its
+ * category ([colors], by category ID). The page sets [focus] to the programs whose sites
+ * stay in color; every other site turns gray. Only colors change: the view stays where the
+ * reader left it.
  *
- *   <app-home-map [programs]="programs()" [focus]="focusIds()" />
+ *   <app-home-map [programs]="programs()" [colors]="colors()" [focus]="focusIds()" />
  *
  * For tests the host carries data-state (loading, ready, or error), data-points (sites
  * drawn), and data-highlighted (sites in color).
@@ -113,6 +115,8 @@ function element<K extends keyof HTMLElementTagNameMap>(tag: K, className?: stri
 export class HomeMap {
   /** Every program, for each site's color, name, and category. */
   readonly programs = input.required<readonly MonitoringProgramSummary[]>();
+  /** The data color of each category's sites, by category ID, as a color or a token expression. */
+  readonly colors = input<ReadonlyMap<number, string>>(new Map());
   /** Programs whose sites are in color; null colors every site. */
   readonly focus = input<ReadonlySet<number> | null>(null);
   readonly label = input('Map of monitoring sites');
@@ -222,7 +226,7 @@ export class HomeMap {
         ...ON_STYLE,
         renderer,
         color: outline,
-        fillColor: this.resolveColor(program ? categoryColor(program) : GRAY_TOKEN),
+        fillColor: this.resolveColor(program ? this.colorOf(program) : GRAY_TOKEN),
       });
       marker.bindPopup(() => this.popup(site), { maxWidth: 280, autoPanPadding: [16, 16] });
       group.addLayer(marker);
@@ -254,7 +258,7 @@ export class HomeMap {
       if (entry.on === on) continue;
       entry.on = on;
       const program = programs.get(entry.programId);
-      const color = program ? this.resolveColor(categoryColor(program)) : gray;
+      const color = program ? this.resolveColor(this.colorOf(program)) : gray;
       entry.marker.setStyle(on ? { ...ON_STYLE, fillColor: color } : { ...OFF_STYLE, fillColor: gray });
       if (on) raise.push(entry.marker);
     }
@@ -286,12 +290,16 @@ export class HomeMap {
     }
     const categoryCell = element('dd');
     const category = element('span', 'home-popup__category', program?.CategoryName ?? 'Unknown');
-    if (program) category.style.setProperty('--home-popup-color', categoryColor(program));
+    if (program) category.style.setProperty('--home-popup-color', this.colorOf(program));
     categoryCell.append(category);
     rows.append(element('dt', undefined, 'Program'), programCell, element('dt', undefined, 'Category'), categoryCell);
     root.append(rows);
     if (KIND_NOTE[site.SiteKind]) root.append(element('p', 'home-popup__foot typography-body-xs', KIND_NOTE[site.SiteKind]));
     return root;
+  }
+
+  private colorOf(program: MonitoringProgramSummary): string {
+    return this.colors().get(program.CategoryID) ?? DATA_TOKEN;
   }
 
   private readonly colorCache = new Map<string, string>();

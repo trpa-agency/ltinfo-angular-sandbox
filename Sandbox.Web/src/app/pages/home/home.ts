@@ -22,18 +22,13 @@ import { SandboxApiService } from '../../api/sandbox-api.service';
 import { EsaButton } from '../../ecology/esa-button';
 import { EsaCard } from '../../ecology/esa-card';
 import { EsaEmptyState } from '../../ecology/esa-empty-state';
-import { FeaturedPrograms } from './featured-programs';
+import { groupByTopic } from '../../lib/home-page';
 import { ProgramList } from '../program-list/program-list';
 import { AboutMonitoring } from './about-monitoring';
 import { CategoryCard } from './category-card';
+import { HomeHeadlines } from './home-headlines';
 import { HomeMap } from './home-map';
-import {
-  CategoryGroup,
-  formatCount,
-  groupPrograms,
-  mapFocus,
-  matchPrograms,
-} from './home-model';
+import { CategoryGroup, formatCount, groupPrograms, mapFocus, matchPrograms } from './home-model';
 import { HOME_SECTIONS, HomeSectionId, HomeSections, isHomeSection } from './home-sections';
 import { HomeSearch } from './home-search';
 
@@ -52,15 +47,16 @@ interface CardView {
 }
 
 /**
- * The home page at / and /category/:folder: one scrolling page with the hero and its four
- * totals, the threshold category cards beside the site map, the All Programs list, and
- * About Monitoring. The nav row in the shell scrolls to the three sections and follows
- * the one in view (HomeSections).
+ * The home page at / and /category/:folder: one scrolling page with the hero (the search and
+ * the three totals), the headline measures, the category cards grouped by topic, the site
+ * map with its topic legend, the All Programs list, and About Monitoring. The nav row in the
+ * shell scrolls to the four sections and follows the one in view (HomeSections).
  *
- * Map behavior: hovering or focusing a category or a program colors just its sites, and the
- * last one stays until something else is hovered. A selected (open) category holds the map
- * whatever is hovered, except that its own programs show while hovered. A click on blank
- * space closes the category and restores every color. The map view never moves for this.
+ * Map behavior: every site is drawn in its topic's color. An open category holds the map:
+ * its sites keep their color and the rest turn gray. Without one, a search colors the
+ * matching programs' sites, and without a search the topic legend decides: unchecking a
+ * topic grays its sites. A click on blank space closes the category. The map view never
+ * moves for any of this.
  */
 @Component({
   selector: 'app-home',
@@ -71,7 +67,7 @@ interface CardView {
     EsaButton,
     EsaCard,
     EsaEmptyState,
-    FeaturedPrograms,
+    HomeHeadlines,
     HomeMap,
     HomeSearch,
     ProgramList,
@@ -91,8 +87,8 @@ export class Home {
   protected readonly state = signal<LoadState<HomeData>>({ status: 'loading' });
 
   protected readonly search = signal('');
-  private readonly hoverCategory = signal<string | null>(null);
-  private readonly hoverProgram = signal<MonitoringProgramSummary | null>(null);
+  /** The topics unchecked in the map legend. */
+  private readonly topicsOff = signal<ReadonlySet<string>>(new Set());
 
   /** The category folder in the address (/category/:folder), if it names a real category. */
   private readonly folder = toSignal(this.route.paramMap.pipe(map((params) => params.get('folder'))), {
@@ -113,8 +109,10 @@ export class Home {
     return data ? groupPrograms(data.categories, data.programs) : [];
   });
 
-  /** Categories with at least one mapped site, for the map legend. */
-  protected readonly mappedGroups = computed(() => this.groups().filter((group) => group.category.SiteCount > 0));
+  /** Each category's site color on the map, by category ID. */
+  protected readonly colors = computed(
+    () => new Map(this.groups().map((group) => [group.category.CategoryID, group.color])),
+  );
 
   protected readonly selected = computed(() => {
     const folder = this.folder();
@@ -123,7 +121,7 @@ export class Home {
 
   private readonly matches = computed(() => matchPrograms(this.data()?.programs ?? [], this.search()));
 
-  protected readonly cards = computed<CardView[]>(() => {
+  private readonly cards = computed<CardView[]>(() => {
     const matches = this.matches();
     const selected = this.selected();
     return this.groups().map((group) => {
@@ -136,28 +134,35 @@ export class Home {
     });
   });
 
-  protected readonly noMatches = computed(() => this.matches()?.size === 0);
-
-  protected readonly focus = computed(() =>
-    mapFocus(
-      {
-        selected: this.selected(),
-        hoverCategory: this.hoverCategory(),
-        hoverProgram: this.hoverProgram(),
-        matches: this.matches(),
-      },
-      this.groups(),
+  /** The cards on the page, under their topics. A topic with no card to show is left out. */
+  protected readonly topics = computed(() =>
+    groupByTopic(
+      this.cards().filter((card) => !card.hidden),
+      (card) => card.group.category.Folder,
     ),
   );
 
-  /** The card whose sites are on the map; it lifts. */
-  protected readonly hotFolder = computed(() => {
-    const selected = this.selected();
-    if (selected) return selected;
-    const program = this.hoverProgram();
-    if (program) return this.groups().find((group) => group.category.CategoryID === program.CategoryID)?.category.Folder ?? null;
-    return this.hoverCategory();
+  protected readonly noMatches = computed(() => this.matches()?.size === 0);
+
+  /** The map legend: each topic with mapped sites, its count, and whether it is checked. */
+  protected readonly legend = computed(() => {
+    const off = this.topicsOff();
+    return groupByTopic(this.groups(), (group) => group.category.Folder)
+      .map(({ topic, items }) => ({
+        topic,
+        sites: items.reduce((sum, group) => sum + group.category.SiteCount, 0),
+        on: !off.has(topic.id),
+      }))
+      .filter((entry) => entry.sites > 0)
+      .map((entry) => ({ ...entry, count: formatCount(entry.sites) }));
   });
+
+  /** An open category or a search holds the map, so the legend has nothing to change. */
+  protected readonly legendLocked = computed(() => this.selected() !== null || this.matches() !== null);
+
+  protected readonly focus = computed(() =>
+    mapFocus({ selected: this.selected(), matches: this.matches(), topicsOff: this.topicsOff() }, this.groups()),
+  );
 
   protected readonly totals = computed(() => {
     const summary = this.data()?.summary;
@@ -173,10 +178,9 @@ export class Home {
   private toggling = false;
   private rendered = false;
   private spy: IntersectionObserver[] = [];
-  private gridObserver: ResizeObserver | null = null;
 
   constructor() {
-    this.sections.active.set('categories');
+    this.sections.active.set(HOME_SECTIONS[0].id);
     this.load();
 
     // Nav clicks while this page is up: scroll to the section and move focus to its heading.
@@ -193,13 +197,12 @@ export class Home {
           this.toggling = false;
           return;
         }
-        if (folder) this.scrollToCard(folder, true);
+        if (folder) this.scrollToCard(folder);
       });
     });
 
     this.destroyRef.onDestroy(() => {
       this.spy.forEach((observer) => observer.disconnect());
-      this.gridObserver?.disconnect();
       this.sections.active.set(null);
     });
   }
@@ -221,55 +224,35 @@ export class Home {
 
   // ---------- events from the cards, the legend, and the page ----------
 
-  protected hover(folder: string, program: MonitoringProgramSummary | null): void {
-    this.hoverCategory.set(folder);
-    this.hoverProgram.set(program);
-  }
-
-  /** In a selected category, leaving one of its programs goes back to the whole category. */
-  protected leaveProgram(): void {
-    if (this.selected()) this.hoverProgram.set(null);
-  }
-
   protected toggle(folder: string): void {
     this.select(this.selected() === folder ? null : folder);
   }
 
-  protected selectFromLegend(folder: string): void {
-    this.hover(folder, null);
-    this.select(folder);
-    this.scrollToCard(folder, false);
+  /** A topic checked or unchecked in the map legend. */
+  protected toggleTopic(id: string): void {
+    this.topicsOff.update((off) => {
+      const next = new Set(off);
+      if (!next.delete(id)) next.add(id);
+      return next;
+    });
   }
 
-  /** "Show these programs in the list": filter All Programs to the category and go there. */
-  /** A featured program under the pointer or focus: shown on the map like a program in an open card. */
-  protected hoverFeatured(program: MonitoringProgramSummary): void {
-    const group = this.groups().find((g) => g.category.CategoryID === program.CategoryID);
-    if (group) this.hover(group.category.Folder, program);
+  /** "Show all sites": closes the open category, which gives the map back to the legend. */
+  protected clearSelection(): void {
+    this.select(null);
   }
 
-  protected leaveFeatured(): void {
-    this.hoverProgram.set(null);
-  }
-
-  /** "All 17": the featured programs in the All Programs list below. */
-  protected showFeaturedInList(): void {
-    this.list()?.showFeatured();
-    this.scrollToSection('all-programs', { focus: true, smooth: true });
-  }
-
+  /** "Show in the list": filter All Programs to the category and go there. */
   protected showInList(group: CategoryGroup): void {
     this.list()?.showCategory(group.category.CategoryID);
     this.scrollToSection('all-programs', { focus: true, smooth: true });
   }
 
-  /** A click on blank space in the hero or the categories section closes the category. */
+  /** A click on blank space in the hero or the topics section closes the category. */
   protected onDocumentClick(event: MouseEvent): void {
     const target = event.target as Element | null;
     if (!target?.closest('.hero, #categories')) return;
-    if (target.closest('app-category-card, .map-panel, app-home-search, esa-card, a, button, input')) return;
-    this.hoverCategory.set(null);
-    this.hoverProgram.set(null);
+    if (target.closest('app-category-card, app-home-search, esa-card, a, button, input')) return;
     if (this.selected()) this.select(null);
   }
 
@@ -280,18 +263,17 @@ export class Home {
     void this.router.navigate(folder ? ['/category', folder] : ['/'], { replaceUrl: true });
   }
 
-  // ---------- scrolling, the scroll spy, and equal card heights ----------
+  // ---------- scrolling and the scroll spy ----------
 
   private onFirstRender(): void {
     if (this.rendered) return;
     this.rendered = true;
-    this.watchGrid();
     this.startSpy();
     const fragment = this.route.snapshot.fragment;
     if (isHomeSection(fragment)) {
       this.scrollToSection(fragment, { focus: true, smooth: false });
     } else if (this.selected()) {
-      this.scrollToCard(this.selected()!, true);
+      this.scrollToCard(this.selected()!);
     }
   }
 
@@ -305,9 +287,9 @@ export class Home {
   }
 
   /**
-   * A smooth scroll aims at where the section is when it starts. A photo or the map arriving
-   * above it on the way moves the section, and the scroll stops short. So when the scroll
-   * ends, go to the section itself, unless the reader has taken over the scrolling.
+   * A smooth scroll aims at where the section is when it starts. A headline tile or the map
+   * arriving above it on the way moves the section, and the scroll stops short. So when the
+   * scroll ends, go to the section itself, unless the reader has taken over the scrolling.
    */
   private landOn(section: HTMLElement): void {
     const taken = ['wheel', 'touchstart', 'keydown'] as const;
@@ -326,9 +308,10 @@ export class Home {
     for (const type of taken) window.addEventListener(type, stop, { once: true, passive: true });
   }
 
-  private scrollToCard(folder: string, alignTop: boolean): void {
+  /** A category opened from a link or the address: its card at the top of the window. */
+  private scrollToCard(folder: string): void {
     const card = this.grid()?.nativeElement.querySelector<HTMLElement>(`[data-folder="${folder}"]`)?.closest('app-category-card');
-    card?.scrollIntoView({ behavior: this.behavior(!alignTop), block: alignTop ? 'start' : 'nearest' });
+    card?.scrollIntoView({ behavior: 'auto', block: 'start' });
   }
 
   private behavior(smooth: boolean): ScrollBehavior {
@@ -337,9 +320,10 @@ export class Home {
 
   /**
    * The section in view: the last one, in page order, that reaches the band from under the
-   * sticky nav to 40 percent down the window. At the very end of the page, About. Above the
-   * first section, where only the hero is in the band, the first section: without that the
-   * item marked at the end of the page stayed marked after a return to the top.
+   * sticky nav to 40 percent down the window. At the very end of the page, the last section.
+   * Above the first section, where only the hero and the headline measures are in the band,
+   * the first section: without that the item marked at the end of the page stayed marked
+   * after a return to the top.
    */
   private startSpy(): void {
     const ids = HOME_SECTIONS.map((section) => section.id);
@@ -347,7 +331,7 @@ export class Home {
     const inBand = new Set<HomeSectionId>();
     let atEnd = false;
     const update = (): void => {
-      const current = atEnd ? 'about' : ([...ids].reverse().find((id) => inBand.has(id)) ?? ids[0]);
+      const current = atEnd ? ids[ids.length - 1] : ([...ids].reverse().find((id) => inBand.has(id)) ?? ids[0]);
       this.sections.active.set(current);
     };
     const band = new IntersectionObserver(
@@ -372,48 +356,5 @@ export class Home {
     const end = this.end()?.nativeElement;
     if (end) bottom.observe(end);
     this.spy = [band, bottom];
-  }
-
-  /**
-   * The cards are one column now, so this is at rest; it stays for a layout that puts them
-   * two across again. While the cards sit two across, the two collapsed cards of a row are one height, so a
-   * long name that wraps (Transportation and Sustainable Communities) does not leave its
-   * neighbor short. Rows stay as tall as their own content. Measured again when the grid
-   * changes width or the fonts land.
-   */
-  private watchGrid(): void {
-    const grid = this.grid()?.nativeElement;
-    if (!grid) return;
-    let width = -1;
-    const measure = (): void => {
-      const heads = [...grid.querySelectorAll<HTMLElement>('.cat__head')];
-      heads.forEach((head) => head.style.removeProperty('min-height'));
-      const columns = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
-      if (columns < 2) return;
-      // Cards of one row share a top edge (the grid aligns them to the start).
-      const rows = new Map<number, HTMLElement[]>();
-      for (const head of heads) {
-        const top = Math.round((head.closest('app-category-card') as HTMLElement | null)?.offsetTop ?? 0);
-        rows.set(top, [...(rows.get(top) ?? []), head]);
-      }
-      for (const row of rows.values()) {
-        const tallest = Math.max(0, ...row.map((head) => head.offsetHeight));
-        if (tallest) row.forEach((head) => (head.style.minHeight = `${tallest}px`));
-      }
-    };
-    let frame = 0;
-    this.gridObserver = new ResizeObserver(([entry]) => {
-      const next = Math.round(entry.contentRect.width);
-      if (next === width) return;
-      width = next;
-      // Measured in the next frame: changing the grid's height inside the observer's own
-      // callback would raise "ResizeObserver loop completed with undelivered notifications".
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(measure);
-    });
-    this.gridObserver.observe(grid);
-    void document.fonts.ready.then(() => {
-      if (this.rendered) measure();
-    });
   }
 }

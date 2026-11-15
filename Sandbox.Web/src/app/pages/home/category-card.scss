@@ -1,6 +1,6 @@
-// A threshold category: a white card with a hairline border on the gray canvas, the
-// category icon in a neutral disc, and its programs as dense rows. No category hues;
-// selection shows as a brand outline, never a color fill or a lift.
+// A category: a white card with a hairline border on the gray canvas, the category icon in
+// a neutral disc, a line on what it covers, and its programs as dense rows. No category
+// hues; an open card shows a brand outline, never a color fill or a lift.
 
 :host {
   display: block;
@@ -13,6 +13,8 @@
 .cat {
   display: flex;
   flex-direction: column;
+  // Cards of one row are the same height, whatever the length of their blurbs.
+  height: 100%;
   background: var(--color-background-elevation-raised);
   border: var(--border-width-default) solid var(--color-border-default);
   border-radius: var(--radius-md);
@@ -20,7 +22,6 @@
   transition: border-color 0.15s ease;
 }
 
-.cat.is-hot,
 .cat.is-open {
   border-color: var(--color-border-default-focus);
 }
@@ -111,6 +112,12 @@
 
 .is-open .cat__chev {
   transform: rotate(180deg);
+}
+
+.cat__blurb {
+  margin: 0;
+  padding: 0 var(--spacing-400) var(--spacing-300);
+  color: var(--color-content-default-secondary);
 }
 
 // ---------- The program list: drops down when the card is open ----------
@@ -206,8 +213,8 @@
   color: var(--color-content-default-secondary);
 }
 
-// A wide card (the cards are one column, so most are): the counts move up beside the name,
-// and a long program list runs in two columns, read down the first and then the second.
+// A wide card (an open card takes its whole row): the counts move up beside the name, and
+// a long program list runs in two columns, read down the first and then the second.
 @container (min-width: 34rem) {
   .cat__text {
     flex-direction: row;

@@ -6,14 +6,10 @@ import { EsaButton } from '../../ecology/esa-button';
 import { CategoryGroup, formatCount, matchedPartner } from './home-model';
 
 /**
- * One threshold category card: the icon, the name, the program and mapped site counts, and
- * a program list that drops down when the card is open.
+ * One category card: the icon, the name, the program and mapped site counts, a line on what
+ * the category covers, and a program list that drops down when the card is open.
  *
- *   <app-category-card [group]="g" [programs]="shown" [open]="..." [hot]="..."
- *     (toggle)="..." (hover)="..." (leave)="..." />
- *
- * hover emits null when the pointer or focus is on the card itself, and the program when it
- * is on one of the program links. The page turns those into the map highlight.
+ *   <app-category-card [group]="g" [programs]="shown" [open]="..." (toggle)="..." (showList)="..." />
  */
 @Component({
   selector: 'app-category-card',
@@ -29,13 +25,8 @@ export class CategoryCard {
   /** The search text, so a program matched by a partner name can say which partner. */
   readonly query = input('');
   readonly open = input(false);
-  /** True when this category's sites are the ones in color on the map. */
-  readonly hot = input(false);
 
   readonly toggle = output<void>();
-  readonly hover = output<MonitoringProgramSummary | null>();
-  /** The pointer left a program link. */
-  readonly leave = output<void>();
   /** "Show these programs in the list": the page filters All Programs to this category. */
   readonly showList = output<void>();
 

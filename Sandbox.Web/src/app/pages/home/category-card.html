@@ -6,9 +6,7 @@
 <article
   class="cat"
   [class.is-open]="open()"
-  [class.is-hot]="hot()"
   [attr.data-folder]="category.Folder"
-  (mouseenter)="hover.emit(null)"
 >
   <h3 class="cat__heading">
     <button
@@ -17,7 +15,6 @@
       [attr.aria-expanded]="open()"
       [attr.aria-controls]="dropId()"
       (click)="toggle.emit()"
-      (focus)="hover.emit(null)"
     >
     <span class="cat__icon" aria-hidden="true">
       @if (category.IconUrl) {
@@ -33,6 +30,11 @@
       </span>
     </button>
   </h3>
+  <!-- What the category covers, in a line. Outside the button, so the button's name stays
+       the category and its counts. -->
+  @if (category.Blurb) {
+    <p class="cat__blurb typography-body-sm">{{ category.Blurb }}</p>
+  }
 
   <div class="cat__drop" [id]="dropId()">
     <div class="cat__drop-inner">
@@ -44,9 +46,6 @@
                 class="prog"
                 [routerLink]="['/programs', program.MonitoringProgramID]"
                 [attr.data-program-id]="program.MonitoringProgramID"
-                (mouseenter)="hover.emit(program)"
-                (focus)="hover.emit(program)"
-                (mouseleave)="leave.emit()"
               >
                 <span class="prog__text">
                   <span class="prog__name typography-label-sm">{{ program.MonitoringProgramName }}</span>

@@ -184,7 +184,7 @@ export const seed = {
   },
   airQualityPrograms: 9,
   unknownId: 999999,
-  /** GET /summary, and the four totals in the home page hero. */
+  /** GET /summary, and the totals in the home page hero. */
   summary: { programs: 116, categories: 14, mappedSites: 1842, partners: 61, photos: 67 },
   /** GET /monitoring-sites: one point per site, and one per mapped area or line. */
   sites: { total: 1842, site: 881, area: 927, line: 34 },
@@ -202,17 +202,15 @@ export const LIST_CAP = 12;
 
 /** The home page sections, in page order, with the nav item that scrolls to each. */
 export const HOME_SECTIONS = [
-  { id: 'categories', nav: 'Categories', heading: 'Categories' },
+  { id: 'categories', nav: 'Topics', heading: 'Programs by Topic' },
+  { id: 'sites', nav: 'Sites', heading: 'Monitoring Sites' },
   { id: 'all-programs', nav: 'All Programs', heading: 'All Programs' },
-  { id: 'about', nav: 'About Monitoring', heading: 'About Monitoring' },
+  { id: 'about', nav: 'About', heading: 'About Monitoring' },
 ] as const;
 
 /** The face of Ecology's default theme, which the app uses (no data-theme attribute). */
 export const FONT_FAMILY = 'DM Sans';
 export const FONT_PATTERN = /DM Sans/;
-
-/** The data color every mapped site is drawn in; containers and categories stay neutral. */
-export const DATA_COLOR_TOKEN = '--color-background-dataviz-categorical-1';
 
 /** True once the theme face's files have arrived, not only been asked for. */
 export async function fontLoaded(page: Page): Promise<boolean> {

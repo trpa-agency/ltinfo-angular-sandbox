@@ -1,16 +1,17 @@
 // Pure logic for the home page: no DOM, no Angular. The page and its map read
 // these to decide which programs are in color and what the map panel says.
 import type { Category, MonitoringProgramSummary } from '../../api/models';
+import { topicOf } from '../../lib/home-page';
 
 /**
- * THE ONE PLACE the color of a category's sites is decided on the home page. The map
- * markers and popups read it; the cards, the legend, and the About goals are neutral. A
- * token expression such as var(--x) works: the map resolves it before drawing.
+ * THE ONE PLACE the color of a category's sites is decided on the home page: the data color
+ * of the topic the category belongs to (lib/home-page.ts). The map markers and popups read
+ * it, and the same color dots the topic headings and the map legend; the cards and the
+ * About goals stay neutral. It is a token expression, which the map resolves before drawing.
+ * The Threshold Dashboard theme colors (ThemeColor) are not used on this page.
  */
-export function categoryColor(_item: { ThemeColor: string }): string {
-  // Ecology default: containers stay neutral and one data color carries the sites. The
-  // Threshold Dashboard theme colors (item.ThemeColor) are not used on this page.
-  return 'var(--color-background-dataviz-categorical-1)';
+export function categoryColor(category: { Folder: string }): string {
+  return topicOf(category.Folder).color;
 }
 
 /** A category with its programs, sorted by name, ready for a card. */
@@ -33,16 +34,14 @@ export interface MapFocus {
   color: string | null;
 }
 
-/** The hover and selection state the map follows. */
+/** The selection, search, and legend state the map follows. */
 export interface FocusState {
   /** The selected (open) category folder. */
   selected: string | null;
-  /** The last category hovered or focused. */
-  hoverCategory: string | null;
-  /** The last program hovered or focused. */
-  hoverProgram: MonitoringProgramSummary | null;
   /** Programs matching the search, or null when the box is empty. */
   matches: ReadonlySet<number> | null;
+  /** The ids of the topics unchecked in the map legend. */
+  topicsOff: ReadonlySet<string>;
 }
 
 export const plural = (count: number, word: string): string => (count === 1 ? word : `${word}s`);
@@ -123,31 +122,13 @@ function siteSum(programs: readonly MonitoringProgramSummary[]): number {
 
 /**
  * Which sites are in color, in this order of precedence:
- *   1. a hovered program, unless a different category is selected (its own programs still show)
- *   2. the selected category, else the last hovered category
- *   3. the search matches
+ *   1. the selected (open) category
+ *   2. the search matches
+ *   3. the topics checked in the map legend, when any is unchecked
  *   4. every site
  */
 export function mapFocus(state: FocusState, groups: readonly CategoryGroup[]): MapFocus {
-  const byFolder = new Map(groups.map((group) => [group.category.Folder, group]));
-  const selected = state.selected ? byFolder.get(state.selected) : undefined;
-  const program = state.hoverProgram;
-  const programGroup = program
-    ? groups.find((group) => group.category.CategoryID === program.CategoryID)
-    : undefined;
-
-  if (program && programGroup && (!selected || selected === programGroup)) {
-    return {
-      programIds: new Set([program.MonitoringProgramID]),
-      title: program.MonitoringProgramName,
-      sub: program.SiteCount
-        ? `${formatCount(program.SiteCount)} mapped ${plural(program.SiteCount, 'site')}`
-        : NO_SITES_HERE,
-      color: programGroup.color,
-    };
-  }
-
-  const group = selected ?? (state.hoverCategory ? byFolder.get(state.hoverCategory) : undefined);
+  const group = state.selected ? groups.find((item) => item.category.Folder === state.selected) : undefined;
   if (group) {
     const sites = siteSum(group.programs);
     const withSites = group.programs.filter((item) => item.SiteCount > 0).length;
@@ -177,10 +158,23 @@ export function mapFocus(state: FocusState, groups: readonly CategoryGroup[]): M
     };
   }
 
+  const total = siteSum(groups.flatMap((item) => item.programs));
+  if (state.topicsOff.size > 0) {
+    const shown = groups
+      .filter((item) => !state.topicsOff.has(topicOf(item.category.Folder).id))
+      .flatMap((item) => item.programs);
+    return {
+      programIds: new Set(shown.map((item) => item.MonitoringProgramID)),
+      title: 'Selected topics',
+      sub: `${formatCount(siteSum(shown))} of ${formatCount(total)} mapped sites`,
+      color: null,
+    };
+  }
+
   return {
     programIds: null,
     title: 'All monitoring sites',
-    sub: `${formatCount(siteSum(groups.flatMap((group) => group.programs)))} mapped sites`,
+    sub: `${formatCount(total)} mapped sites`,
     color: null,
   };
 }

@@ -1,0 +1,81 @@
+// Headline Measures: a row of white tiles that wraps, each a figure, its trend line, and
+// the link to its program. Tokens only; the trend line matches the program header's.
+
+:host {
+  display: block;
+  // The stat's public hook: one step down from its display size, as in the program header.
+  --stat-value-size: var(--typography-heading-lg-font-size);
+}
+
+.headlines {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--spacing-400);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.headline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-200);
+  min-width: 0;
+  padding: var(--spacing-400);
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-background-elevation-raised);
+}
+
+.headline__figure {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-300);
+  min-width: 0;
+}
+
+.headline__wait,
+.headlines__none {
+  margin: 0;
+  color: var(--color-content-default-secondary);
+}
+
+// The tile keeps its height while its figure loads, so the row does not jump.
+.headline__wait {
+  min-height: calc(var(--spacing-800) + var(--spacing-400));
+}
+
+// The link sits at the foot of the tile, whatever the height of the figure above it.
+.headline__link {
+  margin-top: auto;
+  padding-top: var(--spacing-100);
+}
+
+.trend {
+  flex: none;
+  inline-size: calc(var(--spacing-800) + var(--spacing-600));
+  block-size: var(--spacing-600);
+  margin-block-start: var(--spacing-100);
+  overflow: visible;
+}
+
+.trend__line {
+  fill: none;
+  stroke: var(--color-background-dataviz-categorical-1);
+  stroke-width: var(--border-width-focus);
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.trend__end {
+  fill: var(--color-background-dataviz-categorical-1);
+}
+
+.trend__standard {
+  stroke: var(--color-content-default-secondary);
+  stroke-width: var(--border-width-default);
+  stroke-dasharray: 3 2;
+  vector-effect: non-scaling-stroke;
+}
