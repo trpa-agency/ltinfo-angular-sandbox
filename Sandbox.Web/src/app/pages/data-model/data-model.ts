@@ -1,60 +1,49 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  computed,
-  effect,
-  inject,
-  signal,
-  untracked,
-} from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { HttpClient } from '@angular/common/http';
+import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, computed, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { catchError, forkJoin, map, of } from 'rxjs';
 
-// The real Ecology Lit elements; this import registers esa-text-field and esa-button-toggle.
-import '../../../ecology/ecology-elements.js';
-
-import { LoadState, failed, ready } from '../../api/load-state';
-import { MonitoringProgramSummary } from '../../api/models';
-import { SandboxApiService } from '../../api/sandbox-api.service';
-import { EsaBadge } from '../../ecology/esa-badge';
 import { EsaButton } from '../../ecology/esa-button';
 import { EsaCard } from '../../ecology/esa-card';
 import { EsaEmptyState } from '../../ecology/esa-empty-state';
-import { EsaStat } from '../../ecology/esa-stat';
-import { csvFileName, toCsv } from '../../lib/csv';
-import {
-  DataSource,
-  DataUse,
-  USE_KEYS,
-  USE_LABELS,
-  UseKind,
-  buildLineage,
-  layerHref,
-  lineageRows,
-} from '../../lib/data-lineage';
+import { CsvColumn, csvFileName, toCsv } from '../../lib/csv';
+import { bindingCoverage, bindingNeeds } from '../../lib/ltinfo-model/bindings';
 import {
   CheckResult,
   INGEST_PATHS,
   IngestPath,
   LayerReport,
+  NATIVE_SOURCES,
   PARTNER_PIPELINES,
-  PathId,
   checkSource,
   classify,
   pathById,
   tally,
-} from '../../lib/ingest';
+} from '../../lib/ltinfo-model/ingest';
+import { DataSource, PlannedSources, PlannedUse, USE_LABELS, buildLineage, layerHref } from '../../lib/ltinfo-model/lineage';
+import type { MonitoringNewDataModel, MonitoringNewProgramGridRow } from '../../lib/ltinfo-model/ltinfo-dto';
+import { buildRegister, pathCounts } from '../../lib/ltinfo-model/register';
 import { Breadcrumb, Crumb } from '../../shared/breadcrumb';
 import { SchemaDiagram } from './schema-diagram';
 
-type EcologyChange = CustomEvent<{ value: string }>;
-type View = 'diagram' | 'table';
+type Loaded =
+  | { status: 'loading' }
+  | { status: 'error' }
+  | { status: 'ready'; programs: MonitoringNewProgramGridRow[]; dataModel: MonitoringNewDataModel; planned: PlannedSources; snapshot: Snapshot };
 
-interface Loaded {
-  sources: DataSource[];
-  programs: Map<number, MonitoringProgramSummary>;
+type RegisterView = 'programs' | 'charts' | 'indicators' | 'scheduled';
+
+/** When the LT Info snapshot was taken, and from where. */
+interface Snapshot {
+  takenOn: string;
+  source: string;
+}
+
+/** A column of a register table. `link` makes the cell a link: to a program page, or to an outside address. */
+interface RegisterColumn extends CsvColumn {
+  link?: { kind: 'program'; idField: string } | { kind: 'href'; hrefField: string };
+  numeric?: boolean;
 }
 
 /** A service layer's name, and whether it is a table, from the service directory. */
@@ -66,36 +55,32 @@ interface LayerInfo {
 /** A service's layers by ID; 'loading' until it answers, null when it did not. */
 type ServiceLayers = Map<number, LayerInfo> | 'loading' | null;
 
-const TABLE_COLUMNS = [
-  { field: 'source', headerName: 'Source' },
-  { field: 'sourceType', headerName: 'Source type' },
-  { field: 'layer', headerName: 'Layer' },
-  { field: 'layerName', headerName: 'Layer name' },
-  { field: 'use', headerName: 'Used as' },
-  { field: 'title', headerName: 'Title' },
-  { field: 'programId', headerName: 'Program ID' },
-  { field: 'programName', headerName: 'Program' },
-  { field: 'fields', headerName: 'Fields' },
-  { field: 'where', headerName: 'Filter' },
-  { field: 'upstream', headerName: 'Original source' },
-  { field: 'href', headerName: 'URL' },
-];
+// A snapshot of LT Info's GET monitoring-new/programs and monitoring-new/data-model, and the planned
+// charts and maps LT Info's page reads from its assets. Refresh with tools/snapshot-ltinfo-data-model.sh.
+const SNAPSHOT = 'data/ltinfo/';
 
 /**
- * The Data Model page: the six tables and how they join, then every chart, map, and site list
- * traced to the map service layer or data file it reads. Built from GET /dashboard-configs, so
- * it stays in step with the settings the program pages use.
+ * The Data Model page, ported from LT Info's Monitoring Dashboard redesign
+ * (esassoc/ltinfo, LtInfo.Web/src/app/areas/monitoring-new/data-model) so it can be read without
+ * an LT Info login. It states the rule (every chart is an indicator in LT Info whose numbers come
+ * from a map service, with transit ridership and stormwater load reductions read from LT Info
+ * itself), shows the tables that would carry it, lists the ways data may come in and what each must
+ * meet, and keeps the register: every planned chart, program, and indicator with the next step.
+ *
+ * The logic in lib/ltinfo-model is LT Info's, copied unchanged apart from import paths. The page
+ * reads a snapshot of LT Info's responses rather than the sandbox's own seed, so the counts match
+ * LT Info's.
  */
 @Component({
   selector: 'app-data-model',
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [Breadcrumb, RouterLink, SchemaDiagram, EsaBadge, EsaButton, EsaCard, EsaEmptyState, EsaStat],
+  imports: [Breadcrumb, RouterLink, SchemaDiagram, EsaButton, EsaCard, EsaEmptyState],
   templateUrl: './data-model.html',
   styleUrl: './data-model.scss',
 })
 export class DataModel {
-  private readonly api = inject(SandboxApiService);
+  private readonly http = inject(HttpClient);
 
   /** The page is reached from About Monitoring on the home page. */
   protected readonly trail: readonly Crumb[] = [
@@ -104,207 +89,356 @@ export class DataModel {
     { label: 'Data Model' },
   ];
 
-  protected readonly state = signal<LoadState<Loaded>>({ status: 'loading' });
-  protected readonly search = signal('');
-  protected readonly view = signal<View>('diagram');
-  private readonly picked = signal<string | null>(null);
-  private readonly services = signal<Record<string, ServiceLayers>>({});
+  /** LT Info's programs and indicators with the planned charts and maps; one state for the page. */
+  protected readonly loaded = toSignal(
+    forkJoin({
+      programs: this.http.get<MonitoringNewProgramGridRow[]>(`${SNAPSHOT}monitoring-new-programs.json`),
+      dataModel: this.http.get<MonitoringNewDataModel>(`${SNAPSHOT}monitoring-new-data-model.json`),
+      planned: this.http.get<PlannedSources>(`${SNAPSHOT}planned-sources.json`),
+      snapshot: this.http.get<Snapshot>(`${SNAPSHOT}snapshot.json`),
+    }).pipe(
+      map((result): Loaded => ({ status: 'ready', ...result })),
+      catchError(() => of<Loaded>({ status: 'error' })),
+    ),
+    { initialValue: { status: 'loading' } as Loaded },
+  );
 
-  /** Check reports by layer key, filled in as "Run checks" works through a source. */
-  protected readonly reports = signal<Record<string, LayerReport>>({});
-  /** The key of the source being checked, or null. */
-  protected readonly checking = signal<string | null>(null);
-
-  /** The partner data TRPA pulls and publishes, listed on the pipeline path's card. */
-  protected readonly pipelines = PARTNER_PIPELINES;
-
-  protected readonly useLabels = USE_LABELS;
-  protected readonly useKeys = USE_KEYS;
-  protected readonly viewOptions = [
-    { label: 'Diagram', value: 'diagram' },
-    { label: 'Table', value: 'table' },
-  ];
-
-  constructor() {
-    forkJoin([this.api.getDashboardConfigs(), this.api.getPrograms()])
-      .pipe(
-        map(([configs, programs]) =>
-          ready<Loaded>({
-            sources: buildLineage(configs),
-            programs: new Map(programs.map((p) => [p.MonitoringProgramID, p])),
-          }),
-        ),
-        catchError((error: unknown) => of(failed<Loaded>(error))),
-        takeUntilDestroyed(),
-      )
-      .subscribe((state) => this.state.set(state));
-
-    // Name the layers on screen from the service directory, one request per service: the
-    // picked service in the diagram, every service in the table. One at a time, because the
-    // server refuses a burst.
-    effect(() => {
-      const shown = this.view() === 'table' ? this.all() : [this.selected()];
-      const known = untracked(this.services);
-      const wanted = shown.filter((s): s is DataSource => s?.kind === 'service' && !(s.key in known));
-      if (!wanted.length) return;
-      this.services.update((all) => ({ ...all, ...Object.fromEntries(wanted.map((s) => [s.key, 'loading' as const])) }));
-      void (async () => {
-        for (const source of wanted) {
-          const layers = await fetchServiceLayers(source.key);
-          this.services.update((all) => ({ ...all, [source.key]: layers }));
-        }
-      })();
-    });
-  }
-
-  private readonly all = computed(() => {
-    const s = this.state();
-    return s.status === 'ready' ? s.data.sources : [];
+  protected readonly register = computed(() => {
+    const loaded = this.loaded();
+    return loaded.status === 'ready' ? buildRegister(loaded.programs, loaded.dataModel, loaded.planned) : null;
   });
 
+  protected readonly snapshot = computed(() => {
+    const loaded = this.loaded();
+    return loaded.status === 'ready' ? loaded.snapshot : null;
+  });
+
+  private readonly planned = computed(() => {
+    const loaded = this.loaded();
+    return loaded.status === 'ready' ? loaded.planned : null;
+  });
+
+  /** The header totals. */
   protected readonly totals = computed(() => {
-    const sources = this.all();
-    const uses = sources.flatMap((s) => s.layers.flatMap((l) => l.uses));
-    const count = (kinds: UseKind[]) => uses.filter((u) => kinds.includes(u.kind)).length;
-    return {
-      services: sources.filter((s) => s.kind === 'service').length,
-      layers: sources.filter((s) => s.kind === 'service').reduce((n, s) => n + s.layers.length, 0),
-      files: sources.filter((s) => s.kind === 'file').length,
-      charts: count(['chart']),
-      maps: count(['map', 'sites', 'overlay']),
-    };
+    const totals = this.register()?.totals;
+    if (!totals) {
+      return [];
+    }
+    return [
+      { label: 'planned charts', value: totals.plannedCharts },
+      { label: 'read a map service', value: totals.chartsOnServices },
+      { label: 'ready to bind to an indicator', value: totals.chartsReadyToBind },
+      { label: 'indicators bound to a layer', value: totals.boundIndicators },
+    ];
   });
 
-  /** Each ingestion path with what comes in by it: layers or files, and the charts and maps on them. */
+  // ---------- The proposed tables ----------
+
+  /** Every kind of planned use with the proposed table that would hold it. */
+  protected readonly coverage = computed(() => bindingCoverage(this.planned()?.Uses ?? []));
+
+  /** What the planned uses ask of the proposed tables; null until the plan has loaded. */
+  protected readonly needs = computed(() => {
+    const planned = this.planned();
+    return planned ? bindingNeeds(planned.Uses) : null;
+  });
+
+  // ---------- Ingestion paths ----------
+
+  protected readonly pipelines = PARTNER_PIPELINES;
+  /** The readers the LT Info Native Data path names, listed on its card. */
+  protected readonly nativeSources = NATIVE_SOURCES;
+
+  /** Each path with what comes in by it today, and its criteria split by who checks them. */
   protected readonly paths = computed(() => {
-    const counts = new Map<PathId, { sources: number; uses: number }>();
-    for (const s of this.all()) {
-      for (const l of s.layers) {
-        const id = classify(s, l.layer);
-        const entry = counts.get(id) ?? { sources: 0, uses: 0 };
-        entry.sources += 1;
-        entry.uses += l.uses.length;
-        counts.set(id, entry);
-      }
-    }
+    const planned = this.planned();
+    const counts = planned ? pathCounts(planned) : {};
     return INGEST_PATHS.map((path) => ({
       path,
-      auto: path.criteria.filter((c) => c.check),
-      review: path.criteria.filter((c) => !c.check),
-      ...(counts.get(path.id) ?? { sources: 0, uses: 0 }),
+      auto: path.criteria.filter((criterion) => criterion.check),
+      review: path.criteria.filter((criterion) => !criterion.check),
+      sources: counts[path.id]?.sources ?? 0,
+      uses: counts[path.id]?.uses ?? 0,
     }));
   });
 
-  /** Passed and failed checks for the source on screen, once any have run. */
-  protected readonly score = computed(() => {
-    const source = this.selected();
-    const full = this.all().find((s) => s.key === source?.key);
-    const all = this.reports();
-    const done = (full?.layers ?? []).map((l) => all[l.key]).filter(Boolean);
-    return done.length ? { ...tally(done), layers: done.length, of: full!.layers.length } : null;
+  protected pathFlag(path: IngestPath): string {
+    switch (path.forIndicators) {
+      case 'yes':
+        return 'Accepted for indicators';
+      case 'native':
+        return 'Transit ridership and stormwater only';
+      case 'interim':
+        return 'Interim only';
+      default:
+        return 'Program records, not measurements';
+    }
+  }
+
+  /** What the path card counts: layers for the service paths, files for the file path. */
+  protected sourceNoun(path: IngestPath, count: number): string {
+    const noun = path.id === 'file' ? 'file' : 'layer';
+    return `${count.toLocaleString('en-US')} ${count === 1 ? noun : noun + 's'}`;
+  }
+
+  protected useCountText(count: number): string {
+    return `${count.toLocaleString('en-US')} ${count === 1 ? 'use' : 'uses'}`;
+  }
+
+  // ---------- The register ----------
+
+  protected readonly view = signal<RegisterView>('programs');
+
+  protected readonly views: { key: RegisterView; label: string }[] = [
+    { key: 'programs', label: 'Programs' },
+    { key: 'charts', label: 'Planned Charts' },
+    { key: 'indicators', label: 'Indicators' },
+    { key: 'scheduled', label: 'Scheduled Sources' },
+  ];
+
+  protected viewCount(view: RegisterView): number {
+    return this.registerRows(view).length;
+  }
+
+  private readonly columns: Record<RegisterView, RegisterColumn[]> = {
+    programs: [
+      { field: 'ProgramName', headerName: 'Program', link: { kind: 'program', idField: 'ProgramLinkID' } },
+      { field: 'NextStepLabel', headerName: 'Next Step' },
+      { field: 'InLtInfo', headerName: 'In LT Info?' },
+      { field: 'CategoryName', headerName: 'Category' },
+      { field: 'IndicatorCount', headerName: 'Indicators', numeric: true },
+      { field: 'PlannedCharts', headerName: 'Planned Charts', numeric: true },
+      { field: 'ChartsOnServices', headerName: 'On a Map Service', numeric: true },
+      { field: 'ChartsOnFiles', headerName: 'On a File', numeric: true },
+      { field: 'ScheduledSources', headerName: 'Scheduled Sources', numeric: true },
+      { field: 'IndicatorNames', headerName: 'Linked Indicators' },
+      { field: 'SuggestedIndicators', headerName: 'Possible Indicators (by Name)' },
+      { field: 'PlannedName', headerName: 'Planned Name' },
+    ],
+    charts: [
+      { field: 'Title', headerName: 'Chart' },
+      { field: 'ProgramName', headerName: 'Program', link: { kind: 'program', idField: 'ProgramLinkID' } },
+      { field: 'NextStepLabel', headerName: 'Next Step' },
+      { field: 'PathLabel', headerName: 'Path' },
+      { field: 'SourceName', headerName: 'Source', link: { kind: 'href', hrefField: 'LayerHref' } },
+      { field: 'Layer', headerName: 'Layer' },
+      { field: 'Fields', headerName: 'Fields' },
+      { field: 'Where', headerName: 'Filter' },
+      { field: 'IndicatorCount', headerName: 'Indicators on the Program', numeric: true },
+      { field: 'IndicatorNames', headerName: 'Indicator Names' },
+      { field: 'CategoryName', headerName: 'Category' },
+      { field: 'Upstream', headerName: 'Original Source' },
+    ],
+    indicators: [
+      { field: 'IndicatorDisplayName', headerName: 'Indicator' },
+      { field: 'TodayLabel', headerName: 'Numbers Today' },
+      { field: 'ProgramCount', headerName: 'Programs', numeric: true },
+      { field: 'PlannedCharts', headerName: 'Planned Charts on Its Programs', numeric: true },
+      { field: 'ReportedValueCount', headerName: 'Stored Values', numeric: true },
+      { field: 'ChartSourceURL', headerName: 'Embedded Chart Page', link: { kind: 'href', hrefField: 'ChartSourceURL' } },
+      { field: 'IndicatorTypeDisplayName', headerName: 'Type' },
+      { field: 'MeasurementUnitTypeDisplayName', headerName: 'Unit' },
+      { field: 'DataSourceType', headerName: 'Data Source Type' },
+      { field: 'Dashboards', headerName: 'Other Dashboards' },
+      { field: 'ProgramNames', headerName: 'Program Names' },
+    ],
+    scheduled: [
+      { field: 'MonitoringDataSourceName', headerName: 'Source' },
+      { field: 'Kind', headerName: 'Kind' },
+      { field: 'ProgramName', headerName: 'Program', link: { kind: 'program', idField: 'MonitoringProgramID' } },
+      { field: 'LastRunDate', headerName: 'Last Run' },
+      { field: 'LastRunStatus', headerName: 'Last Run Result' },
+      { field: 'LastChangeDate', headerName: 'Last Changed Data' },
+      { field: 'MonitoringDataSourceLocation', headerName: 'Address', link: { kind: 'href', hrefField: 'MonitoringDataSourceLocation' } },
+    ],
+  };
+
+  protected readonly viewColumns = computed(() => this.columns[this.view()]);
+
+  protected readonly viewRows = computed(() => this.registerRows(this.view()));
+
+  private registerRows(view: RegisterView): Record<string, unknown>[] {
+    const register = this.register();
+    if (!register) {
+      return [];
+    }
+    const rows = { programs: register.programs, charts: register.charts, indicators: register.indicators, scheduled: register.scheduledSources }[view];
+    return rows as unknown as Record<string, unknown>[];
+  }
+
+  /** A cell as text: yes or no for a flag, a short date for a timestamp, a list joined by commas. */
+  protected cellText(row: Record<string, unknown>, column: RegisterColumn): string {
+    const value = row[column.field];
+    if (value === null || value === undefined) {
+      return '';
+    }
+    if (typeof value === 'boolean') {
+      return value ? 'Yes' : 'No';
+    }
+    if (typeof value === 'number') {
+      return value.toLocaleString('en-US');
+    }
+    if (Array.isArray(value)) {
+      return value.join(', ');
+    }
+    if (column.field.endsWith('Date') && typeof value === 'string') {
+      const date = new Date(value);
+      return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+    }
+    return String(value);
+  }
+
+  /** The program a cell links to, when that program has a page here. */
+  protected programLink(row: Record<string, unknown>, column: RegisterColumn): number | null {
+    if (column.link?.kind !== 'program') {
+      return null;
+    }
+    const id = row[column.link.idField];
+    return typeof id === 'number' ? id : null;
+  }
+
+  protected hrefOf(row: Record<string, unknown>, column: RegisterColumn): string | null {
+    if (column.link?.kind !== 'href') {
+      return null;
+    }
+    const href = row[column.link.hrefField];
+    return typeof href === 'string' && href ? href : null;
+  }
+
+  protected downloadCsv(): void {
+    const view = this.view();
+    const columns = this.columns[view].map(({ field, headerName }) => ({ field, headerName }));
+    const rows = this.registerRows(view).map((row) => {
+      const out: Record<string, unknown> = {};
+      for (const column of this.columns[view]) {
+        out[column.field] = this.cellText(row, column);
+      }
+      return out;
+    });
+    const url = URL.createObjectURL(new Blob([toCsv(columns, rows)], { type: 'text/csv;charset=utf-8' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = csvFileName(['monitoring data model', this.views.find((option) => option.key === view)?.label]);
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  // ---------- Sources and checks ----------
+
+  protected readonly useLabels = USE_LABELS;
+
+  protected readonly sourceSearch = signal('');
+
+  private readonly allSources = computed(() => buildLineage(this.planned()?.Uses ?? []));
+
+  protected readonly sourceTotals = computed(() => {
+    const sources = this.allSources();
+    const services = sources.filter((source) => source.kind === 'service');
+    return {
+      services: services.length,
+      layers: services.reduce((sum, source) => sum + source.layers.length, 0),
+      files: sources.filter((source) => source.kind === 'file').length,
+      uses: sources.reduce((sum, source) => sum + source.useCount, 0),
+    };
   });
 
-  /** The sources with a use that matches the search; each keeps only its matching uses. */
-  protected readonly filtered = computed<DataSource[]>(() => {
-    const words = this.search().toLowerCase().split(/\s+/).filter(Boolean);
-    const sources = this.all();
-    if (!words.length) return sources;
-    const programs = this.programs();
+  /** The sources with a use that matches the search; each keeps only its matching layers and uses. */
+  protected readonly sources = computed<DataSource[]>(() => {
+    const words = this.sourceSearch().toLowerCase().split(/\s+/).filter(Boolean);
+    const sources = this.allSources();
+    if (!words.length) {
+      return sources;
+    }
     const out: DataSource[] = [];
-    for (const s of sources) {
-      const layers = s.layers
-        .map((l) => ({
-          ...l,
-          uses: l.uses.filter((u) => {
-            const text = [
-              s.name,
-              this.info(s.key, l.layer)?.name,
-              l.layer,
-              USE_LABELS[u.kind],
-              u.title,
-              programs.get(u.programId)?.MonitoringProgramName,
-              u.fields.join(' '),
-              u.where,
-            ]
+    for (const source of sources) {
+      const layers = source.layers
+        .map((layer) => ({
+          ...layer,
+          uses: layer.uses.filter((use) => {
+            const text = [source.name, layer.layer, USE_LABELS[use.Kind], use.Title, this.programName(use.MonitoringProgramID), use.Fields.join(' '), use.Where]
               .join(' ')
               .toLowerCase();
-            return words.every((w) => text.includes(w));
+            return words.every((word) => text.includes(word));
           }),
         }))
-        .filter((l) => l.uses.length);
+        .filter((layer) => layer.uses.length);
       if (layers.length) {
-        const uses = layers.flatMap((l) => l.uses);
-        out.push({
-          ...s,
-          layers,
-          useCount: uses.length,
-          programIds: [...new Set(uses.map((u) => u.programId))],
-        });
+        const uses = layers.flatMap((layer) => layer.uses);
+        out.push({ ...source, layers, useCount: uses.length, programIDs: [...new Set(uses.map((use) => use.MonitoringProgramID))] });
       }
     }
     return out;
   });
 
-  protected readonly selected = computed<DataSource | null>(() => {
-    const list = this.filtered();
-    return list.find((s) => s.key === this.picked()) ?? list[0] ?? null;
+  protected readonly serviceSources = computed(() => this.sources().filter((source) => source.kind === 'service'));
+  protected readonly fileSources = computed(() => this.sources().filter((source) => source.kind === 'file'));
+
+  /** Layer names by service, filled in when a service is opened. */
+  private readonly services = signal<Record<string, ServiceLayers>>({});
+  /** Check reports by layer key, filled in as Run Checks works through a source. */
+  private readonly reports = signal<Record<string, LayerReport>>({});
+  /** The key of the source being checked, or null. */
+  protected readonly checking = signal<string | null>(null);
+
+  private readonly programNames = computed(() => {
+    const names = new Map<number, { name: string; inLtInfo: boolean }>();
+    for (const program of this.register()?.programs ?? []) {
+      names.set(program.MonitoringProgramID, { name: program.ProgramName, inLtInfo: program.InLtInfo });
+    }
+    return names;
   });
 
-  protected readonly serviceSources = computed(() => this.filtered().filter((s) => s.kind === 'service'));
-  protected readonly fileSources = computed(() => this.filtered().filter((s) => s.kind === 'file'));
-
-  private readonly programs = computed(() => {
-    const s = this.state();
-    return s.status === 'ready' ? s.data.programs : new Map<number, MonitoringProgramSummary>();
-  });
-
-  protected readonly rows = computed(() => {
-    const programs = this.programs();
-    return lineageRows(this.filtered()).map((row) => {
-      return {
-        ...row,
-        layerName: row.layer === '' ? '' : (this.info(row.sourceKey, Number(row.layer))?.name ?? ''),
-        programName: programs.get(row.programId)?.MonitoringProgramName ?? '',
-      };
-    });
-  });
-
-  protected program(id: number): MonitoringProgramSummary | undefined {
-    return this.programs().get(id);
+  protected onSourceSearch(event: Event): void {
+    this.sourceSearch.set((event.target as HTMLInputElement).value);
   }
 
-  /** A layer's name and kind once its service has answered. */
-  protected info(service: string, layer: number | null): LayerInfo | undefined {
-    const layers = this.services()[service];
-    return layers instanceof Map && layer !== null ? layers.get(layer) : undefined;
+  protected programName(programID: number): string {
+    return this.programNames().get(programID)?.name ?? `Program ${programID}`;
   }
 
-  /** True when the service answered and has no layer with this ID: a setting that points nowhere. */
-  protected missing(service: string, layer: number | null): boolean {
-    const layers = this.services()[service];
-    return layers instanceof Map && layer !== null && !layers.has(layer);
-  }
-
-  protected href(source: DataSource, layer: number | null): string {
-    return layerHref(source, layer);
+  protected programInLtInfo(programID: number): boolean {
+    return this.programNames().get(programID)?.inLtInfo ?? false;
   }
 
   protected pathOf(source: DataSource, layer: number | null): IngestPath {
     return pathById(classify(source, layer));
   }
 
-  /** What the path card counts: layers for the service paths, files for the file path. */
-  protected sourceNoun(path: IngestPath, n: number): string {
-    const noun = path.id === 'file' ? 'file' : 'layer';
-    return `${n} ${n === 1 ? noun : noun + 's'}`;
+  protected href(source: DataSource, layer: number | null): string {
+    return layerHref(source, layer);
   }
 
-  /** Runs the automated checks on every layer of the source on screen. */
+  /** A layer's name and kind once its service has answered. */
+  protected layerInfo(source: DataSource, layer: number | null): LayerInfo | undefined {
+    const layers = this.services()[source.key];
+    return layers instanceof Map && layer !== null ? layers.get(layer) : undefined;
+  }
+
+  /** True when the service answered and has no layer with this ID: a setting that points nowhere. */
+  protected layerMissing(source: DataSource, layer: number | null): boolean {
+    const layers = this.services()[source.key];
+    return layers instanceof Map && layer !== null && !layers.has(layer);
+  }
+
+  /** Names a service's layers the first time it is opened: one request to the service directory. */
+  protected onSourceToggle(event: Event, source: DataSource): void {
+    if (!(event.target as HTMLDetailsElement).open || source.kind !== 'service' || source.key in this.services()) {
+      return;
+    }
+    this.services.update((all) => ({ ...all, [source.key]: 'loading' }));
+    void fetchServiceLayers(source.key).then((layers) => this.services.update((all) => ({ ...all, [source.key]: layers })));
+  }
+
+  /** Runs the automated checks on every layer of a source. */
   protected async runChecks(source: DataSource): Promise<void> {
-    if (this.checking()) return;
+    if (this.checking()) {
+      return;
+    }
     this.checking.set(source.key);
-    // The full source, not the searched slice, so a report lines up with every use.
-    const full = this.all().find((s) => s.key === source.key) ?? source;
+    // The full source, not the searched slice, so a report lines up with every use of a layer.
+    const full = this.allSources().find((item) => item.key === source.key) ?? source;
     try {
       await checkSource(
         full,
@@ -316,57 +450,29 @@ export class DataModel {
     }
   }
 
-  protected layerChecks(key: string): CheckResult[] {
-    return this.reports()[key]?.layer ?? [];
+  protected layerChecks(layerKey: string): CheckResult[] {
+    return this.reports()[layerKey]?.layer ?? [];
   }
 
   /** A use's results. The report is in the full source's use order, so find the use there. */
-  protected useChecks(source: DataSource, layerKey: string, use: DataUse): CheckResult[] {
+  protected useChecks(source: DataSource, layerKey: string, use: PlannedUse): CheckResult[] {
     const report = this.reports()[layerKey];
-    if (!report) return [];
-    const full = this.all()
-      .find((s) => s.key === source.key)
-      ?.layers.find((l) => l.key === layerKey);
+    if (!report) {
+      return [];
+    }
+    const full = this.allSources()
+      .find((item) => item.key === source.key)
+      ?.layers.find((layer) => layer.key === layerKey);
     const index = full?.uses.indexOf(use) ?? -1;
     return index >= 0 ? (report.uses[index] ?? []) : [];
   }
 
-  protected checkVariant(c: CheckResult): 'success' | 'danger' | 'neutral' {
-    return c.status === 'pass' ? 'success' : c.status === 'fail' ? 'danger' : 'neutral';
-  }
-
-  protected pick(source: DataSource): void {
-    this.picked.set(source.key);
-  }
-
-  protected onSearch(event: Event): void {
-    this.search.set((event as EcologyChange).detail.value ?? '');
-  }
-
-  protected onView(event: Event): void {
-    const value = (event as EcologyChange).detail.value;
-    if (value === 'diagram' || value === 'table') this.view.set(value);
-  }
-
-  protected useCountText(n: number): string {
-    return `${n} ${n === 1 ? 'use' : 'uses'}`;
-  }
-
-  protected trackUse(u: DataUse, i: number): string {
-    return `${u.programId}|${u.kind}|${u.title}|${i}`;
-  }
-
-  /** A CSV of exactly the rows the table shows. */
-  protected downloadCsv(): void {
-    const text = toCsv(TABLE_COLUMNS, this.rows());
-    const url = URL.createObjectURL(new Blob([text], { type: 'text/csv;charset=utf-8' }));
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = csvFileName(['monitoring dashboard data sources', this.search()]);
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  /** Passed and failed checks for a source, once any have run. */
+  protected score(source: DataSource): { pass: number; fail: number } | null {
+    const full = this.allSources().find((item) => item.key === source.key);
+    const all = this.reports();
+    const done = (full?.layers ?? []).map((layer) => all[layer.key]).filter(Boolean);
+    return done.length ? tally(done) : null;
   }
 }
 
@@ -378,12 +484,20 @@ async function fetchServiceLayers(service: string): Promise<Map<number, LayerInf
   }
   try {
     const response = await fetch(`${service}?f=json`);
-    if (!response.ok) return null;
+    if (!response.ok) {
+      return null;
+    }
     const json = (await response.json()) as { layers?: Entry[]; tables?: Entry[]; error?: unknown } | null;
-    if (!json || json.error || !json.layers) return null;
+    if (!json || json.error || !json.layers) {
+      return null;
+    }
     const out = new Map<number, LayerInfo>();
-    for (const l of json.layers) out.set(l.id, { name: l.name, table: false });
-    for (const t of json.tables ?? []) out.set(t.id, { name: t.name, table: true });
+    for (const layer of json.layers) {
+      out.set(layer.id, { name: layer.name, table: false });
+    }
+    for (const table of json.tables ?? []) {
+      out.set(table.id, { name: table.name, table: true });
+    }
     return out;
   } catch {
     return null;

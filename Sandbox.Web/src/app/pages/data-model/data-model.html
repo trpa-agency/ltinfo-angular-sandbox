@@ -1,290 +1,505 @@
-<!-- mon-lego-checked: esa-stat for the totals, esa-text-field and esa-button-toggle for the
-     toolbar, esa-badge for source and use types, esa-button for the CSV, esa-card and
-     esa-empty-state for loading and errors. No lego draws a lineage tree, so the source list,
-     the tree lines, and the inventory table are custom, on tokens. -->
+<!-- Ported from LT Info's Data Model page (esassoc/ltinfo, areas/monitoring-new/data-model).
+     LT Info's page-header, ltinfo-grid, and btn become the breadcrumb and heading, plain tables
+     with a CSV download, and esa-button; the sections and their wording are LT Info's. -->
 <div class="dm">
-  <header class="dm__header">
+<header class="dm-header">
     <app-breadcrumb [trail]="trail" />
-    <h1 class="dm__title typography-heading-lg">Data Model</h1>
-  </header>
-
-  <section class="dm__section" aria-labelledby="dm-tables">
-    <h2 id="dm-tables" class="dm__h2 typography-title-strong">Tables</h2>
-    <app-schema-diagram />
-  </section>
-
-  <section class="dm__section" aria-labelledby="dm-paths">
-    <h2 id="dm-paths" class="dm__h2 typography-title-strong">Ingestion Paths and Acceptance Criteria</h2>
-    <ul class="paths">
-      @for (p of paths(); track p.path.id) {
-        <li class="path" [attr.data-path]="p.path.id">
-          <h3 class="path__name typography-title-sm-strong">{{ p.path.label }}</h3>
-          <p class="path__summary typography-body-sm">{{ p.path.summary }}</p>
-          <dl class="path__facts typography-body-sm">
-            <dt>Steward</dt>
-            <dd>{{ p.path.steward }}</dd>
-            @if (p.path.id !== 'ltinfo') {
-              <dt>In use</dt>
-              <dd>{{ sourceNoun(p.path, p.sources) }}, {{ useCountText(p.uses) }}</dd>
-            }
-            @if (p.path.id === 'partner-pipeline') {
-              @for (line of pipelines; track line.service) {
-                <dt class="path__service">{{ line.service }}</dt>
-                <dd class="path__pipeline">
-                  {{ line.partner }}, from the {{ line.pulledFrom }}. Loaded by
-                  <a [href]="line.scriptHref" target="_blank" rel="noopener">{{ line.script }}</a>.
-                </dd>
-              }
-            }
-          </dl>
-          @if (p.auto.length) {
-            <h4 class="path__group typography-label-sm-strong">Checked by the App</h4>
-            <ul class="path__criteria typography-body-sm">
-              @for (c of p.auto; track c.text) {
-                <li>{{ c.text }}</li>
-              }
-            </ul>
-          }
-          <h4 class="path__group typography-label-sm-strong">Confirmed by a Person</h4>
-          <ul class="path__criteria typography-body-sm">
-            @for (c of p.review; track c.text) {
-              <li>{{ c.text }}</li>
-            }
-          </ul>
-        </li>
-      }
-    </ul>
-  </section>
-
-  <section class="dm__section" aria-labelledby="dm-sources">
-    <h2 id="dm-sources" class="dm__h2 typography-title-strong">Chart and Map Sources</h2>
-
-    @let page = state();
-    @if (page.status === 'loading') {
-      <esa-card>
-        <div class="dm__empty"><esa-empty-state [title]="'Loading the chart and map settings'" /></div>
-      </esa-card>
-    } @else if (page.status === 'error') {
-      <esa-card>
-        <div class="dm__empty"><esa-empty-state [title]="page.title" [description]="page.description" /></div>
-      </esa-card>
-    } @else {
-      @let t = totals();
-      <div class="dm__tiles" role="group" aria-label="Source totals">
-        <esa-stat [value]="t.services" label="Map services" />
-        <esa-stat [value]="t.layers" label="Service layers" />
-        <esa-stat [value]="t.files" label="Data files" />
-        <esa-stat [value]="t.charts" label="Charts" />
-        <esa-stat [value]="t.maps" label="Maps and site lists" />
-      </div>
-
-      <div class="dm__toolbar">
-        <esa-text-field
-          class="dm__search"
-          label="Search"
-          placeholder="Program, chart, layer, or field"
-          size="sm"
-          [value]="search()"
-          (change)="onSearch($event)"
-        ></esa-text-field>
-        <esa-button-toggle label="View" size="sm" [options]="viewOptions" [value]="view()" (change)="onView($event)"></esa-button-toggle>
-      </div>
-
-      @if (!filtered().length) {
-        <esa-card>
-          <div class="dm__empty">
-            <esa-empty-state [title]="'Nothing matches ' + search()" [description]="'Try a program name, a chart title, a layer, or a field.'" />
-          </div>
-        </esa-card>
-      } @else if (view() === 'diagram') {
-        <div class="lineage">
-          <nav class="lineage__nav" aria-label="Sources">
-            @for (group of [{ label: 'Map services', list: serviceSources() }, { label: 'Data files', list: fileSources() }]; track group.label) {
-              @if (group.list.length) {
-                <h3 class="lineage__group typography-label-md-strong">{{ group.label }}</h3>
-                <ul class="lineage__list">
-                  @for (s of group.list; track s.key) {
-                    <li>
-                      <button
-                        type="button"
-                        class="pick typography-label-sm"
-                        [attr.aria-pressed]="s.key === selected()?.key"
-                        [attr.data-source]="s.name"
-                        (click)="pick(s)"
-                      >
-                        <span class="pick__name">{{ s.name }}</span>
-                        <span class="pick__count" [attr.aria-label]="useCountText(s.useCount)">{{ s.useCount }}</span>
-                      </button>
-                    </li>
-                  }
-                </ul>
-              }
-            }
-          </nav>
-
-          @let s = selected();
-          @if (s) {
-            <div class="flow" [attr.data-kind]="s.kind" aria-live="polite">
-              <div class="flow__source">
-                <esa-badge [value]="s.kind === 'service' ? 'Map service' : 'Data file'" [variant]="s.kind === 'service' ? 'info' : 'warning'" size="sm" />
-                <h3 class="flow__name typography-title-sm-strong">
-                  <a [href]="s.href" target="_blank" rel="noopener">{{ s.name }}</a>
-                </h3>
-                <p class="flow__meta typography-body-sm">
-                  {{ s.type }}, {{ s.programIds.length }} {{ s.programIds.length === 1 ? 'program' : 'programs' }},
-                  {{ useCountText(s.useCount) }}
-                </p>
-                <div class="flow__checks">
-                  <esa-button
-                    size="sm"
-                    variant="secondary"
-                    appearance="outline"
-                    [loading]="checking() === s.key"
-                    [disabled]="!!checking() && checking() !== s.key"
-                    (click)="runChecks(s)"
-                    >Run Checks</esa-button
-                  >
-                  @let total = score();
-                  @if (total) {
-                    <p class="flow__score typography-label-sm" role="status">
-                      <esa-badge [value]="total.pass + ' passed'" variant="success" size="sm" />
-                      @if (total.fail) {
-                        <esa-badge [value]="total.fail + ' failed'" variant="danger" size="sm" />
-                      }
-                      @if (total.layers < total.of) {
-                        <span>{{ total.layers }} of {{ total.of }} checked</span>
-                      }
-                    </p>
-                  }
-                </div>
-              </div>
-
-              <ol class="flow__layers">
-                @for (l of s.layers; track l.key) {
-                  <li class="flow__layer">
-                    @if (l.layer !== null) {
-                      <p class="layer typography-label-sm">
-                        <a class="layer__id typography-label-sm-strong" [href]="href(s, l.layer)" target="_blank" rel="noopener">Layer {{ l.layer }}</a>
-                        @let about = info(s.key, l.layer);
-                        @if (about) {
-                          <span class="layer__name">{{ about.name }}</span>
-                          @if (about.table) {
-                            <esa-badge value="Table" size="xs" />
-                          }
-                        } @else if (missing(s.key, l.layer)) {
-                          <esa-badge value="Not in the service" variant="danger" size="xs" />
-                        }
-                      </p>
-                    } @else if (s.kind === 'service') {
-                      <p class="layer typography-label-sm"><span class="layer__id typography-label-sm-strong">No layer set</span></p>
-                    } @else {
-                      <p class="layer typography-label-sm"><span class="layer__id typography-label-sm-strong">{{ s.key }}</span></p>
-                    }
-
-                    <p class="layer-path typography-body-xs">
-                      <esa-badge [value]="pathOf(s, l.layer).label" size="xs" />
-                      @for (c of layerChecks(l.key); track c.check) {
-                        <span class="check" [attr.data-status]="c.status">
-                          <esa-badge [value]="c.label" [variant]="checkVariant(c)" size="xs" />
-                          <span class="check__detail">{{ c.detail }}</span>
-                        </span>
-                      }
-                    </p>
-
-                    <ul class="flow__uses">
-                      @for (u of l.uses; track trackUse(u, $index)) {
-                        @let p = program(u.programId);
-                        <li class="use" [attr.data-use]="u.kind">
-                          <p class="use__head">
-                            <esa-badge [value]="useLabels[u.kind]" size="xs" />
-                            <span class="use__title typography-label-md-strong">{{ u.title }}</span>
-                          </p>
-                          <p class="use__program typography-body-sm">
-                            <span class="use__dot" aria-hidden="true" [style.--dm-category]="p?.ThemeColor"></span>
-                            <a [routerLink]="['/programs', u.programId]">{{ p?.MonitoringProgramName ?? 'Program ' + u.programId }}</a>
-                          </p>
-                          @if (u.fields.length || u.where || u.upstream) {
-                            <dl class="use__facts typography-body-xs">
-                              @if (u.fields.length) {
-                                <dt>Fields</dt>
-                                <dd>{{ u.fields.join(', ') }}</dd>
-                              }
-                              @if (u.where) {
-                                <dt>Filter</dt>
-                                <dd>{{ u.where }}</dd>
-                              }
-                              @if (u.upstream) {
-                                <dt>From</dt>
-                                <dd>{{ u.upstream }}</dd>
-                              }
-                              <dt>Setting</dt>
-                              <dd>{{ useKeys[u.kind] }}</dd>
-                            </dl>
-                          }
-                          @let checks = useChecks(s, l.key, u);
-                          @if (checks.length) {
-                            <ul class="use__checks typography-body-xs">
-                              @for (c of checks; track c.check) {
-                                <li class="check" [attr.data-status]="c.status">
-                                  <esa-badge [value]="c.label" [variant]="checkVariant(c)" size="xs" />
-                                  <span class="check__detail">{{ c.detail }}</span>
-                                </li>
-                              }
-                            </ul>
-                          }
-                        </li>
-                      }
-                    </ul>
-                  </li>
-                }
-              </ol>
-            </div>
-          }
-        </div>
-      } @else {
-        <div class="inventory">
-          <div class="inventory__scroll" tabindex="0" role="region" aria-label="Every chart and map with its source, scrolls sideways">
-            <table class="inventory__table typography-body-sm">
-              <thead>
-                <tr>
-                  <th scope="col">Source</th>
-                  <th scope="col">Layer</th>
-                  <th scope="col">Used As</th>
-                  <th scope="col">Title</th>
-                  <th scope="col">Program</th>
-                  <th scope="col">Fields</th>
-                  <th scope="col">Filter</th>
-                </tr>
-              </thead>
-              <tbody>
-                @for (r of rows(); track $index) {
-                  <tr>
-                    <td>
-                      <a [href]="r.href" target="_blank" rel="noopener">{{ r.source }}</a>
-                      <span class="inventory__sub">{{ r.sourceType }}</span>
-                    </td>
-                    <td>
-                      {{ r.layer }}
-                      @if (r.layerName) {
-                        <span class="inventory__sub">{{ r.layerName }}</span>
-                      }
-                    </td>
-                    <td>{{ r.use }}</td>
-                    <td>{{ r.title }}</td>
-                    <td><a [routerLink]="['/programs', r.programId]">{{ r.programName }}</a></td>
-                    <td>{{ r.fields }}</td>
-                    <td>{{ r.where }}</td>
-                  </tr>
-                }
-              </tbody>
-            </table>
-          </div>
-          <div class="inventory__foot">
-            <p class="inventory__count typography-label-sm" role="status">{{ rows().length }} records</p>
-            <esa-button size="sm" variant="secondary" appearance="outline" (click)="downloadCsv()">Download CSV</esa-button>
-          </div>
-        </div>
-      }
+    <h1 class="typography-heading-lg">Data Model</h1>
+    <p class="dm-intro">How data reaches the Monitoring Dashboard, what LT Info records about it, and what is left to do before every chart is an indicator fed by a map service.</p>
+    @if (snapshot(); as s) {
+        <p class="dm-snapshot">The programs, indicators, and scheduled sources are LT Info's as of {{ s.takenOn }}, from {{ s.source }}. This page is a copy for review; the working page is in LT Info.</p>
     }
-  </section>
+    @if (totals().length) {
+        <!-- Label first for screen readers ("planned charts, 194"); drawn with the number on top. -->
+        <dl class="dm-stats" aria-label="Totals">
+            @for (stat of totals(); track stat.label) {
+                <div class="dm-stat">
+                    <dt class="dm-stat__label">{{ stat.label }}</dt>
+                    <dd class="dm-stat__value">{{ stat.value.toLocaleString("en-US") }}</dd>
+                </div>
+            }
+        </dl>
+    }
+</header>
+
+<div class="dm-body">
+    @switch (loaded().status) {
+        @case ("loading") {
+            <esa-card><div class="dm-empty-card"><esa-empty-state [title]="'Loading the data model'" /></div></esa-card>
+        }
+        @case ("error") {
+            <esa-card><div class="dm-empty-card" role="alert"><esa-empty-state [title]="'The data model could not be loaded'" [description]="'Reload the page to try again.'" /></div></esa-card>
+        }
+        @case ("ready") {
+            @if (register(); as register) {
+                @let t = register.totals;
+
+                <!-- ============ The rule, the target pathway, and where things stand ============ -->
+                <section class="dm-section" aria-labelledby="monitoring-new-dm-rule">
+                    <h2 id="monitoring-new-dm-rule" class="dm-section__title">How Data Gets In</h2>
+
+                    <p class="dm-rule">
+                        <strong>The rule.</strong> Every chart on the Monitoring Dashboard is an indicator in LT Info, linked to its monitoring program, and its numbers come from a map
+                        service layer: TRPA's or a partner agency's.
+                    </p>
+                    <p class="dm-rule">
+                        <strong>The exception.</strong> Transit ridership and the stormwater tools' load reductions are collected in LT Info, so LT Info is their source. Their charts
+                        read them live from LT Info through a named reader, not from a map service and not from a copy.
+                    </p>
+
+                    <ol class="dm-flow" aria-label="The pathway from a map service to a program page">
+                        <li class="dm-flow__step">
+                            <h3 class="dm-flow__name">Publish</h3>
+                            <p>The data is a layer or table in a map service, on maps.trpa.org or on a partner agency's server.</p>
+                        </li>
+                        <li class="dm-flow__step">
+                            <h3 class="dm-flow__name">Register</h3>
+                            <p>LT Info has an indicator for what is measured, with a definition and a unit, linked to its monitoring program.</p>
+                        </li>
+                        <li class="dm-flow__step dm-flow__step--proposed">
+                            <h3 class="dm-flow__name">Bind</h3>
+                            <p>
+                                The indicator names its layer, its axis, value, and series fields, and any filter. This is the proposed IndicatorDataSource record. An indicator on LT
+                                Info's own data names a native reader instead of a layer. A program names the layers for its site list and map the same way, in the proposed
+                                MonitoringProgramLayer.
+                            </p>
+                        </li>
+                        <li class="dm-flow__step">
+                            <h3 class="dm-flow__name">Chart</h3>
+                            <p>The program page reads the layer through the binding each time it loads, so the chart is as current as the service.</p>
+                        </li>
+                    </ol>
+                    <p class="dm-note">
+                        Bind is proposed. LT Info has no tables for it yet, so no indicator or program is bound to a layer today. The numbers stay in the map service: LT Info stores
+                        the indicator and where to read it, not a copy of the values.
+                    </p>
+
+                    <h3 class="dm-subtitle">Where Things Stand</h3>
+                    <ul class="dm-today">
+                        <li class="dm-today__item">
+                            <p class="dm-today__figure">{{ t.scheduledSources }}</p>
+                            <h4 class="dm-today__name">Sources Read Every Night, With No Indicator</h4>
+                            <p>
+                                LT Info reads {{ t.scheduledSources }} sources on a schedule, {{ t.scheduledMapServiceLayers }} of them layers of the LTInfo_Monitoring map service, into monitoring
+                                sites and observations. None is tied to an indicator, and each one is its own code, so adding a source takes a release.
+                            </p>
+                        </li>
+                        <li class="dm-today__item">
+                            <p class="dm-today__figure">{{ t.linkedEmbedded }}</p>
+                            <h4 class="dm-today__name">Indicators That Embed a Chart Page</h4>
+                            <p>
+                                Of the {{ t.linkedIndicators }} active indicators linked to a program, {{ t.linkedEmbedded }} show a chart page by its address. LT Info holds the address, not the
+                                numbers or the layer behind them.
+                            </p>
+                        </li>
+                        <li class="dm-today__item">
+                            <p class="dm-today__figure">{{ t.linkedStored }}</p>
+                            <h4 class="dm-today__name">Indicators With Values Stored in LT Info</h4>
+                            <p>
+                                {{ t.linkedStored }} linked indicators have values in LT Info and {{ t.linkedNoData }} have no data at all. The new LT Info API has no route that adds values;
+                                threshold updates save to draft tables only.
+                            </p>
+                        </li>
+                        <li class="dm-today__item">
+                            <p class="dm-today__figure">{{ t.plannedCharts }}</p>
+                            <h4 class="dm-today__name">Planned Charts, Read Live</h4>
+                            <p>
+                                The redesign plans {{ t.plannedCharts }} charts. {{ t.chartsOnServices }} read a map service layer straight from the browser and {{ t.chartsOnFiles }} read an
+                                extracted file. None is tied to an indicator, and {{ t.programsToAdd }} of their programs are not in LT Info.
+                            </p>
+                        </li>
+                    </ul>
+
+                    <h3 class="dm-subtitle">The Steps to Get There</h3>
+                    <ol class="dm-steps">
+                        <li>
+                            <strong>Register.</strong> Use the register below to agree on the indicator for each planned chart, then add the missing programs and indicators in LT Info. This
+                            needs no code.
+                        </li>
+                        <li>
+                            <strong>Bind.</strong> Add the IndicatorDataSource and MonitoringProgramLayer tables and a form to edit them. Program pages read the layer through the binding, and this page checks every binding
+                            against its service. Add the public native readers to the LT Info API for transit ridership and stormwater load reductions.
+                        </li>
+                        <li>
+                            <strong>Retire.</strong> Publish a service for each chart that reads a file. The nightly job that feeds the current dashboard stays as it is until cutover.
+                        </li>
+                    </ol>
+                </section>
+
+                <!-- ============ Tables ============ -->
+                <section class="dm-section" aria-labelledby="monitoring-new-dm-tables">
+                    <h2 id="monitoring-new-dm-tables" class="dm-section__title">Tables</h2>
+                    <p class="dm-lead">
+                        The indicator is the unit of record. On the left is what LT Info ingests on a schedule today. On the right are the two proposed tables. They are new, so nothing
+                        the current dashboard reads has to change.
+                    </p>
+                    <app-schema-diagram />
+                    <dl class="dm-defs">
+                        <div>
+                            <dt>IndicatorDataSource</dt>
+                            <dd>
+                                One row per indicator, for a chart or a site's record over time: the service address and the layer, or the native reader for data LT Info collects
+                                itself, then the filter, the axis field (a date or a category), one or
+                                more value fields, the statistic to ask the service for, the series, pick, threshold, and site fields, the path it comes in by, the organization that owns
+                                the data, and how often the owner updates it. Rows are data that staff edit, not code. The Tahoe Yellow Cress Monitoring page already draws its charts from
+                                rows of this shape.
+                            </dd>
+                        </div>
+                        <div>
+                            <dt>MonitoringProgramLayer</dt>
+                            <dd>
+                                One row per layer a program page draws that is not a measurement: its site list, its sites per year, its map, and its map overlays. Each row has the service
+                                address, the layer, the filter, the name, year, and group fields, and the same path, owner, and update frequency. The Tahoe Yellow Cress Monitoring page
+                                already draws its sites from rows of this shape.
+                            </dd>
+                        </div>
+                        <div>
+                            <dt>Columns and Settings</dt>
+                            <dd>
+                                The fields every row of a kind reads are columns: the axis and value fields of a chart, the name, year, and group fields of a layer. How a row is drawn
+                                (chart type, labels, order, colors) is in one settings column on each table, ChartSettings and LayerSettings. A layer's other fields, such as a station
+                                code or the fields of a popup, are listed in LayerSettings too, and the check reads them from there.
+                            </dd>
+                        </div>
+                        <div>
+                            <dt>What LT Info Does Not Store</dt>
+                            <dd>
+                                A copy of the values. A page reads them from the service when it loads, so a chart is never out of date, and it shows a plain message when the service
+                                does not answer. Transit ridership and stormwater load reductions are already in LT Info because LT Info collects them; a native reader reads them where they
+                                are, the same way.
+                            </dd>
+                        </div>
+                        <div>
+                            <dt>What Stays the Same</dt>
+                            <dd>IndicatorReportedValue and the nightly monitoring ingest are untouched. Indicators that already hold values keep them.</dd>
+                        </div>
+                    </dl>
+
+                    @if (needs(); as n) {
+                        <h3 class="dm-subtitle">What the Proposed Tables Have to Hold</h3>
+                        <p class="dm-lead">
+                            Every planned use, by the table that would hold it. {{ n.indicatorUses }} are measurements bound to an indicator and {{ n.programLayerUses }} are layers bound to
+                            a program.
+                        </p>
+                        <div class="table-scroll dm-coverage" tabindex="0" role="region" aria-label="Planned uses by proposed table, scrolls sideways on a narrow screen">
+                            <table class="table" data-table="binding-coverage">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Planned Use</th>
+                                        <th scope="col">Proposed Table</th>
+                                        <th scope="col">Bound To</th>
+                                        <th scope="col" class="text-right">Uses</th>
+                                        <th scope="col" class="text-right">Programs</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (row of coverage(); track row.kind) {
+                                        <tr>
+                                            <td>{{ row.label }}</td>
+                                            <td>{{ row.tableName }}</td>
+                                            <td>{{ row.keyedTo }}</td>
+                                            <td class="text-right">{{ row.uses.toLocaleString("en-US") }}</td>
+                                            <td class="text-right">{{ row.programs.toLocaleString("en-US") }}</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <ul class="dm-needs">
+                            <li>
+                                <strong>{{ n.chartsWithSeveralValueFields }} of {{ n.charts }} charts draw more than one value column,</strong> so ValueFields is a list, not one field.
+                            </li>
+                            <li>
+                                <strong>{{ n.chartsWithStatistic }} charts ask the service for a sum, an average, or a count,</strong> so the row holds the statistic.
+                            </li>
+                            <li>
+                                <strong>{{ n.programsWithSeparateSitesLayer }} of the {{ n.programsWithSitesAndCharts }} programs with a site list and charts read their sites from a layer no
+                                chart reads,</strong> so the site list is bound to the program, not to an indicator.
+                            </li>
+                            <li>
+                                <strong>{{ n.chartsReshaped }} charts reshape a group of columns in the page.</strong> That stays in ChartSettings, and the field check skips those columns.
+                            </li>
+                        </ul>
+                    }
+                </section>
+
+                <!-- ============ Ingestion paths ============ -->
+                <section class="dm-section" aria-labelledby="monitoring-new-dm-paths">
+                    <h2 id="monitoring-new-dm-paths" class="dm-section__title">Ingestion Paths and Acceptance Criteria</h2>
+                    <p class="dm-lead">
+                        A new indicator takes its numbers from one of the three map service paths. Transit ridership and stormwater load reductions take theirs from LT Info Native Data.
+                        The criteria are a draft for TRPA to edit.
+                    </p>
+                    <ul class="dm-paths">
+                        @for (item of paths(); track item.path.id) {
+                            <li class="dm-path" [attr.data-for-indicators]="item.path.forIndicators">
+                                <p class="dm-path__flag">{{ pathFlag(item.path) }}</p>
+                                <h3 class="dm-path__name">{{ item.path.label }}</h3>
+                                <p class="dm-path__summary">{{ item.path.summary }}</p>
+                                <dl class="dm-path__facts">
+                                    <dt>Steward</dt>
+                                    <dd>{{ item.path.steward }}</dd>
+                                    @if (item.path.id !== "ltinfo" && item.path.id !== "ltinfo-native") {
+                                        <dt>Planned</dt>
+                                        <dd>{{ sourceNoun(item.path, item.sources) }}, {{ useCountText(item.uses) }}</dd>
+                                    }
+                                    @if (item.path.id === "partner-pipeline") {
+                                        @for (line of pipelines; track line.service) {
+                                            <dt>{{ line.service }}</dt>
+                                            <dd>
+                                                {{ line.partner }}, from the {{ line.pulledFrom }}. Loaded by
+                                                <a [href]="line.scriptHref" target="_blank" rel="noopener">{{ line.script }}</a
+                                                >.
+                                            </dd>
+                                        }
+                                    }
+                                    @if (item.path.id === "ltinfo-native") {
+                                        <dt>Planned</dt>
+                                        <dd>{{ nativeSources.length }} readers, none built yet</dd>
+                                    }
+                                </dl>
+                                @if (item.path.id === "ltinfo-native") {
+                                    <h4 class="dm-path__group">Readers</h4>
+                                    <ul class="dm-native" data-table="native-sources">
+                                        @for (source of nativeSources; track source.id) {
+                                            <li class="dm-native__item" [attr.data-native-source]="source.id">
+                                                <p class="dm-native__name">{{ source.name }} <code>{{ source.id }}</code></p>
+                                                <dl class="dm-native__facts">
+                                                    <dt>Collected in</dt>
+                                                    <dd>{{ source.collectedIn }}</dd>
+                                                    <dt>Stored in</dt>
+                                                    <dd>{{ source.storedIn }}</dd>
+                                                    <dt>Read today</dt>
+                                                    <dd>{{ source.readToday }}</dd>
+                                                    <dt>Replaces</dt>
+                                                    <dd>{{ source.replaces }}</dd>
+                                                </dl>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                                @if (item.auto.length) {
+                                    <h4 class="dm-path__group">Checked by the App</h4>
+                                    <ul class="dm-path__criteria">
+                                        @for (criterion of item.auto; track criterion.text) {
+                                            <li>{{ criterion.text }}</li>
+                                        }
+                                    </ul>
+                                }
+                                <h4 class="dm-path__group">Confirmed by a Person</h4>
+                                <ul class="dm-path__criteria">
+                                    @for (criterion of item.review; track criterion.text) {
+                                        <li>{{ criterion.text }}</li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                </section>
+
+                <!-- ============ The register ============ -->
+                <section class="dm-section" aria-labelledby="monitoring-new-dm-register">
+                    <div class="dm-section__head">
+                        <h2 id="monitoring-new-dm-register" class="dm-section__title">Indicator Register</h2>
+                        <div class="dm-toggle" role="group" aria-label="Register view">
+                            @for (option of views; track option.key) {
+                                <button type="button" class="dm-toggle__item" [attr.aria-pressed]="view() === option.key" (click)="view.set(option.key)">
+                                    {{ option.label }} <span class="dm-toggle__count">{{ viewCount(option.key) }}</span>
+                                </button>
+                            }
+                        </div>
+                    </div>
+
+                    @switch (view()) {
+                        @case ("programs") {
+                            <p class="dm-lead">
+                                Every program, in LT Info or only planned, with its indicators, its planned charts, and the next step. {{ t.programsWithIndicator }} of LT Info's
+                                {{ t.programs }} programs have an indicator, and {{ t.programsToAdd }} planned programs are not in LT Info yet.
+                            </p>
+                        }
+                        @case ("charts") {
+                            <p class="dm-lead">
+                                Every planned chart with the layer or file it reads and the indicators already linked to its program. {{ t.chartsReadyToBind }} of {{ t.plannedCharts }} have a
+                                program in LT Info, an indicator on it, and a map service layer, so they are ready to bind once the binding exists.
+                            </p>
+                        }
+                        @case ("indicators") {
+                            <p class="dm-lead">
+                                Every active indicator in LT Info with where its numbers come from today. An indicator with no program is a candidate for a planned chart that has none.
+                            </p>
+                        }
+                        @case ("scheduled") {
+                            <p class="dm-lead">The sources LT Info reads every night into monitoring sites and observations, with each one's latest run. Dates are in UTC.</p>
+                        }
+                    }
+                    <div class="dm-register__tools">
+                        <esa-button size="sm" variant="secondary" appearance="outline" (click)="downloadCsv()">Download CSV</esa-button>
+                    </div>
+                    <div class="table-scroll dm-register" tabindex="0" role="region" aria-label="Indicator register, scrolls both ways">
+                        <table class="table" [attr.data-table]="'register-' + view()">
+                            <thead>
+                                <tr>
+                                    @for (column of viewColumns(); track column.field) {
+                                        <th scope="col" [class.text-right]="column.numeric">{{ column.headerName }}</th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (row of viewRows(); track $index) {
+                                    <tr>
+                                        @for (column of viewColumns(); track column.field) {
+                                            <td [class.text-right]="column.numeric">
+                                                @if (programLink(row, column); as id) {
+                                                    <a [routerLink]="['/programs', id]">{{ cellText(row, column) }}</a>
+                                                } @else if (hrefOf(row, column); as link) {
+                                                    <a [href]="link" target="_blank" rel="noopener noreferrer">{{ cellText(row, column) }}</a>
+                                                } @else {
+                                                    {{ cellText(row, column) }}
+                                                }
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- ============ Sources and checks ============ -->
+                <section class="dm-section" aria-labelledby="monitoring-new-dm-sources">
+                    <div class="dm-section__head">
+                        <h2 id="monitoring-new-dm-sources" class="dm-section__title">Planned Sources and Checks</h2>
+                        <div class="dm-search">
+                            <label for="monitoring-new-dm-source-search">Find a program, chart, layer, or field</label>
+                            <input id="monitoring-new-dm-source-search" type="search" autocomplete="off" placeholder="e.g. Vegetation or Site_Name" [value]="sourceSearch()" (input)="onSourceSearch($event)" />
+                        </div>
+                    </div>
+                    @let st = sourceTotals();
+                    <p class="dm-lead">
+                        Every planned chart, map, and site list traced to what it reads: {{ st.services }} map services with {{ st.layers }} layers, and {{ st.files }} files, across
+                        {{ st.uses }} uses. Open a service to name its layers, and run the checks to test it against the live service.
+                    </p>
+
+                    <div aria-live="polite">
+                        @if (!sources().length) {
+                            <p class="dm-empty">Nothing matches "{{ sourceSearch() }}". Try a program name, a chart title, a layer, or a field.</p>
+                        }
+                    </div>
+
+                    @for (group of [{ label: "Map Services", list: serviceSources() }, { label: "Data Files", list: fileSources() }]; track group.label) {
+                        @if (group.list.length) {
+                            <h3 class="dm-subtitle">{{ group.label }}</h3>
+                            <ul class="dm-sources">
+                                @for (source of group.list; track source.key) {
+                                    <li>
+                                        <details class="dm-source" (toggle)="onSourceToggle($event, source)">
+                                            <summary class="dm-source__summary">
+                                                <span class="dm-source__name">{{ source.name }}</span>
+                                                <span class="dm-source__meta">
+                                                    {{ source.kind === "service" ? source.type + " on " + source.host : source.type }}, {{ source.programIDs.length }}
+                                                    {{ source.programIDs.length === 1 ? "program" : "programs" }}, {{ useCountText(source.useCount) }}
+                                                </span>
+                                            </summary>
+
+                                            <div class="dm-source__body">
+                                                <div class="dm-source__actions">
+                                                    @if (source.kind === "service") {
+                                                        <a [href]="source.key" target="_blank" rel="noopener">Service directory</a>
+                                                    }
+                                                    <esa-button size="sm" variant="secondary" appearance="outline" [loading]="checking() === source.key" [disabled]="!!checking() && checking() !== source.key" (click)="runChecks(source)"
+                                                        >Run Checks</esa-button
+                                                    >
+                                                    @if (score(source); as total) {
+                                                        <span class="dm-score" role="status">
+                                                            <span class="dm-check" data-status="pass">{{ total.pass }} passed</span>
+                                                            @if (total.fail) {
+                                                                <span class="dm-check" data-status="fail">{{ total.fail }} failed</span>
+                                                            }
+                                                        </span>
+                                                    }
+                                                </div>
+
+                                                <ol class="dm-layers">
+                                                    @for (layer of source.layers; track layer.key) {
+                                                        <li class="dm-layer">
+                                                            <p class="dm-layer__head">
+                                                                @if (layer.layer !== null) {
+                                                                    <a class="dm-layer__id" [href]="href(source, layer.layer)" target="_blank" rel="noopener">Layer {{ layer.layer }}</a>
+                                                                    @if (layerInfo(source, layer.layer); as about) {
+                                                                        <span class="dm-layer__name">{{ about.name }}</span>
+                                                                        @if (about.table) {
+                                                                            <span class="dm-tag">Table</span>
+                                                                        }
+                                                                    } @else if (layerMissing(source, layer.layer)) {
+                                                                        <span class="dm-check" data-status="fail">Not in the service</span>
+                                                                    }
+                                                                } @else if (source.kind === "service") {
+                                                                    <span class="dm-layer__id">No layer set</span>
+                                                                } @else {
+                                                                    <span class="dm-layer__id">{{ source.key }}</span>
+                                                                }
+                                                                <span class="dm-tag">{{ pathOf(source, layer.layer).label }}</span>
+                                                                @for (check of layerChecks(layer.key); track check.check) {
+                                                                    <span class="dm-check" [attr.data-status]="check.status">{{ check.label }}: {{ check.detail }}</span>
+                                                                }
+                                                            </p>
+
+                                                            <ul class="dm-uses">
+                                                                @for (use of layer.uses; track $index) {
+                                                                    <li class="dm-use">
+                                                                        <p class="dm-use__head">
+                                                                            <span class="dm-tag">{{ useLabels[use.Kind] }}</span>
+                                                                            <span class="dm-use__title">{{ use.Title }}</span>
+                                                                        </p>
+                                                                        <p class="dm-use__program">
+                                                                            @if (programInLtInfo(use.MonitoringProgramID)) {
+                                                                                <a [routerLink]="['/programs', use.MonitoringProgramID]">{{ programName(use.MonitoringProgramID) }}</a>
+                                                                            } @else {
+                                                                                {{ programName(use.MonitoringProgramID) }} <span class="dm-use__flag">(not in LT Info)</span>
+                                                                            }
+                                                                        </p>
+                                                                        @if (use.Fields.length || use.Where || use.Upstream) {
+                                                                            <dl class="dm-use__facts">
+                                                                                @if (use.Fields.length) {
+                                                                                    <dt>Fields</dt>
+                                                                                    <dd>{{ use.Fields.join(", ") }}</dd>
+                                                                                }
+                                                                                @if (use.Where) {
+                                                                                    <dt>Filter</dt>
+                                                                                    <dd>{{ use.Where }}</dd>
+                                                                                }
+                                                                                @if (use.Upstream) {
+                                                                                    <dt>From</dt>
+                                                                                    <dd>{{ use.Upstream }}</dd>
+                                                                                }
+                                                                            </dl>
+                                                                        }
+                                                                        @let checks = useChecks(source, layer.key, use);
+                                                                        @if (checks.length) {
+                                                                            <ul class="dm-use__checks">
+                                                                                @for (check of checks; track check.check) {
+                                                                                    <li>
+                                                                                        <span class="dm-check" [attr.data-status]="check.status">{{ check.label }}: {{ check.detail }}</span>
+                                                                                    </li>
+                                                                                }
+                                                                            </ul>
+                                                                        }
+                                                                    </li>
+                                                                }
+                                                            </ul>
+                                                        </li>
+                                                    }
+                                                </ol>
+                                            </div>
+                                        </details>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    }
+                </section>
+            }
+        }
+    }
+</div>
 </div>

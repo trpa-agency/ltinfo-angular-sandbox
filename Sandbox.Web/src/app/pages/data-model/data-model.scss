@@ -1,569 +1,760 @@
-// The Data Model page. Neutral containers; color only where it means something: the source
-// type (map service or data file) and each program's category dot. Every value is a token.
+// The Data Model page of the Monitoring Dashboard redesign. Theme tokens only; the
+// --monitoring-new-* tokens come from the area theme (monitoring-new-layout.component.scss).
+@use "ltinfo-tokens" as *;
 
 :host {
-  display: block;
-  --dm-line: var(--color-border-default-strong);
-  --dm-line-width: var(--border-width-emphasis);
+    display: block;
+    @include ltinfo-tokens;
 }
+
+// ---------- The page frame: Ecology's breadcrumb and heading, then the sections ----------
 
 .dm {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-700);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-700);
 }
 
-.dm__header,
-.dm__section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-300);
-  min-width: 0;
+.dm-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-300);
+
+    h1 {
+        margin: 0;
+        color: var(--color-content-default);
+    }
 }
 
-.dm__title,
-.dm__h2 {
-  margin: 0;
+// LT Info's shared table and its sideways scroll, which this app does not have globally.
+.table-scroll {
+    overflow-x: auto;
+
+    &:focus-visible {
+        outline: var(--focus-ring-width) solid var(--focus-ring-color);
+        outline-offset: var(--focus-ring-offset);
+    }
 }
 
-.dm__title,
-.dm__h2 {
-  color: var(--color-content-default);
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--type-size-200);
+
+    th,
+    td {
+        padding: var(--spacing-200) var(--spacing-300);
+        border-bottom: var(--border-width-default) solid var(--color-border-default-subtle);
+        text-align: left;
+        vertical-align: top;
+    }
+
+    th {
+        color: var(--color-content-default);
+        font-weight: 600;
+        background: var(--color-background-elevation-sunken);
+    }
+
+    .text-right {
+        text-align: right;
+    }
 }
 
-.dm__empty {
-  padding-block: var(--spacing-500);
+// ---------- Header: the intro and the totals, projected into <page-header> ----------
+
+.dm-intro {
+    max-width: 44rem;
+    font-size: var(--type-size-300);
+    color: var(--gray-600);
 }
 
-// ---- ingestion paths: one neutral card each ----
+.dm-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--spacing-400);
+    margin: var(--spacing-500) 0 0;
 
-.paths {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
-  gap: var(--spacing-400);
-  margin: 0;
-  padding: 0;
-  list-style: none;
+    @media screen and (min-width: 768px) {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-300) var(--spacing-700);
+    }
 }
 
-.path {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-200);
-  padding: var(--spacing-400);
-  border: var(--border-width-default) solid var(--color-border-default);
-  border-radius: var(--radius-card);
-  background: var(--color-background-default);
-  min-width: 0;
+// The label is first in the markup and drawn under the number.
+.dm-stat {
+    display: flex;
+    flex-direction: column-reverse;
+}
 
-  > * {
+.dm-stat__value {
     margin: 0;
-  }
+    font-size: var(--type-size-600);
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--color-text);
+    font-variant-numeric: tabular-nums;
 }
 
-.path__name,
-.path__summary,
-.path__group {
-  color: var(--color-content-default);
+.dm-stat__label {
+    font-size: var(--type-size-200);
+    color: var(--gray-600);
 }
 
-.path__facts {
-  display: grid;
-  grid-template-columns: max-content minmax(0, 1fr);
-  gap: var(--spacing-050) var(--spacing-300);
-  padding-block: var(--spacing-200);
-  border-block: var(--border-width-default) solid var(--color-border-default-subtle);
+// ---------- Sections ----------
 
-  dt {
-    color: var(--color-content-default-secondary);
-  }
+.dm-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-400);
+    min-width: 0;
+}
 
-  dd {
+.dm-section + .dm-section {
+    margin-top: var(--spacing-700);
+    padding-top: var(--spacing-600);
+    border-top: 1px solid var(--gray-100);
+}
+
+.dm-section__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--spacing-300) var(--spacing-400);
+}
+
+.dm-section__title {
     margin: 0;
-    color: var(--color-content-default);
-  }
+    font-size: var(--type-size-500);
+    font-weight: 600;
+    color: var(--color-text);
 }
 
-// A pipeline's service name is long, so the name and its line each take the card's full width.
-.path__service,
-.path__pipeline {
-  grid-column: 1 / -1;
-  overflow-wrap: anywhere;
+.dm-subtitle {
+    margin: var(--spacing-300) 0 0;
+    font-size: var(--type-size-400);
+    font-weight: 600;
+    color: var(--color-text);
 }
 
-.path__service {
-  margin-top: var(--spacing-100);
-}
-
-.path__group {
-  margin-top: var(--spacing-100);
-}
-
-.path__criteria {
-  padding-left: var(--spacing-400);
-  color: var(--color-content-default);
-
-  li + li {
-    margin-top: var(--spacing-100);
-  }
-}
-
-// ---- totals and toolbar ----
-
-.dm__tiles {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: var(--spacing-400) var(--spacing-300);
-  container-type: inline-size;
-  --stat-value-size: var(--typography-heading-lg-font-size);
-}
-
-.dm__toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: end;
-  gap: var(--spacing-300) var(--spacing-400);
-}
-
-.dm__search {
-  flex: 1 1 18rem;
-  max-width: 28rem;
-}
-
-// ---- the lineage: source list beside the tree ----
-
-.lineage {
-  display: grid;
-  grid-template-columns: 16rem minmax(0, 1fr);
-  gap: var(--spacing-500);
-  align-items: start;
-}
-
-.lineage__nav {
-  position: sticky;
-  top: calc(var(--app-nav-height, 0px) + var(--spacing-400));
-  max-height: calc(100dvh - var(--app-nav-height, 0px) - var(--spacing-600));
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-150);
-  padding-right: var(--spacing-100);
-}
-
-.lineage__group {
-  margin: var(--spacing-200) 0 0;
-  color: var(--color-content-default);
-
-  &:first-child {
-    margin-top: 0;
-  }
-}
-
-.lineage__list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-050);
-}
-
-.pick {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-200);
-  padding: var(--spacing-150) var(--spacing-250);
-  border: var(--border-width-default) solid transparent;
-  border-radius: var(--radius-control);
-  background: transparent;
-  color: var(--color-content-default);
-  text-align: left;
-  cursor: pointer;
-
-  &:hover {
-    background: var(--color-background-default-hover);
-  }
-
-  &:focus-visible {
-    outline: var(--focus-ring-width) solid var(--focus-ring-color);
-    outline-offset: var(--focus-ring-offset);
-  }
-
-  // Selection is an outline and a tint, never a spotlight.
-  &[aria-pressed='true'] {
-    border-color: var(--color-border-default-strong);
-    background: var(--color-background-elevation-raised);
-  }
-}
-
-.pick__name {
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
-.pick__count {
-  flex: none;
-  color: var(--color-content-default-secondary);
-}
-
-// ---- the tree: source, then its layers, then each chart or map ----
-
-.flow {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.flow__source {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--spacing-100);
-  padding: var(--spacing-400);
-  border: var(--border-width-default) solid var(--color-border-default);
-  border-radius: var(--radius-card);
-  background: var(--color-background-elevation-raised);
-
-  .flow[data-kind='service'] & {
-    border-color: var(--color-border-utility-info);
-    background: var(--color-background-utility-info-subtle);
-  }
-
-  .flow[data-kind='file'] & {
-    border-color: var(--color-border-utility-warning);
-    background: var(--color-background-utility-warning-subtle);
-  }
-}
-
-.flow__name,
-.flow__meta {
-  margin: 0;
-  overflow-wrap: anywhere;
-}
-
-.flow__meta {
-  color: var(--color-content-default-secondary);
-}
-
-.flow__checks {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--spacing-200) var(--spacing-300);
-  margin-top: var(--spacing-200);
-}
-
-.flow__score {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--spacing-150);
-  margin: 0;
-  color: var(--color-content-default-secondary);
-}
-
-// The path a layer comes in by, then its own check results.
-.layer-path {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--spacing-100) var(--spacing-300);
-  margin: var(--spacing-150) 0 0;
-}
-
-.check {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--spacing-150);
-  min-width: 0;
-}
-
-.check__detail {
-  color: var(--color-content-default-secondary);
-  overflow-wrap: anywhere;
-
-  .check[data-status='fail'] & {
-    color: var(--color-content-danger);
-  }
-}
-
-// A tree in plain CSS: each item draws its own trunk segment (::before) and branch (::after).
-// The last item's trunk stops at its branch, so the line ends where the list ends.
-.flow__layers,
-.flow__uses {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.flow__layers {
-  margin-left: var(--spacing-500);
-}
-
-.flow__layer,
-.use {
-  position: relative;
-  padding-left: var(--spacing-600);
-
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    left: 0;
-  }
-
-  &::before {
-    top: 0;
-    bottom: 0;
-    border-left: var(--dm-line-width) solid var(--dm-line);
-  }
-
-  &::after {
-    top: var(--dm-branch-y);
-    width: var(--spacing-500);
-    border-top: var(--dm-line-width) solid var(--dm-line);
-  }
-
-  &:last-child::before {
-    bottom: auto;
-    height: var(--dm-branch-y);
-  }
-}
-
-.flow__layer {
-  --dm-branch-y: calc(var(--spacing-500) + var(--spacing-250));
-  padding-top: var(--spacing-500);
-}
-
-.layer {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--spacing-100) var(--spacing-200);
-  margin: 0;
-  padding: var(--spacing-150) var(--spacing-300);
-  border: var(--border-width-default) solid var(--color-border-default-strong);
-  border-radius: var(--radius-control);
-  background: var(--color-background-elevation-raised);
-  color: var(--color-content-default);
-  width: fit-content;
-  max-width: 100%;
-}
-
-.layer__name {
-  color: var(--color-content-default-secondary);
-  overflow-wrap: anywhere;
-}
-
-.flow__uses {
-  margin-left: var(--spacing-400);
-}
-
-.use {
-  --dm-branch-y: calc(var(--spacing-300) + var(--spacing-400));
-  padding-top: var(--spacing-300);
-
-  > * {
+.dm-lead,
+.dm-note,
+.dm-empty {
     margin: 0;
-  }
+    max-width: 60rem;
+    font-size: var(--type-size-200);
+    color: var(--gray-700);
 }
 
-.use__head,
-.use__program,
-.use__facts {
-  padding-inline: var(--spacing-300);
+.dm-note {
+    color: var(--gray-600);
 }
 
-.use__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--spacing-150);
-  padding-top: var(--spacing-300);
-  border: var(--border-width-default) solid var(--color-border-default);
-  border-bottom: 0;
-  border-radius: var(--radius-card) var(--radius-card) 0 0;
-  background: var(--color-background-default);
-}
+// ---------- The rule and the pathway ----------
 
-.use__title {
-  color: var(--color-content-default);
-}
-
-.use__program {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-150);
-  padding-block: var(--spacing-100) var(--spacing-300);
-  border-inline: var(--border-width-default) solid var(--color-border-default);
-  background: var(--color-background-default);
-  color: var(--color-content-default);
-
-  &:last-child {
-    border-bottom: var(--border-width-default) solid var(--color-border-default);
-    border-radius: 0 0 var(--radius-card) var(--radius-card);
-  }
-}
-
-// The category color comes from the program's data, as on the home page.
-.use__dot {
-  flex: none;
-  width: var(--spacing-250);
-  height: var(--spacing-250);
-  border-radius: var(--radius-full);
-  background: var(--dm-category, var(--color-border-default-strong));
-}
-
-.use__facts {
-  display: grid;
-  grid-template-columns: max-content minmax(0, 1fr);
-  gap: var(--spacing-050) var(--spacing-300);
-  padding-block: var(--spacing-200) var(--spacing-300);
-  border: var(--border-width-default) solid var(--color-border-default);
-  border-top-color: var(--color-border-default-subtle);
-  border-radius: 0 0 var(--radius-card) var(--radius-card);
-  background: var(--color-background-default);
-
-  dt {
-    color: var(--color-content-default-secondary);
-  }
-
-  dd {
+.dm-rule {
     margin: 0;
-    color: var(--color-content-default);
-    overflow-wrap: anywhere;
-  }
+    max-width: 60rem;
+    padding: var(--spacing-400);
+    border-left: 4px solid var(--monitoring-new-accent);
+    background: var(--gray-50);
+    font-size: var(--type-size-300);
+    color: var(--color-text);
 }
 
-.use__checks {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-100);
-  list-style: none;
-  padding: var(--spacing-200) var(--spacing-300) var(--spacing-300);
-  border: var(--border-width-default) solid var(--color-border-default);
-  border-top-color: var(--color-border-default-subtle);
-  border-radius: 0 0 var(--radius-card) var(--radius-card);
-  background: var(--color-background-default);
-}
-
-// With results under it, the facts block is no longer the card's last piece.
-.use__facts:not(:last-child) {
-  border-bottom: 0;
-  border-radius: 0;
-}
-
-// ---- the table view ----
-
-.inventory {
-  display: flex;
-  flex-direction: column;
-  border: var(--border-width-default) solid var(--color-border-default);
-  border-radius: var(--radius-card);
-  background: var(--color-background-default);
-  overflow: hidden;
-}
-
-.inventory__scroll {
-  overflow: auto;
-  max-height: 70vh;
-
-  &:focus-visible {
-    outline: var(--focus-ring-width) solid var(--focus-ring-color);
-    outline-offset: calc(-1 * var(--focus-ring-width));
-  }
-}
-
-.inventory__table {
-  width: 100%;
-  min-width: 60rem;
-  border-collapse: collapse;
-  color: var(--color-content-default);
-
-  th,
-  td {
-    padding: var(--spacing-200) var(--spacing-300);
-    text-align: left;
-    vertical-align: top;
-    border-bottom: var(--border-width-default) solid var(--color-border-default-subtle);
-  }
-
-  th {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    background: var(--color-background-elevation-sunken);
-    color: var(--color-content-default);
-    white-space: nowrap;
-  }
-
-  tbody tr:nth-child(even) {
-    background: var(--color-background-elevation-raised);
-  }
-}
-
-.inventory__sub {
-  display: block;
-  color: var(--color-content-default-secondary);
-}
-
-.inventory__foot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-300);
-  padding: var(--spacing-200) var(--spacing-300);
-  border-top: var(--border-width-default) solid var(--color-border-default);
-}
-
-.inventory__count {
-  margin: 0;
-  color: var(--color-content-default-secondary);
-}
-
-// ---- narrow screens ----
-
-@media (max-width: 60rem) {
-  .dm__tiles {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .lineage {
+// Four steps in a row on a wide screen, numbered, each pointing at the next; a column on a narrow one.
+.dm-flow {
+    display: grid;
     grid-template-columns: minmax(0, 1fr);
-  }
+    gap: var(--spacing-300);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: dm-step;
 
-  .lineage__nav {
-    position: static;
-    max-height: 16rem;
-    padding: var(--spacing-200);
+    @media screen and (min-width: 992px) {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+.dm-flow__step {
+    position: relative;
+    padding: var(--spacing-300) var(--spacing-400);
+    border: 1px solid var(--gray-300);
+    border-radius: var(--border-radius-200);
+    background: var(--white);
+    font-size: var(--type-size-200);
+    color: var(--gray-700);
+    counter-increment: dm-step;
+
+    p {
+        margin: 0;
+    }
+}
+
+.dm-flow__step--proposed {
+    border: 1.5px dashed var(--monitoring-new-accent);
+}
+
+.dm-flow__name {
+    margin: 0 0 var(--spacing-100);
+    font-size: var(--type-size-300);
+    font-weight: 600;
+    color: var(--color-text);
+
+    &::before {
+        content: counter(dm-step) ". ";
+        color: var(--gray-600);
+    }
+}
+
+// ---------- Where things stand ----------
+
+.dm-today {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--spacing-300);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @media screen and (min-width: 768px) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media screen and (min-width: 1280px) {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+.dm-today__item {
+    padding: var(--spacing-400);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--border-radius-200);
+    background: var(--white);
+    font-size: var(--type-size-200);
+    color: var(--gray-700);
+
+    p {
+        margin: 0;
+    }
+}
+
+.dm-today__figure {
+    font-size: var(--type-size-600);
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--color-text);
+    font-variant-numeric: tabular-nums;
+}
+
+.dm-today__name {
+    margin: var(--spacing-100) 0 var(--spacing-200);
+    font-size: var(--type-size-300);
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.dm-steps {
+    margin: 0;
+    max-width: 60rem;
+    padding-left: var(--spacing-500);
+    font-size: var(--type-size-200);
+    color: var(--gray-700);
+
+    li + li {
+        margin-top: var(--spacing-200);
+    }
+}
+
+// ---------- Tables ----------
+
+// The shared .table, held to a readable width.
+.dm-coverage {
+    max-width: 60rem;
+
+    td {
+        font-variant-numeric: tabular-nums;
+    }
+}
+
+.dm-needs {
+    margin: 0;
+    max-width: 60rem;
+    padding-left: var(--spacing-500);
+    font-size: var(--type-size-200);
+    color: var(--gray-700);
+
+    li + li {
+        margin-top: var(--spacing-200);
+    }
+
+    strong {
+        color: var(--color-text);
+    }
+}
+
+.dm-defs {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--spacing-300) var(--spacing-500);
+    margin: 0;
+    font-size: var(--type-size-200);
+    color: var(--gray-700);
+
+    @media screen and (min-width: 992px) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    dt {
+        font-weight: 600;
+        color: var(--color-text);
+    }
+
+    dd {
+        margin: var(--spacing-100) 0 0;
+    }
+}
+
+// ---------- Ingestion paths ----------
+
+.dm-paths {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--spacing-300);
+    align-items: start;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @media screen and (min-width: 768px) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media screen and (min-width: 1280px) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+.dm-path {
+    padding: var(--spacing-400);
+    border: 1px solid var(--gray-200);
+    border-top: 4px solid var(--gray-400);
+    border-radius: var(--border-radius-200);
+    background: var(--white);
+    font-size: var(--type-size-200);
+    color: var(--gray-700);
+}
+
+.dm-path[data-for-indicators="yes"] {
+    border-top-color: var(--monitoring-new-accent);
+}
+
+// Accepted, but only for the data LT Info collects itself: the accent, dashed.
+.dm-path[data-for-indicators="native"] {
+    border-top-color: var(--monitoring-new-accent);
+    border-top-style: dashed;
+}
+
+.dm-path__flag {
+    margin: 0 0 var(--spacing-100);
+    font-size: var(--type-size-150);
+    font-weight: 600;
+    color: var(--gray-600);
+}
+
+.dm-path__name {
+    margin: 0 0 var(--spacing-200);
+    font-size: var(--type-size-300);
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.dm-path__summary {
+    margin: 0 0 var(--spacing-300);
+}
+
+.dm-path__facts {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: var(--spacing-100) var(--spacing-300);
+    margin: 0 0 var(--spacing-300);
+
+    dt {
+        font-weight: 600;
+        color: var(--color-text);
+    }
+
+    dd {
+        margin: 0;
+    }
+}
+
+.dm-path__group {
+    margin: var(--spacing-300) 0 var(--spacing-100);
+    font-size: var(--type-size-200);
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.dm-path__criteria {
+    margin: 0;
+    padding-left: var(--spacing-500);
+
+    li + li {
+        margin-top: var(--spacing-100);
+    }
+}
+
+// The readers of the LT Info Native Data path, one block each.
+.dm-native {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.dm-native__item {
+    padding: var(--spacing-200) 0;
+    border-top: 1px solid var(--gray-200);
+}
+
+.dm-native__name {
+    margin: 0 0 var(--spacing-100);
+    font-weight: 600;
+    color: var(--color-text);
+
+    code {
+        font-weight: 400;
+        color: var(--gray-600);
+        overflow-wrap: anywhere;
+    }
+}
+
+.dm-native__facts {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: var(--spacing-100) var(--spacing-300);
+    margin: 0;
+
+    dt {
+        font-weight: 600;
+        color: var(--color-text);
+    }
+
+    dd {
+        margin: 0;
+        overflow-wrap: anywhere;
+    }
+}
+
+// ---------- The register ----------
+
+// Quiet chips, as on the home page's map: a hairline border, and an accent outline when pressed.
+.dm-toggle {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-200);
+}
+
+.dm-toggle__item {
+    padding: var(--spacing-100) var(--spacing-300);
+    border: 1px solid var(--gray-300);
+    border-radius: var(--border-radius-100);
+    background: var(--white);
+    color: var(--color-text);
+    font: inherit;
+    font-size: var(--type-size-200);
+    cursor: pointer;
+}
+
+.dm-toggle__item:hover {
+    background: var(--gray-50);
+}
+
+.dm-toggle__item[aria-pressed="true"] {
+    border-color: var(--monitoring-new-accent);
+    box-shadow: inset 0 0 0 1px var(--monitoring-new-accent);
+    font-weight: 600;
+}
+
+.dm-toggle__item:focus-visible {
+    outline: 2px solid var(--monitoring-new-accent);
+    outline-offset: 2px;
+}
+
+.dm-toggle__count {
+    color: var(--gray-600);
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+}
+
+// ---------- Sources and checks ----------
+
+.dm-search {
+    flex: 1 1 18rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-100);
+    max-width: 28rem;
+    min-width: min(14rem, 100%);
+
+    label {
+        font-size: var(--type-size-150);
+        color: var(--gray-700);
+    }
+
+    input {
+        width: 100%;
+        padding: var(--spacing-200) var(--spacing-300);
+        border: 1px solid var(--gray-300);
+        border-radius: var(--border-radius-200);
+        background: var(--white);
+        color: var(--color-text);
+        font: inherit;
+        font-size: var(--type-size-200);
+    }
+
+    input::placeholder {
+        color: var(--gray-600);
+    }
+
+    input:focus-visible {
+        outline: 2px solid var(--monitoring-new-accent);
+        outline-offset: 1px;
+    }
+}
+
+.dm-sources {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-200);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.dm-source {
+    border: 1px solid var(--gray-200);
+    border-radius: var(--border-radius-200);
+    background: var(--white);
+}
+
+.dm-source__summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--spacing-100) var(--spacing-400);
+    padding: var(--spacing-300) var(--spacing-400);
+    cursor: pointer;
+}
+
+.dm-source__summary:focus-visible {
+    outline: 2px solid var(--monitoring-new-accent);
+    outline-offset: 2px;
+}
+
+.dm-source__name {
+    font-size: var(--type-size-300);
+    font-weight: 600;
+    color: var(--color-text);
+    overflow-wrap: anywhere;
+}
+
+.dm-source__meta {
+    font-size: var(--type-size-150);
+    color: var(--gray-600);
+}
+
+.dm-source__body {
+    padding: 0 var(--spacing-400) var(--spacing-400);
+    border-top: 1px solid var(--gray-100);
+}
+
+.dm-source__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-300);
+    padding: var(--spacing-300) 0;
+    font-size: var(--type-size-200);
+}
+
+.dm-score {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-200);
+}
+
+.dm-layers,
+.dm-uses,
+.dm-use__checks {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.dm-layer + .dm-layer {
+    margin-top: var(--spacing-400);
+    padding-top: var(--spacing-300);
+    border-top: 1px solid var(--gray-100);
+}
+
+.dm-layer__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-100) var(--spacing-300);
+    margin: 0 0 var(--spacing-200);
+    font-size: var(--type-size-200);
+}
+
+.dm-layer__id {
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.dm-layer__name {
+    color: var(--gray-700);
+}
+
+// The uses hang off their layer on a rule, two across when there is room.
+.dm-uses {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--spacing-200);
+    padding-left: var(--spacing-400);
+    border-left: 2px solid var(--gray-200);
+
+    @media screen and (min-width: 992px) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.dm-use {
+    padding: var(--spacing-200) var(--spacing-300);
+    border: 1px solid var(--gray-100);
+    border-radius: var(--border-radius-200);
+    font-size: var(--type-size-200);
+    color: var(--gray-700);
+
+    p {
+        margin: 0;
+    }
+}
+
+.dm-use__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--spacing-100) var(--spacing-200);
+}
+
+.dm-use__title {
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.dm-use__flag {
+    color: var(--gray-600);
+}
+
+.dm-use__facts {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: 0 var(--spacing-300);
+    margin: var(--spacing-100) 0 0;
+    font-size: var(--type-size-150);
+
+    dt {
+        color: var(--gray-600);
+    }
+
+    dd {
+        margin: 0;
+        overflow-wrap: anywhere;
+    }
+}
+
+.dm-use__checks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-100) var(--spacing-200);
+    margin-top: var(--spacing-200);
+}
+
+// A small neutral label: a use kind, an ingestion path, "Table".
+.dm-tag {
+    padding: 0 var(--spacing-200);
+    border: 1px solid var(--gray-300);
+    border-radius: var(--border-radius-100);
+    background: var(--gray-50);
+    font-size: var(--type-size-150);
+    color: var(--gray-700);
+    white-space: nowrap;
+}
+
+// A check result. The words carry the result; the color only repeats it.
+.dm-check {
+    padding: 0 var(--spacing-200);
+    border: 1px solid var(--gray-300);
+    border-radius: var(--border-radius-100);
+    font-size: var(--type-size-150);
+    color: var(--gray-700);
+}
+
+.dm-check[data-status="pass"] {
+    border-color: var(--green-dark);
+    background: var(--green-lighter);
+    color: var(--green-darker);
+}
+
+.dm-check[data-status="fail"] {
+    border-color: var(--red-dark);
+    background: var(--red-lighter);
+    color: var(--red-darker);
+}
+
+// ---------- Sandbox only: the snapshot note, the empty states, and the register table ----------
+
+.dm-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-700);
+}
+
+.dm-snapshot {
+    margin: 0;
+    max-width: 44rem;
+    font-size: var(--type-size-200);
+    color: var(--gray-600);
+}
+
+.dm-empty-card {
+    padding-block: var(--spacing-500);
+}
+
+.dm-register__tools {
+    display: flex;
+    justify-content: flex-end;
+}
+
+// The register scrolls in its own box, as LT Info's grid does, with the header row held in view.
+.dm-register {
+    max-height: 35rem;
+    overflow: auto;
     border: var(--border-width-default) solid var(--color-border-default);
     border-radius: var(--radius-card);
-  }
-}
 
-@media (max-width: 30rem) {
-  .dm__tiles {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .flow__layers {
-    margin-left: var(--spacing-300);
-  }
-
-  .flow__layer,
-  .use {
-    padding-left: var(--spacing-400);
-
-    &::after {
-      width: var(--spacing-300);
+    th {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        white-space: nowrap;
     }
-  }
 
-  .flow__uses {
-    margin-left: var(--spacing-200);
-  }
+    td {
+        min-width: 8rem;
+        max-width: 22rem;
+    }
 }

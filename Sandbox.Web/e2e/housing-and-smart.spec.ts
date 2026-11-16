@@ -59,11 +59,14 @@ test.describe('Affordable and Workforce Housing', () => {
     }[];
     expect(programs.find((program) => program.MonitoringProgramID === id)).toMatchObject({ CategoryName: category, Template: 'charts' });
 
+    // The Data Model page is LT Info's, so a sandbox-only program shows by name, not as a link.
     await page.goto('/data-model');
-    await page.getByRole('textbox', { name: 'Search' }).fill('units-built-by-year.json');
-    await expect(page.locator('.pick')).toHaveCount(1);
-    await expect(page.locator('.flow .layer-path')).toContainText('Extracted File');
-    await expect(page.locator('.use').getByRole('link', { name })).toHaveAttribute('href', `/programs/${id}`);
+    await page.getByLabel('Find a program, chart, layer, or field').fill('units-built-by-year.json');
+    const source = page.locator('.dm-source');
+    await expect(source).toHaveCount(1);
+    await source.locator('summary').click();
+    await expect(source.locator('.dm-layer__head')).toContainText('Extracted File');
+    await expect(source.locator('.dm-use__program').first()).toContainText(name);
   });
 });
 
@@ -143,22 +146,24 @@ test.describe('SMART Traffic Cameras', () => {
 
   test('the Data Model page lists the camera service as partner data in a TRPA pipeline', async ({ page }) => {
     await page.goto('/data-model');
-    const card = page.locator('.path[data-path="partner-pipeline"]');
+    const card = page.locator('.dm-path', { has: page.locator('.dm-path__name', { hasText: /^Partner Data, TRPA Pipeline$/ }) });
     // The camera layer and its five tables, and the map plus the six charts on them.
-    await expect(card.locator('.path__facts')).toContainText('6 layers, 7 uses');
-    await expect(card.locator('.path__service')).toHaveText('Transportation_SMART');
-    await expect(card.locator('.path__pipeline')).toContainText('Tahoe Transportation District');
-    await expect(card.locator('.path__pipeline a')).toHaveAttribute(
+    await expect(card.locator('.dm-path__facts')).toContainText('6 layers, 7 uses');
+    await expect(card.locator('.dm-path__facts dt', { hasText: 'Transportation_SMART' })).toHaveCount(1);
+    await expect(card.locator('.dm-path__facts')).toContainText('Tahoe Transportation District');
+    await expect(card.getByRole('link', { name: 'SMART_Phase1' })).toHaveAttribute(
       'href',
       'https://github.com/trpa-agency/Transportation/tree/main/SMART_Phase1',
     );
 
-    await page.locator('.pick[data-source="Transportation_SMART"]').click();
-    const flow = page.locator('.flow');
-    await expect(flow.locator('.flow__layer')).toHaveCount(6);
-    for (const path of await flow.locator('.layer-path').all()) {
-      await expect(path).toContainText('Partner Data, TRPA Pipeline');
+    await page.getByLabel('Find a program, chart, layer, or field').fill('Transportation_SMART');
+    const source = page.locator('.dm-source');
+    await expect(source).toHaveCount(1);
+    await source.locator('summary').click();
+    await expect(source.locator('.dm-layer')).toHaveCount(6);
+    for (const head of await source.locator('.dm-layer__head').all()) {
+      await expect(head).toContainText('Partner Data, TRPA Pipeline');
     }
-    await expect(flow.locator('.use').first().getByRole('link', { name })).toHaveAttribute('href', `/programs/${id}`);
+    await expect(source.locator('.dm-use__program').first()).toContainText(name);
   });
 });

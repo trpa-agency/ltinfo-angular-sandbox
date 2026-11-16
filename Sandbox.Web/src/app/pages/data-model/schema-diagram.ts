@@ -1,334 +1,386 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from "@angular/core";
 
-// mon-lego-checked: no Ecology component draws an entity diagram. This is inline SVG built from
-// the table list below, styled with tokens; the card look copies esa-card (raised header band,
-// default border, card radius).
-
-type Key = 'PK' | 'FK' | 'JSON';
+type Key = "PK" | "FK";
 
 interface Field {
-  name: string;
-  key?: Key;
-  /** Right-hand note, for the DashboardConfig keys. */
-  note?: string;
+    name: string;
+    key?: Key;
 }
 
 interface Entity {
-  id: string;
-  name: string;
-  x: number;
-  y: number;
-  fields: Field[];
-  /** Drawn dashed: the keys inside a JSON column, not a table. */
-  json?: boolean;
+    id: string;
+    name: string;
+    x: number;
+    y: number;
+    fields: Field[];
+    /** Drawn dashed: a table this page proposes, not one LT Info has. */
+    proposed?: boolean;
 }
 
+/** Something outside the database that rows are read from. */
 interface Endpoint {
-  label: string;
-  kind: 'service' | 'file' | 'ltinfo';
-  y: number;
+    label: string;
+    x: number;
+    y: number;
 }
 
-/** A relationship line. The path is drawn by hand so lines never cross a table. */
+/** A relationship line. Each path is drawn by hand so lines never cross a table. */
 interface Link {
-  d: string;
-  start?: 'one';
-  end?: 'many' | 'arrow';
-  dashed?: boolean;
-  label: string;
+    d: string;
+    start?: "one";
+    end?: "many" | "arrow";
+    /** Dashed: a proposed relationship, or a flow of data that is not a foreign key. */
+    dashed?: boolean;
+    label: string;
 }
 
 const W = 270;
 const HEAD = 34;
 const ROW = 22;
 const PAD = 6;
+const ENDPOINT_H = 40;
 const COL = [16, 366, 716];
 
-const height = (e: Entity) => HEAD + e.fields.length * ROW + PAD;
+const height = (entity: Entity): number => HEAD + entity.fields.length * ROW + PAD;
 /** The vertical middle of a field row. */
-const rowY = (e: Entity, i: number) => e.y + HEAD + PAD / 2 + i * ROW + ROW / 2;
+const rowY = (entity: Entity, index: number): number => entity.y + HEAD + PAD / 2 + index * ROW + ROW / 2;
 
-// The six tables in Sandbox.Database/dbo/Tables, columns in table order.
+// Left: what LT Info ingests on a schedule today. Middle: the indicator, which is the unit of
+// record. Right: the two tables this page proposes. IndicatorDataSource ties an indicator to the
+// map service layer its numbers are read from, or, for the data LT Info collects itself, to a
+// native reader by NativeSourceID; MonitoringProgramLayer ties a program to the layers its site
+// list, map and overlays are read from. The values themselves stay where they are collected.
+// Update the lists when a table script in LtInfo.Database/dbo/Tables changes.
 const ENTITIES: Entity[] = [
-  {
-    id: 'category',
-    name: 'MonitoringProgramCategory',
-    x: COL[0],
-    y: 20,
-    fields: [
-      { name: 'MonitoringProgramCategoryID', key: 'PK' },
-      { name: 'MonitoringProgramCategoryName' },
-      { name: 'Folder' },
-      { name: 'ThemeColor' },
-      { name: 'SortOrder' },
-      { name: 'Blurb' },
-      { name: 'CategoryDescription' },
-      { name: 'IconName' },
-    ],
-  },
-  {
-    id: 'organization',
-    name: 'Organization',
-    x: COL[0],
-    y: 300,
-    fields: [{ name: 'OrganizationID', key: 'PK' }, { name: 'OrganizationName' }, { name: 'OrganizationShortName' }],
-  },
-  {
-    id: 'program-organization',
-    name: 'MonitoringProgramOrganization',
-    x: COL[0],
-    y: 450,
-    fields: [
-      { name: 'MonitoringProgramOrganizationID', key: 'PK' },
-      { name: 'MonitoringProgramID', key: 'FK' },
-      { name: 'OrganizationID', key: 'FK' },
-      { name: 'SortOrder' },
-    ],
-  },
-  {
-    id: 'program',
-    name: 'MonitoringProgram',
-    x: COL[1],
-    y: 20,
-    fields: [
-      { name: 'MonitoringProgramID', key: 'PK' },
-      { name: 'MonitoringProgramName' },
-      { name: 'MonitoringProgramCategoryID', key: 'FK' },
-      { name: 'MonitoringProgramDescription' },
-      { name: 'MonitoringApproach' },
-      { name: 'IsFeatured' },
-      { name: 'Template' },
-      { name: 'DashboardConfig', key: 'JSON' },
-      { name: 'RelatedLinks', key: 'JSON' },
-      { name: 'UpdateDate' },
-    ],
-  },
-  {
-    id: 'config',
-    name: 'DashboardConfig keys',
-    x: COL[1],
-    y: 330,
-    json: true,
-    fields: [
-      { name: 'measures', note: 'Charts' },
-      { name: 'mapLayer', note: 'Map' },
-      { name: 'sitesLayer', note: 'Site list' },
-      { name: 'sitesPerYear', note: 'Sites per year' },
-      { name: 'overlays', note: 'Map overlays' },
-      { name: 'siteProfile', note: 'Site profile' },
-    ],
-  },
-  {
-    id: 'site',
-    name: 'MonitoringSite',
-    x: COL[2],
-    y: 20,
-    fields: [
-      { name: 'MonitoringSiteID', key: 'PK' },
-      { name: 'MonitoringProgramID', key: 'FK' },
-      { name: 'SiteName' },
-      { name: 'SiteKind' },
-      { name: 'Latitude' },
-      { name: 'Longitude' },
-    ],
-  },
-  {
-    id: 'image',
-    name: 'MonitoringProgramImage',
-    x: COL[2],
-    y: 230,
-    fields: [
-      { name: 'MonitoringProgramImageID', key: 'PK' },
-      { name: 'MonitoringProgramID', key: 'FK' },
-      { name: 'FileResourceGUID' },
-      { name: 'Caption' },
-      { name: 'PhotoCredit' },
-      { name: 'IsKeyPhoto' },
-      { name: 'SortOrder' },
-    ],
-  },
+    {
+        id: "program",
+        name: "MonitoringProgram",
+        x: COL[0],
+        y: 20,
+        fields: [{ name: "MonitoringProgramID", key: "PK" }, { name: "MonitoringProgramName" }, { name: "MonitoringProgramCategoryID", key: "FK" }, { name: "MonitoringProgramTypeID", key: "FK" }],
+    },
+    {
+        id: "site",
+        name: "MonitoringSite",
+        x: COL[0],
+        y: 180,
+        fields: [{ name: "MonitoringSiteID", key: "PK" }, { name: "MonitoringProgramID", key: "FK" }, { name: "MonitoringSiteName" }, { name: "MonitoringSiteLocation" }],
+    },
+    {
+        id: "station-observation",
+        name: "MonitoringStationObservation",
+        x: COL[0],
+        y: 340,
+        fields: [
+            { name: "MonitoringStationObservationID", key: "PK" },
+            { name: "MonitoringStationID", key: "FK" },
+            { name: "ObservationDate" },
+            { name: "ObservationValue" },
+            { name: "MonitoringRawDataBatchID", key: "FK" },
+        ],
+    },
+    {
+        id: "monitoring-data-source",
+        name: "MonitoringDataSource",
+        x: COL[0],
+        y: 522,
+        fields: [{ name: "MonitoringDataSourceID", key: "PK" }, { name: "MonitoringDataSourceName" }, { name: "MonitoringDataSourceLocation" }, { name: "DataQuery" }],
+    },
+    {
+        id: "indicator-program",
+        name: "IndicatorMonitoringProgram",
+        x: COL[1],
+        y: 20,
+        fields: [{ name: "IndicatorMonitoringProgramID", key: "PK" }, { name: "IndicatorID", key: "FK" }, { name: "MonitoringProgramID", key: "FK" }],
+    },
+    {
+        id: "indicator",
+        name: "Indicator",
+        x: COL[1],
+        y: 180,
+        fields: [
+            { name: "IndicatorID", key: "PK" },
+            { name: "IndicatorDisplayName" },
+            { name: "MeasurementUnitTypeID", key: "FK" },
+            { name: "IndicatorTypeID", key: "FK" },
+            { name: "IndicatorDataSourceTypeID", key: "FK" },
+            { name: "ChartSourceURL" },
+        ],
+    },
+    {
+        id: "reported-value",
+        name: "IndicatorReportedValue",
+        x: COL[1],
+        y: 384,
+        fields: [{ name: "IndicatorReportedValueID", key: "PK" }, { name: "IndicatorID", key: "FK" }, { name: "IndicatorReportingPeriodID", key: "FK" }, { name: "ReportedValue" }],
+    },
+    {
+        id: "indicator-data-source",
+        name: "IndicatorDataSource",
+        x: COL[2],
+        y: 20,
+        proposed: true,
+        fields: [
+            { name: "IndicatorDataSourceID", key: "PK" },
+            { name: "IndicatorID", key: "FK" },
+            { name: "IngestPathID", key: "FK" },
+            { name: "SourceOrganizationID", key: "FK" },
+            { name: "NativeSourceID" },
+            { name: "ServiceUrl" },
+            { name: "LayerID" },
+            { name: "WhereClause" },
+            { name: "AxisField" },
+            { name: "ValueFields" },
+            { name: "Statistic" },
+            { name: "SeriesField" },
+            { name: "PickField" },
+            { name: "StandardField" },
+            { name: "SiteField" },
+            { name: "ChartSettings" },
+            { name: "UpdateFrequency" },
+        ],
+    },
+    {
+        id: "program-layer",
+        name: "MonitoringProgramLayer",
+        x: COL[2],
+        y: 454,
+        proposed: true,
+        fields: [
+            { name: "MonitoringProgramLayerID", key: "PK" },
+            { name: "MonitoringProgramID", key: "FK" },
+            { name: "LayerUseTypeID", key: "FK" },
+            { name: "IngestPathID", key: "FK" },
+            { name: "SourceOrganizationID", key: "FK" },
+            { name: "ServiceUrl" },
+            { name: "LayerID" },
+            { name: "WhereClause" },
+            { name: "NameField" },
+            { name: "YearField" },
+            { name: "GroupField" },
+            { name: "LayerSettings" },
+            { name: "UpdateFrequency" },
+        ],
+    },
 ];
 
-const byId = (id: string) => ENTITIES.find((e) => e.id === id)!;
+/** The canvas: wide enough for three columns, tall enough for the last row of endpoints. */
+const VIEW_WIDTH = 1000;
+const VIEW_HEIGHT = 974;
 
-// Outside the database: where photos and chart and map rows come from.
-const ENDPOINT_H = 40;
+const byID = (id: string): Entity => ENTITIES.find((entity) => entity.id === id)!;
+
 const ENDPOINTS: Endpoint[] = [
-  { label: 'LT Info file resources', kind: 'ltinfo', y: 448 },
-  { label: 'TRPA map service layers', kind: 'service', y: 516 },
-  { label: 'Data files in data/', kind: 'file', y: 572 },
+    { label: "LTInfo_Monitoring map service", x: COL[0], y: 682 },
+    { label: "TRPA map service layers", x: COL[2], y: 802 },
+    { label: "Partner map service layers", x: COL[2], y: 858 },
+    // Last, below the end of the service line, so the native line crosses nothing on its way down.
+    { label: "LT Info native readers", x: COL[2], y: 914 },
 ];
 
-function links(): Link[] {
-  const category = byId('category');
-  const organization = byId('organization');
-  const junction = byId('program-organization');
-  const program = byId('program');
-  const config = byId('config');
-  const site = byId('site');
-  const image = byId('image');
-  const right = (e: Entity) => e.x + W;
-  const pk = rowY(program, 0);
-  const configMid = config.y + height(config) / 2;
-  const endpoint = (i: number) => ENDPOINTS[i].y + ENDPOINT_H / 2;
-  return [
-    {
-      label: 'A category has many programs',
-      d: `M${right(category)},${rowY(category, 0)} H316 V${rowY(program, 2)} H${program.x}`,
-      start: 'one',
-      end: 'many',
-    },
-    {
-      label: 'A program has many partner rows',
-      d: `M${program.x},${program.y + height(program) - 20} H336 V${rowY(junction, 1)} H${right(junction)}`,
-      start: 'one',
-      end: 'many',
-    },
-    {
-      label: 'An organization has many partner rows',
-      d: `M${organization.x},${rowY(organization, 0)} H6 V${rowY(junction, 2)} H${junction.x}`,
-      start: 'one',
-      end: 'many',
-    },
-    {
-      label: 'A program has many sites',
-      d: `M${right(program)},${pk} H676 V${rowY(site, 1)} H${site.x}`,
-      start: 'one',
-      end: 'many',
-    },
-    {
-      label: 'A program has many photos',
-      d: `M${right(program)},${pk} H676 V${rowY(image, 1)} H${image.x}`,
-      start: 'one',
-      end: 'many',
-    },
-    {
-      label: 'A photo file is stored in LT Info',
-      d: `M${image.x + W / 2},${image.y + height(image)} V${ENDPOINTS[0].y}`,
-      end: 'arrow',
-      dashed: true,
-    },
-    {
-      label: 'DashboardConfig holds the chart and map settings',
-      d: `M${program.x + W / 2},${program.y + height(program)} V${config.y}`,
-      end: 'arrow',
-      dashed: true,
-    },
-    {
-      label: 'The settings read map service layers',
-      d: `M${right(config)},${configMid} H676 V${endpoint(1)} H${COL[2]}`,
-      end: 'arrow',
-      dashed: true,
-    },
-    {
-      label: 'The settings read data files',
-      d: `M${right(config)},${configMid} H676 V${endpoint(2)} H${COL[2]}`,
-      end: 'arrow',
-      dashed: true,
-    },
-  ];
+function buildLinks(): Link[] {
+    const program = byID("program");
+    const site = byID("site");
+    const stationObservation = byID("station-observation");
+    const monitoringDataSource = byID("monitoring-data-source");
+    const indicatorProgram = byID("indicator-program");
+    const indicator = byID("indicator");
+    const reportedValue = byID("reported-value");
+    const dataSource = byID("indicator-data-source");
+    const programLayer = byID("program-layer");
+
+    const right = (entity: Entity): number => entity.x + W;
+    const middle = (entity: Entity): number => entity.x + W / 2;
+    const bottom = (entity: Entity): number => entity.y + height(entity);
+    const endpointMiddle = (index: number): number => ENDPOINTS[index].y + ENDPOINT_H / 2;
+
+    return [
+        {
+            label: "A program has many indicator links",
+            d: `M${right(program)},${rowY(program, 0)} H326 V${rowY(indicatorProgram, 2)} H${indicatorProgram.x}`,
+            start: "one",
+            end: "many",
+        },
+        {
+            label: "An indicator has many program links",
+            d: `M${middle(indicator)},${indicator.y} V${bottom(indicatorProgram)}`,
+            start: "one",
+            end: "many",
+        },
+        {
+            label: "A program has many sites",
+            d: `M${middle(program)},${bottom(program)} V${site.y}`,
+            start: "one",
+            end: "many",
+        },
+        {
+            label: "A site has stations, and a station has many observations",
+            d: `M${middle(site)},${bottom(site)} V${stationObservation.y}`,
+            start: "one",
+            end: "many",
+        },
+        {
+            label: "The nightly job turns a data source's records into sites and observations",
+            d: `M${middle(monitoringDataSource)},${monitoringDataSource.y} V${bottom(stationObservation)}`,
+            end: "arrow",
+            dashed: true,
+        },
+        {
+            label: "A data source reads a layer of the LTInfo_Monitoring map service",
+            d: `M${middle(monitoringDataSource)},${bottom(monitoringDataSource)} V${ENDPOINTS[0].y}`,
+            end: "arrow",
+            dashed: true,
+        },
+        {
+            label: "An indicator has many reported values",
+            d: `M${middle(indicator)},${bottom(indicator)} V${reportedValue.y}`,
+            start: "one",
+            end: "many",
+        },
+        {
+            label: "Proposed: an indicator has a data source that names its map service layer",
+            d: `M${right(indicator)},${rowY(indicator, 0)} H686 V${rowY(dataSource, 1)} H${dataSource.x}`,
+            start: "one",
+            end: "many",
+            dashed: true,
+        },
+        {
+            // From the program's key, down the first gutter, under the middle column, then up the
+            // second gutter: no table and no other line is crossed.
+            label: "Proposed: a program has many layers, for its site list, its map and its overlays",
+            d: `M${right(program)},${rowY(program, 0)} H306 V${bottom(reportedValue) + 40} H666 V${rowY(programLayer, 1)} H${programLayer.x}`,
+            start: "one",
+            end: "many",
+            dashed: true,
+        },
+        {
+            label: "Proposed: a program page reads the TRPA map service layer a data source or a program layer names",
+            d: `M${right(dataSource)},${rowY(dataSource, 5)} H994 V${endpointMiddle(1)} H${ENDPOINTS[1].x + W}`,
+            end: "arrow",
+            dashed: true,
+        },
+        {
+            label: "Proposed: a program page reads the partner map service layer a data source or a program layer names",
+            d: `M${right(dataSource)},${rowY(dataSource, 5)} H994 V${endpointMiddle(2)} H${ENDPOINTS[2].x + W}`,
+            end: "arrow",
+            dashed: true,
+        },
+        {
+            // NativeSourceID sits above ServiceUrl, so this line leaves the table above where the
+            // service line starts and runs down the outer edge, past the service endpoints.
+            label: "Proposed: a program page reads the LT Info native reader a data source names, for transit ridership and stormwater",
+            d: `M${right(dataSource)},${rowY(dataSource, 4)} H998 V${endpointMiddle(3)} H${ENDPOINTS[3].x + W}`,
+            end: "arrow",
+            dashed: true,
+        },
+        {
+            // Joins the line above on its way down to the two services.
+            label: "Proposed: a program layer names its map service layer",
+            d: `M${right(programLayer)},${rowY(programLayer, 5)} H994`,
+            dashed: true,
+        },
+    ];
 }
 
-/** The six tables and how they join, plus what lives outside the database. */
+/**
+ * The tables behind the Data Model page: what LT Info has today on the left and in the middle, and
+ * on the right the two proposed tables that tie an indicator, and a program, to map service layers.
+ * Inline SVG built from the lists above; no shared component draws an entity diagram.
+ */
 @Component({
-  selector: 'app-schema-diagram',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrl: './schema-diagram.scss',
-  template: `
-    <div class="erd" tabindex="0" role="region" aria-label="Table diagram, scrolls sideways on a narrow screen">
-      <svg class="erd__svg" viewBox="0 0 1000 628" role="img" aria-labelledby="erd-title erd-desc">
-        <title id="erd-title">Sandbox database tables and their relationships</title>
-        <desc id="erd-desc">{{ description }}</desc>
-        <defs>
-          <marker id="erd-one" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="12" markerHeight="12" orient="auto-start-reverse">
-            <path d="M3,1 V11" class="erd__mark" />
-          </marker>
-          <marker id="erd-many" viewBox="0 0 14 14" refX="13" refY="7" markerWidth="14" markerHeight="14" orient="auto">
-            <path d="M13,1 L3,7 L13,13 M3,7 H13 M1,1 V13" class="erd__mark" />
-          </marker>
-          <marker id="erd-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
-            <path d="M1,1 L9,5 L1,9" class="erd__mark" />
-          </marker>
-        </defs>
+    selector: "app-schema-diagram",
+    styleUrl: "./schema-diagram.scss",
+    template: `
+        <div class="erd" tabindex="0" role="region" aria-label="Table diagram, scrolls sideways on a narrow screen">
+            <svg class="erd__svg" [attr.viewBox]="viewBox" role="img" aria-labelledby="monitoring-new-erd-title monitoring-new-erd-desc">
+                <title id="monitoring-new-erd-title">LT Info tables for monitoring programs and indicators, with two proposed tables</title>
+                <desc id="monitoring-new-erd-desc">{{ description }}</desc>
+                <defs>
+                    <marker id="monitoring-new-erd-one" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="12" markerHeight="12" orient="auto-start-reverse">
+                        <path d="M3,1 V11" class="erd__mark" />
+                    </marker>
+                    <marker id="monitoring-new-erd-many" viewBox="0 0 14 14" refX="13" refY="7" markerWidth="14" markerHeight="14" orient="auto">
+                        <path d="M13,1 L3,7 L13,13 M3,7 H13 M1,1 V13" class="erd__mark" />
+                    </marker>
+                    <marker id="monitoring-new-erd-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+                        <path d="M1,1 L9,5 L1,9" class="erd__mark" />
+                    </marker>
+                </defs>
 
-        @for (link of links; track link.label) {
-          <path
-            class="erd__link"
-            [class.erd__link--dashed]="link.dashed"
-            [attr.d]="link.d"
-            [attr.marker-start]="link.start ? 'url(#erd-one)' : null"
-            [attr.marker-end]="link.end ? 'url(#erd-' + link.end + ')' : null"
-          >
-            <title>{{ link.label }}</title>
-          </path>
-        }
+                @for (link of links; track link.label) {
+                    <path
+                        class="erd__link"
+                        [class.erd__link--dashed]="link.dashed"
+                        [attr.d]="link.d"
+                        [attr.marker-start]="link.start ? 'url(#monitoring-new-erd-one)' : null"
+                        [attr.marker-end]="link.end ? 'url(#monitoring-new-erd-' + link.end + ')' : null">
+                        <title>{{ link.label }}</title>
+                    </path>
+                }
 
-        @for (e of entities; track e.id) {
-          <g class="erd__entity" [class.erd__entity--json]="e.json" [attr.data-entity]="e.id">
-            <rect class="erd__card" [attr.x]="e.x" [attr.y]="e.y" [attr.width]="width" [attr.height]="h(e)" rx="8" />
-            <path class="erd__head" [attr.d]="headPath(e)" />
-            <line class="erd__rule" [attr.x1]="e.x" [attr.x2]="e.x + width" [attr.y1]="e.y + head" [attr.y2]="e.y + head" />
-            <text class="erd__name typography-label-md-strong" [attr.x]="e.x + 12" [attr.y]="e.y + 22">{{ e.name }}</text>
-            @for (f of e.fields; track f.name; let i = $index) {
-              <text class="erd__field typography-body-sm" [attr.x]="e.x + 12" [attr.y]="row(e, i) + 4">{{ f.name }}</text>
-              @if (f.key) {
-                <text
-                  class="erd__key typography-label-xs-strong"
-                  [attr.data-key]="f.key"
-                  [attr.x]="e.x + width - 12"
-                  [attr.y]="row(e, i) + 4"
-                  text-anchor="end"
-                >{{ f.key }}</text>
-              }
-              @if (f.note) {
-                <text class="erd__note typography-body-xs" [attr.x]="e.x + width - 12" [attr.y]="row(e, i) + 4" text-anchor="end">{{ f.note }}</text>
-              }
-            }
-          </g>
-        }
+                @for (entity of entities; track entity.id) {
+                    <g class="erd__entity" [class.erd__entity--proposed]="entity.proposed" [attr.data-entity]="entity.id">
+                        <rect class="erd__card" [attr.x]="entity.x" [attr.y]="entity.y" [attr.width]="width" [attr.height]="entityHeight(entity)" rx="6" />
+                        <path class="erd__head" [attr.d]="headPath(entity)" />
+                        <line class="erd__rule" [attr.x1]="entity.x" [attr.x2]="entity.x + width" [attr.y1]="entity.y + head" [attr.y2]="entity.y + head" />
+                        <text class="erd__name" [attr.x]="entity.x + 12" [attr.y]="entity.y + 22">{{ entity.name }}</text>
+                        @if (entity.proposed) {
+                            <text class="erd__flag" [attr.x]="entity.x + width - 12" [attr.y]="entity.y + 22" text-anchor="end">Proposed</text>
+                        }
+                        @for (field of entity.fields; track field.name; let i = $index) {
+                            <text class="erd__field" [attr.x]="entity.x + 12" [attr.y]="fieldY(entity, i) + 4">{{ field.name }}</text>
+                            @if (field.key) {
+                                <text class="erd__key" [attr.data-key]="field.key" [attr.x]="entity.x + width - 12" [attr.y]="fieldY(entity, i) + 4" text-anchor="end">{{ field.key }}</text>
+                            }
+                        }
+                    </g>
+                }
 
-        @for (p of endpoints; track p.label) {
-          <g class="erd__endpoint" [attr.data-kind]="p.kind">
-            <rect [attr.x]="col" [attr.y]="p.y" [attr.width]="width" [attr.height]="endpointH" rx="20" />
-            <text class="typography-label-sm-strong" [attr.x]="col + width / 2" [attr.y]="p.y + 25" text-anchor="middle">{{ p.label }}</text>
-          </g>
-        }
-      </svg>
-    </div>
-    <ul class="erd-key typography-body-xs" aria-label="Diagram key">
-      <li><span class="erd-key__tag typography-label-xs-strong" data-key="PK">PK</span> Primary key</li>
-      <li><span class="erd-key__tag typography-label-xs-strong" data-key="FK">FK</span> Foreign key</li>
-      <li><span class="erd-key__tag typography-label-xs-strong" data-key="JSON">JSON</span> JSON text column</li>
-      <li>
-        <svg class="erd-key__line" viewBox="0 0 40 14" aria-hidden="true"><path d="M2,7 H38 M30,1 L38,7 L30,13 M38,1 V13" /></svg>
-        One to many
-      </li>
-    </ul>
-  `,
+                @for (endpoint of endpoints; track endpoint.label) {
+                    <g class="erd__endpoint">
+                        <rect [attr.x]="endpoint.x" [attr.y]="endpoint.y" [attr.width]="width" [attr.height]="endpointHeight" rx="20" />
+                        <text [attr.x]="endpoint.x + width / 2" [attr.y]="endpoint.y + 25" text-anchor="middle">{{ endpoint.label }}</text>
+                    </g>
+                }
+            </svg>
+        </div>
+        <ul class="erd-key" aria-label="Diagram key">
+            <li><span class="erd-key__tag" data-key="PK">PK</span> Primary key</li>
+            <li><span class="erd-key__tag" data-key="FK">FK</span> Foreign key</li>
+            <li><span class="erd-key__box"></span> In LT Info today</li>
+            <li><span class="erd-key__box erd-key__box--proposed"></span> Proposed table</li>
+            <li>
+                <svg class="erd-key__line" viewBox="0 0 40 14" aria-hidden="true"><path d="M2,7 H38 M30,1 L38,7 L30,13 M38,1 V13" /></svg>
+                One to many
+            </li>
+            <li>
+                <svg class="erd-key__line erd-key__line--dashed" viewBox="0 0 40 14" aria-hidden="true"><path d="M2,7 H36 M30,2 L37,7 L30,12" /></svg>
+                Proposed, or data read from a service
+            </li>
+        </ul>
+    `,
 })
 export class SchemaDiagram {
-  protected readonly entities = ENTITIES;
-  protected readonly endpoints = ENDPOINTS;
-  protected readonly links = links();
-  protected readonly width = W;
-  protected readonly head = HEAD;
-  protected readonly endpointH = ENDPOINT_H;
-  protected readonly col = COL[2];
-  protected readonly description = links()
-    .map((l) => l.label)
-    .join('. ');
+    public readonly entities = ENTITIES;
+    public readonly endpoints = ENDPOINTS;
+    public readonly links = buildLinks();
+    public readonly viewBox = `0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`;
+    public readonly width = W;
+    public readonly head = HEAD;
+    public readonly endpointHeight = ENDPOINT_H;
+    public readonly description = this.links.map((link) => link.label).join(". ");
 
-  protected h(e: Entity): number {
-    return height(e);
-  }
+    public entityHeight(entity: Entity): number {
+        return height(entity);
+    }
 
-  protected row(e: Entity, i: number): number {
-    return rowY(e, i);
-  }
+    public fieldY(entity: Entity, index: number): number {
+        return rowY(entity, index);
+    }
 
-  /** The header band: the card's top corners rounded, square at the rule. */
-  protected headPath(e: Entity): string {
-    const r = 8;
-    return `M${e.x},${e.y + HEAD} V${e.y + r} Q${e.x},${e.y} ${e.x + r},${e.y} H${e.x + W - r} Q${e.x + W},${e.y} ${e.x + W},${e.y + r} V${e.y + HEAD} Z`;
-  }
+    /** The header band: the card's top corners rounded, square at the rule. */
+    public headPath(entity: Entity): string {
+        const r = 6;
+        return `M${entity.x},${entity.y + HEAD} V${entity.y + r} Q${entity.x},${entity.y} ${entity.x + r},${entity.y} H${entity.x + W - r} Q${entity.x + W},${entity.y} ${entity.x + W},${entity.y + r} V${entity.y + HEAD} Z`;
+    }
 }

@@ -1,0 +1,32 @@
+// The LT Info theme tokens the Data Model page's styles use, mapped onto Ecology's. The page's
+// styles are copied from LT Info (LtInfo.Web/src/app/areas/monitoring-new/data-model), where
+// these names are global; here they are set on each component's host, so the copied rules work
+// unchanged and every value still comes from an Ecology token.
+
+@mixin ltinfo-tokens {
+  --color-text: var(--color-content-default);
+  --white: var(--color-background-default);
+  --gray-50: var(--color-background-elevation-sunken);
+  --gray-100: var(--color-background-elevation-sunken);
+  --gray-200: var(--color-border-default-subtle);
+  --gray-300: var(--color-border-default);
+  --gray-400: var(--color-border-default-strong);
+  --gray-600: var(--color-content-default-secondary);
+  --gray-700: var(--color-content-default-secondary);
+  --monitoring-new-accent: var(--color-content-brand);
+  --monitoring-new-accent-text: var(--color-content-brand);
+  --green-dark: var(--color-border-utility-success);
+  --green-lighter: var(--color-background-utility-success-subtle);
+  --green-darker: var(--color-content-default);
+  --red-dark: var(--color-border-utility-danger);
+  --red-lighter: var(--color-background-utility-danger-subtle);
+  --red-darker: var(--color-content-danger);
+  --border-radius-100: var(--radius-control);
+  --border-radius-200: var(--radius-card);
+  --type-size-150: 0.8125rem;
+  --type-size-200: 0.875rem;
+  --type-size-300: 1rem;
+  --type-size-400: 1.125rem;
+  --type-size-500: 1.25rem;
+  --type-size-600: 1.5rem;
+}

@@ -1,126 +1,84 @@
-// The Data Model page: the table diagram, the ingestion paths with their acceptance criteria,
-// and every chart and map traced to its source. The checks that reach maps.trpa.org are not
-// run here (a slow map server should not fail a test); the file checks are, because the app
-// serves those files itself.
-import { expect, seed, test } from './support';
+// The Data Model page, ported from LT Info's Monitoring Dashboard redesign. It reads a snapshot of
+// LT Info's monitoring-new routes from public/data/ltinfo/, not the sandbox seed, so the counts
+// here come from that snapshot, fetched from the site. The checks that reach maps.trpa.org are
+// not run (a slow map server should not fail a test).
+import { expect, test } from './support';
 
 const PATHS = [
-  'TRPA Web Service',
+  'TRPA Map Service',
   'Partner Data, TRPA Pipeline',
-  'Partner Web Service',
-  'LT Info Entered Data',
+  'Partner Map Service',
+  'LT Info Native Data',
   'Extracted File',
+  'LT Info Entered Data',
 ];
 
 test.describe('Data Model page', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/data-model');
     await expect(page.getByRole('heading', { level: 1, name: 'Data Model' })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 2, name: 'How Data Gets In' })).toBeVisible();
   });
 
-  test('draws the six tables, the settings keys, and their relationships', async ({ page }) => {
+  test('states the rule and the exception, and says the LT Info data is a snapshot', async ({ page }) => {
     await expect(page).toHaveTitle(/^Data Model \| Monitoring Dashboard/);
-    const diagram = page.locator('app-schema-diagram');
-    await expect(diagram.locator('.erd__entity')).toHaveCount(7);
-    for (const table of [
-      'MonitoringProgram',
-      'MonitoringProgramCategory',
-      'MonitoringProgramOrganization',
-      'Organization',
-      'MonitoringSite',
-      'MonitoringProgramImage',
-    ]) {
-      await expect(diagram.locator('.erd__name', { hasText: new RegExp(`^${table}$`) })).toHaveCount(1);
+    const rule = page.locator('.dm-rule');
+    await expect(rule.first()).toContainText('Every chart on the Monitoring Dashboard is an indicator in LT Info');
+    await expect(rule.nth(1)).toContainText('Transit ridership and the stormwater tools');
+    await expect(page.locator('.dm-snapshot')).toContainText(/LT Info's as of .+2026/);
+    await expect(page.locator('.dm-stat')).toHaveCount(4);
+  });
+
+  test('draws the tables with the two proposed ones and the native reader endpoint', async ({ page }) => {
+    const svg = page.locator('app-schema-diagram svg');
+    for (const table of ['IndicatorDataSource', 'MonitoringProgramLayer', 'MonitoringProgram', 'Indicator']) {
+      await expect(svg.getByText(table, { exact: true }).first()).toBeVisible();
     }
-    await expect(diagram.locator('.erd__link')).toHaveCount(9);
-    await expect(diagram.locator('.erd__key[data-key="PK"]')).toHaveCount(6);
-    // The picture has a text alternative that states each relationship.
-    await expect(diagram.locator('svg desc')).toContainText('A category has many programs');
+    await expect(svg.getByText('NativeSourceID', { exact: true })).toHaveCount(1);
+    await expect(svg.getByText('LT Info native readers', { exact: true })).toHaveCount(1);
+    await expect(page.locator('[data-table="binding-coverage"] tbody tr').first()).toBeVisible();
   });
 
-  test('lists the five ingestion paths, each with criteria a person confirms', async ({ page }) => {
-    const cards = page.locator('.path');
-    await expect(cards).toHaveCount(PATHS.length);
-    await expect(cards.locator('.path__name')).toHaveText(PATHS);
-    for (const card of await cards.all()) {
-      await expect(card.getByRole('heading', { name: 'Confirmed by a Person' })).toBeVisible();
-      await expect(card.locator('.path__facts')).toContainText('Steward');
+  test('lists the six ingestion paths, with the three native readers on their card', async ({ page }) => {
+    const paths = page.locator('.dm-path');
+    await expect(paths).toHaveCount(PATHS.length);
+    for (const [i, label] of PATHS.entries()) {
+      await expect(paths.nth(i).locator('.dm-path__name')).toHaveText(label);
     }
-    // Every path the app can test says so; data entered in LT Info has no source to query.
-    await expect(page.getByRole('heading', { name: 'Checked by the App' })).toHaveCount(4);
-    await expect(cards.filter({ hasText: 'Extracted File' }).locator('.path__facts')).toContainText(/\d+ files, \d+ uses/);
+    const native = page.locator('.dm-path[data-for-indicators="native"]');
+    await expect(native).toHaveCount(1);
+    await expect(native.locator('.dm-path__flag')).toHaveText('Transit ridership and stormwater only');
+    await expect(native.locator('[data-native-source]')).toHaveCount(3);
+    await expect(native.locator('[data-native-source="stormwater-load-reduction"]')).toContainText('CreditDeclaration');
   });
 
-  test('traces every chart and map to a source, most used first', async ({ page }) => {
-    const tiles = page.locator('.dm__tiles esa-stat');
-    await expect(tiles).toHaveCount(5);
-    const sources = page.locator('.pick');
-    await expect(sources.first()).toHaveAttribute('data-source', 'LTInfo_Monitoring');
-    await expect(sources.first()).toHaveAttribute('aria-pressed', 'true');
-    // Two services share the name Vegetation; each says which it is.
-    await expect(page.locator('.pick[data-source="Vegetation (MapServer)"]')).toHaveCount(1);
-    await expect(page.locator('.pick[data-source="Vegetation (FeatureServer)"]')).toHaveCount(1);
+  test('the register switches views and downloads the view as CSV', async ({ page }) => {
+    const dataModel = (await (await page.request.get('data/ltinfo/monitoring-new-data-model.json')).json()) as { DataSources: unknown[] };
+    const toggle = page.getByRole('group', { name: 'Register view' });
+    await expect(page.locator('[data-table="register-programs"] tbody tr').first()).toBeVisible();
 
-    const flow = page.locator('.flow');
-    await expect(flow.getByRole('heading', { level: 3 }).getByRole('link')).toHaveAttribute(
-      'href',
-      'https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer',
-    );
-    await expect(flow.locator('.flow__layer').first().locator('.layer__id')).toHaveAttribute('href', /\/MapServer\/\d+$/);
-    await expect(flow.locator('.use').first().locator('.use__program a')).toHaveAttribute('href', /\/programs\/\d+$/);
-    await expect(flow.locator('.layer-path').first()).toContainText('TRPA Web Service');
+    await toggle.getByRole('button', { name: /Scheduled Sources/ }).click();
+    await expect(toggle.getByRole('button', { name: /Scheduled Sources/ })).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('[data-table="register-scheduled"] tbody tr')).toHaveCount(dataModel.DataSources.length);
+
+    await toggle.getByRole('button', { name: /^Indicators/ }).click();
+    await expect(page.locator('[data-table="register-indicators"] tbody tr').first()).toBeVisible();
+
+    const download = page.waitForEvent('download');
+    await page.getByRole('button', { name: 'Download CSV' }).click();
+    expect((await download).suggestedFilename()).toBe('monitoring-data-model-indicators.csv');
   });
 
-  test('search narrows the sources to the matching charts and maps', async ({ page }) => {
-    const search = page.getByRole('textbox', { name: 'Search' });
-    await search.fill('lake-level.json');
-    await expect(page.locator('.pick')).toHaveCount(1);
-    await expect(page.locator('.pick')).toHaveAttribute('data-source', 'lake-level.json');
-    const use = page.locator('.use');
-    await expect(use).toHaveCount(1);
-    await expect(use.getByRole('link', { name: seed.lakeLevel.name })).toHaveAttribute('href', `/programs/${seed.lakeLevel.id}`);
-    await expect(use.locator('.use__facts')).toContainText('Climate Resilience Dashboard');
-
-    await search.fill('no such chart anywhere');
-    await expect(page.getByRole('heading', { name: /^Nothing matches/ })).toBeVisible();
-  });
-
-  test('Run Checks tests a data file and reports each result', async ({ page }) => {
-    await page.locator('.pick[data-source="lake-level.json"]').click();
-    const flow = page.locator('.flow');
-    await expect(flow.locator('.layer-path')).toContainText('Extracted File');
-    await flow.getByRole('button', { name: 'Run Checks' }).click();
-
-    await expect(flow.locator('.flow__score')).toContainText('3 passed');
-    await expect(flow.locator('.flow__score')).not.toContainText('failed');
-    await expect(flow.locator('.layer-path .check')).toContainText(/Source answers\s*[\d,]+ records/);
-    const checks = flow.locator('.use__checks .check');
-    await expect(checks).toHaveCount(2);
-    await expect(checks.nth(0)).toContainText(/Fields exist\s*\d+ of \d+ found/);
-    await expect(checks.nth(1)).toContainText('Source cited');
-  });
-
-  test('the table view lists one record per use and downloads them as CSV', async ({ page }) => {
-    await page.locator('.dm__toolbar esa-button-toggle').getByRole('radio', { name: 'Table' }).click();
-    const rows = page.locator('.inventory__table tbody tr');
-    const total = await page.locator('.inventory__count').textContent();
-    expect(total).toMatch(/^\d+ records$/);
-    await expect(rows).toHaveCount(Number(total!.split(' ')[0]));
-    await expect(page.locator('.inventory__table thead th')).toHaveText([
-      'Source',
-      'Layer',
-      'Used As',
-      'Title',
-      'Program',
-      'Fields',
-      'Filter',
-    ]);
-
-    const [download] = await Promise.all([
-      page.waitForEvent('download'),
-      page.getByRole('button', { name: 'Download CSV' }).click(),
-    ]);
-    expect(download.suggestedFilename()).toBe('monitoring-dashboard-data-sources.csv');
+  test('traces the planned sources, and the search narrows them', async ({ page }) => {
+    const sources = page.locator('.dm-source');
+    await expect(sources.first()).toBeVisible();
+    const all = await sources.count();
+    const search = page.getByLabel('Find a program, chart, layer, or field');
+    await search.fill('Yellow Cress');
+    await expect.poll(() => sources.count()).toBeLessThan(all);
+    await expect(sources.first()).toBeVisible();
+    await search.fill('zzzz-no-such-thing');
+    await expect(page.locator('.dm-empty')).toContainText('Nothing matches');
   });
 
   test('About Monitoring links to the page', async ({ page }) => {
@@ -133,12 +91,13 @@ test.describe('Data Model page', () => {
 test.describe('Data Model page at 375 px wide', () => {
   test.use({ viewport: { width: 375, height: 800 } });
 
-  test('does not scroll sideways; the table diagram scrolls in its own box', async ({ page }) => {
+  test('does not scroll sideways; the diagram and the register scroll in their own boxes', async ({ page }) => {
     await page.goto('/data-model');
-    await expect(page.locator('.pick').first()).toBeVisible();
+    await expect(page.locator('.dm-path').first()).toBeVisible();
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(overflow).toBeLessThanOrEqual(0);
-    const erd = page.locator('.erd');
-    expect(await erd.evaluate((el) => el.scrollWidth > el.clientWidth)).toBe(true);
+    for (const box of ['.erd', '.dm-register']) {
+      expect(await page.locator(box).evaluate((el) => el.scrollWidth > el.clientWidth)).toBe(true);
+    }
   });
 });

@@ -1,0 +1,6676 @@
+{
+ "Programs": [
+  {
+   "MonitoringProgramID": 1,
+   "MonitoringProgramName": "Recreation Threshold Monitoring",
+   "CategoryName": "Recreation"
+  },
+  {
+   "MonitoringProgramID": 2,
+   "MonitoringProgramName": "Osprey",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 3,
+   "MonitoringProgramName": "Wintering Bald Eagle",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 4,
+   "MonitoringProgramName": "Nesting Bald Eagle",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 5,
+   "MonitoringProgramName": "Golden Eagle",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 6,
+   "MonitoringProgramName": "Peregrine Falcon",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 7,
+   "MonitoringProgramName": "Waterfowl",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 8,
+   "MonitoringProgramName": "Watercraft Noise",
+   "CategoryName": "Noise"
+  },
+  {
+   "MonitoringProgramID": 9,
+   "MonitoringProgramName": "Cumulative Noise Events",
+   "CategoryName": "Noise"
+  },
+  {
+   "MonitoringProgramID": 10,
+   "MonitoringProgramName": "Phytoplankton Primary Productivity",
+   "CategoryName": "Water Quality"
+  },
+  {
+   "MonitoringProgramID": 11,
+   "MonitoringProgramName": "Vertical Extinction Coefficient",
+   "CategoryName": "Water Quality"
+  },
+  {
+   "MonitoringProgramID": 12,
+   "MonitoringProgramName": "Nearshore Turbidity Monitoring",
+   "CategoryName": "Water Quality"
+  },
+  {
+   "MonitoringProgramID": 13,
+   "MonitoringProgramName": "Periphyton",
+   "CategoryName": "Water Quality"
+  },
+  {
+   "MonitoringProgramID": 14,
+   "MonitoringProgramName": "Aquatic Invasive Plants",
+   "CategoryName": "Aquatic Invasive Species"
+  },
+  {
+   "MonitoringProgramID": 15,
+   "MonitoringProgramName": "LTIMP",
+   "CategoryName": "Water Quality"
+  },
+  {
+   "MonitoringProgramID": 16,
+   "MonitoringProgramName": "Regional Stormwater Monitoring",
+   "CategoryName": "Water Quality"
+  },
+  {
+   "MonitoringProgramID": 17,
+   "MonitoringProgramName": "Vegetation Type",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 18,
+   "MonitoringProgramName": "Meadow and Wetland Vegetation",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 19,
+   "MonitoringProgramName": "Deciduous Riparian Vegetation",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 20,
+   "MonitoringProgramName": "Shrub Abundance",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 21,
+   "MonitoringProgramName": "Yellow Pine and Red Fir Abundance",
+   "CategoryName": "Forest Structure"
+  },
+  {
+   "MonitoringProgramID": 22,
+   "MonitoringProgramName": "Deep Water Plants",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 23,
+   "MonitoringProgramName": "Upper Truckee Marsh",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 24,
+   "MonitoringProgramName": "Taylor Creek Marsh",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 25,
+   "MonitoringProgramName": "Pope Marsh",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 26,
+   "MonitoringProgramName": "Carbon Monoxide (CO)",
+   "CategoryName": "Air Quality"
+  },
+  {
+   "MonitoringProgramID": 27,
+   "MonitoringProgramName": "Fish Habitat Mapping",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 29,
+   "MonitoringProgramName": "Northern Goshawk",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 32,
+   "MonitoringProgramName": "Stream Habitat Condition",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 33,
+   "MonitoringProgramName": "Bicycle and Pedestrian",
+   "CategoryName": "Transportation and Sustainable Communities"
+  },
+  {
+   "MonitoringProgramID": 34,
+   "MonitoringProgramName": "Safety",
+   "CategoryName": "Transportation and Sustainable Communities"
+  },
+  {
+   "MonitoringProgramID": 36,
+   "MonitoringProgramName": "Transit",
+   "CategoryName": "Transportation and Sustainable Communities"
+  },
+  {
+   "MonitoringProgramID": 39,
+   "MonitoringProgramName": "Tahoe Yellow Cress Monitoring",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 40,
+   "MonitoringProgramName": "Winter Traffic Volume, Presidents' Weekend",
+   "CategoryName": "Air Quality"
+  },
+  {
+   "MonitoringProgramID": 41,
+   "MonitoringProgramName": "Ozone (O3)",
+   "CategoryName": "Air Quality"
+  },
+  {
+   "MonitoringProgramID": 42,
+   "MonitoringProgramName": "Oxides of Nitrogen (NOX)",
+   "CategoryName": "Air Quality"
+  },
+  {
+   "MonitoringProgramID": 43,
+   "MonitoringProgramName": "Regional Visibility",
+   "CategoryName": "Air Quality"
+  },
+  {
+   "MonitoringProgramID": 44,
+   "MonitoringProgramName": "Sub-Regional Visibility",
+   "CategoryName": "Air Quality"
+  },
+  {
+   "MonitoringProgramID": 45,
+   "MonitoringProgramName": "Particulate Matter 10",
+   "CategoryName": "Air Quality"
+  },
+  {
+   "MonitoringProgramID": 46,
+   "MonitoringProgramName": "Particulate Matter 2.5",
+   "CategoryName": "Air Quality"
+  },
+  {
+   "MonitoringProgramID": 47,
+   "MonitoringProgramName": "Vehicle Miles Traveled",
+   "CategoryName": "Transportation and Sustainable Communities"
+  },
+  {
+   "MonitoringProgramID": 48,
+   "MonitoringProgramName": "Land Coverage",
+   "CategoryName": "Soil Conservation"
+  },
+  {
+   "MonitoringProgramID": 49,
+   "MonitoringProgramName": "SEZ Basin-wide Monitoring and Assessment Plan",
+   "CategoryName": "Soil Conservation"
+  },
+  {
+   "MonitoringProgramID": 50,
+   "MonitoringProgramName": "Osgood Swamp",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 51,
+   "MonitoringProgramName": "Hell Hole Sphagnum Fen",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 52,
+   "MonitoringProgramName": "Grass Lake Sphagnum Fen",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 53,
+   "MonitoringProgramName": "Freel Peak Cushion Plant Community",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 54,
+   "MonitoringProgramName": "Tahoe Draba",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 55,
+   "MonitoringProgramName": "Long-Petaled Lewisia",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 56,
+   "MonitoringProgramName": "Cup Lake Draba",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 57,
+   "MonitoringProgramName": "Galena Creek Rockcress",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 58,
+   "MonitoringProgramName": "Late Seral and Old Growth Forest",
+   "CategoryName": "Forest Structure"
+  },
+  {
+   "MonitoringProgramID": 59,
+   "MonitoringProgramName": "Scenic Monitoring",
+   "CategoryName": "Scenic Resources"
+  },
+  {
+   "MonitoringProgramID": 60,
+   "MonitoringProgramName": "Aircraft Noise",
+   "CategoryName": "Noise"
+  },
+  {
+   "MonitoringProgramID": 61,
+   "MonitoringProgramName": "Noise - Plan Areas",
+   "CategoryName": "Noise"
+  },
+  {
+   "MonitoringProgramID": 62,
+   "MonitoringProgramName": "Noise - Shorezone",
+   "CategoryName": "Noise"
+  },
+  {
+   "MonitoringProgramID": 63,
+   "MonitoringProgramName": "Stream Bioassessment and Physical Habitat",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 64,
+   "MonitoringProgramName": "Traffic Volumes",
+   "CategoryName": "Transportation and Sustainable Communities"
+  },
+  {
+   "MonitoringProgramID": 65,
+   "MonitoringProgramName": "Noise - Highways",
+   "CategoryName": "Noise"
+  },
+  {
+   "MonitoringProgramID": 66,
+   "MonitoringProgramName": "Pelagic Water Quality (Clarity)",
+   "CategoryName": "Water Quality"
+  },
+  {
+   "MonitoringProgramID": 69,
+   "MonitoringProgramName": "Travel Behavior",
+   "CategoryName": "Transportation and Sustainable Communities"
+  },
+  {
+   "MonitoringProgramID": 73,
+   "MonitoringProgramName": "Nitrogen Dioxide (NO2)",
+   "CategoryName": "Air Quality"
+  },
+  {
+   "MonitoringProgramID": 74,
+   "MonitoringProgramName": "Lahontan Cutthroat Trout Recovery",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 76,
+   "MonitoringProgramName": "Nearshore Human Health, E. coli Monitoring",
+   "CategoryName": "Water Quality"
+  },
+  {
+   "MonitoringProgramID": 77,
+   "MonitoringProgramName": "Congestion-Travel Time",
+   "CategoryName": "Transportation and Sustainable Communities"
+  },
+  {
+   "MonitoringProgramID": 78,
+   "MonitoringProgramName": "Aquatic Plant Survey Zones",
+   "CategoryName": "Aquatic Invasive Species"
+  },
+  {
+   "MonitoringProgramID": 81,
+   "MonitoringProgramName": "EcObject Forest Monitoring",
+   "CategoryName": "Forest Structure"
+  },
+  {
+   "MonitoringProgramID": 82,
+   "MonitoringProgramName": "Harmful Algae Bloom (HAB) Monitoring",
+   "CategoryName": "Water Quality"
+  },
+  {
+   "MonitoringProgramID": 83,
+   "MonitoringProgramName": "Subalpine Conifer",
+   "CategoryName": "Forest Structure"
+  },
+  {
+   "MonitoringProgramID": 9034,
+   "MonitoringProgramName": "Submerged Aquatic Vegetation",
+   "CategoryName": "Aquatic Invasive Species"
+  },
+  {
+   "MonitoringProgramID": 9093,
+   "MonitoringProgramName": "Watercraft Inspections",
+   "CategoryName": "Aquatic Invasive Species"
+  },
+  {
+   "MonitoringProgramID": 9621,
+   "MonitoringProgramName": "Instream Flow",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 9622,
+   "MonitoringProgramName": "Stream Intakes Diverted to Lake Sources",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 9680,
+   "MonitoringProgramName": "Limit Size of New Forest Openings",
+   "CategoryName": "Forest Structure"
+  },
+  {
+   "MonitoringProgramID": 9681,
+   "MonitoringProgramName": "Stand Composition and Age",
+   "CategoryName": "Forest Structure"
+  },
+  {
+   "MonitoringProgramID": 9682,
+   "MonitoringProgramName": "Stream Environment Zone Vegetation",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 9683,
+   "MonitoringProgramName": "Native Vegetation and Land Capability",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 9684,
+   "MonitoringProgramName": "Appropriate Forest Management Practices",
+   "CategoryName": "Forest Structure"
+  },
+  {
+   "MonitoringProgramID": 9756,
+   "MonitoringProgramName": "Riparian Habitat",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 9765,
+   "MonitoringProgramName": "Deer Disturbance-Free Zone",
+   "CategoryName": "Biodiversity"
+  },
+  {
+   "MonitoringProgramID": 9777,
+   "MonitoringProgramName": "Phosphorus Load Reduction",
+   "CategoryName": "Water Quality"
+  },
+  {
+   "MonitoringProgramID": 9778,
+   "MonitoringProgramName": "Nitrogen Load Reduction",
+   "CategoryName": "Water Quality"
+  },
+  {
+   "MonitoringProgramID": 9779,
+   "MonitoringProgramName": "Fine Sediment Load Reduction",
+   "CategoryName": "Water Quality"
+  },
+  {
+   "MonitoringProgramID": 9786,
+   "MonitoringProgramName": "No Active Aquatic Invasive Plant Infestations",
+   "CategoryName": "Aquatic Invasive Species"
+  },
+  {
+   "MonitoringProgramID": 9787,
+   "MonitoringProgramName": "Aquatic Invasive Plants in the Tahoe Keys",
+   "CategoryName": "Aquatic Invasive Species"
+  },
+  {
+   "MonitoringProgramID": 9789,
+   "MonitoringProgramName": "Stand Density",
+   "CategoryName": "Forest Structure"
+  },
+  {
+   "MonitoringProgramID": 9790,
+   "MonitoringProgramName": "Seral Stage and Canopy Cover",
+   "CategoryName": "Forest Structure"
+  },
+  {
+   "MonitoringProgramID": 9794,
+   "MonitoringProgramName": "Large Trees",
+   "CategoryName": "Forest Structure"
+  },
+  {
+   "MonitoringProgramID": 9795,
+   "MonitoringProgramName": "Tree Mortality",
+   "CategoryName": "Forest Structure"
+  },
+  {
+   "MonitoringProgramID": 9796,
+   "MonitoringProgramName": "Annual Burn Probability",
+   "CategoryName": "Fire Dynamics"
+  },
+  {
+   "MonitoringProgramID": 9797,
+   "MonitoringProgramName": "Likely Fire Severity",
+   "CategoryName": "Fire Dynamics"
+  },
+  {
+   "MonitoringProgramID": 9798,
+   "MonitoringProgramName": "Area Burned",
+   "CategoryName": "Fire Dynamics"
+  },
+  {
+   "MonitoringProgramID": 9901,
+   "MonitoringProgramName": "Population",
+   "CategoryName": "Demographics"
+  },
+  {
+   "MonitoringProgramID": 9902,
+   "MonitoringProgramName": "Age",
+   "CategoryName": "Demographics"
+  },
+  {
+   "MonitoringProgramID": 9903,
+   "MonitoringProgramName": "Race and Ethnicity",
+   "CategoryName": "Demographics"
+  },
+  {
+   "MonitoringProgramID": 9904,
+   "MonitoringProgramName": "Housing",
+   "CategoryName": "Housing and Economy"
+  },
+  {
+   "MonitoringProgramID": 9905,
+   "MonitoringProgramName": "Income",
+   "CategoryName": "Housing and Economy"
+  },
+  {
+   "MonitoringProgramID": 9911,
+   "MonitoringProgramName": "Greenhouse Gas Emissions",
+   "CategoryName": "Climate and Lake Conditions"
+  },
+  {
+   "MonitoringProgramID": 9912,
+   "MonitoringProgramName": "Air Quality and Wildfire Smoke",
+   "CategoryName": "Climate and Lake Conditions"
+  },
+  {
+   "MonitoringProgramID": 9913,
+   "MonitoringProgramName": "Lake Level",
+   "CategoryName": "Climate and Lake Conditions"
+  },
+  {
+   "MonitoringProgramID": 9914,
+   "MonitoringProgramName": "Lake Surface Temperature",
+   "CategoryName": "Climate and Lake Conditions"
+  },
+  {
+   "MonitoringProgramID": 9915,
+   "MonitoringProgramName": "Precipitation and Snow",
+   "CategoryName": "Climate and Lake Conditions"
+  },
+  {
+   "MonitoringProgramID": 9916,
+   "MonitoringProgramName": "Renewable Energy",
+   "CategoryName": "Climate and Lake Conditions"
+  },
+  {
+   "MonitoringProgramID": 9921,
+   "MonitoringProgramName": "Deed-Restricted Housing",
+   "CategoryName": "Housing and Economy"
+  },
+  {
+   "MonitoringProgramID": 9922,
+   "MonitoringProgramName": "Home Prices and Rents",
+   "CategoryName": "Housing and Economy"
+  },
+  {
+   "MonitoringProgramID": 9924,
+   "MonitoringProgramName": "Transient Occupancy Tax",
+   "CategoryName": "Housing and Economy"
+  },
+  {
+   "MonitoringProgramID": 9925,
+   "MonitoringProgramName": "Jobs and Wages",
+   "CategoryName": "Housing and Economy"
+  },
+  {
+   "MonitoringProgramID": 9926,
+   "MonitoringProgramName": "Affordable and Workforce Housing",
+   "CategoryName": "Housing and Economy"
+  },
+  {
+   "MonitoringProgramID": 9931,
+   "MonitoringProgramName": "SMART Traffic Cameras",
+   "CategoryName": "Transportation and Sustainable Communities"
+  },
+  {
+   "MonitoringProgramID": 9932,
+   "MonitoringProgramName": "Calcium and eDNA Sampling",
+   "CategoryName": "Aquatic Invasive Species"
+  },
+  {
+   "MonitoringProgramID": 9933,
+   "MonitoringProgramName": "Visitation and Lodging",
+   "CategoryName": "Housing and Economy"
+  },
+  {
+   "MonitoringProgramID": 9934,
+   "MonitoringProgramName": "Transit Ridership",
+   "CategoryName": "Transportation and Sustainable Communities"
+  },
+  {
+   "MonitoringProgramID": 9935,
+   "MonitoringProgramName": "Travel Mode Share",
+   "CategoryName": "Transportation and Sustainable Communities"
+  }
+ ],
+ "Uses": [
+  {
+   "MonitoringProgramID": 1,
+   "Kind": "chart",
+   "Title": "PAOT allocations by category",
+   "Fields": [
+    "PAOT_Categories",
+    "Assigned_2015_Evaluation",
+    "Assigned_2015_2019",
+    "PAOTs_Remaining"
+   ],
+   "ValueFields": [
+    "Assigned_2015_Evaluation",
+    "Assigned_2015_2019",
+    "PAOTs_Remaining"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 57
+  },
+  {
+   "MonitoringProgramID": 1,
+   "Kind": "chart",
+   "Title": "PAOTs assigned each year",
+   "Fields": [
+    "Year",
+    "Value"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 59
+  },
+  {
+   "MonitoringProgramID": 1,
+   "Kind": "sites",
+   "Title": "Monitoring recreation sites",
+   "Fields": [
+    "RECREATION_NAME",
+    "OWNERSHIP"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Recreation/MapServer",
+   "SourceKind": "service",
+   "Layer": 1
+  },
+  {
+   "MonitoringProgramID": 2,
+   "Kind": "chart",
+   "Title": "Active osprey nests",
+   "Fields": [
+    "Year",
+    "Total",
+    "Threshold_Value"
+   ],
+   "ValueFields": [
+    "Total"
+   ],
+   "VirtualFields": [],
+   "Where": "Wildlife_Species = 'Osprey'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 96
+  },
+  {
+   "MonitoringProgramID": 2,
+   "Kind": "map",
+   "Title": "Osprey nest buffers",
+   "Fields": [
+    "NEST_ID",
+    "NEST_STATUS",
+    "Year"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Wildlife_Activity/MapServer",
+   "SourceKind": "service",
+   "Layer": 3
+  },
+  {
+   "MonitoringProgramID": 3,
+   "Kind": "chart",
+   "Title": "Wintering bald eagles",
+   "Fields": [
+    "Year",
+    "Total"
+   ],
+   "ValueFields": [
+    "Total"
+   ],
+   "VirtualFields": [],
+   "Where": "Wildlife_Species = 'Bald Eagle - winter'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 96
+  },
+  {
+   "MonitoringProgramID": 3,
+   "Kind": "map",
+   "Title": "Bald eagle winter habitat",
+   "Fields": [
+    "WINTER_HABITAT"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Wildlife_Habitat/MapServer",
+   "SourceKind": "service",
+   "Layer": 1
+  },
+  {
+   "MonitoringProgramID": 4,
+   "Kind": "chart",
+   "Title": "Active bald eagle nests",
+   "Fields": [
+    "Year",
+    "Total",
+    "Threshold_Value"
+   ],
+   "ValueFields": [
+    "Total"
+   ],
+   "VirtualFields": [],
+   "Where": "Wildlife_Species = 'Bald Eagle - nesting'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 96
+  },
+  {
+   "MonitoringProgramID": 4,
+   "Kind": "chart",
+   "Title": "Wintering bald eagles",
+   "Fields": [
+    "Year",
+    "Total"
+   ],
+   "ValueFields": [
+    "Total"
+   ],
+   "VirtualFields": [],
+   "Where": "Wildlife_Species = 'Bald Eagle - winter'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 96
+  },
+  {
+   "MonitoringProgramID": 4,
+   "Kind": "map",
+   "Title": "Bald eagle nest buffers",
+   "Fields": [
+    "Nest_Name",
+    "Years_Active",
+    "Years_Reproductive"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Wildlife_Activity/MapServer",
+   "SourceKind": "service",
+   "Layer": 0
+  },
+  {
+   "MonitoringProgramID": 5,
+   "Kind": "map",
+   "Title": "Golden eagle nest buffers",
+   "Fields": [
+    "Species",
+    "Buffer_Distance"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Wildlife_Activity/MapServer",
+   "SourceKind": "service",
+   "Layer": 1
+  },
+  {
+   "MonitoringProgramID": 6,
+   "Kind": "chart",
+   "Title": "Active peregrine falcon nests",
+   "Fields": [
+    "Year",
+    "Total",
+    "Threshold_Value"
+   ],
+   "ValueFields": [
+    "Total"
+   ],
+   "VirtualFields": [],
+   "Where": "Wildlife_Species = 'Peregrine Falcon'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 96
+  },
+  {
+   "MonitoringProgramID": 6,
+   "Kind": "map",
+   "Title": "Peregrine falcon nest buffers",
+   "Fields": [
+    "SITE_NAME",
+    "Years_Used"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Wildlife_Activity/MapServer",
+   "SourceKind": "service",
+   "Layer": 2
+  },
+  {
+   "MonitoringProgramID": 7,
+   "Kind": "chart",
+   "Title": "Average human activity rating",
+   "Fields": [
+    "Year",
+    "Total"
+   ],
+   "ValueFields": [
+    "Total"
+   ],
+   "VirtualFields": [],
+   "Where": "Wildlife_Species = 'Waterfowl'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 96
+  },
+  {
+   "MonitoringProgramID": 7,
+   "Kind": "chart",
+   "Title": "Human activity rating by site",
+   "Fields": [
+    "Year",
+    "value",
+    "Name"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [
+    "Year",
+    "value"
+   ],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 94
+  },
+  {
+   "MonitoringProgramID": 7,
+   "Kind": "map",
+   "Title": "Waterfowl habitat",
+   "Fields": [
+    "NAME"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Wildlife_Habitat/MapServer",
+   "SourceKind": "service",
+   "Layer": 2
+  },
+  {
+   "MonitoringProgramID": 8,
+   "Kind": "chart",
+   "Title": "Watercraft noise exceedances by site",
+   "Fields": [
+    "YEAR_OF_COUNT",
+    "COUNT_VALUE",
+    "SITE_NAME"
+   ],
+   "ValueFields": [
+    "COUNT_VALUE"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 7
+  },
+  {
+   "MonitoringProgramID": 8,
+   "Kind": "sites",
+   "Title": "Monitoring sites",
+   "Fields": [
+    "SITE_NAME",
+    "YEAR_OF_COUNT"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 7
+  },
+  {
+   "MonitoringProgramID": 8,
+   "Kind": "sites-per-year",
+   "Title": "Sites monitored each year",
+   "Fields": [
+    "YEAR_OF_COUNT",
+    "SITE_NAME"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 7
+  },
+  {
+   "MonitoringProgramID": 9,
+   "Kind": "chart",
+   "Title": "Noise in critical wildlife habitat",
+   "Fields": [
+    "Year",
+    "Value",
+    "Threshold_Value"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "Category = 'Critical Wildlife Habitat'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 74
+  },
+  {
+   "MonitoringProgramID": 9,
+   "Kind": "chart",
+   "Title": "Critical wildlife habitat noise by site",
+   "Fields": [
+    "YEAR_OF_COUNT",
+    "COUNT_VALUE",
+    "SITE_NAME"
+   ],
+   "ValueFields": [
+    "COUNT_VALUE"
+   ],
+   "VirtualFields": [],
+   "Where": "CNEL_LAND_USE = 'CRITICAL WILDLIFE HABITAT'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 6
+  },
+  {
+   "MonitoringProgramID": 9,
+   "Kind": "chart",
+   "Title": "Noise in transportation corridors",
+   "Fields": [
+    "YEAR_OF_COUNT",
+    "CNEL_AVG_VALUE",
+    "SITE_NAME",
+    "HIGHWAY",
+    "CNEL_LIMIT"
+   ],
+   "ValueFields": [
+    "CNEL_AVG_VALUE"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 11
+  },
+  {
+   "MonitoringProgramID": 9,
+   "Kind": "sites",
+   "Title": "Monitoring sites",
+   "Fields": [
+    "SITE_NAME",
+    "YEAR_OF_COUNT"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "CNEL_LAND_USE = 'CRITICAL WILDLIFE HABITAT'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 6
+  },
+  {
+   "MonitoringProgramID": 9,
+   "Kind": "sites-per-year",
+   "Title": "Sites monitored each year",
+   "Fields": [
+    "YEAR_OF_COUNT",
+    "SITE_NAME"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "CNEL_LAND_USE = 'CRITICAL WILDLIFE HABITAT'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 6
+  },
+  {
+   "MonitoringProgramID": 10,
+   "Kind": "chart",
+   "Title": "Phytoplankton primary productivity",
+   "Fields": [
+    "Year",
+    "Primary_Productivity"
+   ],
+   "ValueFields": [
+    "Primary_Productivity"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 75
+  },
+  {
+   "MonitoringProgramID": 11,
+   "Kind": "chart",
+   "Title": "Vertical extinction coefficient",
+   "Fields": [
+    "Year",
+    "Annual_Average",
+    "sd_plus1",
+    "sd_minus1",
+    "State_Standard"
+   ],
+   "ValueFields": [
+    "Annual_Average",
+    "sd_plus1",
+    "sd_minus1"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 89
+  },
+  {
+   "MonitoringProgramID": 12,
+   "Kind": "chart",
+   "Title": "Nearshore turbidity by location",
+   "Fields": [
+    "Year",
+    "value",
+    "Location"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [
+    "Year",
+    "value"
+   ],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 111
+  },
+  {
+   "MonitoringProgramID": 12,
+   "Kind": "chart",
+   "Title": "Turbidity at one location",
+   "Fields": [
+    "Year",
+    "value",
+    "Location"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [
+    "Year",
+    "value"
+   ],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 111
+  },
+  {
+   "MonitoringProgramID": 13,
+   "Kind": "chart",
+   "Title": "Periphyton at routine sites",
+   "Fields": [
+    "Date",
+    "value",
+    "id"
+   ],
+   "ValueFields": [
+    "value"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 21
+  },
+  {
+   "MonitoringProgramID": 13,
+   "Kind": "sites",
+   "Title": "Monitoring sites",
+   "Fields": [
+    "SITE_NAME",
+    "SiteClass"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 102
+  },
+  {
+   "MonitoringProgramID": 13,
+   "Kind": "sites-per-year",
+   "Title": "Sites monitored each year",
+   "Fields": [
+    "Date",
+    "id"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 21
+  },
+  {
+   "MonitoringProgramID": 14,
+   "Kind": "chart",
+   "Title": "Invasive plant acres by location",
+   "Fields": [
+    "Location",
+    "Eurasian_Watermilfoil",
+    "Curlyleaf_Pondweed"
+   ],
+   "ValueFields": [
+    "Eurasian_Watermilfoil",
+    "Curlyleaf_Pondweed"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 95
+  },
+  {
+   "MonitoringProgramID": 14,
+   "Kind": "chart",
+   "Title": "Control sites by status",
+   "Fields": [
+    "Threshold_Status_2023",
+    "OBJECTID"
+   ],
+   "ValueFields": [
+    "OBJECTID"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "count",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 114
+  },
+  {
+   "MonitoringProgramID": 14,
+   "Kind": "chart",
+   "Title": "Control sites by infestation status",
+   "Fields": [
+    "Infest_Status_2024",
+    "OBJECTID"
+   ],
+   "ValueFields": [
+    "OBJECTID"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "count",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 114
+  },
+  {
+   "MonitoringProgramID": 14,
+   "Kind": "sites",
+   "Title": "Monitoring sites",
+   "Fields": [
+    "Site_Name",
+    "Threshold_Status_2023"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 114
+  },
+  {
+   "MonitoringProgramID": 15,
+   "Kind": "chart",
+   "Title": "Suspended sediment",
+   "Fields": [
+    "Year",
+    "AnnualAverage"
+   ],
+   "ValueFields": [
+    "AnnualAverage"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 85
+  },
+  {
+   "MonitoringProgramID": 15,
+   "Kind": "chart",
+   "Title": "Total phosphorus",
+   "Fields": [
+    "Year",
+    "AverageTotalPhosphorousConcentr"
+   ],
+   "ValueFields": [
+    "AverageTotalPhosphorousConcentr"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 88
+  },
+  {
+   "MonitoringProgramID": 15,
+   "Kind": "chart",
+   "Title": "Total nitrogen",
+   "Fields": [
+    "Year",
+    "AverageTotalNitrogenConcentrati"
+   ],
+   "ValueFields": [
+    "AverageTotalNitrogenConcentrati"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 87
+  },
+  {
+   "MonitoringProgramID": 15,
+   "Kind": "chart",
+   "Title": "Total phosphorus samples",
+   "Fields": [
+    "SampleDate_Time",
+    "TotalPhosphorus",
+    "SiteName",
+    "State_Standard"
+   ],
+   "ValueFields": [
+    "TotalPhosphorus"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 100
+  },
+  {
+   "MonitoringProgramID": 15,
+   "Kind": "chart",
+   "Title": "Total nitrogen samples",
+   "Fields": [
+    "SampleDatetime",
+    "Total_Nitrogen",
+    "SiteName",
+    "State_Standard"
+   ],
+   "ValueFields": [
+    "Total_Nitrogen"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 101
+  },
+  {
+   "MonitoringProgramID": 15,
+   "Kind": "sites",
+   "Title": "Monitoring stations",
+   "Fields": [
+    "station_nm",
+    "site_no"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 33
+  },
+  {
+   "MonitoringProgramID": 15,
+   "Kind": "sites-per-year",
+   "Title": "Stations monitored each year",
+   "Fields": [
+    "SampleDatetime",
+    "SiteName"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 99
+  },
+  {
+   "MonitoringProgramID": 15,
+   "Kind": "profile",
+   "Title": "Site profile record",
+   "Fields": [
+    "SampleDate_Time",
+    "TotalPhosphorus",
+    "SiteName"
+   ],
+   "ValueFields": [
+    "TotalPhosphorus"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "avg",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 100
+  },
+  {
+   "MonitoringProgramID": 17,
+   "Kind": "chart",
+   "Title": "Undisturbed acres by vegetation community",
+   "Fields": [
+    "TRPA_VegType",
+    "SUM_Acres"
+   ],
+   "ValueFields": [
+    "SUM_Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "Development = 'Undeveloped' AND TRPA_VegType <> ''",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 91
+  },
+  {
+   "MonitoringProgramID": 17,
+   "Kind": "chart",
+   "Title": "Habitat types within each community",
+   "Fields": [
+    "TRPA_VegType",
+    "SUM_Acres",
+    "WHRTYPE"
+   ],
+   "ValueFields": [
+    "SUM_Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "Development = 'Undeveloped' AND TRPA_VegType <> ''",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 91
+  },
+  {
+   "MonitoringProgramID": 18,
+   "Kind": "chart",
+   "Title": "Meadow and wetland acres",
+   "Fields": [
+    "Development",
+    "SUM_Acres",
+    "TRPA_VegType"
+   ],
+   "ValueFields": [
+    "SUM_Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "TRPA_VegType IN ('Meadow','Wetland')",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 91
+  },
+  {
+   "MonitoringProgramID": 19,
+   "Kind": "chart",
+   "Title": "Deciduous riparian acres",
+   "Fields": [
+    "Development",
+    "SUM_Acres",
+    "WHRTYPE"
+   ],
+   "ValueFields": [
+    "SUM_Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "TRPA_VegType = 'Deciduous Riparian'",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 91
+  },
+  {
+   "MonitoringProgramID": 20,
+   "Kind": "chart",
+   "Title": "Shrub acres",
+   "Fields": [
+    "Development",
+    "SUM_Acres",
+    "WHRTYPE"
+   ],
+   "ValueFields": [
+    "SUM_Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "TRPA_VegType = 'Shrub'",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 91
+  },
+  {
+   "MonitoringProgramID": 21,
+   "Kind": "chart",
+   "Title": "Yellow pine and red fir forest by successional stage",
+   "Fields": [
+    "Top_Succes",
+    "Acres",
+    "TRPA_VegType"
+   ],
+   "ValueFields": [
+    "Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "TRPA_VegType IN ('Yellow Pine Forest','Red Fir Forest') AND Top_Succes <> ''",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 98
+  },
+  {
+   "MonitoringProgramID": 21,
+   "Kind": "chart",
+   "Title": "Jeffrey pine and red fir dominated stands outside the mature stage",
+   "Fields": [
+    "Top_Succes",
+    "Acres",
+    "REGIONAL_DOMINANCE_TYPE_1"
+   ],
+   "ValueFields": [
+    "Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "REGIONAL_DOMINANCE_TYPE_1 IN ('JP','RF') AND Top_Succes NOT IN ('Mature','')",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 98
+  },
+  {
+   "MonitoringProgramID": 22,
+   "Kind": "chart",
+   "Title": "Deepwater plants by depth",
+   "Fields": [
+    "Depth (m)",
+    "Percent",
+    "Period"
+   ],
+   "ValueFields": [
+    "Percent"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "Threshold Dashboard chart (image)",
+   "Source": "data/threshold-evaluation/deep-water-plants.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 23,
+   "Kind": "chart",
+   "Title": "Overall condition score",
+   "Fields": [
+    "Threshold_Year",
+    "Final_Percent",
+    "Assessment_Unit_Name"
+   ],
+   "ValueFields": [
+    "Final_Percent"
+   ],
+   "VirtualFields": [],
+   "Where": "Assessment_Unit_Name IN ('UTR marsh - Trout Creek side', 'UTR Marsh - UTR side') AND SEZ_Type LIKE '%Meadow%'",
+   "Statistic": "avg",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 106
+  },
+  {
+   "MonitoringProgramID": 23,
+   "Kind": "chart",
+   "Title": "Vegetation indicator scores",
+   "Fields": [
+    "Threshold_Year",
+    "VegetationVigor_Score",
+    "Invasives_Scores",
+    "Conifer_Encroachment_Score",
+    "Assessment_Unit_Name"
+   ],
+   "ValueFields": [
+    "VegetationVigor_Score",
+    "Invasives_Scores",
+    "Conifer_Encroachment_Score"
+   ],
+   "VirtualFields": [],
+   "Where": "Assessment_Unit_Name IN ('UTR marsh - Trout Creek side', 'UTR Marsh - UTR side') AND SEZ_Type LIKE '%Meadow%'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 106
+  },
+  {
+   "MonitoringProgramID": 23,
+   "Kind": "map",
+   "Title": "SEZ assessment unit",
+   "Fields": [
+    "Assessment_Unit_Name",
+    "Final_Rating",
+    "Threshold_Year",
+    "Final_Percent",
+    "VegetationVigor_Rating",
+    "Invasive_Rating",
+    "Conifer_Encroachment_Rating",
+    "Acres"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "Assessment_Unit_Name IN ('UTR marsh - Trout Creek side', 'UTR Marsh - UTR side')",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 106
+  },
+  {
+   "MonitoringProgramID": 23,
+   "Kind": "overlay",
+   "Title": "Aquatic vegetation survey zones",
+   "Fields": [
+    "Location_1",
+    "Strata"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "Location_1 LIKE 'Upper Truckee Marsh%'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 42
+  },
+  {
+   "MonitoringProgramID": 24,
+   "Kind": "chart",
+   "Title": "Overall condition score",
+   "Fields": [
+    "Threshold_Year",
+    "Final_Percent",
+    "Assessment_Unit_Name"
+   ],
+   "ValueFields": [
+    "Final_Percent"
+   ],
+   "VirtualFields": [],
+   "Where": "Assessment_Unit_Name IN ('Taylor Creek marsh') AND SEZ_Type LIKE '%Meadow%'",
+   "Statistic": "avg",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 106
+  },
+  {
+   "MonitoringProgramID": 24,
+   "Kind": "chart",
+   "Title": "Vegetation indicator scores",
+   "Fields": [
+    "Threshold_Year",
+    "VegetationVigor_Score",
+    "Invasives_Scores",
+    "Conifer_Encroachment_Score",
+    "Assessment_Unit_Name"
+   ],
+   "ValueFields": [
+    "VegetationVigor_Score",
+    "Invasives_Scores",
+    "Conifer_Encroachment_Score"
+   ],
+   "VirtualFields": [],
+   "Where": "Assessment_Unit_Name IN ('Taylor Creek marsh') AND SEZ_Type LIKE '%Meadow%'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 106
+  },
+  {
+   "MonitoringProgramID": 24,
+   "Kind": "map",
+   "Title": "SEZ assessment unit",
+   "Fields": [
+    "Assessment_Unit_Name",
+    "Final_Rating",
+    "Threshold_Year",
+    "Final_Percent",
+    "VegetationVigor_Rating",
+    "Invasive_Rating",
+    "Conifer_Encroachment_Rating",
+    "Acres"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "Assessment_Unit_Name IN ('Taylor Creek marsh')",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 106
+  },
+  {
+   "MonitoringProgramID": 24,
+   "Kind": "overlay",
+   "Title": "Aquatic vegetation survey zones",
+   "Fields": [
+    "Location_1",
+    "Strata"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "Location_1 = 'Taylor Creek Marsh'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 42
+  },
+  {
+   "MonitoringProgramID": 25,
+   "Kind": "chart",
+   "Title": "Overall condition score",
+   "Fields": [
+    "Threshold_Year",
+    "Final_Percent",
+    "Assessment_Unit_Name"
+   ],
+   "ValueFields": [
+    "Final_Percent"
+   ],
+   "VirtualFields": [],
+   "Where": "Assessment_Unit_Name IN ('Pope marsh meadow') AND SEZ_Type LIKE '%Meadow%'",
+   "Statistic": "avg",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 106
+  },
+  {
+   "MonitoringProgramID": 25,
+   "Kind": "chart",
+   "Title": "Vegetation indicator scores",
+   "Fields": [
+    "Threshold_Year",
+    "VegetationVigor_Score",
+    "Invasives_Scores",
+    "Conifer_Encroachment_Score",
+    "Assessment_Unit_Name"
+   ],
+   "ValueFields": [
+    "VegetationVigor_Score",
+    "Invasives_Scores",
+    "Conifer_Encroachment_Score"
+   ],
+   "VirtualFields": [],
+   "Where": "Assessment_Unit_Name IN ('Pope marsh meadow') AND SEZ_Type LIKE '%Meadow%'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 106
+  },
+  {
+   "MonitoringProgramID": 25,
+   "Kind": "map",
+   "Title": "SEZ assessment unit",
+   "Fields": [
+    "Assessment_Unit_Name",
+    "Final_Rating",
+    "Threshold_Year",
+    "Final_Percent",
+    "VegetationVigor_Rating",
+    "Invasive_Rating",
+    "Conifer_Encroachment_Rating",
+    "Acres"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "Assessment_Unit_Name IN ('Pope marsh meadow')",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 106
+  },
+  {
+   "MonitoringProgramID": 25,
+   "Kind": "overlay",
+   "Title": "Aquatic vegetation survey zones",
+   "Fields": [
+    "Location_1",
+    "Strata"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "Location_1 = 'Pope Marsh'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 42
+  },
+  {
+   "MonitoringProgramID": 26,
+   "Kind": "chart",
+   "Title": "Carbon monoxide by station",
+   "Fields": [
+    "Year",
+    "Value",
+    "Site",
+    "Indicator",
+    "Threshold_Value"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "Pollutant = 'CO'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 46
+  },
+  {
+   "MonitoringProgramID": 26,
+   "Kind": "chart",
+   "Title": "Daily carbon monoxide by station",
+   "Fields": [
+    "date",
+    "value",
+    "id",
+    "variable"
+   ],
+   "ValueFields": [
+    "value"
+   ],
+   "VirtualFields": [],
+   "Where": "variable LIKE 'CO%'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 17
+  },
+  {
+   "MonitoringProgramID": 26,
+   "Kind": "sites",
+   "Title": "Monitoring stations",
+   "Fields": [
+    "name",
+    "id",
+    "Active_2023"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 16
+  },
+  {
+   "MonitoringProgramID": 26,
+   "Kind": "sites-per-year",
+   "Title": "Stations monitored each year",
+   "Fields": [
+    "Year",
+    "Site"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "Pollutant = 'CO'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 46
+  },
+  {
+   "MonitoringProgramID": 27,
+   "Kind": "chart",
+   "Title": "Lake Tahoe fish habitat by type",
+   "Fields": [
+    "Habitat2015",
+    "Acres"
+   ],
+   "ValueFields": [
+    "Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 104
+  },
+  {
+   "MonitoringProgramID": 27,
+   "Kind": "chart",
+   "Title": "Lakebed substrate",
+   "Fields": [
+    "Substrate2015",
+    "Acres"
+   ],
+   "ValueFields": [
+    "Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 104
+  },
+  {
+   "MonitoringProgramID": 29,
+   "Kind": "chart",
+   "Title": "Reproductively active goshawk territories",
+   "Fields": [
+    "Year",
+    "Total",
+    "Threshold_Value"
+   ],
+   "ValueFields": [
+    "Total"
+   ],
+   "VirtualFields": [],
+   "Where": "Wildlife_Species = 'Northern Goshawk'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 96
+  },
+  {
+   "MonitoringProgramID": 29,
+   "Kind": "map",
+   "Title": "Goshawk threshold zones",
+   "Fields": [
+    "Territory",
+    "Acres"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Wildlife_Habitat/MapServer",
+   "SourceKind": "service",
+   "Layer": 0
+  },
+  {
+   "MonitoringProgramID": 32,
+   "Kind": "chart",
+   "Title": "Stream miles by rating",
+   "Fields": [
+    "Final_Rating",
+    "Stream_Miles",
+    "Rating_Year"
+   ],
+   "ValueFields": [
+    "Stream_Miles"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 32
+  },
+  {
+   "MonitoringProgramID": 32,
+   "Kind": "chart",
+   "Title": "Streams by condition class",
+   "Fields": [
+    "Year",
+    "Value",
+    "Condition_Class"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 83
+  },
+  {
+   "MonitoringProgramID": 32,
+   "Kind": "map",
+   "Title": "Stream habitat condition",
+   "Fields": [
+    "Assessment",
+    "Final_Rating",
+    "Rating_Year",
+    "Stream_Condition",
+    "Stream_Miles",
+    "Ownership"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 32
+  },
+  {
+   "MonitoringProgramID": 33,
+   "Kind": "chart",
+   "Title": "Busiest counters",
+   "Fields": [
+    "counter_name",
+    "count_of_bike_ped"
+   ],
+   "ValueFields": [
+    "count_of_bike_ped"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 1
+  },
+  {
+   "MonitoringProgramID": 33,
+   "Kind": "chart",
+   "Title": "Counts by month",
+   "Fields": [
+    "month_of_year",
+    "count_of_bike_ped"
+   ],
+   "ValueFields": [
+    "count_of_bike_ped"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 1
+  },
+  {
+   "MonitoringProgramID": 33,
+   "Kind": "sites",
+   "Title": "Monitoring counters",
+   "Fields": [
+    "counter_name",
+    "counter_id"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 5
+  },
+  {
+   "MonitoringProgramID": 33,
+   "Kind": "sites-per-year",
+   "Title": "Counters monitored each year",
+   "Fields": [
+    "count_date",
+    "counter_name"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 1
+  },
+  {
+   "MonitoringProgramID": 33,
+   "Kind": "profile",
+   "Title": "Site profile record",
+   "Fields": [
+    "count_date",
+    "count_of_bike_ped",
+    "counter_id"
+   ],
+   "ValueFields": [
+    "count_of_bike_ped"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 1
+  },
+  {
+   "MonitoringProgramID": 34,
+   "Kind": "chart",
+   "Title": "Crashes by severity",
+   "Fields": [
+    "Year",
+    "OBJECTID",
+    "Crash_Severity"
+   ],
+   "ValueFields": [
+    "OBJECTID"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "count",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 108
+  },
+  {
+   "MonitoringProgramID": 36,
+   "Kind": "chart",
+   "Title": "Transit routes by provider",
+   "Fields": [
+    "PROVIDER",
+    "OBJECTID",
+    "SEASON"
+   ],
+   "ValueFields": [
+    "OBJECTID"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "count",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 2
+  },
+  {
+   "MonitoringProgramID": 36,
+   "Kind": "map",
+   "Title": "Transit routes",
+   "Fields": [
+    "ROUTE_NAME",
+    "PROVIDER",
+    "ROUTE_NUMBER",
+    "SEASON",
+    "Frequency",
+    "WEBSITE"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 2
+  },
+  {
+   "MonitoringProgramID": 39,
+   "Kind": "chart",
+   "Title": "Occupied Tahoe yellow cress sites",
+   "Fields": [
+    "Year",
+    "Occupied_Sites",
+    "Threshold"
+   ],
+   "ValueFields": [
+    "Occupied_Sites"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 86
+  },
+  {
+   "MonitoringProgramID": 39,
+   "Kind": "chart",
+   "Title": "Lake level during surveys",
+   "Fields": [
+    "Year",
+    "Lake_Level"
+   ],
+   "ValueFields": [
+    "Lake_Level"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 86
+  },
+  {
+   "MonitoringProgramID": 39,
+   "Kind": "sites",
+   "Title": "Monitoring sites",
+   "Fields": [
+    "SITE_NAME",
+    "YEAR_OF_COUNT"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "STATUS = 'Surveyed'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 9
+  },
+  {
+   "MonitoringProgramID": 39,
+   "Kind": "sites-per-year",
+   "Title": "Sites monitored each year",
+   "Fields": [
+    "YEAR_OF_COUNT",
+    "SITE_NAME"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "STATUS = 'Surveyed'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 9
+  },
+  {
+   "MonitoringProgramID": 39,
+   "Kind": "overlay",
+   "Title": "Lake level in 2024",
+   "Fields": [
+    "Year",
+    "Level_"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "Year = 2024",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 117
+  },
+  {
+   "MonitoringProgramID": 39,
+   "Kind": "profile",
+   "Title": "Site profile record",
+   "Fields": [
+    "YEAR_OF_COUNT",
+    "COUNT_VALUE"
+   ],
+   "ValueFields": [
+    "COUNT_VALUE"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 9
+  },
+  {
+   "MonitoringProgramID": 40,
+   "Kind": "chart",
+   "Title": "Presidents' Weekend traffic volume",
+   "Fields": [
+    "Year",
+    "Value",
+    "Threshold"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 97
+  },
+  {
+   "MonitoringProgramID": 40,
+   "Kind": "sites",
+   "Title": "Monitoring count sites",
+   "Fields": [
+    "id"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 105
+  },
+  {
+   "MonitoringProgramID": 41,
+   "Kind": "chart",
+   "Title": "Ozone by station",
+   "Fields": [
+    "Year",
+    "Value",
+    "Site",
+    "Indicator",
+    "Threshold_Value"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "Pollutant = 'O3'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 46
+  },
+  {
+   "MonitoringProgramID": 41,
+   "Kind": "chart",
+   "Title": "Daily ozone by station",
+   "Fields": [
+    "date",
+    "value",
+    "id",
+    "variable"
+   ],
+   "ValueFields": [
+    "value"
+   ],
+   "VirtualFields": [],
+   "Where": "variable LIKE 'O3%'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 17
+  },
+  {
+   "MonitoringProgramID": 41,
+   "Kind": "sites",
+   "Title": "Monitoring stations",
+   "Fields": [
+    "name",
+    "id",
+    "Active_2023"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 16
+  },
+  {
+   "MonitoringProgramID": 41,
+   "Kind": "sites-per-year",
+   "Title": "Stations monitored each year",
+   "Fields": [
+    "Year",
+    "Site"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "Pollutant = 'O3'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 46
+  },
+  {
+   "MonitoringProgramID": 42,
+   "Kind": "chart",
+   "Title": "Nitrogen dioxide by station",
+   "Fields": [
+    "Year",
+    "Value",
+    "Site",
+    "Indicator",
+    "Threshold_Value"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "Pollutant = 'NO2'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 46
+  },
+  {
+   "MonitoringProgramID": 42,
+   "Kind": "chart",
+   "Title": "Daily nitrogen dioxide by station",
+   "Fields": [
+    "date",
+    "value",
+    "id",
+    "variable"
+   ],
+   "ValueFields": [
+    "value"
+   ],
+   "VirtualFields": [],
+   "Where": "variable LIKE 'NO2%' OR variable LIKE 'N02%'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 17
+  },
+  {
+   "MonitoringProgramID": 42,
+   "Kind": "chart",
+   "Title": "Nitrogen oxide emissions",
+   "Fields": [
+    "Year",
+    "Value",
+    "Threshold"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 72
+  },
+  {
+   "MonitoringProgramID": 42,
+   "Kind": "sites",
+   "Title": "Monitoring stations",
+   "Fields": [
+    "name",
+    "id",
+    "Active_2023"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 16
+  },
+  {
+   "MonitoringProgramID": 42,
+   "Kind": "sites-per-year",
+   "Title": "Stations monitored each year",
+   "Fields": [
+    "Year",
+    "Site"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "Pollutant = 'NO2'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 46
+  },
+  {
+   "MonitoringProgramID": 43,
+   "Kind": "chart",
+   "Title": "Regional visibility",
+   "Fields": [
+    "Year",
+    "Value",
+    "Indicator",
+    "Threshold_Value"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "Pollutant = 'Regional Visibility'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 46
+  },
+  {
+   "MonitoringProgramID": 43,
+   "Kind": "sites",
+   "Title": "Monitoring stations",
+   "Fields": [
+    "name",
+    "id",
+    "Active_2023"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "id = 'BSP'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 16
+  },
+  {
+   "MonitoringProgramID": 43,
+   "Kind": "sites-per-year",
+   "Title": "Stations monitored each year",
+   "Fields": [
+    "Year",
+    "Site"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "Pollutant = 'Regional Visibility' AND Value IS NOT NULL",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 46
+  },
+  {
+   "MonitoringProgramID": 44,
+   "Kind": "chart",
+   "Title": "Sub-regional visibility",
+   "Fields": [
+    "Year",
+    "Value",
+    "Site",
+    "Indicator",
+    "Threshold_Value"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "Pollutant = 'Sub-Regional Visibility'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 46
+  },
+  {
+   "MonitoringProgramID": 44,
+   "Kind": "sites",
+   "Title": "Monitoring stations",
+   "Fields": [
+    "name",
+    "id",
+    "Active_2023"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "id = 'LTC'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 16
+  },
+  {
+   "MonitoringProgramID": 44,
+   "Kind": "sites-per-year",
+   "Title": "Stations monitored each year",
+   "Fields": [
+    "Year",
+    "Site"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "Pollutant = 'Sub-Regional Visibility' AND Value IS NOT NULL",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 46
+  },
+  {
+   "MonitoringProgramID": 45,
+   "Kind": "chart",
+   "Title": "Particulate matter by station",
+   "Fields": [
+    "Year",
+    "Value",
+    "Site",
+    "Indicator",
+    "Threshold_Value"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "Pollutant = 'PM10'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 46
+  },
+  {
+   "MonitoringProgramID": 45,
+   "Kind": "chart",
+   "Title": "Daily particulate matter by station",
+   "Fields": [
+    "date",
+    "value",
+    "id",
+    "variable"
+   ],
+   "ValueFields": [
+    "value"
+   ],
+   "VirtualFields": [],
+   "Where": "variable LIKE 'PM 10%' OR variable LIKE 'PM10%'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 17
+  },
+  {
+   "MonitoringProgramID": 45,
+   "Kind": "sites",
+   "Title": "Monitoring stations",
+   "Fields": [
+    "name",
+    "id",
+    "Active_2023"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 16
+  },
+  {
+   "MonitoringProgramID": 45,
+   "Kind": "sites-per-year",
+   "Title": "Stations monitored each year",
+   "Fields": [
+    "Year",
+    "Site"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "Pollutant = 'PM10'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 46
+  },
+  {
+   "MonitoringProgramID": 46,
+   "Kind": "chart",
+   "Title": "Fine particulate matter by station",
+   "Fields": [
+    "Year",
+    "Value",
+    "Site",
+    "Indicator",
+    "Threshold_Value"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "Pollutant = 'PM2.5'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 46
+  },
+  {
+   "MonitoringProgramID": 46,
+   "Kind": "chart",
+   "Title": "Daily fine particulate matter by station",
+   "Fields": [
+    "date",
+    "value",
+    "id",
+    "variable"
+   ],
+   "ValueFields": [
+    "value"
+   ],
+   "VirtualFields": [],
+   "Where": "variable LIKE 'PM 2.5%' OR variable LIKE 'PM2.5%'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 17
+  },
+  {
+   "MonitoringProgramID": 46,
+   "Kind": "sites",
+   "Title": "Monitoring stations",
+   "Fields": [
+    "name",
+    "id",
+    "Active_2023"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 16
+  },
+  {
+   "MonitoringProgramID": 46,
+   "Kind": "sites-per-year",
+   "Title": "Stations monitored each year",
+   "Fields": [
+    "Year",
+    "Site"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "Pollutant = 'PM2.5'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 46
+  },
+  {
+   "MonitoringProgramID": 47,
+   "Kind": "chart",
+   "Title": "Vehicle miles traveled",
+   "Fields": [
+    "Year",
+    "VMT"
+   ],
+   "ValueFields": [
+    "VMT"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 92
+  },
+  {
+   "MonitoringProgramID": 48,
+   "Kind": "chart",
+   "Title": "Coverage against the allowance, 2023",
+   "Fields": [
+    "District",
+    "Coverage 2023",
+    "Allowed"
+   ],
+   "ValueFields": [
+    "Coverage 2023",
+    "Allowed"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "2023 Threshold Evaluation",
+   "Source": "data/threshold-evaluation/land-coverage-by-district.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 48,
+   "Kind": "chart",
+   "Title": "Impervious surface, 2019",
+   "Fields": [
+    "Feature",
+    "Shape.STArea() / 4046.8564224",
+    "Surface"
+   ],
+   "ValueFields": [
+    "Shape.STArea() / 4046.8564224"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Impervious_Surface_2019/MapServer",
+   "SourceKind": "service",
+   "Layer": 0
+  },
+  {
+   "MonitoringProgramID": 48,
+   "Kind": "chart",
+   "Title": "Impervious surface, 2010",
+   "Fields": [
+    "Feature",
+    "Shape.STArea() / 4046.8564224",
+    "Surface"
+   ],
+   "ValueFields": [
+    "Shape.STArea() / 4046.8564224"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Impervious_Surface_2010/MapServer",
+   "SourceKind": "service",
+   "Layer": 0
+  },
+  {
+   "MonitoringProgramID": 48,
+   "Kind": "chart",
+   "Title": "Coverage change, 2010 to 2019",
+   "Fields": [
+    "General_Status",
+    "SquareFeet / 43560"
+   ],
+   "ValueFields": [
+    "SquareFeet / 43560"
+   ],
+   "VirtualFields": [],
+   "Where": "General_Status IN ('New Coverage','Removed Coverage','Changed Coverage Type')",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Impervious_Surface_Change_2010_to_2019/MapServer",
+   "SourceKind": "service",
+   "Layer": 0
+  },
+  {
+   "MonitoringProgramID": 48,
+   "Kind": "chart",
+   "Title": "Land capability district acres",
+   "Fields": [
+    "CAPABILITY",
+    "Acres"
+   ],
+   "ValueFields": [
+    "Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "CAPABILITY IN ('1A','1B','1C','2','3','4','5','6','7')",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Soils_and_Land_Capability/MapServer",
+   "SourceKind": "service",
+   "Layer": 4
+  },
+  {
+   "MonitoringProgramID": 48,
+   "Kind": "chart",
+   "Title": "Coverage allowed by district",
+   "Fields": [
+    "CAPABILITY",
+    "Acres * PERCENT_COVERAGE_ALLOWED"
+   ],
+   "ValueFields": [
+    "Acres * PERCENT_COVERAGE_ALLOWED"
+   ],
+   "VirtualFields": [],
+   "Where": "CAPABILITY IN ('1A','1B','1C','2','3','4','5','6','7')",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Soils_and_Land_Capability/MapServer",
+   "SourceKind": "service",
+   "Layer": 4
+  },
+  {
+   "MonitoringProgramID": 48,
+   "Kind": "map",
+   "Title": "Land capability (Bailey 1974)",
+   "Fields": [
+    "CAPABILITY",
+    "PERCENT_COVERAGE_ALLOWED",
+    "Acres"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "CAPABILITY IN ('1A','1B','1C','2','3','4','5','6','7')",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Soils_and_Land_Capability/MapServer",
+   "SourceKind": "service",
+   "Layer": 4
+  },
+  {
+   "MonitoringProgramID": 49,
+   "Kind": "chart",
+   "Title": "SEZ acres enhanced and restored",
+   "Fields": [
+    "Year",
+    "Enhanced",
+    "Restored"
+   ],
+   "ValueFields": [
+    "Enhanced",
+    "Restored"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 76
+  },
+  {
+   "MonitoringProgramID": 49,
+   "Kind": "chart",
+   "Title": "SEZ assessment units by rating",
+   "Fields": [
+    "Final_Rating",
+    "OBJECTID",
+    "Threshold_Year"
+   ],
+   "ValueFields": [
+    "OBJECTID"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "count",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 106
+  },
+  {
+   "MonitoringProgramID": 49,
+   "Kind": "chart",
+   "Title": "SEZ acres restored by project year",
+   "Fields": [
+    "YearCompleted",
+    "AcresRestored"
+   ],
+   "ValueFields": [
+    "AcresRestored"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 77
+  },
+  {
+   "MonitoringProgramID": 49,
+   "Kind": "map",
+   "Title": "SEZ assessment units",
+   "Fields": [
+    "Assessment_Unit_Name",
+    "Final_Rating",
+    "Threshold_Year",
+    "Final_Percent",
+    "SEZ_Type",
+    "Acres",
+    "Ownership_Primary"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 106
+  },
+  {
+   "MonitoringProgramID": 49,
+   "Kind": "sites-per-year",
+   "Title": "Assessment units monitored each year",
+   "Fields": [
+    "Threshold_Year",
+    "Assessment_Unit_Name"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 106
+  },
+  {
+   "MonitoringProgramID": 49,
+   "Kind": "profile",
+   "Title": "Site profile record",
+   "Fields": [
+    "Threshold_Year",
+    "Final_Percent",
+    "SEZ_ID"
+   ],
+   "ValueFields": [
+    "Final_Percent"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 106
+  },
+  {
+   "MonitoringProgramID": 50,
+   "Kind": "chart",
+   "Title": "Overall condition score",
+   "Fields": [
+    "Threshold_Year",
+    "Final_Percent",
+    "Assessment_Unit_Name"
+   ],
+   "ValueFields": [
+    "Final_Percent"
+   ],
+   "VirtualFields": [],
+   "Where": "Assessment_Unit_Name IN ('Osgood Swamp') AND SEZ_Type LIKE '%Meadow%'",
+   "Statistic": "avg",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 106
+  },
+  {
+   "MonitoringProgramID": 50,
+   "Kind": "chart",
+   "Title": "Vegetation indicator scores",
+   "Fields": [
+    "Threshold_Year",
+    "VegetationVigor_Score",
+    "Invasives_Scores",
+    "Conifer_Encroachment_Score",
+    "Assessment_Unit_Name"
+   ],
+   "ValueFields": [
+    "VegetationVigor_Score",
+    "Invasives_Scores",
+    "Conifer_Encroachment_Score"
+   ],
+   "VirtualFields": [],
+   "Where": "Assessment_Unit_Name IN ('Osgood Swamp') AND SEZ_Type LIKE '%Meadow%'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 106
+  },
+  {
+   "MonitoringProgramID": 50,
+   "Kind": "map",
+   "Title": "SEZ assessment unit",
+   "Fields": [
+    "Assessment_Unit_Name",
+    "Final_Rating",
+    "Threshold_Year",
+    "Final_Percent",
+    "VegetationVigor_Rating",
+    "Invasive_Rating",
+    "Conifer_Encroachment_Rating",
+    "Acres"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "Assessment_Unit_Name IN ('Osgood Swamp')",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 106
+  },
+  {
+   "MonitoringProgramID": 50,
+   "Kind": "overlay",
+   "Title": "USFS fen mapping",
+   "Fields": [
+    "LOCATION_N",
+    "PERC_FEN",
+    "MEADOW_TYP",
+    "DESCRIPTIO"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "LOCATION_N = 'Osgood Swamp'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/DataDownloader_SoilsandHydro/MapServer",
+   "SourceKind": "service",
+   "Layer": 41
+  },
+  {
+   "MonitoringProgramID": 51,
+   "Kind": "chart",
+   "Title": "Overall condition score",
+   "Fields": [
+    "Threshold_Year",
+    "Final_Percent",
+    "Assessment_Unit_Name"
+   ],
+   "ValueFields": [
+    "Final_Percent"
+   ],
+   "VirtualFields": [],
+   "Where": "Assessment_Unit_Name IN ('Hell Hole meadows - 1', 'Hell Hole Meadows - 2') AND SEZ_Type LIKE '%Meadow%'",
+   "Statistic": "avg",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 106
+  },
+  {
+   "MonitoringProgramID": 51,
+   "Kind": "chart",
+   "Title": "Vegetation indicator scores",
+   "Fields": [
+    "Threshold_Year",
+    "VegetationVigor_Score",
+    "Invasives_Scores",
+    "Conifer_Encroachment_Score",
+    "Assessment_Unit_Name"
+   ],
+   "ValueFields": [
+    "VegetationVigor_Score",
+    "Invasives_Scores",
+    "Conifer_Encroachment_Score"
+   ],
+   "VirtualFields": [],
+   "Where": "Assessment_Unit_Name IN ('Hell Hole meadows - 1', 'Hell Hole Meadows - 2') AND SEZ_Type LIKE '%Meadow%'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 106
+  },
+  {
+   "MonitoringProgramID": 51,
+   "Kind": "map",
+   "Title": "SEZ assessment unit",
+   "Fields": [
+    "Assessment_Unit_Name",
+    "Final_Rating",
+    "Threshold_Year",
+    "Final_Percent",
+    "VegetationVigor_Rating",
+    "Invasive_Rating",
+    "Conifer_Encroachment_Rating",
+    "Acres"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "Assessment_Unit_Name IN ('Hell Hole meadows - 1', 'Hell Hole Meadows - 2')",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 106
+  },
+  {
+   "MonitoringProgramID": 51,
+   "Kind": "overlay",
+   "Title": "USFS fen mapping",
+   "Fields": [
+    "LOCATION_N",
+    "PERC_FEN",
+    "MEADOW_TYP",
+    "DESCRIPTIO"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "LOCATION_N LIKE '%Hell Hole%'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/DataDownloader_SoilsandHydro/MapServer",
+   "SourceKind": "service",
+   "Layer": 41
+  },
+  {
+   "MonitoringProgramID": 52,
+   "Kind": "chart",
+   "Title": "Overall condition score",
+   "Fields": [
+    "Threshold_Year",
+    "Final_Percent",
+    "Assessment_Unit_Name"
+   ],
+   "ValueFields": [
+    "Final_Percent"
+   ],
+   "VirtualFields": [],
+   "Where": "Assessment_Unit_Name IN ('Grass Lake meadow') AND SEZ_Type LIKE '%Meadow%'",
+   "Statistic": "avg",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 106
+  },
+  {
+   "MonitoringProgramID": 52,
+   "Kind": "chart",
+   "Title": "Vegetation indicator scores",
+   "Fields": [
+    "Threshold_Year",
+    "VegetationVigor_Score",
+    "Invasives_Scores",
+    "Conifer_Encroachment_Score",
+    "Assessment_Unit_Name"
+   ],
+   "ValueFields": [
+    "VegetationVigor_Score",
+    "Invasives_Scores",
+    "Conifer_Encroachment_Score"
+   ],
+   "VirtualFields": [],
+   "Where": "Assessment_Unit_Name IN ('Grass Lake meadow') AND SEZ_Type LIKE '%Meadow%'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 106
+  },
+  {
+   "MonitoringProgramID": 52,
+   "Kind": "chart",
+   "Title": "Moss cover classes",
+   "Fields": [
+    "Cover class",
+    "Hectares",
+    "Year"
+   ],
+   "ValueFields": [
+    "Hectares"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "Threshold Dashboard chart (image)",
+   "Source": "data/threshold-evaluation/grass-lake-fen-cover.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 52,
+   "Kind": "map",
+   "Title": "SEZ assessment unit",
+   "Fields": [
+    "Assessment_Unit_Name",
+    "Final_Rating",
+    "Threshold_Year",
+    "Final_Percent",
+    "VegetationVigor_Rating",
+    "Invasive_Rating",
+    "Conifer_Encroachment_Rating",
+    "Acres"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "Assessment_Unit_Name IN ('Grass Lake meadow')",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 106
+  },
+  {
+   "MonitoringProgramID": 52,
+   "Kind": "overlay",
+   "Title": "USFS fen mapping",
+   "Fields": [
+    "LOCATION_N",
+    "PERC_FEN",
+    "MEADOW_TYP",
+    "DESCRIPTIO"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "LOCATION_N = 'Grass Lake'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/DataDownloader_SoilsandHydro/MapServer",
+   "SourceKind": "service",
+   "Layer": 41
+  },
+  {
+   "MonitoringProgramID": 53,
+   "Kind": "chart",
+   "Title": "Species richness on the Freel Peak summits",
+   "Fields": [
+    "Year",
+    "Species",
+    "Summit"
+   ],
+   "ValueFields": [
+    "Species"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "Threshold Dashboard chart (image)",
+   "Source": "data/threshold-evaluation/freel-peak-species-richness.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 54,
+   "Kind": "chart",
+   "Title": "Subpopulations over time",
+   "Fields": [
+    "Year",
+    "Subpopulations",
+    "Threshold"
+   ],
+   "ValueFields": [
+    "Subpopulations"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "2023 Threshold Evaluation",
+   "Source": "data/threshold-evaluation/tahoe-draba-subpopulations.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 54,
+   "Kind": "chart",
+   "Title": "Subpopulation sites by population",
+   "Fields": [
+    "EOName",
+    "OBJECTID"
+   ],
+   "ValueFields": [
+    "OBJECTID"
+   ],
+   "VirtualFields": [],
+   "Where": "USDA_Code = 'DRASA2'",
+   "Statistic": "count",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+   "SourceKind": "service",
+   "Layer": 1
+  },
+  {
+   "MonitoringProgramID": 54,
+   "Kind": "chart",
+   "Title": "Plants by population",
+   "Fields": [
+    "EOName",
+    "PlantCount"
+   ],
+   "ValueFields": [
+    "PlantCount"
+   ],
+   "VirtualFields": [],
+   "Where": "USDA_Code = 'DRASA2'",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+   "SourceKind": "service",
+   "Layer": 1
+  },
+  {
+   "MonitoringProgramID": 54,
+   "Kind": "map",
+   "Title": "Tahoe draba subpopulations",
+   "Fields": [
+    "SITE_ID_FS",
+    "EOName",
+    "PlantCount",
+    "CountType",
+    "SurveyLast",
+    "Acres"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "USDA_Code = 'DRASA2'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+   "SourceKind": "service",
+   "Layer": 1
+  },
+  {
+   "MonitoringProgramID": 55,
+   "Kind": "chart",
+   "Title": "Subpopulations over time",
+   "Fields": [
+    "Year",
+    "Subpopulations",
+    "Threshold"
+   ],
+   "ValueFields": [
+    "Subpopulations"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "2023 Threshold Evaluation",
+   "Source": "data/threshold-evaluation/long-petaled-lewisia-subpopulations.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 55,
+   "Kind": "chart",
+   "Title": "Subpopulation sites by population",
+   "Fields": [
+    "EOName",
+    "OBJECTID"
+   ],
+   "ValueFields": [
+    "OBJECTID"
+   ],
+   "VirtualFields": [],
+   "Where": "USDA_Code = 'LELO2'",
+   "Statistic": "count",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+   "SourceKind": "service",
+   "Layer": 1
+  },
+  {
+   "MonitoringProgramID": 55,
+   "Kind": "chart",
+   "Title": "Plants by population",
+   "Fields": [
+    "EOName",
+    "PlantCount"
+   ],
+   "ValueFields": [
+    "PlantCount"
+   ],
+   "VirtualFields": [],
+   "Where": "USDA_Code = 'LELO2'",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+   "SourceKind": "service",
+   "Layer": 1
+  },
+  {
+   "MonitoringProgramID": 55,
+   "Kind": "map",
+   "Title": "Long-petaled lewisia subpopulations",
+   "Fields": [
+    "SITE_ID_FS",
+    "EOName",
+    "PlantCount",
+    "CountType",
+    "SurveyLast",
+    "Acres"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "USDA_Code = 'LELO2'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+   "SourceKind": "service",
+   "Layer": 1
+  },
+  {
+   "MonitoringProgramID": 56,
+   "Kind": "chart",
+   "Title": "Subpopulations over time",
+   "Fields": [
+    "Year",
+    "Subpopulations",
+    "Threshold"
+   ],
+   "ValueFields": [
+    "Subpopulations"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "2023 Threshold Evaluation",
+   "Source": "data/threshold-evaluation/cup-lake-draba-subpopulations.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 56,
+   "Kind": "chart",
+   "Title": "Subpopulation sites by population",
+   "Fields": [
+    "EOName",
+    "OBJECTID"
+   ],
+   "ValueFields": [
+    "OBJECTID"
+   ],
+   "VirtualFields": [],
+   "Where": "USDA_Code = 'DRASM'",
+   "Statistic": "count",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+   "SourceKind": "service",
+   "Layer": 1
+  },
+  {
+   "MonitoringProgramID": 56,
+   "Kind": "chart",
+   "Title": "Plants by population",
+   "Fields": [
+    "EOName",
+    "PlantCount"
+   ],
+   "ValueFields": [
+    "PlantCount"
+   ],
+   "VirtualFields": [],
+   "Where": "USDA_Code = 'DRASM'",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+   "SourceKind": "service",
+   "Layer": 1
+  },
+  {
+   "MonitoringProgramID": 56,
+   "Kind": "map",
+   "Title": "Cup Lake draba subpopulations",
+   "Fields": [
+    "SITE_ID_FS",
+    "EOName",
+    "PlantCount",
+    "CountType",
+    "SurveyLast",
+    "Acres"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "USDA_Code = 'DRASM'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+   "SourceKind": "service",
+   "Layer": 1
+  },
+  {
+   "MonitoringProgramID": 57,
+   "Kind": "chart",
+   "Title": "Subpopulation sites by population",
+   "Fields": [
+    "EOName",
+    "OBJECTID"
+   ],
+   "ValueFields": [
+    "OBJECTID"
+   ],
+   "VirtualFields": [],
+   "Where": "USDA_Code = 'ARRID'",
+   "Statistic": "count",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+   "SourceKind": "service",
+   "Layer": 1
+  },
+  {
+   "MonitoringProgramID": 57,
+   "Kind": "chart",
+   "Title": "Plants by population",
+   "Fields": [
+    "EOName",
+    "PlantCount"
+   ],
+   "ValueFields": [
+    "PlantCount"
+   ],
+   "VirtualFields": [],
+   "Where": "USDA_Code = 'ARRID'",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+   "SourceKind": "service",
+   "Layer": 1
+  },
+  {
+   "MonitoringProgramID": 57,
+   "Kind": "map",
+   "Title": "Galena Creek rockcress subpopulations",
+   "Fields": [
+    "SITE_ID_FS",
+    "EOName",
+    "PlantCount",
+    "CountType",
+    "SurveyLast",
+    "Acres"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "USDA_Code = 'ARRID'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Vegetation/MapServer",
+   "SourceKind": "service",
+   "Layer": 1
+  },
+  {
+   "MonitoringProgramID": 58,
+   "Kind": "chart",
+   "Title": "Seral stage by elevation zone",
+   "Fields": [
+    "Zone",
+    "Percent",
+    "Seral stage"
+   ],
+   "ValueFields": [
+    "Percent"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "2023 Threshold Evaluation",
+   "Source": "data/threshold-evaluation/seral-stage-by-zone.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 58,
+   "Kind": "map",
+   "Title": "Late seral forest (2010)",
+   "Fields": [
+    "TRPA_VegType",
+    "SeralStage",
+    "QMD",
+    "Acres"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Vegetation_Late_Seral/MapServer",
+   "SourceKind": "service",
+   "Layer": 0
+  },
+  {
+   "MonitoringProgramID": 59,
+   "Kind": "chart",
+   "Title": "Corridor units in attainment",
+   "Fields": [
+    "YEAR",
+    "OBJECTID",
+    "STATUS"
+   ],
+   "ValueFields": [
+    "OBJECTID"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "count",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 23
+  },
+  {
+   "MonitoringProgramID": 59,
+   "Kind": "chart",
+   "Title": "Average corridor rating",
+   "Fields": [
+    "YEAR",
+    "THRESHOLD_RATING",
+    "CATEGORY"
+   ],
+   "ValueFields": [
+    "THRESHOLD_RATING"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "avg",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 23
+  },
+  {
+   "MonitoringProgramID": 59,
+   "Kind": "chart",
+   "Title": "Viewpoint ratings in attainment",
+   "Fields": [
+    "YEAR",
+    "OBJECTID",
+    "THRESHOLD_STATUS"
+   ],
+   "ValueFields": [
+    "OBJECTID"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "count",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 25
+  },
+  {
+   "MonitoringProgramID": 59,
+   "Kind": "chart",
+   "Title": "Average viewpoint rating",
+   "Fields": [
+    "YEAR",
+    "THRESHOLD_RATING",
+    "CATEGORY"
+   ],
+   "ValueFields": [
+    "THRESHOLD_RATING"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "avg",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 25
+  },
+  {
+   "MonitoringProgramID": 59,
+   "Kind": "chart",
+   "Title": "Corridor rating by corridor",
+   "Fields": [
+    "YEAR",
+    "THRESHOLD_RATING",
+    "CATEGORY",
+    "CORRIDOR_NAME"
+   ],
+   "ValueFields": [
+    "THRESHOLD_RATING"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 23
+  },
+  {
+   "MonitoringProgramID": 59,
+   "Kind": "map",
+   "Title": "Scenic corridors",
+   "Fields": [
+    "CORRIDOR_NAME",
+    "CURRENT_STATUS",
+    "CATEGORY",
+    "TYPE",
+    "UNIT",
+    "JURISDICTION"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 22
+  },
+  {
+   "MonitoringProgramID": 59,
+   "Kind": "sites-per-year",
+   "Title": "Corridor units monitored each year",
+   "Fields": [
+    "YEAR",
+    "ID"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 23
+  },
+  {
+   "MonitoringProgramID": 59,
+   "Kind": "overlay",
+   "Title": "Scenic viewpoints",
+   "Fields": [
+    "CORRIDOR_NAME",
+    "ID",
+    "CATEGORY",
+    "CURRENT_STATUS",
+    "JURISDICTION"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 24
+  },
+  {
+   "MonitoringProgramID": 59,
+   "Kind": "profile",
+   "Title": "Site profile record",
+   "Fields": [
+    "YEAR",
+    "THRESHOLD_RATING",
+    "ID"
+   ],
+   "ValueFields": [
+    "THRESHOLD_RATING"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 23
+  },
+  {
+   "MonitoringProgramID": 60,
+   "Kind": "chart",
+   "Title": "Airport single noise event exceedances",
+   "Fields": [
+    "Year",
+    "Exceedances"
+   ],
+   "ValueFields": [
+    "Exceedances"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "Threshold Dashboard chart (image)",
+   "Source": "data/threshold-evaluation/aircraft-noise-exceedances.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 61,
+   "Kind": "chart",
+   "Title": "Noise by land use",
+   "Fields": [
+    "Year",
+    "Value",
+    "Category",
+    "Threshold_Value"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 74
+  },
+  {
+   "MonitoringProgramID": 61,
+   "Kind": "sites",
+   "Title": "Monitoring sites",
+   "Fields": [
+    "SITE_NAME",
+    "YEAR_OF_COUNT"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 6
+  },
+  {
+   "MonitoringProgramID": 61,
+   "Kind": "sites-per-year",
+   "Title": "Sites monitored each year",
+   "Fields": [
+    "YEAR_OF_COUNT",
+    "SITE_NAME"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 6
+  },
+  {
+   "MonitoringProgramID": 61,
+   "Kind": "profile",
+   "Title": "Site profile record",
+   "Fields": [
+    "YEAR_OF_COUNT",
+    "COUNT_VALUE"
+   ],
+   "ValueFields": [
+    "COUNT_VALUE"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 6
+  },
+  {
+   "MonitoringProgramID": 62,
+   "Kind": "chart",
+   "Title": "Shorezone noise exceedances",
+   "Fields": [
+    "Year",
+    "Value",
+    "Threshold_Value"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 78
+  },
+  {
+   "MonitoringProgramID": 62,
+   "Kind": "sites",
+   "Title": "Monitoring sites",
+   "Fields": [
+    "SITE_NAME",
+    "YEAR_OF_COUNT"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 7
+  },
+  {
+   "MonitoringProgramID": 62,
+   "Kind": "sites-per-year",
+   "Title": "Sites monitored each year",
+   "Fields": [
+    "YEAR_OF_COUNT",
+    "SITE_NAME"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 7
+  },
+  {
+   "MonitoringProgramID": 62,
+   "Kind": "profile",
+   "Title": "Site profile record",
+   "Fields": [
+    "YEAR_OF_COUNT",
+    "COUNT_VALUE"
+   ],
+   "ValueFields": [
+    "COUNT_VALUE"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 7
+  },
+  {
+   "MonitoringProgramID": 63,
+   "Kind": "chart",
+   "Title": "Average condition score at trend sites",
+   "Fields": [
+    "Year",
+    "Value",
+    "Trend_Panel"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 84
+  },
+  {
+   "MonitoringProgramID": 63,
+   "Kind": "chart",
+   "Title": "Streams by condition class",
+   "Fields": [
+    "Year",
+    "Value",
+    "Condition_Class"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 83
+  },
+  {
+   "MonitoringProgramID": 63,
+   "Kind": "chart",
+   "Title": "Average stream condition score",
+   "Fields": [
+    "YEAR_OF_COUNT",
+    "COUNT_VALUE",
+    "STATION_TYPE"
+   ],
+   "ValueFields": [
+    "COUNT_VALUE"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "avg",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 8
+  },
+  {
+   "MonitoringProgramID": 63,
+   "Kind": "chart",
+   "Title": "Sites sampled each year",
+   "Fields": [
+    "YEAR_OF_COUNT",
+    "OBJECTID",
+    "STATION_TYPE"
+   ],
+   "ValueFields": [
+    "OBJECTID"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "count",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 8
+  },
+  {
+   "MonitoringProgramID": 63,
+   "Kind": "chart",
+   "Title": "Condition score by site",
+   "Fields": [
+    "YEAR_OF_COUNT",
+    "COUNT_VALUE",
+    "SITE_NAME"
+   ],
+   "ValueFields": [
+    "COUNT_VALUE"
+   ],
+   "VirtualFields": [],
+   "Where": "STATION_TYPE IN ('Trend', 'Trend Panel A', 'Trend Panel B', 'Reference')",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 8
+  },
+  {
+   "MonitoringProgramID": 63,
+   "Kind": "sites",
+   "Title": "Monitoring sites",
+   "Fields": [
+    "SITE_NAME",
+    "YEAR_OF_COUNT",
+    "STATION_TYPE"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 8
+  },
+  {
+   "MonitoringProgramID": 63,
+   "Kind": "sites-per-year",
+   "Title": "Sites monitored each year",
+   "Fields": [
+    "YEAR_OF_COUNT",
+    "SITE_NAME"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 8
+  },
+  {
+   "MonitoringProgramID": 63,
+   "Kind": "profile",
+   "Title": "Site profile record",
+   "Fields": [
+    "YEAR_OF_COUNT",
+    "COUNT_VALUE"
+   ],
+   "ValueFields": [
+    "COUNT_VALUE"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 8
+  },
+  {
+   "MonitoringProgramID": 64,
+   "Kind": "chart",
+   "Title": "Winter traffic volume",
+   "Fields": [
+    "Year",
+    "Value",
+    "Threshold"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 97
+  },
+  {
+   "MonitoringProgramID": 64,
+   "Kind": "sites",
+   "Title": "Monitoring sites",
+   "Fields": [
+    "site_name",
+    "Station_Number",
+    "year_of_count"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 10
+  },
+  {
+   "MonitoringProgramID": 64,
+   "Kind": "sites-per-year",
+   "Title": "Sites monitored each year",
+   "Fields": [
+    "year_of_count",
+    "site_name"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 10
+  },
+  {
+   "MonitoringProgramID": 64,
+   "Kind": "overlay",
+   "Title": "Winter traffic count site",
+   "Fields": [
+    "id",
+    "Operator"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 105
+  },
+  {
+   "MonitoringProgramID": 64,
+   "Kind": "profile",
+   "Title": "Site profile record",
+   "Fields": [
+    "year_of_count",
+    "count_value"
+   ],
+   "ValueFields": [
+    "count_value"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 10
+  },
+  {
+   "MonitoringProgramID": 65,
+   "Kind": "chart",
+   "Title": "Highway noise by year",
+   "Fields": [
+    "YEAR_OF_COUNT",
+    "CNEL_AVG_VALUE",
+    "HIGHWAY"
+   ],
+   "ValueFields": [
+    "CNEL_AVG_VALUE"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "avg",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 11
+  },
+  {
+   "MonitoringProgramID": 65,
+   "Kind": "sites",
+   "Title": "Monitoring sites",
+   "Fields": [
+    "SITE_NAME",
+    "YEAR_OF_COUNT"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 11
+  },
+  {
+   "MonitoringProgramID": 65,
+   "Kind": "sites-per-year",
+   "Title": "Sites monitored each year",
+   "Fields": [
+    "YEAR_OF_COUNT",
+    "SITE_NAME"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 11
+  },
+  {
+   "MonitoringProgramID": 65,
+   "Kind": "profile",
+   "Title": "Site profile record",
+   "Fields": [
+    "YEAR_OF_COUNT",
+    "CNEL_AVG_VALUE"
+   ],
+   "ValueFields": [
+    "CNEL_AVG_VALUE"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 11
+  },
+  {
+   "MonitoringProgramID": 66,
+   "Kind": "chart",
+   "Title": "Lake clarity",
+   "Fields": [
+    "year",
+    "annual_average",
+    "winter_average",
+    "summer_average"
+   ],
+   "ValueFields": [
+    "annual_average",
+    "winter_average",
+    "summer_average"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 14
+  },
+  {
+   "MonitoringProgramID": 66,
+   "Kind": "chart",
+   "Title": "Primary productivity",
+   "Fields": [
+    "Year",
+    "Primary_Productivity"
+   ],
+   "ValueFields": [
+    "Primary_Productivity"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 75
+  },
+  {
+   "MonitoringProgramID": 66,
+   "Kind": "chart",
+   "Title": "Mid-lake dissolved nitrogen",
+   "Fields": [
+    "Year",
+    "Value"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 71
+  },
+  {
+   "MonitoringProgramID": 66,
+   "Kind": "chart",
+   "Title": "Secchi depth readings",
+   "Fields": [
+    "date",
+    "secchi_average_measurement"
+   ],
+   "ValueFields": [
+    "secchi_average_measurement"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 13
+  },
+  {
+   "MonitoringProgramID": 66,
+   "Kind": "sites",
+   "Title": "Monitoring sites",
+   "Fields": [
+    "site_name",
+    "year_of_count"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 12
+  },
+  {
+   "MonitoringProgramID": 66,
+   "Kind": "sites-per-year",
+   "Title": "Sites monitored each year",
+   "Fields": [
+    "year_of_count",
+    "site_name"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 12
+  },
+  {
+   "MonitoringProgramID": 69,
+   "Kind": "chart",
+   "Title": "Vehicle miles traveled",
+   "Fields": [
+    "Year",
+    "VMT"
+   ],
+   "ValueFields": [
+    "VMT"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 92
+  },
+  {
+   "MonitoringProgramID": 73,
+   "Kind": "chart",
+   "Title": "Annual average nitrogen dioxide",
+   "Fields": [
+    "Year",
+    "Value"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "Indicator = 'NO2 - ANNUAL AVG.'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 46
+  },
+  {
+   "MonitoringProgramID": 73,
+   "Kind": "chart",
+   "Title": "Peak 1-hour nitrogen dioxide",
+   "Fields": [
+    "Year",
+    "Value",
+    "Indicator"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "Pollutant = 'NO2' AND Indicator <> 'NO2 - ANNUAL AVG.'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 46
+  },
+  {
+   "MonitoringProgramID": 73,
+   "Kind": "chart",
+   "Title": "Daily maximum nitrogen dioxide",
+   "Fields": [
+    "date",
+    "value"
+   ],
+   "ValueFields": [
+    "value"
+   ],
+   "VirtualFields": [],
+   "Where": "variable LIKE 'N_2 - 1 hr max%'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 17
+  },
+  {
+   "MonitoringProgramID": 73,
+   "Kind": "sites",
+   "Title": "Monitoring stations",
+   "Fields": [
+    "name",
+    "id",
+    "Active_2023"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "id = 'STL'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 16
+  },
+  {
+   "MonitoringProgramID": 73,
+   "Kind": "sites-per-year",
+   "Title": "Stations monitored each year",
+   "Fields": [
+    "Year",
+    "Site"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "Pollutant = 'NO2'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 46
+  },
+  {
+   "MonitoringProgramID": 77,
+   "Kind": "chart",
+   "Title": "Travel time by season",
+   "Fields": [
+    "Year",
+    "Value",
+    "Season",
+    "Name"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 110
+  },
+  {
+   "MonitoringProgramID": 77,
+   "Kind": "map",
+   "Title": "Travel time segments",
+   "Fields": [
+    "NAME"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 109
+  },
+  {
+   "MonitoringProgramID": 77,
+   "Kind": "sites-per-year",
+   "Title": "Segments monitored each year",
+   "Fields": [
+    "Year",
+    "Name"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 110
+  },
+  {
+   "MonitoringProgramID": 77,
+   "Kind": "overlay",
+   "Title": "Congestion road segments",
+   "Fields": [
+    "road",
+    "direction",
+    "intersection"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 18
+  },
+  {
+   "MonitoringProgramID": 78,
+   "Kind": "chart",
+   "Title": "Survey zone acres by stratum",
+   "Fields": [
+    "Strata",
+    "Acres"
+   ],
+   "ValueFields": [
+    "Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 42
+  },
+  {
+   "MonitoringProgramID": 78,
+   "Kind": "chart",
+   "Title": "Survey zones by stratum",
+   "Fields": [
+    "Strata",
+    "OBJECTID"
+   ],
+   "ValueFields": [
+    "OBJECTID"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "count",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 42
+  },
+  {
+   "MonitoringProgramID": 78,
+   "Kind": "map",
+   "Title": "Aquatic vegetation survey zones",
+   "Fields": [
+    "Location_1",
+    "Strata",
+    "Acres",
+    "Orient"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 42
+  },
+  {
+   "MonitoringProgramID": 81,
+   "Kind": "chart",
+   "Title": "Acres by vegetation type",
+   "Fields": [
+    "TRPA_VegType",
+    "Acres"
+   ],
+   "ValueFields": [
+    "Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "TRPA_VegType <> ''",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 98
+  },
+  {
+   "MonitoringProgramID": 81,
+   "Kind": "chart",
+   "Title": "Forest acres by horizontal pattern",
+   "Fields": [
+    "SpatialVar",
+    "Acres",
+    "TRPA_VegType"
+   ],
+   "ValueFields": [
+    "Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "TRPA_VegType IN ('Yellow Pine Forest','Red Fir Forest','Subalpine Forest')",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 98
+  },
+  {
+   "MonitoringProgramID": 83,
+   "Kind": "chart",
+   "Title": "Subalpine conifer acres by dominant tree",
+   "Fields": [
+    "REGIONAL_DOMINANCE_TYPE_1",
+    "Acres"
+   ],
+   "ValueFields": [
+    "Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "WHRTYPE = 'SCN'",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 98
+  },
+  {
+   "MonitoringProgramID": 83,
+   "Kind": "chart",
+   "Title": "Subalpine conifer acres by tree size",
+   "Fields": [
+    "WHRSIZE",
+    "Acres"
+   ],
+   "ValueFields": [
+    "Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "WHRTYPE = 'SCN'",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 98
+  },
+  {
+   "MonitoringProgramID": 9034,
+   "Kind": "map",
+   "Title": "Targeted submerged aquatic vegetation",
+   "Fields": [
+    "Type"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 34
+  },
+  {
+   "MonitoringProgramID": 9093,
+   "Kind": "chart",
+   "Title": "Watercraft inspected",
+   "Fields": [
+    "Year",
+    "Watercraft_Decontaminated",
+    "No_Decontamination_Necessary"
+   ],
+   "ValueFields": [
+    "Watercraft_Decontaminated",
+    "No_Decontamination_Necessary"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 93
+  },
+  {
+   "MonitoringProgramID": 9093,
+   "Kind": "sites",
+   "Title": "Monitoring stations",
+   "Fields": [
+    "STATION_NAME",
+    "STATION_TYPE"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 103
+  },
+  {
+   "MonitoringProgramID": 9622,
+   "Kind": "sites",
+   "Title": "Monitoring intakes",
+   "Fields": [
+    "SITE_NAME",
+    "SID",
+    "STATUS"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Shoreline_Resources/MapServer",
+   "SourceKind": "service",
+   "Layer": 4
+  },
+  {
+   "MonitoringProgramID": 9680,
+   "Kind": "chart",
+   "Title": "Caldor Fire vegetation burn severity",
+   "Fields": [
+    "gridcode",
+    "Shape.STArea() / 4046.8564224"
+   ],
+   "ValueFields": [
+    "Shape.STArea() / 4046.8564224"
+   ],
+   "VirtualFields": [],
+   "Where": "gridcode IN (1,2,3,4)",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
+   "SourceKind": "service",
+   "Layer": 5
+  },
+  {
+   "MonitoringProgramID": 9680,
+   "Kind": "map",
+   "Title": "Caldor Fire high severity burn (2021)",
+   "Fields": [
+    "gridcode"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "gridcode = 4",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
+   "SourceKind": "service",
+   "Layer": 5
+  },
+  {
+   "MonitoringProgramID": 9680,
+   "Kind": "overlay",
+   "Title": "Fire history (LTBMU, 1967 to 2016)",
+   "Fields": [
+    "FIRE_NAME",
+    "YEAR_",
+    "GIS_ACRES"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "UNIT_ID = 'TMU'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
+   "SourceKind": "service",
+   "Layer": 6
+  },
+  {
+   "MonitoringProgramID": 9681,
+   "Kind": "chart",
+   "Title": "Seral stage by canopy class",
+   "Fields": [
+    "Seral stage",
+    "Percent",
+    "Canopy"
+   ],
+   "ValueFields": [
+    "Percent"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "2023 Threshold Evaluation",
+   "Source": "data/threshold-evaluation/stand-composition.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9682,
+   "Kind": "chart",
+   "Title": "Riparian, meadow, and wetland acres by condition",
+   "Fields": [
+    "TRPA_VegType",
+    "SUM_Acres",
+    "Development"
+   ],
+   "ValueFields": [
+    "SUM_Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "TRPA_VegType IN ('Deciduous Riparian','Meadow','Wetland')",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 91
+  },
+  {
+   "MonitoringProgramID": 9682,
+   "Kind": "chart",
+   "Title": "SEZ acres restored by project year",
+   "Fields": [
+    "YearCompleted",
+    "AcresRestored"
+   ],
+   "ValueFields": [
+    "AcresRestored"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 77
+  },
+  {
+   "MonitoringProgramID": 9682,
+   "Kind": "map",
+   "Title": "Riparian areas",
+   "Fields": [
+    "Class_name",
+    "Acres"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/SEZ_Viewer_Base_Data/MapServer",
+   "SourceKind": "service",
+   "Layer": 7
+  },
+  {
+   "MonitoringProgramID": 9682,
+   "Kind": "overlay",
+   "Title": "Aspen stands (USFS)",
+   "Fields": [
+    "Acres"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/DataDownloader_SoilsandHydro/MapServer",
+   "SourceKind": "service",
+   "Layer": 42
+  },
+  {
+   "MonitoringProgramID": 9682,
+   "Kind": "overlay",
+   "Title": "Meadows (UC Davis and USFS)",
+   "Fields": [
+    "ID",
+    "AREA_ACRE"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/DataDownloader_SoilsandHydro/MapServer",
+   "SourceKind": "service",
+   "Layer": 40
+  },
+  {
+   "MonitoringProgramID": 9682,
+   "Kind": "overlay",
+   "Title": "Fens (USFS)",
+   "Fields": [
+    "LOCATION_N",
+    "PERC_FEN",
+    "DESCRIPTIO"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/DataDownloader_SoilsandHydro/MapServer",
+   "SourceKind": "service",
+   "Layer": 41
+  },
+  {
+   "MonitoringProgramID": 9683,
+   "Kind": "chart",
+   "Title": "Land capability district acres",
+   "Fields": [
+    "Land_Capab",
+    "GISAcre"
+   ],
+   "ValueFields": [
+    "GISAcre"
+   ],
+   "VirtualFields": [],
+   "Where": "Land_Capab <> ' '",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Soils_and_Land_Capability/MapServer",
+   "SourceKind": "service",
+   "Layer": 6
+  },
+  {
+   "MonitoringProgramID": 9683,
+   "Kind": "chart",
+   "Title": "Impervious cover by land capability district, 2019",
+   "Fields": [
+    "Land_Capab",
+    "GISAcre",
+    "Feature"
+   ],
+   "ValueFields": [
+    "GISAcre"
+   ],
+   "VirtualFields": [],
+   "Where": "Feature IS NOT NULL AND Land_Capab IS NOT NULL",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 81
+  },
+  {
+   "MonitoringProgramID": 9683,
+   "Kind": "chart",
+   "Title": "Coverage allowed under Bailey (1974) coefficients",
+   "Fields": [
+    "Land_Capab",
+    "GISAcre * Bailey_Co"
+   ],
+   "ValueFields": [
+    "GISAcre * Bailey_Co"
+   ],
+   "VirtualFields": [],
+   "Where": "Land_Capab IS NOT NULL",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 81
+  },
+  {
+   "MonitoringProgramID": 9684,
+   "Kind": "chart",
+   "Title": "Forest fuel treatment acres by zone",
+   "Fields": [
+    "Year",
+    "Acres",
+    "Zone"
+   ],
+   "ValueFields": [
+    "Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "2023 Threshold Evaluation",
+   "Source": "data/threshold-evaluation/forest-fuel-treatment.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9684,
+   "Kind": "chart",
+   "Title": "Forest fuel treatment acres",
+   "Fields": [
+    "Year",
+    "Initial",
+    "Maintenance"
+   ],
+   "ValueFields": [
+    "Initial",
+    "Maintenance"
+   ],
+   "VirtualFields": [],
+   "Where": "Year IS NOT NULL",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 90
+  },
+  {
+   "MonitoringProgramID": 9756,
+   "Kind": "map",
+   "Title": "Riparian areas",
+   "Fields": [
+    "Class_name",
+    "Acres"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/SEZ_Viewer_Base_Data/MapServer",
+   "SourceKind": "service",
+   "Layer": 7
+  },
+  {
+   "MonitoringProgramID": 9765,
+   "Kind": "chart",
+   "Title": "Fawning habitat by vegetation type",
+   "Fields": [
+    "WHRTYPE",
+    "ACRES"
+   ],
+   "ValueFields": [
+    "ACRES"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 45
+  },
+  {
+   "MonitoringProgramID": 9765,
+   "Kind": "map",
+   "Title": "Deer fawning habitat",
+   "Fields": [
+    "WHRTYPE",
+    "ACRES",
+    "SUITBILTY"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTInfo_Monitoring/MapServer",
+   "SourceKind": "service",
+   "Layer": 45
+  },
+  {
+   "MonitoringProgramID": 9777,
+   "Kind": "chart",
+   "Title": "Phosphorus load reduction achieved",
+   "Fields": [
+    "Year",
+    "Pounds per year"
+   ],
+   "ValueFields": [
+    "Pounds per year"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "2023 Threshold Evaluation",
+   "Source": "data/threshold-evaluation/phosphorus-load-reduction.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9778,
+   "Kind": "chart",
+   "Title": "Nitrogen load reduction achieved",
+   "Fields": [
+    "Year",
+    "Pounds per year"
+   ],
+   "ValueFields": [
+    "Pounds per year"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "2023 Threshold Evaluation",
+   "Source": "data/threshold-evaluation/nitrogen-load-reduction.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9779,
+   "Kind": "chart",
+   "Title": "Fine sediment load reduction achieved",
+   "Fields": [
+    "Year",
+    "Pounds per year"
+   ],
+   "ValueFields": [
+    "Pounds per year"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "2023 Threshold Evaluation",
+   "Source": "data/threshold-evaluation/fine-sediment-load-reduction.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9786,
+   "Kind": "chart",
+   "Title": "Aquatic invasive plant sites by status",
+   "Fields": [
+    "Year",
+    "Percent",
+    "Status"
+   ],
+   "ValueFields": [
+    "Percent"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "2023 Threshold Evaluation",
+   "Source": "data/threshold-evaluation/ais-site-status.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9787,
+   "Kind": "chart",
+   "Title": "Aquatic invasive plant volume in the Tahoe Keys",
+   "Fields": [
+    "Year",
+    "Cubic yards",
+    "Species"
+   ],
+   "ValueFields": [
+    "Cubic yards"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "2023 Threshold Evaluation",
+   "Source": "data/threshold-evaluation/tahoe-keys-aquatic-plants.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9789,
+   "Kind": "chart",
+   "Title": "Conifer forest acres within the recommended density",
+   "Fields": [
+    "Status",
+    "Acres"
+   ],
+   "ValueFields": [
+    "Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Vegetation/FeatureServer",
+   "SourceKind": "service",
+   "Layer": 4
+  },
+  {
+   "MonitoringProgramID": 9790,
+   "Kind": "chart",
+   "Title": "Conifer forest acres by seral stage and canopy cover",
+   "Fields": [
+    "Composition",
+    "Acres"
+   ],
+   "ValueFields": [
+    "Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Vegetation/FeatureServer",
+   "SourceKind": "service",
+   "Layer": 3
+  },
+  {
+   "MonitoringProgramID": 9794,
+   "Kind": "chart",
+   "Title": "Large trees by diameter",
+   "Fields": [
+    "Diameter",
+    "Trees"
+   ],
+   "ValueFields": [
+    "Trees"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "TRPA Large_Trees_Reference map service, layer 0",
+   "Source": "data/large-trees/trees-by-diameter.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9794,
+   "Kind": "map",
+   "Title": "Large trees per 100 acres",
+   "Fields": [
+    "Cell",
+    "Trees"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "TRPA Large_Trees_Reference map service, layer 0, counted in 100-acre hexagons",
+   "Source": "data/large-trees/large-tree-hexagons.geojson",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9795,
+   "Kind": "chart",
+   "Title": "Acres with tree mortality by host tree",
+   "Fields": [
+    "HOST",
+    "ACRES"
+   ],
+   "ValueFields": [
+    "ACRES"
+   ],
+   "VirtualFields": [],
+   "Where": "WITHIN_TRPA_BNDY = 1",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Vegetation/FeatureServer",
+   "SourceKind": "service",
+   "Layer": 2
+  },
+  {
+   "MonitoringProgramID": 9795,
+   "Kind": "chart",
+   "Title": "Trees killed by agent",
+   "Fields": [
+    "DCA",
+    "NUMBER_OF_TREES"
+   ],
+   "ValueFields": [
+    "NUMBER_OF_TREES"
+   ],
+   "VirtualFields": [],
+   "Where": "WITHIN_TRPA_BNDY = 1",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Vegetation/FeatureServer",
+   "SourceKind": "service",
+   "Layer": 2
+  },
+  {
+   "MonitoringProgramID": 9795,
+   "Kind": "chart",
+   "Title": "Acres by share of trees affected",
+   "Fields": [
+    "PCT_AFFECTED",
+    "ACRES"
+   ],
+   "ValueFields": [
+    "ACRES"
+   ],
+   "VirtualFields": [],
+   "Where": "WITHIN_TRPA_BNDY = 1 AND PCT_AFFECTED IS NOT NULL",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Vegetation/FeatureServer",
+   "SourceKind": "service",
+   "Layer": 2
+  },
+  {
+   "MonitoringProgramID": 9795,
+   "Kind": "map",
+   "Title": "Tree mortality, 2023 aerial survey",
+   "Fields": [
+    "HOST",
+    "PCT_AFFECTED",
+    "DCA",
+    "NUMBER_OF_TREES",
+    "ACRES"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "WITHIN_TRPA_BNDY = 1",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Vegetation/FeatureServer",
+   "SourceKind": "service",
+   "Layer": 2
+  },
+  {
+   "MonitoringProgramID": 9797,
+   "Kind": "chart",
+   "Title": "Most likely fire severity by management zone",
+   "Fields": [
+    "ManagementZone",
+    "Acres",
+    "MostLikelyFireSeverity"
+   ],
+   "ValueFields": [
+    "Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "ManagementZone <> ''",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
+   "SourceKind": "service",
+   "Layer": 3
+  },
+  {
+   "MonitoringProgramID": 9797,
+   "Kind": "chart",
+   "Title": "WUI Defense Zone by most likely fire severity",
+   "Fields": [
+    "MostLikelyFireSeverity",
+    "Acres"
+   ],
+   "ValueFields": [
+    "Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "ManagementZone = 'WUI Defense Zone'",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
+   "SourceKind": "service",
+   "Layer": 3
+  },
+  {
+   "MonitoringProgramID": 9797,
+   "Kind": "chart",
+   "Title": "Most likely high severity fire by management zone",
+   "Fields": [
+    "ManagementZone",
+    "Acres"
+   ],
+   "ValueFields": [
+    "Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "MostLikelyFireSeverity = 'High Severity' AND ManagementZone <> ''",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Fire/MapServer",
+   "SourceKind": "service",
+   "Layer": 3
+  },
+  {
+   "MonitoringProgramID": 9797,
+   "Kind": "map",
+   "Title": "Forest management zones",
+   "Fields": [
+    "Name",
+    "Acres"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Datadownloader_PlanningandJurisdictions/MapServer",
+   "SourceKind": "service",
+   "Layer": 26
+  },
+  {
+   "MonitoringProgramID": 9798,
+   "Kind": "chart",
+   "Title": "Acres burned in the Basin by year",
+   "Fields": [
+    "Year",
+    "Acres"
+   ],
+   "ValueFields": [
+    "Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "CAL FIRE California Historic Fire Perimeters, clipped to the TRPA boundary",
+   "Source": "data/fire-history/area-burned-by-year.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9798,
+   "Kind": "chart",
+   "Title": "Largest fires in the Basin",
+   "Fields": [
+    "Fire",
+    "Acres"
+   ],
+   "ValueFields": [
+    "Acres"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "CAL FIRE California Historic Fire Perimeters, clipped to the TRPA boundary",
+   "Source": "data/fire-history/largest-fires.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9798,
+   "Kind": "map",
+   "Title": "Fire perimeters in the Basin",
+   "Fields": [
+    "Fire",
+    "Year",
+    "Acres",
+    "Cause"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "CAL FIRE California Historic Fire Perimeters, clipped to the TRPA boundary",
+   "Source": "data/fire-history/fire-perimeters.geojson",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9901,
+   "Kind": "chart",
+   "Title": "Population at each census",
+   "Fields": [
+    "Year",
+    "Value"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "Geography = 'Basin' AND Category = 'Total Population' AND Source LIKE '%Decennial%'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+   "SourceKind": "service",
+   "Layer": 18
+  },
+  {
+   "MonitoringProgramID": 9901,
+   "Kind": "chart",
+   "Title": "Population estimates between censuses",
+   "Fields": [
+    "Year",
+    "Value"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "Geography = 'Basin' AND Category = 'Total Population' AND (Source = 'acs/acs5' OR Source LIKE '%ACS%')",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+   "SourceKind": "service",
+   "Layer": 18
+  },
+  {
+   "MonitoringProgramID": 9901,
+   "Kind": "chart",
+   "Title": "Population change by community, 2010 to 2020",
+   "Fields": [
+    "NEIGHBORHOOD",
+    "Population_Percent_Change"
+   ],
+   "ValueFields": [
+    "Population_Percent_Change"
+   ],
+   "VirtualFields": [],
+   "Where": "1=1",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+   "SourceKind": "service",
+   "Layer": 31
+  },
+  {
+   "MonitoringProgramID": 9901,
+   "Kind": "map",
+   "Title": "Population change, 2010 to 2020",
+   "Fields": [
+    "NEIGHBORHOOD",
+    "Population_Percent_Change",
+    "Neighborhood_Population_2010",
+    "Neighborhood_Population_2020",
+    "Neighborhood_HousingUnits_2020",
+    "Neighborhood_Seasonal_2020",
+    "Seasonal_Unit_Percent_Change"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+   "SourceKind": "service",
+   "Layer": 31
+  },
+  {
+   "MonitoringProgramID": 9902,
+   "Kind": "chart",
+   "Title": "Age profile, Tahoe Basin",
+   "Fields": [
+    "Age",
+    "Percent",
+    "Sex",
+    "Year"
+   ],
+   "ValueFields": [
+    "Percent"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "Tahoe Open Data demographics",
+   "Source": "data/demographics/age-profile.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9902,
+   "Kind": "chart",
+   "Title": "Age profile, five surrounding counties",
+   "Fields": [
+    "Age",
+    "Percent",
+    "Sex",
+    "Year"
+   ],
+   "ValueFields": [
+    "Percent"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "Tahoe Open Data demographics",
+   "Source": "data/demographics/age-profile-counties.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9902,
+   "Kind": "chart",
+   "Title": "Residents 65 and older",
+   "Fields": [
+    "Year",
+    "Percent",
+    "Area"
+   ],
+   "ValueFields": [
+    "Percent"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "Tahoe Open Data demographics",
+   "Source": "data/demographics/population-over-65.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9903,
+   "Kind": "chart",
+   "Title": "Race and Hispanic origin",
+   "Fields": [
+    "Year",
+    "Percent",
+    "Group"
+   ],
+   "ValueFields": [
+    "Percent"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "Tahoe Open Data demographics",
+   "Source": "data/demographics/race-and-ethnicity.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9903,
+   "Kind": "map",
+   "Title": "Race and Hispanic origin, one dot for 25 people",
+   "Fields": [
+    "NAME",
+    "B03002_003E",
+    "B03002_012E",
+    "B03002_006E",
+    "B03002_009E",
+    "B03002_004E",
+    "B03002_005E",
+    "B03002_007E",
+    "B03002_008E"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "GEOID IN ('06017030201','06017030202','06017030301','06017030302','06017030402','06017030403','06017030404','06017030502','06017030504','06017030506','06017030507','06017031601','06017031602','06017032001','06017032002','06061020104','06061020105','06061020106','06061020107','06061022100','06061022200','06061022300','32005001600','32005001700','32005001800','32031003305','32031003306','32031003307','32031003308','32031003310','32031003311')",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/ACS_Population_by_Race_and_Hispanic_Origin_Boundaries/FeatureServer",
+   "SourceKind": "service",
+   "Layer": 2
+  },
+  {
+   "MonitoringProgramID": 9904,
+   "Kind": "chart",
+   "Title": "Housing units by occupancy",
+   "Fields": [
+    "Year",
+    "Percent",
+    "Occupancy"
+   ],
+   "ValueFields": [
+    "Percent"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "Tahoe Open Data demographics",
+   "Source": "data/demographics/housing-occupancy.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9904,
+   "Kind": "chart",
+   "Title": "Housing units and seasonal homes at each census",
+   "Fields": [
+    "Year",
+    "Value",
+    "Category"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "Geography = 'Basin' AND Category IN ('Total Housing Units','Vacant Housing Units: Seasonal, recreational, or occasional use') AND Source LIKE 'dec/%' AND Code <> 'H0060003'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+   "SourceKind": "service",
+   "Layer": 18
+  },
+  {
+   "MonitoringProgramID": 9904,
+   "Kind": "chart",
+   "Title": "Change in seasonal homes by community, 2010 to 2020",
+   "Fields": [
+    "NEIGHBORHOOD",
+    "Seasonal_Unit_Percent_Change"
+   ],
+   "ValueFields": [
+    "Seasonal_Unit_Percent_Change"
+   ],
+   "VirtualFields": [],
+   "Where": "1=1",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+   "SourceKind": "service",
+   "Layer": 31
+  },
+  {
+   "MonitoringProgramID": 9904,
+   "Kind": "map",
+   "Title": "Change in seasonal homes, 2010 to 2020",
+   "Fields": [
+    "NEIGHBORHOOD",
+    "Seasonal_Unit_Percent_Change",
+    "Neighborhood_Population_2010",
+    "Neighborhood_Population_2020",
+    "Population_Percent_Change",
+    "Neighborhood_HousingUnits_2020",
+    "Neighborhood_Seasonal_2020"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+   "SourceKind": "service",
+   "Layer": 31
+  },
+  {
+   "MonitoringProgramID": 9905,
+   "Kind": "chart",
+   "Title": "Median household income",
+   "Fields": [
+    "Year",
+    "Value"
+   ],
+   "ValueFields": [
+    "Value"
+   ],
+   "VirtualFields": [],
+   "Where": "Geography = 'Basin' AND Category = 'Household Income (2021 Inflation Adjusted Dollars)'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+   "SourceKind": "service",
+   "Layer": 18
+  },
+  {
+   "MonitoringProgramID": 9905,
+   "Kind": "chart",
+   "Title": "Median household income by county",
+   "Fields": [
+    "Year",
+    "Income",
+    "Area"
+   ],
+   "ValueFields": [
+    "Income"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "Tahoe Open Data demographics",
+   "Source": "data/demographics/median-income-by-county.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9911,
+   "Kind": "chart",
+   "Title": "Greenhouse gas emissions by sector",
+   "Fields": [
+    "Year",
+    "MT_CO2",
+    "Category"
+   ],
+   "ValueFields": [
+    "MT_CO2"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+   "SourceKind": "service",
+   "Layer": 127
+  },
+  {
+   "MonitoringProgramID": 9912,
+   "Kind": "chart",
+   "Title": "Daily air quality index",
+   "Fields": [
+    "Date",
+    "Air quality index"
+   ],
+   "ValueFields": [
+    "Air quality index"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "Climate Resilience Dashboard",
+   "Source": "data/climate/air-quality-index.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9913,
+   "Kind": "chart",
+   "Title": "Lake Tahoe water level",
+   "Fields": [
+    "Date",
+    "Water level",
+    "Legal high water",
+    "Natural rim"
+   ],
+   "ValueFields": [
+    "Water level",
+    "Legal high water",
+    "Natural rim"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "Climate Resilience Dashboard",
+   "Source": "data/climate/lake-level.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9914,
+   "Kind": "chart",
+   "Title": "Mid-lake surface temperature",
+   "Fields": [
+    "Date",
+    "Temperature"
+   ],
+   "ValueFields": [
+    "Temperature"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "Climate Resilience Dashboard",
+   "Source": "data/climate/lake-temperature.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9915,
+   "Kind": "chart",
+   "Title": "Share of precipitation as snow and rain",
+   "Fields": [
+    "Year",
+    "Percent",
+    "Form"
+   ],
+   "ValueFields": [
+    "Percent"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "Climate Resilience Dashboard",
+   "Source": "data/climate/snow-and-rain.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9915,
+   "Kind": "chart",
+   "Title": "Total precipitation",
+   "Fields": [
+    "Year",
+    "Full_Day_Total_Precip_mm"
+   ],
+   "ValueFields": [
+    "Full_Day_Total_Precip_mm"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+   "SourceKind": "service",
+   "Layer": 145
+  },
+  {
+   "MonitoringProgramID": 9915,
+   "Kind": "chart",
+   "Title": "New snowfall",
+   "Fields": [
+    "Year",
+    "New_Snow_cm"
+   ],
+   "ValueFields": [
+    "New_Snow_cm"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+   "SourceKind": "service",
+   "Layer": 145
+  },
+  {
+   "MonitoringProgramID": 9916,
+   "Kind": "chart",
+   "Title": "Electricity from renewable sources",
+   "Fields": [
+    "Year",
+    "Share",
+    "Type",
+    "Source"
+   ],
+   "ValueFields": [
+    "Share"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+   "SourceKind": "service",
+   "Layer": 144
+  },
+  {
+   "MonitoringProgramID": 9921,
+   "Kind": "chart",
+   "Title": "Deed-restricted units by type",
+   "Fields": [
+    "Deed_Restriction_Type",
+    "Units"
+   ],
+   "ValueFields": [
+    "Units"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+   "SourceKind": "service",
+   "Layer": 148
+  },
+  {
+   "MonitoringProgramID": 9921,
+   "Kind": "map",
+   "Title": "Deed-restricted parcels",
+   "Fields": [
+    "APO_ADDRESS",
+    "DeedRestrictionType",
+    "APN",
+    "RecordingDate",
+    "JURISDICTION"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "DeedRestrictionStatus = 'Recorded'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+   "SourceKind": "service",
+   "Layer": 20
+  },
+  {
+   "MonitoringProgramID": 9922,
+   "Kind": "chart",
+   "Title": "Average home sale price",
+   "Fields": [
+    "year",
+    "Purchase_Amt"
+   ],
+   "ValueFields": [
+    "Purchase_Amt"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "avg",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+   "SourceKind": "service",
+   "Layer": 147
+  },
+  {
+   "MonitoringProgramID": 9922,
+   "Kind": "chart",
+   "Title": "Asking rent per unit",
+   "Fields": [
+    "Period",
+    "Asking_Rent_Per_Unit"
+   ],
+   "ValueFields": [
+    "Asking_Rent_Per_Unit"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+   "SourceKind": "service",
+   "Layer": 146
+  },
+  {
+   "MonitoringProgramID": 9924,
+   "Kind": "chart",
+   "Title": "Transient occupancy tax collected",
+   "Fields": [
+    "Fiscal_Year",
+    "TOT_Collected",
+    "Jurisdiction"
+   ],
+   "ValueFields": [
+    "TOT_Collected"
+   ],
+   "VirtualFields": [],
+   "Where": "Duration = 'FY'",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+   "SourceKind": "service",
+   "Layer": 137
+  },
+  {
+   "MonitoringProgramID": 9925,
+   "Kind": "chart",
+   "Title": "Jobs in the Basin by monthly earnings",
+   "Fields": [
+    "Year",
+    "CE01",
+    "CE02",
+    "CE03"
+   ],
+   "ValueFields": [
+    "CE01",
+    "CE02",
+    "CE03"
+   ],
+   "VirtualFields": [],
+   "Where": "Year <= 2021",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+   "SourceKind": "service",
+   "Layer": 142
+  },
+  {
+   "MonitoringProgramID": 9926,
+   "Kind": "chart",
+   "Title": "Units by jurisdiction and status",
+   "Fields": [
+    "Jurisdiction",
+    "Units",
+    "Status"
+   ],
+   "ValueFields": [
+    "Units"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "TRPA Housing Progress page",
+   "Source": "data/housing/units-by-jurisdiction.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9926,
+   "Kind": "chart",
+   "Title": "Units built each year since 2012",
+   "Fields": [
+    "Year",
+    "Units",
+    "Group"
+   ],
+   "ValueFields": [
+    "Units"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "TRPA Housing Progress page",
+   "Source": "data/housing/units-built-by-year.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9926,
+   "Kind": "chart",
+   "Title": "Existing units by housing type",
+   "Fields": [
+    "Type",
+    "Units"
+   ],
+   "ValueFields": [
+    "Units"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "TRPA Housing Progress page",
+   "Source": "data/housing/existing-units-by-type.json",
+   "SourceKind": "file",
+   "Layer": null
+  },
+  {
+   "MonitoringProgramID": 9931,
+   "Kind": "chart",
+   "Title": "Vehicles counted each day",
+   "Fields": [
+    "Date",
+    "counts",
+    "LocationName"
+   ],
+   "ValueFields": [
+    "counts"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Transportation_SMART/FeatureServer",
+   "SourceKind": "service",
+   "Layer": 5
+  },
+  {
+   "MonitoringProgramID": 9931,
+   "Kind": "chart",
+   "Title": "Vehicles by time of day",
+   "Fields": [
+    "timeInterval",
+    "counts",
+    "LocationName"
+   ],
+   "ValueFields": [
+    "counts"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Transportation_SMART/FeatureServer",
+   "SourceKind": "service",
+   "Layer": 3
+  },
+  {
+   "MonitoringProgramID": 9931,
+   "Kind": "chart",
+   "Title": "Vehicles by class",
+   "Fields": [
+    "class",
+    "counts",
+    "LocationName"
+   ],
+   "ValueFields": [
+    "counts"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Transportation_SMART/FeatureServer",
+   "SourceKind": "service",
+   "Layer": 3
+  },
+  {
+   "MonitoringProgramID": 9931,
+   "Kind": "chart",
+   "Title": "Vehicle speeds",
+   "Fields": [
+    "speedinterval",
+    "counts",
+    "LocationName"
+   ],
+   "ValueFields": [
+    "counts"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Transportation_SMART/FeatureServer",
+   "SourceKind": "service",
+   "Layer": 2
+  },
+  {
+   "MonitoringProgramID": 9931,
+   "Kind": "chart",
+   "Title": "People walking and biking each day",
+   "Fields": [
+    "Date",
+    "counts",
+    "class",
+    "LocationName"
+   ],
+   "ValueFields": [
+    "counts"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Transportation_SMART/FeatureServer",
+   "SourceKind": "service",
+   "Layer": 4
+  },
+  {
+   "MonitoringProgramID": 9931,
+   "Kind": "chart",
+   "Title": "Safety events by type",
+   "Fields": [
+    "EventType",
+    "OBJECTID",
+    "LocationName"
+   ],
+   "ValueFields": [
+    "OBJECTID"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "count",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Transportation_SMART/FeatureServer",
+   "SourceKind": "service",
+   "Layer": 1
+  },
+  {
+   "MonitoringProgramID": 9931,
+   "Kind": "sites",
+   "Title": "Monitoring cameras",
+   "Fields": [
+    "LocationName",
+    "Status"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Transportation_SMART/FeatureServer",
+   "SourceKind": "service",
+   "Layer": 0
+  },
+  {
+   "MonitoringProgramID": 9932,
+   "Kind": "chart",
+   "Title": "Sites with the highest calcium, 2025",
+   "Fields": [
+    "SURVEY_SITE",
+    "CALCIUM_READING"
+   ],
+   "ValueFields": [
+    "CALCIUM_READING"
+   ],
+   "VirtualFields": [],
+   "Where": "SURVEY_SITE IS NOT NULL AND CALCIUM_READING IS NOT NULL AND SURVEY_DATE >= DATE '2025-01-01'",
+   "Statistic": "avg",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Calcium_Survey/MapServer",
+   "SourceKind": "service",
+   "Layer": 0
+  },
+  {
+   "MonitoringProgramID": 9932,
+   "Kind": "chart",
+   "Title": "Average calcium by survey day",
+   "Fields": [
+    "SURVEY_DATE",
+    "CALCIUM_READING"
+   ],
+   "ValueFields": [
+    "CALCIUM_READING"
+   ],
+   "VirtualFields": [],
+   "Where": "SURVEY_DATE IS NOT NULL AND CALCIUM_READING IS NOT NULL",
+   "Statistic": "avg",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Calcium_Survey/MapServer",
+   "SourceKind": "service",
+   "Layer": 0
+  },
+  {
+   "MonitoringProgramID": 9932,
+   "Kind": "chart",
+   "Title": "eDNA samples by agency",
+   "Fields": [
+    "sampler_agency",
+    "OBJECTID"
+   ],
+   "ValueFields": [
+    "OBJECTID"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "count",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/eDNA_Samples/MapServer",
+   "SourceKind": "service",
+   "Layer": 0
+  },
+  {
+   "MonitoringProgramID": 9932,
+   "Kind": "sites",
+   "Title": "Monitoring sites",
+   "Fields": [
+    "description",
+    "SITE_NAME",
+    "sample_year"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Calcium_Sites/MapServer",
+   "SourceKind": "service",
+   "Layer": 0
+  },
+  {
+   "MonitoringProgramID": 9932,
+   "Kind": "sites-per-year",
+   "Title": "Sites monitored each year",
+   "Fields": [
+    "SURVEY_DATE",
+    "SURVEY_SITE"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Calcium_Survey/MapServer",
+   "SourceKind": "service",
+   "Layer": 0
+  },
+  {
+   "MonitoringProgramID": 9932,
+   "Kind": "overlay",
+   "Title": "eDNA samples, 2024",
+   "Fields": [
+    "site_description",
+    "sampler_agency",
+    "primary_bottom_sediment",
+    "number_of_filters_used"
+   ],
+   "ValueFields": [],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/eDNA_Samples/MapServer",
+   "SourceKind": "service",
+   "Layer": 0
+  },
+  {
+   "MonitoringProgramID": 9933,
+   "Kind": "chart",
+   "Title": "Room nights rented each year, by jurisdiction",
+   "Fields": [
+    "Year",
+    "RoomsRented",
+    "Jurisdiction"
+   ],
+   "ValueFields": [
+    "RoomsRented"
+   ],
+   "VirtualFields": [],
+   "Where": "RoomsRented IS NOT NULL",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Transportation_Planning/MapServer",
+   "SourceKind": "service",
+   "Layer": 13
+  },
+  {
+   "MonitoringProgramID": 9933,
+   "Kind": "chart",
+   "Title": "Room nights rented each year, by lodging type",
+   "Fields": [
+    "Year",
+    "RoomsRented",
+    "Category"
+   ],
+   "ValueFields": [
+    "RoomsRented"
+   ],
+   "VirtualFields": [],
+   "Where": "RoomsRented IS NOT NULL",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Transportation_Planning/MapServer",
+   "SourceKind": "service",
+   "Layer": 13
+  },
+  {
+   "MonitoringProgramID": 9933,
+   "Kind": "chart",
+   "Title": "Hotel and motel occupancy by month",
+   "Fields": [
+    "MonthNum",
+    "OccupancyRate",
+    "Year",
+    "AreaName"
+   ],
+   "ValueFields": [
+    "OccupancyRate"
+   ],
+   "VirtualFields": [],
+   "Where": "MonthNum IS NOT NULL AND OccupancyRate IS NOT NULL AND Category <> 'VHR'",
+   "Statistic": "avg",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Transportation_Planning/MapServer",
+   "SourceKind": "service",
+   "Layer": 13
+  },
+  {
+   "MonitoringProgramID": 9933,
+   "Kind": "chart",
+   "Title": "Sand Harbor visitors by season",
+   "Fields": [
+    "Season",
+    "Visitor_Numbers"
+   ],
+   "ValueFields": [
+    "Visitor_Numbers"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "sum",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+   "SourceKind": "service",
+   "Layer": 33
+  },
+  {
+   "MonitoringProgramID": 9933,
+   "Kind": "chart",
+   "Title": "Sand Harbor visitors by month",
+   "Fields": [
+    "Month",
+    "Visitor_Numbers"
+   ],
+   "ValueFields": [
+    "Visitor_Numbers"
+   ],
+   "VirtualFields": [],
+   "Where": "",
+   "Statistic": "avg",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/Demographics/MapServer",
+   "SourceKind": "service",
+   "Layer": 33
+  },
+  {
+   "MonitoringProgramID": 9934,
+   "Kind": "chart",
+   "Title": "Rides each month, by service",
+   "Fields": [
+    "MONTH",
+    "TTD_Fixed_Route",
+    "TART_Fixed_Route",
+    "TART_Connect",
+    "Lake_Link",
+    "TTD_Paratransit",
+    "TART_Paratransit"
+   ],
+   "ValueFields": [
+    "TTD_Fixed_Route",
+    "TART_Fixed_Route",
+    "TART_Connect",
+    "Lake_Link",
+    "TTD_Paratransit",
+    "TART_Paratransit"
+   ],
+   "VirtualFields": [],
+   "Where": "TTD_Fixed_Route > 0",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+   "SourceKind": "service",
+   "Layer": 131
+  },
+  {
+   "MonitoringProgramID": 9934,
+   "Kind": "chart",
+   "Title": "Rides each year, by service",
+   "Fields": [
+    "MONTH_year",
+    "TTD_Fixed_Route",
+    "TART_Fixed_Route",
+    "TART_Connect",
+    "Lake_Link",
+    "TTD_Paratransit",
+    "TART_Paratransit"
+   ],
+   "ValueFields": [
+    "TTD_Fixed_Route",
+    "TART_Fixed_Route",
+    "TART_Connect",
+    "Lake_Link",
+    "TTD_Paratransit",
+    "TART_Paratransit"
+   ],
+   "VirtualFields": [],
+   "Where": "MONTH NOT LIKE '%-17' AND MONTH NOT LIKE '%-23'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+   "SourceKind": "service",
+   "Layer": 131
+  },
+  {
+   "MonitoringProgramID": 9934,
+   "Kind": "chart",
+   "Title": "Rides by month of the year",
+   "Fields": [
+    "MONTH_month",
+    "Total",
+    "MONTH_year"
+   ],
+   "ValueFields": [
+    "Total"
+   ],
+   "VirtualFields": [],
+   "Where": "TTD_Fixed_Route > 0",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+   "SourceKind": "service",
+   "Layer": 131
+  },
+  {
+   "MonitoringProgramID": 9935,
+   "Kind": "chart",
+   "Title": "Mode share in TRPA travel surveys",
+   "Fields": [
+    "Year",
+    "Number",
+    "Mode",
+    "Season"
+   ],
+   "ValueFields": [
+    "Number"
+   ],
+   "VirtualFields": [],
+   "Where": "Source = 'Survey'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+   "SourceKind": "service",
+   "Layer": 136
+  },
+  {
+   "MonitoringProgramID": 9935,
+   "Kind": "chart",
+   "Title": "Mode share in Replica",
+   "Fields": [
+    "Year",
+    "Number",
+    "Mode",
+    "Day"
+   ],
+   "ValueFields": [
+    "Number"
+   ],
+   "VirtualFields": [],
+   "Where": "Source = 'Replica'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+   "SourceKind": "service",
+   "Layer": 136
+  },
+  {
+   "MonitoringProgramID": 9935,
+   "Kind": "chart",
+   "Title": "Mode share in LOCUS",
+   "Fields": [
+    "Year",
+    "Number",
+    "Mode",
+    "Day"
+   ],
+   "ValueFields": [
+    "Number"
+   ],
+   "VirtualFields": [],
+   "Where": "Source = 'LOCUS'",
+   "Statistic": "",
+   "Upstream": "",
+   "Source": "https://maps.trpa.org/server/rest/services/LTinfo_Climate_Resilience_Dashboard/MapServer",
+   "SourceKind": "service",
+   "Layer": 136
+  }
+ ]
+}

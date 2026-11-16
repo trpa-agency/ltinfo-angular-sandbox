@@ -108,13 +108,11 @@ In ESA's repo the last step becomes `git push` and a pull request.
 
 ## Data Model page
 
-`/data-model` (linked from About Monitoring) has three parts:
+`/data-model` (linked from About Monitoring) is a copy of the Data Model page in LT Info's Monitoring Dashboard redesign (esassoc/ltinfo, `LtInfo.Web/src/app/areas/monitoring-new/data-model`), published here so ESA and TRPA staff can read it without an LT Info login. LT Info's page is the working one; change it there first, then copy it here.
 
-1. **Tables.** The six tables and how they join, drawn from the list in `pages/data-model/schema-diagram.ts`. Update that list when a table script in `Sandbox.Database/dbo/Tables` changes.
-2. **Ingestion Paths and Acceptance Criteria.** The five ways data reaches the dashboard: a TRPA web service, partner data through a TRPA pipeline, a partner's own web service, data entered in LT Info, and an extracted file. Each lists what the app checks and what a person confirms. The wording lives in `lib/ingest.ts` (`INGEST_PATHS`) and is a draft to edit.
-3. **Chart and Map Sources.** Every chart, map, site list, overlay, and site profile traced to its service layer or file, from `GET /dashboard-configs`. Nothing is typed by hand, so it follows the settings. Run Checks tests the source on screen: the layer exists and has a description, each field exists, the filter returns records, and a file cites its original source.
-
-A URL cannot tell TRPA data from partner data hosted at TRPA. List partner services in `PARTNER_PIPELINES` in `lib/ingest.ts`, each with the partner, where the data is pulled from, and the TRPA script that loads it, to move their layers to the pipeline path. The SMART traffic camera service is the first; every other maps.trpa.org layer shows as a TRPA web service.
+- **What it says.** The rule (every chart is an indicator in LT Info whose numbers are read live from a TRPA or partner map service), the exception (transit ridership and stormwater load reductions, which LT Info collects, are read from LT Info through named readers), the LT Info tables with the two proposed ones (IndicatorDataSource and MonitoringProgramLayer), the six ingestion paths with their acceptance criteria, the indicator register, and every planned source with Run Checks.
+- **The logic** is in `lib/ltinfo-model/`: `ingest.ts`, `lineage.ts`, `bindings.ts`, and `register.ts` are LT Info's files with only their import paths changed. `ltinfo-dto.ts` holds the response shapes. The page and the diagram in `pages/data-model/` are LT Info's, with its page header, grid, and buttons swapped for the breadcrumb, plain tables with a CSV download, and Ecology buttons. `_ltinfo-tokens.scss` maps LT Info's style tokens onto Ecology's.
+- **The data** is a snapshot, not the sandbox seed: `Sandbox.Web/public/data/ltinfo/` holds LT Info's `monitoring-new/programs` and `monitoring-new/data-model` responses, the planned charts and maps (`planned-sources.json`, from LT Info's assets), and the date of the copy (`snapshot.json`). Refresh it with `bash tools/snapshot-ltinfo-data-model.sh ../ltinfo` while the LT Info API runs in its devcontainer, then set `takenOn`.
 
 ## Home page
 
@@ -146,7 +144,7 @@ The plan names staff and carries working notes, and the Pages copy of this site 
 
 GitHub Pages serves files only, so the Pages copy has no API and no database. The app reads a JSON snapshot instead, and the two save buttons (Featured and Save layout) say the copy is read-only. Charts and maps that read TRPA map services still query them live.
 
-1. With the stack running, take the snapshot: `node Sandbox.Web/scripts/export-static-api.mjs`. It writes one file per API route to `Sandbox.Web/static-api/`, including the settings behind the Data Model page. Commit that folder; the Pages build cannot reach the database.
+1. With the stack running, take the snapshot: `node Sandbox.Web/scripts/export-static-api.mjs`. It writes one file per API route to `Sandbox.Web/static-api/`. Commit that folder; the Pages build cannot reach the database.
 2. Build: `docker build --target pages-out --build-arg BASE_HREF=/<repo>/ --output dist/pages .` from `Sandbox.Web`. The base path is the repository name, because a project site lives at `https://<owner>.github.io/<repo>/`.
 3. Check it: `node Sandbox.Web/scripts/serve-pages.mjs`, then open http://127.0.0.1:4340/ltinfo-angular-sandbox/. It serves files the way Pages does, with no rewrites.
 4. Publish: push to a GitHub repository with Settings > Pages > Source set to GitHub Actions. `.github/workflows/pages.yml` builds and deploys on every push to `main`.
