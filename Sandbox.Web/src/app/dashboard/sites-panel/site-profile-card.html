@@ -95,6 +95,70 @@
       </figure>
     }
 
+    <!-- mon-lego-checked: the year cards are hand-built toggle buttons; Ecology has no timeline
+         or status-tile lego. The color is data: the map's color for that year's status. -->
+    @if (years(); as yc) {
+      <section class="profile__record" [attr.aria-labelledby]="headingId + '-years'">
+        <h5 class="profile__caption typography-label-sm-strong" [id]="headingId + '-years'">{{ yc.title }}</h5>
+        <ul class="profile__years" role="list">
+          @for (card of yc.cards; track card.year) {
+            <li>
+              <button
+                type="button"
+                class="profile__year"
+                [class.profile__year--picked]="card.year === yc.shown.year"
+                [style.--profile-status]="card.color"
+                [attr.aria-pressed]="card.year === yc.shown.year"
+                (click)="yearPicked.set(card.year)"
+              >
+                <span class="profile__year-label typography-label-sm-strong">{{ card.year }}</span>
+                @if (card.rating) {
+                  <span class="profile__year-value typography-body-xs">{{ card.rating }}</span>
+                }
+                <span class="visually-hidden">{{ card.status || 'No status' }}</span>
+              </button>
+            </li>
+          }
+        </ul>
+        @if (yc.legend.length) {
+          <ul class="profile__legend typography-body-xs" role="list" aria-label="Status">
+            @for (item of yc.legend; track item.status) {
+              <li><span class="profile__legend-swatch" [style.--profile-phase]="item.color" aria-hidden="true"></span>{{ item.status }}</li>
+            }
+          </ul>
+        }
+        <div class="profile__year-detail" [style.--profile-status]="yc.shown.color" aria-live="polite">
+          <p class="profile__year-head typography-label-sm-strong">
+            <span class="profile__year-head-year">{{ yc.shown.year }}</span>
+            @if (yc.shown.status) {
+              <span class="profile__year-status">{{ yc.shown.status }}</span>
+            }
+          </p>
+          @if (yc.shown.rating || yc.shown.scores.length) {
+            <dl class="profile__facts typography-body-sm">
+              @if (yc.shown.rating) {
+                <div class="profile__fact">
+                  <dt>{{ yc.ratingLabel }}</dt>
+                  <dd class="profile__year-rating">{{ yc.shown.rating }}</dd>
+                </div>
+              }
+              @for (score of yc.shown.scores; track score[0]) {
+                <div class="profile__fact">
+                  <dt>{{ score[0] }}</dt>
+                  <dd>{{ score[1] }}</dd>
+                </div>
+              }
+            </dl>
+          }
+          @if (yc.shown.comments) {
+            <p class="profile__year-comments typography-body-sm">{{ yc.shown.comments }}</p>
+          } @else {
+            <p class="profile__year-comments profile__year-comments--none typography-body-sm">No comments recorded for {{ yc.shown.year }}.</p>
+          }
+        </div>
+      </section>
+    }
+
     @if (view().context.length) {
       <div class="profile__context typography-body-sm">
         @for (line of view().context; track line) {
@@ -103,8 +167,9 @@
       </div>
     }
 
-    <!-- mon-lego-checked: the photo tiles and the larger view are hand-built; Ecology has no
-         gallery or lightbox. The larger view is a native dialog (focus trap, Escape, inert page). -->
+    <!-- mon-lego-checked: the photo tiles, the carousel, and the larger view are hand-built;
+         Ecology has no gallery, carousel, or lightbox. The larger view is a native dialog (focus
+         trap, Escape, inert page). Every photo shown is a copy the map service scales down. -->
     @if (photos().length) {
       @let list = photos();
       <section class="profile__section" [attr.aria-labelledby]="headingId + '-photos'">
@@ -112,28 +177,60 @@
           {{ photoTitle() }}@if (list[0].year) {<span class="profile__photos-year">, {{ list[0].year }}</span>}
         </h5>
         @if (photoLayout() === 'panorama') {
-          <!-- Wide photos of 10 MB and more: one loads, the rest open on demand. -->
-          <button
-            type="button"
-            class="profile__photo profile__photo--wide"
-            (click)="openPhoto(0)"
-            [attr.aria-label]="'Open ' + photoName(list[0], 0) + ' of ' + subject()?.name"
-          >
-            <img [src]="list[0].url" alt="" loading="lazy" decoding="async" />
-          </button>
-          @if (list[0].label) {
-            <p class="profile__photo-label typography-body-xs">{{ list[0].label }}</p>
-          }
-          @if (list.length > 1) {
-            <ul class="profile__photo-list" role="list">
-              @for (photo of list.slice(1); track photo.url; let i = $index) {
-                <li>
-                  <button type="button" class="profile__photo-link typography-body-sm" (click)="openPhoto(i + 1)">
-                    {{ photoName(photo, i + 1) }}
-                  </button>
-                </li>
-              }
-            </ul>
+          <!-- A carousel: one photo at a time, whole, at its own shape (they run from 1.4 to 7.5
+               times as wide as tall). The bar sits above the photo so Previous and Next stay put
+               while the photo's height changes. Left and Right step it from the keyboard. -->
+          @if (slidePhoto(); as shown) {
+            <div
+              class="profile__carousel"
+              role="group"
+              aria-roledescription="carousel"
+              [attr.aria-label]="photoTitle()"
+              [attr.data-slide]="slide() + 1"
+              [attr.data-slide-state]="slideState()"
+              (keydown)="onSlideKey($event)"
+            >
+              <div class="profile__carousel-bar">
+                @if (list.length > 1) {
+                  <esa-button class="profile__carousel-prev" size="sm" variant="secondary" appearance="outline" (click)="stepSlide(-1)">
+                    Previous<span class="visually-hidden"> photo</span>
+                  </esa-button>
+                }
+                <p class="profile__carousel-caption typography-body-xs" aria-live="polite">
+                  @if (shown.label) {
+                    <span class="profile__photo-label">{{ shown.label }}</span>
+                  }
+                  @if (list.length > 1) {
+                    <span class="profile__photo-count">{{ slide() + 1 }} of {{ list.length }}</span>
+                  }
+                </p>
+                @if (list.length > 1) {
+                  <esa-button class="profile__carousel-next" size="sm" variant="secondary" appearance="outline" (click)="stepSlide(1)">
+                    Next<span class="visually-hidden"> photo</span>
+                  </esa-button>
+                }
+              </div>
+              <button
+                type="button"
+                class="profile__photo profile__photo--wide"
+                (click)="openPhoto(slide())"
+                [attr.aria-label]="'Open ' + photoName(shown, slide()) + ' of ' + subject()?.name + ' larger'"
+              >
+                <img
+                  [src]="photoSrc(shown, 'slide')"
+                  alt=""
+                  decoding="async"
+                  [class.is-loading]="slideState() !== 'ready'"
+                  (load)="slideState.set('ready')"
+                  (error)="slideState.set('error')"
+                />
+                @if (slideState() === 'loading') {
+                  <span class="profile__photo-wait typography-body-xs">Loading photo</span>
+                } @else if (slideState() === 'error') {
+                  <span class="profile__photo-wait typography-body-xs">This photo could not be loaded</span>
+                }
+              </button>
+            </div>
           }
         } @else {
         <ul class="profile__photos" role="list">
@@ -145,7 +242,7 @@
                 (click)="openPhoto(i)"
                 [attr.aria-label]="'Open photo ' + (i + 1) + ' of ' + list.length + ' of ' + subject()?.name"
               >
-                <img [src]="photo.url" alt="" loading="lazy" decoding="async" />
+                <img [src]="photoSrc(photo, 'tile')" alt="" loading="lazy" decoding="async" />
                 @if (i === PHOTO_TILES - 1 && list.length > PHOTO_TILES) {
                   <span class="profile__photo-more typography-label-md-strong" aria-hidden="true">+{{ list.length - PHOTO_TILES }}</span>
                 }
@@ -283,10 +380,11 @@
             </h2>
             <esa-button size="sm" variant="secondary" appearance="outline" (click)="photoDialog.close()">Close</esa-button>
           </div>
-          <img class="profile__lightbox-img" [src]="photo.url" [alt]="subject()?.name + ', ' + photoName(photo, photoIndex())" />
+          <img class="profile__lightbox-img" [src]="photoSrc(photo, 'large')" [alt]="subject()?.name + ', ' + photoName(photo, photoIndex())" />
           <div class="profile__lightbox-foot">
             <span class="typography-body-sm">
               @if (photo.year) {{{ photo.year }} evaluation}@if (photo.year && photoCredit()) {. }@if (photoCredit()) {{{ photoCredit() }}}
+              <a class="profile__link profile__lightbox-original" [href]="photo.url" target="_blank" rel="noopener">{{ originalLabel(photo) }}</a>
             </span>
             @if (photos().length > 1) {
               <span class="profile__lightbox-nav">

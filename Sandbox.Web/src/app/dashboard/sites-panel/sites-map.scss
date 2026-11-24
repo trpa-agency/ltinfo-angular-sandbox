@@ -291,6 +291,46 @@
   background: var(--sites-pill, var(--color-content-disabled));
 }
 
+// The feature's photos: each a link to a larger copy. The box holds a height until the photo
+// lands, so the popup grows once, not twice.
+.sites-popup__photos {
+  display: grid;
+  gap: var(--spacing-150);
+  margin-bottom: var(--spacing-250);
+}
+
+.sites-popup__photo {
+  display: block;
+  min-height: 5rem;
+  overflow: hidden;
+  border: var(--border-width-default) solid var(--color-border-default-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--color-background-elevation-sunken);
+  cursor: zoom-in;
+}
+
+.sites-popup__photo.is-loaded {
+  min-height: 0;
+}
+
+.sites-popup__photo img {
+  display: block;
+  width: 100%;
+  max-height: 15rem;
+  object-fit: cover;
+}
+
+.sites-popup__photo:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-default-focus);
+  outline-offset: var(--spacing-050);
+}
+
+.sites-map .leaflet-popup-content p.sites-popup__photo-status,
+.sites-map .leaflet-popup-content p.sites-popup__photo-credit {
+  margin: 0;
+  color: var(--color-content-default-secondary);
+}
+
 .sites-popup__stats {
   display: grid;
   grid-template-columns: repeat(var(--sites-stat-cols, 3), minmax(0, 1fr));

@@ -77,6 +77,8 @@ The app uses Ecology's default theme (DM Sans, neutral white surfaces) with no `
 
 Clicking a site on a program map, or its row in the list, opens its profile in the list column: the site's record chart against the median of all sites and any standard, its facts, rank, and program-specific detail (SEZ indicators, invasive plant status by year, LTIMP samples). What each program shows is set in `Sandbox.Database/Scripts/site-profiles.json`; rerun `make-seed.py`, then `Build\DatabaseBuild.ps1 -Reseed`. A site's record and its attached photos are read from the map service its own layer is in, unless the settings name another with `service`. The SMART cameras use this for the aerial view attached to each camera.
 
+Scenic Monitoring shows three things no other profile does. A `yearCards` section takes the chart's place: one card per evaluation year, colored by that year's `STATUS` with the map's own colors, and a click shows the year's rating, component scores, and the evaluator's comments from the ratings table. The viewpoint photos are a carousel (`layout: "panorama"`). And `popup: true` on the photos makes the map overlay drawn from the same layer show each viewpoint's photo in its popup; a point overlay is drawn over a program layer of areas so the pointer can reach it. Photos are never loaded as stored (the panoramas run 13 to 86 MB): the card and the popup ask the map service for a scaled copy with `?w=`, and the larger view links to the full file.
+
 ## Develop
 
 ```bash

@@ -128,7 +128,8 @@ test.describe('SMART Traffic Cameras', () => {
     await expect(profile.locator('.profile__section-title')).toHaveText('Aerial view of the intersection', { timeout: PROFILE_TIMEOUT_MS });
     await expect(profile.locator('.profile__photo--wide img')).toHaveAttribute(
       'src',
-      new RegExp(`^${service}/0/\\d+/attachments/\\d+$`),
+      // A copy the map service scales down for the card.
+      new RegExp(`^${service}/0/\\d+/attachments/\\d+\\?w=1200$`),
     );
   });
 

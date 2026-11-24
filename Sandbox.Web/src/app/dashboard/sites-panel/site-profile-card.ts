@@ -33,6 +33,7 @@ import {
   standardLine,
   statusStrip,
   stripPhases,
+  yearCards,
   type Comparison,
   type ProfilePhoto,
   type ProfileSubject,
@@ -40,7 +41,7 @@ import {
   type ResolvedRecord,
   type SiteProfileConfig,
 } from '../../lib/site-profile';
-import { INACTIVE_COLOR, plural, SERIES_COLORS, type FetchLike, type SitesPanelConfig } from '../../lib/sites';
+import { fileSize, INACTIVE_COLOR, plural, SERIES_COLORS, sizedPhotoUrl, type FetchLike, type SitesPanelConfig } from '../../lib/sites';
 import { ProfileChart } from './profile-chart';
 
 /** idle until a site is picked; ready also covers a profile with nothing more to load. */
@@ -57,6 +58,11 @@ interface ChartView {
   rows: { year: number; value: string; median: string }[];
   line: string;
 }
+
+/** Photo widths asked of the map service: a grid tile, a carousel slide, and the larger view. */
+const TILE_PX = 600;
+const SLIDE_PX = 1200;
+const LIGHTBOX_PX = 2400;
 
 let nextId = 0;
 
@@ -134,6 +140,12 @@ export class SiteProfileCard {
   protected readonly photoCredit = computed(() => this.profile()?.photos?.credit || '');
   protected readonly photoLayout = computed(() => this.profile()?.photos?.layout ?? 'grid');
   private readonly photoDialog = viewChild<ElementRef<HTMLDialogElement>>('photoDialog');
+  /** The carousel (panorama layout): the photo shown, and whether its file has arrived. */
+  protected readonly slide = signal(0);
+  protected readonly slidePhoto = computed(() => this.photos()[this.slide()] ?? null);
+  protected readonly slideState = signal<'loading' | 'ready' | 'error'>('loading');
+  /** The year card the reader picked; the latest year when none. */
+  protected readonly yearPicked = signal<number | null>(null);
 
   protected readonly unitPlural = computed(() => plural(2, this.subject()?.unit || 'site'));
 
@@ -152,8 +164,24 @@ export class SiteProfileCard {
   protected readonly mainChart = computed<ChartView | null>(() => {
     const main = this.main();
     const subject = this.subject();
-    if (!main || !subject) return null;
+    // Year cards take the chart's place.
+    if (!main || !subject || this.profile()?.section?.type === 'yearCards') return null;
     return this.chartView(main, subject, this.comparison());
+  });
+
+  /** One card per year of the record, colored by status, with the picked year's detail. */
+  protected readonly years = computed(() => {
+    const section = this.profile()?.section;
+    const main = this.main();
+    if (section?.type !== 'yearCards' || !main) return null;
+    const colors = this.panel().mapLayer?.colors || {};
+    const cards = yearCards(section, main.record, main.rows).map((c) => ({ ...c, color: colors[c.status] || INACTIVE_COLOR }));
+    if (!cards.length) return null;
+    const shown = cards.find((c) => c.year === this.yearPicked()) ?? cards[cards.length - 1];
+    const legend = [...new Map(cards.filter((c) => c.status).map((c) => [c.status, c.color])).entries()].map(
+      ([status, color]) => ({ status, color }),
+    );
+    return { title: section.title, cards, shown, legend, ratingLabel: main.record.short || main.record.label };
   });
 
   /** "No samples on record for this station." when the record loaded and holds no value for the site. */
@@ -227,6 +255,13 @@ export class SiteProfileCard {
       const panel = this.panel();
       untracked(() => void this.load(subject, profile, panel));
     });
+    // The next slide is fetched ahead, so Next shows it at once. Scaled copies are small.
+    effect(() => {
+      const photos = this.photos();
+      if (this.photoLayout() !== 'panorama' || photos.length < 2) return;
+      const next = photos[(this.slide() + 1) % photos.length];
+      new Image().src = sizedPhotoUrl(next.url, SLIDE_PX);
+    });
     // A floating card that grows as its record lands is kept inside the map.
     let frame = 0;
     const observer = new ResizeObserver(() => {
@@ -289,6 +324,32 @@ export class SiteProfileCard {
     return photo.label ? `${name}, ${photo.label}, ${index + 1} of ${count}` : `${name}, photo ${index + 1} of ${count}`;
   }
 
+  /** A photo at a width the map service scales it to: a tile, a slide, or the larger view. */
+  protected photoSrc(photo: ProfilePhoto, size: 'tile' | 'slide' | 'large'): string {
+    return sizedPhotoUrl(photo.url, size === 'tile' ? TILE_PX : size === 'slide' ? SLIDE_PX : LIGHTBOX_PX);
+  }
+
+  /** "Full size, 27.6 MB": the link to the file as stored. */
+  protected originalLabel(photo: ProfilePhoto): string {
+    const size = fileSize(photo.bytes);
+    return size ? `Full size, ${size}` : 'Full size';
+  }
+
+  /** Previous or next slide of the carousel, wrapping around. */
+  protected stepSlide(delta: number): void {
+    const count = this.photos().length;
+    if (count < 2) return;
+    this.slideState.set('loading');
+    this.slide.update((i) => (i + delta + count) % count);
+  }
+
+  protected onSlideKey(event: KeyboardEvent): void {
+    if (event.key === 'ArrowRight') this.stepSlide(1);
+    else if (event.key === 'ArrowLeft') this.stepSlide(-1);
+    else return;
+    event.preventDefault();
+  }
+
   /** Opens the larger view at a photo. */
   protected openPhoto(index: number): void {
     this.photoIndex.set(index);
@@ -344,6 +405,9 @@ export class SiteProfileCard {
     this.photos.set([]);
     this.photosLoading.set(false);
     this.photoIndex.set(-1);
+    this.slide.set(0);
+    this.slideState.set('loading');
+    this.yearPicked.set(null);
     this.photoDialog()?.nativeElement.close();
     if (!subject) {
       this.state.set('idle');

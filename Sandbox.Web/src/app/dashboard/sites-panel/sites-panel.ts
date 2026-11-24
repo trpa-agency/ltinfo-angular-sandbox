@@ -68,7 +68,7 @@ import {
   type SitesPanelConfig,
   type SitesSummary,
 } from '../../lib/sites';
-import { areaSubject, siteSubject, type ProfileSubject, type SiteProfileConfig } from '../../lib/site-profile';
+import { areaSubject, overlayWithPhotos, siteSubject, type ProfileSubject, type SiteProfileConfig } from '../../lib/site-profile';
 import { SiteList } from './site-list';
 import { SiteProfileCard } from './site-profile-card';
 import { SitesMap } from './sites-map';
@@ -436,7 +436,8 @@ export class SitesPanel {
 
   /** The overlays, each on its own; one that fails is logged and left off rather than failing the panel. */
   private async loadOverlays(cfg: SitesPanelConfig, http: FetchLike): Promise<OverlaySpec[]> {
-    const configs = cfg.overlays ?? [];
+    // The overlay of a profile's photos layer shows each feature's photo in its popup.
+    const configs = (cfg.overlays ?? []).map((o) => overlayWithPhotos(o, cfg.siteProfile, cfg));
     const results = await Promise.allSettled(
       configs.map((o) => fetchGeoJson(http, o.layer, overlayQueryParams(o), { service: o.service }).then((f) => overlaySpec(o, f, cfg.program))),
     );

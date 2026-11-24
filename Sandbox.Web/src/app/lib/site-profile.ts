@@ -25,6 +25,8 @@ import { normalizeDate } from './map-service';
 import { vegaLiteSpec, type VegaTheme } from './vega-spec';
 import {
   areaPopup,
+  attachmentsUrl,
+  imageAttachments,
   INACTIVE_COLOR,
   plural,
   queryUrl,
@@ -38,6 +40,7 @@ import {
   type Feature,
   type FetchLike,
   type MapLayerConfig,
+  type OverlayConfig,
   type PopupCard,
   type QueryParams,
   type Site,
@@ -154,7 +157,23 @@ export interface LatestSection {
   title: string;
 }
 
-export type ProfileSection = IndicatorsSection | StatusStripSection | LatestSection;
+/**
+ * Scenic: one card per year of the record in the chart's place, colored by that year's status
+ * (the map layer's color for the value), and the rating, component scores, and evaluator's
+ * comments of the year the reader picks. For a record whose status says more than its trend.
+ */
+export interface YearCardsSection {
+  type: 'yearCards';
+  title: string;
+  /** The status field of a record row ("STATUS"); its value names the card and picks its color. */
+  status: string;
+  /** Field with the evaluator's comments for the year ("COMMENTS"). */
+  comments?: string;
+  /** Component scores listed under the rating; a score with no value that year is left out. */
+  scores?: { label: string; field: string; decimals?: number }[];
+}
+
+export type ProfileSection = IndicatorsSection | StatusStripSection | LatestSection | YearCardsSection;
 
 /** DashboardConfig.siteProfile: everything per program that the site profile reads. */
 export interface SiteProfileConfig {
@@ -196,10 +215,17 @@ export interface ProfilePhotosConfig {
   /** Field naming the row each photo hangs on (a viewpoint ID), with an optional word before it. */
   label?: { field: string; prefix?: string };
   /**
-   * "grid" (the default): up to four tiles. "panorama": the first photo full width and the rest
-   * as a list, for wide photos that are too large to load four at a time.
+   * "grid" (the default): up to four tiles. "panorama": a carousel, one wide photo at a time
+   * with Previous and Next, for photos that are too wide for a tile. Either way the card asks
+   * the map service for a scaled copy (sizedPhotoUrl); the file as stored is a link in the
+   * larger view.
    */
   layout?: 'grid' | 'panorama';
+  /**
+   * The map overlay drawn from this same layer shows each feature's photos in its popup
+   * (scenic: a click on a viewpoint shows that viewpoint's photo).
+   */
+  popup?: boolean;
   /** Section title. */
   title?: string;
   /** Credit for every photo, shown in the larger view. */
@@ -554,13 +580,6 @@ export async function fetchRows(
 
 /* ---------- Attached photos ---------- */
 
-interface AttachmentInfo {
-  id: number;
-  contentType?: string;
-  size?: number;
-  name?: string;
-}
-
 /**
  * The image attachments of the site's rows, newest year first. One query finds the rows; one
  * request per row lists its attachments. The files themselves are only URLs here: the browser
@@ -596,14 +615,12 @@ export async function loadPhotos(
     rows.map(async (row) => {
       const oid = row['OBJECTID'];
       if (oid == null) return [];
-      const base = `${service}/${layer}/${oid}/attachments`;
+      const base = attachmentsUrl(service, layer, oid);
       const response = await fetchFn(`${base}?f=json`);
-      const json = (await response.json()) as { attachmentInfos?: AttachmentInfo[] } | null;
+      const json = (await response.json()) as Parameters<typeof imageAttachments>[1];
       const year = cfg.year && !isBlank(row[cfg.year]) ? String(row[cfg.year]) : null;
       const label = labelField && !isBlank(row[labelField]) ? `${cfg.label?.prefix ?? ''}${String(row[labelField]).trim()}` : null;
-      return (json?.attachmentInfos || [])
-        .filter((a) => (a.contentType || '').startsWith('image/'))
-        .map((a) => ({ url: `${base}/${a.id}`, name: a.name || '', bytes: a.size || 0, year, label }));
+      return imageAttachments(base, json).map((image) => ({ ...image, year, label }));
     }),
   );
   return lists.flat();
@@ -621,6 +638,20 @@ export function photosWhere(cfg: ProfilePhotosConfig, subject: ProfileSubject): 
   }
   if (cfg.where) clauses.push(cfg.where);
   return clauses.length > 1 ? clauses.map((c) => `(${c})`).join(' AND ') : clauses[0];
+}
+
+/**
+ * The overlay as the map should draw it: when the profile's photos say popup and this overlay
+ * is drawn from the photos layer, its popups show each feature's photos.
+ */
+export function overlayWithPhotos(overlay: OverlayConfig, profile: SiteProfileConfig | null | undefined, panel: SitesPanelConfig): OverlayConfig {
+  const photos = profile?.photos;
+  if (!photos?.popup) return overlay;
+  const program = programSource(panel);
+  const layer = photos.layer ?? program?.layer;
+  const service = photos.service ?? program?.service ?? SERVICE;
+  if (layer !== overlay.layer || service !== (overlay.service ?? SERVICE)) return overlay;
+  return { ...overlay, photos: { credit: photos.credit } };
 }
 
 /* ---------- Yearly values ---------- */
@@ -950,6 +981,48 @@ export function statusStrip(section: StatusStripSection, row: Row | null): Strip
 /** The phases in the strip, in config order, with a palette color each, for the strip and its legend. */
 export function stripPhases(section: StatusStripSection, palette: readonly string[]): { phase: string; color: string }[] {
   return Object.values(section.phases || {}).map((phase, i) => ({ phase, color: palette[i % palette.length] }));
+}
+
+export interface YearCard {
+  year: number;
+  /** The status as the record holds it ("Attainment"), or empty. */
+  status: string;
+  /** The record's value that year, formatted, or empty. */
+  rating: string;
+  /** Component scores with a value that year: label and formatted score. */
+  scores: [string, string][];
+  /** The evaluator's comments, or empty. */
+  comments: string;
+}
+
+/** One card per year of the site's rows, oldest first. The latest row of a year wins. */
+export function yearCards(
+  section: YearCardsSection,
+  record: Pick<ProfileRecordConfig, 'year' | 'extractYear' | 'value' | 'decimals'>,
+  rows: Row[],
+): YearCard[] {
+  const byYear = new Map<number, Row>();
+  for (const row of rows) {
+    const year = rowYear(record, row);
+    if (year != null) byYear.set(year, row);
+  }
+  return [...byYear.entries()]
+    .sort((a, b) => a[0] - b[0])
+    .map(([year, row]) => {
+      const rating = record.value ? numberOf(row[record.value]) : null;
+      const scores: [string, string][] = [];
+      for (const score of section.scores || []) {
+        const value = numberOf(row[score.field]);
+        if (value != null) scores.push([score.label, formatNumber(value, score.decimals ?? record.decimals)]);
+      }
+      return {
+        year,
+        status: text(row[section.status]),
+        rating: rating == null ? '' : formatNumber(rating, record.decimals),
+        scores,
+        comments: section.comments ? text(row[section.comments]).replace(/\s+/g, ' ') : '',
+      };
+    });
 }
 
 /* ---------- The chart ---------- */

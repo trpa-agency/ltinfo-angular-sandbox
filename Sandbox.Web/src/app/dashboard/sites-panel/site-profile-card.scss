@@ -348,6 +348,100 @@
   box-shadow: inset 0 0 0 1px var(--color-border-default-subtle);
 }
 
+// Year cards: one button per year of the record. The fill and the bar are the map's color for
+// that year's status; the year, the rating, and the legend carry the same thing in words.
+.profile__years {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(3.75rem, 1fr));
+  gap: var(--spacing-150);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.profile__year {
+  display: grid;
+  gap: var(--spacing-050);
+  justify-items: center;
+  width: 100%;
+  min-height: 2.75rem;
+  padding: var(--spacing-150) var(--spacing-100);
+  border: var(--border-width-default) solid color-mix(in srgb, var(--profile-status, var(--color-border-default)) 55%, transparent);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--profile-status, transparent) 20%, var(--color-background-elevation-raised));
+  box-shadow: inset 0 -4px 0 var(--profile-status, transparent);
+  color: var(--color-content-default);
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.profile__year:hover {
+  background: color-mix(in srgb, var(--profile-status, transparent) 32%, var(--color-background-elevation-raised));
+}
+
+.profile__year:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-default-focus);
+  outline-offset: var(--spacing-050);
+}
+
+// The picked year: a ring in the text color, so it reads on either status color.
+.profile__year--picked {
+  border-color: var(--color-content-default);
+  box-shadow:
+    inset 0 -4px 0 var(--profile-status, transparent),
+    0 0 0 1px var(--color-content-default);
+}
+
+.profile__year-value {
+  color: var(--color-content-default-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.profile__year-detail {
+  display: grid;
+  gap: var(--spacing-200);
+  padding: var(--spacing-300);
+  border-left: 4px solid var(--profile-status, var(--color-border-default));
+  border-radius: var(--radius-sm);
+  background: var(--color-background-elevation-sunken);
+}
+
+.profile__year-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--spacing-050) var(--spacing-200);
+  margin: 0;
+}
+
+.profile__year-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-150);
+  font-weight: var(--typography-font-weight-regular);
+}
+
+.profile__year-status::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--profile-status, var(--color-content-disabled));
+}
+
+.profile__year-rating {
+  font-weight: var(--typography-font-weight-medium);
+}
+
+.profile__year-comments {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.profile__year-comments--none {
+  color: var(--color-content-default-secondary);
+}
+
 .profile__legend {
   display: flex;
   flex-wrap: wrap;
@@ -392,7 +486,7 @@
   color: var(--color-content-link-hover);
 }
 
-// ---------- Attached photos: four tiles, the last with +N, and a larger view ----------
+// ---------- Attached photos: four tiles (the last with +N) or a carousel, and a larger view ----------
 
 .profile__photos-year {
   font-weight: var(--typography-font-weight-regular);
@@ -442,41 +536,74 @@
   color: var(--color-content-default-knockout);
 }
 
-// A panorama: full width at its own wide shape, the other photos as a list beneath.
-.profile__photo--wide {
-  aspect-ratio: 18 / 5;
+// A panorama carousel: Previous, the photo's name and place, and Next, then one photo at a
+// time, whole, at its own shape. The photos run from 1.4 to 7.5 times as wide as tall, so a
+// fixed frame would crop most of them; the bar is above the photo so the buttons do not move.
+.profile__carousel {
+  display: grid;
+  gap: var(--spacing-150);
+  min-width: 0;
 }
 
-.profile__photo-label {
-  margin: var(--spacing-100) 0 0;
+.profile__photo--wide {
+  aspect-ratio: auto;
+  min-height: 3.5rem;
+}
+
+.profile__photo--wide img {
+  height: auto;
+  max-height: 14rem;
+  object-fit: contain;
+  transition: opacity 0.15s ease;
+}
+
+// The slide before fades while the next one arrives.
+.profile__photo--wide img.is-loading {
+  opacity: 0.35;
+}
+
+.profile__photo-wait {
+  position: absolute;
+  inset: auto var(--spacing-150) var(--spacing-150) auto;
+  padding: var(--spacing-050) var(--spacing-150);
+  border-radius: var(--radius-xs);
+  background: var(--color-background-elevation-raised);
   color: var(--color-content-default-secondary);
 }
 
-.profile__photo-list {
+.profile__carousel-bar {
   display: flex;
+  align-items: center;
+  gap: var(--spacing-200);
+  min-width: 0;
+}
+
+.profile__carousel-caption {
+  display: flex;
+  flex: 1;
   flex-wrap: wrap;
-  gap: var(--spacing-100) var(--spacing-300);
-  margin: var(--spacing-200) 0 0;
-  padding: 0;
-  list-style: none;
+  justify-content: center;
+  gap: 0 var(--spacing-200);
+  min-width: 0;
+  margin: 0;
+  text-align: center;
 }
 
-.profile__photo-link {
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--color-content-link);
-  text-decoration: underline;
-  cursor: zoom-in;
+.profile__photo-label {
+  color: var(--color-content-default);
+  overflow-wrap: anywhere;
 }
 
-.profile__photo-link:hover {
-  color: var(--color-content-link-hover);
+.profile__photo-count {
+  color: var(--color-content-default-secondary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
-.profile__photo-link:focus-visible {
-  outline: var(--border-width-focus) solid var(--color-border-default-focus);
-  outline-offset: var(--spacing-050);
+@media (prefers-reduced-motion: reduce) {
+  .profile__photo--wide img {
+    transition: none;
+  }
 }
 
 .profile__photos-loading {
@@ -528,6 +655,11 @@
 
 .profile__lightbox-foot {
   color: var(--color-content-default-secondary);
+}
+
+.profile__lightbox-original {
+  margin-left: var(--spacing-200);
+  white-space: nowrap;
 }
 
 .profile__lightbox-nav {

@@ -408,6 +408,38 @@
         "field": "UNIT"
       }
     ],
+    "section": {
+      "type": "yearCards",
+      "title": "Rating by evaluation year",
+      "status": "STATUS",
+      "comments": "COMMENTS",
+      "scores": [
+        {
+          "label": "Man-made features",
+          "field": "MAN_MADE_FEATURES"
+        },
+        {
+          "label": "Roadway distractions",
+          "field": "ROADWAY_DISTRACTIONS"
+        },
+        {
+          "label": "Road structure",
+          "field": "ROAD_STRUCTURE"
+        },
+        {
+          "label": "Lake views",
+          "field": "LAKE_VIEWS"
+        },
+        {
+          "label": "Landscape views",
+          "field": "LANDSCAPE_VIEWS"
+        },
+        {
+          "label": "Variety",
+          "field": "VARIETY"
+        }
+      ]
+    },
     "photos": {
       "layer": 24,
       "join": [
@@ -425,6 +457,7 @@
         "prefix": "Viewpoint "
       },
       "layout": "panorama",
+      "popup": true,
       "title": "Viewpoints",
       "credit": "TRPA scenic monitoring viewpoint photos"
     }

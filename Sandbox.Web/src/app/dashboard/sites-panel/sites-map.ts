@@ -18,7 +18,17 @@ import {
 // without a map never downloads it.
 import type * as Leaflet from 'leaflet';
 
-import type { Feature, LegendEntry, MapLayers, OverlaySpec, PopupCard, ProgramLayerSpec } from '../../lib/sites';
+import {
+  imageAttachments,
+  sizedPhotoUrl,
+  type AttachedImage,
+  type Feature,
+  type LegendEntry,
+  type MapLayers,
+  type OverlaySpec,
+  type PopupCard,
+  type ProgramLayerSpec,
+} from '../../lib/sites';
 import { createBasemaps } from '../basemaps';
 
 type LeafletModule = typeof Leaflet;
@@ -34,6 +44,14 @@ const HOME_ICON =
 
 const POINT_STYLE = { radius: 6, color: '#ffffff', weight: 1.5, opacity: 1, fillOpacity: 0.95 };
 const SELECTED_POINT_STYLE = { radius: 9, weight: 3 };
+/**
+ * The radius of a point overlay drawn over areas, by zoom: small when the whole basin is in
+ * view, so hundreds of points do not bury the areas under them, and a full marker up close.
+ */
+function raisedRadius(zoom: number): number {
+  if (zoom < 11.5) return 2.5;
+  return zoom < 13 ? 3.5 : 5;
+}
 /** The outline of a selected area, read from the text color token so it follows the theme. */
 const SELECTED_STROKE = 'var(--color-content-default, #333333)';
 
@@ -52,8 +70,83 @@ function element<K extends keyof HTMLElementTagNameMap>(tag: K, className?: stri
   return node;
 }
 
-/** The popup card as DOM: title, status or rating pill, stat tiles, label and value rows, and a foot line. */
-export function popupElement(card: PopupCard): HTMLElement {
+/** Popup photo widths asked of the map service: the photo in the popup, and the one its link opens. */
+const POPUP_PHOTO_PX = 640;
+const POPUP_PHOTO_LARGE_PX = 2400;
+
+/** Attachment lists already read, by URL, so a popup opened again does not ask again. */
+const attachmentLists = new Map<string, Promise<AttachedImage[]>>();
+
+function attachedImages(base: string): Promise<AttachedImage[]> {
+  let pending = attachmentLists.get(base);
+  if (!pending) {
+    pending = fetch(`${base}?f=json`)
+      .then((response) => response.json())
+      .then((json) => imageAttachments(base, json as Parameters<typeof imageAttachments>[1]));
+    // A failed read is not kept, so the next open tries again.
+    pending.catch(() => attachmentLists.delete(base));
+    attachmentLists.set(base, pending);
+  }
+  return pending;
+}
+
+/**
+ * The photos of a popup's feature: a line that says they are loading, then each photo as a
+ * link to a larger copy in a new tab. Both are copies the map service scales down; the files
+ * as stored run to tens of megabytes. onResize fires when the block changes height.
+ */
+function popupPhotos(card: PopupCard, photos: NonNullable<PopupCard['photos']>, onResize?: () => void): HTMLElement {
+  const block = element('div', 'sites-popup__photos');
+  const status = element('p', 'sites-popup__photo-status typography-body-xs', 'Loading photo');
+  status.setAttribute('role', 'status');
+  block.append(status);
+  attachedImages(photos.attachments)
+    .then((images) => {
+      if (!images.length) {
+        status.textContent = 'No photo on file.';
+        onResize?.();
+        return;
+      }
+      for (const [index, image] of images.entries()) {
+        const link = element('a', 'sites-popup__photo');
+        link.href = sizedPhotoUrl(image.url, POPUP_PHOTO_LARGE_PX);
+        link.target = '_blank';
+        link.rel = 'noopener';
+        const name = images.length > 1 ? `photo ${index + 1} of ${images.length}` : 'photo';
+        link.setAttribute('aria-label', `Open the ${name} of ${card.title} larger, in a new tab`);
+        const img = element('img');
+        img.alt = `${card.title}, ${name}`;
+        img.decoding = 'async';
+        img.addEventListener('load', () => {
+          link.classList.add('is-loaded');
+          if (block.querySelectorAll('.sites-popup__photo:not(.is-loaded)').length === 0) status.remove();
+          onResize?.();
+        });
+        img.addEventListener('error', () => {
+          link.remove();
+          if (!block.querySelector('.sites-popup__photo')) status.textContent = 'The photo could not be loaded.';
+          onResize?.();
+        });
+        img.src = sizedPhotoUrl(image.url, POPUP_PHOTO_PX);
+        link.append(img);
+        block.insertBefore(link, status);
+      }
+      if (photos.credit) block.append(element('p', 'sites-popup__photo-credit typography-body-xs', photos.credit));
+      onResize?.();
+    })
+    .catch(() => {
+      status.textContent = 'The photo could not be loaded.';
+      onResize?.();
+    });
+  return block;
+}
+
+/**
+ * The popup card as DOM: title, status or rating pill, the feature's photos when it has them,
+ * stat tiles, label and value rows, and a foot line. onResize fires when a photo lands and the
+ * card changes height.
+ */
+export function popupElement(card: PopupCard, onResize?: () => void): HTMLElement {
   const root = element('div', 'sites-popup');
   root.append(element('h4', 'sites-popup__title typography-label-md-strong', card.title));
   if (card.pill) {
@@ -62,7 +155,8 @@ export function popupElement(card: PopupCard): HTMLElement {
     pill.style.setProperty('--sites-pill', card.pill.color);
     root.append(pill);
   }
-  const stats = (card.stats || []).filter(([, value]) => value !== '' && value != null);
+  if (card.photos) root.append(popupPhotos(card, card.photos, onResize));
+  const stats =(card.stats || []).filter(([, value]) => value !== '' && value != null);
   if (stats.length) {
     const grid = element('div', 'sites-popup__stats');
     grid.style.setProperty('--sites-stat-cols', String(Math.min(stats.length, 3)));
@@ -188,6 +282,8 @@ export class SitesMap {
   private map: Leaflet.Map | null = null;
   private overlayGroup: Leaflet.LayerGroup | null = null;
   private programGroup: Leaflet.LayerGroup | null = null;
+  /** Point overlays drawn over a program layer of areas or lines, which would otherwise cover them. */
+  private raised: Leaflet.GeoJSON[] = [];
   private svgRenderer: Leaflet.Renderer | null = null;
   private canvasRenderer: Leaflet.Renderer | null = null;
   private readonly byKey = new Map<string, Leaflet.Layer>();
@@ -428,6 +524,7 @@ export class SitesMap {
     });
     new HomeControl({ position: 'topleft' }).addTo(map);
 
+    map.on('zoomend', () => this.sizeRaised(L));
     this.map = map;
     // The container changes size when the panel stacks, a tab shows, or fonts land; without this
     // Leaflet keeps the old size and leaves gray bands.
@@ -484,6 +581,7 @@ export class SitesMap {
     program.clearLayers();
     this.byKey.clear();
     this.baseStyle.clear();
+    this.raised = [];
     this.selected = null;
     this.bounds = null;
     this.drawn.set(0);
@@ -491,12 +589,24 @@ export class SitesMap {
     const total = layers.program.features.length + layers.overlays.reduce((sum, o) => sum + o.features.length, 0);
     // One renderer for everything in a draw: a canvas above an SVG would swallow the clicks meant for it.
     const renderer = (total > CANVAS_THRESHOLD ? this.canvasRenderer : this.svgRenderer) as Leaflet.Renderer;
-    for (const overlay of layers.overlays) this.addOverlay(L, overlay, renderer);
+    // Points under an area cannot be clicked, so a point overlay goes over a program layer of
+    // areas or lines. Every other overlay stays under the program layer.
+    const raise = layers.program.geometry !== 'point' && !layers.program.dots;
+    const raised: Leaflet.GeoJSON[] = [];
+    for (const overlay of layers.overlays) {
+      const onTop = raise && overlay.geometry === 'point';
+      const group = this.addOverlay(L, overlay, renderer, onTop);
+      if (onTop) raised.push(group);
+      else group.bringToBack();
+    }
     const drawn = this.addProgram(L, layers.program, renderer);
+    this.raised = raised;
+    this.raiseOverlays();
     const bounds = drawn.getBounds();
     if (bounds.isValid()) this.bounds = bounds;
     this.drawn.set(this.byKey.size);
     this.home(false);
+    this.sizeRaised(L);
   }
 
   private addProgram(L: LeafletModule, spec: ProgramLayerSpec, renderer: Leaflet.Renderer): Leaflet.GeoJSON {
@@ -535,25 +645,64 @@ export class SitesMap {
     return layer;
   }
 
-  private addOverlay(L: LeafletModule, spec: OverlaySpec, renderer: Leaflet.Renderer): void {
+  /** Keeps the raised point overlays above the program layer, which a selection brings to the front. */
+  private raiseOverlays(): void {
+    for (const group of this.raised) group.bringToFront();
+  }
+
+  /** A popup changed height (its photo landed): keep it inside the map. */
+  private keepPopupInView(popup: Leaflet.Popup | undefined): void {
+    const open = popup as (Leaflet.Popup & { _updateLayout?: () => void; _updatePosition?: () => void; _adjustPan?: () => void }) | undefined;
+    if (!open?.isOpen()) return;
+    // Leaflet keeps these private; they are what update() runs after it builds the content.
+    // update() itself would build the content again and fetch the photo twice.
+    open._updateLayout?.();
+    open._updatePosition?.();
+    open._adjustPan?.();
+  }
+
+  /** Sizes the raised point overlays for the map's zoom. */
+  private sizeRaised(L: LeafletModule): void {
+    const map = this.map;
+    if (!map || !this.raised.length) return;
+    const radius = raisedRadius(map.getZoom());
+    for (const group of this.raised) {
+      group.eachLayer((layer) => {
+        if (layer instanceof L.CircleMarker && layer.getRadius() !== radius) layer.setRadius(radius);
+      });
+    }
+  }
+
+  /** raised: points drawn over the program's areas, as solid markers the pointer can reach. */
+  private addOverlay(L: LeafletModule, spec: OverlaySpec, renderer: Leaflet.Renderer, raised: boolean = false): Leaflet.GeoJSON {
     const color = this.resolveColor(spec.color);
+    const marker = { radius: raised ? raisedRadius(this.map?.getZoom() ?? 10) : 5, color: '#ffffff', weight: 1, fillColor: color, fillOpacity: 0.9 };
     const options: Leaflet.GeoJSONOptions & { renderer: Leaflet.Renderer } = {
       renderer,
-      pointToLayer: (_feature, latlng) =>
-        L.circleMarker(latlng, { radius: 5, color: '#ffffff', weight: 1, fillColor: color, fillOpacity: 0.9, renderer }),
+      pointToLayer: (_feature, latlng) => L.circleMarker(latlng, { ...marker, renderer }),
       style: () =>
-        spec.geometry === 'line'
-          ? { color, weight: 2, opacity: 0.9 }
-          : { color, weight: 1, opacity: 0.9, fillColor: color, fillOpacity: 0.25 },
+        raised
+          ? { color: marker.color, weight: marker.weight, opacity: 1, fillColor: color, fillOpacity: marker.fillOpacity }
+          : spec.geometry === 'line'
+            ? { color, weight: 2, opacity: 0.9 }
+            : { color, weight: 1, opacity: 0.9, fillColor: color, fillOpacity: 0.25 },
       onEachFeature: (feature, drawn) => {
-        drawn.bindPopup(() => popupElement(spec.popup(feature as unknown as Feature)), { maxWidth: 320, autoPanPadding: [24, 24] });
+        drawn.bindPopup(
+          () => popupElement(spec.popup(feature as unknown as Feature), () => this.keepPopupInView(drawn.getPopup())),
+          // A popup with photos keeps one width, so a photo that lands changes only its height,
+          // and scrolls inside itself rather than outgrow a short map (a phone).
+          spec.photos
+            ? { minWidth: 300, maxWidth: 300, maxHeight: Math.max(200, (this.map?.getSize().y ?? 0) - 90), autoPanPadding: [24, 24] }
+            : { maxWidth: 320, autoPanPadding: [24, 24] },
+        );
       },
     };
     const collection = { type: 'FeatureCollection', features: spec.features } as unknown as Parameters<typeof L.geoJSON>[0];
     const layer = L.geoJSON(collection, options);
     this.overlayGroup?.addLayer(layer);
-    // Overlays are reference layers: keep them under the program layer whatever the add order.
-    layer.bringToBack();
+    // Overlays are reference layers: render() keeps them under the program layer whatever the
+    // add order, except points over areas.
+    return layer;
   }
 
   /** Put a feature back to the style it was drawn with. */
@@ -583,6 +732,7 @@ export class SitesMap {
         line ? { weight: 6, opacity: 1 } : { color: this.resolveColor(SELECTED_STROKE), weight: 2.5, opacity: 1, fillOpacity: 0.75 },
       );
       layer.bringToFront();
+      this.raiseOverlays();
     }
   }
 }

@@ -170,29 +170,111 @@ test.describe('Site profile', () => {
     await expect(dialog).toBeHidden();
   });
 
-  test('shows a scenic corridor unit its viewpoint panoramas, one loaded and the rest listed', async ({ page }) => {
-    // Emerald Bay roadway unit 3: 10 viewpoints, six with a photo. The panoramas run 10 MB and
-    // more, so only the first is an image in the card; the others open in the larger view.
+  test('shows a scenic corridor unit its viewpoint panoramas as a carousel', async ({ page }) => {
+    // Emerald Bay roadway unit 3: 11 viewpoints, six with a photo. The panoramas run 10 MB and
+    // more as stored, so every photo shown is a copy the map service scales down.
     await openProgram(page, 59);
     await rows(page).filter({ hasText: 'Emerald Bay' }).filter({ hasText: 'Roadway' }).click();
     await profileSettled(page);
     await expect(profile(page).locator('.profile__section-title', { hasText: 'Viewpoints' })).toBeVisible({ timeout: PANEL_TIMEOUT_MS });
-    await expect(profile(page).locator('.profile__photo--wide img')).toHaveAttribute('src', /\/MapServer\/24\/\d+\/attachments\/\d+$/);
-    await expect(profile(page).locator('.profile__photo img')).toHaveCount(1);
-    await expect(profile(page).locator('.profile__photo-label')).toHaveText('Viewpoint 3.2-roadway');
-    const links = profile(page).locator('.profile__photo-link');
-    // Natural order: 3.11 after 3.7.
-    await expect(links).toHaveText(['Viewpoint 3.3-roadway', 'Viewpoint 3.5-roadway', 'Viewpoint 3.6-roadway', 'Viewpoint 3.7-roadway', 'Viewpoint 3.11-roadway']);
+    const carousel = profile(page).locator('.profile__carousel');
+    const slide = carousel.locator('.profile__photo--wide img');
+    await expect(slide).toHaveAttribute('src', /\/MapServer\/24\/\d+\/attachments\/\d+\?w=1200$/);
+    await expect(carousel.locator('.profile__photo img')).toHaveCount(1);
+    await expect(carousel).toHaveAttribute('data-slide-state', 'ready', { timeout: PANEL_TIMEOUT_MS });
+    expect(await slide.evaluate((el: HTMLImageElement) => el.naturalWidth)).toBeGreaterThan(0);
+    await expect(carousel.locator('.profile__photo-label')).toHaveText('Viewpoint 3.2-roadway');
+    await expect(carousel.locator('.profile__photo-count')).toHaveText('1 of 6');
 
-    await links.last().click();
+    // Next steps through the viewpoints in natural order (3.11 after 3.7) and wraps around.
+    const first = await slide.getAttribute('src');
+    await carousel.locator('.profile__carousel-next').click();
+    await expect(carousel.locator('.profile__photo-label')).toHaveText('Viewpoint 3.3-roadway');
+    await expect(carousel.locator('.profile__photo-count')).toHaveText('2 of 6');
+    await expect(slide).not.toHaveAttribute('src', first!);
+    await expect(carousel).toHaveAttribute('data-slide-state', 'ready', { timeout: PANEL_TIMEOUT_MS });
+    await carousel.locator('.profile__carousel-prev').click();
+    await carousel.locator('.profile__carousel-prev').click();
+    await expect(carousel.locator('.profile__photo-label')).toHaveText('Viewpoint 3.11-roadway');
+    await expect(carousel.locator('.profile__photo-count')).toHaveText('6 of 6');
+
+    // The slide opens the larger view at the same photo; the file as stored is a link there.
+    await carousel.locator('.profile__photo--wide').click();
     const dialog = profile(page).locator('dialog.profile__lightbox');
     await expect(dialog).toBeVisible();
     await expect(dialog.locator('h2')).toHaveText(/Emerald Bay, Viewpoint 3\.11-roadway, 6 of 6\s*$/);
+    await expect(dialog.locator('.profile__lightbox-img')).toHaveAttribute('src', /\/attachments\/\d+\?w=2400$/);
+    await expect(dialog.locator('.profile__lightbox-original')).toHaveAttribute('href', /\/attachments\/\d+$/);
+    await expect(dialog.locator('.profile__lightbox-original')).toHaveText(/^Full size, \d+(\.\d)? MB$/);
     await page.keyboard.press('ArrowRight');
     await expect(dialog.locator('h2')).toHaveText(/Viewpoint 3\.2-roadway, 1 of 6\s*$/);
     await expect(dialog).toContainText('TRPA scenic monitoring viewpoint photos');
     await page.keyboard.press('Escape');
     await expect(dialog).toBeHidden();
+  });
+
+  test('shows a scenic corridor unit a card per evaluation year in place of the chart', async ({ page }) => {
+    await openProgram(page, 59);
+    await rows(page).filter({ hasText: 'Emerald Bay' }).filter({ hasText: 'Roadway' }).click();
+    await profileSettled(page);
+    await expect(profile(page).locator('app-profile-chart')).toHaveCount(0);
+    const cards = profile(page).locator('.profile__year');
+    // Nine evaluations, 1982 to 2023, every one in attainment.
+    expect(await cards.count()).toBeGreaterThanOrEqual(9);
+    await expect(cards.first()).toContainText('1982');
+    await expect(cards.first()).toContainText('Attainment');
+    // The color is the map's color for the status.
+    expect(await cards.first().evaluate((el) => (el as HTMLElement).style.getPropertyValue('--profile-status'))).toBe('#188c16');
+    // The latest year is open to begin with.
+    const detail = profile(page).locator('.profile__year-detail');
+    await expect(cards.last()).toHaveAttribute('aria-pressed', 'true');
+    await expect(detail.locator('.profile__year-head')).toContainText(/\d{4}\s*Attainment/);
+
+    // A year with comments shows its rating, its component scores, and the comments.
+    await cards.filter({ hasText: '2019' }).click();
+    await expect(cards.filter({ hasText: '2019' })).toHaveAttribute('aria-pressed', 'true');
+    await expect(detail.locator('.profile__year-head')).toContainText('2019');
+    await expect(detail.locator('.profile__facts')).toContainText(/Scenic rating\s*26\.5/);
+    await expect(detail.locator('.profile__facts')).toContainText(/Lake views\s*5/);
+    await expect(detail.locator('.profile__year-comments')).toContainText('A new driveway is visible near Spring Creek Rd');
+    // A year without comments says so.
+    await cards.filter({ hasText: '1982' }).click();
+    await expect(detail.locator('.profile__year-comments')).toHaveText('No comments recorded for 1982.');
+  });
+
+  test('a scenic viewpoint on the map opens a popup with its photo', async ({ page }) => {
+    await openProgram(page, 59);
+    await page.locator('.sites-map__canvas').evaluate((el) => el.scrollIntoView({ block: 'center' }));
+    await page.locator('.sites-map__home-button').click();
+    await page.waitForTimeout(700);
+    // Viewpoints are drawn over the corridors, so the pointer reaches them: radius 5, 0.9 opacity.
+    const point = await page.evaluate(() => {
+      const canvas = document.querySelector('.sites-map__canvas')!.getBoundingClientRect();
+      for (const p of document.querySelectorAll('.sites-map path.leaflet-interactive[fill-opacity="0.9"]')) {
+        const r = p.getBoundingClientRect();
+        const x = r.left + r.width / 2;
+        const y = r.top + r.height / 2;
+        if (x < canvas.left + 80 || x > canvas.right - 80 || y < canvas.top + 120 || y > canvas.bottom - 60) continue;
+        if (document.elementFromPoint(x, y) === p) return { x, y };
+      }
+      return null;
+    });
+    expect(point, 'a viewpoint under the pointer').not.toBeNull();
+    await page.mouse.click(point!.x, point!.y);
+    const popup = page.locator('.leaflet-popup .sites-popup');
+    await expect(popup).toBeVisible();
+    await expect(popup.locator('.sites-popup__pill')).toHaveText('Scenic viewpoints');
+    // The corridor's profile does not open for a click on a viewpoint.
+    await expect(profile(page)).toHaveAttribute('data-state', 'idle');
+    // 332 of the 396 viewpoints carry a photo; the rest say they have none.
+    const photo = popup.locator('.sites-popup__photo img');
+    const none = popup.locator('.sites-popup__photo-status', { hasText: 'No photo on file.' });
+    await expect(photo.first().or(none)).toBeVisible({ timeout: PANEL_TIMEOUT_MS });
+    if (await photo.count()) {
+      await expect(photo.first()).toHaveAttribute('src', /\/MapServer\/24\/\d+\/attachments\/\d+\?w=640$/);
+      await expect(popup.locator('.sites-popup__photo').first()).toHaveAttribute('href', /\/attachments\/\d+\?w=2400$/);
+      await expect.poll(() => photo.first().evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0), { timeout: PANEL_TIMEOUT_MS }).toBe(true);
+    }
   });
 
   test('an SEZ unit with no photos shows no photo section', async ({ page }) => {

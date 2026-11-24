@@ -775,6 +775,53 @@ export interface PopupCard {
   stats?: [string, string][];
   rows?: [string, PopupValue][];
   foot?: string;
+  /** The feature's photos: its attachment list in the map service, read when the popup opens. */
+  photos?: { attachments: string; credit?: string };
+}
+
+/* ---------- Attached photos ---------- */
+
+/** One entry of an ArcGIS attachment list (<layer>/<object id>/attachments?f=json). */
+export interface AttachmentInfo {
+  id: number;
+  contentType?: string;
+  size?: number;
+  name?: string;
+}
+
+/** An image attachment: its file in the map service, its file name, and its size in bytes. */
+export interface AttachedImage {
+  url: string;
+  name: string;
+  bytes: number;
+}
+
+/** The attachment list of one feature: <service>/<layer>/<object id>/attachments. */
+export function attachmentsUrl(service: string, layer: number, objectId: unknown): string {
+  return `${service}/${layer}/${String(objectId)}/attachments`;
+}
+
+/** The images in an attachment list response, as files under base (the attachment list URL). */
+export function imageAttachments(base: string, json: { attachmentInfos?: AttachmentInfo[] } | null | undefined): AttachedImage[] {
+  return (json?.attachmentInfos || [])
+    .filter((a) => (a.contentType || '').startsWith('image/'))
+    .map((a) => ({ url: `${base}/${a.id}`, name: a.name || '', bytes: a.size || 0 }));
+}
+
+/**
+ * A photo scaled by the map service to about this many pixels wide. The scenic viewpoint
+ * panoramas run 13 to 86 MB as stored; at 1,200 px one is about 150 KB. A server that does not
+ * resize ignores the parameter and returns the file as stored.
+ */
+export function sizedPhotoUrl(url: string, width: number): string {
+  return `${url}${url.includes('?') ? '&' : '?'}w=${Math.round(width)}`;
+}
+
+/** "27.6 MB", "846 KB": a file size for a download link. Empty when unknown. */
+export function fileSize(bytes: number): string {
+  if (!(bytes > 0)) return '';
+  if (bytes >= 1e6) return `${(bytes / 1e6).toFixed(bytes >= 1e7 ? 0 : 1)} MB`;
+  return `${Math.max(1, Math.round(bytes / 1e3))} KB`;
 }
 
 /** A URL becomes a link; everything else is formatted text. */
@@ -838,10 +885,19 @@ export interface OverlayConfig {
   color?: string;
   where?: string;
   fields?: FieldLabel[];
+  /**
+   * Each feature's attached photos show in its popup. The panel sets this on the overlay drawn
+   * from a site profile's photos layer when that profile says popup (overlayWithPhotos).
+   */
+  photos?: { credit?: string };
 }
 
+/** The field a photo overlay asks for so each feature can find its own attachments. */
+const OBJECT_ID = 'OBJECTID';
+
 export function overlayQueryParams(cfg: OverlayConfig, simplify: boolean = true): QueryParams {
-  const fields = unique([cfg.name, ...(cfg.fields || []).map((f) => f.field)].filter(Boolean) as string[]);
+  const named = unique([cfg.name, ...(cfg.fields || []).map((f) => f.field)].filter(Boolean) as string[]);
+  const fields = cfg.photos && named.length ? unique([OBJECT_ID, ...named]) : named;
   return {
     where: cfg.where || '1=1',
     outFields: fields.join(',') || '*',
@@ -852,11 +908,15 @@ export function overlayQueryParams(cfg: OverlayConfig, simplify: boolean = true)
 
 export function overlayPopup(cfg: OverlayConfig, feature: Feature, foot?: string): PopupCard {
   const props = feature.properties || {};
+  const objectId = props[OBJECT_ID] ?? feature.id;
   return {
     title: (cfg.name && text(props[cfg.name])) || cfg.title,
     pill: { text: cfg.title, color: cfg.color || OVERLAY_COLOR },
     rows: fieldRows(cfg.fields, props),
     foot,
+    ...(cfg.photos && objectId != null && objectId !== ''
+      ? { photos: { attachments: attachmentsUrl(cfg.service || SERVICE, cfg.layer, objectId), credit: cfg.photos.credit } }
+      : {}),
   };
 }
 
@@ -881,6 +941,8 @@ export interface OverlaySpec {
   color: string;
   features: Feature[];
   popup: (feature: Feature) => PopupCard;
+  /** The popups show each feature's photos, so they keep one width. */
+  photos?: boolean;
 }
 
 export interface MapLayers {
@@ -948,6 +1010,7 @@ export function overlaySpec(cfg: OverlayConfig, features: Feature[], foot?: stri
     color: cfg.color || OVERLAY_COLOR,
     features,
     popup: (feature) => overlayPopup(cfg, feature, foot),
+    ...(cfg.photos ? { photos: true } : {}),
   };
 }
 
